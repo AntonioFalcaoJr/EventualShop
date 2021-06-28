@@ -9,7 +9,7 @@ namespace Domain.Abstractions.Entities.AggregateRoots
     {
         protected List<IEvent> Events = new();
 
-        protected void Load(IEnumerable<IEvent> events) 
+        protected void Load(IEnumerable<IEvent> events)
             => events.ToList().ForEach(Apply);
 
         protected abstract void Apply(IEvent @event);

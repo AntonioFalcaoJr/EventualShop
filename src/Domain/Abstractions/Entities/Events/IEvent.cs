@@ -1,7 +1,4 @@
 ﻿namespace Domain.Abstractions.Entities.Events
 {
-    public interface IEvent
-    {
-        
-    }
+    public interface IEvent { }
 }
