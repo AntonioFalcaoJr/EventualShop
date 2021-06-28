@@ -1,4 +1,4 @@
-﻿namespace Domain.Abstractions
+﻿namespace Domain.Abstractions.Entities
 {
     public abstract class Entity<TId> : IEntity
         where TId : struct
