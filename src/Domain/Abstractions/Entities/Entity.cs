@@ -7,13 +7,13 @@ using FluentValidation.Results;
 
 namespace Domain.Abstractions.Entities
 {
-    public abstract class Entity<TId> : IEntity
+    public abstract class Entity<TId> : IEntity<TId>
         where TId : struct
     {
         [NotMapped] 
         private ValidationResult _validationResult = new();
 
-        public TId Id { get; protected init; }
+        public TId Id { get; protected set; }
 
         [NotMapped]
         public bool IsValid
