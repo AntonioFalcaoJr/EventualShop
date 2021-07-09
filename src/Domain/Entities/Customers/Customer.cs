@@ -28,16 +28,16 @@ namespace Domain.Entities.Customers
         private void Apply(CustomerAgeChangedDomainEvent @event)
             => Age = @event.Age;
 
-        protected sealed override bool Validate()
-            => OnValidate<CustomerValidator, Customer>(this, new());
-
-        public override void Load(IEnumerable<CustomerDomainEvent> events)
-            => events.ToList().ForEach(@event => Apply(@event as dynamic));
-
         protected override void RaiseEvent(CustomerDomainEvent domainEvent)
         {
             Apply(domainEvent as dynamic);
             if (IsValid) AddEvent(domainEvent);
         }
+        
+        public override void Load(IEnumerable<CustomerDomainEvent> events)
+            => events.ToList().ForEach(@event => Apply(@event as dynamic));
+
+        protected sealed override bool Validate()
+            => OnValidate<CustomerValidator, Customer>(this, new());
     }
 }
