@@ -1,33 +1,43 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Domain.Abstractions.AggregateRoots;
-using Domain.Entities.Customers.Events;
 
 namespace Domain.Entities.Customers
 {
-    public class Customer : AggregateRoot<Guid>
+    public class Customer : Aggregate<CustomerDomainEvent, Guid>
     {
         public string Name { get; private set; }
         public int Age { get; private set; }
 
-        public Customer(string fieldString, int fieldNumber)
-            => RaiseEvent(new CustomerCreated(fieldString, fieldNumber));
+        public void Register(string name, int age)
+            => RaiseEvent(new CustomerRegisteredDomainEvent(Guid.NewGuid(), name, age));
 
         public void ChangeAge(int age)
-            => RaiseEvent(new CustomerAgeChanged(age));
+            => RaiseEvent(new CustomerAgeChangedDomainEvent(age));
 
         public void ChangeName(string name)
-            => RaiseEvent(new CustomerNameChanged(name));
+            => RaiseEvent(new CustomerNameChangedDomainEvent(name));
 
-        private void Apply(CustomerCreated @event)
-            => (Name, Age) = @event;
+        private void Apply(CustomerRegisteredDomainEvent @event)
+            => (Id, Name, Age) = @event;
 
-        private void Apply(CustomerNameChanged @event)
+        private void Apply(CustomerNameChangedDomainEvent @event)
             => Name = @event.Name;
 
-        private void Apply(CustomerAgeChanged @event)
+        private void Apply(CustomerAgeChangedDomainEvent @event)
             => Age = @event.Age;
 
         protected sealed override bool Validate()
             => OnValidate<CustomerValidator, Customer>(this, new());
+
+        public override void Load(IEnumerable<CustomerDomainEvent> events)
+            => events.ToList().ForEach(@event => Apply(@event as dynamic));
+
+        protected override void RaiseEvent(CustomerDomainEvent domainEvent)
+        {
+            Apply(domainEvent as dynamic);
+            if (IsValid) AddEvent(domainEvent);
+        }
     }
 }
