@@ -10,34 +10,28 @@ using Serilog;
 
 namespace WebAPI
 {
-public static class Program
+    public static class Program
     {
         private static IHostBuilder CreateHostBuilder(string[] args)
             => Host.CreateDefaultBuilder(args)
                 .UseSerilog()
-                .ConfigureWebHostDefaults(webBuilder 
+                .ConfigureWebHostDefaults(webBuilder
                     => webBuilder.UseStartup<Startup>())
                 .UseDefaultServiceProvider(
                     (context, options) =>
-                        {
-                            options.ValidateScopes = context.HostingEnvironment.IsDevelopment();
-                            options.ValidateOnBuild = true;
-                        });
-        
+                    {
+                        options.ValidateScopes = context.HostingEnvironment.IsDevelopment();
+                        options.ValidateOnBuild = true;
+                    });
+
         public static async Task Main(string[] args)
         {
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile(
-                    path: "appsettings.json", 
-                    optional: false, 
-                    reloadOnChange: true)
-                .AddJsonFile(
-                    path: $"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", 
-                    optional: true, 
-                    reloadOnChange: true)
+                .AddJsonFile("appsettings.json", false, true)
+                .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true, true)
                 .Build();
-            
+
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(configuration)
                 .CreateLogger();
@@ -61,7 +55,7 @@ public static class Program
 
         private static async Task MigrateDatabaseAsync(this IHost host)
         {
-            await using var scope =  host.Services.CreateAsyncScope();
+            await using var scope = host.Services.CreateAsyncScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<DbContext>();
             await dbContext.Database.MigrateAsync();
             await dbContext.Database.EnsureCreatedAsync();

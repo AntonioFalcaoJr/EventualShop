@@ -10,13 +10,12 @@ namespace WebAPI.Controllers
 {
     public class CustomersController : ApplicationController
     {
-        public CustomersController(IMediator mediator) 
+        public CustomersController(IMediator mediator)
             : base(mediator) { }
 
         [HttpPost]
         public async Task<IActionResult> Post(RegisterCustomerCommand command)
             => await SendCommand(command);
-
 
         [HttpPut]
         public async Task<IActionResult> Put(UpdateCustomerCommand command)
