@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Domain.Abstractions.Entities;
 
-namespace Domain.Abstractions.AggregateRoots
+namespace Domain.Abstractions.Aggregates
 {
     public interface IAggregate<TDomainEvent, out TId> : IEntity<TId>
         where TId : struct

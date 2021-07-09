@@ -2,7 +2,7 @@
 using Domain.Abstractions.DomainEvents;
 using Domain.Abstractions.Entities;
 
-namespace Domain.Abstractions.AggregateRoots
+namespace Domain.Abstractions.Aggregates
 {
     public abstract class Aggregate<TDomainEvent, TId> : Entity<TId>, IAggregate<TDomainEvent, TId>
         where TDomainEvent : IDomainEvent

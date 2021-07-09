@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.Abstractions.AggregateRoots;
+using Domain.Abstractions.Aggregates;
 
 namespace Domain.Entities.Customers
 {
