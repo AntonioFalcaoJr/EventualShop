@@ -1,8 +1,8 @@
 using System;
 
-namespace Domain.Abstractions.DomainEvents
+namespace Domain.Abstractions.Events
 {
-    public abstract record DomainEvent : IDomainEvent
+    public abstract record Event : IEvent
     {
         public DateTimeOffset Timestamp { get; } = DateTimeOffset.Now;
     }

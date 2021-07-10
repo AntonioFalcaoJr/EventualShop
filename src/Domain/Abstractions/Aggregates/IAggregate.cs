@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using Domain.Abstractions.Entities;
+using Domain.Abstractions.Events;
 
 namespace Domain.Abstractions.Aggregates
 {
-    public interface IAggregate<TDomainEvent, out TId> : IEntity<TId>
+    public interface IAggregate<out TId> : IEntity<TId>
         where TId : struct
     {
-        IReadOnlyCollection<TDomainEvent> Events { get; }
-        void Load(IEnumerable<TDomainEvent> events);
+        IReadOnlyCollection<IEvent> Events { get; }
+        void Load(IEnumerable<IEvent> events);
     }
 }

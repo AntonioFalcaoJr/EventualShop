@@ -1,26 +1,25 @@
 ﻿using System.Collections.Generic;
-using Domain.Abstractions.DomainEvents;
 using Domain.Abstractions.Entities;
+using Domain.Abstractions.Events;
 
 namespace Domain.Abstractions.Aggregates
 {
-    public abstract class Aggregate<TDomainEvent, TId> : Entity<TId>, IAggregate<TDomainEvent, TId>
-        where TDomainEvent : IDomainEvent
+    public abstract class Aggregate<TId> : Entity<TId>, IAggregate<TId>
         where TId : struct
     {
-        private readonly List<TDomainEvent> _events = new();
+        private readonly List<IEvent> _events = new();
         public int Version { get; protected set; }
 
-        public IReadOnlyCollection<TDomainEvent> Events
+        public IReadOnlyCollection<IEvent> Events
             => _events;
 
         public void ClearEvents()
             => _events.Clear();
 
-        protected void AddEvent(TDomainEvent @event)
+        protected void AddEvent(IEvent @event)
             => _events.Add(@event);
 
-        protected abstract void RaiseEvent(TDomainEvent @event);
-        public abstract void Load(IEnumerable<TDomainEvent> events);
+        protected abstract void RaiseEvent(IEvent @event);
+        public abstract void Load(IEnumerable<IEvent> events);
     }
 }

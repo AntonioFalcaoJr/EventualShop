@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Domain.Abstractions.DomainEvents
+namespace Domain.Abstractions.Events
 {
-    public interface IDomainEvent
+    public interface IEvent
     {
         public DateTimeOffset Timestamp { get; }
     }
