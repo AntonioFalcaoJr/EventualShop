@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Domain.Abstractions.Aggregates;
 using Domain.Abstractions.Events;
+using Infrastructure.Abstractions.StoreEvents;
 
 namespace Infrastructure.Abstractions.Repositories
 {
