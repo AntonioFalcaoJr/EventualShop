@@ -7,7 +7,7 @@ namespace Domain.Abstractions.Aggregates
     public interface IAggregate<out TId> : IEntity<TId>
         where TId : struct
     {
-        IReadOnlyCollection<IEvent> Events { get; }
+        IEnumerable<IEvent> Events { get; }
         void Load(IEnumerable<IEvent> events);
     }
 }

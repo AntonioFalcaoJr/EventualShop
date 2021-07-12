@@ -2,9 +2,9 @@
 
 namespace Domain.Entities.Customers
 {
-    public class CustomerValidator : AbstractValidator<Customer>
+    public class Validator : AbstractValidator<Customer>
     {
-        public CustomerValidator()
+        public Validator()
         {
             RuleFor(foo => foo.Age)
                 .GreaterThanOrEqualTo(0);

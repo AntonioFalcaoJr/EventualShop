@@ -10,7 +10,7 @@ namespace Domain.Abstractions.Aggregates
         private readonly List<IEvent> _events = new();
         public int Version { get; protected set; }
 
-        public IReadOnlyCollection<IEvent> Events
+        public IEnumerable<IEvent> Events
             => _events;
 
         public void ClearEvents()

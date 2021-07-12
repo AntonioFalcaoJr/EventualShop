@@ -3,7 +3,7 @@ using Domain.Abstractions.Events;
 
 namespace Domain.Entities.Customers
 {
-    public static class CustomerEvents
+    public static class Events
     {
         public record AgeChanged(int Age) : Event;
 
