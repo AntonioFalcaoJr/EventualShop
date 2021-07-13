@@ -11,7 +11,7 @@ namespace Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<CustomerStoreEvent> builder)
         {
             builder.HasKey(storeEvent => storeEvent.Id);
-            
+
             builder
                 .Property(storeEvent => storeEvent.AggregateId)
                 .IsRequired();
@@ -29,13 +29,14 @@ namespace Infrastructure.Configurations
 
             builder
                 .Property(storeEvent => storeEvent.Event)
+                .HasMaxLength(1000)
+                .IsUnicode(false)
                 .HasConversion(
                     @event => JsonConvert.SerializeObject(
                         @event, new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All}),
                     jsonString => JsonConvert.DeserializeObject<IEvent>(
-                        jsonString, new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All}));
-            
-            
+                        jsonString, new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All}))
+                .IsRequired();
         }
     }
 }

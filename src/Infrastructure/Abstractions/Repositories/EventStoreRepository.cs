@@ -29,7 +29,7 @@ namespace Infrastructure.Abstractions.Repositories
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<IReadOnlyCollection<IEvent>> GetStreamAsync(TId aggregateId, CancellationToken cancellationToken)
+        public async Task<IEnumerable<IEvent>> GetStreamByAggregateId(TId aggregateId, CancellationToken cancellationToken)
             => await _dbSet
                 .Where(@event => Equals(@event.AggregateId, aggregateId))
                 .Select(@event => @event.Event)

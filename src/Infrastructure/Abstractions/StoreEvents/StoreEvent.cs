@@ -7,7 +7,7 @@ namespace Infrastructure.Abstractions.StoreEvents
         where TAggregate : IAggregate<TId>
         where TId : struct
     {
-        public int Id { get; init; }
+        public int Id { get; }
         public TId AggregateId { get; init; }
         public string AggregateName { get; } = typeof(TAggregate).Name;
         public string EventName { get; init; }

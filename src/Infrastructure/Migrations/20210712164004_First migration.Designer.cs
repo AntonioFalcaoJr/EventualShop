@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(EventStoreDbContext))]
-    [Migration("20210712145556_First migration")]
+    [Migration("20210712164004_First migration")]
     partial class Firstmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,7 +39,10 @@ namespace Infrastructure.Migrations
                         .HasColumnType("varchar(30)");
 
                     b.Property<string>("Event")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(1000)");
 
                     b.Property<string>("EventName")
                         .IsRequired()

@@ -37,7 +37,10 @@ namespace Infrastructure.Migrations
                         .HasColumnType("varchar(30)");
 
                     b.Property<string>("Event")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(1000)");
 
                     b.Property<string>("EventName")
                         .IsRequired()

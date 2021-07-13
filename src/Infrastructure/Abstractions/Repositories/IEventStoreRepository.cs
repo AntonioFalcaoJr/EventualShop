@@ -13,6 +13,6 @@ namespace Infrastructure.Abstractions.Repositories
         where TId : struct
     {
         Task AppendEventsToStreamAsync(IEnumerable<TStoreEvent> events, CancellationToken cancellationToken);
-        Task<IReadOnlyCollection<IEvent>> GetStreamAsync(TId aggregateId, CancellationToken cancellationToken);
+        Task<IEnumerable<IEvent>> GetStreamByAggregateId(TId aggregateId, CancellationToken cancellationToken);
     }
 }
