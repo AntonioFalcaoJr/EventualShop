@@ -58,21 +58,5 @@ namespace Infrastructure.Contexts
                         maxRetryDelay: _options.MaxRetryDelay,
                         errorNumbersToAdd: _options.ErrorNumbersToAdd))
                 .MigrationsAssembly(assemblyName: typeof(EventStoreDbContext).Assembly.GetName().Name);
-
-        // public override int SaveChanges()
-        // {
-        //     if (base.SaveChanges() <= 0) return default;
-        //     
-        //         var domainEntities = ChangeTracker
-        //             .Entries<CustomerStoreEvent>()
-        //             .Where(x => x.Entity.DomainEvent is not null);
-        //
-        //         var domainEvents = domainEntities
-        //             .SelectMany(x => x.Entity.DomainEvents)
-        //             .ToList();
-        //
-        //         var tasks = domainEvents
-        //             .Select(async (domainEvent) => { await mediator.PublishEvent(domainEvent); });
-        // }
     }
 }
