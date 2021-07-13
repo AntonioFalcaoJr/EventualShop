@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
-using MediatR;
+using Application.Abstractions.Commands;
+using MassTransit.Mediator;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Abstractions
@@ -15,7 +16,7 @@ namespace WebAPI.Abstractions
             _mediator = mediator;
         }
 
-        protected async Task<IActionResult> SendCommand(IRequest command)
+        protected async Task<IActionResult> SendCommand(ICommand command)
         {
             await _mediator.Send(command);
             return Accepted();

@@ -26,7 +26,8 @@ namespace WebAPI
                     name: "v1",
                     info: new() {Title = "WebAPI", Version = "v1"}));
 
-            services.AddMediatR();
+            services.AddMassTransit();
+            services.AddMediator();
             services.AddEventStore();
             services.AddRepositories();
             services.AddEventStoreDbContext();

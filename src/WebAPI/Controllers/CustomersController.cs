@@ -2,7 +2,7 @@
 using Application.Customers.Commands.Delete;
 using Application.Customers.Commands.Register;
 using Application.Customers.Commands.Update;
-using MediatR;
+using MassTransit.Mediator;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;
 
