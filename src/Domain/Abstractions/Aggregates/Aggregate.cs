@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 using Domain.Abstractions.Entities;
 using Domain.Abstractions.Events;
 
@@ -7,9 +8,10 @@ namespace Domain.Abstractions.Aggregates
     public abstract class Aggregate<TId> : Entity<TId>, IAggregate<TId>
         where TId : struct
     {
+        [JsonIgnore]
         private readonly List<IEvent> _events = new();
-        public int Version { get; protected set; }
 
+        [JsonIgnore]
         public IEnumerable<IEvent> Events
             => _events;
 

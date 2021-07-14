@@ -7,7 +7,7 @@ namespace Domain.Entities.Customers
         public Validator()
         {
             RuleFor(foo => foo.Age)
-                .GreaterThanOrEqualTo(0);
+                .GreaterThan(0);
 
             RuleFor(foo => foo.Name)
                 .NotNull()

@@ -11,21 +11,21 @@ namespace Domain.Entities.Customers
         public int Age { get; private set; }
 
         public void Register(string name, int age)
-            => RaiseEvent(new Events.Registered(Guid.NewGuid(), name, age));
+            => RaiseEvent(new Events.CustomerRegistered(Guid.NewGuid(), name, age));
 
         public void ChangeAge(int age)
-            => RaiseEvent(new Events.AgeChanged(age));
+            => RaiseEvent(new Events.CustomerAgeChanged(age));
 
         public void ChangeName(string name)
-            => RaiseEvent(new Events.NameChanged(name));
+            => RaiseEvent(new Events.CustomerNameChanged(name));
 
-        private void Apply(Events.Registered @event)
+        private void Apply(Events.CustomerRegistered @event)
             => (Id, Name, Age) = @event;
 
-        private void Apply(Events.NameChanged @event)
+        private void Apply(Events.CustomerNameChanged @event)
             => Name = @event.Name;
 
-        private void Apply(Events.AgeChanged @event)
+        private void Apply(Events.CustomerAgeChanged @event)
             => Age = @event.Age;
 
         protected override void RaiseEvent(IEvent @event)

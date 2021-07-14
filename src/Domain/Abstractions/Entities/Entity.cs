@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using Newtonsoft.Json;
 using FluentValidation;
 using FluentValidation.Results;
 
@@ -10,18 +10,19 @@ namespace Domain.Abstractions.Entities
     public abstract class Entity<TId> : IEntity<TId>
         where TId : struct
     {
-        [NotMapped] 
+        [JsonIgnore]
         private ValidationResult _validationResult = new();
 
-        public TId Id { get; protected set; }
-
-        [NotMapped]
+        [JsonIgnore]
         public bool IsValid
             => Validate();
 
-        [NotMapped]
+        [JsonIgnore]
         public IReadOnlyCollection<ValidationFailure> Errors
             => _validationResult.Errors;
+
+        [JsonProperty] 
+        public TId Id { get; protected set; }
 
         protected bool OnValidate<TValidator, TEntity>(TEntity entity, TValidator validator)
             where TValidator : AbstractValidator<TEntity>
