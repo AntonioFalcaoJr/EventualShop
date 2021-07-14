@@ -1,4 +1,5 @@
 using Application.DependencyInjection.Extensions;
+using Application.DependencyInjection.Options;
 using Infrastructure.DependencyInjection.Extensions;
 using Infrastructure.DependencyInjection.Options;
 using Microsoft.AspNetCore.Builder;
@@ -24,13 +25,20 @@ namespace WebAPI
             services.AddSwaggerGen(options
                 => options.SwaggerDoc(
                     name: "v1",
-                    info: new() {Title = "WebAPI", Version = "v1"}));
+                    info: new()
+                    {
+                        Title = "WebAPI", 
+                        Version = "v1"
+                    }));
 
             services.AddMassTransit();
             services.AddMediator();
             services.AddEventStore();
             services.AddRepositories();
             services.AddEventStoreDbContext();
+
+            services.ConfigureEventStoreOptions(
+                _configuration.GetSection(nameof(EventStoreOptions)));
 
             services.ConfigureSqlServerRetryingOptions(
                 _configuration.GetSection(nameof(SqlServerRetryingOptions)));
