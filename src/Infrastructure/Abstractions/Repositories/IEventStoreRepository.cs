@@ -7,12 +7,15 @@ using Infrastructure.Abstractions.StoreEvents;
 
 namespace Infrastructure.Abstractions.Repositories
 {
-    public interface IEventStoreRepository<TAggregate, in TStoreEvent, in TId>
+    public interface IEventStoreRepository<TAggregate, in TStoreEvent, TSnapshot, in TId>
         where TAggregate : IAggregate<TId>, new()
-        where TStoreEvent : StoreEvent<TAggregate, TId>, new()
+        where TStoreEvent : StoreEvent<TAggregate, TId>
+        where TSnapshot : Snapshot<TAggregate, TId>
         where TId : struct
     {
-        Task AppendEventsToStreamAsync(IEnumerable<TStoreEvent> events, CancellationToken cancellationToken);
-        Task<IEnumerable<IEvent>> GetStreamByAggregateId(TId aggregateId, CancellationToken cancellationToken);
+        Task<int> AppendEventToStreamAsync(TStoreEvent @event, CancellationToken cancellationToken);
+        Task<IEnumerable<IEvent>> GetStreamByAggregateIdAsync(TId aggregateId, int snapshotVersion, CancellationToken cancellationToken);
+        Task AppendSnapshotToStreamAsync(TSnapshot snapshot, CancellationToken cancellationToken);
+        Task<TSnapshot> GetSnapshotByAggregateIdAsync(TId aggregateId, CancellationToken cancellationToken);
     }
 }
