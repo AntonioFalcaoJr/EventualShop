@@ -21,7 +21,6 @@ namespace Domain.Abstractions.Entities
         public IReadOnlyCollection<ValidationFailure> Errors
             => _validationResult.Errors;
 
-        [JsonProperty] 
         public TId Id { get; protected set; }
 
         protected bool OnValidate<TValidator, TEntity>(TEntity entity, TValidator validator)
