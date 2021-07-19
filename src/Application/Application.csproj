@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+
+    <ItemGroup>
+        <PackageReference Include="MassTransit" Version="7.2.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Domain\Domain.csproj" />
+    </ItemGroup>
+
+</Project>

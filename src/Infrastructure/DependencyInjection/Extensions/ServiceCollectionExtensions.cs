@@ -2,7 +2,9 @@ using Application.Interfaces;
 using Application.UseCases.Customers.Commands.DeleteCustomer;
 using Application.UseCases.Customers.Commands.RegisterCustomer;
 using Application.UseCases.Customers.Commands.UpdateCustomer;
+using Application.UseCases.Customers.EventHandlers.CustomerDeleted;
 using Application.UseCases.Customers.EventHandlers.CustomerRegistered;
+using Application.UseCases.Customers.EventHandlers.CustomerUpdated;
 using Infrastructure.DependencyInjection.Options;
 using Infrastructure.EventSourcing.EventStore.Contexts;
 using Infrastructure.EventSourcing.EventStore.Customers.Repositories;
@@ -21,12 +23,6 @@ namespace Infrastructure.DependencyInjection.Extensions
             => services.AddMassTransit(
                     configurator =>
                     {
-                        configurator.AddConsumers(
-                            typeof(RegisterCustomerHandler),
-                            typeof(UpdateCustomerHandler),
-                            typeof(DeleteCustomerHandler),
-                            typeof(CustomerRegisteredEventHandler));
-                        
                         configurator.UsingRabbitMq((context, cfg) =>
                         {
                             cfg.Host("192.168.100.9", 5672, "/", hostConfig =>
@@ -38,7 +34,7 @@ namespace Infrastructure.DependencyInjection.Extensions
                             // cfg.ReceiveEndpoint("test", endpointConfigurator => endpointConfigurator.Consumer<EmailService>());
                             cfg.ConfigureEndpoints(context);
                         });
-                        
+
                         //configurator.AddBus(context => context.ConfigureEndpoints());
                     })
                 .AddMassTransitHostedService();
@@ -51,7 +47,9 @@ namespace Infrastructure.DependencyInjection.Extensions
                         typeof(RegisterCustomerHandler),
                         typeof(UpdateCustomerHandler),
                         typeof(DeleteCustomerHandler),
-                        typeof(CustomerRegisteredEventHandler));
+                        typeof(CustomerRegisteredEventHandler),
+                        typeof(CustomerUpdatedEventHandler),
+                        typeof(CustomerDeletedEventHandler));
                 });
 
         public static IServiceCollection AddEventStoreDbContext(this IServiceCollection services)
@@ -62,7 +60,7 @@ namespace Infrastructure.DependencyInjection.Extensions
         public static IServiceCollection AddRepositories(this IServiceCollection services)
             => services.AddScoped<ICustomerEventStoreRepository, CustomerEventStoreRepository>();
 
-        public static IServiceCollection AddServices(this IServiceCollection services)
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
             => services.AddScoped<ICustomerEventStoreService, CustomerEventStoreService>();
 
         public static OptionsBuilder<SqlServerRetryingOptions> ConfigureSqlServerRetryingOptions(this IServiceCollection services, IConfigurationSection section)

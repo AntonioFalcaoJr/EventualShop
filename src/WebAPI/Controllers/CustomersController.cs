@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Application.Customers.Commands.Delete;
-using Application.Customers.Commands.Register;
-using Application.Customers.Commands.Update;
+using Application.UseCases.Customers.Commands.DeleteCustomer;
+using Application.UseCases.Customers.Commands.RegisterCustomer;
+using Application.UseCases.Customers.Commands.UpdateCustomer;
 using MassTransit.Mediator;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;

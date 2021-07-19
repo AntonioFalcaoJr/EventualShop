@@ -106,3 +106,24 @@ networks:
   eventstore:
     driver: bridge
 ```
+
+## Event store
+
+```sql
+CREATE TABLE [CustomerStoreEvents] (
+    [Id] int NOT NULL IDENTITY,
+    [AggregateId] uniqueidentifier NOT NULL,
+    [AggregateName] varchar(30) NOT NULL,
+    [EventName] varchar(50) NOT NULL,
+    [Event] varchar(1000) NOT NULL,
+    CONSTRAINT [PK_CustomerStoreEvents] PRIMARY KEY ([Id])
+);
+```
+
+```json
+{
+  "$type": "Domain.Entities.Customers.Events+NameChanged, Domain",
+  "Name": "string",
+  "Timestamp": "2021-07-12T14:22:23.2600385-03:00"
+}
+```

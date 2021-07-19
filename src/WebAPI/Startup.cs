@@ -1,5 +1,3 @@
-using Application.DependencyInjection.Extensions;
-using Application.DependencyInjection.Options;
 using Infrastructure.DependencyInjection.Extensions;
 using Infrastructure.DependencyInjection.Options;
 using Microsoft.AspNetCore.Builder;
@@ -33,7 +31,7 @@ namespace WebAPI
 
             services.AddMassTransit();
             services.AddMediator();
-            services.AddEventStore();
+            services.AddApplicationServices();
             services.AddRepositories();
             services.AddEventStoreDbContext();
 
