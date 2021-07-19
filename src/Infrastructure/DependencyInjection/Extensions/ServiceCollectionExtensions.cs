@@ -1,6 +1,13 @@
-using Infrastructure.Contexts;
+using Application.Interfaces;
+using Application.UseCases.Customers.Commands.DeleteCustomer;
+using Application.UseCases.Customers.Commands.RegisterCustomer;
+using Application.UseCases.Customers.Commands.UpdateCustomer;
+using Application.UseCases.Customers.EventHandlers.CustomerRegistered;
 using Infrastructure.DependencyInjection.Options;
-using Infrastructure.Repositories;
+using Infrastructure.EventSourcing.EventStore.Contexts;
+using Infrastructure.EventSourcing.EventStore.Customers.Repositories;
+using Infrastructure.Services.EventStore;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,10 +17,53 @@ namespace Infrastructure.DependencyInjection.Extensions
 {
     public static class ServiceCollectionExtensions
     {
+        public static IServiceCollection AddMassTransit(this IServiceCollection services)
+            => services.AddMassTransit(
+                    configurator =>
+                    {
+                        configurator.AddConsumers(
+                            typeof(RegisterCustomerHandler),
+                            typeof(UpdateCustomerHandler),
+                            typeof(DeleteCustomerHandler),
+                            typeof(CustomerRegisteredEventHandler));
+                        
+                        configurator.UsingRabbitMq((context, cfg) =>
+                        {
+                            cfg.Host("192.168.100.9", 5672, "/", hostConfig =>
+                            {
+                                hostConfig.Username("guest");
+                                hostConfig.Password("guest");
+                            });
+
+                            // cfg.ReceiveEndpoint("test", endpointConfigurator => endpointConfigurator.Consumer<EmailService>());
+                            cfg.ConfigureEndpoints(context);
+                        });
+                        
+                        //configurator.AddBus(context => context.ConfigureEndpoints());
+                    })
+                .AddMassTransitHostedService();
+
+        public static IServiceCollection AddMediator(this IServiceCollection services)
+            => services.AddMediator(
+                configurator =>
+                {
+                    configurator.AddConsumers(
+                        typeof(RegisterCustomerHandler),
+                        typeof(UpdateCustomerHandler),
+                        typeof(DeleteCustomerHandler),
+                        typeof(CustomerRegisteredEventHandler));
+                });
+
         public static IServiceCollection AddEventStoreDbContext(this IServiceCollection services)
             => services
                 .AddScoped<DbContext, EventStoreDbContext>()
                 .AddDbContext<EventStoreDbContext>();
+
+        public static IServiceCollection AddRepositories(this IServiceCollection services)
+            => services.AddScoped<ICustomerEventStoreRepository, CustomerEventStoreRepository>();
+
+        public static IServiceCollection AddServices(this IServiceCollection services)
+            => services.AddScoped<ICustomerEventStoreService, CustomerEventStoreService>();
 
         public static OptionsBuilder<SqlServerRetryingOptions> ConfigureSqlServerRetryingOptions(this IServiceCollection services, IConfigurationSection section)
             => services
@@ -22,7 +72,11 @@ namespace Infrastructure.DependencyInjection.Extensions
                 .ValidateDataAnnotations()
                 .ValidateOnStart();
 
-        public static IServiceCollection AddRepositories(this IServiceCollection services) 
-            => services.AddScoped<ICustomerEventStoreRepository, CustomerEventStoreRepository>();
+        public static OptionsBuilder<EventStoreOptions> ConfigureEventStoreOptions(this IServiceCollection services, IConfigurationSection section)
+            => services
+                .AddOptions<EventStoreOptions>()
+                .Bind(section)
+                .ValidateDataAnnotations()
+                .ValidateOnStart();
     }
 }

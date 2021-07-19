@@ -1,12 +1,12 @@
 using Infrastructure.DependencyInjection.Options;
-using Infrastructure.StoreEvents;
+using Infrastructure.EventSourcing.EventStore.Customers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Infrastructure.Contexts
+namespace Infrastructure.EventSourcing.EventStore.Contexts
 {
     public class EventStoreDbContext : DbContext
     {
@@ -28,6 +28,7 @@ namespace Infrastructure.Contexts
         }
 
         public DbSet<CustomerStoreEvent> CustomerStoreEvents { get; set; }
+        public DbSet<CustomerSnapshot> CustomerSnapshots { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -4,10 +4,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Domain.Abstractions.Aggregates;
 using Domain.Abstractions.Events;
-using Infrastructure.Abstractions.StoreEvents;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Abstractions.Repositories
+namespace Infrastructure.Abstractions.EventSourcing.EventStore.Repositories
 {
     public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId> : IEventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId>
         where TAggregate : IAggregate<TId>, new()
@@ -39,14 +38,14 @@ namespace Infrastructure.Abstractions.Repositories
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<IEvent>> GetStreamByAggregateIdAsync(TId aggregateId, int snapshotVersion, CancellationToken cancellationToken)
+        public async Task<IEnumerable<IEvent>> GetStreamAsync(TId aggregateId, int snapshotVersion, CancellationToken cancellationToken)
             => await _storeEvents
                 .Where(@event => Equals(@event.AggregateId, aggregateId))
                 .Where(@event => @event.Version > snapshotVersion)
                 .Select(@event => @event.Event)
                 .ToListAsync(cancellationToken);
 
-        public async Task<TSnapshot> GetSnapshotByAggregateIdAsync(TId aggregateId, CancellationToken cancellationToken)
+        public async Task<TSnapshot> GetSnapshotAsync(TId aggregateId, CancellationToken cancellationToken)
             => await _snapshots
                 .Where(@event => Equals(@event.AggregateId, aggregateId))
                 .OrderBy(@event => @event.Version)

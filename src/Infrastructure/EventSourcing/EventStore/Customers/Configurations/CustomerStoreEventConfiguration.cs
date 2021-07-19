@@ -1,16 +1,16 @@
 using Domain.Abstractions.Events;
-using Infrastructure.StoreEvents;
+using JsonNet.ContractResolvers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
 
-namespace Infrastructure.Configurations
+namespace Infrastructure.EventSourcing.EventStore.Customers.Configurations
 {
     public class CustomerStoreEventConfiguration : IEntityTypeConfiguration<CustomerStoreEvent>
     {
         public void Configure(EntityTypeBuilder<CustomerStoreEvent> builder)
         {
-            builder.HasKey(storeEvent => storeEvent.Id);
+            builder.HasKey(storeEvent => storeEvent.Version);
 
             builder
                 .Property(storeEvent => storeEvent.AggregateId)
@@ -32,10 +32,10 @@ namespace Infrastructure.Configurations
                 .HasMaxLength(1000)
                 .IsUnicode(false)
                 .HasConversion(
-                    @event => JsonConvert.SerializeObject(
-                        @event, new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All}),
-                    jsonString => JsonConvert.DeserializeObject<IEvent>(
-                        jsonString, new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All}))
+                    @event => JsonConvert.SerializeObject(@event, 
+                        new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All}),
+                    jsonString => JsonConvert.DeserializeObject<IEvent>(jsonString, 
+                        new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All, ContractResolver = new PrivateSetterContractResolver()}))
                 .IsRequired();
         }
     }

@@ -8,10 +8,24 @@ namespace Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "CustomerSnapshots",
+                columns: table => new
+                {
+                    Version = table.Column<int>(type: "int", nullable: false),
+                    AggregateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AggregateName = table.Column<string>(type: "varchar(30)", unicode: false, maxLength: 30, nullable: false),
+                    Aggregate = table.Column<string>(type: "varchar(1000)", unicode: false, maxLength: 1000, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomerSnapshots", x => x.Version);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CustomerStoreEvents",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Version = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AggregateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AggregateName = table.Column<string>(type: "varchar(30)", unicode: false, maxLength: 30, nullable: false),
@@ -20,12 +34,15 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CustomerStoreEvents", x => x.Id);
+                    table.PrimaryKey("PK_CustomerStoreEvents", x => x.Version);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "CustomerSnapshots");
+
             migrationBuilder.DropTable(
                 name: "CustomerStoreEvents");
         }
