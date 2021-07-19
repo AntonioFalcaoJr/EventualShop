@@ -8,14 +8,20 @@ namespace Application.UseCases.Customers.EventHandlers.CustomerUpdated
     {
         private class CustomerAgeChangedEventHandler : IConsumer<Events.CustomerAgeChanged>
         {
-            public Task Consume(ConsumeContext<Events.CustomerAgeChanged> context)
-                => throw new System.NotImplementedException();
+            public async Task Consume(ConsumeContext<Events.CustomerAgeChanged> context)
+            {
+                var age = context.Message;
+                await Task.CompletedTask;
+            }
         }
 
         private class CustomerNameChangedEventHandler : IConsumer<Events.CustomerNameChanged>
         {
-            public Task Consume(ConsumeContext<Events.CustomerNameChanged> context)
-                => throw new System.NotImplementedException();
+            public async Task Consume(ConsumeContext<Events.CustomerNameChanged> context)
+            {
+                var name = context.Message;
+                await Task.CompletedTask;
+            }
         }
     }
 }

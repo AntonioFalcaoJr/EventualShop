@@ -6,7 +6,10 @@ namespace Application.UseCases.Customers.EventHandlers.CustomerDeleted
 {
     public class CustomerDeletedEventHandler : IConsumer<Events.CustomerDeleted>
     {
-        public Task Consume(ConsumeContext<Events.CustomerDeleted> context) 
-            => throw new System.NotImplementedException();
+        public async Task Consume(ConsumeContext<Events.CustomerDeleted> context)
+        {
+            var id = context.Message;
+            await Task.CompletedTask;
+        }
     }
 }
