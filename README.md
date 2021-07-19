@@ -20,7 +20,7 @@ If prefer, define it on WebAPI [`appsettings.Development.json`](./src/WebAPI/app
 ```json5
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost,1433;Database=Store;User=sa;Password=!MyComplexPassword"
+    "DefaultConnection": "Server=<IP_ADDRESS>,1433;Database=Store;User=sa;Password=!MyComplexPassword"
   }
 }
 ```
