@@ -6,7 +6,7 @@ namespace Application.UseCases.Customers.EventHandlers.CustomerUpdated
 {
     public class CustomerUpdatedEventHandler
     {
-        private class CustomerAgeChangedEventHandler : IConsumer<Events.CustomerAgeChanged>
+        private class CustomerAgeChangedEventConsumer : IConsumer<Events.CustomerAgeChanged>
         {
             public async Task Consume(ConsumeContext<Events.CustomerAgeChanged> context)
             {
@@ -15,7 +15,7 @@ namespace Application.UseCases.Customers.EventHandlers.CustomerUpdated
             }
         }
 
-        private class CustomerNameChangedEventHandler : IConsumer<Events.CustomerNameChanged>
+        private class CustomerNameChangedEventConsumer : IConsumer<Events.CustomerNameChanged>
         {
             public async Task Consume(ConsumeContext<Events.CustomerNameChanged> context)
             {

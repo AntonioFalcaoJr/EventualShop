@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
+using Application.Abstractions;
 using Application.Abstractions.Commands;
 using Application.Interfaces;
+using Application.Interfaces.Customers;
 using Domain.Entities.Customers;
 using MassTransit;
 
@@ -8,11 +10,11 @@ namespace Application.UseCases.Customers.Commands.RegisterCustomer
 {
     public record RegisterCustomerCommand(string Name, int Age) : ICommand;
     
-    public class RegisterCustomerHandler : IConsumer<RegisterCustomerCommand>
+    public class RegisterCustomerCommandConsumer : IConsumer<RegisterCustomerCommand>
     {
         private readonly ICustomerEventStoreService _eventStoreService;
 
-        public RegisterCustomerHandler(ICustomerEventStoreService eventStoreService)
+        public RegisterCustomerCommandConsumer(ICustomerEventStoreService eventStoreService)
         {
             _eventStoreService = eventStoreService;
         }

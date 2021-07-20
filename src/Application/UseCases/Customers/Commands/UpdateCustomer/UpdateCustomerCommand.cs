@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Application.Abstractions;
 using Application.Abstractions.Commands;
 using Application.Interfaces;
+using Application.Interfaces.Customers;
 using MassTransit;
 
 namespace Application.UseCases.Customers.Commands.UpdateCustomer
 {
     public record UpdateCustomerCommand(Guid Id, string Name, int Age) : ICommand;
 
-    public class UpdateCustomerHandler : IConsumer<UpdateCustomerCommand>
+    public class UpdateCustomerCommandConsumer : IConsumer<UpdateCustomerCommand>
     {
         private readonly ICustomerEventStoreService _eventStoreService;
 
-        public UpdateCustomerHandler(ICustomerEventStoreService eventStoreService)
+        public UpdateCustomerCommandConsumer(ICustomerEventStoreService eventStoreService)
         {
             _eventStoreService = eventStoreService;
         }
