@@ -5,7 +5,7 @@ using Domain.Abstractions.Aggregates;
 namespace Application.Interfaces
 {
     public interface IEventStoreService<TAggregate, in TId>
-        where TAggregate : IAggregate<TId>
+        where TAggregate : IAggregateRoot<TId>
         where TId : struct
     {
         Task AppendEventsToStreamAsync(TAggregate aggregate, CancellationToken cancellationToken);

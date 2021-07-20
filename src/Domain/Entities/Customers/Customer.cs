@@ -5,7 +5,7 @@ using Domain.Abstractions.Events;
 
 namespace Domain.Entities.Customers
 {
-    public class Customer : Aggregate<Guid>
+    public class Customer : AggregateRoot<Guid>
     {
         public string Name { get; private set; }
         public int Age { get; private set; }
@@ -28,13 +28,13 @@ namespace Domain.Entities.Customers
         private void Apply(Events.CustomerAgeChanged @event)
             => Age = @event.Age;
 
-        protected override void RaiseEvent(IEvent @event)
+        protected override void RaiseEvent(IDomainEvent @event)
         {
             Apply((dynamic) @event);
             if (IsValid) AddEvent(@event);
         }
 
-        public override void Load(IEnumerable<IEvent> events)
+        public override void Load(IEnumerable<IDomainEvent> events)
         {
             foreach (var @event in events)
                 Apply((dynamic) @event);

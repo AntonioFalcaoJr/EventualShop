@@ -22,19 +22,19 @@ namespace Infrastructure.EventSourcing.EventStore.Customers.Configurations
                 .IsUnicode(false)
                 .IsRequired();
 
-            builder.Property(storeEvent => storeEvent.EventName)
+            builder.Property(storeEvent => storeEvent.DomainEventName)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .IsRequired();
 
             builder
-                .Property(storeEvent => storeEvent.Event)
+                .Property(storeEvent => storeEvent.DomainEvent)
                 .HasMaxLength(1000)
                 .IsUnicode(false)
                 .HasConversion(
                     @event => JsonConvert.SerializeObject(@event, 
                         new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All}),
-                    jsonString => JsonConvert.DeserializeObject<IEvent>(jsonString, 
+                    jsonString => JsonConvert.DeserializeObject<IDomainEvent>(jsonString, 
                         new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All, ContractResolver = new PrivateSetterContractResolver()}))
                 .IsRequired();
         }

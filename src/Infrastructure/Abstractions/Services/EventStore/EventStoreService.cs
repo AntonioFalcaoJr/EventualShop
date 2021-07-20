@@ -15,7 +15,7 @@ using Microsoft.Extensions.Options;
 namespace Infrastructure.Abstractions.Services.EventStore
 {
     public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId> : IEventStoreService<TAggregate, TId>
-        where TAggregate : IAggregate<TId>, new()
+        where TAggregate : IAggregateRoot<TId>, new()
         where TStoreEvent : StoreEvent<TAggregate, TId>, new()
         where TSnapshot : Snapshot<TAggregate, TId>, new()
         where TId : struct
@@ -70,7 +70,7 @@ namespace Infrastructure.Abstractions.Services.EventStore
             return snapshot.Aggregate;
         }
 
-        private async Task PublishEventsAsync(IEnumerable<IEvent> events, CancellationToken cancellationToken)
+        private async Task PublishEventsAsync(IEnumerable<IDomainEvent> events, CancellationToken cancellationToken)
         {
             foreach (var @event in events)
                 await _mediator.Publish(@event, cancellationToken);
@@ -81,8 +81,8 @@ namespace Infrastructure.Abstractions.Services.EventStore
                 => new TStoreEvent
                 {
                     AggregateId = aggregate.Id,
-                    Event = @event,
-                    EventName = @event.GetType().Name
+                    DomainEvent = @event,
+                    DomainEventName = @event.GetType().Name
                 });
     }
 }

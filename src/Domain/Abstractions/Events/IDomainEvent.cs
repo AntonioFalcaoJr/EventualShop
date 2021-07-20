@@ -2,7 +2,7 @@
 
 namespace Domain.Abstractions.Events
 {
-    public interface IEvent
+    public interface IDomainEvent
     {
         public DateTimeOffset Timestamp { get; }
     }

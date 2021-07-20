@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Infrastructure.Abstractions.EventSourcing.EventStore.Repositories
 {
     public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId> : IEventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId>
-        where TAggregate : IAggregate<TId>, new()
+        where TAggregate : IAggregateRoot<TId>, new()
         where TStoreEvent : StoreEvent<TAggregate, TId>
         where TSnapshot : Snapshot<TAggregate, TId>
         where TId : struct
@@ -38,11 +38,11 @@ namespace Infrastructure.Abstractions.EventSourcing.EventStore.Repositories
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<IEvent>> GetStreamAsync(TId aggregateId, int snapshotVersion, CancellationToken cancellationToken)
+        public async Task<IEnumerable<IDomainEvent>> GetStreamAsync(TId aggregateId, int snapshotVersion, CancellationToken cancellationToken)
             => await _storeEvents
                 .Where(@event => Equals(@event.AggregateId, aggregateId))
                 .Where(@event => @event.Version > snapshotVersion)
-                .Select(@event => @event.Event)
+                .Select(@event => @event.DomainEvent)
                 .ToListAsync(cancellationToken);
 
         public async Task<TSnapshot> GetSnapshotAsync(TId aggregateId, CancellationToken cancellationToken)

@@ -4,10 +4,10 @@ using Domain.Abstractions.Events;
 
 namespace Domain.Abstractions.Aggregates
 {
-    public interface IAggregate<out TId> : IEntity<TId>
+    public interface IAggregateRoot<out TId> : IEntity<TId>
         where TId : struct
     {
-        IEnumerable<IEvent> Events { get; }
-        void Load(IEnumerable<IEvent> events);
+        IEnumerable<IDomainEvent> Events { get; }
+        void Load(IEnumerable<IDomainEvent> events);
     }
 }

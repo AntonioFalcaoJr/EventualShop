@@ -3,7 +3,7 @@ using Domain.Abstractions.Aggregates;
 namespace Infrastructure.Abstractions.EventSourcing.EventStore
 {
     public abstract record Snapshot<TAggregate, TId>
-        where TAggregate : IAggregate<TId>, new()
+        where TAggregate : IAggregateRoot<TId>, new()
         where TId : struct
     {
         public int Version { get; init; }

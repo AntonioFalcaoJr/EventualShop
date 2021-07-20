@@ -5,23 +5,23 @@ using Domain.Abstractions.Events;
 
 namespace Domain.Abstractions.Aggregates
 {
-    public abstract class Aggregate<TId> : Entity<TId>, IAggregate<TId>
+    public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot<TId>
         where TId : struct
     {
         [JsonIgnore]
-        private readonly List<IEvent> _events = new();
+        private readonly List<IDomainEvent> _events = new();
 
         [JsonIgnore]
-        public IEnumerable<IEvent> Events
+        public IEnumerable<IDomainEvent> Events
             => _events;
 
         public void ClearEvents()
             => _events.Clear();
 
-        protected void AddEvent(IEvent @event)
+        protected void AddEvent(IDomainEvent @event)
             => _events.Add(@event);
 
-        protected abstract void RaiseEvent(IEvent @event);
-        public abstract void Load(IEnumerable<IEvent> events);
+        protected abstract void RaiseEvent(IDomainEvent @event);
+        public abstract void Load(IEnumerable<IDomainEvent> events);
     }
 }

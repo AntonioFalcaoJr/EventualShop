@@ -5,12 +5,12 @@ namespace Domain.Entities.Customers
 {
     public static class Events
     {
-        public record CustomerAgeChanged(int Age) : Event;
+        public record CustomerAgeChanged(int Age) : DomainEvent;
 
-        public record CustomerNameChanged(string Name) : Event;
+        public record CustomerNameChanged(string Name) : DomainEvent;
         
-        public record CustomerDeleted(Guid Id) : Event;
+        public record CustomerDeleted(Guid Id) : DomainEvent;
 
-        public record CustomerRegistered(Guid Id, string Name, int Age) : Event;
+        public record CustomerRegistered(Guid Id, string Name, int Age) : DomainEvent;
     }
 }
