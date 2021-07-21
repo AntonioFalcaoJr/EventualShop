@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Application.Abstractions;
 using Application.Abstractions.Commands;
-using Application.Interfaces;
 using Application.Interfaces.Customers;
 using MassTransit;
 
