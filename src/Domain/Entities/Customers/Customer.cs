@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Domain.Abstractions.Aggregates;
 using Domain.Abstractions.Events;
 
@@ -19,28 +18,19 @@ namespace Domain.Entities.Customers
         public void ChangeName(string name)
             => RaiseEvent(new Events.CustomerNameChanged(name));
 
-        private void Apply(Events.CustomerRegistered @event)
+        protected override void Apply(IDomainEvent @event)
+            => When(@event as dynamic);
+
+        private void When(Events.CustomerRegistered @event)
             => (Id, Name, Age) = @event;
 
-        private void Apply(Events.CustomerNameChanged @event)
+        private void When(Events.CustomerNameChanged @event)
             => Name = @event.Name;
 
-        private void Apply(Events.CustomerAgeChanged @event)
+        private void When(Events.CustomerAgeChanged @event)
             => Age = @event.Age;
 
-        protected override void RaiseEvent(IDomainEvent @event)
-        {
-            Apply((dynamic) @event);
-            if (IsValid) AddEvent(@event);
-        }
-
-        public override void Load(IEnumerable<IDomainEvent> events)
-        {
-            foreach (var @event in events)
-                Apply((dynamic) @event);
-        }
-
         protected sealed override bool Validate()
-            => OnValidate<Validator, Customer>(this, new());
+            => OnValidate<Validator, Customer>();
     }
 }

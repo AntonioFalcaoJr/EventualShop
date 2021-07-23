@@ -23,20 +23,20 @@ namespace Domain.Abstractions.Entities
 
         public TId Id { get; protected set; }
 
-        protected bool OnValidate<TValidator, TEntity>(TEntity entity, TValidator validator)
-            where TValidator : AbstractValidator<TEntity>
+        protected bool OnValidate<TValidator, TEntity>()
+            where TValidator : AbstractValidator<TEntity>, new()
             where TEntity : Entity<TId>
         {
-            _validationResult = validator.Validate(entity);
+            _validationResult = new TValidator().Validate(this as TEntity);
             return _validationResult.IsValid;
         }
 
-        protected bool OnValidate<TValidator, TEntity>(TEntity entity, TValidator validator,
+        protected bool OnValidate<TValidator, TEntity>(
             Func<AbstractValidator<TEntity>, TEntity, ValidationResult> validation)
-            where TValidator : AbstractValidator<TEntity>
+            where TValidator : AbstractValidator<TEntity>, new()
             where TEntity : Entity<TId>
         {
-            _validationResult = validation(validator, entity);
+            _validationResult = validation(new TValidator(), this as TEntity);
             return _validationResult.IsValid;
         }
 
