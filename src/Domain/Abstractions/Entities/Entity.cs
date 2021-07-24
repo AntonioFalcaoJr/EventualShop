@@ -10,7 +10,7 @@ namespace Domain.Abstractions.Entities
         where TId : struct
     {
         [JsonIgnore]
-        private ValidationResult _validationResult = new();
+        private ValidationResult ValidationResult { get; set; } = new();
 
         [JsonIgnore]
         public bool IsValid
@@ -18,7 +18,7 @@ namespace Domain.Abstractions.Entities
 
         [JsonIgnore]
         public IReadOnlyCollection<ValidationFailure> Errors
-            => _validationResult.Errors;
+            => ValidationResult.Errors;
 
         public TId Id { get; protected set; }
 
@@ -26,16 +26,16 @@ namespace Domain.Abstractions.Entities
             where TValidator : AbstractValidator<TEntity>, new()
             where TEntity : Entity<TId>
         {
-            _validationResult = new TValidator().Validate(this as TEntity);
-            return _validationResult.IsValid;
+            ValidationResult = new TValidator().Validate(this as TEntity);
+            return ValidationResult.IsValid;
         }
 
         protected bool OnValidate<TValidator, TEntity>(Func<AbstractValidator<TEntity>, TEntity, ValidationResult> validation)
             where TValidator : AbstractValidator<TEntity>, new()
             where TEntity : Entity<TId>
         {
-            _validationResult = validation(new TValidator(), this as TEntity);
-            return _validationResult.IsValid;
+            ValidationResult = validation(new TValidator(), this as TEntity);
+            return ValidationResult.IsValid;
         }
 
         protected void AddError(string errorMessage, ValidationResult validationResult)
@@ -45,10 +45,10 @@ namespace Domain.Abstractions.Entities
         }
 
         protected void AddError(string errorMessage)
-            => _validationResult.Errors.Add(new ValidationFailure(default, errorMessage));
+            => ValidationResult.Errors.Add(new ValidationFailure(default, errorMessage));
 
         protected void AddError(ValidationFailure errorMessage)
-            => _validationResult.Errors.Add(errorMessage);
+            => ValidationResult.Errors.Add(errorMessage);
 
         protected abstract bool Validate();
     }
