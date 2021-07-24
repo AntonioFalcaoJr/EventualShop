@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
 using FluentValidation;
 using FluentValidation.Results;
+using Newtonsoft.Json;
 
 namespace Domain.Abstractions.Entities
 {
@@ -31,8 +30,7 @@ namespace Domain.Abstractions.Entities
             return _validationResult.IsValid;
         }
 
-        protected bool OnValidate<TValidator, TEntity>(
-            Func<AbstractValidator<TEntity>, TEntity, ValidationResult> validation)
+        protected bool OnValidate<TValidator, TEntity>(Func<AbstractValidator<TEntity>, TEntity, ValidationResult> validation)
             where TValidator : AbstractValidator<TEntity>, new()
             where TEntity : Entity<TId>
         {
@@ -40,11 +38,17 @@ namespace Domain.Abstractions.Entities
             return _validationResult.IsValid;
         }
 
-        protected void AddError(string errorMessage, ValidationResult validationResult = default)
+        protected void AddError(string errorMessage, ValidationResult validationResult)
         {
-            _validationResult.Errors.Add(new ValidationFailure(default, errorMessage));
-            validationResult?.Errors.ToList().ForEach(failure => _validationResult.Errors.Add(failure));
+            AddError(errorMessage);
+            validationResult.Errors.ForEach(AddError);
         }
+
+        protected void AddError(string errorMessage)
+            => _validationResult.Errors.Add(new ValidationFailure(default, errorMessage));
+
+        protected void AddError(ValidationFailure errorMessage)
+            => _validationResult.Errors.Add(errorMessage);
 
         protected abstract bool Validate();
     }
