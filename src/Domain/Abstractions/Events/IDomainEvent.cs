@@ -4,6 +4,7 @@ namespace Domain.Abstractions.Events
 {
     public interface IDomainEvent
     {
-        public DateTimeOffset Timestamp { get; }
+        DateTimeOffset Timestamp { get; }
+        int AggregateVersion { get; set; }
     }
 }
