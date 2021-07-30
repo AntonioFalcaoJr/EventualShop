@@ -18,8 +18,8 @@ namespace Domain.Entities.Customers
         public void ChangeName(string name)
             => RaiseEvent(new Events.CustomerNameChanged(name));
 
-        protected override void Apply(IDomainEvent @event)
-            => When(@event as dynamic);
+        protected override void ApplyEvent(IDomainEvent domainEvent)
+            => When(domainEvent as dynamic);
 
         private void When(Events.CustomerRegistered @event)
             => (Id, Name, Age) = @event;
