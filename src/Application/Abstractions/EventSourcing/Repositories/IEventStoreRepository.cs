@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Abstractions.EventSourcing.Services.EventStore.Events;
 using Domain.Abstractions.Aggregates;
 using Domain.Abstractions.Events;
 
-namespace Infrastructure.Abstractions.EventSourcing.EventStore.Repositories
+namespace Application.Abstractions.EventSourcing.Repositories
 {
     public interface IEventStoreRepository<TAggregate, in TStoreEvent, TSnapshot, in TId>
         where TAggregate : IAggregateRoot<TId>, new()
@@ -12,7 +13,7 @@ namespace Infrastructure.Abstractions.EventSourcing.EventStore.Repositories
         where TSnapshot : Snapshot<TAggregate, TId>
         where TId : struct
     {
-        Task<int> AppendEventToStreamAsync(TStoreEvent @event, CancellationToken cancellationToken);
+        Task<int> AppendEventToStreamAsync(TStoreEvent storeEvent, CancellationToken cancellationToken);
         Task<IEnumerable<IDomainEvent>> GetStreamAsync(TId aggregateId, int snapshotVersion, CancellationToken cancellationToken);
         Task AppendSnapshotToStreamAsync(TSnapshot snapshot, CancellationToken cancellationToken);
         Task<TSnapshot> GetSnapshotAsync(TId aggregateId, CancellationToken cancellationToken);

@@ -1,14 +1,14 @@
 using Domain.Abstractions.Aggregates;
 
-namespace Infrastructure.Abstractions.EventSourcing.EventStore
+namespace Application.Abstractions.EventSourcing.Services.EventStore.Events
 {
     public abstract record Snapshot<TAggregate, TId>
         where TAggregate : IAggregateRoot<TId>, new()
         where TId : struct
     {
-        public int Version { get; init; }
+        public int AggregateVersion { get; init; }
         public TId AggregateId { get; init; }
         public string AggregateName { get; } = typeof(TAggregate).Name;
-        public TAggregate Aggregate { get; init; } = new();
+        public TAggregate AggregateState { get; init; } = new();
     }
 }
