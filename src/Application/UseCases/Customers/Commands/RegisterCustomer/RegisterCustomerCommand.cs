@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Application.Abstractions.Commands;
-using Application.Interfaces.Customers;
+using Application.Abstractions.UseCases;
+using Application.EventSourcing.Customers.EventStore;
 using Domain.Entities.Customers;
 using MassTransit;
 
