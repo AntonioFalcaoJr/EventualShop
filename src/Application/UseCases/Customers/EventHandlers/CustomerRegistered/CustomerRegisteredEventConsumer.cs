@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
-using Application.Interfaces.Customers;
+using Application.EventSourcing.Customers.EventStore;
+using Application.EventSourcing.Customers.Projections;
 using Application.UseCases.Customers.Queries.GetCustomers;
 using Domain.Entities.Customers;
 using MassTransit;
@@ -25,14 +26,14 @@ namespace Application.UseCases.Customers.EventHandlers.CustomerRegistered
             
             var customer = await _eventStoreService.LoadAggregateFromStreamAsync(aggregateId, context.CancellationToken);
 
-            var customerModel = new Models.CustomerModel
+            var customerDetails = new Models.CustomerDetails
             {
+                Id = customer.Id,
                 Age = customer.Age,
                 Name = customer.Name
             };
 
-            await _projectionsService.ProjectNewCustomerAsync(customerModel, context.CancellationToken);
-            await _projectionsService.ProjectCustomerListAsync(customerModel, context.CancellationToken);
+            await _projectionsService.ProjectNewCustomerDetailsAsync(customerDetails, context.CancellationToken);
         }
     }
 }
