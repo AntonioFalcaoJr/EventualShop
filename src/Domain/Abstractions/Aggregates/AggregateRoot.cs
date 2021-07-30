@@ -9,37 +9,43 @@ namespace Domain.Abstractions.Aggregates
         where TId : struct
     {
         [JsonIgnore]
-        private readonly List<IDomainEvent> _events = new();
+        private readonly List<IDomainEvent> _domainEvents  = new();
 
-        public int Version { get; private set; }
+        public int CurrentVersion { get; private set; }
 
         [JsonIgnore]
-        public IEnumerable<IDomainEvent> Events
-            => _events;
+        public IEnumerable<IDomainEvent> DomainEvents
+            => _domainEvents;
 
-        public void Load(IEnumerable<IDomainEvent> events)
+        public void LoadEvents(IEnumerable<IDomainEvent> domainEvents)
         {
-            foreach (var @event in events)
-                Apply((dynamic) @event);
+            foreach (var domainEvent in domainEvents)
+            {
+                ApplyEvent((dynamic) domainEvent);
+                CurrentVersion = domainEvent.AggregateVersion;
+            }
         }
 
         public void ClearEvents()
-            => _events.Clear();
+            => _domainEvents.Clear();
 
-        private void AddEvent(IDomainEvent @event)
-            => _events.Add(@event);
-
-        private void IncreaseVersion()
-            => Version++;
-
-        protected abstract void Apply(IDomainEvent @event);
-
-        protected void RaiseEvent(IDomainEvent @event)
+        private void AddDomainEvent(IDomainEvent domainEvent)
         {
-            Apply((dynamic) @event);
+            domainEvent.AggregateVersion = CurrentVersion;
+            _domainEvents.Add(domainEvent);
+        }
+
+        private void IncreaseAggregateVersion()
+            => CurrentVersion++;
+
+        protected abstract void ApplyEvent(IDomainEvent domainEvent);
+
+        protected void RaiseEvent(IDomainEvent domainEvent)
+        {
+            ApplyEvent((dynamic) domainEvent);
             if (IsValid is false) return;
-            AddEvent(@event);
-            IncreaseVersion();
+            IncreaseAggregateVersion();
+            AddDomainEvent(domainEvent);
         }
     }
 }
