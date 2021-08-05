@@ -1,12 +1,12 @@
+using Application.EventSourcing.Customers.EventStore.Events;
 using Infrastructure.DependencyInjection.Options;
-using Infrastructure.EventSourcing.EventStore.Customers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Infrastructure.EventSourcing.EventStore.Contexts
+namespace Infrastructure.EventSourcing.Customers.EventStore.Contexts
 {
     public class EventStoreDbContext : DbContext
     {
@@ -32,6 +32,7 @@ namespace Infrastructure.EventSourcing.EventStore.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //modelBuilder.hasse
             modelBuilder.UseCollation(SqlLatin1GeneralCp1CsAs);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(EventStoreDbContext).Assembly);
             base.OnModelCreating(modelBuilder);

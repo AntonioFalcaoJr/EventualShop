@@ -1,9 +1,11 @@
 using System;
+using Application.EventSourcing.Customers.EventStore;
+using Application.EventSourcing.Customers.EventStore.Events;
 using Domain.Entities.Customers;
-using Infrastructure.Abstractions.EventSourcing.EventStore.Repositories;
-using Infrastructure.EventSourcing.EventStore.Contexts;
+using Infrastructure.Abstractions.EventSourcing.EventStore;
+using Infrastructure.EventSourcing.Customers.EventStore.Contexts;
 
-namespace Infrastructure.EventSourcing.EventStore.Customers.Repositories
+namespace Infrastructure.EventSourcing.Customers.EventStore
 {
     public class CustomerEventStoreRepository : EventStoreRepository<Customer, CustomerStoreEvent, CustomerSnapshot, Guid>, ICustomerEventStoreRepository
     {

@@ -1,10 +1,11 @@
+using Application.EventSourcing.Customers.EventStore.Events;
 using Domain.Abstractions.Events;
 using JsonNet.ContractResolvers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
 
-namespace Infrastructure.EventSourcing.EventStore.Customers.Configurations
+namespace Infrastructure.EventSourcing.Customers.EventStore.Configurations
 {
     public class CustomerStoreEventConfiguration : IEntityTypeConfiguration<CustomerStoreEvent>
     {
@@ -32,7 +33,7 @@ namespace Infrastructure.EventSourcing.EventStore.Customers.Configurations
                 .HasMaxLength(1000)
                 .IsUnicode(false)
                 .HasConversion(
-                    @event => JsonConvert.SerializeObject(@event, 
+                    domainEvent => JsonConvert.SerializeObject(domainEvent, 
                         new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All}),
                     jsonString => JsonConvert.DeserializeObject<IDomainEvent>(jsonString, 
                         new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All, ContractResolver = new PrivateSetterContractResolver()}))
