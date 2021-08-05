@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.Models;
 using Application.Abstractions.EventSourcing.Repositories;
-using Infrastructure.EventSourcing.Customers.Projections.Repositories.Contexts;
+using Infrastructure.EventSourcing.Customers.Projections.Contexts;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
