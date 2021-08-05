@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Abstractions.EventSourcing.Services.EventStore.Events;
+using Application.Abstractions.EventSourcing.EventStore.Events;
 using Domain.Abstractions.Aggregates;
 using Domain.Abstractions.Events;
 
-namespace Application.Abstractions.EventSourcing.Repositories
+namespace Application.Abstractions.EventSourcing.EventStore
 {
     public interface IEventStoreRepository<TAggregate, in TStoreEvent, TSnapshot, in TId>
         where TAggregate : IAggregateRoot<TId>, new()
