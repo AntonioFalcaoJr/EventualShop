@@ -11,14 +11,14 @@ namespace Infrastructure.Migrations
                 name: "CustomerSnapshots",
                 columns: table => new
                 {
-                    Version = table.Column<int>(type: "int", nullable: false),
+                    AggregateVersion = table.Column<int>(type: "int", nullable: false),
                     AggregateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AggregateName = table.Column<string>(type: "varchar(30)", unicode: false, maxLength: 30, nullable: false),
-                    Aggregate = table.Column<string>(type: "varchar(1000)", unicode: false, maxLength: 1000, nullable: false)
+                    AggregateState = table.Column<string>(type: "varchar(1000)", unicode: false, maxLength: 1000, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CustomerSnapshots", x => x.Version);
+                    table.PrimaryKey("PK_CustomerSnapshots", x => new { x.AggregateVersion, x.AggregateId });
                 });
 
             migrationBuilder.CreateTable(
