@@ -2,11 +2,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Abstractions.EventSourcing.Models;
+using Application.Abstractions.EventSourcing.Repositories;
 using Domain.Abstractions.Aggregates;
 using Domain.Abstractions.Events;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Abstractions.EventSourcing.EventStore.Repositories
+namespace Infrastructure.Abstractions.EventSourcing.EventStore
 {
     public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId> : IEventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId>
         where TAggregate : IAggregateRoot<TId>, new()
@@ -25,9 +27,9 @@ namespace Infrastructure.Abstractions.EventSourcing.EventStore.Repositories
             _snapshots = dbContext.Set<TSnapshot>();
         }
 
-        public async Task<int> AppendEventToStreamAsync(TStoreEvent @event, CancellationToken cancellationToken)
+        public async Task<int> AppendEventToStreamAsync(TStoreEvent storeEvent, CancellationToken cancellationToken)
         {
-            var entry = await _storeEvents.AddAsync(@event, cancellationToken);
+            var entry = await _storeEvents.AddAsync(storeEvent, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
             return entry.Entity.Version;
         }
@@ -40,15 +42,15 @@ namespace Infrastructure.Abstractions.EventSourcing.EventStore.Repositories
 
         public async Task<IEnumerable<IDomainEvent>> GetStreamAsync(TId aggregateId, int snapshotVersion, CancellationToken cancellationToken)
             => await _storeEvents
-                .Where(@event => Equals(@event.AggregateId, aggregateId))
-                .Where(@event => @event.Version > snapshotVersion)
-                .Select(@event => @event.DomainEvent)
+                .Where(storeEvent => Equals(storeEvent.AggregateId, aggregateId))
+                .Where(storeEvent => storeEvent.Version > snapshotVersion)
+                .Select(storeEvent => storeEvent.DomainEvent)
                 .ToListAsync(cancellationToken);
 
         public async Task<TSnapshot> GetSnapshotAsync(TId aggregateId, CancellationToken cancellationToken)
             => await _snapshots
-                .Where(@event => Equals(@event.AggregateId, aggregateId))
-                .OrderBy(@event => @event.Version)
+                .Where(snapshot => Equals(snapshot.AggregateId, aggregateId))
+                .OrderBy(snapshot => snapshot.AggregateVersion)
                 .LastOrDefaultAsync(cancellationToken);
     }
 }
