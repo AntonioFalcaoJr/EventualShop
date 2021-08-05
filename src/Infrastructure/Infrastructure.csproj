@@ -9,7 +9,7 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0-preview.6.21352.1" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0-preview.6.21352.12" />
         <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="6.0.0-preview.6.21352.12" />
-        <PackageReference Include="MongoDB.Driver" Version="2.13.0" />
+        <PackageReference Include="MongoDB.Driver" Version="2.13.1" />
         <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0-preview.6.21352.12" />
     </ItemGroup>
     <ItemGroup>
