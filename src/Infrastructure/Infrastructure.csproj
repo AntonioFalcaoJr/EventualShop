@@ -1,18 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
-        <PackageReference Include="JsonNet.ContractResolvers" Version="2.0.0"/>
-        <PackageReference Include="MassTransit.AspNetCore" Version="7.2.2-develop.146"/>
-        <PackageReference Include="MassTransit.RabbitMQ" Version="7.2.2-develop.146"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0-preview.6.21352.1"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.0-preview.6.21352.1"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0-preview.6.21352.1"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0-preview.6.21352.1"/>
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0-preview.6.21352.12"/>
-        <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="6.0.0-preview.6.21352.12"/>
-        <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0-preview.6.21352.12"/>
+        <PackageReference Include="JsonNet.ContractResolvers" Version="2.0.0" />
+        <PackageReference Include="MassTransit.AspNetCore" Version="7.2.2-develop.146" />
+        <PackageReference Include="MassTransit.RabbitMQ" Version="7.2.2-develop.146" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0-preview.6.21352.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.0-preview.6.21352.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0-preview.6.21352.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0-preview.6.21352.1" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0-preview.6.21352.12" />
+        <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="6.0.0-preview.6.21352.12" />
+        <PackageReference Include="MongoDB.Driver" Version="2.13.0" />
+        <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0-preview.6.21352.12" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Application\Application.csproj"/>
-        <ProjectReference Include="..\Domain\Domain.csproj"/>
+        <ProjectReference Include="..\Application\Application.csproj" />
     </ItemGroup>
 </Project>
