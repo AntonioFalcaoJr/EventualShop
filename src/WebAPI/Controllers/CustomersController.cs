@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Application.UseCases.Customers.Commands.DeleteCustomer;
 using Application.UseCases.Customers.Commands.RegisterCustomer;
 using Application.UseCases.Customers.Commands.UpdateCustomer;
+using Application.UseCases.Customers.Queries.CustomerDetails;
 using MassTransit.Mediator;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;
@@ -13,16 +15,20 @@ namespace WebAPI.Controllers
         public CustomersController(IMediator mediator)
             : base(mediator) { }
 
+        [HttpGet]
+        public Task<IActionResult> Get([FromQuery] CustomerDetailsQuery query, CancellationToken cancellationToken)
+            => SendQueryAsync<CustomerDetailsQuery, CustomerDetailsModel>(query, cancellationToken);
+
         [HttpPost]
-        public async Task<IActionResult> Post(RegisterCustomerCommand command)
-            => await SendCommand(command);
+        public Task<IActionResult> Post(RegisterCustomerCommand command, CancellationToken cancellationToken)
+            => SendCommandAsync(command, cancellationToken);
 
         [HttpPut]
-        public async Task<IActionResult> Put(UpdateCustomerCommand command)
-            => await SendCommand(command);
+        public Task<IActionResult> Put(UpdateCustomerCommand command, CancellationToken cancellationToken)
+            => SendCommandAsync(command, cancellationToken);
 
         [HttpDelete]
-        public async Task<IActionResult> Delete(DeleteCustomerCommand command)
-            => await SendCommand(command);
+        public Task<IActionResult> Delete(DeleteCustomerCommand command, CancellationToken cancellationToken)
+            => SendCommandAsync(command, cancellationToken);
     }
 }
