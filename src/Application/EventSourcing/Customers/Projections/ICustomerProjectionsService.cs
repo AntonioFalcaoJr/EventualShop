@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.UseCases.Customers.Queries.GetCustomers;
+using Application.UseCases.Customers.Queries.CustomerDetails;
 
 namespace Application.EventSourcing.Customers.Projections
 {
-    public interface ICustomerProjectionsService
+    public interface ICustomerProjectionsService 
     {
-        Task<List<Models.CustomerDetail>> GetCustomersAsync(Expression<Func<Models.CustomerDetail, bool>> predicate, CancellationToken cancellationToken);
-        Task ProjectNewCustomerAsync(Models.CustomerDetail customerDetail, CancellationToken cancellationToken);
-        Task ProjectCustomerListAsync(Models.CustomerDetail customerDetail, CancellationToken cancellationToken);
-        Task<Models.CustomerDetail> GetCustomerDetailAsync(Guid customerId, CancellationToken cancellationToken);
+        Task<List<CustomerDetailsModel>> GetCustomersAsync(Expression<Func<CustomerDetailsModel, bool>> predicate, CancellationToken cancellationToken);
+        Task ProjectNewCustomerDetailsAsync(CustomerDetailsModel customerDetails, CancellationToken cancellationToken);
+        Task ProjectCustomerListAsync(CustomerDetailsModel customerDetails, CancellationToken cancellationToken);
+        Task<CustomerDetailsModel> GetCustomerDetailsAsync(Guid customerId, CancellationToken cancellationToken);
     }
 }

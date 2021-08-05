@@ -1,4 +1,4 @@
-using Application.Abstractions.EventSourcing.Repositories;
+using Application.Abstractions.EventSourcing.Projections;
 
 namespace Application.EventSourcing.Customers.Projections
 {
