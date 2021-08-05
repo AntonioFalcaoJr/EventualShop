@@ -1,5 +1,8 @@
+using System.Threading;
 using System.Threading.Tasks;
-using Application.Abstractions.Commands;
+using Application.Abstractions.EventSourcing.Models;
+using Application.Abstractions.UseCases;
+using MassTransit;
 using MassTransit.Mediator;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,10 +19,25 @@ namespace WebAPI.Abstractions
             _mediator = mediator;
         }
 
-        protected async Task<IActionResult> SendCommand(ICommand command)
+        protected async Task<IActionResult> SendCommandAsync(ICommand command, CancellationToken cancellationToken)
         {
-            await _mediator.Send(command);
+            await SendMessage(command, cancellationToken);
             return Accepted();
         }
+
+        protected async Task<IActionResult> SendQueryAsync<TQuery, TResponse>(TQuery query, CancellationToken cancellationToken)
+            where TQuery : class, IQuery
+            where TResponse : Model
+        {
+            await SendMessage(query, cancellationToken);
+            var response = await GetRequestClient<TQuery>().GetResponse<TResponse>(query, cancellationToken);
+            return Ok(response.Message);
+        }
+
+        private IRequestClient<T> GetRequestClient<T>() where T : class
+            => _mediator.CreateRequestClient<T>();
+
+        private Task SendMessage<TMessage>(TMessage message, CancellationToken cancellationToken)
+            => _mediator.Send(message, cancellationToken);
     }
 }
