@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Abstractions.EventSourcing.Models;
 using Application.Abstractions.UseCases;
+using Application.Abstractions.UseCases.Models;
 using MassTransit;
 using MassTransit.Mediator;
 using Microsoft.AspNetCore.Mvc;
