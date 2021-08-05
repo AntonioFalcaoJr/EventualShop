@@ -7,7 +7,6 @@ namespace Domain.Abstractions.Aggregates
     public interface IAggregateRoot<out TId> : IEntity<TId>
         where TId : struct
     {
-        int CurrentVersion { get; }
         IEnumerable<IDomainEvent> DomainEvents { get; }
         void LoadEvents(IEnumerable<IDomainEvent> domainEvents);
     }

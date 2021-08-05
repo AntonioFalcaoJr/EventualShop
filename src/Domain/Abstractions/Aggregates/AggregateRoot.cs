@@ -9,9 +9,7 @@ namespace Domain.Abstractions.Aggregates
         where TId : struct
     {
         [JsonIgnore]
-        private readonly List<IDomainEvent> _domainEvents  = new();
-
-        public int CurrentVersion { get; private set; }
+        private readonly List<IDomainEvent> _domainEvents = new();
 
         [JsonIgnore]
         public IEnumerable<IDomainEvent> DomainEvents
@@ -19,32 +17,19 @@ namespace Domain.Abstractions.Aggregates
 
         public void LoadEvents(IEnumerable<IDomainEvent> domainEvents)
         {
-            foreach (var domainEvent in domainEvents)
-            {
-                ApplyEvent((dynamic) domainEvent);
-                CurrentVersion = domainEvent.AggregateVersion;
-            }
+            foreach (var domainEvent in domainEvents) 
+                ApplyEvent((dynamic)domainEvent);
         }
-
-        public void ClearEvents()
-            => _domainEvents.Clear();
 
         private void AddDomainEvent(IDomainEvent domainEvent)
-        {
-            domainEvent.AggregateVersion = CurrentVersion;
-            _domainEvents.Add(domainEvent);
-        }
-
-        private void IncreaseAggregateVersion()
-            => CurrentVersion++;
+            => _domainEvents.Add(domainEvent);
 
         protected abstract void ApplyEvent(IDomainEvent domainEvent);
 
         protected void RaiseEvent(IDomainEvent domainEvent)
         {
-            ApplyEvent((dynamic) domainEvent);
+            ApplyEvent((dynamic)domainEvent);
             if (IsValid is false) return;
-            IncreaseAggregateVersion();
             AddDomainEvent(domainEvent);
         }
     }
