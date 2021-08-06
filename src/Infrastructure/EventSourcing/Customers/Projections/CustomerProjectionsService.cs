@@ -17,16 +17,16 @@ namespace Infrastructure.EventSourcing.Customers.Projections
             _repository = repository;
         }
 
-        public Task<IPagedResult<CustomerDetailsModel>> GetCustomersWithPaginationAsync(IPaging paging, Expression<Func<CustomerDetailsModel, bool>> predicate, CancellationToken cancellationToken)
+        public Task<IPagedResult<CustomerDetailsProjection>> GetCustomersDetailsWithPaginationAsync(IPaging paging, Expression<Func<CustomerDetailsProjection, bool>> predicate, CancellationToken cancellationToken)
             => _repository.GetAllAsync(paging, predicate, cancellationToken);
 
-        public Task ProjectNewCustomerDetailsAsync(CustomerDetailsModel customerDetails, CancellationToken cancellationToken)
+        public Task ProjectNewCustomerDetailsAsync(CustomerDetailsProjection customerDetails, CancellationToken cancellationToken)
             => _repository.SaveAsync(customerDetails, cancellationToken);
 
-        public Task ProjectCustomerListAsync(CustomerDetailsModel customerDetails, CancellationToken cancellationToken)
+        public Task ProjectCustomerListAsync(CustomerDetailsProjection customerDetails, CancellationToken cancellationToken)
             => throw new System.NotImplementedException();
 
-        public Task<CustomerDetailsModel> GetCustomerDetailsAsync(Guid customerId, CancellationToken cancellationToken)
-            => _repository.GetAsync<CustomerDetailsModel, Guid>(customerId, cancellationToken);
+        public Task<CustomerDetailsProjection> GetCustomerDetailsAsync(Guid customerId, CancellationToken cancellationToken)
+            => _repository.GetAsync<CustomerDetailsProjection, Guid>(customerId, cancellationToken);
     }
 }
