@@ -4,7 +4,9 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.Projections;
-using Application.Abstractions.UseCases.Models;
+using Application.Abstractions.EventSourcing.Projections.Pagination;
+using Application.Abstractions.UseCases;
+using Infrastructure.Abstractions.EventSourcing.Projections.Pagination;
 using Infrastructure.EventSourcing.Customers.Projections.Contexts;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
@@ -23,11 +25,14 @@ namespace Infrastructure.Abstractions.EventSourcing.Projections
         public virtual Task<TModel> GetAsync<TModel, TId>(TId id, CancellationToken cancellationToken) where TModel : Model
             => FindAsync<TModel>(model => model.Id.Equals(id), cancellationToken);
 
-        public virtual Task<TModel> FindAsync<TModel>(Expression<Func<TModel, bool>> predicate, CancellationToken cancellationToken) where TModel : Model 
+        public virtual Task<TModel> FindAsync<TModel>(Expression<Func<TModel, bool>> predicate, CancellationToken cancellationToken) where TModel : Model
             => _context.GetCollection<TModel>().AsQueryable().Where(predicate).FirstOrDefaultAsync(cancellationToken);
 
-        public virtual Task<List<TModel>> GetAllAsync<TModel>(Expression<Func<TModel, bool>> predicate, CancellationToken cancellationToken) where TModel : Model
-            => _context.GetCollection<TModel>().AsQueryable().Where(predicate).ToListAsync(cancellationToken);
+        public virtual Task<IPagedResult<TModel>> GetAllAsync<TModel>(Paging paging, Expression<Func<TModel, bool>> predicate, CancellationToken cancellationToken) where TModel : Model
+        {
+            var queryable = _context.GetCollection<TModel>().AsQueryable().Where(predicate);
+            return PagedResult<TModel>.CreateAsync(paging, queryable, cancellationToken);
+        }
 
         public virtual Task SaveAsync<TModel>(TModel model, CancellationToken cancellationToken) where TModel : Model
             => _context.GetCollection<TModel>().InsertOneAsync(model, cancellationToken: cancellationToken);
