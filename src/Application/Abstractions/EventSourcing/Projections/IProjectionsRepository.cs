@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Abstractions.UseCases.Models;
+using Application.Abstractions.EventSourcing.Projections.Pagination;
+using Application.Abstractions.UseCases;
 
 namespace Application.Abstractions.EventSourcing.Projections
 {
@@ -15,7 +16,7 @@ namespace Application.Abstractions.EventSourcing.Projections
         Task<TModel> GetAsync<TModel, TId>(TId id, CancellationToken cancellationToken)
             where TModel : Model;
 
-        Task<List<TModel>> GetAllAsync<TModel>(Expression<Func<TModel, bool>> predicate, CancellationToken cancellationToken)
+        Task<IPagedResult<TModel>> GetAllAsync<TModel>(IPaging paging, Expression<Func<TModel, bool>> predicate, CancellationToken cancellationToken)
             where TModel : Model;
 
         Task SaveAsync<TModel>(TModel model, CancellationToken cancellationToken)
