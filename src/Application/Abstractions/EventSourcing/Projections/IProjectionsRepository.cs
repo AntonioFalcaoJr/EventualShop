@@ -4,37 +4,36 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.Projections.Pagination;
-using Application.Abstractions.UseCases;
 
 namespace Application.Abstractions.EventSourcing.Projections
 {
     public interface IProjectionsRepository
     {
-        Task<TModel> FindAsync<TModel>(Expression<Func<TModel, bool>> predicate, CancellationToken cancellationToken)
-            where TModel : Model;
+        Task<TProjection> FindAsync<TProjection>(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
+            where TProjection : IProjection;
 
-        Task<TModel> GetAsync<TModel, TId>(TId id, CancellationToken cancellationToken)
-            where TModel : Model;
+        Task<TProjection> GetAsync<TProjection, TId>(TId id, CancellationToken cancellationToken)
+            where TProjection : IProjection;
 
-        Task<IPagedResult<TModel>> GetAllAsync<TModel>(IPaging paging, Expression<Func<TModel, bool>> predicate, CancellationToken cancellationToken)
-            where TModel : Model;
+        Task<IPagedResult<TProjection>> GetAllAsync<TProjection>(IPaging paging, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
+            where TProjection : IProjection;
 
-        Task SaveAsync<TModel>(TModel model, CancellationToken cancellationToken)
-            where TModel : Model;
+        Task SaveAsync<TProjection>(TProjection projection, CancellationToken cancellationToken)
+            where TProjection : IProjection;
 
-        Task SaveManyAsync<TModel>(IEnumerable<TModel> models, CancellationToken cancellationToken)
-            where TModel : Model;
+        Task SaveManyAsync<TProjection>(IEnumerable<TProjection> projections, CancellationToken cancellationToken)
+            where TProjection : IProjection;
 
-        Task UpdateAsync<TModel>(TModel model, CancellationToken cancellationToken)
-            where TModel : Model;
+        Task UpdateAsync<TProjection>(TProjection projection, CancellationToken cancellationToken)
+            where TProjection : IProjection;
 
-        Task UpdateManyAsync<TModel>(IEnumerable<TModel> models, CancellationToken cancellationToken)
-            where TModel : Model;
+        Task UpdateManyAsync<TProjection>(IEnumerable<TProjection> projections, CancellationToken cancellationToken)
+            where TProjection : IProjection;
 
-        Task DeleteAsync<TModel>(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken)
-            where TModel : Model;
+        Task DeleteAsync<TProjection>(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken)
+            where TProjection : IProjection;
 
-        Task DeleteManyAsync<TModel>(Expression<Func<TModel, bool>> filter, CancellationToken cancellationToken)
-            where TModel : Model;
+        Task DeleteManyAsync<TProjection>(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken)
+            where TProjection : IProjection;
     }
 }
