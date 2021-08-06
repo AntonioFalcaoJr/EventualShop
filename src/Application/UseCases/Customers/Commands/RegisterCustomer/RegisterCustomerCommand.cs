@@ -8,11 +8,11 @@ namespace Application.UseCases.Customers.Commands.RegisterCustomer
 {
     public record RegisterCustomerCommand(string Name, int Age) : ICommand;
     
-    public class RegisterCustomerCommandConsumer : IConsumer<RegisterCustomerCommand>
+    public class RegisterCustomerCommandHandler : IConsumer<RegisterCustomerCommand>
     {
         private readonly ICustomerEventStoreService _eventStoreService;
 
-        public RegisterCustomerCommandConsumer(ICustomerEventStoreService eventStoreService)
+        public RegisterCustomerCommandHandler(ICustomerEventStoreService eventStoreService)
         {
             _eventStoreService = eventStoreService;
         }

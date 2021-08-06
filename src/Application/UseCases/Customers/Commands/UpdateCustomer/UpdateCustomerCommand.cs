@@ -8,11 +8,11 @@ namespace Application.UseCases.Customers.Commands.UpdateCustomer
 {
     public record UpdateCustomerCommand(Guid Id, string Name, int Age) : ICommand;
 
-    public class UpdateCustomerCommandConsumer : IConsumer<UpdateCustomerCommand>
+    public class UpdateCustomerCommandHandler : IConsumer<UpdateCustomerCommand>
     {
         private readonly ICustomerEventStoreService _eventStoreService;
 
-        public UpdateCustomerCommandConsumer(ICustomerEventStoreService eventStoreService)
+        public UpdateCustomerCommandHandler(ICustomerEventStoreService eventStoreService)
         {
             _eventStoreService = eventStoreService;
         }
