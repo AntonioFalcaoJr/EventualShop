@@ -24,8 +24,8 @@ namespace Infrastructure.Abstractions.EventSourcing.Projections.Pagination
         public IEnumerable<T> Items
             => _items.Take(_limit);
 
-        public PageInfo PageInfo
-            => new()
+        public IPageInfo PageInfo
+            => new PageInfo
             {
                 Current = _offset + 1,
                 Size = Items.Count(),
@@ -33,14 +33,14 @@ namespace Infrastructure.Abstractions.EventSourcing.Projections.Pagination
                 HasPrevious = _offset > 0
             };
 
-        public static async Task<IPagedResult<T>> CreateAsync(Paging paging, IQueryable<T> source, CancellationToken cancellationToken)
+        public static async Task<IPagedResult<T>> CreateAsync(IPaging paging, IQueryable<T> source, CancellationToken cancellationToken)
         {
-            paging ??= new Paging();
+            paging = paging as Paging ?? new();
             var items = await ApplyPagination(paging, source).ToListAsync(cancellationToken);
             return new PagedResult<T>(items, paging.Offset, paging.Limit);
         }
 
-        private static IMongoQueryable<T> ApplyPagination(Paging paging, IQueryable<T> source)
+        private static IMongoQueryable<T> ApplyPagination(IPaging paging, IQueryable<T> source)
             => source.Skip(paging.Limit * paging.Offset).Take(paging.Limit + 1) as IMongoQueryable<T>;
     }
 }

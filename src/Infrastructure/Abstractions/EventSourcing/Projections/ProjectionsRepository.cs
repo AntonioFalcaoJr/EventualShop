@@ -28,7 +28,7 @@ namespace Infrastructure.Abstractions.EventSourcing.Projections
         public virtual Task<TModel> FindAsync<TModel>(Expression<Func<TModel, bool>> predicate, CancellationToken cancellationToken) where TModel : Model
             => _context.GetCollection<TModel>().AsQueryable().Where(predicate).FirstOrDefaultAsync(cancellationToken);
 
-        public virtual Task<IPagedResult<TModel>> GetAllAsync<TModel>(Paging paging, Expression<Func<TModel, bool>> predicate, CancellationToken cancellationToken) where TModel : Model
+        public virtual Task<IPagedResult<TModel>> GetAllAsync<TModel>(IPaging paging, Expression<Func<TModel, bool>> predicate, CancellationToken cancellationToken) where TModel : Model
         {
             var queryable = _context.GetCollection<TModel>().AsQueryable().Where(predicate);
             return PagedResult<TModel>.CreateAsync(paging, queryable, cancellationToken);
