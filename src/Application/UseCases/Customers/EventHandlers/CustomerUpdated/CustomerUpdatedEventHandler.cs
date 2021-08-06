@@ -4,7 +4,7 @@ using MassTransit;
 
 namespace Application.UseCases.Customers.EventHandlers.CustomerUpdated
 {
-    public class CustomerUpdatedEventConsumer : IConsumer<Events.CustomerAgeChanged>, IConsumer<Events.CustomerNameChanged>
+    public class CustomerUpdatedEventHandler : IConsumer<Events.CustomerAgeChanged>, IConsumer<Events.CustomerNameChanged>
     {
         public Task Consume(ConsumeContext<Events.CustomerAgeChanged> context)
             => throw new System.NotImplementedException();

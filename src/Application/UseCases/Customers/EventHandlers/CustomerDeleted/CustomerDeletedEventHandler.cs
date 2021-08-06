@@ -4,7 +4,7 @@ using MassTransit;
 
 namespace Application.UseCases.Customers.EventHandlers.CustomerDeleted
 {
-    public class CustomerDeletedEventConsumer : IConsumer<Events.CustomerDeleted>
+    public class CustomerDeletedEventHandler : IConsumer<Events.CustomerDeleted>
     {
         public async Task Consume(ConsumeContext<Events.CustomerDeleted> context)
         {
