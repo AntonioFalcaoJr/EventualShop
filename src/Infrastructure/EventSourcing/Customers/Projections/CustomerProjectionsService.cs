@@ -1,10 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Abstractions.EventSourcing.Projections.Pagination;
 using Application.EventSourcing.Customers.Projections;
-using Application.UseCases.Customers.Queries.CustomerDetails;
+using Application.UseCases.Customers.Queries.GetCustomerDetails;
 
 namespace Infrastructure.EventSourcing.Customers.Projections
 {
@@ -17,8 +17,8 @@ namespace Infrastructure.EventSourcing.Customers.Projections
             _repository = repository;
         }
 
-        public Task<List<CustomerDetailsModel>> GetCustomersAsync(Expression<Func<CustomerDetailsModel, bool>> predicate, CancellationToken cancellationToken)
-            => _repository.GetAllAsync(predicate, cancellationToken);
+        public Task<IPagedResult<CustomerDetailsModel>> GetCustomersWithPaginationAsync(IPaging paging, Expression<Func<CustomerDetailsModel, bool>> predicate, CancellationToken cancellationToken)
+            => _repository.GetAllAsync(paging, predicate, cancellationToken);
 
         public Task ProjectNewCustomerDetailsAsync(CustomerDetailsModel customerDetails, CancellationToken cancellationToken)
             => _repository.SaveAsync(customerDetails, cancellationToken);
