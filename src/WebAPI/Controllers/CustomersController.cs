@@ -1,9 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Application.Abstractions.EventSourcing.Projections.Pagination;
 using Application.UseCases.Customers.Commands.DeleteCustomer;
 using Application.UseCases.Customers.Commands.RegisterCustomer;
 using Application.UseCases.Customers.Commands.UpdateCustomer;
-using Application.UseCases.Customers.Queries.CustomerDetails;
+using Application.UseCases.Customers.Queries.GetCustomerDetails;
+using Application.UseCases.Customers.Queries.GetCustomersWithPagination;
 using MassTransit.Mediator;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;
@@ -16,19 +18,23 @@ namespace WebAPI.Controllers
             : base(mediator) { }
 
         [HttpGet]
-        public Task<IActionResult> Get([FromQuery] CustomerDetailsQuery query, CancellationToken cancellationToken)
-            => SendQueryAsync<CustomerDetailsQuery, CustomerDetailsModel>(query, cancellationToken);
+        public Task<IActionResult> GetCustomersWithPagination([FromQuery] GetCustomersWithPaginationQuery query, CancellationToken cancellationToken)
+            => SendQueryAsync<GetCustomersWithPaginationQuery, IPagedResult<CustomerDetailsModel>>(query, cancellationToken);
+
+        [HttpGet]
+        public Task<IActionResult> GetCustomerDetails([FromQuery] GetCustomerDetailsQuery query, CancellationToken cancellationToken)
+            => SendQueryAsync<GetCustomerDetailsQuery, CustomerDetailsModel>(query, cancellationToken);
 
         [HttpPost]
-        public Task<IActionResult> Post(RegisterCustomerCommand command, CancellationToken cancellationToken)
+        public Task<IActionResult> RegisterCustomer(RegisterCustomerCommand command, CancellationToken cancellationToken)
             => SendCommandAsync(command, cancellationToken);
 
         [HttpPut]
-        public Task<IActionResult> Put(UpdateCustomerCommand command, CancellationToken cancellationToken)
+        public Task<IActionResult> UpdateCustomer(UpdateCustomerCommand command, CancellationToken cancellationToken)
             => SendCommandAsync(command, cancellationToken);
 
         [HttpDelete]
-        public Task<IActionResult> Delete(DeleteCustomerCommand command, CancellationToken cancellationToken)
+        public Task<IActionResult> DeleteCustomer(DeleteCustomerCommand command, CancellationToken cancellationToken)
             => SendCommandAsync(command, cancellationToken);
     }
 }

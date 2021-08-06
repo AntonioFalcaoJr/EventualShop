@@ -1,15 +1,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions.UseCases;
-using Application.Abstractions.UseCases.Models;
 using MassTransit;
 using MassTransit.Mediator;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Abstractions
 {
-    [ApiController]
-    [Route("api/[controller]")]
+    [ApiController, Route("api/[controller]/[action]")]
     public abstract class ApplicationController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -27,7 +25,7 @@ namespace WebAPI.Abstractions
 
         protected async Task<IActionResult> SendQueryAsync<TQuery, TResponse>(TQuery query, CancellationToken cancellationToken)
             where TQuery : class, IQuery
-            where TResponse : Model
+            where TResponse : class
         {
             await SendMessage(query, cancellationToken);
             var response = await GetRequestClient<TQuery>().GetResponse<TResponse>(query, cancellationToken);
