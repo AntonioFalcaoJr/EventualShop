@@ -32,8 +32,8 @@ namespace WebAPI.Abstractions
             return Ok(response.Message);
         }
 
-        private IRequestClient<T> GetRequestClient<T>() where T : class
-            => _mediator.CreateRequestClient<T>();
+        private IRequestClient<TMessage> GetRequestClient<TMessage>() where TMessage : class
+            => _mediator.CreateRequestClient<TMessage>();
 
         private Task SendMessage<TMessage>(TMessage message, CancellationToken cancellationToken)
             => _mediator.Send(message, cancellationToken);
