@@ -19,11 +19,11 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         public Task<IActionResult> GetCustomersWithPagination([FromQuery] GetCustomersDetailsWithPaginationQuery query, CancellationToken cancellationToken)
-            => SendQueryAsync<GetCustomersDetailsWithPaginationQuery, IPagedResult<CustomerDetailsProjection>>(query, cancellationToken);
+            => GetQueryResponseAsync<GetCustomersDetailsWithPaginationQuery, IPagedResult<CustomerDetailsProjection>>(query, cancellationToken);
 
         [HttpGet]
         public Task<IActionResult> GetCustomerDetails([FromQuery] GetCustomerDetailsQuery query, CancellationToken cancellationToken)
-            => SendQueryAsync<GetCustomerDetailsQuery, CustomerDetailsProjection>(query, cancellationToken);
+            => GetQueryResponseAsync<GetCustomerDetailsQuery, CustomerDetailsProjection>(query, cancellationToken);
 
         [HttpPost]
         public Task<IActionResult> RegisterCustomer(RegisterCustomerCommand command, CancellationToken cancellationToken)
