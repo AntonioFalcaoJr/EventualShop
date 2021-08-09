@@ -23,17 +23,18 @@ namespace WebAPI.Abstractions
             return Accepted();
         }
 
-        protected async Task<IActionResult> SendQueryAsync<TQuery, TResponse>(TQuery query, CancellationToken cancellationToken)
+        protected async Task<IActionResult> GetQueryResponseAsync<TQuery, TResponse>(TQuery query, CancellationToken cancellationToken)
             where TQuery : class, IQuery
             where TResponse : class
         {
-            await SendMessage(query, cancellationToken);
-            var response = await GetRequestClient<TQuery>().GetResponse<TResponse>(query, cancellationToken);
+            var response = await GetResponseAsync<TQuery, TResponse>(query, cancellationToken);
             return Ok(response.Message);
         }
 
-        private IRequestClient<TMessage> GetRequestClient<TMessage>() where TMessage : class
-            => _mediator.CreateRequestClient<TMessage>();
+        private Task<Response<TResponse>> GetResponseAsync<TMessage, TResponse>(IQuery query, CancellationToken cancellationToken)
+            where TMessage : class
+            where TResponse : class
+            => _mediator.CreateRequestClient<TMessage>().GetResponse<TResponse>(query, cancellationToken);
 
         private Task SendMessage<TMessage>(TMessage message, CancellationToken cancellationToken)
             => _mediator.Send(message, cancellationToken);
