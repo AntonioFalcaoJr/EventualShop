@@ -107,6 +107,36 @@ networks:
     driver: bridge
 ```
 
+Docker commands
+
+MSSQL
+```bash
+docker run -d \
+-e 'ACCEPT_EULA=Y' \
+-e 'SA_PASSWORD=!MyStrongPassword' \
+-p 1433:1433 \
+--name mssql \
+mcr.microsoft.com/mssql/server
+```
+MONGODB
+```bash
+docker run -d \
+-e MONGO_INITDB_ROOT_USERNAME=mongoadmin \
+-e MONGO_INITDB_ROOT_PASSWORD=secret \
+-p 27017:27017 \
+--name mongodb \
+mongo
+```
+RABBITMQ
+```bash
+docker run -d \ 
+--hostname my-rabbit \
+-p 15672:15672 \
+-p 5672:5672 \
+--name rabbitmq \
+rabbitmq:3-management
+```
+
 ## Event store
 
 ```sql
