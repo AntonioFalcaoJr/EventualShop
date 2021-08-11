@@ -158,14 +158,24 @@ CREATE TABLE [CustomerStoreEvents] (
 }
 ```
 RabbitMQ/MassTransit
-```log
-Queue: customer-registered, Consumer: Application.UseCases.Customers.EventHandlers.CustomerRegistered.CustomerRegisteredConsumer
-Queue: customer-age-changed, Consumer: Application.UseCases.Customers.EventHandlers.CustomerUpdated.CustomerUpdatedConsumer
-Queue: customer-name-changed, Consumer: Application.UseCases.Customers.EventHandlers.CustomerUpdated.CustomerUpdatedConsumer
-Queue: customer-deleted, Consumer: Application.UseCases.Customers.EventHandlers.CustomerDeleted.CustomerDeletedConsumer
-Queue: get-customers-details-with-pagination-query-handler, Consumer: Application.UseCases.Customers.Queries.GetCustomersWithPagination.GetCustomersDetailsWithPaginationQueryHandler
-Queue: get-customer-detail-query-handler, Consumer: Application.UseCases.Customers.Queries.GetCustomerDetails.GetCustomerDetailQueryHandler
-Queue: update-customer, Consumer: Application.UseCases.Customers.Commands.UpdateCustomer.UpdateCustomerConsumer
-Queue: register-customer, Consumer: Application.UseCases.Customers.Commands.RegisterCustomer.RegisterCustomerConsumer
-Queue: delete-customer, Consumer: Application.UseCases.Customers.Commands.DeleteCustomer.DeleteCustomerConsumer
+
+Commands
+```markdown
+**Queue**: customer-registered, **Consumer**: Application.UseCases.Customers.EventHandlers.CustomerRegistered.CustomerRegisteredConsumer
+**Queue**: customer-age-changed, **Consumer**: Application.UseCases.Customers.EventHandlers.CustomerUpdated.CustomerUpdatedConsumer
+**Queue**: customer-name-changed, **Consumer**: Application.UseCases.Customers.EventHandlers.CustomerUpdated.CustomerUpdatedConsumer
+**Queue**: customer-deleted, **Consumer**: Application.UseCases.Customers.EventHandlers.CustomerDeleted.CustomerDeletedConsumer
+```
+
+Events
+```markdown
+**Queue**: update-customer, **Consumer**: Application.UseCases.Customers.Commands.UpdateCustomer.UpdateCustomerConsumer
+**Queue**: register-customer, **Consumer**: Application.UseCases.Customers.Commands.RegisterCustomer.RegisterCustomerConsumer
+**Queue: delete-customer, **Consumer**: Application.UseCases.Customers.Commands.DeleteCustomer.DeleteCustomerConsumer**
+```
+
+Queries
+```markdown
+**Queue**: get-customers-details-with-pagination-query, **Consumer**: Application.UseCases.Customers.Queries.GetCustomersWithPagination.GetCustomersDetailsWithPaginationQueryConsumer
+**Queue**: get-customer-detail-query, **Consumer**: Application.UseCases.Customers.Queries.GetCustomerDetails.GetCustomerDetailQueryConsumer
 ```
