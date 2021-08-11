@@ -118,7 +118,7 @@ docker run -d \
 --name mssql \
 mcr.microsoft.com/mssql/server
 ```
-MONGODB
+MongoDB
 ```bash
 docker run -d \
 -e 'MONGO_INITDB_ROOT_USERNAME=mongoadmin' \
@@ -127,7 +127,7 @@ docker run -d \
 --name mongodb \
 mongo
 ```
-RABBITMQ
+RabbitMQ
 ```bash
 docker run -d \ 
 -p 15672:15672 \
