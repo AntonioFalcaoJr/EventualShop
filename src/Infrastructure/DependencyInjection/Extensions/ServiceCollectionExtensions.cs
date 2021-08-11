@@ -32,9 +32,13 @@ namespace Infrastructure.DependencyInjection.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddMassTransit(this IServiceCollection services)
+        private static readonly RabbitMqOptions RabbitMqOptions = new();
+        
+        public static IServiceCollection AddMassTransitWithRabbitMq(this IServiceCollection services, Action<RabbitMqOptions> optionsAction)
             => services.AddMassTransit(cfg =>
                 {
+                    optionsAction(RabbitMqOptions);
+                    
                     cfg.AddConsumers(
                         filter: type => type.IsAssignableTo(typeof(IConsumer)),
                         assemblies: typeof(ICommand).Assembly);
@@ -45,11 +49,11 @@ namespace Infrastructure.DependencyInjection.Extensions
                     cfg.UsingRabbitMq((context, bus) =>
                     {
                         bus.Host(
-                            host: "192.168.100.9",
+                            host: RabbitMqOptions.Host,
                             configure: host =>
                             {
-                                host.Username("guest");
-                                host.Password("guest");
+                                host.Username(RabbitMqOptions.Username);
+                                host.Password(RabbitMqOptions.Password);
                             });
 
                         bus.ConfigureEventReceiveEndpoints(context);
