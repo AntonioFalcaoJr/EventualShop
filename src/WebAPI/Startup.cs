@@ -1,4 +1,3 @@
-using Application.DependencyInjection.Extensions;
 using Infrastructure.DependencyInjection.Extensions;
 using Infrastructure.DependencyInjection.Options;
 using Microsoft.AspNetCore.Builder;
@@ -31,7 +30,6 @@ namespace WebAPI
                     }));
 
             services.AddMassTransit();
-            services.AddMediator();
             
             services.AddApplicationServices();
             
