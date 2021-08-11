@@ -7,12 +7,12 @@ using MassTransit;
 
 namespace Application.UseCases.Customers.EventHandlers.CustomerRegistered
 {
-    public class CustomerRegisteredEventHandler : IConsumer<Events.CustomerRegistered>
+    public class CustomerRegisteredConsumer : IConsumer<Events.CustomerRegistered>
     {
         private readonly ICustomerEventStoreService _eventStoreService;
         private readonly ICustomerProjectionsService _projectionsService;
 
-        public CustomerRegisteredEventHandler(ICustomerEventStoreService eventStoreService, ICustomerProjectionsService projectionsService)
+        public CustomerRegisteredConsumer(ICustomerEventStoreService eventStoreService, ICustomerProjectionsService projectionsService)
         {
             _eventStoreService = eventStoreService;
             _projectionsService = projectionsService;

@@ -6,18 +6,18 @@ using MassTransit;
 
 namespace Application.UseCases.Customers.Commands.RegisterCustomer
 {
-    public record RegisterCustomerCommand(string Name, int Age) : ICommand;
+    public record RegisterCustomer(string Name, int Age) : ICommand;
     
-    public class RegisterCustomerCommandHandler : IConsumer<RegisterCustomerCommand>
+    public class RegisterCustomerConsumer : IConsumer<RegisterCustomer>
     {
         private readonly ICustomerEventStoreService _eventStoreService;
 
-        public RegisterCustomerCommandHandler(ICustomerEventStoreService eventStoreService)
+        public RegisterCustomerConsumer(ICustomerEventStoreService eventStoreService)
         {
             _eventStoreService = eventStoreService;
         }
 
-        public async Task Consume(ConsumeContext<RegisterCustomerCommand> context)
+        public async Task Consume(ConsumeContext<RegisterCustomer> context)
         {
             var customer = new Customer();
             var (name, age) = context.Message;

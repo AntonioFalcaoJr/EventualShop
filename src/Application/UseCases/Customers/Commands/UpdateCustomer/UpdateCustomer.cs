@@ -6,18 +6,18 @@ using MassTransit;
 
 namespace Application.UseCases.Customers.Commands.UpdateCustomer
 {
-    public record UpdateCustomerCommand(Guid Id, string Name, int Age) : ICommand;
+    public record UpdateCustomer(Guid Id, string Name, int Age) : ICommand;
 
-    public class UpdateCustomerCommandHandler : IConsumer<UpdateCustomerCommand>
+    public class UpdateCustomerConsumer : IConsumer<UpdateCustomer>
     {
         private readonly ICustomerEventStoreService _eventStoreService;
 
-        public UpdateCustomerCommandHandler(ICustomerEventStoreService eventStoreService)
+        public UpdateCustomerConsumer(ICustomerEventStoreService eventStoreService)
         {
             _eventStoreService = eventStoreService;
         }
 
-        public async Task Consume(ConsumeContext<UpdateCustomerCommand> context)
+        public async Task Consume(ConsumeContext<UpdateCustomer> context)
         {
             var (aggregateId, name, age) = context.Message;
 
