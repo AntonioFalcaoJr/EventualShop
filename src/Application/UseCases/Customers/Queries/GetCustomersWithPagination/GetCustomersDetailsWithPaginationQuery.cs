@@ -7,11 +7,11 @@ namespace Application.UseCases.Customers.Queries.GetCustomersWithPagination
 {
     public record GetCustomersDetailsWithPaginationQuery(int Limit, int Offset) : IQueryPaging;
 
-    public class GetCustomersDetailsWithPaginationQueryHandler : IConsumer<GetCustomersDetailsWithPaginationQuery>
+    public class GetCustomersDetailsWithPaginationQueryConsumer : IConsumer<GetCustomersDetailsWithPaginationQuery>
     {
         private readonly ICustomerProjectionsService _projectionsService;
 
-        public GetCustomersDetailsWithPaginationQueryHandler(ICustomerProjectionsService projectionsService)
+        public GetCustomersDetailsWithPaginationQueryConsumer(ICustomerProjectionsService projectionsService)
         {
             _projectionsService = projectionsService;
         }
