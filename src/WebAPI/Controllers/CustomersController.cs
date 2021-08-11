@@ -6,7 +6,7 @@ using Application.UseCases.Customers.Commands.RegisterCustomer;
 using Application.UseCases.Customers.Commands.UpdateCustomer;
 using Application.UseCases.Customers.Queries.GetCustomerDetails;
 using Application.UseCases.Customers.Queries.GetCustomersWithPagination;
-using MassTransit.Mediator;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;
 
@@ -14,8 +14,8 @@ namespace WebAPI.Controllers
 {
     public class CustomersController : ApplicationController
     {
-        public CustomersController(IMediator mediator)
-            : base(mediator) { }
+        public CustomersController(IBus bus)
+            : base(bus) { }
 
         [HttpGet]
         public Task<IActionResult> GetCustomersWithPagination([FromQuery] GetCustomersDetailsWithPaginationQuery query, CancellationToken cancellationToken)
@@ -26,15 +26,15 @@ namespace WebAPI.Controllers
             => GetQueryResponseAsync<GetCustomerDetailsQuery, CustomerDetailsProjection>(query, cancellationToken);
 
         [HttpPost]
-        public Task<IActionResult> RegisterCustomer(RegisterCustomerCommand command, CancellationToken cancellationToken)
+        public Task<IActionResult> RegisterCustomer(RegisterCustomer command, CancellationToken cancellationToken)
             => SendCommandAsync(command, cancellationToken);
 
         [HttpPut]
-        public Task<IActionResult> UpdateCustomer(UpdateCustomerCommand command, CancellationToken cancellationToken)
+        public Task<IActionResult> UpdateCustomer(UpdateCustomer command, CancellationToken cancellationToken)
             => SendCommandAsync(command, cancellationToken);
 
         [HttpDelete]
-        public Task<IActionResult> DeleteCustomer(DeleteCustomerCommand command, CancellationToken cancellationToken)
+        public Task<IActionResult> DeleteCustomer(DeleteCustomer command, CancellationToken cancellationToken)
             => SendCommandAsync(command, cancellationToken);
     }
 }
