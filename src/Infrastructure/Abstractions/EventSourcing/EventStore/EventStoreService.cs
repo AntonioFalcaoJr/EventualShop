@@ -5,11 +5,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.EventStore;
 using Application.Abstractions.EventSourcing.EventStore.Events;
-using Application.DependencyInjection.Options;
 using Domain.Abstractions.Aggregates;
 using Domain.Abstractions.Events;
+using Infrastructure.DependencyInjection.Options;
 using MassTransit;
-using MassTransit.Mediator;
 using Microsoft.Extensions.Options;
 
 namespace Infrastructure.Abstractions.EventSourcing.EventStore
@@ -21,14 +20,14 @@ namespace Infrastructure.Abstractions.EventSourcing.EventStore
         where TId : struct
     {
         private readonly IEventStoreRepository<TAggregateState, TStoreEvent, TSnapshot, TId> _repository;
-        private readonly IMediator _mediator;
+        private readonly IBus _bus;
         private readonly EventStoreOptions _options;
 
-        protected EventStoreService(IOptions<EventStoreOptions> options, IEventStoreRepository<TAggregateState, TStoreEvent, TSnapshot, TId> repository, IMediator mediator)
+        protected EventStoreService(IOptionsMonitor<EventStoreOptions> optionsMonitor, IEventStoreRepository<TAggregateState, TStoreEvent, TSnapshot, TId> repository, IBus bus)
         {
             _repository = repository;
-            _mediator = mediator;
-            _options = options.Value;
+            _bus = bus;
+            _options = optionsMonitor.CurrentValue;
         }
 
         public async Task AppendEventsToStreamAsync(TAggregateState aggregateState, CancellationToken cancellationToken)
@@ -68,8 +67,8 @@ namespace Infrastructure.Abstractions.EventSourcing.EventStore
             return snapshot.AggregateState;
         }
 
-        private Task PublishEventsAsync(IEnumerable<IDomainEvent> events, CancellationToken cancellationToken)
-            => _mediator.PublishBatch(events, cancellationToken);
+        private Task PublishEventsAsync(IEnumerable<IDomainEvent> domainEvents, CancellationToken cancellationToken)
+            => Task.WhenAll(domainEvents.Select(domainEvent => _bus.Publish(domainEvent, domainEvent.GetType(), cancellationToken)));
 
         private static IEnumerable<TStoreEvent> GetEventsToStore(TAggregateState aggregateState)
             => aggregateState.DomainEvents.Select(domainEvent
