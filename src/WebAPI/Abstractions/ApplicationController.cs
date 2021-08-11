@@ -2,7 +2,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions.UseCases;
 using MassTransit;
-using MassTransit.Mediator;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Abstractions
@@ -10,11 +9,11 @@ namespace WebAPI.Abstractions
     [ApiController, Route("api/[controller]/[action]")]
     public abstract class ApplicationController : ControllerBase
     {
-        private readonly IMediator _mediator;
+        private readonly IBus _bus;
 
-        protected ApplicationController(IMediator mediator)
+        protected ApplicationController(IBus bus)
         {
-            _mediator = mediator;
+            _bus = bus;
         }
 
         protected async Task<IActionResult> SendCommandAsync(ICommand command, CancellationToken cancellationToken)
@@ -34,9 +33,9 @@ namespace WebAPI.Abstractions
         private Task<Response<TResponse>> GetResponseAsync<TMessage, TResponse>(IQuery query, CancellationToken cancellationToken)
             where TMessage : class
             where TResponse : class
-            => _mediator.CreateRequestClient<TMessage>().GetResponse<TResponse>(query, cancellationToken);
+            => _bus.CreateRequestClient<TMessage>().GetResponse<TResponse>(query, cancellationToken);
 
         private Task SendMessage<TMessage>(TMessage message, CancellationToken cancellationToken)
-            => _mediator.Send(message, cancellationToken);
+            => _bus.Send(message, cancellationToken);
     }
 }
