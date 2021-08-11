@@ -121,8 +121,8 @@ mcr.microsoft.com/mssql/server
 MONGODB
 ```bash
 docker run -d \
--e MONGO_INITDB_ROOT_USERNAME=mongoadmin \
--e MONGO_INITDB_ROOT_PASSWORD=secret \
+-e 'MONGO_INITDB_ROOT_USERNAME=mongoadmin' \
+-e 'MONGO_INITDB_ROOT_PASSWORD=secret' \
 -p 27017:27017 \
 --name mongodb \
 mongo
@@ -130,9 +130,9 @@ mongo
 RABBITMQ
 ```bash
 docker run -d \ 
---hostname my-rabbit \
 -p 15672:15672 \
 -p 5672:5672 \
+--hostname my-rabbit \
 --name rabbitmq \
 rabbitmq:3-management
 ```
@@ -156,4 +156,16 @@ CREATE TABLE [CustomerStoreEvents] (
   "Name": "string",
   "Timestamp": "2021-07-12T14:22:23.2600385-03:00"
 }
+```
+RabbitMQ/MassTransit
+```log
+Queue: customer-registered, Consumer: Application.UseCases.Customers.EventHandlers.CustomerRegistered.CustomerRegisteredConsumer
+Queue: customer-age-changed, Consumer: Application.UseCases.Customers.EventHandlers.CustomerUpdated.CustomerUpdatedConsumer
+Queue: customer-name-changed, Consumer: Application.UseCases.Customers.EventHandlers.CustomerUpdated.CustomerUpdatedConsumer
+Queue: customer-deleted, Consumer: Application.UseCases.Customers.EventHandlers.CustomerDeleted.CustomerDeletedConsumer
+Queue: get-customers-details-with-pagination-query-handler, Consumer: Application.UseCases.Customers.Queries.GetCustomersWithPagination.GetCustomersDetailsWithPaginationQueryHandler
+Queue: get-customer-detail-query-handler, Consumer: Application.UseCases.Customers.Queries.GetCustomerDetails.GetCustomerDetailQueryHandler
+Queue: update-customer, Consumer: Application.UseCases.Customers.Commands.UpdateCustomer.UpdateCustomerConsumer
+Queue: register-customer, Consumer: Application.UseCases.Customers.Commands.RegisterCustomer.RegisterCustomerConsumer
+Queue: delete-customer, Consumer: Application.UseCases.Customers.Commands.DeleteCustomer.DeleteCustomerConsumer
 ```
