@@ -25,23 +25,24 @@ namespace WebAPI
                     name: "v1",
                     info: new()
                     {
-                        Title = "WebAPI", 
+                        Title = "WebAPI",
                         Version = "v1"
                     }));
 
-            services.AddMassTransit();
-            
             services.AddApplicationServices();
-            
+
             services.AddEventStoreRepositories();
             services.AddProjectionsRepositories();
-            
+
             services.AddEventStoreDbContext();
             services.AddProjectionsDbContext();
+            
+            services.AddMassTransitWithRabbitMq(options
+                => _configuration.Bind(nameof(RabbitMqOptions), options));
 
             services.ConfigureEventStoreOptions(
                 _configuration.GetSection(nameof(EventStoreOptions)));
-            
+
             services.ConfigureMongoDbOptions(
                 _configuration.GetSection(nameof(MongoDbOptions)));
 
@@ -55,14 +56,14 @@ namespace WebAPI
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(options 
+                app.UseSwaggerUI(options
                     => options.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
             }
 
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
-            app.UseEndpoints(endpoints 
+            app.UseEndpoints(endpoints
                 => endpoints.MapControllers());
         }
     }
