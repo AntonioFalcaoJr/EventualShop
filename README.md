@@ -110,7 +110,7 @@ networks:
 Docker commands
 
 MSSQL
-```bash
+```zsh
 docker run -d \
 -e 'ACCEPT_EULA=Y' \
 -e 'SA_PASSWORD=!MyStrongPassword' \
@@ -119,7 +119,7 @@ docker run -d \
 mcr.microsoft.com/mssql/server
 ```
 MongoDB
-```bash
+```zsh
 docker run -d \
 -e 'MONGO_INITDB_ROOT_USERNAME=mongoadmin' \
 -e 'MONGO_INITDB_ROOT_PASSWORD=secret' \
@@ -128,7 +128,7 @@ docker run -d \
 mongo
 ```
 RabbitMQ
-```bash
+```zsh
 docker run -d \ 
 -p 15672:15672 \
 -p 5672:5672 \
