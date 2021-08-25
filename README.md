@@ -5,6 +5,10 @@
 
 ### Give a Star! :star:
 
+## CQRS + Event-sourcing
+![](./.assets/img/ad2a7e2a03945a6d5ae422f14b4608c3.cqrs-es-flowwhite.png)
+> Fig. 1: Whittaker, Daniel. *CQRS + Event Sourcing – Step by Step*    
+> https://danielwhittaker.me/2020/02/20/cqrs-step-step-guide-flow-typical-application/
 ## Running
 
 ### Development (secrets)
@@ -200,3 +204,4 @@ Queue: get-customer-detail-query, Consumer: Application.UseCases.Customers.Queri
 * [Event Sourcing: The Good, The Bad and The Ugly - Dennis Doomen](https://www.continuousimprover.com/2017/11/event-sourcing-good-bad-and-ugly.html)
 * [What they don’t tell you about event sourcing - Hugo Rocha](https://medium.com/@hugo.oliveira.rocha/what-they-dont-tell-you-about-event-sourcing-6afc23c69e9a)
 * [Event Sourcing pattern - MSDN](https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing)
+* [CQRS + Event Sourcing, Step by Step - Daniel](https://danielwhittaker.me/2020/02/20/cqrs-step-step-guide-flow-typical-application/)
