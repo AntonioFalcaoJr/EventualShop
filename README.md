@@ -1,9 +1,13 @@
-# Dotnet6.CleanArch.CQRS.EventSourcing
+# EDA.CleanArch.CQRS.EventSourcing
 
 > State transitions are an important part of our problem space and should be modelled within our domain.    
 > -- <cite> Greg young </cite>
 
 ### Give a Star! :star:
+
+## Event-driven architecture (EDA)
+> Event-driven architecture (EDA) is a software architecture paradigm promoting the production, detection, consumption of, and reaction to events.      
+> -- <cite> https://en.wikipedia.org/wiki/Event-driven_architecture </cite>
 
 ## CQRS + Event-sourcing
 ![](./.assets/img/ad2a7e2a03945a6d5ae422f14b4608c3.cqrs-es-flowwhite.png)
