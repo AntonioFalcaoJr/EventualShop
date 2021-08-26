@@ -13,6 +13,13 @@
 ![](./.assets/img/ad2a7e2a03945a6d5ae422f14b4608c3.cqrs-es-flowwhite.png)
 > Fig. 1: Whittaker, Daniel. *CQRS + Event Sourcing – Step by Step*    
 > https://danielwhittaker.me/2020/02/20/cqrs-step-step-guide-flow-typical-application/
+
+## Clean Architecture
+![](./.assets/img/CleanArchitecture.jpg)
+> Fig. 2: C. Martin, Robert. *The Clean Architecture*    
+> https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
+
+
 ## Running
 
 ### Development (secrets)
