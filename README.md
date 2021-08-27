@@ -11,16 +11,21 @@ _Key words: CQRS, Domain Events, Event Sourcing, DDD._
 
 ## Event-driven architecture (EDA)
 > Event-driven architecture (EDA) is a software architecture paradigm promoting the production, detection, consumption of, and reaction to events.      
-> -- <cite> https://en.wikipedia.org/wiki/Event-driven_architecture </cite>
+> https://en.wikipedia.org/wiki/Event-driven_architecture
+
+## CQRS
+![](.assets/img/cqrs.png)
+> Fig. 1: Bürckel, Marco. *Some thoughts on using CQRS without Event Sourcing*    
+> https://medium.com/@mbue/some-thoughts-on-using-cqrs-without-event-sourcing-938b878166a2
 
 ## CQRS + Event-sourcing
 ![](./.assets/img/ad2a7e2a03945a6d5ae422f14b4608c3.cqrs-es-flowwhite.png)
-> Fig. 1: Whittaker, Daniel. *CQRS + Event Sourcing – Step by Step*    
+> Fig. 2: Whittaker, Daniel. *CQRS + Event Sourcing – Step by Step*    
 > https://danielwhittaker.me/2020/02/20/cqrs-step-step-guide-flow-typical-application/
 
 ## Clean Architecture
 ![](./.assets/img/CleanArchitecture.jpg)
-> Fig. 2: C. Martin, Robert. *The Clean Architecture*    
+> Fig. 3: C. Martin, Robert. *The Clean Architecture*    
 > https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
 
@@ -210,6 +215,7 @@ Queue: get-customer-detail-query, Consumer: Application.UseCases.Customers.Queri
 * [Clarified CQRS - Udi Dahan](https://udidahan.com/2009/12/09/clarified-cqrs/)
 * [Udi & Greg Reach CQRS Agreement](https://udidahan.com/2012/02/10/udi-greg-reach-cqrs-agreement/)
 * [Event Sourcing and CQRS - Alexey Zimarev](https://www.eventstore.com/blog/event-sourcing-and-cqrs)
+* [What is Event Sourcing? - Alexey Zimarev](https://www.eventstore.com/blog/what-is-event-sourcing)
 * [Transcript of Greg Young's Talk at Code on the Beach 2014: CQRS and Event Sourcing](https://www.eventstore.com/blog/transcript-of-greg-youngs-talk-at-code-on-the-beach-2014-cqrs-and-event-sourcing)
 * [Introduction to CQRS - Kanasz Robert](https://www.codeproject.com/Articles/555855/Introduction-to-CQRS)
 * [Distilling the CQRS/ES Capability - Vijay Nair](https://axoniq.io/blog-overview/distilling-the-cqrses-capability)
