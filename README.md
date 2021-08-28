@@ -25,6 +25,8 @@ _Key words: CQRS, Domain Events, Event Sourcing, EDA, DDD._
 > -- "What is the CQRS pattern?" *MSDN*, Microsoft Docs, last edited on 2 Nov 2020.  
 > https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs
 
+<br>
+
  ![](.assets/img/cqrs.png)   
  Fig. 2: Bürckel, Marco. *Some thoughts on using CQRS without Event Sourcing*    
  https://medium.com/@mbue/some-thoughts-on-using-cqrs-without-event-sourcing-938b878166a2
@@ -42,6 +44,8 @@ _Key words: CQRS, Domain Events, Event Sourcing, EDA, DDD._
 >
 > -- Fowler Martin, 2005, *Event Sourcing*.   
 > https://martinfowler.com/eaaDev/EventSourcing.html
+
+<br>
 
 ![](./.assets/img/event-sourcing-overview.png)  
 Fig. 3: MSDN. *Event Sourcing pattern*    
