@@ -13,10 +13,14 @@ _Key words: CQRS, Domain Events, Event Sourcing, DDD._
 > Event-driven architecture (EDA) is a software architecture paradigm promoting the production, detection, consumption of, and reaction to events.      
 > https://en.wikipedia.org/wiki/Event-driven_architecture
 
+> ![](./.assets/img/eda.png)    
+> Fig. 1: Uit de Bos, Oskar. *A simple illustration of events using the publish/subscribe messaging model*    
+> https://medium.com/swlh/the-engineers-guide-to-event-driven-architectures-benefits-and-challenges-3e96ded8568b
+
 ## CQRS
-![](.assets/img/cqrs.png)
-> Fig. 1: Bürckel, Marco. *Some thoughts on using CQRS without Event Sourcing*    
-> https://medium.com/@mbue/some-thoughts-on-using-cqrs-without-event-sourcing-938b878166a2
+![](.assets/img/cqrs.png)   
+ Fig. 1: Bürckel, Marco. *Some thoughts on using CQRS without Event Sourcing*    
+ https://medium.com/@mbue/some-thoughts-on-using-cqrs-without-event-sourcing-938b878166a2
 
 ## CQRS + Event-sourcing
 ![](./.assets/img/ad2a7e2a03945a6d5ae422f14b4608c3.cqrs-es-flowwhite.png)
