@@ -12,7 +12,8 @@ _Key words: CQRS, Domain Events, Event Sourcing, EDA, DDD._
 ## Event-driven architecture (EDA)
 > Event-driven architecture (EDA) is a software architecture paradigm promoting the production, detection, consumption of, and reaction to events. An event can be defined as "a significant change in state".      
 > 
-> -- "Event-driven architecture." *Wikipedia*, Wikimedia Foundation, last edited on 9 May 2021,  https://en.wikipedia.org/wiki/Event-driven_architecture
+> -- "Event-driven architecture." *Wikipedia*, Wikimedia Foundation, last edited on 9 May 2021.  
+> https://en.wikipedia.org/wiki/Event-driven_architecture
 
  ![](./.assets/img/eda.png)    
  Fig. 1: Uit de Bos, Oskar. *A simple illustration of events using the publish/subscribe messaging model*    
@@ -21,7 +22,8 @@ _Key words: CQRS, Domain Events, Event Sourcing, EDA, DDD._
 ## CQRS
 > CQRS stands for Command and Query Responsibility Segregation, a pattern that separates read and update operations for a data store. Implementing CQRS in your application can maximize its performance, scalability, and security. The flexibility created by migrating to CQRS allows a system to better evolve over time and prevents update commands from causing merge conflicts at the domain level.
 >
-> -- "What is the CQRS pattern?" *MSDN*, Microsoft Docs, last edited on 2 Nov 2020,  https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs
+> -- "What is the CQRS pattern?" *MSDN*, Microsoft Docs, last edited on 2 Nov 2020.  
+> https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs
 
  ![](.assets/img/cqrs.png)   
  Fig. 2: Bürckel, Marco. *Some thoughts on using CQRS without Event Sourcing*    
@@ -31,13 +33,15 @@ _Key words: CQRS, Domain Events, Event Sourcing, EDA, DDD._
 
 > Instead of storing just the current state of the data in a domain, use an append-only store to record the full series of actions taken on that data. The store acts as the system of record and can be used to materialize the domain objects. This can simplify tasks in complex domains, by avoiding the need to synchronize the data model and the business domain, while improving performance, scalability, and responsiveness. It can also provide consistency for transactional data, and maintain full audit trails and history that can enable compensating actions.
 >
-> -- "Event Sourcing pattern" *MSDN*, Microsoft Docs, last edited on 23 Jun 2017, https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing
+> -- "Event Sourcing pattern" *MSDN*, Microsoft Docs, last edited on 23 Jun 2017.  
+> https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing
 
 > We can query an application's state to find out the current state of the world, and this answers many questions. However there are times when we don't just want to see where we are, we also want to know how we got there.
 > 
 > Event Sourcing ensures that all changes to application state are stored as a sequence of events. Not just can we query these events, we can also use the event log to reconstruct past states, and as a foundation to automatically adjust the state to cope with retroactive changes.
 >
-> -- Fowler Martin, 2005, *Event Sourcing*, https://martinfowler.com/eaaDev/EventSourcing.html
+> -- Fowler Martin, 2005, *Event Sourcing*.   
+> https://martinfowler.com/eaaDev/EventSourcing.html
 
 ![](./.assets/img/event-sourcing-overview.png)  
 Fig. 3: MSDN. *Event Sourcing pattern*    
@@ -57,13 +61,23 @@ data storage mechanism for the domain.
 
 > The CQRS pattern is often used along with the Event Sourcing pattern. CQRS-based systems use separate read and write data models, each tailored to relevant tasks and often located in physically separate stores. When used with the Event Sourcing pattern, the store of events is the write model, and is the official source of information. The read model of a CQRS-based system provides materialized views of the data, typically as highly denormalized views. These views are tailored to the interfaces and display requirements of the application, which helps to maximize both display and query performance.
 >
-> -- "Event Sourcing and CQRS pattern" *MSDN*, Microsoft Docs, last edited on 02 Nov 2020, https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs#event-sourcing-and-cqrs-pattern
+> -- "Event Sourcing and CQRS pattern" *MSDN*, Microsoft Docs, last edited on 02 Nov 2020.   
+> https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs#event-sourcing-and-cqrs-pattern
 
  ![](./.assets/img/ad2a7e2a03945a6d5ae422f14b4608c3.cqrs-es-flowwhite.png)
  Fig. 5: Whittaker, Daniel. *CQRS + Event Sourcing – Step by Step*    
  https://danielwhittaker.me/2020/02/20/cqrs-step-step-guide-flow-typical-application/
 
 ## Clean Architecture
+
+> Clean architecture is a software design philosophy that separates the elements of a design into ring levels. An important goal of clean architecture is to provide developers with a way to organize code in such a way that it encapsulates the business logic but keeps it separate from the delivery mechanism.
+>
+> The main rule of clean architecture is that code dependencies can only move from the outer levels inward. Code on the inner layers can have no knowledge of functions on the outer layers. The variables, functions and classes (any entities) that exist in the outer layers can not be mentioned in the more inward levels. It is recommended that data formats also stay separate between levels.
+>
+> -- "Clean Architecture." *Whatis*, last edited on 10 Mar 2019.  
+> https://whatis.techtarget.com/definition/clean-architecture
+
+
  ![](./.assets/img/CleanArchitecture.jpg)  
  Fig. 6: C. Martin, Robert. *The Clean Architecture*    
  https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
