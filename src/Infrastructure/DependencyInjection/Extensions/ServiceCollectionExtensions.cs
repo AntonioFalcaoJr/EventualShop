@@ -41,17 +41,16 @@ namespace Infrastructure.DependencyInjection.Extensions
                     optionsAction(RabbitMqOptions);
 
                     cfg.SetKebabCaseEndpointNameFormatter();
+
                     cfg.AddCommandConsumers();
                     cfg.AddEventConsumers();
-
-                    // cfg.AddConsumer<GetCustomerDetailQueryConsumer>();
-                    // cfg.AddConsumer<GetCustomersDetailsWithPaginationQueryConsumer>();
+                    cfg.AddQueryConsumers();
 
                     cfg.UsingRabbitMq((context, bus) =>
                     {
                         bus.Host(
                             host: RabbitMqOptions.Host,
-                            virtualHost: RabbitMqOptions.VirtualHost,
+                           // virtualHost: RabbitMqOptions.VirtualHost,
                             host =>
                             {
                                 host.Username(RabbitMqOptions.Username);
@@ -78,6 +77,12 @@ namespace Infrastructure.DependencyInjection.Extensions
             cfg.AddConsumer<CustomerRegisteredConsumer>();
             cfg.AddConsumer<CustomerDeletedConsumer>();
             cfg.AddConsumer<CustomerUpdatedConsumer>();
+        }
+
+        private static void AddQueryConsumers(this IRegistrationConfigurator cfg)
+        {
+            cfg.AddConsumer<GetCustomerDetailsQueryConsumer>();
+            cfg.AddConsumer<GetCustomersDetailsWithPaginationQueryConsumer>();
         }
 
         private static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
