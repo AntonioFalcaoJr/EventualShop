@@ -8,11 +8,11 @@ namespace Application.UseCases.Customers.Queries.GetCustomerDetails
 {
     public record GetCustomerDetailsQuery(Guid Id) : IQuery;
 
-    public class GetCustomerDetailQueryConsumer : IConsumer<GetCustomerDetailsQuery>
+    public class GetCustomerDetailsQueryConsumer : IConsumer<GetCustomerDetailsQuery>
     {
         private readonly ICustomerProjectionsService _projectionsService;
 
-        public GetCustomerDetailQueryConsumer(ICustomerProjectionsService projectionsService)
+        public GetCustomerDetailsQueryConsumer(ICustomerProjectionsService projectionsService)
         {
             _projectionsService = projectionsService;
         }
