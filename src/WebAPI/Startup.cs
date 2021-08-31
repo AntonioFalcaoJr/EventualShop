@@ -60,9 +60,7 @@ namespace WebAPI
                     => options.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
             }
 
-            app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseAuthorization();
             app.UseEndpoints(endpoints
                 => endpoints.MapControllers());
         }
