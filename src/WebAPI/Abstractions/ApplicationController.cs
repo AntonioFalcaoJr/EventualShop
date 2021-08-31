@@ -30,10 +30,10 @@ namespace WebAPI.Abstractions
             return Ok(response.Message);
         }
 
-        private Task<Response<TResponse>> GetResponseAsync<TMessage, TResponse>(IQuery query, CancellationToken cancellationToken)
+        private Task<Response<TResponse>> GetResponseAsync<TMessage, TResponse>(TMessage message, CancellationToken cancellationToken)
             where TMessage : class
-            where TResponse : class
-            => _bus.CreateRequestClient<TMessage>().GetResponse<TResponse>(query, cancellationToken);
+            where TResponse : class 
+            => _bus.CreateRequestClient<TMessage>().GetResponse<TResponse>(message, cancellationToken);
 
         private Task SendMessage<TMessage>(TMessage message, CancellationToken cancellationToken)
             => _bus.Send(message, cancellationToken);
