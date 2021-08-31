@@ -35,7 +35,7 @@ namespace Infrastructure.Abstractions.EventSourcing.Projections.Pagination
 
         public static async Task<IPagedResult<T>> CreateAsync(IPaging paging, IQueryable<T> source, CancellationToken cancellationToken)
         {
-            paging = paging as Paging ?? new();
+            paging = new Paging { Limit = paging.Limit, Offset = paging.Offset };
             var items = await ApplyPagination(paging, source).ToListAsync(cancellationToken);
             return new PagedResult<T>(items, paging.Offset, paging.Limit);
         }
