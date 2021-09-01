@@ -6,18 +6,18 @@ using MassTransit;
 
 namespace Application.UseCases.Customers.Queries.GetCustomerDetails
 {
-    public record GetCustomerDetailsQuery(Guid Id) : IQuery;
+    public record GetCustomerDetails(Guid Id) : IQuery;
 
-    public class GetCustomerDetailsQueryConsumer : IConsumer<GetCustomerDetailsQuery>
+    public class GetCustomerDetailsConsumer : IConsumer<GetCustomerDetails>
     {
         private readonly ICustomerProjectionsService _projectionsService;
 
-        public GetCustomerDetailsQueryConsumer(ICustomerProjectionsService projectionsService)
+        public GetCustomerDetailsConsumer(ICustomerProjectionsService projectionsService)
         {
             _projectionsService = projectionsService;
         }
 
-        public async Task Consume(ConsumeContext<GetCustomerDetailsQuery> context)
+        public async Task Consume(ConsumeContext<GetCustomerDetails> context)
         {
             var customerId = context.Message.Id;
             var customerDetails = await _projectionsService.GetCustomerDetailsAsync(customerId, context.CancellationToken);

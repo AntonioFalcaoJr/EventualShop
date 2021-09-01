@@ -5,18 +5,18 @@ using MassTransit;
 
 namespace Application.UseCases.Customers.Queries.GetCustomersWithPagination
 {
-    public record GetCustomersDetailsWithPaginationQuery(int Limit, int Offset) : IQueryPaging;
+    public record GetCustomersDetailsWithPagination(int Limit, int Offset) : IQueryPaging;
 
-    public class GetCustomersDetailsWithPaginationQueryConsumer : IConsumer<GetCustomersDetailsWithPaginationQuery>
+    public class GetCustomersDetailsWithPaginationConsumer : IConsumer<GetCustomersDetailsWithPagination>
     {
         private readonly ICustomerProjectionsService _projectionsService;
 
-        public GetCustomersDetailsWithPaginationQueryConsumer(ICustomerProjectionsService projectionsService)
+        public GetCustomersDetailsWithPaginationConsumer(ICustomerProjectionsService projectionsService)
         {
             _projectionsService = projectionsService;
         }
 
-        public async Task Consume(ConsumeContext<GetCustomersDetailsWithPaginationQuery> context)
+        public async Task Consume(ConsumeContext<GetCustomersDetailsWithPagination> context)
         {
             var paginatedResult = await _projectionsService.GetCustomersDetailsWithPaginationAsync(
                 paging: context.Message, 

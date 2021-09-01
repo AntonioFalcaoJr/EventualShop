@@ -81,8 +81,8 @@ namespace Infrastructure.DependencyInjection.Extensions
 
         private static void AddQueryConsumers(this IRegistrationConfigurator cfg)
         {
-            cfg.AddConsumer<GetCustomerDetailsQueryConsumer>();
-            cfg.AddConsumer<GetCustomersDetailsWithPaginationQueryConsumer>();
+            cfg.AddConsumer<GetCustomerDetailsConsumer>();
+            cfg.AddConsumer<GetCustomersDetailsWithPaginationConsumer>();
         }
 
         private static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
