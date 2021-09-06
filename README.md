@@ -72,6 +72,29 @@ data storage mechanism for the domain.
  Fig. 5: Whittaker, Daniel. *CQRS + Event Sourcing – Step by Step*    
  https://danielwhittaker.me/2020/02/20/cqrs-step-step-guide-flow-typical-application/
 
+<br>
+
+![](./.assets/img/Zrzut-ekranu-2017-05-01-05_36_04-681x1024-1.png)  
+Fig. 6: Katwatka, Piotr. *Event Sourcing with CQRS*    
+https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
+
+## Event Storming
+
+>EventStorming is a flexible workshop format for collaborative exploration of complex business domains.
+>
+>It comes in different flavours, that can be used in different scenarios:
+>
+> * to assess health of an existing line of business and to discover the most effective areas for improvements;
+> * to explore the viability of a new startup business model;
+> * to envision new services, that maximise positive outcomes to every party involved;
+> * to design clean and maintainable Event-Driven software, to support rapidly evolving businesses.
+>
+> The adaptive nature of EventStorming allows sophisticated cross-discipline conversation between stakeholders with different backgrounds, delivering a new type of collaboration beyond silo and specialisation boundaries.
+
+![](./.assets/img/event-storming.jpg)  
+Fig. 7: Baas-Schwegler, Kenny & Richardson, Chris. *Picture that explains "Almost" Everything*    
+https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
+
 ## Clean Architecture
 
 > Clean architecture is a software design philosophy that separates the elements of a design into ring levels. An important goal of clean architecture is to provide developers with a way to organize code in such a way that it encapsulates the business logic but keeps it separate from the delivery mechanism.
@@ -83,7 +106,7 @@ data storage mechanism for the domain.
 
 
  ![](./.assets/img/CleanArchitecture.jpg)  
- Fig. 6: C. Martin, Robert. *The Clean Architecture*    
+ Fig. 8: C. Martin, Robert. *The Clean Architecture*    
  https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
 
