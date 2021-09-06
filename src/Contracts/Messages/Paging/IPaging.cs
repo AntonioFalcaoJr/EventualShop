@@ -1,6 +1,6 @@
 using MassTransit.Topology;
 
-namespace Application.Abstractions.EventSourcing.Projections.Pagination
+namespace Messages.Paging
 {
     [ExcludeFromTopology]
     public interface IPaging
