@@ -4,8 +4,11 @@ Note. _Greg Young takes the next steps beyond the DDD principles and best practi
 
 _Key words: CQRS, Domain Events, Event Sourcing, EDA, DDD._
 
+
 > State transitions are an important part of our problem space and should be modelled within our domain.    
 > -- <cite> Greg Young </cite>
+
+
 
 ### Give a Star! :star:
 
