@@ -1,11 +1,11 @@
 ﻿using System;
-using Messages.Customers.Queries;
+using Messages.Accounts.Queries;
 
 namespace ECommerce.WebAPI.Messages.Queries
 {
     public static class Queries
     {
-        public record GetCustomerDetailsQuery(Guid Id) : GetCustomerDetails;
-        public record GetCustomersDetailsWithPaginationQuery(int Limit, int Offset) : GetCustomersDetailsWithPagination;
+        public record GetAccountDetailsQuery(Guid Id) : GetAccountDetails;
+        public record GetAccountsDetailsWithPaginationQuery(int Limit, int Offset) : GetAccountsDetailsWithPagination;
     }
 }

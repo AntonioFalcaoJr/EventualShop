@@ -2,8 +2,8 @@ using System;
 using System.Reflection;
 using MassTransit;
 using MassTransit.Definition;
-using Messages.Customers.Commands;
-using Messages.Customers.Queries;
+using Messages.Accounts.Commands;
+using Messages.Accounts.Queries;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,12 +28,12 @@ builder.Services
                     host.Password("guest");
                 });
 
-            MapQueueEndpoint<RegisterCustomer>();
-            MapQueueEndpoint<UpdateCustomer>();
-            MapQueueEndpoint<DeleteCustomer>();
+            MapQueueEndpoint<RegisterAccount>();
+            MapQueueEndpoint<UpdateAccount>();
+            MapQueueEndpoint<DeleteAccount>();
             
-            MapQueueEndpoint<GetCustomerDetails>();
-            MapQueueEndpoint<GetCustomersDetailsWithPagination>();
+            MapQueueEndpoint<GetAccountDetails>();
+            MapQueueEndpoint<GetAccountsDetailsWithPagination>();
         });
     })
     .AddGenericRequestClient()

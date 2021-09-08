@@ -1,24 +1,22 @@
 using System;
 using System.Reflection;
-using Application.EventSourcing.Customers.EventStore;
-using Application.EventSourcing.Customers.Projections;
-using Application.UseCases.Customers.Commands;
-using Application.UseCases.Customers.EventHandlers.CustomerDeleted;
-using Application.UseCases.Customers.EventHandlers.CustomerRegistered;
-using Application.UseCases.Customers.EventHandlers.CustomerUpdated;
-using Application.UseCases.Customers.Queries;
+using Application.EventSourcing.Accounts.EventStore;
+using Application.EventSourcing.Accounts.Projections;
+using Application.UseCases.Accounts.Commands;
+using Application.UseCases.Accounts.EventHandlers;
+using Application.UseCases.Accounts.Queries;
 using Domain.Abstractions.Events;
-using Domain.Entities.Customers;
+using Domain.Entities.Accounts;
 using Infrastructure.DependencyInjection.Options;
-using Infrastructure.EventSourcing.Customers.EventStore;
-using Infrastructure.EventSourcing.Customers.EventStore.Contexts;
-using Infrastructure.EventSourcing.Customers.Projections;
-using Infrastructure.EventSourcing.Customers.Projections.Contexts;
+using Infrastructure.EventSourcing.Accounts.EventStore;
+using Infrastructure.EventSourcing.Accounts.EventStore.Contexts;
+using Infrastructure.EventSourcing.Accounts.Projections;
+using Infrastructure.EventSourcing.Accounts.Projections.Contexts;
 using MassTransit;
 using MassTransit.Definition;
 using MassTransit.RabbitMqTransport;
 using MassTransit.Topology;
-using Messages.Customers.Commands;
+using Messages.Accounts.Commands;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -65,30 +63,30 @@ namespace Infrastructure.DependencyInjection.Extensions
 
         private static void AddCommandConsumers(this IRegistrationConfigurator cfg)
         {
-            cfg.AddCommandConsumer<DeleteCustomerConsumer, DeleteCustomer>();
-            cfg.AddCommandConsumer<UpdateCustomerConsumer, UpdateCustomer>();
-            cfg.AddCommandConsumer<RegisterCustomerConsumer, RegisterCustomer>();
+            cfg.AddCommandConsumer<DeleteAccountConsumer, DeleteAccount>();
+            cfg.AddCommandConsumer<UpdateAccountConsumer, UpdateAccount>();
+            cfg.AddCommandConsumer<RegisterAccountConsumer, RegisterAccount>();
         }
 
         private static void AddEventConsumers(this IRegistrationConfigurator cfg)
         {
-            cfg.AddConsumer<CustomerRegisteredConsumer>();
-            cfg.AddConsumer<CustomerDeletedConsumer>();
-            cfg.AddConsumer<CustomerUpdatedConsumer>();
+            cfg.AddConsumer<AccountRegisteredConsumer>();
+            cfg.AddConsumer<AccountDeletedConsumer>();
+            cfg.AddConsumer<AccountUpdatedConsumer>();
         }
 
         private static void AddQueryConsumers(this IRegistrationConfigurator cfg)
         {
-            cfg.AddConsumer<GetCustomerDetailsConsumer>();
-            cfg.AddConsumer<GetCustomersDetailsWithPaginationConsumer>();
+            cfg.AddConsumer<GetAccountDetailsConsumer>();
+            cfg.AddConsumer<GetAccountsDetailsWithPaginationConsumer>();
         }
 
         private static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
         {
-            cfg.ConfigureEventReceiveEndpoint<CustomerRegisteredConsumer, Events.CustomerRegistered>(registration);
-            cfg.ConfigureEventReceiveEndpoint<CustomerUpdatedConsumer, Events.CustomerAgeChanged>(registration);
-            cfg.ConfigureEventReceiveEndpoint<CustomerUpdatedConsumer, Events.CustomerNameChanged>(registration);
-            cfg.ConfigureEventReceiveEndpoint<CustomerDeletedConsumer, Events.CustomerDeleted>(registration);
+            cfg.ConfigureEventReceiveEndpoint<AccountRegisteredConsumer, Events.AccountRegistered>(registration);
+            cfg.ConfigureEventReceiveEndpoint<AccountUpdatedConsumer, Events.AccountAgeChanged>(registration);
+            cfg.ConfigureEventReceiveEndpoint<AccountUpdatedConsumer, Events.AccountNameChanged>(registration);
+            cfg.ConfigureEventReceiveEndpoint<AccountDeletedConsumer, Events.AccountDeleted>(registration);
         }
 
         private static void AddCommandConsumer<TConsumer, TMessage>(this IRegistrationConfigurator configurator)
@@ -124,8 +122,8 @@ namespace Infrastructure.DependencyInjection.Extensions
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
             => services
-                .AddScoped<ICustomerEventStoreService, CustomerEventStoreService>()
-                .AddScoped<ICustomerProjectionsService, CustomerProjectionsService>();
+                .AddScoped<IAccountEventStoreService, AccountEventStoreService>()
+                .AddScoped<IAccountProjectionsService, AccountProjectionsService>();
 
         public static IServiceCollection AddEventStoreDbContext(this IServiceCollection services)
             => services
@@ -139,10 +137,10 @@ namespace Infrastructure.DependencyInjection.Extensions
         }
 
         public static IServiceCollection AddEventStoreRepositories(this IServiceCollection services)
-            => services.AddScoped<ICustomerEventStoreRepository, CustomerEventStoreRepository>();
+            => services.AddScoped<IAccountEventStoreRepository, AccountEventStoreRepository>();
 
         public static IServiceCollection AddProjectionsRepositories(this IServiceCollection services)
-            => services.AddScoped<ICustomerProjectionsRepository, CustomerProjectionsRepository>();
+            => services.AddScoped<IAccountProjectionsRepository, AccountProjectionsRepository>();
 
         public static OptionsBuilder<SqlServerRetryingOptions> ConfigureSqlServerRetryingOptions(this IServiceCollection services, IConfigurationSection section)
             => services

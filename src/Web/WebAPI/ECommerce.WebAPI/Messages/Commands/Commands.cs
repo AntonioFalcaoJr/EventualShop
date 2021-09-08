@@ -1,12 +1,12 @@
 ﻿using System;
-using Messages.Customers.Commands;
+using Messages.Accounts.Commands;
 
 namespace ECommerce.WebAPI.Messages.Commands
 {
     public static class Commands
     {
-        public record RegisterCustomerCommand(string Name, int Age) : RegisterCustomer;
-        public record UpdateCustomerCommand(Guid Id, string Name, int Age) : UpdateCustomer;
-        public record DeleteCustomerCommand(Guid Id) : DeleteCustomer;
+        public record RegisterAccountCommand(string Name, int Age) : RegisterAccount;
+        public record UpdateAccountCommand(Guid Id, string Name, int Age) : UpdateAccount;
+        public record DeleteAccountCommand(Guid Id) : DeleteAccount;
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.Projections;
 using Application.Abstractions.EventSourcing.Projections.Pagination;
 using Infrastructure.Abstractions.EventSourcing.Projections.Pagination;
-using Infrastructure.EventSourcing.Customers.Projections.Contexts;
+using Infrastructure.EventSourcing.Accounts.Projections.Contexts;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
