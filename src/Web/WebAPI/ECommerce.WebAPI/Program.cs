@@ -31,7 +31,7 @@ builder.Services
             MapQueueEndpoint<RegisterAccount>();
             MapQueueEndpoint<UpdateAccount>();
             MapQueueEndpoint<DeleteAccount>();
-            
+
             MapQueueEndpoint<GetAccountDetails>();
             MapQueueEndpoint<GetAccountsDetailsWithPagination>();
         });

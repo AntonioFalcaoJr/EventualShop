@@ -97,7 +97,7 @@ namespace Infrastructure.DependencyInjection.Extensions
                 .AddConsumer<TConsumer>()
                 .Endpoint(e => e.ConfigureConsumeTopology = false);
 
-           // MapQueueEndpoint<TMessage>();
+            // MapQueueEndpoint<TMessage>();
         }
 
         private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)

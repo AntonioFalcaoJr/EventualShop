@@ -17,7 +17,7 @@ namespace Domain.Abstractions.Aggregates
 
         public void LoadEvents(IEnumerable<IDomainEvent> domainEvents)
         {
-            foreach (var domainEvent in domainEvents) 
+            foreach (var domainEvent in domainEvents)
                 ApplyEvent((dynamic)domainEvent);
         }
 

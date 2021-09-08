@@ -31,7 +31,7 @@ namespace WebAPI.Abstractions
 
         private Task<Response<TResponse>> GetResponseAsync<TMessage, TResponse>(TMessage message, CancellationToken cancellationToken)
             where TMessage : class
-            where TResponse : class 
+            where TResponse : class
             => _bus.CreateRequestClient<TMessage>().GetResponse<TResponse>(message, cancellationToken);
 
         private Task SendMessage<TMessage>(TMessage message, CancellationToken cancellationToken)

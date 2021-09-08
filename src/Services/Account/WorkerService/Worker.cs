@@ -8,8 +8,8 @@ namespace WorkerService
 {
     public class Worker : IHostedService
     {
-        private readonly ILogger<Worker> _logger;
         private readonly IBusControl _bus;
+        private readonly ILogger<Worker> _logger;
 
         public Worker(ILogger<Worker> logger, IBusControl bus)
         {

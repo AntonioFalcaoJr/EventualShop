@@ -11,7 +11,7 @@ namespace Infrastructure.EventSourcing.Accounts.EventStore.Configurations
     {
         public void Configure(EntityTypeBuilder<AccountSnapshot> builder)
         {
-            builder.HasKey(snapshot => new {snapshot.AggregateVersion, snapshot.AggregateId});
+            builder.HasKey(snapshot => new { snapshot.AggregateVersion, snapshot.AggregateId });
 
             builder
                 .Property(storeEvent => storeEvent.AggregateVersion)
@@ -34,7 +34,7 @@ namespace Infrastructure.EventSourcing.Accounts.EventStore.Configurations
                 .HasConversion(
                     account => JsonConvert.SerializeObject(account),
                     jsonString => JsonConvert.DeserializeObject<Account>(jsonString,
-                        new JsonSerializerSettings {ContractResolver = new PrivateSetterContractResolver()}))
+                        new JsonSerializerSettings { ContractResolver = new PrivateSetterContractResolver() }))
                 .IsRequired();
         }
     }

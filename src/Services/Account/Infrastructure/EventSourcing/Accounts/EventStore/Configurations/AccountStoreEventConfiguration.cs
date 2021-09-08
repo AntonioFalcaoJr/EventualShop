@@ -33,10 +33,10 @@ namespace Infrastructure.EventSourcing.Accounts.EventStore.Configurations
                 .HasMaxLength(1000)
                 .IsUnicode(false)
                 .HasConversion(
-                    domainEvent => JsonConvert.SerializeObject(domainEvent, 
-                        new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All}),
-                    jsonString => JsonConvert.DeserializeObject<IDomainEvent>(jsonString, 
-                        new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All, ContractResolver = new PrivateSetterContractResolver()}))
+                    domainEvent => JsonConvert.SerializeObject(domainEvent,
+                        new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All }),
+                    jsonString => JsonConvert.DeserializeObject<IDomainEvent>(jsonString,
+                        new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All, ContractResolver = new PrivateSetterContractResolver() }))
                 .IsRequired();
         }
     }

@@ -1,5 +1,5 @@
 ﻿<Project>
-    
+
     <PropertyGroup Label="Common properties">
         <TargetFramework>net6.0</TargetFramework>
         <LangVersion>10</LangVersion>
@@ -21,14 +21,14 @@
 
         <!--Serilog-->
         <Serilog_Version>4.1.0</Serilog_Version>
-        
+
         <!--HealthChecks-->
         <HealthChecks_Version>5.0.1</HealthChecks_Version>
-        
+
         <!--Others-->
         <FluentValidation_Version>10.2.1</FluentValidation_Version>
         <Scrutor_Version>3.3.0</Scrutor_Version>
-        
+
     </PropertyGroup>
-    
+
 </Project>

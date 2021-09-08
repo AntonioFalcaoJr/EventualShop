@@ -18,7 +18,7 @@ builder.Services.AddLogging(loggingBuilder =>
     Log.Logger = new LoggerConfiguration().ReadFrom
         .Configuration(builder.Configuration)
         .CreateLogger();
-    
+
     loggingBuilder.ClearProviders();
     loggingBuilder.AddSerilog();
 });

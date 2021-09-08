@@ -19,9 +19,9 @@ namespace Infrastructure.Abstractions.EventSourcing.EventStore
         where TSnapshot : Snapshot<TAggregateState, TId>, new()
         where TId : struct
     {
-        private readonly IEventStoreRepository<TAggregateState, TStoreEvent, TSnapshot, TId> _repository;
         private readonly IBus _bus;
         private readonly EventStoreOptions _options;
+        private readonly IEventStoreRepository<TAggregateState, TStoreEvent, TSnapshot, TId> _repository;
 
         protected EventStoreService(IOptionsMonitor<EventStoreOptions> optionsMonitor, IEventStoreRepository<TAggregateState, TStoreEvent, TSnapshot, TId> repository, IBus bus)
         {
@@ -41,6 +41,14 @@ namespace Infrastructure.Abstractions.EventSourcing.EventStore
             await PublishEventsAsync(aggregateState.DomainEvents, cancellationToken);
         }
 
+        public async Task<TAggregateState> LoadAggregateFromStreamAsync(TId aggregateId, CancellationToken cancellationToken)
+        {
+            var snapshot = await _repository.GetSnapshotAsync(aggregateId, cancellationToken) ?? new TSnapshot();
+            var events = await _repository.GetStreamAsync(aggregateId, snapshot.AggregateVersion, cancellationToken);
+            snapshot.AggregateState.LoadEvents(events);
+            return snapshot.AggregateState;
+        }
+
         private async IAsyncEnumerable<int> AppendEventToStreamAsync(IEnumerable<TStoreEvent> storeEvents, [EnumeratorCancellation] CancellationToken cancellationToken)
         {
             foreach (var storeEvent in storeEvents)
@@ -57,14 +65,6 @@ namespace Infrastructure.Abstractions.EventSourcing.EventStore
             };
 
             await _repository.AppendSnapshotToStreamAsync(snapshot, cancellationToken);
-        }
-
-        public async Task<TAggregateState> LoadAggregateFromStreamAsync(TId aggregateId, CancellationToken cancellationToken)
-        {
-            var snapshot = await _repository.GetSnapshotAsync(aggregateId, cancellationToken) ?? new TSnapshot();
-            var events = await _repository.GetStreamAsync(aggregateId, snapshot.AggregateVersion, cancellationToken);
-            snapshot.AggregateState.LoadEvents(events);
-            return snapshot.AggregateState;
         }
 
         private Task PublishEventsAsync(IEnumerable<IDomainEvent> domainEvents, CancellationToken cancellationToken)

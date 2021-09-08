@@ -6,6 +6,7 @@ namespace ECommerce.WebAPI.Messages.Queries
     public static class Queries
     {
         public record GetAccountDetailsQuery(Guid Id) : GetAccountDetails;
+
         public record GetAccountsDetailsWithPaginationQuery(int Limit, int Offset) : GetAccountsDetailsWithPagination;
     }
 }

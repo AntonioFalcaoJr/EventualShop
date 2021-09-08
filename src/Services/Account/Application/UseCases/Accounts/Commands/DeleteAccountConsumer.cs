@@ -10,9 +10,9 @@ namespace Application.UseCases.Accounts.Commands
     public class DeleteAccountConsumer : IConsumer<DeleteAccount>
     {
         public Task Consume(ConsumeContext<DeleteAccount> context)
-            => throw new System.NotImplementedException();
+            => throw new NotImplementedException();
     }
-    
+
     public class MyFilterValidation<T> : IPipeSpecification<T> where T : class, PipeContext
     {
         public void Apply(IPipeBuilder<T> builder)

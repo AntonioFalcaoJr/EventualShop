@@ -20,7 +20,7 @@ namespace Application.UseCases.Accounts.EventHandlers
         public async Task Consume(ConsumeContext<Events.AccountRegistered> context)
         {
             var (aggregateId, _, _) = context.Message;
-            
+
             var account = await _eventStoreService.LoadAggregateFromStreamAsync(aggregateId, context.CancellationToken);
 
             var accountDetails = new AccountDetailsProjection
