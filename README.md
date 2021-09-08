@@ -68,13 +68,13 @@ data storage mechanism for the domain.
 > "Event Sourcing and CQRS pattern" *MSDN*, Microsoft Docs, last edited on 02 Nov 2020.   
 > https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs#event-sourcing-and-cqrs-pattern
 
- ![](./.assets/img/ad2a7e2a03945a6d5ae422f14b4608c3.cqrs-es-flowwhite.png)
+ ![](./.assets/img/cqrs-eventsourcing-diagram.png)
  Fig. 5: Whittaker, Daniel. *CQRS + Event Sourcing – Step by Step*.    
  https://danielwhittaker.me/2020/02/20/cqrs-step-step-guide-flow-typical-application/
 
 <br>
 
-![](./.assets/img/Zrzut-ekranu-2017-05-01-05_36_04-681x1024-1.png)  
+![](./.assets/img/cqrs-eventsourcing-flow.png)  
 Fig. 6: Katwatka, Piotr. *Event Sourcing with CQRS*.  
 https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 
