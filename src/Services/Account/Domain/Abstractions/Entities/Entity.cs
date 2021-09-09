@@ -17,7 +17,7 @@ namespace Domain.Abstractions.Entities
             => Validate();
 
         [JsonIgnore]
-        public IReadOnlyCollection<ValidationFailure> Errors
+        public IEnumerable<ValidationFailure> Errors
             => ValidationResult.Errors;
 
         public TId Id { get; protected set; }
@@ -38,17 +38,14 @@ namespace Domain.Abstractions.Entities
             return ValidationResult.IsValid;
         }
 
-        protected void AddError(string errorMessage, ValidationResult validationResult)
+        protected void AddError(string errorMessage, IEnumerable<ValidationFailure> failures)
         {
             AddError(errorMessage);
-            validationResult.Errors.ForEach(AddError);
+            ValidationResult.Errors.AddRange(failures);
         }
 
         protected void AddError(string errorMessage)
             => ValidationResult.Errors.Add(new ValidationFailure(default, errorMessage));
-
-        protected void AddError(ValidationFailure errorMessage)
-            => ValidationResult.Errors.Add(errorMessage);
 
         protected abstract bool Validate();
     }
