@@ -19,6 +19,8 @@ This project uses the **EventStorming** workshop to identify the business capabi
  Fig. 1: Uit de Bos, Oskar. *A simple illustration of events using the publish/subscribe messaging model*.    
  https://medium.com/swlh/the-engineers-guide-to-event-driven-architectures-benefits-and-challenges-3e96ded8568b
 
+<br>
+
 The following table shows how EDA and Microservices architectural styles compliment each other:
 
 | EDA | Microservices Architecture |
