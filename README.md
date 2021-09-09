@@ -19,6 +19,23 @@ This project uses the **EventStorming** workshop to identify the business capabi
  Fig. 1: Uit de Bos, Oskar. *A simple illustration of events using the publish/subscribe messaging model*.    
  https://medium.com/swlh/the-engineers-guide-to-event-driven-architectures-benefits-and-challenges-3e96ded8568b
 
+The following table shows how EDA and Microservices architectural styles compliment each other:
+
+| EDA | Microservices Architecture |
+|---|---|
+| Loose coupling between components/services | Bounded context which provides separation of concerns |
+| Ability to scale individual components | Independently deployable & scalable |
+| Processing components can be developed independent of each other | Support for polyglot programming |
+| High cloud affinity | Cloud native |
+| Asynchronous nature. As well as ability to throttle workload | Elastic scalability |
+| Fault Tolerance and better resiliency | Good observability to detect failures quickly |
+| Ability to build processing pipelines | Evolutionary in nature |
+| Availability of sophisticated event brokers reduce code complexity | Set of standard reusable technical services often referred as `MicroServices Chassis`  |
+| A rich palate of proven [Enterprise Integration Patterns](https://www.enterpriseintegrationpatterns.com/) | Provides a rich repository of reusable [implementation patterns](https://microservices.io/patterns/microservices.html) |
+  
+Table 1: Ambre, Tanmay. *Architectural considerations for event-driven microservices-based systems*.    
+https://developer.ibm.com/articles/eda-and-microservices-architecture-best-practices/
+
 ## CQRS
 > CQRS stands for Command and Query Responsibility Segregation, a pattern that separates read and update operations for a data store. Implementing CQRS in your application can maximize its performance, scalability, and security. The flexibility created by migrating to CQRS allows a system to better evolve over time and prevents update commands from causing merge conflicts at the domain level.
 >
