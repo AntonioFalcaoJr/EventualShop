@@ -100,7 +100,7 @@ data storage mechanism for the domain.
 Fig. 6: Katwatka, Piotr. *Event Sourcing with CQRS*.  
 https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 
-## Event Storming
+## EventStorming
 
 >EventStorming is a flexible workshop format for collaborative exploration of complex business domains.
 >
@@ -119,6 +119,9 @@ https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 ![](./.assets/img/event-storming.jpg)  
 Fig. 7: Baas-Schwegler, Kenny & Richardson, Chris. *Picture that explains "Almost" Everything*.    
 https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
+
+### EventStorming (WIP)
+![](./.assets/img/event-storming-wip.jpg)
 
 ## Clean Architecture
 
