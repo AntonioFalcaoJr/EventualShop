@@ -1,8 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using ECommerce.WebAPI.Abstractions;
-using ECommerce.WebAPI.Messages.Commands;
-using ECommerce.WebAPI.Messages.Queries;
+using ECommerce.WebAPI.Messages.Accounts;
 using MassTransit;
 using Messages.Accounts.Queries;
 using Messages.Accounts.Queries.Responses;

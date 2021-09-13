@@ -1,7 +1,7 @@
 ﻿using System;
 using Messages.Accounts.Commands;
 
-namespace ECommerce.WebAPI.Messages.Commands
+namespace ECommerce.WebAPI.Messages.Accounts
 {
     public static class Commands
     {

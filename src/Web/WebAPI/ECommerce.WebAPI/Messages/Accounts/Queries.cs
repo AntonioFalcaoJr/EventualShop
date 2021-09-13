@@ -1,7 +1,7 @@
 ﻿using System;
 using Messages.Accounts.Queries;
 
-namespace ECommerce.WebAPI.Messages.Queries
+namespace ECommerce.WebAPI.Messages.Accounts
 {
     public static class Queries
     {
