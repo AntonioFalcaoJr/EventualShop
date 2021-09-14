@@ -1,10 +1,10 @@
 using System;
 using System.Reflection;
-using Application.EventSourcing.Accounts.EventStore;
-using Application.EventSourcing.Accounts.Projections;
-using Application.UseCases.Accounts.Commands;
-using Application.UseCases.Accounts.EventHandlers;
-using Application.UseCases.Accounts.Queries;
+using Application.EventSourcing.EventStore;
+using Application.EventSourcing.Projections;
+using Application.UseCases.Commands;
+using Application.UseCases.EventHandlers;
+using Application.UseCases.Queries;
 using Domain.Abstractions.Events;
 using Domain.Entities.Accounts;
 using Infrastructure.DependencyInjection.Options;

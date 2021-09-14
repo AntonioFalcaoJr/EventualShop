@@ -1,10 +1,10 @@
 using System;
 using System.Reflection;
-using Application.EventSourcing.Catalogs.EventStore;
-using Application.EventSourcing.Catalogs.Projections;
-using Application.UseCases.Catalogs.Commands;
-using Application.UseCases.Catalogs.EventHandlers;
-using Application.UseCases.Catalogs.Queries;
+using Application.EventSourcing.EventStore;
+using Application.EventSourcing.Projections;
+using Application.UseCases.Commands;
+using Application.UseCases.EventHandlers;
+using Application.UseCases.Queries;
 using Domain.Abstractions.Events;
 using Domain.Entities.Catalogs;
 using Infrastructure.DependencyInjection.Options;

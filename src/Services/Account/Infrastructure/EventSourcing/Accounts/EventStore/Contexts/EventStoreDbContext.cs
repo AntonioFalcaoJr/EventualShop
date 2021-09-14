@@ -1,4 +1,4 @@
-using Application.EventSourcing.Accounts.EventStore.Events;
+using Application.EventSourcing.EventStore.Events;
 using Infrastructure.DependencyInjection.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;

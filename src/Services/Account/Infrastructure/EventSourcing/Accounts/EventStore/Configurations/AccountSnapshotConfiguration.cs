@@ -1,4 +1,4 @@
-using Application.EventSourcing.Accounts.EventStore.Events;
+using Application.EventSourcing.EventStore.Events;
 using Domain.Entities.Accounts;
 using JsonNet.ContractResolvers;
 using Microsoft.EntityFrameworkCore;

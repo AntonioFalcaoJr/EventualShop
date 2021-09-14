@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.Projections.Pagination;
-using Application.EventSourcing.Accounts.Projections;
+using Application.EventSourcing.Projections;
 using MassTransit;
 using Messages.Accounts.Commands;
 using Messages.Accounts.Queries;

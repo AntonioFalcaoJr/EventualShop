@@ -1,6 +1,6 @@
 using System;
-using Application.EventSourcing.Accounts.EventStore;
-using Application.EventSourcing.Accounts.EventStore.Events;
+using Application.EventSourcing.EventStore;
+using Application.EventSourcing.EventStore.Events;
 using Domain.Entities.Accounts;
 using Infrastructure.Abstractions.EventSourcing.EventStore;
 using Infrastructure.EventSourcing.Accounts.EventStore.Contexts;

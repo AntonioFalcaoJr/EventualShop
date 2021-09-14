@@ -1,4 +1,4 @@
-using Application.EventSourcing.Catalogs.Projections;
+using Application.EventSourcing.Projections;
 using Infrastructure.Abstractions.EventSourcing.Projections;
 using Infrastructure.EventSourcing.Catalogs.Projections.Contexts;
 

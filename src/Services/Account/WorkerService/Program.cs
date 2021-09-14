@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using Infrastructure.DependencyInjection.Extensions;
 using Infrastructure.DependencyInjection.Options;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
-using WorkerService;
 
 var builder = Host.CreateDefaultBuilder(args);
 
@@ -17,10 +17,10 @@ builder.UseDefaultServiceProvider((context, options) =>
     options.ValidateOnBuild = true;
 });
 
-builder.ConfigureAppConfiguration((_, configurationBuilder) =>
+builder.ConfigureAppConfiguration(configurationBuilder =>
 {
     configurationBuilder
-        .AddUserSecrets<Worker>()
+        .AddUserSecrets(Assembly.GetEntryAssembly())
         .AddEnvironmentVariables();
 });
 
@@ -38,8 +38,6 @@ builder.UseSerilog();
 
 builder.ConfigureServices((context, services) =>
 {
-    services.AddHostedService<Worker>();
-
     services.AddApplicationServices();
 
     services.AddEventStoreRepositories();

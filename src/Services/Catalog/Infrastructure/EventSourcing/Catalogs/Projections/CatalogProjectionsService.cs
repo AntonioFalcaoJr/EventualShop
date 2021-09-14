@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.Projections.Pagination;
-using Application.EventSourcing.Catalogs.Projections;
+using Application.EventSourcing.Projections;
 
 namespace Infrastructure.EventSourcing.Catalogs.Projections
 {
