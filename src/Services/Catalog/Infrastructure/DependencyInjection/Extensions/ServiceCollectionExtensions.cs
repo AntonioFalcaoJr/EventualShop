@@ -76,16 +76,15 @@ namespace Infrastructure.DependencyInjection.Extensions
         {
             cfg.AddConsumer<CatalogCreatedConsumer>();
             cfg.AddConsumer<CatalogDeletedConsumer>();
-            cfg.AddConsumer<CatalogUpdatedConsumer>();
             cfg.AddConsumer<CatalogActivatedConsumer>();
             cfg.AddConsumer<CatalogDeactivatedConsumer>();
-            cfg.AddConsumer<CatalogItemAddedConsumer>();
-            cfg.AddConsumer<CatalogItemRemovedConsumer>();
+            cfg.AddConsumer<CatalogChangedConsumer>();
+            cfg.AddConsumer<CatalogChangedConsumer>();
         }
 
         private static void AddQueryConsumers(this IRegistrationConfigurator cfg)
         {
-            cfg.AddConsumer<GetAccountDetailsConsumer>();
+            cfg.AddConsumer<GetCatalogItemsDetailsConsumer>();
             cfg.AddConsumer<GetAccountsDetailsWithPaginationConsumer>();
         }
 
@@ -93,9 +92,13 @@ namespace Infrastructure.DependencyInjection.Extensions
         {
             cfg.ConfigureEventReceiveEndpoint<CatalogCreatedConsumer, Events.CatalogCreated>(registration);
             cfg.ConfigureEventReceiveEndpoint<CatalogDeletedConsumer, Events.CatalogDeleted>(registration);
-            cfg.ConfigureEventReceiveEndpoint<CatalogUpdatedConsumer, Events.CatalogUpdated>(registration);
             cfg.ConfigureEventReceiveEndpoint<CatalogActivatedConsumer, Events.CatalogActivated>(registration);
             cfg.ConfigureEventReceiveEndpoint<CatalogDeactivatedConsumer, Events.CatalogDeactivated>(registration);
+            
+            cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, Events.CatalogUpdated>(registration);
+            cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, Events.CatalogItemAdded>(registration);
+            cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, Events.CatalogItemRemoved>(registration);
+            cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, Events.CatalogItemEdited>(registration);
         }
 
         private static void AddCommandConsumer<TConsumer, TMessage>(this IRegistrationConfigurator configurator)

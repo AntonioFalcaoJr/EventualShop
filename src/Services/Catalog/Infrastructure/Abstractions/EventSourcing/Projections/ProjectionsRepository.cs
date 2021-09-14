@@ -21,34 +21,67 @@ namespace Infrastructure.Abstractions.EventSourcing.Projections
             _context = context;
         }
 
-        public virtual Task<TProjection> GetAsync<TProjection, TId>(TId id, CancellationToken cancellationToken) where TProjection : IProjection
+        public virtual Task<TProjection> GetAsync<TProjection, TId>(TId id, CancellationToken cancellationToken)
+            where TProjection : IProjection
             => FindAsync<TProjection>(projection => projection.Id.Equals(id), cancellationToken);
 
-        public virtual Task<TProjection> FindAsync<TProjection>(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken) where TProjection : IProjection
+        public virtual Task<TProjection> FindAsync<TProjection>(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
+            where TProjection : IProjection
             => _context.GetCollection<TProjection>().AsQueryable().Where(predicate).FirstOrDefaultAsync(cancellationToken);
 
-        public virtual Task<IPagedResult<TProjection>> GetAllAsync<TProjection>(Paging paging, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken) where TProjection : IProjection
+        public virtual Task<IPagedResult<TProjection>> GetAllAsync<TProjection>(Paging paging, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
+            where TProjection : IProjection
         {
             var queryable = _context.GetCollection<TProjection>().AsQueryable().Where(predicate);
             return PagedResult<TProjection>.CreateAsync(paging, queryable, cancellationToken);
         }
 
-        public virtual Task SaveAsync<TProjection>(TProjection projection, CancellationToken cancellationToken) where TProjection : IProjection
+        public virtual Task<IPagedResult<TProjectionResult>> GetAllNestedAsync<TProjection, TProjectionResult>(Paging paging, Expression<Func<TProjection, bool>> predicate, Expression<Func<TProjection, IEnumerable<TProjectionResult>>> selector, CancellationToken cancellationToken)
+            where TProjection : IProjection
+            where TProjectionResult : IProjection
+        {
+            var queryable = _context
+                .GetCollection<TProjection>()
+                .AsQueryable()
+                .Where(predicate)
+                .Select(selector)
+                .SelectMany(results => results);
+
+            return PagedResult<TProjectionResult>.CreateAsync(paging, queryable, cancellationToken);
+        }
+
+        public virtual Task SaveAsync<TProjection>(TProjection projection, CancellationToken cancellationToken)
+            where TProjection : IProjection
             => _context.GetCollection<TProjection>().InsertOneAsync(projection, cancellationToken: cancellationToken);
 
-        public virtual Task SaveManyAsync<TProjection>(IEnumerable<TProjection> projections, CancellationToken cancellationToken) where TProjection : IProjection
+        public virtual Task SaveManyAsync<TProjection>(IEnumerable<TProjection> projections, CancellationToken cancellationToken)
+            where TProjection : IProjection
             => _context.GetCollection<TProjection>().InsertManyAsync(projections, cancellationToken: cancellationToken);
 
-        public virtual Task UpdateAsync<TProjection>(TProjection projection, CancellationToken cancellationToken) where TProjection : IProjection
+        public virtual Task UpdateAsync<TProjection>(TProjection projection, CancellationToken cancellationToken)
+            where TProjection : IProjection
             => _context.GetCollection<TProjection>().FindOneAndReplaceAsync<TProjection>(default, projection, default, cancellationToken);
 
-        public virtual Task UpdateManyAsync<TProjection>(IEnumerable<TProjection> projections, CancellationToken cancellationToken) where TProjection : IProjection
+        public virtual Task UpsertAsync<TProjection>(TProjection replacementProjection, CancellationToken cancellationToken)
+            where TProjection : IProjection
+            => _context
+                .GetCollection<TProjection>()
+                .FindOneAndReplaceAsync(
+                    filter: projection => projection.Id.Equals(replacementProjection.Id),
+                    replacement: replacementProjection,
+                    options: new() { IsUpsert = true },
+                    cancellationToken: cancellationToken);
+
+        public virtual Task UpdateManyAsync<TProjection>(IEnumerable<TProjection> projections, CancellationToken cancellationToken)
+            where TProjection : IProjection
             => throw new NotImplementedException();
 
-        public virtual Task DeleteAsync<TProjection>(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken) where TProjection : IProjection
+        public virtual Task DeleteAsync<TProjection>(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken)
+            where TProjection : IProjection
             => _context.GetCollection<TProjection>().DeleteOneAsync(filter, cancellationToken);
 
-        public virtual Task DeleteManyAsync<TProjection>(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken) where TProjection : IProjection
+        public virtual Task DeleteManyAsync<TProjection>(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken)
+            where TProjection : IProjection
             => _context.GetCollection<TProjection>().DeleteManyAsync(filter, cancellationToken);
     }
 }

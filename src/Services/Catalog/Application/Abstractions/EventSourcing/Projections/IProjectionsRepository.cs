@@ -18,9 +18,16 @@ namespace Application.Abstractions.EventSourcing.Projections
         Task<IPagedResult<TProjection>> GetAllAsync<TProjection>(Paging paging, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
             where TProjection : IProjection;
 
+        Task<IPagedResult<TProjectionResult>> GetAllNestedAsync<TProjection, TProjectionResult>(Paging paging, Expression<Func<TProjection, bool>> predicate, Expression<Func<TProjection, IEnumerable<TProjectionResult>>> selector, CancellationToken cancellationToken)
+            where TProjection : IProjection
+            where TProjectionResult : IProjection;
+
         Task SaveAsync<TProjection>(TProjection projection, CancellationToken cancellationToken)
             where TProjection : IProjection;
 
+        Task UpsertAsync<TProjection>(TProjection replacementProjection, CancellationToken cancellationToken)
+            where TProjection : IProjection;
+        
         Task SaveManyAsync<TProjection>(IEnumerable<TProjection> projections, CancellationToken cancellationToken)
             where TProjection : IProjection;
 

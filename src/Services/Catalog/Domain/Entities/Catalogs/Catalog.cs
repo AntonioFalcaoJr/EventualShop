@@ -12,7 +12,8 @@ namespace Domain.Entities.Catalogs
         public bool IsDeleted { get; private set; }
         public bool IsActive { get; private set; }
         public string Title { get; private set; }
-        public IEnumerable<CatalogItem> Items => _items;
+        public IEnumerable<CatalogItem> Items 
+            => _items;
 
         public void Create(string title)
             => RaiseEvent(new Events.CatalogCreated(Guid.NewGuid(), title));
@@ -29,14 +30,14 @@ namespace Domain.Entities.Catalogs
         public void Update(Guid id, string title)
             => RaiseEvent(new Events.CatalogUpdated(id, title));
 
-        public void AddItem(Guid id, CatalogItem catalogItem)
-            => RaiseEvent(new Events.CatalogItemAdded(id, catalogItem));
+        public void AddItem(Guid id, CatalogItem item)
+            => RaiseEvent(new Events.CatalogItemAdded(id, item));
 
-        public void RemoveItem(Guid id, Guid catalogItemId)
-            => RaiseEvent(new Events.CatalogItemRemoved(id, catalogItemId));
+        public void RemoveItem(Guid id, Guid itemId)
+            => RaiseEvent(new Events.CatalogItemRemoved(id, itemId));
 
-        public void EditItem(Guid id)
-            => RaiseEvent(new Events.CatalogItemEdited(id));
+        public void EditItem(Guid id, CatalogItem item)
+            => RaiseEvent(new Events.CatalogItemEdited(id, item));
 
         protected override void ApplyEvent(IDomainEvent domainEvent)
             => When(domainEvent as dynamic);

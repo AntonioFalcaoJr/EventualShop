@@ -33,14 +33,14 @@ namespace Infrastructure.Abstractions.EventSourcing.Projections.Pagination
                 HasPrevious = _offset > 0
             };
 
-        public static async Task<IPagedResult<T>> CreateAsync(Paging paging, IQueryable<T> source, CancellationToken cancellationToken)
+        public static async Task<IPagedResult<T>> CreateAsync(Paging paging, IMongoQueryable<T> source, CancellationToken cancellationToken)
         {
             paging ??= new Paging();
             var items = await ApplyPagination(paging, source).ToListAsync(cancellationToken);
             return new PagedResult<T>(items, paging.Offset, paging.Limit);
         }
 
-        private static IMongoQueryable<T> ApplyPagination(Paging paging, IQueryable<T> source)
-            => source.Skip(paging.Limit * paging.Offset).Take(paging.Limit + 1) as IMongoQueryable<T>;
+        private static IMongoQueryable<T> ApplyPagination(Paging paging, IMongoQueryable<T> source)
+            => source.Skip(paging.Limit * paging.Offset).Take(paging.Limit + 1);
     }
 }
