@@ -23,6 +23,8 @@ builder.Services.AddLogging(loggingBuilder =>
     loggingBuilder.AddSerilog();
 });
 
+builder.Host.UseSerilog();
+
 builder.Services.AddSwaggerGen(options
     => options.SwaggerDoc(
         name: "v1",

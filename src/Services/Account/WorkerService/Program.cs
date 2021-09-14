@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Serilog;
 using WorkerService;
 
@@ -16,12 +17,20 @@ builder.UseDefaultServiceProvider((context, options) =>
     options.ValidateOnBuild = true;
 });
 
+builder.ConfigureAppConfiguration((_, configurationBuilder) =>
+{
+    configurationBuilder
+        .AddUserSecrets<Worker>()
+        .AddEnvironmentVariables();
+});
+
 builder.ConfigureLogging((context, loggingBuilder) =>
 {
     Log.Logger = new LoggerConfiguration().ReadFrom
         .Configuration(context.Configuration)
         .CreateLogger();
 
+    loggingBuilder.ClearProviders();
     loggingBuilder.AddSerilog();
 });
 
