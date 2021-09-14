@@ -17,7 +17,7 @@ builder.UseDefaultServiceProvider((context, options) =>
     options.ValidateOnBuild = true;
 });
 
-builder.ConfigureAppConfiguration((_, configurationBuilder) =>
+builder.ConfigureAppConfiguration(configurationBuilder =>
 {
     configurationBuilder
         .AddUserSecrets(Assembly.GetEntryAssembly())
