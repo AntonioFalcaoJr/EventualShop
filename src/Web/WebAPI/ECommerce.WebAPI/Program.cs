@@ -5,6 +5,7 @@ using MassTransit.Definition;
 using Messages.Accounts.Commands;
 using Messages.Accounts.Queries;
 using Messages.Catalogs.Commands;
+using Messages.Catalogs.Queries;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -44,6 +45,7 @@ builder.Services
             MapQueueEndpoint<DeactivateCatalog>();
             MapQueueEndpoint<AddCatalogItem>();
             MapQueueEndpoint<RemoveCatalogItem>();
+            MapQueueEndpoint<GetCatalogItemsDetailsWithPagination>();
             
         });
     })

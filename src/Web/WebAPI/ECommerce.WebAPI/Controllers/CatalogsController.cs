@@ -3,17 +3,20 @@ using System.Threading.Tasks;
 using ECommerce.WebAPI.Abstractions;
 using ECommerce.WebAPI.Messages.Catalogs;
 using MassTransit;
+using Messages.Catalogs.Queries;
+using Messages.Catalogs.Queries.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.WebAPI.Controllers
 {
     public class CatalogsController : ApplicationController
     {
-        public CatalogsController(IBus bus) : base(bus) { }
+        public CatalogsController(IBus bus) 
+            : base(bus) { }
 
-        // [HttpGet]
-        // public Task<IActionResult> GetCatalog([FromQuery] Queries.GetAccountDetailsQuery query, CancellationToken cancellationToken)
-        //     => GetQueryResponseAsync<GetAccountDetails, AccountDetails>(query, cancellationToken);
+        [HttpGet]
+        public Task<IActionResult> GetCatalog([FromQuery] Queries.GetCatalogItemsDetailsWithPaginationWithPaginationQuery withPaginationWithPaginationQuery, CancellationToken cancellationToken)
+            => GetQueryResponseAsync<GetCatalogItemsDetailsWithPagination, CatalogItemsDetailsPagedResult>(withPaginationWithPaginationQuery, cancellationToken);
 
         [HttpPost]
         public Task<IActionResult> CreateCatalog(Commands.CreateCatalogCommand command, CancellationToken cancellationToken)
