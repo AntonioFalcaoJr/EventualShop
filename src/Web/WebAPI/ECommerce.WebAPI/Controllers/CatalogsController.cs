@@ -41,6 +41,10 @@ namespace ECommerce.WebAPI.Controllers
         [HttpPut]
         public Task<IActionResult> UpdateCatalog(Commands.UpdateCatalogCommand command, CancellationToken cancellationToken)
             => SendCommandAsync(command, cancellationToken);
+        
+        [HttpPut]
+        public Task<IActionResult> UpdateCatalogItem(Commands.UpdateCatalogItemCommand command, CancellationToken cancellationToken)
+            => SendCommandAsync(command, cancellationToken);
 
         [HttpDelete]
         public Task<IActionResult> DeleteCatalog(Commands.DeleteCatalogCommand command, CancellationToken cancellationToken)

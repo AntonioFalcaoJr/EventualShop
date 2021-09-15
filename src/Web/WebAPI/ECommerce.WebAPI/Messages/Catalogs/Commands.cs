@@ -18,5 +18,7 @@ namespace ECommerce.WebAPI.Messages.Catalogs
         public record RemoveCatalogItemCommand(Guid CatalogId, Guid CatalogItemId) : RemoveCatalogItem;
 
         public record AddCatalogItemCommand(Guid CatalogId, string Name, string Description, decimal Price, string PictureUri) : AddCatalogItem;
+
+        public record UpdateCatalogItemCommand(Guid CatalogId, Guid CatalogItemId, string Name, string Description, decimal Price, string PictureUri) : UpdateCatalogItem;
     }
 }

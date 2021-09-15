@@ -45,8 +45,8 @@ builder.Services
             MapQueueEndpoint<DeactivateCatalog>();
             MapQueueEndpoint<AddCatalogItem>();
             MapQueueEndpoint<RemoveCatalogItem>();
+            MapQueueEndpoint<UpdateCatalogItem>();
             MapQueueEndpoint<GetCatalogItemsDetailsWithPagination>();
-            
         });
     })
     .AddGenericRequestClient()
