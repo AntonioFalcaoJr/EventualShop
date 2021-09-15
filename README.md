@@ -4,9 +4,6 @@ Note. _Greg Young takes the next steps beyond the DDD principles and best practi
 
 This project uses the **EventStorming** workshop to identify the business capabilities and the respective **Bounded Contexts** of a simple e-commerce, as well as the integration events that occur between them. In addition to demonstrating the implementation under an **Event-driven architecture** (EDA), through an **event-sourcing** design supported by the **CQRS** pattern in a **Clean Architecture**.
 
-> Model information about activity in the domain as a series of discrete events. Represent each event as domain object.    
-> -- <cite> Eric Evans </cite>
-
 > State transitions are an important part of our problem space and should be modelled within our domain.    
 > -- <cite> Greg Young </cite>
 
@@ -41,21 +38,6 @@ The following table shows how EDA and Microservices architectural styles complim
 Table 1: Ambre, Tanmay. *Architectural styles compliment*, Architectural considerations for event-driven microservices-based systems.    
 https://developer.ibm.com/articles/eda-and-microservices-architecture-best-practices/
 
-## CQRS
-> CQRS stands for Command and Query Responsibility Segregation, a pattern that separates read and update operations for a data store. Implementing CQRS in your application can maximize its performance, scalability, and security. The flexibility created by migrating to CQRS allows a system to better evolve over time and prevents update commands from causing merge conflicts at the domain level.
->
-> "What is the CQRS pattern?" *MSDN*, Microsoft Docs, last edited on 2 Nov 2020.  
-> https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs
-
-<br>
-
- ![](.assets/img/cqrs.png)   
- Fig. 2: Bürckel, Marco. *Some thoughts on using CQRS without Event Sourcing*.    
- https://medium.com/@mbue/some-thoughts-on-using-cqrs-without-event-sourcing-938b878166a2
-
-### Projections
-To cover this topic was prepared [this presentation](https://www.canva.com/design/DAEY9ttmPgY/F_lh7TXQEdG-su-qojEjdw/view?utm_content=DAEY9ttmPgY&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink) with some different strategies and ways to implement projections.
-
 ## Event sourcing
 
 > Instead of storing just the current state of the data in a domain, use an append-only store to record the full series of actions taken on that data. The store acts as the system of record and can be used to materialize the domain objects. This can simplify tasks in complex domains, by avoiding the need to synchronize the data model and the business domain, while improving performance, scalability, and responsiveness. It can also provide consistency for transactional data, and maintain full audit trails and history that can enable compensating actions.
@@ -87,7 +69,14 @@ https://microservices.io/patterns/data/event-sourcing.html
 Fig. 4: Richardson, Chris. *Pattern: Event sourcing*.    
 https://microservices.io/patterns/data/event-sourcing.html
 
-## Event-sourcing + EDA
+## EDA + Event-sourcing
+
+> Event sourcing a system means the treatment of events as the source of truth. In principle, until an event is made durable within the system, it cannot be processed any further. Just like an author’s story is not a story at all until it’s written, an event should not be projected, replayed, published or otherwise processed until it’s durable enough such as being persisted to a data store. Other designs where the event is secondary cannot rightfully claim to be event sourced but instead merely an event-logging system.
+>
+>Combining EDA with the event-sourcing pattern is another increment of the system’s design because of the alignment of the EDA principle that events are the units of change and the event-sourcing principle that events should be stored first and foremost.
+>
+> Go, Jayson. "From Monolith to Event-Driven: Finding Seams in Your Future Architecture", *InfoQ*, last edited on 15 Set 2020.   
+> https://www.eventstore.com/blog/what-is-event-sourcing
 
 Comparison overview:
 
@@ -105,7 +94,22 @@ https://pablo-iorio.medium.com/event-driven-architectures-vs-event-sourcing-patt
 Fig. 5: Nowak, Aleksander. *Understanding Event-Driven Design Patterns for Microservices*.    
 https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-microservices-659b3c9fb51f
 
-## CQRS + Event-sourcing
+## CQRS
+> CQRS stands for Command and Query Responsibility Segregation, a pattern that separates read and update operations for a data store. Implementing CQRS in your application can maximize its performance, scalability, and security. The flexibility created by migrating to CQRS allows a system to better evolve over time and prevents update commands from causing merge conflicts at the domain level.
+>
+> "What is the CQRS pattern?" *MSDN*, Microsoft Docs, last edited on 2 Nov 2020.  
+> https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs
+
+<br>
+
+![](.assets/img/cqrs.png)   
+Fig. 2: Bürckel, Marco. *Some thoughts on using CQRS without Event Sourcing*.    
+https://medium.com/@mbue/some-thoughts-on-using-cqrs-without-event-sourcing-938b878166a2
+
+### Projections
+To cover this topic was prepared [this presentation](https://www.canva.com/design/DAEY9ttmPgY/F_lh7TXQEdG-su-qojEjdw/view?utm_content=DAEY9ttmPgY&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink) with some different strategies and ways to implement projections.
+
+## Event-sourcing + CQRS 
 
 > CQRS and Event Sourcing have a symbiotic relationship. CQRS allows Event Sourcing to be used as the
 data storage mechanism for the domain.  
@@ -150,19 +154,6 @@ https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
 ### EventStorming (WIP)
 ![](./.assets/img/event-storming-wip.jpg)
 
-## Clean Architecture
-
-> Clean architecture is a software design philosophy that separates the elements of a design into ring levels. An important goal of clean architecture is to provide developers with a way to organize code in such a way that it encapsulates the business logic but keeps it separate from the delivery mechanism.
->
-> The main rule of clean architecture is that code dependencies can only move from the outer levels inward. Code on the inner layers can have no knowledge of functions on the outer layers. The variables, functions and classes (any entities) that exist in the outer layers can not be mentioned in the more inward levels. It is recommended that data formats also stay separate between levels.
->
-> "Clean Architecture." *Whatis*, last edited on 10 Mar 2019.  
-> https://whatis.techtarget.com/definition/clean-architecture
-
- ![](./.assets/img/CleanArchitecture.jpg)  
- Fig. 9: C. Martin, Robert. *The Clean Architecture*.    
- https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
-
 ## Domain-driven design (DDD)
 
 > Domain-Driven Design is an approach to software development that centers the development on programming a domain model that has a rich understanding of the processes and rules of a domain. The name comes from a 2003 book by Eric Evans that describes the approach through a catalog of patterns. Since then a community of practitioners have further developed the ideas, spawning various other books and training courses. The approach is particularly suited to complex domains, where a lot of often-messy logic needs to be organized.
@@ -187,6 +178,19 @@ https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
 ![](./.assets/img/BoundedContext.png)  
 Fig. 10: Martin, Fowler. *BoundedContext*.    
 https://martinfowler.com/bliki/DomainDrivenDesign.html
+
+## Clean Architecture
+
+> Clean architecture is a software design philosophy that separates the elements of a design into ring levels. An important goal of clean architecture is to provide developers with a way to organize code in such a way that it encapsulates the business logic but keeps it separate from the delivery mechanism.
+>
+> The main rule of clean architecture is that code dependencies can only move from the outer levels inward. Code on the inner layers can have no knowledge of functions on the outer layers. The variables, functions and classes (any entities) that exist in the outer layers can not be mentioned in the more inward levels. It is recommended that data formats also stay separate between levels.
+>
+> "Clean Architecture." *Whatis*, last edited on 10 Mar 2019.  
+> https://whatis.techtarget.com/definition/clean-architecture
+
+![](./.assets/img/CleanArchitecture.jpg)  
+Fig. 9: C. Martin, Robert. *The Clean Architecture*.    
+https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
 ## Running
 
