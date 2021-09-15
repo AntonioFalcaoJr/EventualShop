@@ -62,14 +62,14 @@ namespace Infrastructure.Abstractions.EventSourcing.Projections
             where TProjection : IProjection
             => _context.GetCollection<TProjection>().FindOneAndReplaceAsync<TProjection>(default, projection, default, cancellationToken);
 
-        public virtual Task UpsertAsync<TProjection>(TProjection replacementProjection, CancellationToken cancellationToken)
+        public virtual Task UpsertAsync<TProjection>(TProjection replacement, CancellationToken cancellationToken)
             where TProjection : IProjection
             => _context
                 .GetCollection<TProjection>()
-                .FindOneAndReplaceAsync(
-                    filter: projection => projection.Id.Equals(replacementProjection.Id),
-                    replacement: replacementProjection,
-                    options: new() { IsUpsert = true },
+                .ReplaceOneAsync(
+                    filter: projection => projection.Id.Equals(replacement.Id),
+                    replacement: replacement,
+                    options: new ReplaceOptions { IsUpsert = true },
                     cancellationToken: cancellationToken);
 
         public virtual Task UpdateManyAsync<TProjection>(IEnumerable<TProjection> projections, CancellationToken cancellationToken)

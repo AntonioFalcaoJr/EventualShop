@@ -20,8 +20,10 @@ namespace Application.UseCases.Queries
         {
             var accountDetails = await _projectionsService.GetCatalogItemsWithPaginationAsync(
                 paging: new Paging { Limit = context.Message.Limit, Offset = context.Message.Offset },
-                predicate: projection => projection.Id == context.Message.Id,
-                selector: projection => projection.Items,
+                predicate: catalog => catalog.Id == context.Message.Id
+                                      && catalog.IsActive
+                                      && !catalog.IsDeleted,
+                selector: catalog => catalog.Items,
                 cancellationToken: context.CancellationToken);
 
             await context.RespondAsync<CatalogItemsDetailsPagedResult>(accountDetails);

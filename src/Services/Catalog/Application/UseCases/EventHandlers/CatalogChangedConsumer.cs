@@ -10,7 +10,10 @@ using MassTransit;
 namespace Application.UseCases.EventHandlers
 {
     public class CatalogChangedConsumer :
+        IConsumer<Events.CatalogActivated>,
+        IConsumer<Events.CatalogDeactivated>,
         IConsumer<Events.CatalogUpdated>,
+        IConsumer<Events.CatalogDeleted>,
         IConsumer<Events.CatalogItemAdded>,
         IConsumer<Events.CatalogItemRemoved>,
         IConsumer<Events.CatalogItemEdited>
@@ -24,7 +27,16 @@ namespace Application.UseCases.EventHandlers
             _projectionsService = projectionsService;
         }
 
+        public Task Consume(ConsumeContext<Events.CatalogActivated> context)
+            => Project(context.Message.Id, context.CancellationToken);
+
+        public Task Consume(ConsumeContext<Events.CatalogDeactivated> context)
+            => Project(context.Message.Id, context.CancellationToken);
+
         public Task Consume(ConsumeContext<Events.CatalogUpdated> context)
+            => Project(context.Message.Id, context.CancellationToken);
+
+        public Task Consume(ConsumeContext<Events.CatalogDeleted> context)
             => Project(context.Message.Id, context.CancellationToken);
 
         public Task Consume(ConsumeContext<Events.CatalogItemAdded> context)

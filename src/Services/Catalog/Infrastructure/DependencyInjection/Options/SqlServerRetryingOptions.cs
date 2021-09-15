@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Infrastructure.DependencyInjection.Options
 {
-    public class SqlServerRetryingOptions
+    public record SqlServerRetryingOptions
     {
         [Required, Range(5, 20)]
         public int MaxRetryCount { get; init; }
