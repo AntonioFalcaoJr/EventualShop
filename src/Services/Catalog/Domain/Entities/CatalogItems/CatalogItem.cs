@@ -8,26 +8,34 @@ namespace Domain.Entities.CatalogItems
         public CatalogItem(string name, string description, decimal price, string pictureUri)
         {
             Id = Guid.NewGuid();
-            Name = name;
-            Description = description;
-            Price = price;
-            PictureUri = pictureUri;
+            SetDescription(description);
+            SetName(name);
+            SetPrice(price);
+            SetPictureUri(pictureUri);
         }
 
         public bool IsDeleted { get; private set; }
-
-        public string Name { get; }
-
-        public string Description { get; }
-
-        public decimal Price { get; }
-
-        public string PictureUri { get; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public decimal Price { get; private set; }
+        public string PictureUri { get; private set; }
 
         public void SetDelete(bool isDeleted)
             => IsDeleted = isDeleted;
 
-        protected override bool Validate() 
+        public void SetName(string name)
+            => Name = name;
+
+        public void SetDescription(string description)
+            => Description = description;
+
+        public void SetPrice(decimal price)
+            => Price = price;
+
+        public void SetPictureUri(string pictureUri)
+            => PictureUri = pictureUri;
+
+        protected override bool Validate()
             => OnValidate<Validator, CatalogItem>();
     }
 }

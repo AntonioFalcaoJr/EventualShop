@@ -20,6 +20,6 @@ namespace Domain.Entities.Catalogs
 
         public record CatalogItemRemoved(Guid Id, Guid CatalogItemId) : DomainEvent;
 
-        public record CatalogItemEdited(Guid Id, CatalogItem CatalogItem) : DomainEvent;
+        public record CatalogItemUpdated(Guid Id, Guid CatalogItemId, string Name, string Description, decimal Price, string PictureUri) : DomainEvent;
     }
 }

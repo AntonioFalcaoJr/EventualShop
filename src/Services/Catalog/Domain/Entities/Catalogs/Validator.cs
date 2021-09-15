@@ -9,6 +9,9 @@ namespace Domain.Entities.Catalogs
             RuleFor(catalog => catalog.Title)
                 .NotNull()
                 .NotEmpty();
+
+            RuleForEach(catalog => catalog.Items)
+                .SetValidator(new CatalogItems.Validator());
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Infrastructure.DependencyInjection.Extensions
             cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, Events.CatalogUpdated>(registration);
             cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, Events.CatalogItemAdded>(registration);
             cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, Events.CatalogItemRemoved>(registration);
-            cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, Events.CatalogItemEdited>(registration);
+            cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, Events.CatalogItemUpdated>(registration);
         }
 
         private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)

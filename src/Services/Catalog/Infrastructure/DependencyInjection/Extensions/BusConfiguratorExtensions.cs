@@ -18,12 +18,12 @@ namespace Infrastructure.DependencyInjection.Extensions
             cfg.AddCommandConsumer<DeactivateCatalogConsumer, DeactivateCatalog>();
             cfg.AddCommandConsumer<AddCatalogItemConsumer, AddCatalogItem>();
             cfg.AddCommandConsumer<RemoveCatalogItemConsumer, RemoveCatalogItem>();
+            cfg.AddCommandConsumer<UpdateCatalogItemConsumer, UpdateCatalogItem>();
         }
 
         public static void AddEventConsumers(this IRegistrationConfigurator cfg)
         {
             cfg.AddConsumer<CatalogCreatedConsumer>();
-            cfg.AddConsumer<CatalogChangedConsumer>();
             cfg.AddConsumer<CatalogChangedConsumer>();
         }
 

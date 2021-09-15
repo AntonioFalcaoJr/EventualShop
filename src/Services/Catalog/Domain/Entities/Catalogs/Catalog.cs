@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Domain.Abstractions.Aggregates;
 using Domain.Abstractions.Events;
 using Domain.Entities.CatalogItems;
@@ -12,7 +13,8 @@ namespace Domain.Entities.Catalogs
         public bool IsDeleted { get; private set; }
         public bool IsActive { get; private set; }
         public string Title { get; private set; }
-        public IEnumerable<CatalogItem> Items 
+
+        public IEnumerable<CatalogItem> Items
             => _items;
 
         public void Create(string title)
@@ -36,8 +38,8 @@ namespace Domain.Entities.Catalogs
         public void RemoveItem(Guid id, Guid itemId)
             => RaiseEvent(new Events.CatalogItemRemoved(id, itemId));
 
-        public void EditItem(Guid id, CatalogItem item)
-            => RaiseEvent(new Events.CatalogItemEdited(id, item));
+        public void UpdateItem(Guid id, Guid catalogItemId, string name, string description, decimal price, string pictureUri)
+            => RaiseEvent(new Events.CatalogItemUpdated(id, catalogItemId, name, description, price, pictureUri));
 
         protected override void ApplyEvent(IDomainEvent domainEvent)
             => When(domainEvent as dynamic);
@@ -45,21 +47,11 @@ namespace Domain.Entities.Catalogs
         private void When(Events.CatalogCreated @event)
             => (Id, Title) = @event;
 
+        private void When(Events.CatalogUpdated @event)
+            => Title = @event.Title;
+
         private void When(Events.CatalogDeleted _)
             => IsDeleted = true;
-
-        private void When(Events.CatalogItemAdded @event)
-        {
-            if (@event.CatalogItem.IsValid is false)
-            {
-                AddError("Invalid Item", @event.CatalogItem.Errors);
-                return;
-            }
-
-            if (_items.Exists(item => item.Id == @event.CatalogItem.Id)) return;
-
-            _items.Add(@event.CatalogItem);
-        }
 
         private void When(Events.CatalogItemRemoved @event)
             => _items.RemoveAll(item => item.Id == @event.CatalogItemId);
@@ -69,6 +61,24 @@ namespace Domain.Entities.Catalogs
 
         private void When(Events.CatalogDeactivated _)
             => IsActive = false;
+
+        private void When(Events.CatalogItemAdded @event)
+        {
+            if (_items.Exists(item => item.Id == @event.CatalogItem.Id)) return;
+            _items.Add(@event.CatalogItem);
+        }
+
+        private void When(Events.CatalogItemUpdated @event)
+            => _items
+                .Where(item => item.Id == @event.CatalogItemId)
+                .ToList()
+                .ForEach(catalogItem =>
+                {
+                    catalogItem.SetDescription(@event.Description);
+                    catalogItem.SetName(@event.Name);
+                    catalogItem.SetPrice(@event.Price);
+                    catalogItem.SetPictureUri(@event.PictureUri);
+                });
 
         protected sealed override bool Validate()
             => OnValidate<Validator, Catalog>();

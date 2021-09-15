@@ -16,7 +16,7 @@ namespace Application.UseCases.EventHandlers
         IConsumer<Events.CatalogDeleted>,
         IConsumer<Events.CatalogItemAdded>,
         IConsumer<Events.CatalogItemRemoved>,
-        IConsumer<Events.CatalogItemEdited>
+        IConsumer<Events.CatalogItemUpdated>
     {
         private readonly ICatalogEventStoreService _eventStoreService;
         private readonly ICatalogProjectionsService _projectionsService;
@@ -45,7 +45,7 @@ namespace Application.UseCases.EventHandlers
         public Task Consume(ConsumeContext<Events.CatalogItemRemoved> context)
             => Project(context.Message.Id, context.CancellationToken);
 
-        public Task Consume(ConsumeContext<Events.CatalogItemEdited> context)
+        public Task Consume(ConsumeContext<Events.CatalogItemUpdated> context)
             => Project(context.Message.Id, context.CancellationToken);
 
         private async Task Project(Guid catalogId, CancellationToken cancellationToken)
