@@ -55,7 +55,7 @@ https://developer.ibm.com/articles/eda-and-microservices-architecture-best-pract
 <br>
 
 ![](./.assets/img/event-sourcing-overview.png)  
-Fig. 3: MSDN. *Event Sourcing pattern*.    
+Fig. 2: MSDN. *Event Sourcing pattern*.    
 https://microservices.io/patterns/data/event-sourcing.html
 
 ### Event Store/Stream
@@ -64,6 +64,12 @@ https://microservices.io/patterns/data/event-sourcing.html
 >
 > Zimarev, Alexey. "What is Event Sourcing?", *Event Store blog*, last edited on 03 June 2020.   
 > https://www.eventstore.com/blog/what-is-event-sourcing
+
+![](./.assets/img/event-store.png)  
+Fig. 3: Shilkov, Mikhail. Event Sourcing and IO Complexity*.    
+https://mikhail.io/2016/11/event-sourcing-and-io-complexity/
+
+The following picture shows the difference between approaches:
 
 ![](./.assets/img/event-sourcing.png)
 Fig. 4: Richardson, Chris. *Pattern: Event sourcing*.    
@@ -103,8 +109,14 @@ https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-
 <br>
 
 ![](.assets/img/cqrs.png)   
-Fig. 2: Bürckel, Marco. *Some thoughts on using CQRS without Event Sourcing*.    
+Fig. 6: Bürckel, Marco. *Some thoughts on using CQRS without Event Sourcing*.    
 https://medium.com/@mbue/some-thoughts-on-using-cqrs-without-event-sourcing-938b878166a2
+
+<br>
+
+![](.assets/img/cqrs.webp)   
+Fig. 7: Go, Jayson. *From Monolith to Event-Driven: Finding Seams in Your Future Architecture*.    
+https://www.eventstore.com/blog/what-is-event-sourcing
 
 ### Projections
 To cover this topic was prepared [this presentation](https://www.canva.com/design/DAEY9ttmPgY/F_lh7TXQEdG-su-qojEjdw/view?utm_content=DAEY9ttmPgY&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink) with some different strategies and ways to implement projections.
@@ -122,13 +134,13 @@ data storage mechanism for the domain.
 > https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs#event-sourcing-and-cqrs-pattern
 
  ![](./.assets/img/cqrs-eventsourcing-diagram.png)
- Fig. 6: Whittaker, Daniel. *CQRS + Event Sourcing – Step by Step*.    
+ Fig. 8: Whittaker, Daniel. *CQRS + Event Sourcing – Step by Step*.    
  https://danielwhittaker.me/2020/02/20/cqrs-step-step-guide-flow-typical-application/
 
 <br>
 
 ![](./.assets/img/cqrs-eventsourcing-flow.png)  
-Fig. 7: Katwatka, Piotr. *Event Sourcing with CQRS*.  
+Fig. 9: Katwatka, Piotr. *Event Sourcing with CQRS*.  
 https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 
 ## EventStorming
@@ -148,7 +160,7 @@ https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 > https://www.eventstorming.com/
 
 ![](./.assets/img/event-storming.jpg)  
-Fig. 8: Baas-Schwegler, Kenny & Richardson, Chris. *Picture that explains "Almost" Everything*.    
+Fig. 10: Baas-Schwegler, Kenny & Richardson, Chris. *Picture that explains "Almost" Everything*.    
 https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
 
 ### EventStorming (WIP)
@@ -176,7 +188,7 @@ https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
 > https://martinfowler.com/bliki/DomainDrivenDesign.html
 
 ![](./.assets/img/BoundedContext.png)  
-Fig. 10: Martin, Fowler. *BoundedContext*.    
+Fig. 11: Martin, Fowler. *BoundedContext*.    
 https://martinfowler.com/bliki/DomainDrivenDesign.html
 
 ## Clean Architecture
@@ -189,7 +201,7 @@ https://martinfowler.com/bliki/DomainDrivenDesign.html
 > https://whatis.techtarget.com/definition/clean-architecture
 
 ![](./.assets/img/CleanArchitecture.jpg)  
-Fig. 9: C. Martin, Robert. *The Clean Architecture*.    
+Fig. 12: C. Martin, Robert. *The Clean Architecture*.    
 https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
 ## Running
