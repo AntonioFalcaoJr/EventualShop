@@ -4,6 +4,9 @@ Note. _Greg Young takes the next steps beyond the DDD principles and best practi
 
 This project uses the **EventStorming** workshop to identify the business capabilities and the respective **Bounded Contexts** of a simple e-commerce, as well as the integration events that occur between them. In addition to demonstrating the implementation under an **Event-driven architecture** (EDA), through an **event-sourcing** design supported by the **CQRS** pattern in a **Clean Architecture**.
 
+> Model information about activity in the domain as a series of discrete events. Represent each event as domain object.    
+> -- <cite> Eric Evans </cite>
+
 > State transitions are an important part of our problem space and should be modelled within our domain.    
 > -- <cite> Greg Young </cite>
 
@@ -35,7 +38,7 @@ The following table shows how EDA and Microservices architectural styles complim
 | Availability of sophisticated event brokers reduce code complexity | Set of standard reusable technical services often referred as `MicroServices Chassis`  |
 | A rich palate of proven [Enterprise Integration Patterns](https://www.enterpriseintegrationpatterns.com/) | Provides a rich repository of reusable [implementation patterns](https://microservices.io/patterns/microservices.html) |
   
-Table 1: Ambre, Tanmay. *Architectural considerations for event-driven microservices-based systems*.    
+Table 1: Ambre, Tanmay. *Architectural styles compliment*, Architectural considerations for event-driven microservices-based systems.    
 https://developer.ibm.com/articles/eda-and-microservices-architecture-best-practices/
 
 ## CQRS
@@ -73,13 +76,37 @@ To cover this topic was prepared [this presentation](https://www.canva.com/desig
 Fig. 3: MSDN. *Event Sourcing pattern*.    
 https://microservices.io/patterns/data/event-sourcing.html
 
-<br>
+### Event Store/Stream
+
+> So, Event Sourcing is the persistence mechanism where each state transition for a given entity is represented as a domain event that gets persisted to an event database (event store). When the entity state mutates, a new event is produced and saved. When we need to restore the entity state, we read all the events for that entity and apply each event to change the state, reaching the correct final state of the entity when all available events are read and applied.
+>
+> Zimarev, Alexey. "What is Event Sourcing?", *Event Store blog*, last edited on 03 June 2020.   
+> https://www.eventstore.com/blog/what-is-event-sourcing
 
 ![](./.assets/img/event-sourcing.png)
 Fig. 4: Richardson, Chris. *Pattern: Event sourcing*.    
 https://microservices.io/patterns/data/event-sourcing.html
 
+## Event-sourcing + EDA
+
+Comparison overview:
+
+| Aspects  | Event sourcing | EDA |
+|---|---|---|
+| Propose | Keeping history | Highly adaptable and scalable |
+| Scope | Single application/system | Whole organisation/several apps |
+| Storage | Central event store | Decentralised |
+| Testing | Easier | Harder |
+
+Table 2: Lorio, Pablo. *Comparison overview*, Event driven architectures vs event sourcing patterns.    
+https://pablo-iorio.medium.com/event-driven-architectures-vs-event-sourcing-patterns-23d328289bf9
+
+![](./.assets/img/EventSourcing_EDA.jpeg)
+Fig. 5: Nowak, Aleksander. *Understanding Event-Driven Design Patterns for Microservices*.    
+https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-microservices-659b3c9fb51f
+
 ## CQRS + Event-sourcing
+
 > CQRS and Event Sourcing have a symbiotic relationship. CQRS allows Event Sourcing to be used as the
 data storage mechanism for the domain.  
 > 
@@ -91,13 +118,13 @@ data storage mechanism for the domain.
 > https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs#event-sourcing-and-cqrs-pattern
 
  ![](./.assets/img/cqrs-eventsourcing-diagram.png)
- Fig. 5: Whittaker, Daniel. *CQRS + Event Sourcing – Step by Step*.    
+ Fig. 6: Whittaker, Daniel. *CQRS + Event Sourcing – Step by Step*.    
  https://danielwhittaker.me/2020/02/20/cqrs-step-step-guide-flow-typical-application/
 
 <br>
 
 ![](./.assets/img/cqrs-eventsourcing-flow.png)  
-Fig. 6: Katwatka, Piotr. *Event Sourcing with CQRS*.  
+Fig. 7: Katwatka, Piotr. *Event Sourcing with CQRS*.  
 https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 
 ## EventStorming
@@ -113,11 +140,11 @@ https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 >
 > The adaptive nature of EventStorming allows sophisticated cross-discipline conversation between stakeholders with different backgrounds, delivering a new type of collaboration beyond silo and specialisation boundaries.
 >
-> "EventStorming", *EventStorming.com*, last edited on 2020.   
+> Brandolini, Alberto. "EventStorming", *EventStorming.com*, last edited on 2020.   
 > https://www.eventstorming.com/
 
 ![](./.assets/img/event-storming.jpg)  
-Fig. 7: Baas-Schwegler, Kenny & Richardson, Chris. *Picture that explains "Almost" Everything*.    
+Fig. 8: Baas-Schwegler, Kenny & Richardson, Chris. *Picture that explains "Almost" Everything*.    
 https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
 
 ### EventStorming (WIP)
@@ -132,12 +159,11 @@ https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
 > "Clean Architecture." *Whatis*, last edited on 10 Mar 2019.  
 > https://whatis.techtarget.com/definition/clean-architecture
 
-
  ![](./.assets/img/CleanArchitecture.jpg)  
- Fig. 8: C. Martin, Robert. *The Clean Architecture*.    
+ Fig. 9: C. Martin, Robert. *The Clean Architecture*.    
  https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
-## Domain-driven design
+## Domain-driven design (DDD)
 
 > Domain-Driven Design is an approach to software development that centers the development on programming a domain model that has a rich understanding of the processes and rules of a domain. The name comes from a 2003 book by Eric Evans that describes the approach through a catalog of patterns. Since then a community of practitioners have further developed the ideas, spawning various other books and training courses. The approach is particularly suited to complex domains, where a lot of often-messy logic needs to be organized.
 >
@@ -148,9 +174,20 @@ https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
 
 > Aggregate is a pattern in Domain-Driven Design. A DDD aggregate is a cluster of domain objects that can be treated as a single unit. An example may be an order and its line-items, these will be separate objects, but it's useful to treat the order (together with its line items) as a single aggregate.
 >
-> Fowler, Martin. "DDD_Aggregate," *martinfowler.com*, last edited on 15 Jun 2015.  
+> Fowler, Martin. "DDD_Aggregate," *martinfowler.com*, last edited on 08 Jun 2015.  
 > https://martinfowler.com/bliki/DomainDrivenDesign.html
-> 
+
+### Bounded Context
+
+> Bounded Context is a central pattern in Domain-Driven Design. It is the focus of DDD's strategic design section which is all about dealing with large models and teams. DDD deals with large models by dividing them into different Bounded Contexts and being explicit about their interrelationships.
+>
+> Fowler, Martin. "BoundedContext," *martinfowler.com*, last edited on 15 Jan 2014.  
+> https://martinfowler.com/bliki/DomainDrivenDesign.html
+
+![](./.assets/img/BoundedContext.png)  
+Fig. 10: Martin, Fowler. *BoundedContext*.    
+https://martinfowler.com/bliki/DomainDrivenDesign.html
+
 ## Running
 
 ### Development (secrets)
