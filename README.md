@@ -64,7 +64,7 @@ To cover this topic was prepared [this presentation](https://www.canva.com/desig
 > 
 > Event Sourcing ensures that all changes to application state are stored as a sequence of events. Not just can we query these events, we can also use the event log to reconstruct past states, and as a foundation to automatically adjust the state to cope with retroactive changes.
 >
-> Fowler Martin, 2005, *Event Sourcing*.   
+> Fowler, Martin. "Eventsourcing," *martinfowler.com*, last edited on 12 Dec 2005.     
 > https://martinfowler.com/eaaDev/EventSourcing.html
 
 <br>
@@ -137,7 +137,20 @@ https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
  Fig. 8: C. Martin, Robert. *The Clean Architecture*.    
  https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
+## Domain-driven design
 
+> Domain-Driven Design is an approach to software development that centers the development on programming a domain model that has a rich understanding of the processes and rules of a domain. The name comes from a 2003 book by Eric Evans that describes the approach through a catalog of patterns. Since then a community of practitioners have further developed the ideas, spawning various other books and training courses. The approach is particularly suited to complex domains, where a lot of often-messy logic needs to be organized.
+>
+> Fowler, Martin. "DomainDrivenDesign," *martinfowler.com*, last edited on 22 April 2020.  
+> https://martinfowler.com/bliki/DomainDrivenDesign.html
+
+### Aggregate
+
+> Aggregate is a pattern in Domain-Driven Design. A DDD aggregate is a cluster of domain objects that can be treated as a single unit. An example may be an order and its line-items, these will be separate objects, but it's useful to treat the order (together with its line items) as a single aggregate.
+>
+> Fowler, Martin. "DDD_Aggregate," *martinfowler.com*, last edited on 15 Jun 2015.  
+> https://martinfowler.com/bliki/DomainDrivenDesign.html
+> 
 ## Running
 
 ### Development (secrets)
@@ -293,28 +306,7 @@ CREATE TABLE [CustomerStoreEvents] (
   "Timestamp": "2021-07-12T14:22:23.2600385-03:00"
 }
 ```
-RabbitMQ/MassTransit
 
-Commands
-```ini
-Queue: customer-registered, Consumer: Application.UseCases.Customers.EventHandlers.CustomerRegistered.CustomerRegisteredConsumer
-Queue: customer-age-changed, Consumer: Application.UseCases.Customers.EventHandlers.CustomerUpdated.CustomerUpdatedConsumer
-Queue: customer-name-changed, Consumer: Application.UseCases.Customers.EventHandlers.CustomerUpdated.CustomerUpdatedConsumer
-Queue: customer-deleted, Consumer: Application.UseCases.Customers.EventHandlers.CustomerDeleted.CustomerDeletedConsumer
-```
-
-Events
-```ini
-Queue: update-customer, Consumer: Application.UseCases.Customers.Commands.UpdateCustomer.UpdateCustomerConsumer
-Queue: register-customer, Consumer: Application.UseCases.Customers.Commands.RegisterCustomer.RegisterCustomerConsumer
-Queue: delete-customer, Consumer: Application.UseCases.Customers.Commands.DeleteCustomer.DeleteCustomerConsumer**
-```
-
-Queries
-```ini
-Queue: get-customers-details-with-pagination-query, Consumer: Application.UseCases.Customers.Queries.GetCustomersWithPagination.GetCustomersDetailsWithPaginationQueryConsumer
-Queue: get-customer-detail-query, Consumer: Application.UseCases.Customers.Queries.GetCustomerDetails.GetCustomerDetailQueryConsumer
-```
 ## References
 
 * [Event Centric: Finding Simplicity in Complex Systems](https://www.amazon.com/Event-Centric-Simplicity-Addison-Wesley-Signature/dp/0321768221)
