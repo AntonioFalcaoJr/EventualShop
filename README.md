@@ -99,7 +99,7 @@ https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates/
 
 Snapshot stream:
 
-![](./.assets/img/stream_snapshot.webp)
+![](./.assets/img/stream_snapshot.png)
 Fig. 7: Comartin, Derek. *Snapshots in Event Sourcing for Rehydrating Aggregates*.    
 https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates/
 
@@ -142,7 +142,7 @@ https://medium.com/@mbue/some-thoughts-on-using-cqrs-without-event-sourcing-938b
 
 <br>
 
-![](.assets/img/cqrs.webp)   
+![](.assets/img/cqrs.jpg)   
 Fig. 10: Go, Jayson. *From Monolith to Event-Driven: Finding Seams in Your Future Architecture*.    
 https://www.eventstore.com/blog/what-is-event-sourcing
 
