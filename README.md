@@ -66,14 +66,42 @@ https://microservices.io/patterns/data/event-sourcing.html
 > https://www.eventstore.com/blog/what-is-event-sourcing
 
 ![](./.assets/img/event-store.png)  
-Fig. 3: Shilkov, Mikhail. Event Sourcing and IO Complexity*.    
+Fig. 3: Shilkov, Mikhail. *Event Sourcing and IO Complexity*.    
 https://mikhail.io/2016/11/event-sourcing-and-io-complexity/
+
+State transition during events applying: 
+
+![](./.assets/img/applyTo_event-sourcing.png)
+Fig. 4: Reitzammer, Benjamin & Seitz, Johannes. *Event Sourcingin practice*.    
+https://ookami86.github.io/event-sourcing-in-practice/#title.md
 
 The following picture shows the difference between approaches:
 
 ![](./.assets/img/event-sourcing.png)
-Fig. 4: Richardson, Chris. *Pattern: Event sourcing*.    
+Fig. 5: Richardson, Chris. *Pattern: Event sourcing*.    
 https://microservices.io/patterns/data/event-sourcing.html
+
+### Snapshot
+
+> Once you understand how Event Sourcing works, the most common thought is: “What happens when you have a lot of Events? Won’t it be inefficient to fetch every event from the event stream and replay all of them to get to the current state?”. It might be. But to combat this, you can use snapshots in event sourcing to rehydrate aggregates. Snapshots give you a representation of your aggregates state at a point in time. You can then use this as a checkpoint and then only replay the events since the snapshot.
+>
+> Comartin, Derek. "Snapshots in Event Sourcing for Rehydrating Aggregates", *codeopinion.com*, last edited on 17 Mar 2021.   
+> https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates/
+
+> Snapshotting is an optimisation that reduces time spent on reading event from an event store. If for example a stream contains thousands of events, and we need to read all of them every time, then the time the system takes to handle a command will be noticeable. What we can do instead is to create a snapshot of the aggregate state and save it. Then before a command is handled we can load the latest snapshot and only new events since the snapshot was created.
+>
+> Gunia, Kacper. "Event Sourcing: Snapshotting", *domaincentric.net*, last edited on 5 Jun 2020.   
+> https://domaincentric.net/blog/event-sourcing-snapshotting
+
+![](./.assets/img/snapshot.png)
+Fig. 6: Comartin, Derek. *Snapshots in Event Sourcing for Rehydrating Aggregates*.    
+https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates/
+
+Snapshot stream:
+
+![](./.assets/img/stream_snapshot.webp)
+Fig. 7: Comartin, Derek. *Snapshots in Event Sourcing for Rehydrating Aggregates*.    
+https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates/
 
 ## EDA + Event-sourcing
 
@@ -97,7 +125,7 @@ Table 2: Lorio, Pablo. *Comparison overview*, Event driven architectures vs even
 https://pablo-iorio.medium.com/event-driven-architectures-vs-event-sourcing-patterns-23d328289bf9
 
 ![](./.assets/img/EventSourcing_EDA.jpeg)
-Fig. 5: Nowak, Aleksander. *Understanding Event-Driven Design Patterns for Microservices*.    
+Fig. 8: Nowak, Aleksander. *Understanding Event-Driven Design Patterns for Microservices*.    
 https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-microservices-659b3c9fb51f
 
 ## CQRS
@@ -109,13 +137,13 @@ https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-
 <br>
 
 ![](.assets/img/cqrs.png)   
-Fig. 6: Bürckel, Marco. *Some thoughts on using CQRS without Event Sourcing*.    
+Fig. 9: Bürckel, Marco. *Some thoughts on using CQRS without Event Sourcing*.    
 https://medium.com/@mbue/some-thoughts-on-using-cqrs-without-event-sourcing-938b878166a2
 
 <br>
 
 ![](.assets/img/cqrs.webp)   
-Fig. 7: Go, Jayson. *From Monolith to Event-Driven: Finding Seams in Your Future Architecture*.    
+Fig. 10: Go, Jayson. *From Monolith to Event-Driven: Finding Seams in Your Future Architecture*.    
 https://www.eventstore.com/blog/what-is-event-sourcing
 
 ### Projections
@@ -134,13 +162,13 @@ data storage mechanism for the domain.
 > https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs#event-sourcing-and-cqrs-pattern
 
  ![](./.assets/img/cqrs-eventsourcing-diagram.png)
- Fig. 8: Whittaker, Daniel. *CQRS + Event Sourcing – Step by Step*.    
+ Fig. 11: Whittaker, Daniel. *CQRS + Event Sourcing – Step by Step*.    
  https://danielwhittaker.me/2020/02/20/cqrs-step-step-guide-flow-typical-application/
 
 <br>
 
 ![](./.assets/img/cqrs-eventsourcing-flow.png)  
-Fig. 9: Katwatka, Piotr. *Event Sourcing with CQRS*.  
+Fig. 12: Katwatka, Piotr. *Event Sourcing with CQRS*.  
 https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 
 ## EventStorming
@@ -160,7 +188,7 @@ https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 > https://www.eventstorming.com/
 
 ![](./.assets/img/event-storming.jpg)  
-Fig. 10: Baas-Schwegler, Kenny & Richardson, Chris. *Picture that explains "Almost" Everything*.    
+Fig. 13: Baas-Schwegler, Kenny & Richardson, Chris. *Picture that explains "Almost" Everything*.    
 https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
 
 ### EventStorming (WIP)
@@ -188,7 +216,7 @@ https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
 > https://martinfowler.com/bliki/DomainDrivenDesign.html
 
 ![](./.assets/img/BoundedContext.png)  
-Fig. 11: Martin, Fowler. *BoundedContext*.    
+Fig. 14: Martin, Fowler. *BoundedContext*.    
 https://martinfowler.com/bliki/DomainDrivenDesign.html
 
 ## Clean Architecture
@@ -201,7 +229,7 @@ https://martinfowler.com/bliki/DomainDrivenDesign.html
 > https://whatis.techtarget.com/definition/clean-architecture
 
 ![](./.assets/img/CleanArchitecture.jpg)  
-Fig. 12: C. Martin, Robert. *The Clean Architecture*.    
+Fig. 15: C. Martin, Robert. *The Clean Architecture*.    
 https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
 ## Running
