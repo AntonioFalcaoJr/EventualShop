@@ -93,13 +93,13 @@ https://microservices.io/patterns/data/event-sourcing.html
 > Gunia, Kacper. "Event Sourcing: Snapshotting", *domaincentric.net*, last edited on 5 Jun 2020.   
 > https://domaincentric.net/blog/event-sourcing-snapshotting
 
-![](./.assets/img/snapshot.png)
+![](./.assets/img/snapshot.png)  
 Fig. 6: Comartin, Derek. *Snapshots in Event Sourcing for Rehydrating Aggregates*.    
 https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates/
 
 Snapshot stream:
 
-![](./.assets/img/stream_snapshot.png)
+![](./.assets/img/stream_snapshot.png)  
 Fig. 7: Comartin, Derek. *Snapshots in Event Sourcing for Rehydrating Aggregates*.    
 https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates/
 
