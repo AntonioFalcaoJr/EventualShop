@@ -124,6 +124,8 @@ Comparison overview:
 Table 2: Lorio, Pablo. *Comparison overview*, Event driven architectures vs event sourcing patterns.    
 https://pablo-iorio.medium.com/event-driven-architectures-vs-event-sourcing-patterns-23d328289bf9
 
+<br>
+
 ![](./.assets/img/EventSourcing_EDA.jpeg)
 Fig. 8: Nowak, Aleksander. *Understanding Event-Driven Design Patterns for Microservices*.    
 https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-microservices-659b3c9fb51f
