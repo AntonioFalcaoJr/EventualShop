@@ -5,6 +5,6 @@ namespace ECommerce.WebAPI.Messages.Catalogs
 {
     public static class Queries
     {
-        public record GetCatalogItemsDetailsWithPaginationWithPaginationQuery(Guid Id, int Limit, int Offset) : GetCatalogItemsDetailsWithPagination;
+        public record GetCatalogItemsDetailsWithPaginationQuery(Guid Id, int Limit, int Offset) : GetCatalogItemsDetailsWithPagination;
     }
 }

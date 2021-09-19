@@ -1,8 +1,11 @@
-﻿namespace Messages.Accounts.Commands
+﻿using System;
+
+namespace Messages.Accounts.Commands
 {
     public interface RegisterAccount
     {
-        string Name { get; }
-        int Age { get; }
+        string Password { get; }
+        string PasswordConfirmation { get; }
+        string UserName { get; }
     }
 }

@@ -18,7 +18,12 @@ namespace Application.UseCases.Commands
         public async Task Consume(ConsumeContext<RegisterAccount> context)
         {
             var account = new Account();
-            account.Register(context.Message.Name, context.Message.Age);
+
+            account.Register(
+                context.Message.Password,
+                context.Message.PasswordConfirmation,
+                context.Message.UserName);
+
             await _eventStoreService.AppendEventsToStreamAsync(account, context.CancellationToken);
         }
     }

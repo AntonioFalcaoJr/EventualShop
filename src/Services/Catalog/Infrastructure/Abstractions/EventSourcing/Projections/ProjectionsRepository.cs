@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.Projections;
 using Application.Abstractions.EventSourcing.Projections.Pagination;
 using Infrastructure.Abstractions.EventSourcing.Projections.Pagination;
-using Infrastructure.EventSourcing.Catalogs.Projections.Contexts;
+using Infrastructure.EventSourcing.Projections.Contexts;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
@@ -23,7 +23,7 @@ namespace Infrastructure.Abstractions.EventSourcing.Projections
 
         public virtual Task<TProjection> GetAsync<TProjection, TId>(TId id, CancellationToken cancellationToken)
             where TProjection : IProjection
-            => FindAsync<TProjection>(projection => projection.Id.Equals(id), cancellationToken);
+            => FindAsync<TProjection>(projection => projection.AggregateId.Equals(id), cancellationToken);
 
         public virtual Task<TProjection> FindAsync<TProjection>(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
             where TProjection : IProjection
@@ -67,7 +67,7 @@ namespace Infrastructure.Abstractions.EventSourcing.Projections
             => _context
                 .GetCollection<TProjection>()
                 .ReplaceOneAsync(
-                    filter: projection => projection.Id.Equals(replacement.Id),
+                    filter: projection => projection.AggregateId.Equals(replacement.AggregateId),
                     replacement: replacement,
                     options: new ReplaceOptions { IsUpsert = true },
                     cancellationToken: cancellationToken);

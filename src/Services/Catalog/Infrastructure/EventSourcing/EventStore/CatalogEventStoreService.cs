@@ -7,7 +7,7 @@ using Infrastructure.DependencyInjection.Options;
 using MassTransit;
 using Microsoft.Extensions.Options;
 
-namespace Infrastructure.EventSourcing.Catalogs.EventStore
+namespace Infrastructure.EventSourcing.EventStore
 {
     public class CatalogEventStoreService : EventStoreService<Catalog, CatalogStoreEvent, CatalogSnapshot, Guid>, ICatalogEventStoreService
     {

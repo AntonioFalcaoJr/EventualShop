@@ -28,7 +28,7 @@ namespace WebAPI.Controllers
             => SendCommandAsync(command, cancellationToken);
 
         [HttpPut]
-        public Task<IActionResult> UpdateAccount(UpdateAccount command, CancellationToken cancellationToken)
+        public Task<IActionResult> UpdateAccount(ChangeAccountPassword command, CancellationToken cancellationToken)
             => SendCommandAsync(command, cancellationToken);
 
         [HttpDelete]

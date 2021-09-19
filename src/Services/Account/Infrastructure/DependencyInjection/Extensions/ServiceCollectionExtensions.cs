@@ -63,16 +63,13 @@ namespace Infrastructure.DependencyInjection.Extensions
 
         private static void AddCommandConsumers(this IRegistrationConfigurator cfg)
         {
-            cfg.AddCommandConsumer<DeleteAccountConsumer, DeleteAccount>();
-            cfg.AddCommandConsumer<UpdateAccountConsumer, UpdateAccount>();
+            cfg.AddCommandConsumer<ChangeAccountPasswordConsumer, ChangeAccountPassword>();
             cfg.AddCommandConsumer<RegisterAccountConsumer, RegisterAccount>();
         }
 
         private static void AddEventConsumers(this IRegistrationConfigurator cfg)
         {
             cfg.AddConsumer<AccountRegisteredConsumer>();
-            cfg.AddConsumer<AccountDeletedConsumer>();
-            cfg.AddConsumer<AccountUpdatedConsumer>();
         }
 
         private static void AddQueryConsumers(this IRegistrationConfigurator cfg)
@@ -84,9 +81,6 @@ namespace Infrastructure.DependencyInjection.Extensions
         private static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
         {
             cfg.ConfigureEventReceiveEndpoint<AccountRegisteredConsumer, Events.AccountRegistered>(registration);
-            cfg.ConfigureEventReceiveEndpoint<AccountUpdatedConsumer, Events.AccountAgeChanged>(registration);
-            cfg.ConfigureEventReceiveEndpoint<AccountUpdatedConsumer, Events.AccountNameChanged>(registration);
-            cfg.ConfigureEventReceiveEndpoint<AccountDeletedConsumer, Events.AccountDeleted>(registration);
         }
 
         private static void AddCommandConsumer<TConsumer, TMessage>(this IRegistrationConfigurator configurator)
@@ -97,7 +91,7 @@ namespace Infrastructure.DependencyInjection.Extensions
                 .AddConsumer<TConsumer>()
                 .Endpoint(e => e.ConfigureConsumeTopology = false);
 
-            // MapQueueEndpoint<TMessage>();
+             MapQueueEndpoint<TMessage>();
         }
 
         private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)

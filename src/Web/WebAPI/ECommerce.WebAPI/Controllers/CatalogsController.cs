@@ -15,8 +15,8 @@ namespace ECommerce.WebAPI.Controllers
             : base(bus) { }
 
         [HttpGet]
-        public Task<IActionResult> GetCatalog([FromQuery] Queries.GetCatalogItemsDetailsWithPaginationWithPaginationQuery withPaginationWithPaginationQuery, CancellationToken cancellationToken)
-            => GetQueryResponseAsync<GetCatalogItemsDetailsWithPagination, CatalogItemsDetailsPagedResult>(withPaginationWithPaginationQuery, cancellationToken);
+        public Task<IActionResult> GetCatalogItemsWithPagination([FromQuery] Queries.GetCatalogItemsDetailsWithPaginationQuery query, CancellationToken cancellationToken)
+            => GetQueryResponseAsync<GetCatalogItemsDetailsWithPagination, CatalogItemsDetailsPagedResult>(query, cancellationToken);
 
         [HttpPost]
         public Task<IActionResult> CreateCatalog(Commands.CreateCatalogCommand command, CancellationToken cancellationToken)

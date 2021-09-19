@@ -4,5 +4,6 @@ namespace Domain.Abstractions.Entities
         where TId : struct
     {
         TId Id { get; }
+        bool IsDeleted { get; }
     }
 }

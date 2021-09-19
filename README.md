@@ -241,7 +241,6 @@ https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 To configure database resource, `init` secrets in [`./src/WebAPI`](./src/WebAPI), and then define the `DefaultConnection` in `ConnectionStrings` options:
 
 ```bash
-dotnet user-secrets init
 dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Server=<IP_ADDRESS>,1433;Database=EventStore;User=sa;Password=!MyStrongPassword"
 ```
 
@@ -342,7 +341,7 @@ networks:
 Docker commands
 
 MSSQL
-```zsh
+```bash
 docker run -d \
 -e 'ACCEPT_EULA=Y' \
 -e 'SA_PASSWORD=!MyStrongPassword' \
@@ -351,7 +350,7 @@ docker run -d \
 mcr.microsoft.com/mssql/server
 ```
 MongoDB
-```zsh
+```bash
 docker run -d \
 -e 'MONGO_INITDB_ROOT_USERNAME=mongoadmin' \
 -e 'MONGO_INITDB_ROOT_PASSWORD=secret' \
@@ -360,8 +359,8 @@ docker run -d \
 mongo
 ```
 RabbitMQ
-```zsh
-docker run -d \ 
+```bash
+docker run -d \
 -p 15672:15672 \
 -p 5672:5672 \
 --hostname my-rabbit \
@@ -413,5 +412,5 @@ CREATE TABLE [CustomerStoreEvents] (
 * [Architectural considerations for event-driven microservices-based systems - Tanmay Ambre](https://developer.ibm.com/articles/eda-and-microservices-architecture-best-practices/)
 * [How messaging simplifies and strengthens your microservice application - Callum Jackson](https://developer.ibm.com/articles/how-messaging-simplifies-strengthens-microservice-applications/)
 * [Event Sourcing: Aggregates Vs Projections - Kacper Gunia](https://domaincentric.net/blog/event-sourcing-aggregates-vs-projections)
-* [Event Sourcing: Projections](https://domaincentric.net/blog/event-sourcing-projections)
-* [Advantages of the event-driven architecture pattern](https://developer.ibm.com/articles/advantages-of-an-event-driven-architecture/)
+* [Event Sourcing: Projections - Kacper Gunia](https://domaincentric.net/blog/event-sourcing-projections)
+* [Advantages of the event-driven architecture pattern - Grace Jansen & Johanna Saladas](https://developer.ibm.com/articles/advantages-of-an-event-driven-architecture/)

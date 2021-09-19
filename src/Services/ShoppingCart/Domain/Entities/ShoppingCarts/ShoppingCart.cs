@@ -28,13 +28,6 @@ namespace Domain.Entities.ShoppingCarts
         private void When(Events.ShoppingCartItemAdded @event)
         {
             var shoppingCartItem = @event.ShoppingCartItem;
-
-            if (shoppingCartItem.IsValid is false)
-            {
-                AddError("Invalid Item", shoppingCartItem.Errors);
-                return;
-            }
-
             IncreaseTotal(shoppingCartItem.UnitPrice, shoppingCartItem.Quantity);
             _items.Add(shoppingCartItem);
         }

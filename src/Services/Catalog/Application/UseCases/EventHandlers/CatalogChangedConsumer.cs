@@ -54,14 +54,15 @@ namespace Application.UseCases.EventHandlers
 
             var catalogDetails = new CatalogProjection
             {
-                Id = catalog.Id,
+                AggregateId = catalog.Id,
                 Title = catalog.Title,
                 IsActive = catalog.IsActive,
+                IsDeleted = catalog.IsDeleted,
                 Items = catalog.Items
                     .Select(item
                         => new CatalogItemProjection
                         {
-                            Id = item.Id,
+                            AggregateId = item.Id,
                             Description = item.Description,
                             Name = item.Name,
                             Price = item.Price,

@@ -10,7 +10,6 @@ namespace Domain.Entities.Catalogs
     public class Catalog : AggregateRoot<Guid>
     {
         private readonly List<CatalogItem> _items = new();
-        public bool IsDeleted { get; private set; }
         public bool IsActive { get; private set; }
         public string Title { get; private set; }
 

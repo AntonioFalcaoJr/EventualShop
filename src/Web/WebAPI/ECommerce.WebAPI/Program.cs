@@ -32,7 +32,7 @@ builder.Services
 
             // Account
             MapQueueEndpoint<RegisterAccount>();
-            MapQueueEndpoint<UpdateAccount>();
+            MapQueueEndpoint<ChangeAccountPassword>();
             MapQueueEndpoint<DeleteAccount>();
             MapQueueEndpoint<GetAccountDetails>();
             MapQueueEndpoint<GetAccountsDetailsWithPagination>();

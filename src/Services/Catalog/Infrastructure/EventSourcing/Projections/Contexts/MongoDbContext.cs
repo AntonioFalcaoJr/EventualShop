@@ -2,7 +2,7 @@ using Infrastructure.DependencyInjection.Options;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
-namespace Infrastructure.EventSourcing.Catalogs.Projections.Contexts
+namespace Infrastructure.EventSourcing.Projections.Contexts
 {
     public class MongoDbContext : IMongoDbContext
     {

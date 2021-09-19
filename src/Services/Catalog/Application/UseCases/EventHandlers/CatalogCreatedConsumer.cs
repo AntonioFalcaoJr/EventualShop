@@ -23,7 +23,7 @@ namespace Application.UseCases.EventHandlers
 
             var catalogDetails = new CatalogProjection
             {
-                Id = catalog.Id,
+                AggregateId = catalog.Id,
                 Title = catalog.Title
             };
 

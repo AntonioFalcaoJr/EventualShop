@@ -1,8 +1,8 @@
 using Application.EventSourcing.Projections;
 using Infrastructure.Abstractions.EventSourcing.Projections;
-using Infrastructure.EventSourcing.Catalogs.Projections.Contexts;
+using Infrastructure.EventSourcing.Projections.Contexts;
 
-namespace Infrastructure.EventSourcing.Catalogs.Projections
+namespace Infrastructure.EventSourcing.Projections
 {
     public class CatalogProjectionsRepository : ProjectionsRepository, ICatalogProjectionsRepository
     {

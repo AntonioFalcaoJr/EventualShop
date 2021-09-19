@@ -4,5 +4,6 @@
         where TId : struct
     {
         TId Id { get; }
+        bool IsDeleted { get; }
     }
 }

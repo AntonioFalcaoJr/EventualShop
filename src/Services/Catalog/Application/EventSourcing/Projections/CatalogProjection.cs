@@ -6,7 +6,7 @@ namespace Application.EventSourcing.Projections
 {
     public record CatalogProjection : IProjection
     {
-        public Guid Id { get; init; }
+        public Guid AggregateId { get; init; }
         public string Title { get; init; }
         public bool IsDeleted { get; init; }
         public bool IsActive { get; init; }

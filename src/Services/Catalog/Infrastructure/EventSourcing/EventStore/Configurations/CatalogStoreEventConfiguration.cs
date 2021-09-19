@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
 
-namespace Infrastructure.EventSourcing.Catalogs.EventStore.Configurations
+namespace Infrastructure.EventSourcing.EventStore.Configurations
 {
     public class CatalogStoreEventConfiguration : IEntityTypeConfiguration<CatalogStoreEvent>
     {

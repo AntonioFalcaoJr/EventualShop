@@ -27,8 +27,8 @@ namespace ECommerce.WebAPI.Controllers
             => SendCommandAsync(command, cancellationToken);
 
         [HttpPut]
-        public Task<IActionResult> UpdateAccount(Commands.UpdateAccountCommand command, CancellationToken cancellationToken)
-            => SendCommandAsync(command, cancellationToken);
+        public Task<IActionResult> ChangeAccountPassword(Commands.ChangeAccountPasswordCommand passwordCommand, CancellationToken cancellationToken)
+            => SendCommandAsync(passwordCommand, cancellationToken);
 
         [HttpDelete]
         public Task<IActionResult> DeleteAccount(Commands.DeleteAccountCommand command, CancellationToken cancellationToken)

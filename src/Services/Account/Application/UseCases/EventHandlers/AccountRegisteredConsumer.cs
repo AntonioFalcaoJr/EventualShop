@@ -19,15 +19,14 @@ namespace Application.UseCases.EventHandlers
 
         public async Task Consume(ConsumeContext<Events.AccountRegistered> context)
         {
-            var (aggregateId, _, _) = context.Message;
-
-            var account = await _eventStoreService.LoadAggregateFromStreamAsync(aggregateId, context.CancellationToken);
+            var account = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.AccountId, context.CancellationToken);
 
             var accountDetails = new AccountDetailsProjection
             {
                 Id = account.Id,
-                Age = account.Age,
-                Name = account.Name
+                Password = account.Password,
+                IsDeleted = account.IsDeleted,
+                UserName = account.UserName
             };
 
             await _projectionsService.ProjectNewAccountDetailsAsync(accountDetails, context.CancellationToken);

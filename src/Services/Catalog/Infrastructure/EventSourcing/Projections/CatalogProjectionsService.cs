@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.Projections.Pagination;
 using Application.EventSourcing.Projections;
 
-namespace Infrastructure.EventSourcing.Catalogs.Projections
+namespace Infrastructure.EventSourcing.Projections
 {
     public class CatalogProjectionsService : ICatalogProjectionsService
     {

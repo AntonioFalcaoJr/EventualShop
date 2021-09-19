@@ -60,7 +60,7 @@ namespace Infrastructure.DependencyInjection.Extensions
         private static void AddCommandConsumers(this IRegistrationConfigurator cfg)
         {
             // cfg.AddCommandConsumer<AddShoppingCartItemConsumer, DeleteAccount>();
-            // cfg.AddCommandConsumer<UpdateAccountConsumer, UpdateAccount>();
+            // cfg.AddCommandConsumer<UpdateAccountConsumer, ChangeAccountPassword>();
             // cfg.AddCommandConsumer<CreateShoppingCartConsumer, RegisterAccount>();
         }
 

@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Infrastructure.EventSourcing.Catalogs.EventStore.Contexts
+namespace Infrastructure.EventSourcing.EventStore.Contexts
 {
     public class EventStoreDbContext : DbContext
     {
