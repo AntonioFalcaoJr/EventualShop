@@ -27,7 +27,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("AggregateVersion")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("AggregateId")
+                    b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AggregateName")
@@ -42,7 +42,7 @@ namespace Infrastructure.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(1000)");
 
-                    b.HasKey("AggregateVersion", "AggregateId");
+                    b.HasKey("AggregateVersion", "Id");
 
                     b.ToTable("AccountSnapshots");
                 });
@@ -54,7 +54,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<Guid>("AggregateId")
+                    b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AggregateName")

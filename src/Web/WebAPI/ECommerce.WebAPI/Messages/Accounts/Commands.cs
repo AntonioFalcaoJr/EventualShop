@@ -7,8 +7,8 @@ namespace ECommerce.WebAPI.Messages.Accounts
     {
         public record RegisterAccountCommand(string Password, string PasswordConfirmation, string UserName) : RegisterAccount;
 
-        public record ChangeAccountPasswordCommand(Guid AccountId, string NewPassword, string NewPasswordConfirmation) : ChangeAccountPassword;
+        public record ChangeAccountPasswordCommand(Guid AccountId, Guid UserId, string NewPassword, string NewPasswordConfirmation) : ChangeAccountPassword;
 
-        public record DeleteAccountCommand(Guid Id) : DeleteAccount;
+        public record DeleteAccountCommand(Guid AccountId) : DeleteAccount;
     }
 }

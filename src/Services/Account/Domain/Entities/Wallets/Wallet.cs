@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Domain.Abstractions.Entities;
-using Domain.ValueObjects.Cards;
+using Domain.ValueObjects.CreditCards;
 
 namespace Domain.Entities.Wallets
 {

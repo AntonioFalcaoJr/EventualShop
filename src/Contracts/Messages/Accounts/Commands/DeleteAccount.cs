@@ -4,6 +4,6 @@ namespace Messages.Accounts.Commands
 {
     public interface DeleteAccount
     {
-        Guid Id { get; }
+        Guid AccountId { get; }
     }
 }

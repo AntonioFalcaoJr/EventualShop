@@ -1,14 +1,15 @@
 using System;
 using Domain.Abstractions.Events;
 using Domain.Entities.Owners;
+using Domain.Entities.Users;
 using Domain.ValueObjects.Addresses;
-using Domain.ValueObjects.Cards;
+using Domain.ValueObjects.CreditCards;
 
 namespace Domain.Entities.Accounts
 {
     public static class Events
     {
-        public record AccountOwnerDetailsUpdated(Guid AccountId, Guid OwnerId, string Name, string LastName, int Age, string Email) : DomainEvent;
+        public record AccountOwnerDetailsUpdated(Guid AccountId, Guid OwnerId, int Age, string Email, string LastName, string Name) : DomainEvent;
 
         public record AccountOwnerDefined(Guid AccountId, Owner Owner) : DomainEvent;
 
@@ -18,12 +19,12 @@ namespace Domain.Entities.Accounts
 
         public record AccountDeleted(Guid AccountId) : DomainEvent;
 
-        public record AccountRegistered(Guid AccountId, string UserName, string Password, string PasswordConfirmation) : DomainEvent;
+        public record AccountUserRegistered(Guid AccountId, User User) : DomainEvent;
 
-        public record AccountPasswordChanged(Guid AccountId, string NewPassword, string NewPasswordConfirmation) : DomainEvent;
+        public record AccountUserPasswordChanged(Guid AccountId, Guid UserId, string NewPassword, string NewPasswordConfirmation) : DomainEvent;
 
         public record AccountOwnerAddressUpdated(Guid AccountId, Guid OwnerId, Address Address) : DomainEvent;
 
-        public record AccountOwnerCardUpdated(Guid AccountId, Guid OwnerId, Guid WalletId, CreditCard CreditCard) : DomainEvent;
+        public record AccountOwnerCreditCardUpdated(Guid AccountId, Guid OwnerId, Guid WalletId, CreditCard CreditCard) : DomainEvent;
     }
 }

@@ -8,8 +8,8 @@ namespace Application.EventSourcing.Projections
 {
     public interface IAccountProjectionsService
     {
-        Task<IPagedResult<AccountDetailsProjection>> GetAccountsDetailsWithPaginationAsync(Paging paging, Expression<Func<AccountDetailsProjection, bool>> predicate, CancellationToken cancellationToken);
-        Task ProjectNewAccountDetailsAsync(AccountDetailsProjection accountDetails, CancellationToken cancellationToken);
-        Task<AccountDetailsProjection> GetAccountDetailsAsync(Guid accountId, CancellationToken cancellationToken);
+        Task<IPagedResult<AccountAuthenticationDetailsProjection>> GetAccountsDetailsWithPaginationAsync(Paging paging, Expression<Func<AccountAuthenticationDetailsProjection, bool>> predicate, CancellationToken cancellationToken);
+        Task ProjectNewAccountDetailsAsync(AccountAuthenticationDetailsProjection accountAuthenticationDetails, CancellationToken cancellationToken);
+        Task<AccountAuthenticationDetailsProjection> GetAccountDetailsAsync(Guid accountId, CancellationToken cancellationToken);
     }
 }

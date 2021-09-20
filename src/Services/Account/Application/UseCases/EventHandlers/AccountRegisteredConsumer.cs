@@ -6,7 +6,7 @@ using MassTransit;
 
 namespace Application.UseCases.EventHandlers
 {
-    public class AccountRegisteredConsumer : IConsumer<Events.AccountRegistered>
+    public class AccountRegisteredConsumer : IConsumer<Events.AccountUserRegistered>
     {
         private readonly IAccountEventStoreService _eventStoreService;
         private readonly IAccountProjectionsService _projectionsService;
@@ -17,16 +17,17 @@ namespace Application.UseCases.EventHandlers
             _projectionsService = projectionsService;
         }
 
-        public async Task Consume(ConsumeContext<Events.AccountRegistered> context)
+        public async Task Consume(ConsumeContext<Events.AccountUserRegistered> context)
         {
             var account = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.AccountId, context.CancellationToken);
 
-            var accountDetails = new AccountDetailsProjection
+            var accountDetails = new AccountAuthenticationDetailsProjection
             {
                 Id = account.Id,
-                Password = account.Password,
+                UserId = account.User.Id,
+                Password = account.User.Password,
                 IsDeleted = account.IsDeleted,
-                UserName = account.UserName
+                UserName = account.User.Name
             };
 
             await _projectionsService.ProjectNewAccountDetailsAsync(accountDetails, context.CancellationToken);

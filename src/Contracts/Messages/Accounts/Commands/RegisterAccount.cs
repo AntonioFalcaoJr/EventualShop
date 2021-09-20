@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Messages.Accounts.Commands
+﻿namespace Messages.Accounts.Commands
 {
     public interface RegisterAccount
     {

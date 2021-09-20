@@ -1,7 +1,7 @@
 ﻿using System;
 using Domain.Abstractions.Validators;
 using Domain.Entities.Owners;
-using FluentValidation;
+using Domain.Entities.Users;
 
 namespace Domain.Entities.Accounts
 {
@@ -12,19 +12,8 @@ namespace Domain.Entities.Accounts
             RuleFor(account => account.Owner)
                 .SetValidator(new OwnerValidator());
 
-            RuleFor(account => account.Password)
-                .NotNull()
-                .NotEmpty()
-                .Equal(account => account.PasswordConfirmation);
-
-            RuleFor(account => account.PasswordConfirmation)
-                .NotNull()
-                .NotEmpty()
-                .Equal(account => account.Password);
-
-            RuleFor(account => account.UserName)
-                .NotNull()
-                .NotEmpty();
+            RuleFor(account => account.User)
+                .SetValidator(new UserValidator());
         }
     }
 }

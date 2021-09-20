@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Domain.Abstractions.Entities;
 using Domain.Entities.Wallets;
 using Domain.ValueObjects.Addresses;
-using Domain.ValueObjects.Cards;
+using Domain.ValueObjects.CreditCards;
 
 namespace Domain.Entities.Owners
 {
@@ -11,13 +11,13 @@ namespace Domain.Entities.Owners
     {
         private readonly List<Address> _addresses = new();
 
-        public Owner(string name, string lastName, int age, string email)
+        public Owner(int age, string email, string lastName, string name)
         {
             Id = Guid.NewGuid();
-            SetName(name);
-            SetLastName(lastName);
             SetAge(age);
             SetEmail(email);
+            SetLastName(lastName);
+            SetName(name);
         }
 
         public IEnumerable<Address> Addresses

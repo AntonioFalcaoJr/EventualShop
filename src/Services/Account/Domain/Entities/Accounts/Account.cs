@@ -2,23 +2,22 @@
 using Domain.Abstractions.Aggregates;
 using Domain.Abstractions.Events;
 using Domain.Entities.Owners;
+using Domain.Entities.Users;
 using Domain.ValueObjects.Addresses;
-using Domain.ValueObjects.Cards;
+using Domain.ValueObjects.CreditCards;
 
 namespace Domain.Entities.Accounts
 {
     public class Account : AggregateRoot<Guid>
     {
         public Owner Owner { get; private set; }
-        public string Password { get; private set; }
-        public string PasswordConfirmation { get; private set; }
-        public string UserName { get; private set; }
+        public User User { get; private set; }
 
-        public void Register(string password, string passwordConfirmation, string userName)
-            => RaiseEvent(new Events.AccountRegistered(Guid.NewGuid(), userName, password, passwordConfirmation));
+        public void RegisterUser(User user)
+            => RaiseEvent(new Events.AccountUserRegistered(Guid.NewGuid(), user));
 
-        public void ChangePassword(Guid accountId, string newPassword, string newPasswordConfirmation)
-            => RaiseEvent(new Events.AccountPasswordChanged(accountId, newPassword, newPasswordConfirmation));
+        public void ChangePassword(Guid accountId, Guid userId, string newPassword, string newPasswordConfirmation)
+            => RaiseEvent(new Events.AccountUserPasswordChanged(accountId, userId, newPassword, newPasswordConfirmation));
 
         public void Delete(Guid accountId)
             => RaiseEvent(new Events.AccountDeleted(accountId));
@@ -26,29 +25,29 @@ namespace Domain.Entities.Accounts
         public void DefineOwner(Guid accountId, Owner owner)
             => RaiseEvent(new Events.AccountOwnerDefined(accountId, owner));
 
-        public void UpdateOwnerDetails(Guid accountId, Guid ownerId, string name, string lastName, int age, string email)
-            => RaiseEvent(new Events.AccountOwnerDetailsUpdated(accountId, ownerId, name, lastName, age, email));
+        public void UpdateOwnerDetails(Guid accountId, Guid ownerId, int age, string email, string lastName, string name)
+            => RaiseEvent(new Events.AccountOwnerDetailsUpdated(accountId, ownerId, age, email, lastName, name));
 
         public void AddNewOwnerAddress(Guid accountId, Guid ownerId, Address address)
             => RaiseEvent(new Events.AccountOwnerNewAddressAdded(accountId, ownerId, address));
 
-        public void AddNewOwnerCard(Guid accountId, Guid ownerId, CreditCard creditCard)
+        public void AddNewOwnerCreditCard(Guid accountId, Guid ownerId, CreditCard creditCard)
             => RaiseEvent(new Events.AccountOwnerNewCardAdded(accountId, ownerId, creditCard));
 
         public void UpdateOwnerAddress(Guid accountId, Guid ownerId, Address address)
             => RaiseEvent(new Events.AccountOwnerAddressUpdated(accountId, ownerId, address));
 
-        public void UpdateOwnerCard(Guid accountId, Guid ownerId, Guid walletId, CreditCard creditCard)
-            => RaiseEvent(new Events.AccountOwnerCardUpdated(accountId, ownerId, walletId, creditCard));
+        public void UpdateOwnerCreditCard(Guid accountId, Guid ownerId, Guid walletId, CreditCard creditCard)
+            => RaiseEvent(new Events.AccountOwnerCreditCardUpdated(accountId, ownerId, walletId, creditCard));
 
         protected override void ApplyEvent(IDomainEvent domainEvent)
             => When(domainEvent as dynamic);
 
-        private void When(Events.AccountRegistered @event)
-            => (Id, UserName, Password, PasswordConfirmation) = @event;
+        private void When(Events.AccountUserRegistered @event)
+            => (Id, User) = @event;
 
-        private void When(Events.AccountPasswordChanged @event)
-            => (_, Password, PasswordConfirmation) = @event;
+        private void When(Events.AccountUserPasswordChanged @event) 
+            => User.ChangePassword(@event.NewPassword, @event.NewPasswordConfirmation);
 
         private void When(Events.AccountDeleted _)
             => IsDeleted = true;
@@ -76,7 +75,7 @@ namespace Domain.Entities.Accounts
             Owner.AddNewAddress(@event.Address);
         }
 
-        private void When(Events.AccountOwnerCardUpdated @event)
+        private void When(Events.AccountOwnerCreditCardUpdated @event)
         {
             Owner.RemoveCreditCard(@event.CreditCard);
             Owner.AddNewCreditCard(@event.CreditCard);

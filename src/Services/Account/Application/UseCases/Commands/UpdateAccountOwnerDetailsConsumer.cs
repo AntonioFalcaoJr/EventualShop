@@ -5,30 +5,32 @@ using Messages.Accounts.Commands;
 
 namespace Application.UseCases.Commands
 {
-    public class ChangeAccountPasswordConsumer : IConsumer<ChangeAccountPassword>
+    public class UpdateAccountOwnerDetailsConsumer : IConsumer<UpdateAccountOwnerDetails>
     {
         private readonly IAccountEventStoreService _eventStoreService;
 
-        public ChangeAccountPasswordConsumer(IAccountEventStoreService eventStoreService)
+        public UpdateAccountOwnerDetailsConsumer(IAccountEventStoreService eventStoreService)
         {
             _eventStoreService = eventStoreService;
         }
 
-        public async Task Consume(ConsumeContext<ChangeAccountPassword> context)
+        public async Task Consume(ConsumeContext<UpdateAccountOwnerDetails> context)
         {
             var account = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.AccountId, context.CancellationToken);
 
-            if (account.User.Id != context.Message.UserId)
+            if (account.Owner.Id != context.Message.OwnerId)
             {
                 // TODO - Notification
                 return;
             }
-
-            account.ChangePassword(
+            
+            account.UpdateOwnerDetails(
                 account.Id,
-                account.User.Id,
-                context.Message.NewPassword,
-                context.Message.NewPasswordConfirmation);
+                account.Owner.Id,
+                context.Message.Age,
+                context.Message.Email,
+                context.Message.LastName,
+                context.Message.Name);
 
             await _eventStoreService.AppendEventsToStreamAsync(account, context.CancellationToken);
         }

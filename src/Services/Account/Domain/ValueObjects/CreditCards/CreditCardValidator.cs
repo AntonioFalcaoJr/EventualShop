@@ -1,7 +1,7 @@
 ﻿using System;
 using FluentValidation;
 
-namespace Domain.ValueObjects.Cards
+namespace Domain.ValueObjects.CreditCards
 {
     public class CreditCardValidator : AbstractValidator<CreditCard>
     {

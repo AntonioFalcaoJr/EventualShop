@@ -1,6 +1,5 @@
 ﻿using System;
 using Application.Abstractions.EventSourcing.Projections;
-using Messages.Accounts.Queries.Responses;
 
 namespace Application.EventSourcing.Projections
 {

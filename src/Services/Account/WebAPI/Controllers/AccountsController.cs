@@ -17,18 +17,18 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         public Task<IActionResult> GetAccountsWithPagination([FromQuery] GetAccountsDetailsWithPagination query, CancellationToken cancellationToken)
-            => GetQueryResponseAsync<GetAccountsDetailsWithPagination, IPagedResult<AccountDetailsProjection>>(query, cancellationToken);
+            => GetQueryResponseAsync<GetAccountsDetailsWithPagination, IPagedResult<AccountAuthenticationDetailsProjection>>(query, cancellationToken);
 
         [HttpGet]
-        public Task<IActionResult> GetAccountDetails([FromQuery] GetAccountDetails query, CancellationToken cancellationToken)
-            => GetQueryResponseAsync<GetAccountDetails, AccountDetailsProjection>(query, cancellationToken);
+        public Task<IActionResult> GetAccountAuthenticationDetails([FromQuery] GetAccountDetails query, CancellationToken cancellationToken)
+            => GetQueryResponseAsync<GetAccountDetails, AccountAuthenticationDetailsProjection>(query, cancellationToken);
 
         [HttpPost]
         public Task<IActionResult> RegisterAccount(RegisterAccount command, CancellationToken cancellationToken)
             => SendCommandAsync(command, cancellationToken);
 
         [HttpPut]
-        public Task<IActionResult> UpdateAccount(ChangeAccountPassword command, CancellationToken cancellationToken)
+        public Task<IActionResult> ChangeAccountPassword(ChangeAccountPassword command, CancellationToken cancellationToken)
             => SendCommandAsync(command, cancellationToken);
 
         [HttpDelete]

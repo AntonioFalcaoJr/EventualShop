@@ -32,13 +32,22 @@ namespace Infrastructure.Abstractions.EventSourcing.EventStore
 
         public async Task AppendEventsToStreamAsync(TAggregateState aggregateState, CancellationToken cancellationToken)
         {
-            var eventsToStore = GetEventsToStore(aggregateState);
+            if (aggregateState.IsValid is false)
+            {
+                // TODO - Notification
+                return;
+            }
 
+            var eventsToStore = GetEventsToStore(aggregateState);
+            await AppendEventsToStreamWithSnapshotControlAsync(aggregateState, eventsToStore, cancellationToken);
+            await PublishEventsAsync(aggregateState.DomainEvents, cancellationToken);
+        }
+
+        private async Task AppendEventsToStreamWithSnapshotControlAsync(TAggregateState aggregateState, IEnumerable<TStoreEvent> eventsToStore, CancellationToken cancellationToken)
+        {
             await foreach (var version in AppendEventToStreamAsync(eventsToStore, cancellationToken))
                 if (version % _options.SnapshotInterval is 0)
                     await AppendSnapshotToStreamAsync(aggregateState, version, cancellationToken);
-
-            await PublishEventsAsync(aggregateState.DomainEvents, cancellationToken);
         }
 
         public async Task<TAggregateState> LoadAggregateFromStreamAsync(TId aggregateId, CancellationToken cancellationToken)

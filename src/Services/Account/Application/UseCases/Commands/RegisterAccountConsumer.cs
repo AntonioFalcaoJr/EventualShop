@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Domain.Entities.Accounts;
+using Domain.Entities.Users;
 using MassTransit;
 using Messages.Accounts.Commands;
 
@@ -19,11 +20,13 @@ namespace Application.UseCases.Commands
         {
             var account = new Account();
 
-            account.Register(
-                context.Message.Password,
-                context.Message.PasswordConfirmation,
+            var user = new User(
+                context.Message.Password, 
+                context.Message.PasswordConfirmation, 
                 context.Message.UserName);
 
+            account.RegisterUser(user);
+            
             await _eventStoreService.AppendEventsToStreamAsync(account, context.CancellationToken);
         }
     }

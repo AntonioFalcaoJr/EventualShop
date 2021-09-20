@@ -1,7 +1,7 @@
 ﻿using System;
 using Domain.Abstractions.ValueObjects;
 
-namespace Domain.ValueObjects.Cards
+namespace Domain.ValueObjects.CreditCards
 {
     public record CreditCard : ValueObject
     {

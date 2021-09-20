@@ -1,6 +1,6 @@
 ﻿using System;
 using Domain.Abstractions.Validators;
-using Domain.ValueObjects.Cards;
+using Domain.ValueObjects.CreditCards;
 using FluentValidation;
 
 namespace Domain.Entities.Wallets

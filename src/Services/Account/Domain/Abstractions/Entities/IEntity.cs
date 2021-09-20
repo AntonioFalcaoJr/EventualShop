@@ -5,5 +5,6 @@ namespace Domain.Abstractions.Entities
     {
         TId Id { get; }
         bool IsDeleted { get; }
+        bool IsValid { get; }
     }
 }

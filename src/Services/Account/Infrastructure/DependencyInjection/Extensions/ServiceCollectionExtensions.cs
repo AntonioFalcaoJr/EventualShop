@@ -80,7 +80,7 @@ namespace Infrastructure.DependencyInjection.Extensions
 
         private static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
         {
-            cfg.ConfigureEventReceiveEndpoint<AccountRegisteredConsumer, Events.AccountRegistered>(registration);
+            cfg.ConfigureEventReceiveEndpoint<AccountRegisteredConsumer, Events.AccountUserRegistered>(registration);
         }
 
         private static void AddCommandConsumer<TConsumer, TMessage>(this IRegistrationConfigurator configurator)
