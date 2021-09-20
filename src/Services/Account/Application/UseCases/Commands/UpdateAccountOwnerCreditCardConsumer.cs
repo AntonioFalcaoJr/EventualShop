@@ -6,11 +6,11 @@ using Messages.Accounts.Commands;
 
 namespace Application.UseCases.Commands
 {
-    public class AddNewAccountOwnerCreditCardConsumer : IConsumer<AddNewAccountOwnerCreditCard>
+    public class UpdateAccountOwnerCreditCardConsumer : IConsumer<AddNewAccountOwnerCreditCard>
     {
         private readonly IAccountEventStoreService _eventStoreService;
 
-        public AddNewAccountOwnerCreditCardConsumer(IAccountEventStoreService eventStoreService)
+        public UpdateAccountOwnerCreditCardConsumer(IAccountEventStoreService eventStoreService)
         {
             _eventStoreService = eventStoreService;
         }
@@ -24,20 +24,20 @@ namespace Application.UseCases.Commands
                 // TODO - Notification
                 return;
             }
-            
+
             if (account.Owner.Wallet.Id != context.Message.WalletId)
             {
                 // TODO - Notification
                 return;
             }
 
-            var newCreditCard = new CreditCard(
+            var replacementCreditCard = new CreditCard(
                 context.Message.Expiration,
                 context.Message.HolderName,
                 context.Message.Number,
                 context.Message.SecurityNumber);
 
-            account.AddNewOwnerCreditCard(account.Id, account.Owner.Id, account.Owner.Wallet.Id, newCreditCard);
+            account.UpdateOwnerCreditCard(account.Id, account.Owner.Id, account.Owner.Wallet.Id, replacementCreditCard);
 
             await _eventStoreService.AppendEventsToStreamAsync(account, context.CancellationToken);
         }

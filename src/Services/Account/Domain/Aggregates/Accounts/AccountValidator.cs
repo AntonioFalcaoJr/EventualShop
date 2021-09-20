@@ -2,6 +2,7 @@
 using Domain.Abstractions.Validators;
 using Domain.Entities.Owners;
 using Domain.Entities.Users;
+using FluentValidation;
 
 namespace Domain.Aggregates.Accounts
 {
@@ -13,6 +14,7 @@ namespace Domain.Aggregates.Accounts
                 .SetValidator(new OwnerValidator());
 
             RuleFor(account => account.User)
+                .NotNull()
                 .SetValidator(new UserValidator());
         }
     }

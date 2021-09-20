@@ -173,6 +173,13 @@ data storage mechanism for the domain.
 Fig. 12: Katwatka, Piotr. *Event Sourcing with CQRS*.  
 https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 
+### Commands vs Events
+
+> Events represent a past, something that already happened and can't be undone. Commands, on the other hand, represent a wish, an action in the future which can be rejected. An event has typically multiple consumers, but a command is addressed to only one.
+>
+> Tulka, Tomas. "Events vs. Commands in DDD", *blog.ttulka.com*, last edited on 25 Mar 2020.   
+> https://blog.ttulka.com/events-vs-commands-in-ddd
+
 ## EventStorming
 
 >EventStorming is a flexible workshop format for collaborative exploration of complex business domains.

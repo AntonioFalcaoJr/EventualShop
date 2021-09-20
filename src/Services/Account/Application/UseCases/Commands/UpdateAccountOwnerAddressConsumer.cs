@@ -1,21 +1,22 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Domain.ValueObjects.Addresses;
+using Domain.ValueObjects.CreditCards;
 using MassTransit;
 using Messages.Accounts.Commands;
 
 namespace Application.UseCases.Commands
 {
-    public class AddNewAccountOwnerAddressConsumer : IConsumer<AddNewAccountOwnerAddress>
+    public class UpdateAccountOwnerAddressConsumer : IConsumer<UpdateAccountOwnerAddress>
     {
         private readonly IAccountEventStoreService _eventStoreService;
 
-        public AddNewAccountOwnerAddressConsumer(IAccountEventStoreService eventStoreService)
+        public UpdateAccountOwnerAddressConsumer(IAccountEventStoreService eventStoreService)
         {
             _eventStoreService = eventStoreService;
         }
 
-        public async Task Consume(ConsumeContext<AddNewAccountOwnerAddress> context)
+        public async Task Consume(ConsumeContext<UpdateAccountOwnerAddress> context)
         {
             var account = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.AccountId, context.CancellationToken);
 
@@ -33,7 +34,7 @@ namespace Application.UseCases.Commands
                 context.Message.Street,
                 context.Message.ZipCode);
 
-            account.AddNewOwnerAddress(account.Id, account.Owner.Id, address);
+            account.UpdateOwnerAddress(account.Id, account.Owner.Id, address);
 
             await _eventStoreService.AppendEventsToStreamAsync(account, context.CancellationToken);
         }
