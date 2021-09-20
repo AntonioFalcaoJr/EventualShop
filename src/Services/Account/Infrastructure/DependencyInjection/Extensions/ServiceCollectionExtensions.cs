@@ -6,7 +6,7 @@ using Application.UseCases.Commands;
 using Application.UseCases.EventHandlers;
 using Application.UseCases.Queries;
 using Domain.Abstractions.Events;
-using Domain.Entities.Accounts;
+using Domain.Aggregates.Accounts;
 using Infrastructure.DependencyInjection.Options;
 using Infrastructure.EventSourcing.Accounts.EventStore;
 using Infrastructure.EventSourcing.Accounts.EventStore.Contexts;

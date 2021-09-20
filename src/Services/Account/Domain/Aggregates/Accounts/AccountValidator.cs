@@ -3,7 +3,7 @@ using Domain.Abstractions.Validators;
 using Domain.Entities.Owners;
 using Domain.Entities.Users;
 
-namespace Domain.Entities.Accounts
+namespace Domain.Aggregates.Accounts
 {
     public class AccountValidator : EntityValidator<Account, Guid>
     {

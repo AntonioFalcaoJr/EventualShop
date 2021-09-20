@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
-using Domain.Entities.Accounts;
+using Domain.Aggregates.Accounts;
 using Domain.Entities.Users;
 using MassTransit;
 using Messages.Accounts.Commands;

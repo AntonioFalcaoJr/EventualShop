@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
-using Domain.Entities.Accounts;
+using Domain.Aggregates.Accounts;
 using MassTransit;
 
 namespace Application.UseCases.EventHandlers

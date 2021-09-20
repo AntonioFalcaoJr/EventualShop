@@ -1,7 +1,7 @@
 using System;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.EventStore.Events;
-using Domain.Entities.Accounts;
+using Domain.Aggregates.Accounts;
 using Infrastructure.Abstractions.EventSourcing.EventStore;
 using Infrastructure.DependencyInjection.Options;
 using MassTransit;

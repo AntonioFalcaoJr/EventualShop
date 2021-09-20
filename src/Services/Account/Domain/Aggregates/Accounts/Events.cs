@@ -5,7 +5,7 @@ using Domain.Entities.Users;
 using Domain.ValueObjects.Addresses;
 using Domain.ValueObjects.CreditCards;
 
-namespace Domain.Entities.Accounts
+namespace Domain.Aggregates.Accounts
 {
     public static class Events
     {
