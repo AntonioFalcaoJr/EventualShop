@@ -9,6 +9,11 @@ This project uses the **EventStorming** workshop to identify the business capabi
 
 ### Give a Star! :star:
 
+## The Solution Architecture
+
+![](./.assets/img/solution_architecture.png)    
+Fig. 1: Falcão Jr., Antônio. *An EDA solution architecture*.    
+
 ## Event-driven architecture (EDA)
 > Event-driven architecture (EDA) is a software architecture paradigm promoting the production, detection, consumption of, and reaction to events. An event can be defined as "a significant change in state".      
 > 
