@@ -1,6 +1,6 @@
 using MongoDB.Driver;
 
-namespace Infrastructure.EventSourcing.Projections.Contexts
+namespace Infrastructure.Abstractions.EventSourcing.Projections.Contexts
 {
     public interface IMongoDbContext
     {

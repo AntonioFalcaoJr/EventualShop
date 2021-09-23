@@ -2,16 +2,16 @@ using Infrastructure.DependencyInjection.Options;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
-namespace Infrastructure.EventSourcing.Projections.Contexts
+namespace Infrastructure.Abstractions.EventSourcing.Projections.Contexts
 {
-    public class MongoDbContext : IMongoDbContext
+    public abstract class MongoDbContext : IMongoDbContext
     {
         private readonly IMongoDatabase _database;
         private readonly MongoDbOptions _options;
 
-        public MongoDbContext(IOptionsSnapshot<MongoDbOptions> optionsSnapshot)
+        protected MongoDbContext(IOptionsMonitor<MongoDbOptions> optionsSnapshot)
         {
-            _options = optionsSnapshot.Value;
+            _options = optionsSnapshot.CurrentValue;
 
             _database = new MongoClient(new MongoUrl(_options.ConnectionStringFormed))
                 .GetDatabase(_options.Database);
