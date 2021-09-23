@@ -20,6 +20,11 @@ Fig. 1: Falcão Jr., Antônio. *An EDA solution architecture*.
 > "Event-driven architecture." *Wikipedia*, Wikimedia Foundation, last edited on 9 May 2021.  
 > https://en.wikipedia.org/wiki/Event-driven_architecture
 
+> Event-driven architecture refers to a system of loosely coupled microservices that exchange information between each other through the production and consumption of events. An event-driven system enables messages to be ingested into the event driven ecosystem and then broadcast out to whichever services are interested in receiving them.
+>
+> Jansen, Grace & Saladas, Johanna. "Advantages of the event-driven architecture pattern." *developer.ibm.com*, IBM Developer, last edited on 12 May 2021.  
+> https://developer.ibm.com/articles/advantages-of-an-event-driven-architecture/
+
  ![](./.assets/img/eda.png)    
  Fig. 1: Uit de Bos, Oskar. *A simple illustration of events using the publish/subscribe messaging model*.    
  https://medium.com/swlh/the-engineers-guide-to-event-driven-architectures-benefits-and-challenges-3e96ded8568b
