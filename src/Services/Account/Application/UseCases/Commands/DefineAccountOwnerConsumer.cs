@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Domain.Entities.Owners;
 using MassTransit;
@@ -20,6 +21,7 @@ namespace Application.UseCases.Commands
             var account = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.AccountId, context.CancellationToken);
 
             var owner = new Owner(
+                Guid.NewGuid(), 
                 context.Message.Age,
                 context.Message.Email,
                 context.Message.LastName,

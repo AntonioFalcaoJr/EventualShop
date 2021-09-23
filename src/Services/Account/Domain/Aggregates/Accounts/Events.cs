@@ -13,9 +13,9 @@ namespace Domain.Aggregates.Accounts
 
         public record AccountOwnerDefined(Guid AccountId, Owner Owner) : DomainEvent;
 
-        public record AccountOwnerNewAddressAdded(Guid AccountId, Guid UserId, Address Address) : DomainEvent;
+        public record AccountOwnerNewAddressAdded(Guid AccountId, Guid OwnerId, Address Address) : DomainEvent;
 
-        public record AccountOwnerNewCardAdded(Guid AccountId, Guid UserId, Guid WalletId, CreditCard CreditCard) : DomainEvent;
+        public record AccountOwnerNewCreditCardAdded(Guid AccountId, Guid UserId, Guid WalletId, CreditCard CreditCard) : DomainEvent;
 
         public record AccountDeleted(Guid AccountId) : DomainEvent;
 

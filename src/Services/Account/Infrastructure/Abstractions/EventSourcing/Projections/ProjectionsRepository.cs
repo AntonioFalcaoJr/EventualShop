@@ -36,11 +36,18 @@ namespace Infrastructure.Abstractions.EventSourcing.Projections
         public virtual Task SaveAsync<TProjection>(TProjection projection, CancellationToken cancellationToken) where TProjection : IProjection
             => _context.GetCollection<TProjection>().InsertOneAsync(projection, cancellationToken: cancellationToken);
 
-        public virtual Task SaveManyAsync<TProjection>(IEnumerable<TProjection> projections, CancellationToken cancellationToken) where TProjection : IProjection
-            => _context.GetCollection<TProjection>().InsertManyAsync(projections, cancellationToken: cancellationToken);
+        public virtual Task SaveManyAsync<TProjection>(IEnumerable<TProjection> projections, CancellationToken cancellationToken)
+            where TProjection : IProjection
+            => _context
+                .GetCollection<TProjection>()
+                .InsertManyAsync(projections, cancellationToken: cancellationToken);
 
-        public virtual Task UpdateAsync<TProjection>(TProjection projection, CancellationToken cancellationToken) where TProjection : IProjection
-            => _context.GetCollection<TProjection>().FindOneAndReplaceAsync<TProjection>(default, projection, default, cancellationToken);
+        public virtual Task UpdateAsync<TProjection>(TProjection replacement, CancellationToken cancellationToken)
+            where TProjection : IProjection
+            => _context
+                .GetCollection<TProjection>()
+                .ReplaceOneAsync(projection
+                    => projection.Id.Equals(replacement.Id), replacement, default(ReplaceOptions), cancellationToken);
 
         public virtual Task UpdateManyAsync<TProjection>(IEnumerable<TProjection> projections, CancellationToken cancellationToken) where TProjection : IProjection
             => throw new NotImplementedException();

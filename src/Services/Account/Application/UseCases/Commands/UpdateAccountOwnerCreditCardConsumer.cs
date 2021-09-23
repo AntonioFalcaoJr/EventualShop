@@ -6,7 +6,7 @@ using Messages.Accounts.Commands;
 
 namespace Application.UseCases.Commands
 {
-    public class UpdateAccountOwnerCreditCardConsumer : IConsumer<AddNewAccountOwnerCreditCard>
+    public class UpdateAccountOwnerCreditCardConsumer : IConsumer<UpdateAccountOwnerCreditCard>
     {
         private readonly IAccountEventStoreService _eventStoreService;
 
@@ -15,7 +15,7 @@ namespace Application.UseCases.Commands
             _eventStoreService = eventStoreService;
         }
 
-        public async Task Consume(ConsumeContext<AddNewAccountOwnerCreditCard> context)
+        public async Task Consume(ConsumeContext<UpdateAccountOwnerCreditCard> context)
         {
             var account = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.AccountId, context.CancellationToken);
 

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(EventStoreDbContext))]
-    [Migration("20210908155948_First migration")]
+    [Migration("20210922175644_First migration")]
     partial class Firstmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,12 +22,12 @@ namespace Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "6.0.0-preview.7.21378.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Application.EventSourcing.Accounts.EventStore.Events.AccountSnapshot", b =>
+            modelBuilder.Entity("Application.EventSourcing.EventStore.Events.AccountSnapshot", b =>
                 {
                     b.Property<int>("AggregateVersion")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("AggregateId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AggregateName")
@@ -42,19 +42,19 @@ namespace Infrastructure.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(1000)");
 
-                    b.HasKey("AggregateVersion", "Id");
+                    b.HasKey("AggregateVersion", "AggregateId");
 
                     b.ToTable("AccountSnapshots");
                 });
 
-            modelBuilder.Entity("Application.EventSourcing.Accounts.EventStore.Events.AccountStoreEvent", b =>
+            modelBuilder.Entity("Application.EventSourcing.EventStore.Events.AccountStoreEvent", b =>
                 {
                     b.Property<int>("Version")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("AggregateId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AggregateName")

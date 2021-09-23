@@ -9,9 +9,9 @@ namespace Domain.Entities.Wallets
     {
         private readonly List<CreditCard> _creditCards = new();
 
-        public Wallet()
+        public Wallet(Guid id)
         {
-            Id = Guid.NewGuid();
+            Id = id;
         }
 
         public IEnumerable<CreditCard> CreditCards

@@ -63,12 +63,20 @@ namespace Infrastructure.DependencyInjection.Extensions
 
         private static void AddCommandConsumers(this IRegistrationConfigurator cfg)
         {
+            cfg.AddCommandConsumer<AddNewAccountOwnerAddressConsumer, AddNewAccountOwnerAddress>();
+            cfg.AddCommandConsumer<AddNewAccountOwnerCreditCardConsumer, AddNewAccountOwnerCreditCard>();
             cfg.AddCommandConsumer<ChangeAccountPasswordConsumer, ChangeAccountPassword>();
+            cfg.AddCommandConsumer<DefineAccountOwnerConsumer, DefineAccountOwner>();
+            cfg.AddCommandConsumer<DeleteAccountConsumer, DeleteAccount>();
             cfg.AddCommandConsumer<RegisterAccountConsumer, RegisterAccount>();
+            cfg.AddCommandConsumer<UpdateAccountOwnerAddressConsumer, UpdateAccountOwnerAddress>();
+            cfg.AddCommandConsumer<UpdateAccountOwnerCreditCardConsumer, UpdateAccountOwnerCreditCard>();
+            cfg.AddCommandConsumer<UpdateAccountOwnerDetailsConsumer, UpdateAccountOwnerDetails>();
         }
 
         private static void AddEventConsumers(this IRegistrationConfigurator cfg)
         {
+            cfg.AddConsumer<AccountChangedConsumer>();
             cfg.AddConsumer<AccountRegisteredConsumer>();
         }
 
@@ -81,6 +89,14 @@ namespace Infrastructure.DependencyInjection.Extensions
         private static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
         {
             cfg.ConfigureEventReceiveEndpoint<AccountRegisteredConsumer, Events.AccountUserRegistered>(registration);
+            cfg.ConfigureEventReceiveEndpoint<AccountChangedConsumer, Events.AccountDeleted>(registration);
+            cfg.ConfigureEventReceiveEndpoint<AccountChangedConsumer, Events.AccountUserPasswordChanged>(registration);
+            cfg.ConfigureEventReceiveEndpoint<AccountChangedConsumer, Events.AccountOwnerDefined>(registration);
+            cfg.ConfigureEventReceiveEndpoint<AccountChangedConsumer, Events.AccountOwnerNewAddressAdded>(registration);
+            cfg.ConfigureEventReceiveEndpoint<AccountChangedConsumer, Events.AccountOwnerNewCreditCardAdded>(registration);
+            cfg.ConfigureEventReceiveEndpoint<AccountChangedConsumer, Events.AccountOwnerAddressUpdated>(registration);
+            cfg.ConfigureEventReceiveEndpoint<AccountChangedConsumer, Events.AccountOwnerCreditCardUpdated>(registration);
+            cfg.ConfigureEventReceiveEndpoint<AccountChangedConsumer, Events.AccountOwnerDetailsUpdated>(registration);
         }
 
         private static void AddCommandConsumer<TConsumer, TMessage>(this IRegistrationConfigurator configurator)

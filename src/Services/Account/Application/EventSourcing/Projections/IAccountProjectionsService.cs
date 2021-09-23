@@ -10,6 +10,7 @@ namespace Application.EventSourcing.Projections
     {
         Task<IPagedResult<AccountAuthenticationDetailsProjection>> GetAccountsDetailsWithPaginationAsync(Paging paging, Expression<Func<AccountAuthenticationDetailsProjection, bool>> predicate, CancellationToken cancellationToken);
         Task ProjectNewAccountDetailsAsync(AccountAuthenticationDetailsProjection accountAuthenticationDetails, CancellationToken cancellationToken);
+        Task UpdateAccountDetailsAsync(AccountAuthenticationDetailsProjection accountAuthenticationDetails, CancellationToken cancellationToken);
         Task<AccountAuthenticationDetailsProjection> GetAccountDetailsAsync(Guid accountId, CancellationToken cancellationToken);
     }
 }

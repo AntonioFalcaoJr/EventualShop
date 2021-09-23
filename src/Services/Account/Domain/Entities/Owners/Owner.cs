@@ -11,9 +11,9 @@ namespace Domain.Entities.Owners
     {
         private readonly List<Address> _addresses = new();
 
-        public Owner(int age, string email, string lastName, string name)
+        public Owner(Guid id, int age, string email, string lastName, string name)
         {
-            Id = Guid.NewGuid();
+            Id = id;
             SetAge(age);
             SetEmail(email);
             SetLastName(lastName);
@@ -27,7 +27,7 @@ namespace Domain.Entities.Owners
         public string Email { get; private set; }
         public string LastName { get; private set; }
         public string Name { get; private set; }
-        public Wallet Wallet { get; } = new();
+        public Wallet Wallet { get; private set; }
 
         public void SetName(string name)
             => Name = name;
@@ -51,7 +51,10 @@ namespace Domain.Entities.Owners
             => _addresses.RemoveAll(address => address == toRemove);
 
         public void AddNewCreditCard(CreditCard creditCard)
-            => Wallet.AddNewCar(creditCard);
+        {
+            Wallet ??= new(Guid.NewGuid());
+            Wallet.AddNewCar(creditCard);
+        }
 
         public void RemoveCreditCard(CreditCard creditCard)
             => Wallet.RemoveCard(creditCard);

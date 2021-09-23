@@ -21,6 +21,9 @@ namespace Infrastructure.EventSourcing.Accounts.Projections
 
         public Task ProjectNewAccountDetailsAsync(AccountAuthenticationDetailsProjection accountAuthenticationDetails, CancellationToken cancellationToken)
             => _repository.SaveAsync(accountAuthenticationDetails, cancellationToken);
+        
+        public Task UpdateAccountDetailsAsync(AccountAuthenticationDetailsProjection accountAuthenticationDetails, CancellationToken cancellationToken)
+            => _repository.UpdateAsync(accountAuthenticationDetails, cancellationToken);
 
         public Task<AccountAuthenticationDetailsProjection> GetAccountDetailsAsync(Guid accountId, CancellationToken cancellationToken)
             => _repository.GetAsync<AccountAuthenticationDetailsProjection, Guid>(accountId, cancellationToken);

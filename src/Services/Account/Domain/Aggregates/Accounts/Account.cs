@@ -32,7 +32,7 @@ namespace Domain.Aggregates.Accounts
             => RaiseEvent(new Events.AccountOwnerNewAddressAdded(accountId, ownerId, address));
 
         public void AddNewOwnerCreditCard(Guid accountId, Guid ownerId, Guid walletId, CreditCard creditCard)
-            => RaiseEvent(new Events.AccountOwnerNewCardAdded(accountId, ownerId, walletId, creditCard));
+            => RaiseEvent(new Events.AccountOwnerNewCreditCardAdded(accountId, ownerId, walletId, creditCard));
 
         public void UpdateOwnerAddress(Guid accountId, Guid ownerId, Address address)
             => RaiseEvent(new Events.AccountOwnerAddressUpdated(accountId, ownerId, address));
@@ -66,7 +66,7 @@ namespace Domain.Aggregates.Accounts
         private void When(Events.AccountOwnerNewAddressAdded @event)
             => Owner.AddNewAddress(@event.Address);
 
-        private void When(Events.AccountOwnerNewCardAdded @event)
+        private void When(Events.AccountOwnerNewCreditCardAdded @event)
             => Owner.AddNewCreditCard(@event.CreditCard);
 
         private void When(Events.AccountOwnerAddressUpdated @event)
