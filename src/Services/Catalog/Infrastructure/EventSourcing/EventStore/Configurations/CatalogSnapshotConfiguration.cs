@@ -14,7 +14,7 @@ namespace Infrastructure.EventSourcing.EventStore.Configurations
             builder.HasKey(snapshot => new { snapshot.AggregateVersion, snapshot.AggregateId });
 
             builder
-                .Property(storeEvent => storeEvent.AggregateVersion)
+                .Property(snapshot => snapshot.AggregateVersion)
                 .IsRequired();
 
             builder
