@@ -31,12 +31,19 @@ builder.Services
                 });
 
             // Account
-            MapQueueEndpoint<RegisterAccount>();
+            MapQueueEndpoint<AddNewAccountOwnerAddress>();
+            MapQueueEndpoint<AddNewAccountOwnerCreditCard>();
             MapQueueEndpoint<ChangeAccountPassword>();
+            MapQueueEndpoint<DefineAccountOwner>();
             MapQueueEndpoint<DeleteAccount>();
+            MapQueueEndpoint<RegisterAccount>();
+            MapQueueEndpoint<UpdateAccountOwnerAddress>();
+            MapQueueEndpoint<UpdateAccountOwnerCreditCard>();
+            MapQueueEndpoint<UpdateAccountOwnerDetails>();
+
             MapQueueEndpoint<GetAccountDetails>();
             MapQueueEndpoint<GetAccountsDetailsWithPagination>();
-            
+
             // Catalog
             MapQueueEndpoint<CreateCatalog>();
             MapQueueEndpoint<UpdateCatalog>();

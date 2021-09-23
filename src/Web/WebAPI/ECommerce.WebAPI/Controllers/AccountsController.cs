@@ -26,9 +26,33 @@ namespace ECommerce.WebAPI.Controllers
         public Task<IActionResult> RegisterAccount(Commands.RegisterAccountCommand command, CancellationToken cancellationToken)
             => SendCommandAsync(command, cancellationToken);
 
+        [HttpPost]
+        public Task<IActionResult> DefineAccountOwner(Commands.DefineAccountOwnerCommand command, CancellationToken cancellationToken)
+            => SendCommandAsync(command, cancellationToken);
+
+        [HttpPost]
+        public Task<IActionResult> AddNewAccountOwnerAddress(Commands.AddNewAccountOwnerAddressCommand command, CancellationToken cancellationToken)
+            => SendCommandAsync(command, cancellationToken);
+
+        [HttpPost]
+        public Task<IActionResult> AddNewAccountOwnerCreditCard(Commands.AddNewAccountOwnerCreditCardCommand command, CancellationToken cancellationToken)
+            => SendCommandAsync(command, cancellationToken);
+
         [HttpPut]
-        public Task<IActionResult> ChangeAccountPassword(Commands.ChangeAccountPasswordCommand passwordCommand, CancellationToken cancellationToken)
-            => SendCommandAsync(passwordCommand, cancellationToken);
+        public Task<IActionResult> ChangeAccountPassword(Commands.ChangeAccountPasswordCommand command, CancellationToken cancellationToken)
+            => SendCommandAsync(command, cancellationToken);
+
+        [HttpPut]
+        public Task<IActionResult> UpdateAccountOwnerAddress(Commands.UpdateAccountOwnerAddressCommand command, CancellationToken cancellationToken)
+            => SendCommandAsync(command, cancellationToken);
+        
+        [HttpPut]
+        public Task<IActionResult> UpdateAccountOwnerCreditCard(Commands.UpdateAccountOwnerCreditCardCommand command, CancellationToken cancellationToken)
+            => SendCommandAsync(command, cancellationToken);
+        
+        [HttpPut]
+        public Task<IActionResult> UpdateAccountOwnerDetails(Commands.UpdateAccountOwnerCreditCardCommand command, CancellationToken cancellationToken)
+            => SendCommandAsync(command, cancellationToken);
 
         [HttpDelete]
         public Task<IActionResult> DeleteAccount(Commands.DeleteAccountCommand command, CancellationToken cancellationToken)
