@@ -1,13 +1,12 @@
 using Application.EventSourcing.Projections;
 using Infrastructure.Abstractions.EventSourcing.Projections;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
-using Infrastructure.EventSourcing.Projections.Contexts;
 
 namespace Infrastructure.EventSourcing.Projections
 {
-    public class CatalogProjectionsRepository : ProjectionsRepository, ICatalogProjectionsRepository
+    public class AccountProjectionsRepository : ProjectionsRepository, IAccountProjectionsRepository
     {
-        public CatalogProjectionsRepository(IMongoDbContext context)
+        public AccountProjectionsRepository(IMongoDbContext context)
             : base(context) { }
     }
 }

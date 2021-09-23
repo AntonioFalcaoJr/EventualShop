@@ -4,11 +4,12 @@ using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using Application.UseCases.Queries;
 using Domain.Abstractions.Events;
+using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.DependencyInjection.Options;
-using Infrastructure.EventSourcing.Accounts.EventStore;
-using Infrastructure.EventSourcing.Accounts.EventStore.Contexts;
-using Infrastructure.EventSourcing.Accounts.Projections;
-using Infrastructure.EventSourcing.Accounts.Projections.Contexts;
+using Infrastructure.EventSourcing.EventStore;
+using Infrastructure.EventSourcing.EventStore.Contexts;
+using Infrastructure.EventSourcing.Projections;
+using Infrastructure.EventSourcing.Projections.Contexts;
 using MassTransit;
 using MassTransit.Definition;
 using MassTransit.RabbitMqTransport;
@@ -129,7 +130,7 @@ namespace Infrastructure.DependencyInjection.Extensions
         public static IServiceCollection AddProjectionsDbContext(this IServiceCollection services)
         {
             BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.CSharpLegacy));
-            return services.AddScoped<IMongoDbContext, MongoDbContext>();
+            return services.AddScoped<IMongoDbContext, ProjectionsDbContext>();
         }
 
         public static IServiceCollection AddEventStoreRepositories(this IServiceCollection services)
