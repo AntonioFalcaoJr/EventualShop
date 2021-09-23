@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Domain.ValueObjects.Addresses;
-using Domain.ValueObjects.CreditCards;
 using MassTransit;
 using Messages.Accounts.Commands;
 

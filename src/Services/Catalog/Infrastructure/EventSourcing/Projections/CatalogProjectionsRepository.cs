@@ -1,7 +1,6 @@
 using Application.EventSourcing.Projections;
 using Infrastructure.Abstractions.EventSourcing.Projections;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
-using Infrastructure.EventSourcing.Projections.Contexts;
 
 namespace Infrastructure.EventSourcing.Projections
 {

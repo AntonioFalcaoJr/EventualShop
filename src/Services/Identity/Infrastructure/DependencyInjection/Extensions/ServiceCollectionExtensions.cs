@@ -3,9 +3,6 @@ using System.Reflection;
 using Domain.Abstractions.Events;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.DependencyInjection.Options;
-
-using Infrastructure.EventSourcing.EventStore.Contexts;
-using Infrastructure.EventSourcing.Projections.Contexts;
 using MassTransit;
 using MassTransit.Definition;
 using MassTransit.RabbitMqTransport;
