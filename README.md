@@ -406,6 +406,12 @@ CREATE TABLE [CustomerStoreEvents] (
 }
 ```
 
+### Migrations
+
+```bash
+dotnet ef migrations add "First migration" -s .\WorkerService\ -p .\Infrastructure\
+```
+
 ## References
 
 * [Event Centric: Finding Simplicity in Complex Systems](https://www.amazon.com/Event-Centric-Simplicity-Addison-Wesley-Signature/dp/0321768221)
