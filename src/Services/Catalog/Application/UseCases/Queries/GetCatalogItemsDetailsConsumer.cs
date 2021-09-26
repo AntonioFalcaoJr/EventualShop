@@ -22,7 +22,7 @@ namespace Application.UseCases.Queries
                 paging: new Paging { Limit = context.Message.Limit, Offset = context.Message.Offset },
                 predicate: catalog => catalog.AggregateId == context.Message.Id
                                       && catalog.IsActive
-                                      && !catalog.IsDeleted,
+                                      && catalog.IsDeleted == false,
                 selector: catalog => catalog.Items,
                 cancellationToken: context.CancellationToken);
 
