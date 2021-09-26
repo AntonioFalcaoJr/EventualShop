@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.EventStore;
 using Application.Abstractions.EventSourcing.EventStore.Events;
 using Domain.Abstractions.Aggregates;
-using Domain.Abstractions.Events;
 using Infrastructure.DependencyInjection.Options;
 using MassTransit;
+using Messages.Abstractions;
 using Microsoft.Extensions.Options;
 
 namespace Infrastructure.Abstractions.EventSourcing.EventStore
@@ -40,7 +40,7 @@ namespace Infrastructure.Abstractions.EventSourcing.EventStore
 
             var eventsToStore = GetEventsToStore(aggregateState);
             await AppendEventsToStreamWithSnapshotControlAsync(aggregateState, eventsToStore, cancellationToken);
-            await PublishEventsAsync(aggregateState.DomainEvents, cancellationToken);
+            await PublishEventsAsync(aggregateState.Events, cancellationToken);
         }
 
         private async Task AppendEventsToStreamWithSnapshotControlAsync(TAggregateState aggregateState, IEnumerable<TStoreEvent> eventsToStore, CancellationToken cancellationToken)
@@ -76,16 +76,16 @@ namespace Infrastructure.Abstractions.EventSourcing.EventStore
             await _repository.AppendSnapshotToStreamAsync(snapshot, cancellationToken);
         }
 
-        private Task PublishEventsAsync(IEnumerable<IDomainEvent> domainEvents, CancellationToken cancellationToken)
-            => Task.WhenAll(domainEvents.Select(domainEvent => _bus.Publish(domainEvent, domainEvent.GetType(), cancellationToken)));
+        private Task PublishEventsAsync(IEnumerable<IEvent> events, CancellationToken cancellationToken)
+            => Task.WhenAll(events.Select(@event => _bus.Publish(@event, @event.GetType(), cancellationToken)));
 
         private static IEnumerable<TStoreEvent> GetEventsToStore(TAggregateState aggregateState)
-            => aggregateState.DomainEvents.Select(domainEvent
+            => aggregateState.Events.Select(@event
                 => new TStoreEvent
                 {
                     AggregateId = aggregateState.Id,
-                    DomainEvent = domainEvent,
-                    DomainEventName = domainEvent.GetType().Name
+                    Event = @event,
+                    EventName = @event.GetType().Name
                 });
     }
 }

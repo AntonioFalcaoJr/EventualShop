@@ -1,4 +1,4 @@
-using Messages.Paging;
+using Messages.Abstractions.Paging;
 
 namespace Application.Abstractions.EventSourcing.Projections.Pagination
 {

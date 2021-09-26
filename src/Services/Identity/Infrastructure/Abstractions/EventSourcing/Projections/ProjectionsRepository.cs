@@ -5,8 +5,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.Projections;
 using Application.Abstractions.EventSourcing.Projections.Pagination;
+using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.Abstractions.EventSourcing.Projections.Pagination;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 
 namespace Infrastructure.Abstractions.EventSourcing.Projections
 {
@@ -33,6 +35,16 @@ namespace Infrastructure.Abstractions.EventSourcing.Projections
 
         public virtual Task SaveAsync<TProjection>(TProjection projection, CancellationToken cancellationToken) where TProjection : IProjection
             => _context.GetCollection<TProjection>().InsertOneAsync(projection, cancellationToken: cancellationToken);
+        
+        public virtual Task UpsertAsync<TProjection>(TProjection replacement, CancellationToken cancellationToken)
+            where TProjection : IProjection
+            => _context
+                .GetCollection<TProjection>()
+                .ReplaceOneAsync(
+                    filter: projection => projection.Id.Equals(replacement.Id),
+                    replacement: replacement,
+                    options: new ReplaceOptions { IsUpsert = true },
+                    cancellationToken: cancellationToken);
 
         public virtual Task SaveManyAsync<TProjection>(IEnumerable<TProjection> projections, CancellationToken cancellationToken)
             where TProjection : IProjection
