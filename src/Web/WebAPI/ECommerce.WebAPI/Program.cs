@@ -6,6 +6,8 @@ using Messages.Accounts.Commands;
 using Messages.Accounts.Queries;
 using Messages.Catalogs.Commands;
 using Messages.Catalogs.Queries;
+using Messages.Identities.Commands;
+using Messages.Identities.Queries;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -54,6 +56,12 @@ builder.Services
             MapQueueEndpoint<RemoveCatalogItem>();
             MapQueueEndpoint<UpdateCatalogItem>();
             MapQueueEndpoint<GetCatalogItemsDetailsWithPagination>();
+            
+            //Identity
+            MapQueueEndpoint<RegisterUser>();
+            MapQueueEndpoint<ChangeUserPassword>();
+            MapQueueEndpoint<DeleteUser>();
+            MapQueueEndpoint<GetUserAuthenticationDetails>();
         });
     })
     .AddGenericRequestClient()
