@@ -1,4 +1,4 @@
-namespace Messages.Paging
+namespace Messages.Abstractions.Paging
 {
     public interface IPageInfo
     {

@@ -1,5 +1,5 @@
 ﻿using System;
-using Messages.Paging;
+using Messages.Abstractions.Paging;
 
 namespace Messages.Catalogs.Queries
 {

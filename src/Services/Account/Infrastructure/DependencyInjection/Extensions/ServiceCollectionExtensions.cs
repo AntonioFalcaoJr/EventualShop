@@ -5,7 +5,6 @@ using Application.EventSourcing.Projections;
 using Application.UseCases.Commands;
 using Application.UseCases.EventHandlers;
 using Application.UseCases.Queries;
-using Domain.Abstractions.Events;
 using Domain.Aggregates.Accounts;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.DependencyInjection.Options;
@@ -79,6 +78,7 @@ namespace Infrastructure.DependencyInjection.Extensions
         {
             cfg.AddConsumer<AccountChangedConsumer>();
             cfg.AddConsumer<AccountRegisteredConsumer>();
+            cfg.AddConsumer<UserRegisteredConsumer>();
         }
 
         private static void AddQueryConsumers(this IRegistrationConfigurator cfg)
@@ -98,6 +98,7 @@ namespace Infrastructure.DependencyInjection.Extensions
             cfg.ConfigureEventReceiveEndpoint<AccountChangedConsumer, Events.AccountOwnerAddressUpdated>(registration);
             cfg.ConfigureEventReceiveEndpoint<AccountChangedConsumer, Events.AccountOwnerCreditCardUpdated>(registration);
             cfg.ConfigureEventReceiveEndpoint<AccountChangedConsumer, Events.AccountOwnerDetailsUpdated>(registration);
+            cfg.ConfigureEventReceiveEndpoint<UserRegisteredConsumer, Messages.Identities.Events.UserRegistered>(registration);
         }
 
         private static void AddCommandConsumer<TConsumer, TMessage>(this IRegistrationConfigurator configurator)
@@ -113,14 +114,14 @@ namespace Infrastructure.DependencyInjection.Extensions
 
         private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
             where TConsumer : class, IConsumer
-            where TMessage : class, IDomainEvent
+            where TMessage : class// TODO - , IDomainEvent
         {
             cfg.ReceiveEndpoint(
                 queueName: typeof(TMessage).ToKebabCaseString(),
                 configureEndpoint: endpoint =>
                 {
                     endpoint.ConfigureConsumer<TConsumer>(registration);
-                    endpoint.ConfigureConsumeTopology = false;
+                   // endpoint.ConfigureConsumeTopology = false;
                 });
         }
 
@@ -129,7 +130,10 @@ namespace Infrastructure.DependencyInjection.Extensions
             => EndpointConvention.Map<TMessage>(new Uri($"exchange:{typeof(TMessage).ToKebabCaseString()}"));
 
         internal static string ToKebabCaseString(this MemberInfo member)
-            => KebabCaseEndpointNameFormatter.Instance.SanitizeName(member.Name);
+        {
+            var sanitizeName = KebabCaseEndpointNameFormatter.Instance.SanitizeName(member.Name);
+            return sanitizeName.TrimStart('i');
+        }
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
             => services

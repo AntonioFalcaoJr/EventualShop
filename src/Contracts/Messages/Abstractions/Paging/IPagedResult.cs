@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using MassTransit.Topology;
 
-namespace Messages.Paging
+namespace Messages.Abstractions.Paging
 {
     [ExcludeFromTopology]
     public interface IPagedResult<out T>
