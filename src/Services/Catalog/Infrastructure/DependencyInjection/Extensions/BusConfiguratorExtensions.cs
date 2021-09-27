@@ -1,9 +1,9 @@
 ﻿using System;
-using Application.UseCases.Commands;
+using Application.UseCases.CommandsHandlers;
 using Application.UseCases.EventHandlers;
-using Application.UseCases.Queries;
+using Application.UseCases.QueriesHandlers;
 using MassTransit;
-using Messages.Catalogs.Commands;
+using Messages.Catalogs;
 
 namespace Infrastructure.DependencyInjection.Extensions
 {
@@ -11,14 +11,14 @@ namespace Infrastructure.DependencyInjection.Extensions
     {
         public static void AddCommandConsumers(this IRegistrationConfigurator cfg)
         {
-            cfg.AddCommandConsumer<DeleteCatalogConsumer, DeleteCatalog>();
-            cfg.AddCommandConsumer<UpdateCatalogConsumer, UpdateCatalog>();
-            cfg.AddCommandConsumer<CreateCatalogConsumer, CreateCatalog>();
-            cfg.AddCommandConsumer<ActivateCatalogConsumer, ActivateCatalog>();
-            cfg.AddCommandConsumer<DeactivateCatalogConsumer, DeactivateCatalog>();
-            cfg.AddCommandConsumer<AddCatalogItemConsumer, AddCatalogItem>();
-            cfg.AddCommandConsumer<RemoveCatalogItemConsumer, RemoveCatalogItem>();
-            cfg.AddCommandConsumer<UpdateCatalogItemConsumer, UpdateCatalogItem>();
+            cfg.AddCommandConsumer<DeleteCatalogConsumer, Commands.DeleteCatalog>();
+            cfg.AddCommandConsumer<UpdateCatalogConsumer, Commands.UpdateCatalog>();
+            cfg.AddCommandConsumer<CreateCatalogConsumer, Commands.CreateCatalog>();
+            cfg.AddCommandConsumer<ActivateCatalogConsumer, Commands.ActivateCatalog>();
+            cfg.AddCommandConsumer<DeactivateCatalogConsumer, Commands.DeactivateCatalog>();
+            cfg.AddCommandConsumer<AddCatalogItemConsumer, Commands.AddCatalogItem>();
+            cfg.AddCommandConsumer<RemoveCatalogItemConsumer, Commands.RemoveCatalogItem>();
+            cfg.AddCommandConsumer<UpdateCatalogItemConsumer, Commands.UpdateCatalogItem>();
         }
 
         public static void AddEventConsumers(this IRegistrationConfigurator cfg)

@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.EventStore.Events;
 using Domain.Abstractions.Aggregates;
-using Domain.Abstractions.Events;
+using Messages.Abstractions;
 
 namespace Application.Abstractions.EventSourcing.EventStore
 {
@@ -14,7 +14,7 @@ namespace Application.Abstractions.EventSourcing.EventStore
         where TId : struct
     {
         Task<int> AppendEventToStreamAsync(TStoreEvent storeEvent, CancellationToken cancellationToken);
-        Task<IEnumerable<IDomainEvent>> GetStreamAsync(TId aggregateId, int snapshotVersion, CancellationToken cancellationToken);
+        Task<IEnumerable<IEvent>> GetStreamAsync(TId aggregateId, int snapshotVersion, CancellationToken cancellationToken);
         Task AppendSnapshotToStreamAsync(TSnapshot snapshot, CancellationToken cancellationToken);
         Task<TSnapshot> GetSnapshotAsync(TId aggregateId, CancellationToken cancellationToken);
     }

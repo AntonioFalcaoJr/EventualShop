@@ -7,12 +7,13 @@ namespace Domain.Aggregates.Users
 {
     public class User : AggregateRoot<Guid>
     {
+        public string Email { get; private set; }
+        public string FirstName { get; private set; }
         public string Password { get; private set; }
         public string PasswordConfirmation { get; private set; }
-        public string Login { get; private set; }
 
-        public void Register(string password, string passwordConfirmation, string login)
-            => RaiseEvent(new Events.UserRegistered(Guid.NewGuid(), password, passwordConfirmation, login));
+        public void Register(string email, string firstName, string password, string passwordConfirmation)
+            => RaiseEvent(new Events.UserRegistered(Guid.NewGuid(), email, firstName, password, passwordConfirmation));
 
         public void ChangePassword(Guid userId, string newPassword, string newPasswordConfirmation)
             => RaiseEvent(new Events.UserPasswordChanged(userId, newPassword, newPasswordConfirmation));
@@ -24,7 +25,7 @@ namespace Domain.Aggregates.Users
             => When(domainEvent as dynamic);
 
         private void When(Events.UserRegistered @event)
-            => (Id, Password, PasswordConfirmation, Login) = @event;
+            => (Id, Email, FirstName, Password, PasswordConfirmation) = @event;
 
         private void When(Events.UserPasswordChanged @event)
             => (_, Password, PasswordConfirmation) = @event;

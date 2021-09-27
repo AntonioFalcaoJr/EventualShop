@@ -33,7 +33,8 @@ namespace Infrastructure.Abstractions.EventSourcing.Projections
             return PagedResult<TProjection>.CreateAsync(paging, queryable, cancellationToken);
         }
 
-        public virtual Task SaveAsync<TProjection>(TProjection projection, CancellationToken cancellationToken) where TProjection : IProjection
+        public virtual Task SaveAsync<TProjection>(TProjection projection, CancellationToken cancellationToken)
+            where TProjection : IProjection
             => _context.GetCollection<TProjection>().InsertOneAsync(projection, cancellationToken: cancellationToken);
 
         public virtual Task SaveManyAsync<TProjection>(IEnumerable<TProjection> projections, CancellationToken cancellationToken)
@@ -46,8 +47,11 @@ namespace Infrastructure.Abstractions.EventSourcing.Projections
             where TProjection : IProjection
             => _context
                 .GetCollection<TProjection>()
-                .ReplaceOneAsync(projection
-                    => projection.Id.Equals(replacement.Id), replacement, default(ReplaceOptions), cancellationToken);
+                .UpdateOneAsync(projection => projection.Id.Equals(replacement.Id), 
+                    new ObjectUpdateDefinition<TProjection>(replacement), 
+                    cancellationToken: cancellationToken);
+
+        // projection => projection.Id.Equals(replacement.Id), replacement, default(ReplaceOptions), cancellationToken
 
         public virtual Task UpdateManyAsync<TProjection>(IEnumerable<TProjection> projections, CancellationToken cancellationToken) where TProjection : IProjection
             => throw new NotImplementedException();

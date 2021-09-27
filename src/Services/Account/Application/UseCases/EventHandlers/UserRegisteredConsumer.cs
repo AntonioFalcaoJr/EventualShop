@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
-using Domain.Aggregates.Accounts;
-using Domain.Entities.Users;
+using Domain.Aggregates;
 using MassTransit;
-using Events = Messages.Identities.Events;
+using Messages.Identities;
 
 namespace Application.UseCases.EventHandlers
 {
@@ -19,14 +18,7 @@ namespace Application.UseCases.EventHandlers
         public async Task Consume(ConsumeContext<Events.UserRegistered> context)
         {
             var account = new Account();
-
-            var user = new User(
-                "context.Message.Password",
-                "context.Message.Password",
-                "test");
-
-            account.RegisterUser(user);
-
+            account.Create(context.Message.UserId, context.Message.Email, context.Message.FirstName);
             await _eventStoreService.AppendEventsToStreamAsync(account, context.CancellationToken);
         }
     }

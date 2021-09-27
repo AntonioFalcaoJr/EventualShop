@@ -1,10 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using ECommerce.WebAPI.Abstractions;
-using ECommerce.WebAPI.Messages.Identities;
 using MassTransit;
-using Messages.Identities.Queries;
-using Messages.Identities.Queries.Responses;
+using Messages.Identities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.WebAPI.Controllers
@@ -15,19 +13,19 @@ namespace ECommerce.WebAPI.Controllers
             : base(bus) { }
 
         [HttpGet]
-        public Task<IActionResult> GetUserAuthenticationDetails([FromQuery] Queries.GetUserAuthenticationDetailsQuery query, CancellationToken cancellationToken)
-            => GetQueryResponseAsync<GetUserAuthenticationDetails, UserAuthenticationDetails>(query, cancellationToken);
+        public Task<IActionResult> GetUserAuthenticationDetails([FromQuery] Queries.GetUserAuthenticationDetails query, CancellationToken cancellationToken)
+            => GetQueryResponseAsync<Queries.GetUserAuthenticationDetails, Responses.UserAuthenticationDetails>(query, cancellationToken);
 
         [HttpPost]
-        public Task<IActionResult> RegisterUser(Commands.RegisterUserCommand command, CancellationToken cancellationToken)
+        public Task<IActionResult> RegisterUser(Commands.RegisterUser command, CancellationToken cancellationToken)
             => SendCommandAsync(command, cancellationToken);
 
         [HttpPut]
-        public Task<IActionResult> ChangeUserPassword(Commands.ChangeUserPasswordCommand command, CancellationToken cancellationToken)
+        public Task<IActionResult> ChangeUserPassword(Commands.ChangeUserPassword command, CancellationToken cancellationToken)
             => SendCommandAsync(command, cancellationToken);
 
         [HttpDelete]
-        public Task<IActionResult> DeleteUser(Commands.DeleteUserCommand command, CancellationToken cancellationToken)
+        public Task<IActionResult> DeleteUser(Commands.DeleteUser command, CancellationToken cancellationToken)
             => SendCommandAsync(command, cancellationToken);
     }
 }

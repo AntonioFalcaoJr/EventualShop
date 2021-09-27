@@ -2,9 +2,9 @@ using System;
 using System.Reflection;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
-using Application.UseCases.Commands;
+using Application.UseCases.CommandHandlers;
 using Application.UseCases.EventHandlers;
-using Application.UseCases.Queries;
+using Application.UseCases.QueriesHandlers;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.DependencyInjection.Options;
 using Infrastructure.EventSourcing.EventStore;
@@ -17,7 +17,6 @@ using MassTransit.RabbitMqTransport;
 using MassTransit.Topology;
 using Messages.Abstractions;
 using Messages.Identities;
-using Messages.Identities.Commands;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -64,9 +63,9 @@ namespace Infrastructure.DependencyInjection.Extensions
 
         private static void AddCommandConsumers(this IRegistrationConfigurator cfg)
         {
-            cfg.AddCommandConsumer<RegisterUserConsumer, RegisterUser>();
-            cfg.AddCommandConsumer<ChangeUserPasswordConsumer, ChangeUserPassword>();
-            cfg.AddCommandConsumer<DeleteUserConsumer, DeleteUser>();
+            cfg.AddCommandConsumer<RegisterUserConsumer, Commands.RegisterUser>();
+            cfg.AddCommandConsumer<ChangeUserPasswordConsumer, Commands.ChangeUserPassword>();
+            cfg.AddCommandConsumer<DeleteUserConsumer, Commands.DeleteUser>();
         }
 
         private static void AddEventConsumers(this IRegistrationConfigurator cfg)
@@ -105,8 +104,8 @@ namespace Infrastructure.DependencyInjection.Extensions
                 queueName: $"identity-{typeof(TMessage).ToKebabCaseString()}",
                 configureEndpoint: endpoint =>
                 {
-                    endpoint.ConfigureConsumer<TConsumer>(registration);
                     endpoint.ConfigureConsumeTopology = false;
+                    endpoint.ConfigureConsumer<TConsumer>(registration);
                     endpoint.Bind<TMessage>();
                 });
         }

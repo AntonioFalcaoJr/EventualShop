@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
     <PropertyGroup>
-<!--        <UserSecretsId>cd5ae577-e15f-4bde-ad9c-65a9b974bb05</UserSecretsId>-->
       <UserSecretsId>932f8138-47f8-403b-a457-ebb51be43313</UserSecretsId>
   </PropertyGroup>
     <ItemGroup>

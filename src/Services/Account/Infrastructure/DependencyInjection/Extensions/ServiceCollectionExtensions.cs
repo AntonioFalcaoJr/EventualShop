@@ -2,10 +2,11 @@ using System;
 using System.Reflection;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
-using Application.UseCases.Commands;
+using Application.UseCases.CommandHandlers;
 using Application.UseCases.EventHandlers;
-using Application.UseCases.Queries;
-using Domain.Aggregates.Accounts;
+using Application.UseCases.EventHandlers.Projections;
+using Application.UseCases.QueriesHandlers;
+using GreenPipes;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.DependencyInjection.Options;
 using Infrastructure.EventSourcing.EventStore;
@@ -16,7 +17,7 @@ using MassTransit;
 using MassTransit.Definition;
 using MassTransit.RabbitMqTransport;
 using MassTransit.Topology;
-using Messages.Accounts.Commands;
+using Messages.Accounts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,7 +47,7 @@ namespace Infrastructure.DependencyInjection.Extensions
                     {
                         bus.Host(
                             host: RabbitMqOptions.Host,
-                           // virtualHost: RabbitMqOptions.VirtualHost,
+                            // virtualHost: RabbitMqOptions.VirtualHost,
                             host =>
                             {
                                 host.Username(RabbitMqOptions.Username);
@@ -55,7 +56,7 @@ namespace Infrastructure.DependencyInjection.Extensions
 
                         bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
                         bus.ConfigureEventReceiveEndpoints(context);
-                        bus.ConfigureEndpoints(context);
+                        // bus.ConfigureEndpoints(context);
                     });
                 })
                 .AddMassTransitHostedService()
@@ -63,21 +64,16 @@ namespace Infrastructure.DependencyInjection.Extensions
 
         private static void AddCommandConsumers(this IRegistrationConfigurator cfg)
         {
-            cfg.AddCommandConsumer<AddNewAccountOwnerAddressConsumer, AddNewAccountOwnerAddress>();
-            cfg.AddCommandConsumer<AddNewAccountOwnerCreditCardConsumer, AddNewAccountOwnerCreditCard>();
-            cfg.AddCommandConsumer<ChangeAccountPasswordConsumer, ChangeAccountPassword>();
-            cfg.AddCommandConsumer<DefineAccountOwnerConsumer, DefineAccountOwner>();
-            cfg.AddCommandConsumer<DeleteAccountConsumer, DeleteAccount>();
-            cfg.AddCommandConsumer<RegisterAccountConsumer, RegisterAccount>();
-            cfg.AddCommandConsumer<UpdateAccountOwnerAddressConsumer, UpdateAccountOwnerAddress>();
-            cfg.AddCommandConsumer<UpdateAccountOwnerCreditCardConsumer, UpdateAccountOwnerCreditCard>();
-            cfg.AddCommandConsumer<UpdateAccountOwnerDetailsConsumer, UpdateAccountOwnerDetails>();
+            cfg.AddCommandConsumer<DefineResidenceAddressConsumer, Commands.DefineResidenceAddress>();
+            cfg.AddCommandConsumer<DeleteAccountConsumer, Commands.DeleteAccount>();
+            cfg.AddCommandConsumer<CreateAccountConsumer, Commands.CreateAccount>();
+            cfg.AddCommandConsumer<UpdateProfileConsumer, Commands.UpdateProfile>();
         }
 
         private static void AddEventConsumers(this IRegistrationConfigurator cfg)
         {
-            cfg.AddConsumer<AccountChangedConsumer>();
-            cfg.AddConsumer<AccountRegisteredConsumer>();
+            cfg.AddConsumer<AccountDeletedConsumer>();
+            cfg.AddConsumer<AccountCreatedConsumer>();
             cfg.AddConsumer<UserRegisteredConsumer>();
         }
 
@@ -89,15 +85,10 @@ namespace Infrastructure.DependencyInjection.Extensions
 
         private static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
         {
-            cfg.ConfigureEventReceiveEndpoint<AccountRegisteredConsumer, Events.AccountUserRegistered>(registration);
-            cfg.ConfigureEventReceiveEndpoint<AccountChangedConsumer, Events.AccountDeleted>(registration);
-            cfg.ConfigureEventReceiveEndpoint<AccountChangedConsumer, Events.AccountUserPasswordChanged>(registration);
-            cfg.ConfigureEventReceiveEndpoint<AccountChangedConsumer, Events.AccountOwnerDefined>(registration);
-            cfg.ConfigureEventReceiveEndpoint<AccountChangedConsumer, Events.AccountOwnerNewAddressAdded>(registration);
-            cfg.ConfigureEventReceiveEndpoint<AccountChangedConsumer, Events.AccountOwnerNewCreditCardAdded>(registration);
-            cfg.ConfigureEventReceiveEndpoint<AccountChangedConsumer, Events.AccountOwnerAddressUpdated>(registration);
-            cfg.ConfigureEventReceiveEndpoint<AccountChangedConsumer, Events.AccountOwnerCreditCardUpdated>(registration);
-            cfg.ConfigureEventReceiveEndpoint<AccountChangedConsumer, Events.AccountOwnerDetailsUpdated>(registration);
+            cfg.ConfigureEventReceiveEndpoint<AccountCreatedConsumer, Events.AccountCreated>(registration);
+            cfg.ConfigureEventReceiveEndpoint<AccountDeletedConsumer, Events.AccountDeleted>(registration);
+            cfg.ConfigureEventReceiveEndpoint<AccountDeletedConsumer, Events.ResidenceAddressDefined>(registration);
+            cfg.ConfigureEventReceiveEndpoint<AccountDeletedConsumer, Events.ProfileUpdated>(registration);
             cfg.ConfigureEventReceiveEndpoint<UserRegisteredConsumer, Messages.Identities.Events.UserRegistered>(registration);
         }
 
@@ -109,19 +100,31 @@ namespace Infrastructure.DependencyInjection.Extensions
                 .AddConsumer<TConsumer>()
                 .Endpoint(e => e.ConfigureConsumeTopology = false);
 
-             MapQueueEndpoint<TMessage>();
+            MapQueueEndpoint<TMessage>();
         }
 
         private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
             where TConsumer : class, IConsumer
-            where TMessage : class// TODO - , IDomainEvent
+            where TMessage : class //, IEvent
         {
             cfg.ReceiveEndpoint(
-                queueName: typeof(TMessage).ToKebabCaseString(),
+                queueName: $"account-{typeof(TMessage).ToKebabCaseString()}",
                 configureEndpoint: endpoint =>
                 {
+                    endpoint.ConfigureConsumeTopology = false;
+
                     endpoint.ConfigureConsumer<TConsumer>(registration);
-                   // endpoint.ConfigureConsumeTopology = false;
+                    endpoint.Bind<TMessage>();
+
+                    endpoint.UseCircuitBreaker(circuitBreaker => // TODO - Options
+                    {
+                        circuitBreaker.TripThreshold = 15;
+                        circuitBreaker.ResetInterval = TimeSpan.FromMinutes(3);
+                        circuitBreaker.TrackingPeriod = TimeSpan.FromMinutes(1);
+                        circuitBreaker.ActiveThreshold = 10;
+                    });
+
+                    endpoint.UseRateLimit(100, TimeSpan.FromSeconds(1)); // TODO - Options
                 });
         }
 
@@ -130,10 +133,7 @@ namespace Infrastructure.DependencyInjection.Extensions
             => EndpointConvention.Map<TMessage>(new Uri($"exchange:{typeof(TMessage).ToKebabCaseString()}"));
 
         internal static string ToKebabCaseString(this MemberInfo member)
-        {
-            var sanitizeName = KebabCaseEndpointNameFormatter.Instance.SanitizeName(member.Name);
-            return sanitizeName.TrimStart('i');
-        }
+            => KebabCaseEndpointNameFormatter.Instance.SanitizeName(member.Name);
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
             => services

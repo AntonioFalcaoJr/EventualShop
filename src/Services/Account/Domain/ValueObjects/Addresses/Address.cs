@@ -20,10 +20,6 @@ namespace Domain.ValueObjects.Addresses
         public string State { get; }
         public string Street { get; }
         public string ZipCode { get; }
-        public bool IsDefault { get; private set; }
-
-        public void SetDefault()
-            => IsDefault = true;
 
         protected override bool Validate()
             => OnValidate<AddressValidator, Address>();

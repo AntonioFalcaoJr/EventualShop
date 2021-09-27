@@ -41,7 +41,7 @@ namespace Application.UseCases.EventHandlers
                 Id = user.Id,
                 Password = user.Password,
                 IsDeleted = user.IsDeleted,
-                Login = user.Login
+                Login = user.FirstName
             };
 
             await _projectionsService.ProjectUserAuthenticationDetailsAsync(userAuthenticationDetails, cancellationToken);

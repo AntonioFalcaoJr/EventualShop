@@ -2,7 +2,6 @@
 using System.Reflection;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
-using Application.UseCases.Queries;
 using Domain.Abstractions.Events;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.DependencyInjection.Options;
@@ -62,7 +61,7 @@ namespace Infrastructure.DependencyInjection.Extensions
         {
             // cfg.AddCommandConsumer<AddShoppingCartItemConsumer, DeleteAccount>();
             // cfg.AddCommandConsumer<UpdateAccountConsumer, ChangeAccountPassword>();
-            // cfg.AddCommandConsumer<CreateShoppingCartConsumer, RegisterAccount>();
+            // cfg.AddCommandConsumer<CreateShoppingCartConsumer, CreateAccount>();
         }
 
         private static void AddEventConsumers(this IRegistrationConfigurator cfg)
@@ -75,7 +74,7 @@ namespace Infrastructure.DependencyInjection.Extensions
         private static void AddQueryConsumers(this IRegistrationConfigurator cfg)
         {
            // cfg.AddConsumer<GetAccountDetailsConsumer>();
-            cfg.AddConsumer<GetAccountsDetailsWithPaginationConsumer>();
+            // cfg.AddConsumer<GetAccountsDetailsWithPaginationConsumer>();
         }
 
         private static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)

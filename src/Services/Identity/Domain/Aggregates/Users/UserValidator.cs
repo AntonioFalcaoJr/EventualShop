@@ -18,7 +18,7 @@ namespace Domain.Aggregates.Users
                 .NotEmpty()
                 .Equal(user => user.Password);
 
-            RuleFor(user => user.Login)
+            RuleFor(user => user.FirstName)
                 .NotNull()
                 .NotEmpty();
         }

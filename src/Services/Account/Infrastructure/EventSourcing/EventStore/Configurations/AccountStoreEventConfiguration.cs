@@ -1,6 +1,6 @@
 using Application.EventSourcing.EventStore.Events;
-using Domain.Abstractions.Events;
 using JsonNet.ContractResolvers;
+using Messages.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
@@ -23,22 +23,22 @@ namespace Infrastructure.EventSourcing.EventStore.Configurations
                 .IsUnicode(false)
                 .IsRequired();
 
-            builder.Property(storeEvent => storeEvent.DomainEventName)
+            builder.Property(storeEvent => storeEvent.EventName)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .IsRequired();
 
             builder
-                .Property(storeEvent => storeEvent.DomainEvent)
+                .Property(storeEvent => storeEvent.Event)
                 .HasMaxLength(1000)
                 .IsUnicode(false)
                 .HasConversion(
-                    domainEvent => JsonConvert.SerializeObject(domainEvent, typeof(IDomainEvent),
+                    domainEvent => JsonConvert.SerializeObject(domainEvent, typeof(IEvent),
                         new JsonSerializerSettings
                         {
                             TypeNameHandling = TypeNameHandling.Auto
                         }),
-                    jsonString => JsonConvert.DeserializeObject<IDomainEvent>(jsonString,
+                    jsonString => JsonConvert.DeserializeObject<IEvent>(jsonString,
                         new JsonSerializerSettings
                         {
                             TypeNameHandling = TypeNameHandling.All,

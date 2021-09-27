@@ -63,13 +63,13 @@ namespace Infrastructure.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(30)");
 
-                    b.Property<string>("DomainEvent")
+                    b.Property<string>("Event")
                         .IsRequired()
                         .HasMaxLength(1000)
                         .IsUnicode(false)
                         .HasColumnType("varchar(1000)");
 
-                    b.Property<string>("DomainEventName")
+                    b.Property<string>("EventName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)

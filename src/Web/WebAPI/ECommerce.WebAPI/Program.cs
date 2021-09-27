@@ -2,12 +2,6 @@ using System;
 using System.Reflection;
 using MassTransit;
 using MassTransit.Definition;
-using Messages.Accounts.Commands;
-using Messages.Accounts.Queries;
-using Messages.Catalogs.Commands;
-using Messages.Catalogs.Queries;
-using Messages.Identities.Commands;
-using Messages.Identities.Queries;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,35 +27,31 @@ builder.Services
                 });
 
             // Account
-            MapQueueEndpoint<AddNewAccountOwnerAddress>();
-            MapQueueEndpoint<AddNewAccountOwnerCreditCard>();
-            MapQueueEndpoint<ChangeAccountPassword>();
-            MapQueueEndpoint<DefineAccountOwner>();
-            MapQueueEndpoint<DeleteAccount>();
-            MapQueueEndpoint<RegisterAccount>();
-            MapQueueEndpoint<UpdateAccountOwnerAddress>();
-            MapQueueEndpoint<UpdateAccountOwnerCreditCard>();
-            MapQueueEndpoint<UpdateAccountOwnerDetails>();
+            MapQueueEndpoint<Messages.Accounts.Commands.DefineProfessionalAddress>();
+            MapQueueEndpoint<Messages.Accounts.Commands.DefineResidenceAddress>();
+            MapQueueEndpoint<Messages.Accounts.Commands.DeleteAccount>();
+            MapQueueEndpoint<Messages.Accounts.Commands.CreateAccount>();
+            MapQueueEndpoint<Messages.Accounts.Commands.UpdateProfile>();
 
-            MapQueueEndpoint<GetAccountDetails>();
-            MapQueueEndpoint<GetAccountsDetailsWithPagination>();
+            MapQueueEndpoint<Messages.Accounts.Queries.GetAccountDetails>();
+            MapQueueEndpoint<Messages.Accounts.Queries.GetAccountsDetailsWithPagination>();
 
             // Catalog
-            MapQueueEndpoint<CreateCatalog>();
-            MapQueueEndpoint<UpdateCatalog>();
-            MapQueueEndpoint<DeleteCatalog>();
-            MapQueueEndpoint<ActivateCatalog>();
-            MapQueueEndpoint<DeactivateCatalog>();
-            MapQueueEndpoint<AddCatalogItem>();
-            MapQueueEndpoint<RemoveCatalogItem>();
-            MapQueueEndpoint<UpdateCatalogItem>();
-            MapQueueEndpoint<GetCatalogItemsDetailsWithPagination>();
+            MapQueueEndpoint<Messages.Catalogs.Commands.CreateCatalog>();
+            MapQueueEndpoint<Messages.Catalogs.Commands.UpdateCatalog>();
+            MapQueueEndpoint<Messages.Catalogs.Commands.DeleteCatalog>();
+            MapQueueEndpoint<Messages.Catalogs.Commands.ActivateCatalog>();
+            MapQueueEndpoint<Messages.Catalogs.Commands.DeactivateCatalog>();
+            MapQueueEndpoint<Messages.Catalogs.Commands.AddCatalogItem>();
+            MapQueueEndpoint<Messages.Catalogs.Commands.RemoveCatalogItem>();
+            MapQueueEndpoint<Messages.Catalogs.Commands.UpdateCatalogItem>();
+            MapQueueEndpoint<Messages.Catalogs.Queries.GetCatalogItemsDetailsWithPagination>();
             
             //Identity
-            MapQueueEndpoint<RegisterUser>();
-            MapQueueEndpoint<ChangeUserPassword>();
-            MapQueueEndpoint<DeleteUser>();
-            MapQueueEndpoint<GetUserAuthenticationDetails>();
+            MapQueueEndpoint<Messages.Identities.Commands.RegisterUser>();
+            MapQueueEndpoint<Messages.Identities.Commands.ChangeUserPassword>();
+            MapQueueEndpoint<Messages.Identities.Commands.DeleteUser>();
+            MapQueueEndpoint<Messages.Identities.Queries.GetUserAuthenticationDetails>();
         });
     })
     .AddGenericRequestClient()

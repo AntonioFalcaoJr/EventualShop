@@ -7,14 +7,4 @@
     <ItemGroup>
       <ProjectReference Include="..\..\..\Contracts\Messages\Messages.csproj" />
     </ItemGroup>
-    <ItemGroup>
-      <Compile Remove="Aggregates\Users\Events.cs" />
-      <Compile Remove="Abstractions\Events\**" />
-    </ItemGroup>
-    <ItemGroup>
-      <EmbeddedResource Remove="Abstractions\Events\**" />
-    </ItemGroup>
-    <ItemGroup>
-      <None Remove="Abstractions\Events\**" />
-    </ItemGroup>
 </Project>

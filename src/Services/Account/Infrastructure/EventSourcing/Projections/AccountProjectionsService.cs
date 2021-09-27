@@ -16,16 +16,19 @@ namespace Infrastructure.EventSourcing.Projections
             _repository = repository;
         }
 
-        public Task<IPagedResult<AccountAuthenticationDetailsProjection>> GetAccountsDetailsWithPaginationAsync(Paging paging, Expression<Func<AccountAuthenticationDetailsProjection, bool>> predicate, CancellationToken cancellationToken)
+        public Task<IPagedResult<AccountDetailsProjection>> GetAccountsDetailsWithPaginationAsync(Paging paging, Expression<Func<AccountDetailsProjection, bool>> predicate, CancellationToken cancellationToken)
             => _repository.GetAllAsync(paging, predicate, cancellationToken);
 
-        public Task ProjectNewAccountDetailsAsync(AccountAuthenticationDetailsProjection accountAuthenticationDetails, CancellationToken cancellationToken)
-            => _repository.SaveAsync(accountAuthenticationDetails, cancellationToken);
+        public Task ProjectNewAccountDetailsAsync(AccountDetailsProjection accountDetails, CancellationToken cancellationToken)
+            => _repository.SaveAsync(accountDetails, cancellationToken);
         
-        public Task UpdateAccountDetailsAsync(AccountAuthenticationDetailsProjection accountAuthenticationDetails, CancellationToken cancellationToken)
-            => _repository.UpdateAsync(accountAuthenticationDetails, cancellationToken);
+        public Task UpdateAccountProfileAsync(AccountDetailsProjection accountDetails, CancellationToken cancellationToken)
+            => _repository.UpdateAsync(accountDetails, cancellationToken);
 
-        public Task<AccountAuthenticationDetailsProjection> GetAccountDetailsAsync(Guid accountId, CancellationToken cancellationToken)
-            => _repository.GetAsync<AccountAuthenticationDetailsProjection, Guid>(accountId, cancellationToken);
+        public Task<AccountDetailsProjection> GetAccountDetailsAsync(Guid accountId, CancellationToken cancellationToken)
+            => _repository.GetAsync<AccountDetailsProjection, Guid>(accountId, cancellationToken);
+
+        public Task RemoveProjectionsAsync(Guid accountId, CancellationToken cancellationToken)
+            => _repository.DeleteAsync<AccountDetailsProjection>(account => account.Id.Equals(accountId), cancellationToken);
     }
 }
