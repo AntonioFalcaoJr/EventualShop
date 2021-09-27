@@ -21,8 +21,8 @@ namespace Domain.Aggregates.Users
         public void Delete(Guid userId)
             => RaiseEvent(new Events.UserDeleted(userId));
 
-        protected override void ApplyEvent(IEvent domainEvent)
-            => When(domainEvent as dynamic);
+        protected override void ApplyEvent(IEvent @event)
+            => When(@event as dynamic);
 
         private void When(Events.UserRegistered @event)
             => (Id, Email, FirstName, Password, PasswordConfirmation) = @event;

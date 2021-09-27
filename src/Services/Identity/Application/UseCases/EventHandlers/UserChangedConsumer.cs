@@ -39,9 +39,9 @@ namespace Application.UseCases.EventHandlers
             var userAuthenticationDetails = new UserAuthenticationDetailsProjection
             {
                 Id = user.Id,
+                Email = user.Email,
                 Password = user.Password,
-                IsDeleted = user.IsDeleted,
-                Login = user.FirstName
+                IsDeleted = user.IsDeleted
             };
 
             await _projectionsService.ProjectUserAuthenticationDetailsAsync(userAuthenticationDetails, cancellationToken);
