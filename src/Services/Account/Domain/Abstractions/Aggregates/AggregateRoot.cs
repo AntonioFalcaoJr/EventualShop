@@ -21,7 +21,7 @@ namespace Domain.Abstractions.Aggregates
                 ApplyEvent((dynamic)@event);
         }
 
-        private void AddDomainEvent(IEvent @event)
+        private void AddEvent(IEvent @event)
             => _events.Add(@event);
 
         protected abstract void ApplyEvent(IEvent @event);
@@ -30,7 +30,7 @@ namespace Domain.Abstractions.Aggregates
         {
             ApplyEvent((dynamic)@event);
             if (IsValid is false) return;
-            AddDomainEvent(@event);
+            AddEvent(@event);
         }
     }
 }
