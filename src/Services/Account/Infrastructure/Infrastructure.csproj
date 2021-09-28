@@ -1,16 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
         <PackageReference Include="JsonNet.ContractResolvers" Version="2.0.0" />
-        <PackageReference Include="MassTransit.AspNetCore" Version="7.2.2" />
-        <PackageReference Include="MassTransit.RabbitMQ" Version="7.2.2" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0-preview.7.21378.4" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.0-preview.7.21378.4" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0-preview.7.21378.4" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0-preview.7.21378.4" />
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0-preview.7.21377.19" />
-        <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="6.0.0-preview.7.21377.19" />
+        <PackageReference Include="MassTransit.AspNetCore" Version="7.2.3-develop.249" />
+        <PackageReference Include="MassTransit.RabbitMQ" Version="7.2.3-develop.249" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0-rc.1.21452.10" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.0-rc.1.21452.10" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0-rc.1.21452.10"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0-rc.1.21452.10" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0-rc.1.21451.13" />
+        <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="6.0.0-rc.1.21451.13" />
         <PackageReference Include="MongoDB.Driver" Version="2.13.1" />
-        <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0-preview.7.21377.19" />
+        <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0-rc.1.21451.13" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\..\Contracts\Messages\Messages.csproj" />
