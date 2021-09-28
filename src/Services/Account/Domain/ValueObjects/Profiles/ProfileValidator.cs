@@ -21,16 +21,25 @@ namespace Domain.ValueObjects.Profiles
                 .NotEmpty()
                 .NotEqual(profile => profile.LastName);
 
-            RuleFor(profile => profile.LastName)
-                .NotEqual(profile => profile.FirstName);
+            When(profile => profile.LastName is not null, () =>
+            {
+                RuleFor(profile => profile.LastName)
+                    .NotEqual(profile => profile.FirstName);
+            });
 
-            RuleFor(profile => profile.ResidenceAddress)
-                .NotEqual(profile => profile.ProfessionalAddress)
-                .SetValidator(new AddressValidator());
+            When(profile => profile.ResidenceAddress is not null, () =>
+            {
+                RuleFor(profile => profile.ResidenceAddress)
+                    .NotEqual(profile => profile.ProfessionalAddress)
+                    .SetValidator(new AddressValidator());
+            });
 
-            RuleFor(profile => profile.ProfessionalAddress)
-                .NotEqual(profile => profile.ResidenceAddress)
-                .SetValidator(new AddressValidator());
+            When(profile => profile.ProfessionalAddress is not null, () =>
+            {
+                RuleFor(profile => profile.ProfessionalAddress)
+                    .NotEqual(profile => profile.ResidenceAddress)
+                    .SetValidator(new AddressValidator());
+            });
         }
     }
 }

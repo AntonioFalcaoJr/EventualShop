@@ -17,6 +17,7 @@ using MassTransit;
 using MassTransit.Definition;
 using MassTransit.RabbitMqTransport;
 using MassTransit.Topology;
+using Messages.Abstractions;
 using Messages.Accounts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -56,7 +57,7 @@ namespace Infrastructure.DependencyInjection.Extensions
 
                         bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
                         bus.ConfigureEventReceiveEndpoints(context);
-                        // bus.ConfigureEndpoints(context);
+                        bus.ConfigureEndpoints(context);
                     });
                 })
                 .AddMassTransitHostedService()
@@ -105,7 +106,7 @@ namespace Infrastructure.DependencyInjection.Extensions
 
         private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
             where TConsumer : class, IConsumer
-            where TMessage : class //, IEvent
+            where TMessage : class, IEvent
         {
             cfg.ReceiveEndpoint(
                 queueName: $"account-{typeof(TMessage).ToKebabCaseString()}",

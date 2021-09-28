@@ -2,7 +2,7 @@
 using Domain.Abstractions.Validators;
 using FluentValidation;
 
-namespace Domain.Aggregates.Users
+namespace Domain.Aggregates
 {
     public class UserValidator : EntityValidator<User, Guid>
     {

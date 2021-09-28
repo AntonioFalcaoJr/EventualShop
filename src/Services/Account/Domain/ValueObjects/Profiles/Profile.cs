@@ -12,7 +12,7 @@ namespace Domain.ValueObjects.Profiles
             SetFirstName(firstName);
         }
 
-        public DateOnly Birthdate { get; private set; }
+        public DateOnly? Birthdate { get; private set; }
         public string Email { get; private set; }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }

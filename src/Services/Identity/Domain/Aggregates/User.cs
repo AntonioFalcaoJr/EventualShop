@@ -3,7 +3,7 @@ using Domain.Abstractions.Aggregates;
 using Messages.Abstractions;
 using Messages.Identities;
 
-namespace Domain.Aggregates.Users
+namespace Domain.Aggregates
 {
     public class User : AggregateRoot<Guid>
     {

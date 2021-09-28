@@ -29,8 +29,8 @@ namespace Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AggregateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AggregateName = table.Column<string>(type: "varchar(30)", unicode: false, maxLength: 30, nullable: false),
-                    DomainEventName = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
-                    DomainEvent = table.Column<string>(type: "varchar(1000)", unicode: false, maxLength: 1000, nullable: false)
+                    EventName = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
+                    Event = table.Column<string>(type: "varchar(1000)", unicode: false, maxLength: 1000, nullable: false)
                 },
                 constraints: table =>
                 {

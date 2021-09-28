@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(EventStoreDbContext))]
-    [Migration("20210926180325_First migration")]
+    [Migration("20210927212634_First migration")]
     partial class Firstmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,7 +22,7 @@ namespace Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "6.0.0-preview.7.21378.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Application.EventSourcing.EventStore.Events.UserSnapshot", b =>
+            modelBuilder.Entity("Application.EventSourcing.EventStore.Events.AccountSnapshot", b =>
                 {
                     b.Property<int>("AggregateVersion")
                         .HasColumnType("int");
@@ -44,10 +44,10 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("AggregateVersion", "AggregateId");
 
-                    b.ToTable("UserSnapshots");
+                    b.ToTable("AccountSnapshots");
                 });
 
-            modelBuilder.Entity("Application.EventSourcing.EventStore.Events.UserStoreEvent", b =>
+            modelBuilder.Entity("Application.EventSourcing.EventStore.Events.AccountStoreEvent", b =>
                 {
                     b.Property<int>("Version")
                         .ValueGeneratedOnAdd()
@@ -77,7 +77,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Version");
 
-                    b.ToTable("UserStoreEvents");
+                    b.ToTable("AccountStoreEvents");
                 });
 #pragma warning restore 612, 618
         }
