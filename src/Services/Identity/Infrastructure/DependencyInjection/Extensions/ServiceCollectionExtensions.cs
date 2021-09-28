@@ -5,6 +5,8 @@ using Application.EventSourcing.Projections;
 using Application.UseCases.CommandHandlers;
 using Application.UseCases.EventHandlers;
 using Application.UseCases.QueriesHandlers;
+using Application.UseCases.Validators;
+using FluentValidation;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.DependencyInjection.Options;
 using Infrastructure.EventSourcing.EventStore;
@@ -16,6 +18,7 @@ using MassTransit.Definition;
 using MassTransit.RabbitMqTransport;
 using MassTransit.Topology;
 using Messages.Abstractions;
+using Messages.Abstractions.Events;
 using Messages.Identities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -81,8 +84,8 @@ namespace Infrastructure.DependencyInjection.Extensions
         private static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
         {
             cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, Events.UserRegistered>(registration);
-            cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, Events.UserPasswordChanged>(registration);
-            cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, Events.UserDeleted>(registration);
+            //cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, Events.UserPasswordChanged>(registration);
+            //cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, Events.UserDeleted>(registration);
         }
 
         private static void AddCommandConsumer<TConsumer, TMessage>(this IRegistrationConfigurator configurator)
@@ -91,7 +94,11 @@ namespace Infrastructure.DependencyInjection.Extensions
         {
             configurator
                 .AddConsumer<TConsumer>()
-                .Endpoint(e => e.ConfigureConsumeTopology = false);
+                .Endpoint(endpoint =>
+                {
+                    endpoint.ConfigureConsumeTopology = false;
+                   // endpoint.UseMyFilter();
+                });
 
             MapQueueEndpoint<TMessage>();
         }
@@ -104,6 +111,7 @@ namespace Infrastructure.DependencyInjection.Extensions
                 queueName: $"identity-{typeof(TMessage).ToKebabCaseString()}",
                 configureEndpoint: endpoint =>
                 {
+                    endpoint.UseConsumeFilter(typeof(MessageValidatorFilter<>), registration);
                     endpoint.ConfigureConsumeTopology = false;
                     endpoint.ConfigureConsumer<TConsumer>(registration);
                     endpoint.Bind<TMessage>();
@@ -138,6 +146,9 @@ namespace Infrastructure.DependencyInjection.Extensions
 
         public static IServiceCollection AddProjectionsRepositories(this IServiceCollection services)
             => services.AddScoped<IUserProjectionsRepository, UserProjectionsRepository>();
+
+        public static IServiceCollection AddMessageFluentValidation(this IServiceCollection services)
+            => services.AddValidatorsFromAssemblyContaining(typeof(IMessage));
 
         public static OptionsBuilder<SqlServerRetryingOptions> ConfigureSqlServerRetryingOptions(this IServiceCollection services, IConfigurationSection section)
             => services

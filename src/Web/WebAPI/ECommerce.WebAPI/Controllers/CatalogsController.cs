@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using ECommerce.WebAPI.Abstractions;
 using MassTransit;
 using Messages.Catalogs;
-using Messages.Catalogs.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.WebAPI.Controllers
@@ -15,7 +14,7 @@ namespace ECommerce.WebAPI.Controllers
 
         [HttpGet]
         public Task<IActionResult> GetCatalogItemsWithPagination([FromQuery] Queries.GetCatalogItemsDetailsWithPagination query, CancellationToken cancellationToken)
-            => GetQueryResponseAsync<Queries.GetCatalogItemsDetailsWithPagination, CatalogItemsDetailsPagedResult>(query, cancellationToken);
+            => GetQueryResponseAsync<Queries.GetCatalogItemsDetailsWithPagination, Responses.CatalogItemsDetailsPagedResult>(query, cancellationToken);
 
         [HttpPost]
         public Task<IActionResult> CreateCatalog(Commands.CreateCatalog command, CancellationToken cancellationToken)

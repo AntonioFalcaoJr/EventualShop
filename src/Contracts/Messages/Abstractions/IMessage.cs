@@ -4,10 +4,8 @@ using MassTransit.Topology;
 namespace Messages.Abstractions
 {
     [ExcludeFromTopology]
-    public interface IMessage<out TId>
-        where TId : struct
+    public interface IMessage
     {
-        TId Id { get; }
         DateTimeOffset Timestamp { get; }
     }
 }

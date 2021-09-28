@@ -1,6 +1,6 @@
 using Application.EventSourcing.EventStore.Events;
 using JsonNet.ContractResolvers;
-using Messages.Abstractions;
+using Messages.Abstractions.Events;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;

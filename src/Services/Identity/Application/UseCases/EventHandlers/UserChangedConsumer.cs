@@ -12,7 +12,6 @@ namespace Application.UseCases.EventHandlers
         IConsumer<Events.UserRegistered>,
         IConsumer<Events.UserPasswordChanged>,
         IConsumer<Events.UserDeleted>
-
     {
         private readonly IUserEventStoreService _eventStoreService;
         private readonly IUserProjectionsService _projectionsService;
@@ -24,13 +23,13 @@ namespace Application.UseCases.EventHandlers
         }
 
         public Task Consume(ConsumeContext<Events.UserRegistered> context)
-            => Project(context.Message.Id, context.CancellationToken);
+            => Project(context.Message.UserId, context.CancellationToken);
 
         public Task Consume(ConsumeContext<Events.UserPasswordChanged> context)
-            => Project(context.Message.Id, context.CancellationToken);
+            => Project(context.Message.UserId, context.CancellationToken);
 
         public Task Consume(ConsumeContext<Events.UserDeleted> context)
-            => Project(context.Message.Id, context.CancellationToken);
+            => Project(context.Message.UserId, context.CancellationToken);
 
         private async Task Project(Guid userId, CancellationToken cancellationToken)
         {

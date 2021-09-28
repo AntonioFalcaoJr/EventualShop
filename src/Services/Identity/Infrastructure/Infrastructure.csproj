@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.3" />
         <PackageReference Include="JsonNet.ContractResolvers" Version="2.0.0" />
         <PackageReference Include="MassTransit.AspNetCore" Version="7.2.2" />
         <PackageReference Include="MassTransit.RabbitMQ" Version="7.2.2" />

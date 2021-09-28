@@ -3,7 +3,6 @@ using Application.Abstractions.EventSourcing.Projections.Pagination;
 using Application.EventSourcing.Projections;
 using MassTransit;
 using Messages.Catalogs;
-using Messages.Catalogs.Responses;
 
 namespace Application.UseCases.QueriesHandlers
 {
@@ -26,7 +25,7 @@ namespace Application.UseCases.QueriesHandlers
                 selector: catalog => catalog.Items,
                 cancellationToken: context.CancellationToken);
 
-            await context.RespondAsync<CatalogItemsDetailsPagedResult>(accountDetails);
+            await context.RespondAsync<Responses.CatalogItemsDetailsPagedResult>(accountDetails);
         }
     }
 }

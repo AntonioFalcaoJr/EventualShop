@@ -1,24 +1,24 @@
 ﻿using System;
-using Messages.Abstractions;
+using Messages.Abstractions.Commands;
 
 namespace Messages.Catalogs
 {
     public static class Commands
     {
-        public record CreateCatalog(string Title) : ICommand;
+        public record CreateCatalog(string Title) : Command;
 
-        public record DeleteCatalog(Guid Id) : ICommand;
+        public record DeleteCatalog(Guid Id) : Command;
 
-        public record UpdateCatalog(Guid Id, string Title) : ICommand;
+        public record UpdateCatalog(Guid Id, string Title) : Command;
 
-        public record ActivateCatalog(Guid Id) : ICommand;
+        public record ActivateCatalog(Guid Id) : Command;
 
-        public record DeactivateCatalog(Guid Id) : ICommand;
+        public record DeactivateCatalog(Guid Id) : Command;
 
-        public record RemoveCatalogItem(Guid CatalogId, Guid CatalogItemId) : ICommand;
+        public record RemoveCatalogItem(Guid CatalogId, Guid CatalogItemId) : Command;
 
-        public record AddCatalogItem(Guid CatalogId, string Name, string Description, decimal Price, string PictureUri) : ICommand;
+        public record AddCatalogItem(Guid CatalogId, string Name, string Description, decimal Price, string PictureUri) : Command;
 
-        public record UpdateCatalogItem(Guid CatalogId, Guid CatalogItemId, string Name, string Description, decimal Price, string PictureUri) : ICommand;
+        public record UpdateCatalogItem(Guid CatalogId, Guid CatalogItemId, string Name, string Description, decimal Price, string PictureUri) : Command;
     }
 }

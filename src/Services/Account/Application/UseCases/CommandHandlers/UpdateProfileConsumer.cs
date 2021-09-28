@@ -16,7 +16,7 @@ namespace Application.UseCases.CommandHandlers
 
         public async Task Consume(ConsumeContext<Commands.UpdateProfile> context)
         {
-            var account = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.Id, context.CancellationToken);
+            var account = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.AccountId, context.CancellationToken);
 
             if (account is null)
             {

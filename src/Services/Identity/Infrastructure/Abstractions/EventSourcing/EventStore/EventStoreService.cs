@@ -8,7 +8,7 @@ using Application.Abstractions.EventSourcing.EventStore.Events;
 using Domain.Abstractions.Aggregates;
 using Infrastructure.DependencyInjection.Options;
 using MassTransit;
-using Messages.Abstractions;
+using Messages.Abstractions.Events;
 using Microsoft.Extensions.Options;
 
 namespace Infrastructure.Abstractions.EventSourcing.EventStore

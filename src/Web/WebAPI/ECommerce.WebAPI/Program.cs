@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using ECommerce.WebAPI.DependencyInjection.Extensions;
 using MassTransit;
 using MassTransit.Definition;
 using Microsoft.AspNetCore.Builder;
@@ -10,7 +11,9 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services
+    .AddControllers()
+    .AddApplicationFluentValidation();
 
 builder.Services.AddLogging(loggingBuilder =>
 {

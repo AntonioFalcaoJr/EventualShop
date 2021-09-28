@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Domain.Abstractions.Entities;
-using Messages.Abstractions;
+using Messages.Abstractions.Events;
 using Newtonsoft.Json;
 
 namespace Domain.Abstractions.Aggregates

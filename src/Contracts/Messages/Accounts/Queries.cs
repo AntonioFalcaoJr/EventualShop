@@ -1,5 +1,5 @@
 ﻿using System;
-using Messages.Abstractions.Paging;
+using Messages.Abstractions.Queries;
 
 namespace Messages.Accounts
 {
@@ -7,6 +7,6 @@ namespace Messages.Accounts
     {
         public record GetAccountDetails(Guid Id);
 
-        public record GetAccountsDetailsWithPagination(int Limit, int Offset) : IPaging;
+        public record GetAccountsDetailsWithPagination(int Limit, int Offset) : QueryPaging(Limit, Offset);
     }
 }

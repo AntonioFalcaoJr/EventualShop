@@ -1,10 +1,10 @@
 ﻿using System;
-using Messages.Abstractions;
+using Messages.Abstractions.Queries;
 
 namespace Messages.Identities
 {
     public static class Queries
     {
-        public record GetUserAuthenticationDetails(Guid UserId) : IQuery;
+        public record GetUserAuthenticationDetails(Guid UserId) : Query;
     }
 }

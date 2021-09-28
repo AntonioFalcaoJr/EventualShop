@@ -17,7 +17,7 @@ using MassTransit;
 using MassTransit.Definition;
 using MassTransit.RabbitMqTransport;
 using MassTransit.Topology;
-using Messages.Abstractions;
+using Messages.Abstractions.Events;
 using Messages.Accounts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -65,16 +65,20 @@ namespace Infrastructure.DependencyInjection.Extensions
 
         private static void AddCommandConsumers(this IRegistrationConfigurator cfg)
         {
+            cfg.AddCommandConsumer<CreateAccountConsumer, Commands.CreateAccount>();
+            cfg.AddCommandConsumer<DefineProfessionalAddressConsumer, Commands.DefineProfessionalAddress>();
             cfg.AddCommandConsumer<DefineResidenceAddressConsumer, Commands.DefineResidenceAddress>();
             cfg.AddCommandConsumer<DeleteAccountConsumer, Commands.DeleteAccount>();
-            cfg.AddCommandConsumer<CreateAccountConsumer, Commands.CreateAccount>();
             cfg.AddCommandConsumer<UpdateProfileConsumer, Commands.UpdateProfile>();
         }
 
         private static void AddEventConsumers(this IRegistrationConfigurator cfg)
         {
-            cfg.AddConsumer<AccountDeletedConsumer>();
             cfg.AddConsumer<AccountCreatedConsumer>();
+            cfg.AddConsumer<AccountDeletedConsumer>();
+            cfg.AddConsumer<ProfessionalAddressDefinedConsumer>();
+            cfg.AddConsumer<ProfileUpdatedConsumer>();
+            cfg.AddConsumer<ResidenceAddressDefinedConsumer>();
             cfg.AddConsumer<UserRegisteredConsumer>();
         }
 
@@ -88,8 +92,9 @@ namespace Infrastructure.DependencyInjection.Extensions
         {
             cfg.ConfigureEventReceiveEndpoint<AccountCreatedConsumer, Events.AccountCreated>(registration);
             cfg.ConfigureEventReceiveEndpoint<AccountDeletedConsumer, Events.AccountDeleted>(registration);
-            cfg.ConfigureEventReceiveEndpoint<AccountDeletedConsumer, Events.ResidenceAddressDefined>(registration);
-            cfg.ConfigureEventReceiveEndpoint<AccountDeletedConsumer, Events.ProfileUpdated>(registration);
+            cfg.ConfigureEventReceiveEndpoint<ProfessionalAddressDefinedConsumer, Events.ProfessionalAddressDefined>(registration);
+            cfg.ConfigureEventReceiveEndpoint<ProfileUpdatedConsumer, Events.ProfileUpdated>(registration);
+            cfg.ConfigureEventReceiveEndpoint<ResidenceAddressDefinedConsumer, Events.ResidenceAddressDefined>(registration);
             cfg.ConfigureEventReceiveEndpoint<UserRegisteredConsumer, Messages.Identities.Events.UserRegistered>(registration);
         }
 
