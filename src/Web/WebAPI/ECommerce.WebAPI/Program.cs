@@ -5,11 +5,31 @@ using MassTransit.Definition;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new() { Title = "ECommerce.WebAPI", Version = "v1" }); });
+
+builder.Services.AddLogging(loggingBuilder =>
+{
+    Log.Logger = new LoggerConfiguration().ReadFrom
+        .Configuration(builder.Configuration)
+        .CreateLogger();
+
+    loggingBuilder.ClearProviders();
+    loggingBuilder.AddSerilog();
+});
+
+builder.Services.AddSwaggerGen(options
+    => options.SwaggerDoc(
+        name: "v1",
+        info: new()
+        {
+            Title = "WebAPI",
+            Version = "v1"
+        }));
 
 builder.Services
     .AddMassTransit(cfg =>
@@ -45,12 +65,14 @@ builder.Services
             MapQueueEndpoint<Messages.Catalogs.Commands.AddCatalogItem>();
             MapQueueEndpoint<Messages.Catalogs.Commands.RemoveCatalogItem>();
             MapQueueEndpoint<Messages.Catalogs.Commands.UpdateCatalogItem>();
+
             MapQueueEndpoint<Messages.Catalogs.Queries.GetCatalogItemsDetailsWithPagination>();
-            
+
             //Identity
             MapQueueEndpoint<Messages.Identities.Commands.RegisterUser>();
             MapQueueEndpoint<Messages.Identities.Commands.ChangeUserPassword>();
             MapQueueEndpoint<Messages.Identities.Commands.DeleteUser>();
+
             MapQueueEndpoint<Messages.Identities.Queries.GetUserAuthenticationDetails>();
         });
     })
@@ -70,10 +92,23 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseRouting();
+app.UseEndpoints(endpoints
+    => endpoints.MapControllers());
 
-app.Run();
-
+try
+{
+    await app.RunAsync();
+    Log.Information("Stopped cleanly");
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "An unhandled exception occured during bootstrapping");
+}
+finally
+{
+    Log.CloseAndFlush();
+}
 
 static void MapQueueEndpoint<TMessage>()
     where TMessage : class
