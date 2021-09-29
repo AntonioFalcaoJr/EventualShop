@@ -108,16 +108,16 @@ namespace Infrastructure.DependencyInjection.Extensions
         {
             configurator
                 .AddConsumer<TConsumer>()
-                .Endpoint(e => e.ConfigureConsumeTopology = false);
+                .Endpoint(endpoint => endpoint.ConfigureConsumeTopology = false);
 
             MapQueueEndpoint<TCommand>();
         }
 
-        private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
+        private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)
             where TConsumer : class, IConsumer
             where TEvent : class, IEvent
         {
-            cfg.ReceiveEndpoint(
+            bus.ReceiveEndpoint(
                 queueName: $"account-{typeof(TEvent).ToKebabCaseString()}",
                 configureEndpoint: endpoint =>
                 {

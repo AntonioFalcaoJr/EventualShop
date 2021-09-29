@@ -101,11 +101,11 @@ namespace Infrastructure.DependencyInjection.Extensions
             MapQueueEndpoint<TMessage>();
         }
 
-        private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
+        private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)
             where TConsumer : class, IConsumer
             where TMessage : class, IEvent
         {
-            cfg.ReceiveEndpoint(
+            bus.ReceiveEndpoint(
                 queueName: $"identity-{typeof(TMessage).ToKebabCaseString()}",
                 configureEndpoint: endpoint =>
                 {
