@@ -5,9 +5,10 @@ using Application.EventSourcing.Projections;
 using Application.UseCases.CommandHandlers;
 using Application.UseCases.EventHandlers;
 using Application.UseCases.QueriesHandlers;
-using Application.UseCases.Validators;
 using FluentValidation;
+using GreenPipes;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
+using Infrastructure.DependencyInjection.Filters;
 using Infrastructure.DependencyInjection.Options;
 using Infrastructure.EventSourcing.EventStore;
 using Infrastructure.EventSourcing.EventStore.Contexts;
@@ -57,6 +58,7 @@ namespace Infrastructure.DependencyInjection.Extensions
                             });
 
                         bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
+                        bus.UseConsumeFilter(typeof(MessageValidatorFilter<>), context);
                         bus.ConfigureEventReceiveEndpoints(context);
                         bus.ConfigureEndpoints(context);
                     });
@@ -84,22 +86,18 @@ namespace Infrastructure.DependencyInjection.Extensions
         private static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
         {
             cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, Events.UserRegistered>(registration);
-            //cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, Events.UserPasswordChanged>(registration);
-            //cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, Events.UserDeleted>(registration);
+            cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, Events.UserPasswordChanged>(registration);
+            cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, Events.UserDeleted>(registration);
         }
 
         private static void AddCommandConsumer<TConsumer, TMessage>(this IRegistrationConfigurator configurator)
             where TConsumer : class, IConsumer
-            where TMessage : class
+            where TMessage : class, IMessage
         {
             configurator
                 .AddConsumer<TConsumer>()
-                .Endpoint(endpoint =>
-                {
-                    endpoint.ConfigureConsumeTopology = false;
-                   // endpoint.UseMyFilter();
-                });
-
+                .Endpoint(endpoint => endpoint.ConfigureConsumeTopology = false);
+                
             MapQueueEndpoint<TMessage>();
         }
 
@@ -111,15 +109,25 @@ namespace Infrastructure.DependencyInjection.Extensions
                 queueName: $"identity-{typeof(TMessage).ToKebabCaseString()}",
                 configureEndpoint: endpoint =>
                 {
-                    endpoint.UseConsumeFilter(typeof(MessageValidatorFilter<>), registration);
                     endpoint.ConfigureConsumeTopology = false;
+                    
                     endpoint.ConfigureConsumer<TConsumer>(registration);
                     endpoint.Bind<TMessage>();
+                    
+                    endpoint.UseCircuitBreaker(circuitBreaker => // TODO - Options
+                    {
+                        circuitBreaker.TripThreshold = 15;
+                        circuitBreaker.ResetInterval = TimeSpan.FromMinutes(3);
+                        circuitBreaker.TrackingPeriod = TimeSpan.FromMinutes(1);
+                        circuitBreaker.ActiveThreshold = 10;
+                    });
+
+                    endpoint.UseRateLimit(100, TimeSpan.FromSeconds(1)); // TODO - Options
                 });
         }
 
         private static void MapQueueEndpoint<TMessage>()
-            where TMessage : class
+            where TMessage : class, IMessage
             => EndpointConvention.Map<TMessage>(new Uri($"exchange:{typeof(TMessage).ToKebabCaseString()}"));
 
         internal static string ToKebabCaseString(this MemberInfo member) 

@@ -8,6 +8,7 @@ using Application.UseCases.EventHandlers.Projections;
 using Application.UseCases.QueriesHandlers;
 using GreenPipes;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
+using Infrastructure.DependencyInjection.Filters;
 using Infrastructure.DependencyInjection.Options;
 using Infrastructure.EventSourcing.EventStore;
 using Infrastructure.EventSourcing.EventStore.Contexts;
@@ -17,6 +18,8 @@ using MassTransit;
 using MassTransit.Definition;
 using MassTransit.RabbitMqTransport;
 using MassTransit.Topology;
+using Messages.Abstractions;
+using Messages.Abstractions.Commands;
 using Messages.Abstractions.Events;
 using Messages.Accounts;
 using Microsoft.EntityFrameworkCore;
@@ -56,6 +59,7 @@ namespace Infrastructure.DependencyInjection.Extensions
                             });
 
                         bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
+                        bus.UseConsumeFilter(typeof(MessageValidatorFilter<>), context);
                         bus.ConfigureEventReceiveEndpoints(context);
                         bus.ConfigureEndpoints(context);
                     });
@@ -98,29 +102,29 @@ namespace Infrastructure.DependencyInjection.Extensions
             cfg.ConfigureEventReceiveEndpoint<UserRegisteredConsumer, Messages.Identities.Events.UserRegistered>(registration);
         }
 
-        private static void AddCommandConsumer<TConsumer, TMessage>(this IRegistrationConfigurator configurator)
+        private static void AddCommandConsumer<TConsumer, TCommand>(this IRegistrationConfigurator configurator)
             where TConsumer : class, IConsumer
-            where TMessage : class
+            where TCommand : class, ICommand
         {
             configurator
                 .AddConsumer<TConsumer>()
                 .Endpoint(e => e.ConfigureConsumeTopology = false);
 
-            MapQueueEndpoint<TMessage>();
+            MapQueueEndpoint<TCommand>();
         }
 
-        private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
+        private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
             where TConsumer : class, IConsumer
-            where TMessage : class, IEvent
+            where TEvent : class, IEvent
         {
             cfg.ReceiveEndpoint(
-                queueName: $"account-{typeof(TMessage).ToKebabCaseString()}",
+                queueName: $"account-{typeof(TEvent).ToKebabCaseString()}",
                 configureEndpoint: endpoint =>
                 {
                     endpoint.ConfigureConsumeTopology = false;
-
+                    
                     endpoint.ConfigureConsumer<TConsumer>(registration);
-                    endpoint.Bind<TMessage>();
+                    endpoint.Bind<TEvent>();
 
                     endpoint.UseCircuitBreaker(circuitBreaker => // TODO - Options
                     {
@@ -135,7 +139,7 @@ namespace Infrastructure.DependencyInjection.Extensions
         }
 
         private static void MapQueueEndpoint<TMessage>()
-            where TMessage : class
+            where TMessage : class, IMessage
             => EndpointConvention.Map<TMessage>(new Uri($"exchange:{typeof(TMessage).ToKebabCaseString()}"));
 
         internal static string ToKebabCaseString(this MemberInfo member)

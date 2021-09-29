@@ -12,8 +12,8 @@ using Serilog;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
-    .AddControllers()
-    .AddApplicationFluentValidation();
+    .AddControllers();
+    // .AddApplicationFluentValidation();
 
 builder.Services.AddLogging(loggingBuilder =>
 {

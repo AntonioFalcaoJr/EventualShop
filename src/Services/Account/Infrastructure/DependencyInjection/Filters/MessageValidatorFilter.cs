@@ -4,9 +4,9 @@ using FluentValidation;
 using GreenPipes;
 using MassTransit;
 using MassTransit.Definition;
-using ValidationResult = FluentValidation.Results.ValidationResult;
+using Messages.Abstractions.Validations;
 
-namespace Application.UseCases.Validators
+namespace Infrastructure.DependencyInjection.Filters
 {
     public class MessageValidatorFilter<T> : IFilter<ConsumeContext<T>>
         where T : class
@@ -26,12 +26,10 @@ namespace Application.UseCases.Validators
                 await next.Send(context);
 
             await context.Send(
-                new Uri($"queue:identity-{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}-validation-error"),
+                new Uri($"queue:account-{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}-validation-error"),
                 new ValidationResultMessage<T>(context.Message, validationResult));
         }
 
         public void Probe(ProbeContext context) { }
     }
-
-    public record ValidationResultMessage<TMessage>(TMessage Message, ValidationResult ValidationResult);
 }
