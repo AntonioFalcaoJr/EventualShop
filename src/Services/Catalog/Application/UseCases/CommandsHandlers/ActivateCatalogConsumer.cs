@@ -16,8 +16,8 @@ namespace Application.UseCases.CommandsHandlers
 
         public async Task Consume(ConsumeContext<Commands.ActivateCatalog> context)
         {
-            var catalog = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.Id, context.CancellationToken);
-            catalog.Activate(context.Message.Id);
+            var catalog = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CatalogId, context.CancellationToken);
+            catalog.Activate(context.Message.CatalogId);
             await _eventStoreService.AppendEventsToStreamAsync(catalog, context.CancellationToken);
         }
     }

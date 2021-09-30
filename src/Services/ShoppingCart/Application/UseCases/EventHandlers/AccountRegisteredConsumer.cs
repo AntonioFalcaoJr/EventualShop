@@ -19,7 +19,7 @@
     //
     //         var accountDetails = new AccountDetailsProjection
     //         {
-    //             Id = account.Id,
+    //             CatalogId = account.CatalogId,
     //             Age = account.Age,
     //             Name = account.Name
     //         };

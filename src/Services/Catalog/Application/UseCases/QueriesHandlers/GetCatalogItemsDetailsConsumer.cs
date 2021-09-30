@@ -19,7 +19,7 @@ namespace Application.UseCases.QueriesHandlers
         {
             var accountDetails = await _projectionsService.GetCatalogItemsWithPaginationAsync(
                 paging: new Paging { Limit = context.Message.Limit, Offset = context.Message.Offset },
-                predicate: catalog => catalog.AggregateId == context.Message.Id
+                predicate: catalog => catalog.AggregateId == context.Message.CatalogId
                                       && catalog.IsActive
                                       && catalog.IsDeleted == false,
                 selector: catalog => catalog.Items,

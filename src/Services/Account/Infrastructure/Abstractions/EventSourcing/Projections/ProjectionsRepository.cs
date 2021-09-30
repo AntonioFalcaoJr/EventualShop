@@ -51,7 +51,7 @@ namespace Infrastructure.Abstractions.EventSourcing.Projections
                     new ObjectUpdateDefinition<TProjection>(replacement), 
                     cancellationToken: cancellationToken);
 
-        // projection => projection.Id.Equals(replacement.Id), replacement, default(ReplaceOptions), cancellationToken
+        // projection => projection.CatalogId.Equals(replacement.CatalogId), replacement, default(ReplaceOptions), cancellationToken
 
         public virtual Task UpdateManyAsync<TProjection>(IEnumerable<TProjection> projections, CancellationToken cancellationToken) where TProjection : IProjection
             => throw new NotImplementedException();

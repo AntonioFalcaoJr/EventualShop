@@ -5,6 +5,6 @@ namespace Messages.Identities
 {
     public static class Responses
     {
-        public record UserAuthenticationDetails(Guid Id, string Password, string UserName) : Response;
+        public record UserAuthenticationDetails(Guid UserId, string Password, string UserName) : Response;
     }
 }

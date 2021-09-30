@@ -7,13 +7,13 @@ namespace Messages.Catalogs
     {
         public record CreateCatalog(string Title) : Command;
 
-        public record DeleteCatalog(Guid Id) : Command;
+        public record DeleteCatalog(Guid CatalogId) : Command;
 
-        public record UpdateCatalog(Guid Id, string Title) : Command;
+        public record UpdateCatalog(Guid CatalogId, string Title) : Command;
 
-        public record ActivateCatalog(Guid Id) : Command;
+        public record ActivateCatalog(Guid CatalogId) : Command;
 
-        public record DeactivateCatalog(Guid Id) : Command;
+        public record DeactivateCatalog(Guid CatalogId) : Command;
 
         public record RemoveCatalogItem(Guid CatalogId, Guid CatalogItemId) : Command;
 

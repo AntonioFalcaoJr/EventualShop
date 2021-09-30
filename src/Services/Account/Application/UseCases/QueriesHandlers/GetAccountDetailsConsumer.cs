@@ -16,7 +16,7 @@ namespace Application.UseCases.QueriesHandlers
 
         public async Task Consume(ConsumeContext<Queries.GetAccountDetails> context)
         {
-            var accountDetails = await _projectionsService.GetAccountDetailsAsync(context.Message.Id, context.CancellationToken);
+            var accountDetails = await _projectionsService.GetAccountDetailsAsync(context.Message.AccountId, context.CancellationToken);
             await context.RespondAsync<Responses.AccountDetails>(accountDetails);
         }
     }
