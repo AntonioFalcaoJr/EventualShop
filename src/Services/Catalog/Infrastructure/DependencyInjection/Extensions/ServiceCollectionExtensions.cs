@@ -1,7 +1,9 @@
 using System;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
+using FluentValidation;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
+using Infrastructure.DependencyInjection.Filters;
 using Infrastructure.DependencyInjection.Options;
 using Infrastructure.EventSourcing.EventStore;
 using Infrastructure.EventSourcing.EventStore.Contexts;
@@ -9,6 +11,7 @@ using Infrastructure.EventSourcing.Projections;
 using Infrastructure.EventSourcing.Projections.Contexts;
 using MassTransit;
 using MassTransit.Topology;
+using Messages.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,9 +37,9 @@ namespace Infrastructure.DependencyInjection.Extensions
                     bus.AddEventConsumers();
                     bus.AddQueryConsumers();
 
-                    bus.UsingRabbitMq((context, rabbit) =>
+                    bus.UsingRabbitMq((context, bus) =>
                     {
-                        rabbit.Host(
+                        bus.Host(
                             host: RabbitMqOptions.Host,
                             // virtualHost: RabbitMqOptions.VirtualHost,
                             host =>
@@ -45,9 +48,10 @@ namespace Infrastructure.DependencyInjection.Extensions
                                 host.Password(RabbitMqOptions.Password);
                             });
 
-                        rabbit.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
-                        rabbit.ConfigureEventReceiveEndpoints(context);
-                        rabbit.ConfigureEndpoints(context);
+                        bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
+                        bus.UseConsumeFilter(typeof(MessageValidatorFilter<>), context);
+                        bus.ConfigureEventReceiveEndpoints(context);
+                        bus.ConfigureEndpoints(context);
                     });
                 })
                 .AddMassTransitHostedService()
@@ -74,6 +78,9 @@ namespace Infrastructure.DependencyInjection.Extensions
 
         public static IServiceCollection AddProjectionsRepositories(this IServiceCollection services)
             => services.AddScoped<ICatalogProjectionsRepository, CatalogProjectionsRepository>();
+        
+        public static IServiceCollection AddMessageFluentValidation(this IServiceCollection services)
+            => services.AddValidatorsFromAssemblyContaining(typeof(IMessage));
 
         public static OptionsBuilder<SqlServerRetryingOptions> ConfigureSqlServerRetryingOptions(this IServiceCollection services, IConfigurationSection section)
             => services

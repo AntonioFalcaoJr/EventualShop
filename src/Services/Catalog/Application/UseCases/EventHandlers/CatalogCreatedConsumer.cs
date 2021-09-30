@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
-using Domain.Entities.Catalogs;
 using MassTransit;
+using Messages.Catalogs;
 
 namespace Application.UseCases.EventHandlers
 {
@@ -19,7 +19,7 @@ namespace Application.UseCases.EventHandlers
 
         public async Task Consume(ConsumeContext<Events.CatalogCreated> context)
         {
-            var catalog = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.Id, context.CancellationToken);
+            var catalog = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CatalogId, context.CancellationToken);
 
             var catalogDetails = new CatalogProjection
             {

@@ -4,8 +4,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
-using Domain.Entities.Catalogs;
 using MassTransit;
+using Messages.Catalogs;
 
 namespace Application.UseCases.EventHandlers
 {
@@ -28,25 +28,25 @@ namespace Application.UseCases.EventHandlers
         }
 
         public Task Consume(ConsumeContext<Events.CatalogActivated> context)
-            => Project(context.Message.Id, context.CancellationToken);
+            => Project(context.Message.CatalogId, context.CancellationToken);
 
         public Task Consume(ConsumeContext<Events.CatalogDeactivated> context)
-            => Project(context.Message.Id, context.CancellationToken);
+            => Project(context.Message.CatalogId, context.CancellationToken);
 
         public Task Consume(ConsumeContext<Events.CatalogUpdated> context)
-            => Project(context.Message.Id, context.CancellationToken);
+            => Project(context.Message.CatalogId, context.CancellationToken);
 
         public Task Consume(ConsumeContext<Events.CatalogDeleted> context)
-            => Project(context.Message.Id, context.CancellationToken);
+            => Project(context.Message.CatalogId, context.CancellationToken);
 
         public Task Consume(ConsumeContext<Events.CatalogItemAdded> context)
-            => Project(context.Message.Id, context.CancellationToken);
+            => Project(context.Message.CatalogId, context.CancellationToken);
 
         public Task Consume(ConsumeContext<Events.CatalogItemRemoved> context)
-            => Project(context.Message.Id, context.CancellationToken);
+            => Project(context.Message.CatalogId, context.CancellationToken);
 
         public Task Consume(ConsumeContext<Events.CatalogItemUpdated> context)
-            => Project(context.Message.Id, context.CancellationToken);
+            => Project(context.Message.CatalogId, context.CancellationToken);
 
         private async Task Project(Guid catalogId, CancellationToken cancellationToken)
         {

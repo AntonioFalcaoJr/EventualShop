@@ -35,6 +35,6 @@ namespace Domain.Entities.CatalogItems
             => PictureUri = pictureUri;
 
         protected override bool Validate()
-            => OnValidate<Validator, CatalogItem>();
+            => OnValidate<CatalogItemValidator, CatalogItem>();
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using Application.Abstractions.EventSourcing.EventStore;
 using Application.EventSourcing.EventStore.Events;
-using Domain.Entities.Catalogs;
+using Domain.Aggregates;
 
 namespace Application.EventSourcing.EventStore
 {

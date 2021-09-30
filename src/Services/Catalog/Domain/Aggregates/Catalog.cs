@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Abstractions.Aggregates;
-using Domain.Abstractions.Events;
 using Domain.Entities.CatalogItems;
+using Messages.Abstractions.Events;
+using Messages.Catalogs;
 
-namespace Domain.Entities.Catalogs
+namespace Domain.Aggregates
 {
     public class Catalog : AggregateRoot<Guid>
     {
@@ -31,8 +32,8 @@ namespace Domain.Entities.Catalogs
         public void Update(Guid id, string title)
             => RaiseEvent(new Events.CatalogUpdated(id, title));
 
-        public void AddItem(Guid id, CatalogItem item)
-            => RaiseEvent(new Events.CatalogItemAdded(id, item));
+        public void AddItem(Guid id, string name, string description, decimal price, string pictureUri)
+            => RaiseEvent(new Events.CatalogItemAdded(id, name, description, price, pictureUri));
 
         public void RemoveItem(Guid id, Guid itemId)
             => RaiseEvent(new Events.CatalogItemRemoved(id, itemId));
@@ -40,8 +41,8 @@ namespace Domain.Entities.Catalogs
         public void UpdateItem(Guid id, Guid catalogItemId, string name, string description, decimal price, string pictureUri)
             => RaiseEvent(new Events.CatalogItemUpdated(id, catalogItemId, name, description, price, pictureUri));
 
-        protected override void ApplyEvent(IDomainEvent domainEvent)
-            => When(domainEvent as dynamic);
+        protected override void ApplyEvent(IEvent @event)
+            => When(@event as dynamic);
 
         private void When(Events.CatalogCreated @event)
             => (Id, Title) = @event;
@@ -63,8 +64,13 @@ namespace Domain.Entities.Catalogs
 
         private void When(Events.CatalogItemAdded @event)
         {
-            if (_items.Exists(item => item.Id == @event.CatalogItem.Id)) return;
-            _items.Add(@event.CatalogItem);
+            var catalogItem = new CatalogItem(
+                @event.Name,
+                @event.Description,
+                @event.Price,
+                @event.PictureUri);
+
+            _items.Add(catalogItem);
         }
 
         private void When(Events.CatalogItemUpdated @event)
@@ -80,6 +86,6 @@ namespace Domain.Entities.Catalogs
                 });
 
         protected sealed override bool Validate()
-            => OnValidate<Validator, Catalog>();
+            => OnValidate<CatalogValidator, Catalog>();
     }
 }

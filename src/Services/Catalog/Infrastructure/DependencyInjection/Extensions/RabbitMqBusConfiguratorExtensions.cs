@@ -1,8 +1,10 @@
-﻿using Application.UseCases.EventHandlers;
-using Domain.Abstractions.Events;
-using Domain.Entities.Catalogs;
+﻿using System;
+using Application.UseCases.EventHandlers;
+using GreenPipes;
 using MassTransit;
 using MassTransit.RabbitMqTransport;
+using Messages.Abstractions.Events;
+using Messages.Catalogs;
 
 namespace Infrastructure.DependencyInjection.Extensions
 {
@@ -20,16 +22,28 @@ namespace Infrastructure.DependencyInjection.Extensions
             cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, Events.CatalogItemUpdated>(registration);
         }
 
-        private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
+        private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)
             where TConsumer : class, IConsumer
-            where TMessage : class, IDomainEvent
+            where TMessage : class, IEvent
         {
-            cfg.ReceiveEndpoint(
-                queueName: typeof(TMessage).ToKebabCaseString(),
+            bus.ReceiveEndpoint(
+                queueName: $"catalog-{typeof(TMessage).ToKebabCaseString()}",
                 configureEndpoint: endpoint =>
                 {
-                    endpoint.ConfigureConsumer<TConsumer>(registration);
                     endpoint.ConfigureConsumeTopology = false;
+
+                    endpoint.ConfigureConsumer<TConsumer>(registration);
+                    endpoint.Bind<TMessage>();
+
+                    endpoint.UseCircuitBreaker(circuitBreaker => // TODO - Options
+                    {
+                        circuitBreaker.TripThreshold = 15;
+                        circuitBreaker.ResetInterval = TimeSpan.FromMinutes(3);
+                        circuitBreaker.TrackingPeriod = TimeSpan.FromMinutes(1);
+                        circuitBreaker.ActiveThreshold = 10;
+                    });
+
+                    endpoint.UseRateLimit(100, TimeSpan.FromSeconds(1)); // TODO - Options
                 });
         }
     }

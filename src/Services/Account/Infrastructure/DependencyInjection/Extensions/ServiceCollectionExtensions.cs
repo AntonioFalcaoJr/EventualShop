@@ -6,6 +6,7 @@ using Application.UseCases.CommandHandlers;
 using Application.UseCases.EventHandlers;
 using Application.UseCases.EventHandlers.Projections;
 using Application.UseCases.QueriesHandlers;
+using FluentValidation;
 using GreenPipes;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.DependencyInjection.Filters;
@@ -166,6 +167,9 @@ namespace Infrastructure.DependencyInjection.Extensions
 
         public static IServiceCollection AddProjectionsRepositories(this IServiceCollection services)
             => services.AddScoped<IAccountProjectionsRepository, AccountProjectionsRepository>();
+        
+        public static IServiceCollection AddMessageFluentValidation(this IServiceCollection services)
+            => services.AddValidatorsFromAssemblyContaining(typeof(IMessage));
 
         public static OptionsBuilder<SqlServerRetryingOptions> ConfigureSqlServerRetryingOptions(this IServiceCollection services, IConfigurationSection section)
             => services

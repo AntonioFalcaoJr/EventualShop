@@ -1,5 +1,5 @@
 using Domain.Abstractions.Aggregates;
-using Domain.Abstractions.Events;
+using Messages.Abstractions.Events;
 
 namespace Application.Abstractions.EventSourcing.EventStore.Events
 {
@@ -10,7 +10,7 @@ namespace Application.Abstractions.EventSourcing.EventStore.Events
         public int Version { get; }
         public TId AggregateId { get; init; }
         public string AggregateName { get; } = typeof(TAggregate).Name;
-        public string DomainEventName { get; init; }
-        public IDomainEvent DomainEvent { get; init; }
+        public string EventName { get; init; }
+        public IEvent Event { get; init; }
     }
 }

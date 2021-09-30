@@ -19,14 +19,13 @@ namespace Application.UseCases.CommandsHandlers
         {
             var catalog = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CatalogId, context.CancellationToken);
 
-            var catalogItem = new CatalogItem(
+            catalog.AddItem(
+                catalog.Id,
                 context.Message.Name,
                 context.Message.Description,
                 context.Message.Price,
                 context.Message.PictureUri);
 
-            catalog.AddItem(catalog.Id, catalogItem);
-            
             await _eventStoreService.AppendEventsToStreamAsync(catalog, context.CancellationToken);
         }
     }

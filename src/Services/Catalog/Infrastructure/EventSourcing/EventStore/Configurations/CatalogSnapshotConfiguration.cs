@@ -1,5 +1,5 @@
 using Application.EventSourcing.EventStore.Events;
-using Domain.Entities.Catalogs;
+using Domain.Aggregates;
 using JsonNet.ContractResolvers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

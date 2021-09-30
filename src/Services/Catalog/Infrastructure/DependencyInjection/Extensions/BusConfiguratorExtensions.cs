@@ -3,6 +3,7 @@ using Application.UseCases.CommandsHandlers;
 using Application.UseCases.EventHandlers;
 using Application.UseCases.QueriesHandlers;
 using MassTransit;
+using Messages.Abstractions;
 using Messages.Catalogs;
 
 namespace Infrastructure.DependencyInjection.Extensions
@@ -34,7 +35,7 @@ namespace Infrastructure.DependencyInjection.Extensions
 
         private static void AddCommandConsumer<TConsumer, TMessage>(this IRegistrationConfigurator configurator)
             where TConsumer : class, IConsumer
-            where TMessage : class
+            where TMessage : class, IMessage
         {
             configurator
                 .AddConsumer<TConsumer>()
@@ -44,7 +45,7 @@ namespace Infrastructure.DependencyInjection.Extensions
         }
 
         private static void MapQueueEndpoint<TMessage>()
-            where TMessage : class
+            where TMessage : class, IMessage
             => EndpointConvention.Map<TMessage>(new Uri($"exchange:{typeof(TMessage).ToKebabCaseString()}"));
     }
 }

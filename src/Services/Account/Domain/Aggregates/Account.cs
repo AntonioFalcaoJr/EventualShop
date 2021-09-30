@@ -32,7 +32,7 @@ namespace Domain.Aggregates
 
         private void When(Events.AccountCreated @event)
         {
-            Id = @event.Id;
+            Id = @event.AccountId;
             UserId = @event.UserId;
             Profile = new Profile(@event.Email, @event.FirstName);
         }

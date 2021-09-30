@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
-using Domain.Entities.Catalogs;
+using Domain.Aggregates;
 using MassTransit;
 using Messages.Catalogs;
 

@@ -2,9 +2,9 @@
 
 namespace Domain.Entities.CatalogItems
 {
-    public class Validator : AbstractValidator<CatalogItem>
+    public class CatalogItemValidator : AbstractValidator<CatalogItem>
     {
-        public Validator()
+        public CatalogItemValidator()
         {
             RuleFor(foo => foo.Name)
                 .NotNull()
