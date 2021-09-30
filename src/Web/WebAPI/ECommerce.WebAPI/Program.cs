@@ -1,6 +1,5 @@
 using System;
 using System.Reflection;
-using ECommerce.WebAPI.DependencyInjection.Extensions;
 using MassTransit;
 using MassTransit.Definition;
 using Microsoft.AspNetCore.Builder;
@@ -13,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddControllers();
-    // .AddApplicationFluentValidation();
+// .AddApplicationFluentValidation();
 
 builder.Services.AddLogging(loggingBuilder =>
 {

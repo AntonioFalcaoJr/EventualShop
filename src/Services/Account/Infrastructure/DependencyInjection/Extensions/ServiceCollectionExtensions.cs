@@ -122,7 +122,7 @@ namespace Infrastructure.DependencyInjection.Extensions
                 configureEndpoint: endpoint =>
                 {
                     endpoint.ConfigureConsumeTopology = false;
-                    
+
                     endpoint.ConfigureConsumer<TConsumer>(registration);
                     endpoint.Bind<TEvent>();
 

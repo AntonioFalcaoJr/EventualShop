@@ -97,7 +97,7 @@ namespace Infrastructure.DependencyInjection.Extensions
             configurator
                 .AddConsumer<TConsumer>()
                 .Endpoint(endpoint => endpoint.ConfigureConsumeTopology = false);
-                
+
             MapQueueEndpoint<TMessage>();
         }
 
@@ -110,10 +110,10 @@ namespace Infrastructure.DependencyInjection.Extensions
                 configureEndpoint: endpoint =>
                 {
                     endpoint.ConfigureConsumeTopology = false;
-                    
+
                     endpoint.ConfigureConsumer<TConsumer>(registration);
                     endpoint.Bind<TMessage>();
-                    
+
                     endpoint.UseCircuitBreaker(circuitBreaker => // TODO - Options
                     {
                         circuitBreaker.TripThreshold = 15;
@@ -130,7 +130,7 @@ namespace Infrastructure.DependencyInjection.Extensions
             where TMessage : class, IMessage
             => EndpointConvention.Map<TMessage>(new Uri($"exchange:{typeof(TMessage).ToKebabCaseString()}"));
 
-        internal static string ToKebabCaseString(this MemberInfo member) 
+        internal static string ToKebabCaseString(this MemberInfo member)
             => KebabCaseEndpointNameFormatter.Instance.SanitizeName(member.Name);
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
