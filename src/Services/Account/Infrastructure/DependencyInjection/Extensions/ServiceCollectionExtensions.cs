@@ -1,13 +1,7 @@
 using System;
-using System.Reflection;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
-using Application.UseCases.CommandHandlers;
-using Application.UseCases.EventHandlers;
-using Application.UseCases.EventHandlers.Projections;
-using Application.UseCases.QueriesHandlers;
 using FluentValidation;
-using GreenPipes;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.DependencyInjection.Filters;
 using Infrastructure.DependencyInjection.Options;
@@ -16,13 +10,7 @@ using Infrastructure.EventSourcing.EventStore.Contexts;
 using Infrastructure.EventSourcing.Projections;
 using Infrastructure.EventSourcing.Projections.Contexts;
 using MassTransit;
-using MassTransit.Definition;
-using MassTransit.RabbitMqTransport;
-using MassTransit.Topology;
 using Messages.Abstractions;
-using Messages.Abstractions.Commands;
-using Messages.Abstractions.Events;
-using Messages.Accounts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -67,84 +55,6 @@ namespace Infrastructure.DependencyInjection.Extensions
                 })
                 .AddMassTransitHostedService()
                 .AddGenericRequestClient();
-
-        private static void AddCommandConsumers(this IRegistrationConfigurator cfg)
-        {
-            cfg.AddCommandConsumer<CreateAccountConsumer, Commands.CreateAccount>();
-            cfg.AddCommandConsumer<DefineProfessionalAddressConsumer, Commands.DefineProfessionalAddress>();
-            cfg.AddCommandConsumer<DefineResidenceAddressConsumer, Commands.DefineResidenceAddress>();
-            cfg.AddCommandConsumer<DeleteAccountConsumer, Commands.DeleteAccount>();
-            cfg.AddCommandConsumer<UpdateProfileConsumer, Commands.UpdateProfile>();
-        }
-
-        private static void AddEventConsumers(this IRegistrationConfigurator cfg)
-        {
-            cfg.AddConsumer<AccountCreatedConsumer>();
-            cfg.AddConsumer<AccountDeletedConsumer>();
-            cfg.AddConsumer<ProfessionalAddressDefinedConsumer>();
-            cfg.AddConsumer<ProfileUpdatedConsumer>();
-            cfg.AddConsumer<ResidenceAddressDefinedConsumer>();
-            cfg.AddConsumer<UserRegisteredConsumer>();
-        }
-
-        private static void AddQueryConsumers(this IRegistrationConfigurator cfg)
-        {
-            cfg.AddConsumer<GetAccountDetailsConsumer>();
-            cfg.AddConsumer<GetAccountsDetailsWithPaginationConsumer>();
-        }
-
-        private static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
-        {
-            cfg.ConfigureEventReceiveEndpoint<AccountCreatedConsumer, Events.AccountCreated>(registration);
-            cfg.ConfigureEventReceiveEndpoint<AccountDeletedConsumer, Events.AccountDeleted>(registration);
-            cfg.ConfigureEventReceiveEndpoint<ProfessionalAddressDefinedConsumer, Events.ProfessionalAddressDefined>(registration);
-            cfg.ConfigureEventReceiveEndpoint<ProfileUpdatedConsumer, Events.ProfileUpdated>(registration);
-            cfg.ConfigureEventReceiveEndpoint<ResidenceAddressDefinedConsumer, Events.ResidenceAddressDefined>(registration);
-            cfg.ConfigureEventReceiveEndpoint<UserRegisteredConsumer, Messages.Identities.Events.UserRegistered>(registration);
-        }
-
-        private static void AddCommandConsumer<TConsumer, TCommand>(this IRegistrationConfigurator configurator)
-            where TConsumer : class, IConsumer
-            where TCommand : class, ICommand
-        {
-            configurator
-                .AddConsumer<TConsumer>()
-                .Endpoint(endpoint => endpoint.ConfigureConsumeTopology = false);
-
-            MapQueueEndpoint<TCommand>();
-        }
-
-        private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)
-            where TConsumer : class, IConsumer
-            where TEvent : class, IEvent
-        {
-            bus.ReceiveEndpoint(
-                queueName: $"account-{typeof(TEvent).ToKebabCaseString()}",
-                configureEndpoint: endpoint =>
-                {
-                    endpoint.ConfigureConsumeTopology = false;
-
-                    endpoint.ConfigureConsumer<TConsumer>(registration);
-                    endpoint.Bind<TEvent>();
-
-                    endpoint.UseCircuitBreaker(circuitBreaker => // TODO - Options
-                    {
-                        circuitBreaker.TripThreshold = 15;
-                        circuitBreaker.ResetInterval = TimeSpan.FromMinutes(3);
-                        circuitBreaker.TrackingPeriod = TimeSpan.FromMinutes(1);
-                        circuitBreaker.ActiveThreshold = 10;
-                    });
-
-                    endpoint.UseRateLimit(100, TimeSpan.FromSeconds(1)); // TODO - Options
-                });
-        }
-
-        private static void MapQueueEndpoint<TMessage>()
-            where TMessage : class, IMessage
-            => EndpointConvention.Map<TMessage>(new Uri($"exchange:{typeof(TMessage).ToKebabCaseString()}"));
-
-        internal static string ToKebabCaseString(this MemberInfo member)
-            => KebabCaseEndpointNameFormatter.Instance.SanitizeName(member.Name);
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
             => services
@@ -191,11 +101,5 @@ namespace Infrastructure.DependencyInjection.Extensions
                 .Bind(section)
                 .ValidateDataAnnotations()
                 .ValidateOnStart();
-    }
-
-    internal class KebabCaseEntityNameFormatter : IEntityNameFormatter
-    {
-        public string FormatEntityName<T>()
-            => typeof(T).ToKebabCaseString();
     }
 }

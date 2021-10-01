@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
-using Domain.Entities.CatalogItems;
 using MassTransit;
 using Messages.Catalogs;
 

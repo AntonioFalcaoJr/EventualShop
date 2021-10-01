@@ -4,22 +4,17 @@ using GreenPipes;
 using MassTransit;
 using MassTransit.RabbitMqTransport;
 using Messages.Abstractions.Events;
-using Messages.Catalogs;
+using Messages.Identities;
 
 namespace Infrastructure.DependencyInjection.Extensions
 {
-    internal static class RabbitMqBusConfiguratorExtensions
+    internal static class RabbitMqBusFactoryConfiguratorExtensions
     {
         public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
         {
-            cfg.ConfigureEventReceiveEndpoint<CatalogCreatedConsumer, Events.CatalogCreated>(registration);
-            cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, Events.CatalogDeleted>(registration);
-            cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, Events.CatalogActivated>(registration);
-            cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, Events.CatalogDeactivated>(registration);
-            cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, Events.CatalogUpdated>(registration);
-            cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, Events.CatalogItemAdded>(registration);
-            cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, Events.CatalogItemRemoved>(registration);
-            cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, Events.CatalogItemUpdated>(registration);
+            cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, Events.UserRegistered>(registration);
+            cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, Events.UserPasswordChanged>(registration);
+            cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, Events.UserDeleted>(registration);
         }
 
         private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)
@@ -27,7 +22,7 @@ namespace Infrastructure.DependencyInjection.Extensions
             where TMessage : class, IEvent
         {
             bus.ReceiveEndpoint(
-                queueName: $"catalog-{typeof(TMessage).ToKebabCaseString()}",
+                queueName: $"identity-{typeof(TMessage).ToKebabCaseString()}",
                 configureEndpoint: endpoint =>
                 {
                     endpoint.ConfigureConsumeTopology = false;

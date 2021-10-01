@@ -10,7 +10,6 @@ using Infrastructure.EventSourcing.EventStore.Contexts;
 using Infrastructure.EventSourcing.Projections;
 using Infrastructure.EventSourcing.Projections.Contexts;
 using MassTransit;
-using MassTransit.Topology;
 using Messages.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -27,17 +26,17 @@ namespace Infrastructure.DependencyInjection.Extensions
         private static readonly RabbitMqOptions RabbitMqOptions = new();
 
         public static IServiceCollection AddMassTransitWithRabbitMq(this IServiceCollection services, Action<RabbitMqOptions> optionsAction)
-            => services.AddMassTransit(bus =>
+            => services.AddMassTransit(cfg =>
                 {
                     optionsAction(RabbitMqOptions);
 
-                    bus.SetKebabCaseEndpointNameFormatter();
+                    cfg.SetKebabCaseEndpointNameFormatter();
 
-                    bus.AddCommandConsumers();
-                    bus.AddEventConsumers();
-                    bus.AddQueryConsumers();
+                    cfg.AddCommandConsumers();
+                    cfg.AddEventConsumers();
+                    cfg.AddQueryConsumers();
 
-                    bus.UsingRabbitMq((context, bus) =>
+                    cfg.UsingRabbitMq((context, bus) =>
                     {
                         bus.Host(
                             host: RabbitMqOptions.Host,
@@ -102,11 +101,5 @@ namespace Infrastructure.DependencyInjection.Extensions
                 .Bind(section)
                 .ValidateDataAnnotations()
                 .ValidateOnStart();
-    }
-
-    internal class KebabCaseEntityNameFormatter : IEntityNameFormatter
-    {
-        public string FormatEntityName<T>()
-            => typeof(T).ToKebabCaseString();
     }
 }

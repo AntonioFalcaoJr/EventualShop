@@ -1,12 +1,7 @@
 using System;
-using System.Reflection;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
-using Application.UseCases.CommandHandlers;
-using Application.UseCases.EventHandlers;
-using Application.UseCases.QueriesHandlers;
 using FluentValidation;
-using GreenPipes;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.DependencyInjection.Filters;
 using Infrastructure.DependencyInjection.Options;
@@ -15,12 +10,7 @@ using Infrastructure.EventSourcing.EventStore.Contexts;
 using Infrastructure.EventSourcing.Projections;
 using Infrastructure.EventSourcing.Projections.Contexts;
 using MassTransit;
-using MassTransit.Definition;
-using MassTransit.RabbitMqTransport;
-using MassTransit.Topology;
 using Messages.Abstractions;
-using Messages.Abstractions.Events;
-using Messages.Identities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -65,73 +55,6 @@ namespace Infrastructure.DependencyInjection.Extensions
                 })
                 .AddMassTransitHostedService()
                 .AddGenericRequestClient();
-
-        private static void AddCommandConsumers(this IRegistrationConfigurator cfg)
-        {
-            cfg.AddCommandConsumer<RegisterUserConsumer, Commands.RegisterUser>();
-            cfg.AddCommandConsumer<ChangeUserPasswordConsumer, Commands.ChangeUserPassword>();
-            cfg.AddCommandConsumer<DeleteUserConsumer, Commands.DeleteUser>();
-        }
-
-        private static void AddEventConsumers(this IRegistrationConfigurator cfg)
-        {
-            cfg.AddConsumer<UserChangedConsumer>();
-        }
-
-        private static void AddQueryConsumers(this IRegistrationConfigurator cfg)
-        {
-            cfg.AddConsumer<GetUserAuthenticationDetailsConsumer>();
-        }
-
-        private static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
-        {
-            cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, Events.UserRegistered>(registration);
-            cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, Events.UserPasswordChanged>(registration);
-            cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, Events.UserDeleted>(registration);
-        }
-
-        private static void AddCommandConsumer<TConsumer, TMessage>(this IRegistrationConfigurator configurator)
-            where TConsumer : class, IConsumer
-            where TMessage : class, IMessage
-        {
-            configurator
-                .AddConsumer<TConsumer>()
-                .Endpoint(endpoint => endpoint.ConfigureConsumeTopology = false);
-
-            MapQueueEndpoint<TMessage>();
-        }
-
-        private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)
-            where TConsumer : class, IConsumer
-            where TMessage : class, IEvent
-        {
-            bus.ReceiveEndpoint(
-                queueName: $"identity-{typeof(TMessage).ToKebabCaseString()}",
-                configureEndpoint: endpoint =>
-                {
-                    endpoint.ConfigureConsumeTopology = false;
-
-                    endpoint.ConfigureConsumer<TConsumer>(registration);
-                    endpoint.Bind<TMessage>();
-
-                    endpoint.UseCircuitBreaker(circuitBreaker => // TODO - Options
-                    {
-                        circuitBreaker.TripThreshold = 15;
-                        circuitBreaker.ResetInterval = TimeSpan.FromMinutes(3);
-                        circuitBreaker.TrackingPeriod = TimeSpan.FromMinutes(1);
-                        circuitBreaker.ActiveThreshold = 10;
-                    });
-
-                    endpoint.UseRateLimit(100, TimeSpan.FromSeconds(1)); // TODO - Options
-                });
-        }
-
-        private static void MapQueueEndpoint<TMessage>()
-            where TMessage : class, IMessage
-            => EndpointConvention.Map<TMessage>(new Uri($"exchange:{typeof(TMessage).ToKebabCaseString()}"));
-
-        internal static string ToKebabCaseString(this MemberInfo member)
-            => KebabCaseEndpointNameFormatter.Instance.SanitizeName(member.Name);
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
             => services
@@ -178,11 +101,5 @@ namespace Infrastructure.DependencyInjection.Extensions
                 .Bind(section)
                 .ValidateDataAnnotations()
                 .ValidateOnStart();
-    }
-
-    internal class KebabCaseEntityNameFormatter : IEntityNameFormatter
-    {
-        public string FormatEntityName<T>()
-            => typeof(T).ToKebabCaseString();
     }
 }

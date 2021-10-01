@@ -8,7 +8,7 @@ using Messages.Catalogs;
 
 namespace Infrastructure.DependencyInjection.Extensions
 {
-    public static class BusConfiguratorExtensions
+    public static class RegistrationConfiguratorExtensions
     {
         public static void AddCommandConsumers(this IRegistrationConfigurator cfg)
         {
@@ -41,11 +41,7 @@ namespace Infrastructure.DependencyInjection.Extensions
                 .AddConsumer<TConsumer>()
                 .Endpoint(e => e.ConfigureConsumeTopology = false);
 
-            MapQueueEndpoint<TMessage>();
+            EndpointConvention.Map<TMessage>(new Uri($"exchange:{typeof(TMessage).ToKebabCaseString()}"));
         }
-
-        private static void MapQueueEndpoint<TMessage>()
-            where TMessage : class, IMessage
-            => EndpointConvention.Map<TMessage>(new Uri($"exchange:{typeof(TMessage).ToKebabCaseString()}"));
     }
 }
