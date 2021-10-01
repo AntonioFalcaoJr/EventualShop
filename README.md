@@ -48,6 +48,20 @@ The following table shows how EDA and Microservices architectural styles complim
 Table 1: Ambre, Tanmay. *Architectural styles compliment*, Architectural considerations for event-driven microservices-based systems.    
 https://developer.ibm.com/articles/eda-and-microservices-architecture-best-practices/
 
+## Broker Topology
+
+> The broker topology differs from the mediator topology in that there is no central event mediator; rather, the message flow is distributed across the event processor components in a chain-like fashion through a lightweight message broker (e.g., ActiveMQ, HornetQ, etc.). This topology is useful when you have a relatively simple event processing flow and you do not want (or need) central event orchestration.
+>
+> There are two main types of architecture components within the broker topology: a broker component and an event processor component. The broker component can be centralized or federated and contains all of the event channels that are used within the event flow. The event channels contained within the broker component can be message queues, message topics, or a combination of both.
+>
+> Richards, Mark. "Broker Topology." *Software Architecture Patterns by Mark Richards*, O'Reilly.  
+> https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch02.html
+
+![](./.assets/img/broker_topology_eda.png)    
+Fig. 2: Richards, Mark. "Broker Topology." *Software Architecture Patterns by Mark Richards*, O'Reilly.  
+https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch02.html
+
+
 ## Event sourcing
 
 > Instead of storing just the current state of the data in a domain, use an append-only store to record the full series of actions taken on that data. The store acts as the system of record and can be used to materialize the domain objects. This can simplify tasks in complex domains, by avoiding the need to synchronize the data model and the business domain, while improving performance, scalability, and responsiveness. It can also provide consistency for transactional data, and maintain full audit trails and history that can enable compensating actions.
@@ -65,7 +79,7 @@ https://developer.ibm.com/articles/eda-and-microservices-architecture-best-pract
 <br>
 
 ![](./.assets/img/event-sourcing-overview.png)  
-Fig. 2: MSDN. *Event Sourcing pattern*.    
+Fig. 3: MSDN. *Event Sourcing pattern*.    
 https://microservices.io/patterns/data/event-sourcing.html
 
 ### Event Store/Stream
@@ -76,19 +90,19 @@ https://microservices.io/patterns/data/event-sourcing.html
 > https://www.eventstore.com/blog/what-is-event-sourcing
 
 ![](./.assets/img/event-store.png)  
-Fig. 3: Shilkov, Mikhail. *Event Sourcing and IO Complexity*.    
+Fig. 4: Shilkov, Mikhail. *Event Sourcing and IO Complexity*.    
 https://mikhail.io/2016/11/event-sourcing-and-io-complexity/
 
 State transition during events applying: 
 
 ![](./.assets/img/applyTo_event-sourcing.png)
-Fig. 4: Reitzammer, Benjamin & Seitz, Johannes. *Event Sourcingin practice*.    
+Fig. 5: Reitzammer, Benjamin & Seitz, Johannes. *Event Sourcingin practice*.    
 https://ookami86.github.io/event-sourcing-in-practice/#title.md
 
 The following picture shows the difference between approaches:
 
 ![](./.assets/img/event-sourcing.png)
-Fig. 5: Richardson, Chris. *Pattern: Event sourcing*.    
+Fig. 6: Richardson, Chris. *Pattern: Event sourcing*.    
 https://microservices.io/patterns/data/event-sourcing.html
 
 ### Snapshot
@@ -104,13 +118,13 @@ https://microservices.io/patterns/data/event-sourcing.html
 > https://domaincentric.net/blog/event-sourcing-snapshotting
 
 ![](./.assets/img/snapshot.png)  
-Fig. 6: Comartin, Derek. *Snapshots in Event Sourcing for Rehydrating Aggregates*.    
+Fig. 7: Comartin, Derek. *Snapshots in Event Sourcing for Rehydrating Aggregates*.    
 https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates/
 
 Snapshot stream:
 
 ![](./.assets/img/stream_snapshot.png)  
-Fig. 7: Comartin, Derek. *Snapshots in Event Sourcing for Rehydrating Aggregates*.    
+Fig. 8: Comartin, Derek. *Snapshots in Event Sourcing for Rehydrating Aggregates*.    
 https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates/
 
 ## EDA + Event-sourcing
@@ -137,7 +151,7 @@ https://pablo-iorio.medium.com/event-driven-architectures-vs-event-sourcing-patt
 <br>
 
 ![](./.assets/img/EventSourcing_EDA.jpeg)
-Fig. 8: Nowak, Aleksander. *Understanding Event-Driven Design Patterns for Microservices*.    
+Fig. 9: Nowak, Aleksander. *Understanding Event-Driven Design Patterns for Microservices*.    
 https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-microservices-659b3c9fb51f
 
 ## CQRS
@@ -149,13 +163,13 @@ https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-
 <br>
 
 ![](.assets/img/cqrs.png)   
-Fig. 9: Bürckel, Marco. *Some thoughts on using CQRS without Event Sourcing*.    
+Fig. 10: Bürckel, Marco. *Some thoughts on using CQRS without Event Sourcing*.    
 https://medium.com/@mbue/some-thoughts-on-using-cqrs-without-event-sourcing-938b878166a2
 
 <br>
 
 ![](.assets/img/cqrs.jpg)   
-Fig. 10: Go, Jayson. *From Monolith to Event-Driven: Finding Seams in Your Future Architecture*.    
+Fig. 11: Go, Jayson. *From Monolith to Event-Driven: Finding Seams in Your Future Architecture*.    
 https://www.eventstore.com/blog/what-is-event-sourcing
 
 ### Projections
@@ -174,13 +188,13 @@ data storage mechanism for the domain.
 > https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs#event-sourcing-and-cqrs-pattern
 
  ![](./.assets/img/cqrs-eventsourcing-diagram.png)
- Fig. 11: Whittaker, Daniel. *CQRS + Event Sourcing – Step by Step*.    
+ Fig. 12: Whittaker, Daniel. *CQRS + Event Sourcing – Step by Step*.    
  https://danielwhittaker.me/2020/02/20/cqrs-step-step-guide-flow-typical-application/
 
 <br>
 
 ![](./.assets/img/cqrs-eventsourcing-flow.png)  
-Fig. 12: Katwatka, Piotr. *Event Sourcing with CQRS*.  
+Fig. 13: Katwatka, Piotr. *Event Sourcing with CQRS*.  
 https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 
 ### Commands vs Events
@@ -207,7 +221,7 @@ https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 > https://www.eventstorming.com/
 
 ![](./.assets/img/event-storming.jpg)  
-Fig. 13: Baas-Schwegler, Kenny & Richardson, Chris. *Picture that explains "Almost" Everything*.    
+Fig. 14: Baas-Schwegler, Kenny & Richardson, Chris. *Picture that explains "Almost" Everything*.    
 https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
 
 ### EventStorming (WIP)
@@ -235,7 +249,7 @@ https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
 > https://martinfowler.com/bliki/DomainDrivenDesign.html
 
 ![](./.assets/img/BoundedContext.png)  
-Fig. 14: Martin, Fowler. *BoundedContext*.    
+Fig. 15: Martin, Fowler. *BoundedContext*.    
 https://martinfowler.com/bliki/DomainDrivenDesign.html
 
 ## Clean Architecture
@@ -248,7 +262,7 @@ https://martinfowler.com/bliki/DomainDrivenDesign.html
 > https://whatis.techtarget.com/definition/clean-architecture
 
 ![](./.assets/img/CleanArchitecture.jpg)  
-Fig. 15: C. Martin, Robert. *The Clean Architecture*.    
+Fig. 16: C. Martin, Robert. *The Clean Architecture*.    
 https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
 ## Running
