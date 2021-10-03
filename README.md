@@ -48,7 +48,7 @@ The following table shows how EDA and Microservices architectural styles complim
 Table 1: Ambre, Tanmay. *Architectural styles compliment*, Architectural considerations for event-driven microservices-based systems.    
 https://developer.ibm.com/articles/eda-and-microservices-architecture-best-practices/
 
-## Broker Topology
+### Broker Topology
 
 > The broker topology differs from the mediator topology in that there is no central event mediator; rather, the message flow is distributed across the event processor components in a chain-like fashion through a lightweight message broker (e.g., ActiveMQ, HornetQ, etc.). This topology is useful when you have a relatively simple event processing flow and you do not want (or need) central event orchestration.
 >
