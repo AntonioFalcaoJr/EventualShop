@@ -17,7 +17,7 @@ namespace Application.UseCases.Events.Projections
             _projectionsService = projectionsService;
         }
 
-        public async Task Consume(ConsumeContext<Messages.Accounts.Events.ResidenceAddressDefined> context)
+        public async Task Consume(ConsumeContext<ResidenceAddressDefinedEvent> context)
         {
             var account = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.AccountId, context.CancellationToken);
 

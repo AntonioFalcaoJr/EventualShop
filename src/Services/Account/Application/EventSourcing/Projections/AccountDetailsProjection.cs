@@ -5,9 +5,9 @@ namespace Application.EventSourcing.Projections
 {
     public record AccountDetailsProjection : IProjection
     {
-        public Guid Id { get; init; }
         public Guid UserId { get; init; }
         public ProfileProjection Profile { get; init; }
+        public Guid Id { get; init; }
         public bool IsDeleted { get; init; }
     }
 

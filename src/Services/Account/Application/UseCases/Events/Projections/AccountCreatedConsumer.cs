@@ -28,7 +28,7 @@ namespace Application.UseCases.Events.Projections
                 Profile = new ProfileProjection
                 {
                     Email = account.Profile.Email,
-                    FirstName = account.Profile.FirstName,
+                    FirstName = account.Profile.FirstName
                 },
                 IsDeleted = account.IsDeleted
             };
