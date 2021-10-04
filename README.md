@@ -29,8 +29,6 @@ Fig. 1: Falcão Jr., Antônio. *An EDA solution architecture*.
  Fig. 1: Uit de Bos, Oskar. *A simple illustration of events using the publish/subscribe messaging model*.    
  https://medium.com/swlh/the-engineers-guide-to-event-driven-architectures-benefits-and-challenges-3e96ded8568b
 
-<br>
-
 ### EDA & Microservices Architecture
 
 The following table shows how EDA and Microservices architectural styles compliment each other:
@@ -69,6 +67,10 @@ According to Mathew, here are some reasons why the EDA patterns can alleviate so
 | Retaining the Exact State Transitions That Customers or Services Perform | In SOAs, data is typically “mutated in place” in a database. This is a lossy process where each state change loses the information about the state changes that happened previously. | EDAs are event sourced, meaning every state change is captured, providing a truthful journal of the exact state changes that every customer or every service made over time. This journal lets operators rewind time to view or replay previous events exactly as they happened. It is also important for analytics that review customer (or system) behavior to derive insight. |
 | *Streaming Analytics | SOA is incapable of deriving analytics of data in flight. This requires the ability to detect a pattern from multiple state changes both temporally and spatially. | EDA is fully capable of detecting patterns across multiple event sources over many different types of time windows. Also, deriving analytics of data in flight is a means of continuous intelligence. |
 | The Timing of Consistency and of Intelligence | Synchronous communication makes it a bit easier to create consistent state across services from a client’s perspective. Intelligence from the consistent state are derived eventually—that is, eventual intelligence and continuous consistency | Events, being asynchronous, mean that different services become consistent with one another only in eventuality: There is no control over the timeliness of the process of event propagation. |
+
+Table 2: Mathew, Jerry. *SOA vs. EDA: Is Not Life Simply a Series of Events?*  
+https://www.confluent.io/blog/soa-vs-eda-is-not-life-simply-a-series-of-events/
+
 ### Broker Topology
 
 > The broker topology differs from the mediator topology in that there is no central event mediator; rather, the message flow is distributed across the event processor components in a chain-like fashion through a lightweight message broker (e.g., ActiveMQ, HornetQ, etc.). This topology is useful when you have a relatively simple event processing flow and you do not want (or need) central event orchestration.
@@ -166,7 +168,7 @@ Comparison overview:
 | Storage | Central event store | Decentralised |
 | Testing | Easier | Harder |
 
-Table 2: Lorio, Pablo. *Comparison overview*, Event driven architectures vs event sourcing patterns.    
+Table 3: Lorio, Pablo. *Comparison overview*, Event driven architectures vs event sourcing patterns.    
 https://pablo-iorio.medium.com/event-driven-architectures-vs-event-sourcing-patterns-23d328289bf9
 
 <br>
