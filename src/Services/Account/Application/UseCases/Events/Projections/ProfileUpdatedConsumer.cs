@@ -2,10 +2,11 @@ using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
+using ProfileUpdatedEvent = Messages.Accounts.Events.ProfileUpdated;
 
 namespace Application.UseCases.Events.Projections
 {
-    public class ProfileUpdatedConsumer : IConsumer<Messages.Accounts.Events.ProfileUpdated>
+    public class ProfileUpdatedConsumer : IConsumer<ProfileUpdatedEvent>
     {
         private readonly IAccountEventStoreService _eventStoreService;
         private readonly IAccountProjectionsService _projectionsService;
@@ -16,7 +17,7 @@ namespace Application.UseCases.Events.Projections
             _projectionsService = projectionsService;
         }
 
-        public async Task Consume(ConsumeContext<Messages.Accounts.Events.ProfileUpdated> context)
+        public async Task Consume(ConsumeContext<ProfileUpdatedEvent> context)
         {
             var account = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.AccountId, context.CancellationToken);
 

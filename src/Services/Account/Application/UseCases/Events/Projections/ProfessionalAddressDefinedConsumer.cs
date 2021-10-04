@@ -2,10 +2,11 @@ using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
+using ProfessionalAddressDefinedEvent = Messages.Accounts.Events.ProfessionalAddressDefined;
 
 namespace Application.UseCases.Events.Projections
 {
-    public class ProfessionalAddressDefinedConsumer : IConsumer<Messages.Accounts.Events.ProfessionalAddressDefined>
+    public class ProfessionalAddressDefinedConsumer : IConsumer<ProfessionalAddressDefinedEvent>
     {
         private readonly IAccountEventStoreService _eventStoreService;
         private readonly IAccountProjectionsService _projectionsService;
@@ -16,7 +17,7 @@ namespace Application.UseCases.Events.Projections
             _projectionsService = projectionsService;
         }
 
-        public async Task Consume(ConsumeContext<Messages.Accounts.Events.ProfessionalAddressDefined> context)
+        public async Task Consume(ConsumeContext<ProfessionalAddressDefinedEvent> context)
         {
             var account = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.AccountId, context.CancellationToken);
 

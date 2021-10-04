@@ -2,10 +2,11 @@
 using Application.EventSourcing.EventStore;
 using Domain.Aggregates;
 using MassTransit;
+using UserRegisteredEvent = Messages.Identities.Events.UserRegistered;
 
 namespace Application.UseCases.Events
 {
-    public class UserRegisteredConsumer : IConsumer<Messages.Identities.Events.UserRegistered>
+    public class UserRegisteredConsumer : IConsumer<UserRegisteredEvent>
     {
         private readonly IAccountEventStoreService _eventStoreService;
 
@@ -14,7 +15,7 @@ namespace Application.UseCases.Events
             _eventStoreService = eventStoreService;
         }
 
-        public async Task Consume(ConsumeContext<Messages.Identities.Events.UserRegistered> context)
+        public async Task Consume(ConsumeContext<UserRegisteredEvent> context)
         {
             var account = new Account();
             account.Create(context.Message.UserId, context.Message.Email, context.Message.FirstName);

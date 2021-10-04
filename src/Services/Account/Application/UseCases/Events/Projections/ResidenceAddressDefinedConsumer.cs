@@ -2,10 +2,11 @@ using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
+using ResidenceAddressDefinedEvent = Messages.Accounts.Events.ResidenceAddressDefined;
 
 namespace Application.UseCases.Events.Projections
 {
-    public class ResidenceAddressDefinedConsumer : IConsumer<Messages.Accounts.Events.ResidenceAddressDefined>
+    public class ResidenceAddressDefinedConsumer : IConsumer<ResidenceAddressDefinedEvent>
     {
         private readonly IAccountEventStoreService _eventStoreService;
         private readonly IAccountProjectionsService _projectionsService;
