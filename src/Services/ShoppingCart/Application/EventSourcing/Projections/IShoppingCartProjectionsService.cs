@@ -8,8 +8,8 @@ namespace Application.EventSourcing.Projections
 {
     public interface IShoppingCartProjectionsService
     {
-        Task<IPagedResult<AccountDetailsProjection>> GetAccountsDetailsWithPaginationAsync(Paging paging, Expression<Func<AccountDetailsProjection, bool>> predicate, CancellationToken cancellationToken);
-        Task ProjectNewAccountDetailsAsync(AccountDetailsProjection accountDetails, CancellationToken cancellationToken);
-        Task<AccountDetailsProjection> GetAccountDetailsAsync(Guid accountId, CancellationToken cancellationToken);
+        Task<IPagedResult<CartDetailsProjection>> GetAccountsDetailsWithPaginationAsync(Paging paging, Expression<Func<CartDetailsProjection, bool>> predicate, CancellationToken cancellationToken);
+        Task ProjectCartDetailsAsync(CartDetailsProjection cartDetails, CancellationToken cancellationToken);
+        Task<CartDetailsProjection> GetAccountDetailsAsync(Guid accountId, CancellationToken cancellationToken);
     }
 }

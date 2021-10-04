@@ -3,9 +3,9 @@ using Domain.Abstractions.Entities;
 
 namespace Domain.Entities.CartItems
 {
-    public class ShoppingCartItem : Entity<Guid>
+    public class CartItem : Entity<Guid>
     {
-        public ShoppingCartItem(Guid productId, string productName, decimal unitPrice, int quantity)
+        public CartItem(Guid productId, string productName, decimal unitPrice, int quantity)
         {
             Id = Guid.NewGuid();
             ProductId = productId;
@@ -17,10 +17,13 @@ namespace Domain.Entities.CartItems
         public Guid ProductId { get; }
         public string ProductName { get; }
         public decimal UnitPrice { get; }
-        public int Quantity { get; }
+        public int Quantity { get; private set; }
         public string PictureUrl { get; }
 
+        public void IncreaseQuantity(int quantity) 
+            => Quantity += quantity;
+
         protected override bool Validate()
-            => throw new NotImplementedException();
+            => OnValidate<CartItemValidator, CartItem>();
     }
 }

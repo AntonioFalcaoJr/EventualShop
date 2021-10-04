@@ -1,8 +1,9 @@
-﻿using FluentValidation;
+﻿using System;
+using Domain.Abstractions.Validators;
 
 namespace Domain.Entities.CatalogBrands
 {
-    public class Validator : AbstractValidator<CatalogBrand>
+    public class Validator : EntityValidator<CatalogBrand, Guid>
     {
         public Validator()
         {

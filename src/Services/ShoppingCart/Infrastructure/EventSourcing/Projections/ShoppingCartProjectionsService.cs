@@ -16,13 +16,13 @@ namespace Infrastructure.EventSourcing.Projections
             _repository = repository;
         }
 
-        public Task<IPagedResult<AccountDetailsProjection>> GetAccountsDetailsWithPaginationAsync(Paging paging, Expression<Func<AccountDetailsProjection, bool>> predicate, CancellationToken cancellationToken)
+        public Task<IPagedResult<CartDetailsProjection>> GetAccountsDetailsWithPaginationAsync(Paging paging, Expression<Func<CartDetailsProjection, bool>> predicate, CancellationToken cancellationToken)
             => _repository.GetAllAsync(paging, predicate, cancellationToken);
 
-        public Task ProjectNewAccountDetailsAsync(AccountDetailsProjection accountDetails, CancellationToken cancellationToken)
-            => _repository.SaveAsync(accountDetails, cancellationToken);
+        public Task ProjectCartDetailsAsync(CartDetailsProjection cartDetails, CancellationToken cancellationToken)
+            => _repository.SaveAsync(cartDetails, cancellationToken);
 
-        public Task<AccountDetailsProjection> GetAccountDetailsAsync(Guid accountId, CancellationToken cancellationToken)
-            => _repository.GetAsync<AccountDetailsProjection, Guid>(accountId, cancellationToken);
+        public Task<CartDetailsProjection> GetAccountDetailsAsync(Guid accountId, CancellationToken cancellationToken)
+            => _repository.GetAsync<CartDetailsProjection, Guid>(accountId, cancellationToken);
     }
 }

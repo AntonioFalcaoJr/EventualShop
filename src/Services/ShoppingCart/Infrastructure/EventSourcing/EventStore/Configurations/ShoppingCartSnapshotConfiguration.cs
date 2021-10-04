@@ -1,5 +1,5 @@
 ﻿using Application.EventSourcing.EventStore.Events;
-using Domain.Entities.ShoppingCarts;
+using Domain.Aggregates;
 using JsonNet.ContractResolvers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -33,7 +33,7 @@ namespace Infrastructure.EventSourcing.EventStore.Configurations
                 .IsUnicode(false)
                 .HasConversion(
                     account => JsonConvert.SerializeObject(account),
-                    jsonString => JsonConvert.DeserializeObject<ShoppingCart>(jsonString,
+                    jsonString => JsonConvert.DeserializeObject<Cart>(jsonString,
                         new JsonSerializerSettings { ContractResolver = new PrivateSetterContractResolver() }))
                 .IsRequired();
         }

@@ -1,9 +1,9 @@
 ﻿using System;
 using Application.Abstractions.EventSourcing.EventStore;
 using Application.EventSourcing.EventStore.Events;
-using Domain.Entities.ShoppingCarts;
+using Domain.Aggregates;
 
 namespace Application.EventSourcing.EventStore
 {
-    public interface IShoppingCartEventStoreRepository : IEventStoreRepository<ShoppingCart, ShoppingCartStoreEvent, ShoppingCartSnapshot, Guid> { }
+    public interface IShoppingCartEventStoreRepository : IEventStoreRepository<Cart, ShoppingCartStoreEvent, ShoppingCartSnapshot, Guid> { }
 }

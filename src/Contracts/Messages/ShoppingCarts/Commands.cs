@@ -5,8 +5,8 @@ namespace Messages.ShoppingCarts
 {
     public static class Commands
     {
-        public record AddShoppingCartItem(Guid CatalogItemId, string CatalogItemName, decimal UnitPrice, Guid ShoppingCartId, int Quantity) : Command;
+        public record AddCartItem(Guid ProductId, string ProductName, decimal UnitPrice, Guid CartId, int Quantity) : Command;
 
-        public record CreateShoppingCart(Guid CustomerId) : Command;
+        public record CreateCart(Guid CustomerId) : Command;
     }
 }

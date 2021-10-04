@@ -1,8 +1,8 @@
 ﻿using System;
 using Application.Abstractions.EventSourcing.EventStore.Events;
-using Domain.Entities.ShoppingCarts;
+using Domain.Aggregates;
 
 namespace Application.EventSourcing.EventStore.Events
 {
-    public record ShoppingCartSnapshot : Snapshot<ShoppingCart, Guid>;
+    public record ShoppingCartSnapshot : Snapshot<Cart, Guid>;
 }

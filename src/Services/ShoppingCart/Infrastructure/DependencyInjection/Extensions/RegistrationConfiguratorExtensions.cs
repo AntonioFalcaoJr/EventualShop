@@ -1,5 +1,6 @@
 ﻿using System;
 using Application.UseCases.Commands;
+using Application.UseCases.Events;
 using MassTransit;
 using Messages.Abstractions;
 using Messages.ShoppingCarts;
@@ -10,13 +11,14 @@ namespace Infrastructure.DependencyInjection.Extensions
     {
         public static void AddCommandConsumers(this IRegistrationConfigurator cfg)
         {
-            cfg.AddCommandConsumer<AddShoppingCartItemConsumer, Commands.AddShoppingCartItem>();
-            cfg.AddCommandConsumer<CreateShoppingCartConsumer, Commands.CreateShoppingCart>();
+            cfg.AddCommandConsumer<AddCartItemConsumer, Commands.AddCartItem>();
+            cfg.AddCommandConsumer<CreateCartConsumer, Commands.CreateCart>();
         }
 
         public static void AddEventConsumers(this IRegistrationConfigurator cfg)
         {
-            // cfg.AddConsumer<UserChangedConsumer>();
+            cfg.AddConsumer<CartCreatedConsumer>();
+            cfg.AddConsumer<CartItemAddedConsumer>();
         }
 
         public static void AddQueryConsumers(this IRegistrationConfigurator cfg)

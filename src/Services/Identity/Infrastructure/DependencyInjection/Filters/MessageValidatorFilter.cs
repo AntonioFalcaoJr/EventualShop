@@ -22,12 +22,16 @@ namespace Infrastructure.DependencyInjection.Filters
         {
             var validationResult = await _validator.ValidateAsync(context.Message);
 
-            if (validationResult.IsValid) 
-                await next.Send(context);
+            if (validationResult.IsValid is false)
+            {
+                await context.Send(
+                    new Uri($"queue:identity-{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}-validation-error"),
+                    new ValidationResultMessage<T>(context.Message, validationResult));
 
-            await context.Send(
-                new Uri($"queue:identity-{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}-validation-error"),
-                new ValidationResultMessage<T>(context.Message, validationResult));
+                return;
+            }
+
+            await next.Send(context);
         }
 
         public void Probe(ProbeContext context) { }
