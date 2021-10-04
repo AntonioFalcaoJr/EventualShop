@@ -8,16 +8,16 @@ namespace Domain.Abstractions.Entities
     public abstract class Entity<TId> : IEntity<TId>
         where TId : struct
     {
-        [JsonIgnore]
+        [JsonIgnore] 
         private ValidationResult _validationResult = new();
-
-        [JsonIgnore]
-        public bool IsValid
-            => Validate();
 
         [JsonIgnore]
         public IEnumerable<ValidationFailure> Errors
             => _validationResult.Errors;
+
+        [JsonIgnore]
+        public bool IsValid
+            => Validate();
 
         public TId Id { get; protected set; }
         public bool IsDeleted { get; protected set; }
