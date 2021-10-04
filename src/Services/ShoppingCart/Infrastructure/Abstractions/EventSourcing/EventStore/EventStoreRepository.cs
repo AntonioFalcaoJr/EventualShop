@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.EventStore;
 using Application.Abstractions.EventSourcing.EventStore.Events;
 using Domain.Abstractions.Aggregates;
-using Domain.Abstractions.Events;
+using Messages.Abstractions.Events;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Abstractions.EventSourcing.EventStore
@@ -40,11 +40,11 @@ namespace Infrastructure.Abstractions.EventSourcing.EventStore
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<IDomainEvent>> GetStreamAsync(TId aggregateId, int snapshotVersion, CancellationToken cancellationToken)
+        public async Task<IEnumerable<IEvent>> GetStreamAsync(TId aggregateId, int snapshotVersion, CancellationToken cancellationToken)
             => await _storeEvents
                 .Where(storeEvent => Equals(storeEvent.AggregateId, aggregateId))
                 .Where(storeEvent => storeEvent.Version > snapshotVersion)
-                .Select(storeEvent => storeEvent.DomainEvent)
+                .Select(storeEvent => storeEvent.Event)
                 .ToListAsync(cancellationToken);
 
         public async Task<TSnapshot> GetSnapshotAsync(TId aggregateId, CancellationToken cancellationToken)

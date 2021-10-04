@@ -2,11 +2,11 @@
 using Application.EventSourcing.EventStore;
 using Domain.Entities.CartItems;
 using MassTransit;
-using Messages.ShoppingCarts.Commands;
+using AddShoppingCartItemCommand = Messages.ShoppingCarts.Commands.AddShoppingCartItem;
 
 namespace Application.UseCases.Commands
 {
-    public class AddShoppingCartItemConsumer : IConsumer<AddShoppingCartItem>
+    public class AddShoppingCartItemConsumer : IConsumer<AddShoppingCartItemCommand>
     {
         private readonly IShoppingCartEventStoreService _storeService;
 
@@ -15,7 +15,7 @@ namespace Application.UseCases.Commands
             _storeService = storeService;
         }
 
-        public async Task Consume(ConsumeContext<AddShoppingCartItem> context)
+        public async Task Consume(ConsumeContext<AddShoppingCartItemCommand> context)
         {
             var shoppingCartItem = new ShoppingCartItem(
                 context.Message.CatalogItemId,

@@ -1,11 +1,8 @@
 ﻿using System;
-using Application.UseCases.Events;
-using Application.UseCases.Events.Projections;
 using GreenPipes;
 using MassTransit;
 using MassTransit.RabbitMqTransport;
 using Messages.Abstractions.Events;
-using Events = Messages.Accounts.Events;
 
 namespace Infrastructure.DependencyInjection.Extensions
 {
@@ -13,12 +10,9 @@ namespace Infrastructure.DependencyInjection.Extensions
     {
         public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
         {
-            cfg.ConfigureEventReceiveEndpoint<AccountCreatedConsumer, Events.AccountCreated>(registration);
-            cfg.ConfigureEventReceiveEndpoint<AccountDeletedConsumer, Events.AccountDeleted>(registration);
-            cfg.ConfigureEventReceiveEndpoint<ProfessionalAddressDefinedConsumer, Events.ProfessionalAddressDefined>(registration);
-            cfg.ConfigureEventReceiveEndpoint<ProfileUpdatedConsumer, Events.ProfileUpdated>(registration);
-            cfg.ConfigureEventReceiveEndpoint<ResidenceAddressDefinedConsumer, Events.ResidenceAddressDefined>(registration);
-            cfg.ConfigureEventReceiveEndpoint<UserRegisteredConsumer, Messages.Identities.Events.UserRegistered>(registration);
+            // cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, Events.UserRegistered>(registration);
+            // cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, Events.UserPasswordChanged>(registration);
+            // cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, Events.UserDeleted>(registration);
         }
 
         private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)
@@ -26,7 +20,7 @@ namespace Infrastructure.DependencyInjection.Extensions
             where TMessage : class, IEvent
         {
             bus.ReceiveEndpoint(
-                queueName: $"account-{typeof(TMessage).ToKebabCaseString()}",
+                queueName: $"shoppingcart-{typeof(TMessage).ToKebabCaseString()}",
                 configureEndpoint: endpoint =>
                 {
                     endpoint.ConfigureConsumeTopology = false;

@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Reflection;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
-using Domain.Abstractions.Events;
+using FluentValidation;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
+using Infrastructure.DependencyInjection.Filters;
 using Infrastructure.DependencyInjection.Options;
 using Infrastructure.EventSourcing.EventStore;
 using Infrastructure.EventSourcing.EventStore.Contexts;
 using Infrastructure.EventSourcing.Projections;
 using Infrastructure.EventSourcing.Projections.Contexts;
 using MassTransit;
-using MassTransit.Definition;
-using MassTransit.RabbitMqTransport;
-using MassTransit.Topology;
+using Messages.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,7 +40,7 @@ namespace Infrastructure.DependencyInjection.Extensions
                     {
                         bus.Host(
                             host: RabbitMqOptions.Host,
-                           // virtualHost: RabbitMqOptions.VirtualHost,
+                            // virtualHost: RabbitMqOptions.VirtualHost,
                             host =>
                             {
                                 host.Username(RabbitMqOptions.Username);
@@ -50,6 +48,7 @@ namespace Infrastructure.DependencyInjection.Extensions
                             });
 
                         bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
+                        bus.UseConsumeFilter(typeof(MessageValidatorFilter<>), context);
                         bus.ConfigureEventReceiveEndpoints(context);
                         bus.ConfigureEndpoints(context);
                     });
@@ -57,69 +56,10 @@ namespace Infrastructure.DependencyInjection.Extensions
                 .AddMassTransitHostedService()
                 .AddGenericRequestClient();
 
-        private static void AddCommandConsumers(this IRegistrationConfigurator cfg)
-        {
-            // cfg.AddCommandConsumer<AddShoppingCartItemConsumer, DeleteAccount>();
-            // cfg.AddCommandConsumer<UpdateAccountConsumer, ChangeAccountPassword>();
-            // cfg.AddCommandConsumer<CreateShoppingCartConsumer, CreateAccount>();
-        }
-
-        private static void AddEventConsumers(this IRegistrationConfigurator cfg)
-        {
-            // cfg.AddConsumer<AccountRegisteredConsumer>();
-            // cfg.AddConsumer<AccountDeletedConsumer>();
-            // cfg.AddConsumer<AccountUpdatedConsumer>();
-        }
-
-        private static void AddQueryConsumers(this IRegistrationConfigurator cfg)
-        {
-           // cfg.AddConsumer<GetAccountDetailsConsumer>();
-            // cfg.AddConsumer<GetAccountsDetailsWithPaginationConsumer>();
-        }
-
-        private static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
-        {
-            // cfg.ConfigureEventReceiveEndpoint<AccountRegisteredConsumer, Events.ShoppingCartCreated>(registration);
-            // cfg.ConfigureEventReceiveEndpoint<AccountUpdatedConsumer, Events.AccountAgeChanged>(registration);
-            // cfg.ConfigureEventReceiveEndpoint<AccountUpdatedConsumer, Events.AccountNameChanged>(registration);
-            // cfg.ConfigureEventReceiveEndpoint<AccountDeletedConsumer, Events.AccountDeleted>(registration);
-        }
-
-        private static void AddCommandConsumer<TConsumer, TMessage>(this IRegistrationConfigurator configurator)
-            where TConsumer : class, IConsumer
-            where TMessage : class
-        {
-            configurator
-                .AddConsumer<TConsumer>()
-                .Endpoint(e => e.ConfigureConsumeTopology = false);
-
-            // MapQueueEndpoint<TMessage>();
-        }
-
-        private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
-            where TConsumer : class, IConsumer
-            where TMessage : class, IDomainEvent
-        {
-            cfg.ReceiveEndpoint(
-                queueName: typeof(TMessage).ToKebabCaseString(),
-                configureEndpoint: endpoint =>
-                {
-                    endpoint.ConfigureConsumer<TConsumer>(registration);
-                    endpoint.ConfigureConsumeTopology = false;
-                });
-        }
-
-        private static void MapQueueEndpoint<TMessage>()
-            where TMessage : class
-            => EndpointConvention.Map<TMessage>(new Uri($"exchange:{typeof(TMessage).ToKebabCaseString()}"));
-
-        internal static string ToKebabCaseString(this MemberInfo member)
-            => KebabCaseEndpointNameFormatter.Instance.SanitizeName(member.Name);
-
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
             => services
                 .AddScoped<IShoppingCartEventStoreService, ShoppingCartEventStoreService>()
-                .AddScoped<IAccountProjectionsService, AccountProjectionsService>();
+                .AddScoped<IShoppingCartProjectionsService, ShoppingCartProjectionsService>();
 
         public static IServiceCollection AddEventStoreDbContext(this IServiceCollection services)
             => services
@@ -133,10 +73,13 @@ namespace Infrastructure.DependencyInjection.Extensions
         }
 
         public static IServiceCollection AddEventStoreRepositories(this IServiceCollection services)
-            => services.AddScoped<IAccountEventStoreRepository, AccountEventStoreRepository>();
+            => services.AddScoped<IShoppingCartEventStoreRepository, ShoppingCartEventStoreRepository>();
 
         public static IServiceCollection AddProjectionsRepositories(this IServiceCollection services)
-            => services.AddScoped<IAccountProjectionsRepository, AccountProjectionsRepository>();
+            => services.AddScoped<IShoppingCartProjectionsRepository, ShoppingCartProjectionsRepository>();
+
+        public static IServiceCollection AddMessageFluentValidation(this IServiceCollection services)
+            => services.AddValidatorsFromAssemblyContaining(typeof(IMessage));
 
         public static OptionsBuilder<SqlServerRetryingOptions> ConfigureSqlServerRetryingOptions(this IServiceCollection services, IConfigurationSection section)
             => services
@@ -158,11 +101,5 @@ namespace Infrastructure.DependencyInjection.Extensions
                 .Bind(section)
                 .ValidateDataAnnotations()
                 .ValidateOnStart();
-    }
-
-    internal class KebabCaseEntityNameFormatter : IEntityNameFormatter
-    {
-        public string FormatEntityName<T>()
-            => typeof(T).ToKebabCaseString();
     }
 }

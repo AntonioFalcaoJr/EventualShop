@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Domain.Abstractions.Entities;
-using Domain.Abstractions.Events;
+using Messages.Abstractions.Events;
 using Newtonsoft.Json;
 
 namespace Domain.Abstractions.Aggregates
@@ -9,28 +9,28 @@ namespace Domain.Abstractions.Aggregates
         where TId : struct
     {
         [JsonIgnore]
-        private readonly List<IDomainEvent> _domainEvents = new();
+        private readonly List<IEvent> _events = new();
 
         [JsonIgnore]
-        public IEnumerable<IDomainEvent> DomainEvents
-            => _domainEvents;
+        public IEnumerable<IEvent> Events
+            => _events;
 
-        public void LoadEvents(IEnumerable<IDomainEvent> domainEvents)
+        public void LoadEvents(IEnumerable<IEvent> events)
         {
-            foreach (var domainEvent in domainEvents)
-                ApplyEvent((dynamic)domainEvent);
+            foreach (var @event in events)
+                ApplyEvent((dynamic)@event);
         }
 
-        private void AddDomainEvent(IDomainEvent domainEvent)
-            => _domainEvents.Add(domainEvent);
+        private void AddEvent(IEvent @event)
+            => _events.Add(@event);
 
-        protected abstract void ApplyEvent(IDomainEvent domainEvent);
+        protected abstract void ApplyEvent(IEvent @event);
 
-        protected void RaiseEvent(IDomainEvent domainEvent)
+        protected void RaiseEvent(IEvent @event)
         {
-            ApplyEvent((dynamic)domainEvent);
+            ApplyEvent((dynamic)@event);
             if (IsValid is false) return;
-            AddDomainEvent(domainEvent);
+            AddEvent(@event);
         }
     }
 }

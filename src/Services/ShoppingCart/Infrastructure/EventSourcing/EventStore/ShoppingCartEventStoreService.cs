@@ -9,9 +9,9 @@ using Microsoft.Extensions.Options;
 
 namespace Infrastructure.EventSourcing.EventStore
 {
-    public class ShoppingCartEventStoreService : EventStoreService<ShoppingCart, AccountStoreEvent, AccountSnapshot, Guid>, IShoppingCartEventStoreService
+    public class ShoppingCartEventStoreService : EventStoreService<ShoppingCart, ShoppingCartStoreEvent, ShoppingCartSnapshot, Guid>, IShoppingCartEventStoreService
     {
-        public ShoppingCartEventStoreService(IOptionsMonitor<EventStoreOptions> optionsMonitor, IAccountEventStoreRepository repository, IBus bus)
+        public ShoppingCartEventStoreService(IOptionsMonitor<EventStoreOptions> optionsMonitor, IShoppingCartEventStoreRepository repository, IBus bus)
             : base(optionsMonitor, repository, bus) { }
     }
 }

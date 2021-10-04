@@ -5,5 +5,6 @@
     {
         TId Id { get; }
         bool IsDeleted { get; }
+        bool IsValid { get; }
     }
 }

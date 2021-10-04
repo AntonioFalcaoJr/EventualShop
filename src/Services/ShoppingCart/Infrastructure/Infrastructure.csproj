@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.3" />
         <PackageReference Include="JsonNet.ContractResolvers" Version="2.0.0" />
         <PackageReference Include="MassTransit.AspNetCore" Version="7.2.3-develop.249" />
         <PackageReference Include="MassTransit.RabbitMQ" Version="7.2.3-develop.249" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0-rc.1.21452.10" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.0-rc.1.21452.10" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0-rc.1.21452.10"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0-rc.1.21452.10" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0-rc.1.21452.10" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0-rc.1.21451.13" />
         <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="6.0.0-rc.1.21451.13" />
