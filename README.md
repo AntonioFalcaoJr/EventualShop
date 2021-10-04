@@ -31,6 +31,8 @@ Fig. 1: Falcão Jr., Antônio. *An EDA solution architecture*.
 
 <br>
 
+### EDA & Microservices Architecture
+
 The following table shows how EDA and Microservices architectural styles compliment each other:
 
 | EDA | Microservices Architecture |
@@ -48,6 +50,25 @@ The following table shows how EDA and Microservices architectural styles complim
 Table 1: Ambre, Tanmay. *Architectural styles compliment*, Architectural considerations for event-driven microservices-based systems.    
 https://developer.ibm.com/articles/eda-and-microservices-architecture-best-practices/
 
+### EDA vs SOA
+
+> Compared to SOA, the essence of an EDA is that the services involved communicate through the capture, propagation, processing and persistence of events. This resulting pattern of communicating through a dataflow is quite different from the SOA approach of requests and responses.
+>
+> Mathew, Jerry. "SOA vs. EDA: Is Not Life Simply a Series of Events?." *Confluent.io*, last edited on 19 Mar 2019.  
+> https://www.confluent.io/blog/soa-vs-eda-is-not-life-simply-a-series-of-events/
+
+According to Mathew, here are some reasons why the EDA patterns can alleviate some of the challenges traditional SOA patterns bring:
+
+|   | SOA | EDA |
+|---|---|---|
+| Pull vs. Reactive | Client makes a request of a service and expects a response. It’s great for persisted, static data, but gets a little hard when data keeps changing. You have to poll to detect changes. | Subscription model pushes events to consumers. |
+| Coupling | Client has to know details of the API and its location at runtime. | Producers have no knowledge of consumer which will ultimately receive the event. There is still some minimal coupling in terms names of queues/topics and event formats. |
+| Service Availability | A service must be available at the time a request is made by a client even if you are doing an asynchronous response handling. | Events do not require a reply and are inherently asynchronous. Events can be persisted for future consumption. With a highly fault-tolerant broker, the event producer does not need to know whether the consumers are available. Thus, we achieve higher resilience to network and compute failure, and this allows event producers to avoid blocking. |
+| Process Modification and Extension | Processing logic is a request-response API that is hardwired into a service endpoint (with or without service discovery). If the logic needs to change or be extended, or if new logic needs to be introduced, the definition (not contract) of the service must be updated. This introduces change management and regression risk. | Additional event producers and consumers can be added to a system without any explicit process definition. |
+| Consistency Between Process Interaction and Internal State Management | State changes are managed based on requests. For example, a request to “withdraw money” mutates the state of an account. The distinct processes of a request, a change in state and its persistence in case of failure must be tied together transactionally. This often leads users to deploy expensive distributed transaction protocols like eXtended architecture (XA). | EDA provides better support for consistency between process interaction and persisted internal state transitions. This is done through the event sourcing pattern, where the communication protocol (the event) is also the persistence mechanism (the event log). The current state of a system can be built or rebuilt from the log of events. |
+| Retaining the Exact State Transitions That Customers or Services Perform | In SOAs, data is typically “mutated in place” in a database. This is a lossy process where each state change loses the information about the state changes that happened previously. | EDAs are event sourced, meaning every state change is captured, providing a truthful journal of the exact state changes that every customer or every service made over time. This journal lets operators rewind time to view or replay previous events exactly as they happened. It is also important for analytics that review customer (or system) behavior to derive insight. |
+| *Streaming Analytics | SOA is incapable of deriving analytics of data in flight. This requires the ability to detect a pattern from multiple state changes both temporally and spatially. | EDA is fully capable of detecting patterns across multiple event sources over many different types of time windows. Also, deriving analytics of data in flight is a means of continuous intelligence. |
+| The Timing of Consistency and of Intelligence | Synchronous communication makes it a bit easier to create consistent state across services from a client’s perspective. Intelligence from the consistent state are derived eventually—that is, eventual intelligence and continuous consistency | Events, being asynchronous, mean that different services become consistent with one another only in eventuality: There is no control over the timeliness of the process of event propagation. |
 ### Broker Topology
 
 > The broker topology differs from the mediator topology in that there is no central event mediator; rather, the message flow is distributed across the event processor components in a chain-like fashion through a lightweight message broker (e.g., ActiveMQ, HornetQ, etc.). This topology is useful when you have a relatively simple event processing flow and you do not want (or need) central event orchestration.
