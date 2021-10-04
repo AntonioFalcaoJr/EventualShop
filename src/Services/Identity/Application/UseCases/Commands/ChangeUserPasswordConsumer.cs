@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using MassTransit;
-using Messages.Identities;
+using ChangeUserPasswordCommand = Messages.Identities.Commands.ChangeUserPassword;
 
-namespace Application.UseCases.CommandHandlers
+namespace Application.UseCases.Commands
 {
-    public class ChangeUserPasswordConsumer : IConsumer<Commands.ChangeUserPassword>
+    public class ChangeUserPasswordConsumer : IConsumer<ChangeUserPasswordCommand>
     {
         private readonly IUserEventStoreService _eventStoreService;
 
@@ -14,7 +14,7 @@ namespace Application.UseCases.CommandHandlers
             _eventStoreService = eventStoreService;
         }
 
-        public async Task Consume(ConsumeContext<Commands.ChangeUserPassword> context)
+        public async Task Consume(ConsumeContext<ChangeUserPasswordCommand> context)
         {
             var user = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.UserId, context.CancellationToken);
 

@@ -4,14 +4,16 @@ using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using Messages.Identities;
+using UserRegisteredEvent = Messages.Identities.Events.UserRegistered;
+using UserPasswordChangedEvent = Messages.Identities.Events.UserPasswordChanged;
+using UserDeletedEvent = Messages.Identities.Events.UserDeleted;
 
-namespace Application.UseCases.EventHandlers
+namespace Application.UseCases.Events
 {
     public class UserChangedConsumer :
-        IConsumer<Events.UserRegistered>,
-        IConsumer<Events.UserPasswordChanged>,
-        IConsumer<Events.UserDeleted>
+        IConsumer<UserRegisteredEvent>,
+        IConsumer<UserPasswordChangedEvent>,
+        IConsumer<UserDeletedEvent>
     {
         private readonly IUserEventStoreService _eventStoreService;
         private readonly IUserProjectionsService _projectionsService;
@@ -22,13 +24,13 @@ namespace Application.UseCases.EventHandlers
             _projectionsService = projectionsService;
         }
 
-        public Task Consume(ConsumeContext<Events.UserRegistered> context)
+        public Task Consume(ConsumeContext<UserRegisteredEvent> context)
             => Project(context.Message.UserId, context.CancellationToken);
 
-        public Task Consume(ConsumeContext<Events.UserPasswordChanged> context)
+        public Task Consume(ConsumeContext<UserPasswordChangedEvent> context)
             => Project(context.Message.UserId, context.CancellationToken);
 
-        public Task Consume(ConsumeContext<Events.UserDeleted> context)
+        public Task Consume(ConsumeContext<UserDeletedEvent> context)
             => Project(context.Message.UserId, context.CancellationToken);
 
         private async Task Project(Guid userId, CancellationToken cancellationToken)

@@ -1,7 +1,7 @@
 ﻿using System;
-using Application.UseCases.CommandHandlers;
-using Application.UseCases.EventHandlers;
-using Application.UseCases.QueriesHandlers;
+using Application.UseCases.Commands;
+using Application.UseCases.Events;
+using Application.UseCases.Queries;
 using MassTransit;
 using Messages.Abstractions;
 using Messages.Identities;

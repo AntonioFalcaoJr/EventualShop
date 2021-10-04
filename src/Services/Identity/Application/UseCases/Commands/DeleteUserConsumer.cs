@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using MassTransit;
-using Messages.Identities;
+using DeleteUserCommand = Messages.Identities.Commands.DeleteUser;
 
-namespace Application.UseCases.CommandHandlers
+namespace Application.UseCases.Commands
 {
-    public class DeleteUserConsumer : IConsumer<Commands.DeleteUser>
+    public class DeleteUserConsumer : IConsumer<DeleteUserCommand>
     {
         private readonly IUserEventStoreService _eventStoreService;
 
@@ -14,7 +14,7 @@ namespace Application.UseCases.CommandHandlers
             _eventStoreService = eventStoreService;
         }
 
-        public async Task Consume(ConsumeContext<Commands.DeleteUser> context)
+        public async Task Consume(ConsumeContext<DeleteUserCommand> context)
         {
             var user = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.UserId, context.CancellationToken);
             user.Delete(user.Id);

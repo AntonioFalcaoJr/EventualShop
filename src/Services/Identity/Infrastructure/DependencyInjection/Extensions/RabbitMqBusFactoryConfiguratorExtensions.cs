@@ -1,5 +1,5 @@
 ﻿using System;
-using Application.UseCases.EventHandlers;
+using Application.UseCases.Events;
 using GreenPipes;
 using MassTransit;
 using MassTransit.RabbitMqTransport;
