@@ -2,11 +2,11 @@
 using Application.EventSourcing.EventStore;
 using Domain.Aggregates;
 using MassTransit;
-using Messages.Catalogs;
+using CreateCatalogCommand = Messages.Catalogs.Commands.CreateCatalog;
 
-namespace Application.UseCases.CommandsHandlers
+namespace Application.UseCases.Commands
 {
-    public class CreateCatalogConsumer : IConsumer<Commands.CreateCatalog>
+    public class CreateCatalogConsumer : IConsumer<CreateCatalogCommand>
     {
         private readonly ICatalogEventStoreService _eventStoreService;
 
@@ -15,7 +15,7 @@ namespace Application.UseCases.CommandsHandlers
             _eventStoreService = eventStoreService;
         }
 
-        public async Task Consume(ConsumeContext<Commands.CreateCatalog> context)
+        public async Task Consume(ConsumeContext<CreateCatalogCommand> context)
         {
             var catalog = new Catalog();
             catalog.Create(context.Message.Title);

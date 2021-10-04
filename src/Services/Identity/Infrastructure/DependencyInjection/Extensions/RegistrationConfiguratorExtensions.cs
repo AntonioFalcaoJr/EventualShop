@@ -33,7 +33,7 @@ namespace Infrastructure.DependencyInjection.Extensions
         {
             configurator
                 .AddConsumer<TConsumer>()
-                .Endpoint(e => e.ConfigureConsumeTopology = false);
+                .Endpoint(endpoint => endpoint.ConfigureConsumeTopology = false);
 
             EndpointConvention.Map<TMessage>(new Uri($"exchange:{typeof(TMessage).ToKebabCaseString()}"));
         }

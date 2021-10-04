@@ -2,11 +2,11 @@ using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using Messages.Catalogs;
+using CatalogCreatedEvent = Messages.Catalogs.Events.CatalogCreated;
 
-namespace Application.UseCases.EventHandlers
+namespace Application.UseCases.Events
 {
-    public class CatalogCreatedConsumer : IConsumer<Events.CatalogCreated>
+    public class CatalogCreatedConsumer : IConsumer<CatalogCreatedEvent>
     {
         private readonly ICatalogEventStoreService _eventStoreService;
         private readonly ICatalogProjectionsService _projectionsService;
@@ -17,7 +17,7 @@ namespace Application.UseCases.EventHandlers
             _projectionsService = projectionsService;
         }
 
-        public async Task Consume(ConsumeContext<Events.CatalogCreated> context)
+        public async Task Consume(ConsumeContext<CatalogCreatedEvent> context)
         {
             var catalog = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CatalogId, context.CancellationToken);
 

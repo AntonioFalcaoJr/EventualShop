@@ -1,7 +1,7 @@
 ﻿using System;
-using Application.UseCases.CommandsHandlers;
-using Application.UseCases.EventHandlers;
-using Application.UseCases.QueriesHandlers;
+using Application.UseCases.Commands;
+using Application.UseCases.Events;
+using Application.UseCases.Queries;
 using MassTransit;
 using Messages.Abstractions;
 using Messages.Catalogs;
@@ -39,7 +39,7 @@ namespace Infrastructure.DependencyInjection.Extensions
         {
             configurator
                 .AddConsumer<TConsumer>()
-                .Endpoint(e => e.ConfigureConsumeTopology = false);
+                .Endpoint(endpoint => endpoint.ConfigureConsumeTopology = false);
 
             EndpointConvention.Map<TMessage>(new Uri($"exchange:{typeof(TMessage).ToKebabCaseString()}"));
         }

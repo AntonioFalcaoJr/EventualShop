@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using MassTransit;
-using Messages.Catalogs;
+using RemoveCatalogItemCommand = Messages.Catalogs.Commands.RemoveCatalogItem;
 
-namespace Application.UseCases.CommandsHandlers
+namespace Application.UseCases.Commands
 {
-    public class RemoveCatalogItemConsumer : IConsumer<Commands.RemoveCatalogItem>
+    public class RemoveCatalogItemConsumer : IConsumer<RemoveCatalogItemCommand>
     {
         private readonly ICatalogEventStoreService _eventStoreService;
 
@@ -14,7 +14,7 @@ namespace Application.UseCases.CommandsHandlers
             _eventStoreService = eventStoreService;
         }
 
-        public async Task Consume(ConsumeContext<Commands.RemoveCatalogItem> context)
+        public async Task Consume(ConsumeContext<RemoveCatalogItemCommand> context)
         {
             var catalog = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CatalogId, context.CancellationToken);
             catalog.RemoveItem(catalog.Id, context.Message.CatalogItemId);

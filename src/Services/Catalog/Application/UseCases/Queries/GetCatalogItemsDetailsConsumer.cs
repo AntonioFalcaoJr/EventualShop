@@ -3,10 +3,11 @@ using Application.Abstractions.EventSourcing.Projections.Pagination;
 using Application.EventSourcing.Projections;
 using MassTransit;
 using Messages.Catalogs;
+using GetCatalogItemsDetailsWithPaginationQuery = Messages.Catalogs.Queries.GetCatalogItemsDetailsWithPagination;
 
-namespace Application.UseCases.QueriesHandlers
+namespace Application.UseCases.Queries
 {
-    public class GetCatalogItemsDetailsConsumer : IConsumer<Queries.GetCatalogItemsDetailsWithPagination>
+    public class GetCatalogItemsDetailsConsumer : IConsumer<GetCatalogItemsDetailsWithPaginationQuery>
     {
         private readonly ICatalogProjectionsService _projectionsService;
 
@@ -15,7 +16,7 @@ namespace Application.UseCases.QueriesHandlers
             _projectionsService = projectionsService;
         }
 
-        public async Task Consume(ConsumeContext<Queries.GetCatalogItemsDetailsWithPagination> context)
+        public async Task Consume(ConsumeContext<GetCatalogItemsDetailsWithPaginationQuery> context)
         {
             var accountDetails = await _projectionsService.GetCatalogItemsWithPaginationAsync(
                 paging: new Paging { Limit = context.Message.Limit, Offset = context.Message.Offset },
