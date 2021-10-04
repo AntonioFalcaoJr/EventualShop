@@ -1,4 +1,4 @@
-﻿namespace Application.UseCases.EventHandlers
+﻿namespace Application.UseCases.Events
 {
     // public class AccountUpdatedConsumer : IConsumer<Events.AccountAgeChanged>, IConsumer<Events.AccountNameChanged>
     // {

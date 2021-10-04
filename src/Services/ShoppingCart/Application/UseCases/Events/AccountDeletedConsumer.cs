@@ -1,4 +1,4 @@
-﻿namespace Application.UseCases.EventHandlers
+﻿namespace Application.UseCases.Events
 {
     // public class AccountDeletedConsumer : IConsumer<Events.AccountDeleted>
     // {
