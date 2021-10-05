@@ -77,7 +77,7 @@ namespace Infrastructure.DependencyInjection.Extensions
 
         public static IServiceCollection AddProjectionsRepositories(this IServiceCollection services)
             => services.AddScoped<IAccountProjectionsRepository, AccountProjectionsRepository>();
-        
+
         public static IServiceCollection AddMessageFluentValidation(this IServiceCollection services)
             => services.AddValidatorsFromAssemblyContaining(typeof(IMessage));
 

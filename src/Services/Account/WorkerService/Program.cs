@@ -47,7 +47,7 @@ builder.ConfigureServices((context, services) =>
     services.AddProjectionsDbContext();
 
     services.AddMessageFluentValidation();
-    
+
     services.AddMassTransitWithRabbitMq(options
         => context.Configuration.Bind(nameof(RabbitMqOptions), options));
 

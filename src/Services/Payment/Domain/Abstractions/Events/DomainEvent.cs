@@ -6,6 +6,6 @@ namespace Domain.Abstractions.Events
     [ExcludeFromTopology]
     public abstract record DomainEvent : IDomainEvent
     {
-        public DateTimeOffset Timestamp { get; private set; } = DateTimeOffset.Now;
+        public DateTimeOffset Timestamp { get; } = DateTimeOffset.Now;
     }
 }

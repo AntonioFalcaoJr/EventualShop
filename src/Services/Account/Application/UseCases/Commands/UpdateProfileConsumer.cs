@@ -19,10 +19,8 @@ namespace Application.UseCases.Commands
             var account = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.AccountId, context.CancellationToken);
 
             if (account is null)
-            {
                 // TODO - Notification
                 return;
-            }
 
             account.UpdateProfile(
                 account.Id,

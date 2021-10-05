@@ -2,11 +2,5 @@
 
 namespace Messages.ShoppingCarts.Validators
 {
-    public class CartItemRemovedValidator : AbstractValidator<Events.CartItemRemoved>
-    {
-        public CartItemRemovedValidator()
-        {
-            
-        }
-    }
+    public class CartItemRemovedValidator : AbstractValidator<Events.CartItemRemoved> { }
 }

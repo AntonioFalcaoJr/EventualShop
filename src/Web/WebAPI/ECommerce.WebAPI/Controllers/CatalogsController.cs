@@ -9,7 +9,7 @@ namespace ECommerce.WebAPI.Controllers
 {
     public class CatalogsController : ApplicationController
     {
-        public CatalogsController(IBus bus) 
+        public CatalogsController(IBus bus)
             : base(bus) { }
 
         [HttpGet]
@@ -39,7 +39,7 @@ namespace ECommerce.WebAPI.Controllers
         [HttpPut]
         public Task<IActionResult> UpdateCatalog(Commands.UpdateCatalog command, CancellationToken cancellationToken)
             => SendCommandAsync(command, cancellationToken);
-        
+
         [HttpPut]
         public Task<IActionResult> UpdateCatalogItem(Commands.UpdateCatalogItem command, CancellationToken cancellationToken)
             => SendCommandAsync(command, cancellationToken);

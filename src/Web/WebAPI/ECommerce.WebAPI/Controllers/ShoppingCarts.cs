@@ -19,7 +19,7 @@ namespace ECommerce.WebAPI.Controllers
         [HttpPut]
         public Task<IActionResult> AddCartItem(Commands.AddCartItem command, CancellationToken cancellationToken)
             => SendCommandAsync(command, cancellationToken);
-        
+
         [HttpPut]
         public Task<IActionResult> RemoveCartItem(Commands.RemoveCartItem command, CancellationToken cancellationToken)
             => SendCommandAsync(command, cancellationToken);

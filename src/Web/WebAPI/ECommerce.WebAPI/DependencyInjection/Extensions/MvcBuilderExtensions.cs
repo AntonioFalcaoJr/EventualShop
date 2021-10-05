@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using FluentValidation.AspNetCore;
+﻿using FluentValidation.AspNetCore;
 using Messages.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ECommerce.WebAPI.DependencyInjection.Extensions
 {

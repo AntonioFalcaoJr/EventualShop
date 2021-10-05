@@ -24,13 +24,13 @@ namespace Application.UseCases.Events
             _projectionsService = projectionsService;
         }
 
-        public Task Consume(ConsumeContext<UserRegisteredEvent> context)
+        public Task Consume(ConsumeContext<UserDeletedEvent> context)
             => Project(context.Message.UserId, context.CancellationToken);
 
         public Task Consume(ConsumeContext<UserPasswordChangedEvent> context)
             => Project(context.Message.UserId, context.CancellationToken);
 
-        public Task Consume(ConsumeContext<UserDeletedEvent> context)
+        public Task Consume(ConsumeContext<UserRegisteredEvent> context)
             => Project(context.Message.UserId, context.CancellationToken);
 
         private async Task Project(Guid userId, CancellationToken cancellationToken)

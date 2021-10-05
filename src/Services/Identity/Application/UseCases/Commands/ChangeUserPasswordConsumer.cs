@@ -19,10 +19,8 @@ namespace Application.UseCases.Commands
             var user = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.UserId, context.CancellationToken);
 
             if (user is null)
-            {
                 // TODO - Notification
                 return;
-            }
 
             user.ChangePassword(
                 user.Id,

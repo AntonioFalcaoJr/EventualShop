@@ -47,8 +47,8 @@ namespace Infrastructure.Abstractions.EventSourcing.Projections
             where TProjection : IProjection
             => _context
                 .GetCollection<TProjection>()
-                .UpdateOneAsync(projection => projection.Id.Equals(replacement.Id), 
-                    new ObjectUpdateDefinition<TProjection>(replacement), 
+                .UpdateOneAsync(projection => projection.Id.Equals(replacement.Id),
+                    new ObjectUpdateDefinition<TProjection>(replacement),
                     cancellationToken: cancellationToken);
 
         // projection => projection.CatalogId.Equals(replacement.CatalogId), replacement, default(ReplaceOptions), cancellationToken

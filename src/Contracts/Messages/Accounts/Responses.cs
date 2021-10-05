@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Messages.Abstractions.Queries.Paging;
 using Messages.Abstractions.Queries.Responses;
-using Response = Messages.Abstractions.Queries.Responses.Response;
 
 namespace Messages.Accounts
 {
@@ -10,7 +9,7 @@ namespace Messages.Accounts
     {
         public record AccountDetails(Guid AccountId, string Password, string UserName) : Response;
 
-        public record AccountsDetailsPagedResult(IEnumerable<AccountDetails> Items, IPageInfo PageInfo) 
+        public record AccountsDetailsPagedResult(IEnumerable<AccountDetails> Items, IPageInfo PageInfo)
             : ResponsePagedResult<AccountDetails>(Items, PageInfo);
     }
 }

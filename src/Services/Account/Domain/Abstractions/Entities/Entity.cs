@@ -8,7 +8,7 @@ namespace Domain.Abstractions.Entities
     public abstract class Entity<TId> : IEntity<TId>
         where TId : struct
     {
-        [JsonIgnore] 
+        [JsonIgnore]
         private ValidationResult _validationResult = new();
 
         [JsonIgnore]

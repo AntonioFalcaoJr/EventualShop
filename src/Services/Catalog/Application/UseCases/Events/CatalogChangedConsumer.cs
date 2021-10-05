@@ -39,9 +39,6 @@ namespace Application.UseCases.Events
         public Task Consume(ConsumeContext<CatalogDeactivatedEvent> context)
             => Project(context.Message.CatalogId, context.CancellationToken);
 
-        public Task Consume(ConsumeContext<CatalogUpdatedEvent> context)
-            => Project(context.Message.CatalogId, context.CancellationToken);
-
         public Task Consume(ConsumeContext<CatalogDeletedEvent> context)
             => Project(context.Message.CatalogId, context.CancellationToken);
 
@@ -52,6 +49,9 @@ namespace Application.UseCases.Events
             => Project(context.Message.CatalogId, context.CancellationToken);
 
         public Task Consume(ConsumeContext<CatalogItemUpdatedEvent> context)
+            => Project(context.Message.CatalogId, context.CancellationToken);
+
+        public Task Consume(ConsumeContext<CatalogUpdatedEvent> context)
             => Project(context.Message.CatalogId, context.CancellationToken);
 
         private async Task Project(Guid catalogId, CancellationToken cancellationToken)

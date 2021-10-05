@@ -12,12 +12,12 @@ namespace Domain.Abstractions.Entities
         private ValidationResult _validationResult = new();
 
         [JsonIgnore]
-        public bool IsValid
-            => Validate();
-
-        [JsonIgnore]
         public IEnumerable<ValidationFailure> Errors
             => _validationResult.Errors;
+
+        [JsonIgnore]
+        public bool IsValid
+            => Validate();
 
         public TId Id { get; protected set; }
         public bool IsDeleted { get; protected set; }

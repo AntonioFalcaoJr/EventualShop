@@ -25,7 +25,7 @@ namespace Infrastructure.EventSourcing.Projections
 
         public Task ProjectNewCatalogDetailsAsync(CatalogProjection catalog, CancellationToken cancellationToken)
             => _repository.SaveAsync(catalog, cancellationToken);
-        
+
         public Task ProjectCatalogDetailsAsync(CatalogProjection catalog, CancellationToken cancellationToken)
             => _repository.UpsertAsync(catalog, cancellationToken);
 

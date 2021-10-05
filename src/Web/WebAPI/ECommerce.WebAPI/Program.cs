@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -73,7 +74,7 @@ builder.Services
             MapQueueEndpoint<Messages.Identities.Commands.ChangeUserPassword>();
             MapQueueEndpoint<Messages.Identities.Commands.DeleteUser>();
             MapQueueEndpoint<Messages.Identities.Queries.GetUserAuthenticationDetails>();
-            
+
             //Shopping Cart
             MapQueueEndpoint<Messages.ShoppingCarts.Commands.CreateCart>();
             MapQueueEndpoint<Messages.ShoppingCarts.Commands.AddCartItem>();

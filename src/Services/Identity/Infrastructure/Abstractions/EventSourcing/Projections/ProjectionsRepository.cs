@@ -35,7 +35,7 @@ namespace Infrastructure.Abstractions.EventSourcing.Projections
 
         public virtual Task SaveAsync<TProjection>(TProjection projection, CancellationToken cancellationToken) where TProjection : IProjection
             => _context.GetCollection<TProjection>().InsertOneAsync(projection, cancellationToken: cancellationToken);
-        
+
         public virtual Task UpsertAsync<TProjection>(TProjection replacement, CancellationToken cancellationToken)
             where TProjection : IProjection
             => _context

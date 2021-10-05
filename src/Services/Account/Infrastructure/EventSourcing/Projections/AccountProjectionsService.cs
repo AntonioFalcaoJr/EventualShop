@@ -21,7 +21,7 @@ namespace Infrastructure.EventSourcing.Projections
 
         public Task ProjectNewAccountDetailsAsync(AccountDetailsProjection accountDetails, CancellationToken cancellationToken)
             => _repository.SaveAsync(accountDetails, cancellationToken);
-        
+
         public Task UpdateAccountProfileAsync(AccountDetailsProjection accountDetails, CancellationToken cancellationToken)
             => _repository.UpdateAsync(accountDetails, cancellationToken);
 

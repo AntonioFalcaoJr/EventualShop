@@ -2,11 +2,5 @@
 
 namespace Messages.ShoppingCarts.Validators
 {
-    public class RemoveCartItemValidator : AbstractValidator<Commands.RemoveCartItem>
-    {
-        public RemoveCartItemValidator()
-        {
-            
-        }
-    }
+    public class RemoveCartItemValidator : AbstractValidator<Commands.RemoveCartItem> { }
 }
