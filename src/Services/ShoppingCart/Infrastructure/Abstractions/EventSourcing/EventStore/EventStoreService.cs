@@ -33,21 +33,12 @@ namespace Infrastructure.Abstractions.EventSourcing.EventStore
         public async Task AppendEventsToStreamAsync(TAggregateState aggregateState, CancellationToken cancellationToken)
         {
             if (aggregateState.IsValid is false)
-            {
                 // TODO - Notification
                 return;
-            }
 
             var eventsToStore = GetEventsToStore(aggregateState);
             await AppendEventsToStreamWithSnapshotControlAsync(aggregateState, eventsToStore, cancellationToken);
             await PublishEventsAsync(aggregateState.Events, cancellationToken);
-        }
-
-        private async Task AppendEventsToStreamWithSnapshotControlAsync(TAggregateState aggregateState, IEnumerable<TStoreEvent> eventsToStore, CancellationToken cancellationToken)
-        {
-            await foreach (var version in AppendEventToStreamAsync(eventsToStore, cancellationToken))
-                if (version % _options.SnapshotInterval is 0)
-                    await AppendSnapshotToStreamAsync(aggregateState, version, cancellationToken);
         }
 
         public async Task<TAggregateState> LoadAggregateFromStreamAsync(TId aggregateId, CancellationToken cancellationToken)
@@ -56,6 +47,13 @@ namespace Infrastructure.Abstractions.EventSourcing.EventStore
             var events = await _repository.GetStreamAsync(aggregateId, snapshot.AggregateVersion, cancellationToken);
             snapshot.AggregateState.LoadEvents(events);
             return snapshot.AggregateState;
+        }
+
+        private async Task AppendEventsToStreamWithSnapshotControlAsync(TAggregateState aggregateState, IEnumerable<TStoreEvent> eventsToStore, CancellationToken cancellationToken)
+        {
+            await foreach (var version in AppendEventToStreamAsync(eventsToStore, cancellationToken))
+                if (version % _options.SnapshotInterval is 0)
+                    await AppendSnapshotToStreamAsync(aggregateState, version, cancellationToken);
         }
 
         private async IAsyncEnumerable<int> AppendEventToStreamAsync(IEnumerable<TStoreEvent> storeEvents, [EnumeratorCancellation] CancellationToken cancellationToken)
