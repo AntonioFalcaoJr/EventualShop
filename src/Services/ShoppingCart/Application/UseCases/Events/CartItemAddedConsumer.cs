@@ -20,10 +20,7 @@ namespace Application.UseCases.Events
         public async Task Consume(ConsumeContext<CartItemAddedEvent> context)
         {
             var cart = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CartId, context.CancellationToken);
-
-            var accountDetails = new CartDetailsProjection
-                { };
-
+            var accountDetails = new CartDetailsProjection { };
             await _projectionsService.ProjectCartDetailsAsync(accountDetails, context.CancellationToken);
         }
     }

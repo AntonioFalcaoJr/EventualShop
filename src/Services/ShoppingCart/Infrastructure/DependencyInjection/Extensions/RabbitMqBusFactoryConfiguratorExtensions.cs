@@ -14,6 +14,7 @@ namespace Infrastructure.DependencyInjection.Extensions
         {
             cfg.ConfigureEventReceiveEndpoint<CartCreatedConsumer, Events.CartCreated>(registration);
             cfg.ConfigureEventReceiveEndpoint<CartItemAddedConsumer, Events.CartItemAdded>(registration);
+            cfg.ConfigureEventReceiveEndpoint<CartItemRemovedConsumer, Events.CartItemRemoved>(registration);
         }
 
         private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)

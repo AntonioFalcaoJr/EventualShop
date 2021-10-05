@@ -12,16 +12,22 @@ namespace Domain.Aggregates
     {
         private readonly List<CartItem> _items = new();
         public Guid CustomerId { get; private set; }
-        public decimal Total { get; private set; }
+
+        public decimal Total
+            => Items.Sum(item
+                => item.UnitPrice * item.Quantity);
 
         public IEnumerable<CartItem> Items
             => _items;
 
-        public void AddItem(Guid shoppingCartId, Guid productId, string productName, int quantity, decimal unitPrice)
-            => RaiseEvent(new Events.CartItemAdded(shoppingCartId, productId, productName, quantity, unitPrice));
+        public void AddItem(Guid cartId, Guid productId, string productName, int quantity, decimal unitPrice)
+            => RaiseEvent(new Events.CartItemAdded(cartId, productId, productName, quantity, unitPrice));
 
         public void Create(Guid customerId)
             => RaiseEvent(new Events.CartCreated(Guid.NewGuid(), customerId));
+
+        public void RemoveItem(Guid cartId, Guid productId)
+            => RaiseEvent(new Events.CartItemRemoved(cartId, productId));
 
         protected override void ApplyEvent(IEvent @event)
             => When(@event as dynamic);
@@ -31,38 +37,29 @@ namespace Domain.Aggregates
 
         private void When(Events.CartItemAdded @event)
         {
-            if (_items.Exists(item => item.ProductId == @event.ProductId)) 
+            if (_items.Exists(item => item.ProductId == @event.ProductId))
                 IncreaseItemQuantity(@event);
             else AddNewItem(@event);
         }
 
+        private void When(Events.CartItemRemoved @event)
+            => _items.RemoveAll(item => item.ProductId == @event.ProductId);
+
         private void AddNewItem(Events.CartItemAdded @event)
         {
-            var shoppingCartItem = new CartItem(
+            var cartItem = new CartItem(
                 @event.ProductId,
                 @event.ProductName,
                 @event.UnitPrice,
                 @event.Quantity);
 
-            _items.Add(shoppingCartItem);
-
-            IncreaseTotal(shoppingCartItem.UnitPrice, shoppingCartItem.Quantity);
+            _items.Add(cartItem);
         }
 
         private void IncreaseItemQuantity(Events.CartItemAdded @event)
-        {
-            _items
+            => _items
                 .Single(item => item.ProductId == @event.ProductId)
                 .IncreaseQuantity(@event.Quantity);
-
-            IncreaseTotal(@event.UnitPrice, @event.Quantity);
-        }
-
-        private void IncreaseTotal(decimal unitPrice, int quantity)
-            => Total += unitPrice * quantity;
-
-        private void DecreaseTotal(decimal unitPrice, int quantity)
-            => Total -= unitPrice * quantity;
 
         protected sealed override bool Validate()
             => OnValidate<CartValidator, Cart>();

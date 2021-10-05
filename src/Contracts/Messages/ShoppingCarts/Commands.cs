@@ -8,5 +8,7 @@ namespace Messages.ShoppingCarts
         public record AddCartItem(Guid ProductId, string ProductName, decimal UnitPrice, Guid CartId, int Quantity) : Command;
 
         public record CreateCart(Guid CustomerId) : Command;
+
+        public record RemoveCartItem(Guid CartId, Guid ProductId) : Command;
     }
 }

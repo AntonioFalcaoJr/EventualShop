@@ -54,7 +54,6 @@ builder.Services
             MapQueueEndpoint<Messages.Accounts.Commands.DeleteAccount>();
             MapQueueEndpoint<Messages.Accounts.Commands.CreateAccount>();
             MapQueueEndpoint<Messages.Accounts.Commands.UpdateProfile>();
-
             MapQueueEndpoint<Messages.Accounts.Queries.GetAccountDetails>();
             MapQueueEndpoint<Messages.Accounts.Queries.GetAccountsDetailsWithPagination>();
 
@@ -67,20 +66,18 @@ builder.Services
             MapQueueEndpoint<Messages.Catalogs.Commands.AddCatalogItem>();
             MapQueueEndpoint<Messages.Catalogs.Commands.RemoveCatalogItem>();
             MapQueueEndpoint<Messages.Catalogs.Commands.UpdateCatalogItem>();
-
             MapQueueEndpoint<Messages.Catalogs.Queries.GetCatalogItemsDetailsWithPagination>();
 
             //Identity
             MapQueueEndpoint<Messages.Identities.Commands.RegisterUser>();
             MapQueueEndpoint<Messages.Identities.Commands.ChangeUserPassword>();
             MapQueueEndpoint<Messages.Identities.Commands.DeleteUser>();
-
             MapQueueEndpoint<Messages.Identities.Queries.GetUserAuthenticationDetails>();
             
             //Shopping Cart
             MapQueueEndpoint<Messages.ShoppingCarts.Commands.CreateCart>();
             MapQueueEndpoint<Messages.ShoppingCarts.Commands.AddCartItem>();
-            
+            MapQueueEndpoint<Messages.ShoppingCarts.Commands.RemoveCartItem>();
         });
     })
     .AddGenericRequestClient()

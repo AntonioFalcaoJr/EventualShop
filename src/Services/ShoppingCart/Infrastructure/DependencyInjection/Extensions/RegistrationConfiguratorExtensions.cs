@@ -13,12 +13,14 @@ namespace Infrastructure.DependencyInjection.Extensions
         {
             cfg.AddCommandConsumer<AddCartItemConsumer, Commands.AddCartItem>();
             cfg.AddCommandConsumer<CreateCartConsumer, Commands.CreateCart>();
+            cfg.AddCommandConsumer<RemoveCartItemConsumer, Commands.RemoveCartItem>();
         }
 
         public static void AddEventConsumers(this IRegistrationConfigurator cfg)
         {
             cfg.AddConsumer<CartCreatedConsumer>();
             cfg.AddConsumer<CartItemAddedConsumer>();
+            cfg.AddConsumer<CartItemRemovedConsumer>();
         }
 
         public static void AddQueryConsumers(this IRegistrationConfigurator cfg)
