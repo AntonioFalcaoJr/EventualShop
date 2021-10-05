@@ -20,7 +20,7 @@ namespace Domain.Entities.CartItems
         public int Quantity { get; private set; }
         public string PictureUrl { get; }
 
-        public void IncreaseQuantity(int quantity) 
+        public void IncreaseQuantity(int quantity)
             => Quantity += quantity;
 
         protected override bool Validate()
