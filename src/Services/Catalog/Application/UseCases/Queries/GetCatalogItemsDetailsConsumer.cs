@@ -18,15 +18,15 @@ namespace Application.UseCases.Queries
 
         public async Task Consume(ConsumeContext<GetCatalogItemsDetailsWithPaginationQuery> context)
         {
-            var accountDetails = await _projectionsService.GetCatalogItemsWithPaginationAsync(
+            var catalogItems = await _projectionsService.GetCatalogItemsWithPaginationAsync(
                 paging: new Paging { Limit = context.Message.Limit, Offset = context.Message.Offset },
-                predicate: catalog => catalog.AggregateId == context.Message.CatalogId
+                predicate: catalog => catalog.Id == context.Message.CatalogId
                                       && catalog.IsActive
                                       && catalog.IsDeleted == false,
                 selector: catalog => catalog.Items,
                 cancellationToken: context.CancellationToken);
 
-            await context.RespondAsync<Responses.CatalogItemsDetailsPagedResult>(accountDetails);
+            await context.RespondAsync<Responses.CatalogItemsDetailsPagedResult>(catalogItems);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Application.EventSourcing.Projections
         public string Description { get; init; }
         public decimal Price { get; init; }
         public string PictureUri { get; init; }
-        public Guid AggregateId { get; init; }
+        public Guid Id { get; init; }
         public bool IsDeleted { get; init; }
     }
 }

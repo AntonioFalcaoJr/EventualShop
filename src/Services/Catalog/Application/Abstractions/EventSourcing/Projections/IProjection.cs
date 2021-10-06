@@ -6,7 +6,7 @@ namespace Application.Abstractions.EventSourcing.Projections
     [ExcludeFromTopology]
     public interface IProjection
     {
-        Guid AggregateId { get; }
+        Guid Id { get; }
         bool IsDeleted { get; }
     }
 }

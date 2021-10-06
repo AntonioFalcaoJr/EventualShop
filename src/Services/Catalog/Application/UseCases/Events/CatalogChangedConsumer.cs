@@ -60,7 +60,7 @@ namespace Application.UseCases.Events
 
             var catalogDetails = new CatalogProjection
             {
-                AggregateId = catalog.Id,
+                Id = catalog.Id,
                 Title = catalog.Title,
                 IsActive = catalog.IsActive,
                 IsDeleted = catalog.IsDeleted,
@@ -68,7 +68,7 @@ namespace Application.UseCases.Events
                     .Select(item
                         => new CatalogItemProjection
                         {
-                            AggregateId = item.Id,
+                            Id = item.Id,
                             Description = item.Description,
                             Name = item.Name,
                             Price = item.Price,
