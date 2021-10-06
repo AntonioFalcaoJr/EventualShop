@@ -18,7 +18,12 @@ namespace Application.UseCases.Events
         public async Task Consume(ConsumeContext<UserRegisteredEvent> context)
         {
             var account = new Account();
-            account.Create(context.Message.UserId, context.Message.Email, context.Message.FirstName);
+
+            account.Create(
+                context.Message.UserId,
+                context.Message.Email,
+                context.Message.FirstName);
+
             await _eventStoreService.AppendEventsToStreamAsync(account, context.CancellationToken);
         }
     }
