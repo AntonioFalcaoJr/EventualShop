@@ -79,6 +79,7 @@ builder.Services
             MapQueueEndpoint<Messages.ShoppingCarts.Commands.CreateCart>();
             MapQueueEndpoint<Messages.ShoppingCarts.Commands.AddCartItem>();
             MapQueueEndpoint<Messages.ShoppingCarts.Commands.RemoveCartItem>();
+            MapQueueEndpoint<Messages.ShoppingCarts.Queries.GetShoppingCart>();
         });
     })
     .AddGenericRequestClient()

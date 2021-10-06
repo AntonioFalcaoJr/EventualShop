@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.WebAPI.Controllers
 {
-    public class IdentityController : ApplicationController
+    public class IdentitiesController : ApplicationController
     {
-        public IdentityController(IBus bus)
+        public IdentitiesController(IBus bus)
             : base(bus) { }
 
         [HttpGet]

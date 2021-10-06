@@ -7,10 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.WebAPI.Controllers
 {
-    public class ShoppingCarts : ApplicationController
+    public class ShoppingCartsController : ApplicationController
     {
-        public ShoppingCarts(IBus bus)
+        public ShoppingCartsController(IBus bus)
             : base(bus) { }
+
+        [HttpGet]
+        public Task<IActionResult> GetCart([FromQuery] Queries.GetShoppingCart query, CancellationToken cancellationToken)
+            => GetQueryResponseAsync<Queries.GetShoppingCart, Responses.CartDetails>(query, cancellationToken);
 
         [HttpPost]
         public Task<IActionResult> CreateCart(Commands.CreateCart command, CancellationToken cancellationToken)
