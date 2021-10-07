@@ -1,12 +1,12 @@
 using System;
 using System.Reflection;
+using ECommerce.WebAPI.DependencyInjection.Observers;
 using MassTransit;
 using MassTransit.Definition;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -49,6 +49,10 @@ builder.Services
                     host.Password("guest");
                 });
 
+            bus.ConnectConsumeObserver(new LoggingConsumeObserver());
+            bus.ConnectPublishObserver(new LoggingPublishObserver());
+            bus.ConnectSendObserver(new LoggingSendObserver());
+            
             // Account
             MapQueueEndpoint<Messages.Accounts.Commands.DefineProfessionalAddress>();
             MapQueueEndpoint<Messages.Accounts.Commands.DefineResidenceAddress>();
