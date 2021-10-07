@@ -50,7 +50,6 @@ builder.Services
                 });
 
             bus.ConnectConsumeObserver(new LoggingConsumeObserver());
-            bus.ConnectPublishObserver(new LoggingPublishObserver());
             bus.ConnectSendObserver(new LoggingSendObserver());
             
             // Account
