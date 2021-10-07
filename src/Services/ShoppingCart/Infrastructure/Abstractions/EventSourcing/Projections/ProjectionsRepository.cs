@@ -39,8 +39,23 @@ namespace Infrastructure.Abstractions.EventSourcing.Projections
         public virtual Task SaveManyAsync<TProjection>(IEnumerable<TProjection> projections, CancellationToken cancellationToken) where TProjection : IProjection
             => _context.GetCollection<TProjection>().InsertManyAsync(projections, cancellationToken: cancellationToken);
 
-        public virtual Task UpdateAsync<TProjection>(TProjection projection, CancellationToken cancellationToken) where TProjection : IProjection
-            => _context.GetCollection<TProjection>().FindOneAndReplaceAsync<TProjection>(default, projection, default, cancellationToken);
+        public virtual Task UpdateAsync<TProjection>(TProjection replacement, CancellationToken cancellationToken)
+            where TProjection : IProjection
+            => _context
+                .GetCollection<TProjection>()
+                .UpdateOneAsync(projection => projection.Id.Equals(replacement.Id),
+                    new ObjectUpdateDefinition<TProjection>(replacement),
+                    cancellationToken: cancellationToken);
+        
+        public virtual Task UpsertAsync<TProjection>(TProjection replacement, CancellationToken cancellationToken)
+            where TProjection : IProjection
+            => _context
+                .GetCollection<TProjection>()
+                .ReplaceOneAsync(
+                    filter: projection => projection.Id.Equals(replacement.Id),
+                    replacement: replacement,
+                    options: new ReplaceOptions { IsUpsert = true },
+                    cancellationToken: cancellationToken);
 
         public virtual Task UpdateManyAsync<TProjection>(IEnumerable<TProjection> projections, CancellationToken cancellationToken) where TProjection : IProjection
             => throw new NotImplementedException();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Domain.Abstractions.Aggregates;
 using Domain.Entities.CartItems;
+using Domain.Entities.Coupons;
 using Messages.Abstractions.Events;
 using Messages.ShoppingCarts;
 
@@ -10,8 +11,9 @@ namespace Domain.Aggregates
 {
     public class Cart : AggregateRoot<Guid>
     {
+        private readonly List<Coupon> _coupons = new();
         private readonly List<CartItem> _items = new();
-        public Guid CustomerId { get; private set; }
+        public Guid UserId { get; private set; }
 
         public decimal Total
             => Items.Sum(item
@@ -20,36 +22,36 @@ namespace Domain.Aggregates
         public IEnumerable<CartItem> Items
             => _items;
 
-        public void AddItem(Guid cartId, Guid productId, string productName, int quantity, decimal unitPrice)
-            => RaiseEvent(new Events.CartItemAdded(cartId, productId, productName, quantity, unitPrice));
+        public void AddItem(Guid cartId, Guid catalogItemId, string productName, int quantity, decimal unitPrice)
+            => RaiseEvent(new Events.CartItemAdded(cartId, catalogItemId, productName, quantity, unitPrice));
 
-        public void Create(Guid customerId)
-            => RaiseEvent(new Events.CartCreated(Guid.NewGuid(), customerId));
+        public void Create(Guid userId)
+            => RaiseEvent(new Events.CartCreated(Guid.NewGuid(), userId));
 
-        public void RemoveItem(Guid cartId, Guid productId)
-            => RaiseEvent(new Events.CartItemRemoved(cartId, productId));
+        public void RemoveItem(Guid cartId, Guid catalogItemId)
+            => RaiseEvent(new Events.CartItemRemoved(cartId, catalogItemId));
 
         protected override void ApplyEvent(IEvent @event)
             => When(@event as dynamic);
 
         private void When(Events.CartCreated @event)
-            => (Id, CustomerId) = @event;
+            => (Id, UserId) = @event;
 
         private void When(Events.CartItemAdded @event)
         {
-            if (_items.Exists(item => item.ProductId == @event.ProductId))
+            if (_items.Exists(item => item.CatalogItemId == @event.CatalogItemId))
                 IncreaseItemQuantity(@event);
             else AddNewItem(@event);
         }
 
         private void When(Events.CartItemRemoved @event)
-            => _items.RemoveAll(item => item.ProductId == @event.ProductId);
+            => _items.RemoveAll(item => item.CatalogItemId == @event.CatalogItemId);
 
         private void AddNewItem(Events.CartItemAdded @event)
         {
             var cartItem = new CartItem(
-                @event.ProductId,
-                @event.ProductName,
+                @event.CatalogItemId,
+                @event.CatalogItemName,
                 @event.UnitPrice,
                 @event.Quantity);
 
@@ -58,7 +60,7 @@ namespace Domain.Aggregates
 
         private void IncreaseItemQuantity(Events.CartItemAdded @event)
             => _items
-                .Single(item => item.ProductId == @event.ProductId)
+                .Single(item => item.CatalogItemId == @event.CatalogItemId)
                 .IncreaseQuantity(@event.Quantity);
 
         protected sealed override bool Validate()

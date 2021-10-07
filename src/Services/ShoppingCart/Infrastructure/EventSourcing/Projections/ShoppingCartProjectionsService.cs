@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Abstractions.EventSourcing.Projections.Pagination;
 using Application.EventSourcing.Projections;
 
 namespace Infrastructure.EventSourcing.Projections
@@ -16,13 +14,13 @@ namespace Infrastructure.EventSourcing.Projections
             _repository = repository;
         }
 
-        public Task<IPagedResult<CartDetailsProjection>> GetAccountsDetailsWithPaginationAsync(Paging paging, Expression<Func<CartDetailsProjection, bool>> predicate, CancellationToken cancellationToken)
-            => _repository.GetAllAsync(paging, predicate, cancellationToken);
-
         public Task ProjectCartDetailsAsync(CartDetailsProjection cartDetails, CancellationToken cancellationToken)
             => _repository.SaveAsync(cartDetails, cancellationToken);
+        
+        public Task UpdateCartDetailsAsync(CartDetailsProjection cartDetails, CancellationToken cancellationToken)
+            => _repository.UpsertAsync(cartDetails, cancellationToken);
 
-        public Task<CartDetailsProjection> GetAccountDetailsAsync(Guid accountId, CancellationToken cancellationToken)
-            => _repository.GetAsync<CartDetailsProjection, Guid>(accountId, cancellationToken);
+        public Task<CartDetailsProjection> GetCartDetailsByUserIdAsync(Guid userId, CancellationToken cancellationToken)
+            => _repository.FindAsync<CartDetailsProjection>(projection => projection.UserId == userId, cancellationToken);
     }
 }

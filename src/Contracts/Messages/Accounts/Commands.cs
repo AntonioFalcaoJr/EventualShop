@@ -5,7 +5,7 @@ namespace Messages.Accounts
 {
     public static class Commands
     {
-        public record CreateAccount(Guid AccountId, string Email, string FirstName) : Command;
+        public record CreateAccount(Guid UserId, string Email, string FirstName) : Command;
 
         public record DefineProfessionalAddress(Guid AccountId, string City, string Country, int? Number, string State, string Street, string ZipCode) : Command;
 

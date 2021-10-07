@@ -7,7 +7,7 @@ namespace Messages.Accounts.Validators
     {
         public CreateAccountValidator()
         {
-            RuleFor(account => account.AccountId)
+            RuleFor(account => account.UserId)
                 .NotEqual(default(Guid));
 
             RuleFor(account => account.Email)

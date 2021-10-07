@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
@@ -20,7 +21,24 @@ namespace Application.UseCases.Events
         public async Task Consume(ConsumeContext<CartCreatedEvent> context)
         {
             var cart = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CartId, context.CancellationToken);
-            var accountDetails = new CartDetailsProjection();
+
+            var accountDetails = new CartDetailsProjection
+            {
+                Id = cart.Id,
+                IsDeleted = cart.IsDeleted,
+                UserId = cart.UserId,
+                Total = cart.Total,
+                CartItems = cart.Items
+                    .Select(item => new CartItemProjection
+                    {
+                        Quantity = item.Quantity,
+                        PictureUrl = item.PictureUrl,
+                        ProductName = item.ProductName,
+                        UnitPrice = item.UnitPrice,
+                        CatalogItemId = item.CatalogItemId
+                    })
+            };
+
             await _projectionsService.ProjectCartDetailsAsync(accountDetails, context.CancellationToken);
         }
     }

@@ -5,5 +5,9 @@ using Messages.Abstractions.Queries.Paging;
 namespace Messages.Abstractions.Queries.Responses
 {
     [ExcludeFromTopology]
-    public abstract record ResponsePagedResult<T>(IEnumerable<T> Items, IPageInfo PageInfo) : Message, IResponse, IPagedResult<T>;
+    public abstract record ResponsePagedResult<T> : Message, IResponse, IPagedResult<T>
+    {
+        public IEnumerable<T> Items { get; init; }
+        public IPageInfo PageInfo { get; init; }
+    }
 }

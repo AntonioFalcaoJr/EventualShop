@@ -27,6 +27,9 @@ namespace Application.Abstractions.EventSourcing.Projections
         Task UpdateAsync<TProjection>(TProjection projection, CancellationToken cancellationToken)
             where TProjection : IProjection;
 
+        Task UpsertAsync<TProjection>(TProjection replacement, CancellationToken cancellationToken)
+            where TProjection : IProjection;
+
         Task UpdateManyAsync<TProjection>(IEnumerable<TProjection> projections, CancellationToken cancellationToken)
             where TProjection : IProjection;
 

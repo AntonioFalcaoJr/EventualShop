@@ -10,7 +10,7 @@ namespace Domain.Aggregates
     {
         public CartValidator()
         {
-            RuleFor(cart => cart.CustomerId)
+            RuleFor(cart => cart.UserId)
                 .NotEqual(Guid.Empty);
 
             RuleForEach(cart => cart.Items)
