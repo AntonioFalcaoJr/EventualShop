@@ -4,6 +4,7 @@ using Application.EventSourcing.Projections;
 using FluentValidation;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.DependencyInjection.Filters;
+using Infrastructure.DependencyInjection.Observers;
 using Infrastructure.DependencyInjection.Options;
 using Infrastructure.EventSourcing.EventStore;
 using Infrastructure.EventSourcing.EventStore.Contexts;
@@ -49,6 +50,9 @@ namespace Infrastructure.DependencyInjection.Extensions
 
                         bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
                         bus.UseConsumeFilter(typeof(MessageValidatorFilter<>), context);
+                        bus.ConnectConsumeObserver(new LoggingConsumeObserver());
+                        bus.ConnectPublishObserver(new LoggingPublishObserver());
+                        bus.ConnectSendObserver(new LoggingSendObserver());
                         bus.ConfigureEventReceiveEndpoints(context);
                         bus.ConfigureEndpoints(context);
                     });

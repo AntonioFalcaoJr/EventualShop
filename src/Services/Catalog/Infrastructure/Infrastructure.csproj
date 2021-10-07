@@ -11,6 +11,7 @@
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0-rc.1.21451.13" />
         <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="6.0.0-rc.1.21451.13" />
         <PackageReference Include="MongoDB.Driver" Version="2.13.1" />
+        <PackageReference Include="Serilog" Version="2.10.0" />
         <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0-rc.1.21451.13" />
     </ItemGroup>
     <ItemGroup>
