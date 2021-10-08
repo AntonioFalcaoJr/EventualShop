@@ -14,6 +14,9 @@ namespace Infrastructure.DependencyInjection.Options
         public string Password { get; init; }
 
         [Required, MinLength(5)]
-        public string VirtualHost { get; set; }
+        public string VirtualHost { get; init; }
+
+        [Required]
+        public ushort Port { get; init; }
     }
 }
