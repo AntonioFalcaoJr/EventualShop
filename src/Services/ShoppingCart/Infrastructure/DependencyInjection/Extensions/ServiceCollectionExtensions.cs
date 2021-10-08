@@ -4,6 +4,7 @@ using Application.EventSourcing.Projections;
 using FluentValidation;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.DependencyInjection.Filters;
+using Infrastructure.DependencyInjection.Observers;
 using Infrastructure.DependencyInjection.Options;
 using Infrastructure.EventSourcing.EventStore;
 using Infrastructure.EventSourcing.EventStore.Contexts;
@@ -23,12 +24,12 @@ namespace Infrastructure.DependencyInjection.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        private static readonly RabbitMqOptions RabbitMqOptions = new();
+        private static readonly RabbitMqOptions Options = new();
 
         public static IServiceCollection AddMassTransitWithRabbitMq(this IServiceCollection services, Action<RabbitMqOptions> optionsAction)
             => services.AddMassTransit(cfg =>
                 {
-                    optionsAction(RabbitMqOptions);
+                    optionsAction(Options);
 
                     cfg.SetKebabCaseEndpointNameFormatter();
 
@@ -39,16 +40,19 @@ namespace Infrastructure.DependencyInjection.Extensions
                     cfg.UsingRabbitMq((context, bus) =>
                     {
                         bus.Host(
-                            host: RabbitMqOptions.Host,
-                            // virtualHost: RabbitMqOptions.VirtualHost,
+                            host: Options.Host,
+                            port: Options.Port,
+                            virtualHost: Options.VirtualHost,
                             host =>
                             {
-                                host.Username(RabbitMqOptions.Username);
-                                host.Password(RabbitMqOptions.Password);
+                                host.Username(Options.Username);
+                                host.Password(Options.Password);
                             });
 
                         bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
                         bus.UseConsumeFilter(typeof(MessageValidatorFilter<>), context);
+                        bus.ConnectConsumeObserver(new LoggingConsumeObserver());
+                        bus.ConnectPublishObserver(new LoggingPublishObserver());
                         bus.ConfigureEventReceiveEndpoints(context);
                         bus.ConfigureEndpoints(context);
                     });
