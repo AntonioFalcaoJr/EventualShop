@@ -10,14 +10,16 @@ namespace Infrastructure.DependencyInjection.Observers
         public async Task PreConsume<T>(ConsumeContext<T> context)
             where T : class
         {
-            Log.Information("Starting consumption of {MessageType} message", context.Message.GetType().Name);
+            var messageType = context.Message.GetType();
+            Log.Information("Starting consumption of {Message} message from {Namespace}", messageType.Name, messageType.Namespace);
             await Task.CompletedTask;
         }
 
         public async Task PostConsume<T>(ConsumeContext<T> context)
             where T : class
         {
-            Log.Information("The message {MessageType} was successfully consumed", context.Message.GetType().Name);
+            var messageType = context.Message.GetType();
+            Log.Information("The message {Message} from {Namespace} was successfully consumed", messageType.Name, messageType.Namespace);
             await Task.CompletedTask;
         }
 
