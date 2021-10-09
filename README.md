@@ -11,7 +11,7 @@ This project uses the **EventStorming** workshop to identify the business capabi
 
 ## The Solution Architecture
 
-![](./.assets/img/solution_architecture.png)    
+![](../../../Users/U004072/Desktop/%7B985E191E-CB72-4145-A526-2F3FF820387E%7D.png)    
 Fig. 1: Falcão Jr., Antônio. *An EDA solution architecture*.    
 
 ## Event-driven architecture (EDA)
