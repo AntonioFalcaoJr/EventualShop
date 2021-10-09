@@ -10,5 +10,13 @@ namespace Messages.ShoppingCarts
         public record CartItemAdded(Guid CartId, Guid CatalogItemId, string CatalogItemName, int Quantity, decimal UnitPrice) : Event;
 
         public record CartItemRemoved(Guid CartId, Guid CatalogItemId) : Event;
+
+        public record CartCheckedOut : Event;
+
+        public record ShippingAddressAdded(string City, string Country, int? Number, string State, string Street, string ZipCode) : Event;
+
+        public record BillingAddressChanged(string City, string Country, int? Number, string State, string Street, string ZipCode) : Event;
+
+        public record CreditCardAdded(Guid CartId, DateOnly Expiration, string HolderName, string Number, string SecurityNumber) : Event;
     }
 }
