@@ -10,14 +10,16 @@ namespace ECommerce.WebAPI.DependencyInjection.Observers
         public async Task PreSend<T>(SendContext<T> context)
             where T : class
         {
-            Log.Information("Starting sending of {MessageType} command", context.Message.GetType().Name);
+            var messageType = context.Message.GetType();
+            Log.Information("Starting sending of {Message} message from {Namespace}", messageType.Name, messageType.Namespace);
             await Task.CompletedTask;
         }
 
         public async Task PostSend<T>(SendContext<T> context)
             where T : class
         {
-            Log.Information("The command {MessageType} was successfully sent", context.Message.GetType().Name);
+            var messageType = context.Message.GetType();
+            Log.Information("The message {Message} from {Namespace} was successfully sent", messageType.Name, messageType.Namespace);
             await Task.CompletedTask;
         }
 

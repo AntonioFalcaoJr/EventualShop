@@ -48,7 +48,7 @@ builder.Services
                     host.Username("guest");
                     host.Password("guest");
                 });
-
+            
             bus.ConnectConsumeObserver(new LoggingConsumeObserver());
             bus.ConnectSendObserver(new LoggingSendObserver());
             
