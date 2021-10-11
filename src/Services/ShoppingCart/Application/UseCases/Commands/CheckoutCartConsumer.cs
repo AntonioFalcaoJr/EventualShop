@@ -23,16 +23,16 @@ namespace Application.UseCases.Commands
             //     Items = cart.Items,
             //     PaymentMethod = new PaymentMethod
             //     {
-            //         BillingAddress = new Address
+            //         BillingAddressProjection = new AddressProjection
             //         {
-            //             City = context.Message.BillingAddress.City,
-            //             Country = context.Message.BillingAddress.Country,
-            //             Number = context.Message.BillingAddress.Number,
-            //             State = context.Message.BillingAddress.State,
-            //             Street = context.Message.BillingAddress.Street,
-            //             ZipCode = context.Message.BillingAddress.ZipCode
+            //             City = context.Message.BillingAddressProjection.City,
+            //             Country = context.Message.BillingAddressProjection.Country,
+            //             Number = context.Message.BillingAddressProjection.Number,
+            //             State = context.Message.BillingAddressProjection.State,
+            //             Street = context.Message.BillingAddressProjection.Street,
+            //             ZipCode = context.Message.BillingAddressProjection.ZipCode
             //         },
-            //         CreditCard = new CreditCard
+            //         CreditCardProjection = new CreditCardProjection
             //         {
             //             Expiration = context.Message.
             //         }

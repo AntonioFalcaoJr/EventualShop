@@ -3,22 +3,22 @@ using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using CartItemRemovedEvent = Messages.ShoppingCarts.Events.CartItemRemoved;
+using ShippingAddressAddedEvent = Messages.ShoppingCarts.Events.ShippingAddressAdded;
 
 namespace Application.UseCases.Events
 {
-    public class CartItemRemovedConsumer : IConsumer<CartItemRemovedEvent>
+    public class ShippingAddressAddedConsumer : IConsumer<ShippingAddressAddedEvent>
     {
         private readonly IShoppingCartEventStoreService _eventStoreService;
         private readonly IShoppingCartProjectionsService _projectionsService;
 
-        public CartItemRemovedConsumer(IShoppingCartEventStoreService eventStoreService, IShoppingCartProjectionsService projectionsService)
+        public ShippingAddressAddedConsumer(IShoppingCartEventStoreService eventStoreService, IShoppingCartProjectionsService projectionsService)
         {
             _eventStoreService = eventStoreService;
             _projectionsService = projectionsService;
         }
 
-        public async Task Consume(ConsumeContext<CartItemRemovedEvent> context)
+        public async Task Consume(ConsumeContext<ShippingAddressAddedEvent> context)
         {
             var cart = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CartId, context.CancellationToken);
 

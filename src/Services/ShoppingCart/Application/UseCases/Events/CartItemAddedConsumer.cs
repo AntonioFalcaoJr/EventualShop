@@ -36,7 +36,39 @@ namespace Application.UseCases.Events
                         ProductName = item.ProductName,
                         UnitPrice = item.UnitPrice,
                         CatalogItemId = item.CatalogItemId
-                    })
+                    }),
+                BillingAddressProjection = cart.BillingAddress is null
+                    ? default
+                    : new AddressProjection
+                    {
+                        City = cart.BillingAddress.City,
+                        Country = cart.BillingAddress.Country,
+                        Number = cart.BillingAddress.Number,
+                        State = cart.BillingAddress.State,
+                        Street = cart.BillingAddress.Street,
+                        ZipCode = cart.BillingAddress.ZipCode
+                    },
+                ShippingAddressProjection = cart.ShippingAddress is null
+                    ? default
+                    : new AddressProjection
+                    {
+                        City = cart.ShippingAddress.City,
+                        Country = cart.ShippingAddress.Country,
+                        Number = cart.ShippingAddress.Number,
+                        State = cart.ShippingAddress.State,
+                        Street = cart.ShippingAddress.Street,
+                        ZipCode = cart.ShippingAddress.ZipCode
+                    },
+                CreditCardProjection = cart.CreditCard is null
+                    ? default
+                    : new CreditCardProjection
+                    {
+                        Expiration = cart.CreditCard.Expiration,
+                        Number = cart.CreditCard.Number,
+                        HolderName = cart.CreditCard.HolderName,
+                        SecurityNumber = cart.CreditCard.SecurityNumber
+                    },
+                IsCheckedOut = cart.IsCheckedOut
             };
 
             await _projectionsService.UpdateCartDetailsAsync(accountDetails, context.CancellationToken);

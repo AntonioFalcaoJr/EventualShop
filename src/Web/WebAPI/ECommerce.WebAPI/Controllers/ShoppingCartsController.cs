@@ -25,6 +25,18 @@ namespace ECommerce.WebAPI.Controllers
             => SendCommandAsync(command, cancellationToken);
 
         [HttpPut]
+        public Task<IActionResult> AddCreditCard(Commands.AddCreditCard command, CancellationToken cancellationToken)
+            => SendCommandAsync(command, cancellationToken);
+
+        [HttpPut]
+        public Task<IActionResult> AddShippingAddress(Commands.AddShippingAddress command, CancellationToken cancellationToken)
+            => SendCommandAsync(command, cancellationToken);
+
+        [HttpPut]
+        public Task<IActionResult> ChangeBillingAddress(Commands.ChangeBillingAddress command, CancellationToken cancellationToken)
+            => SendCommandAsync(command, cancellationToken);
+
+        [HttpPut]
         public Task<IActionResult> RemoveCartItem(Commands.RemoveCartItem command, CancellationToken cancellationToken)
             => SendCommandAsync(command, cancellationToken);
     }

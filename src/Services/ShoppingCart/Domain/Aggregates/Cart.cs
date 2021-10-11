@@ -18,7 +18,7 @@ namespace Domain.Aggregates
         public Address ShippingAddress { get; private set; }
         public Address BillingAddress { get; private set; }
         public CreditCard CreditCard { get; private set; }
-        public bool ShippingAndBillingAddressesAreSame { get; private set; } = true;
+        private bool ShippingAndBillingAddressesAreSame { get; set; } = true;
 
         public decimal Total
             => Items.Sum(item
@@ -40,13 +40,13 @@ namespace Domain.Aggregates
             => RaiseEvent(new Events.CreditCardAdded(Id, expiration, holderName, number, securityNumber));
 
         public void AddShippingAddress(string city, string country, int? number, string state, string street, string zipCode)
-            => RaiseEvent(new Events.ShippingAddressAdded(city, country, number, state, street, zipCode));
+            => RaiseEvent(new Events.ShippingAddressAdded(Id, city, country, number, state, street, zipCode));
 
         public void ChangeBillingAddress(string city, string country, int? number, string state, string street, string zipCode)
-            => RaiseEvent(new Events.BillingAddressChanged(city, country, number, state, street, zipCode));
+            => RaiseEvent(new Events.BillingAddressChanged(Id, city, country, number, state, street, zipCode));
 
-        public void RemoveItem(Guid cartId, Guid catalogItemId)
-            => RaiseEvent(new Events.CartItemRemoved(cartId, catalogItemId));
+        public void RemoveItem(Guid catalogItemId)
+            => RaiseEvent(new Events.CartItemRemoved(Id, catalogItemId));
 
         protected override void ApplyEvent(IEvent @event)
             => When(@event as dynamic);
