@@ -9,6 +9,10 @@ namespace Messages.ShoppingCarts
 
         public record AddCreditCard(Guid CartId, DateOnly Expiration, string HolderName, string Number, string SecurityNumber) : Command;
 
+        public record AddShippingAddress(Guid CartId, string City, string Country, int? Number, string State, string Street, string ZipCode) : Command;
+
+        public record ChangeBillingAddress(Guid CartId, string City, string Country, int? Number, string State, string Street, string ZipCode) : Command;
+
         public record CreateCart(Guid CustomerId) : Command;
 
         public record CheckoutCart(Guid CartId, string BillingAddressCity, string BillingAddressCountry,
