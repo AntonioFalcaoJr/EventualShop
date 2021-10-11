@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using FluentValidation.Results;
+
 namespace Domain.Abstractions.Entities
 {
     public interface IEntity<out TId>
@@ -6,5 +9,6 @@ namespace Domain.Abstractions.Entities
         TId Id { get; }
         bool IsDeleted { get; }
         bool IsValid { get; }
+        public IEnumerable<ValidationFailure> Errors { get; }
     }
 }

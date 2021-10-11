@@ -5,13 +5,14 @@ using Domain.Aggregates;
 using Infrastructure.Abstractions.EventSourcing.EventStore;
 using Infrastructure.DependencyInjection.Options;
 using MassTransit;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace Infrastructure.EventSourcing.EventStore
 {
     public class CatalogEventStoreService : EventStoreService<Catalog, CatalogStoreEvent, CatalogSnapshot, Guid>, ICatalogEventStoreService
     {
-        public CatalogEventStoreService(IOptionsMonitor<EventStoreOptions> optionsMonitor, ICatalogEventStoreRepository repository, IBus bus)
-            : base(optionsMonitor, repository, bus) { }
+        public CatalogEventStoreService(ILogger<CatalogEventStoreService> logger, IOptionsMonitor<EventStoreOptions> optionsMonitor, ICatalogEventStoreRepository repository, IBus bus)
+            : base(logger, optionsMonitor, repository, bus) { }
     }
 }
