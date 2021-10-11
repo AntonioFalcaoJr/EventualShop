@@ -9,6 +9,7 @@ using Domain.Abstractions.Aggregates;
 using Infrastructure.DependencyInjection.Options;
 using MassTransit;
 using Messages.Abstractions.Events;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace Infrastructure.Abstractions.EventSourcing.EventStore
@@ -20,11 +21,17 @@ namespace Infrastructure.Abstractions.EventSourcing.EventStore
         where TId : struct
     {
         private readonly IBus _bus;
+        private readonly ILogger _logger;
         private readonly EventStoreOptions _options;
         private readonly IEventStoreRepository<TAggregateState, TStoreEvent, TSnapshot, TId> _repository;
 
-        protected EventStoreService(IOptionsMonitor<EventStoreOptions> optionsMonitor, IEventStoreRepository<TAggregateState, TStoreEvent, TSnapshot, TId> repository, IBus bus)
+        protected EventStoreService(
+            ILogger logger,
+            IOptionsMonitor<EventStoreOptions> optionsMonitor,
+            IEventStoreRepository<TAggregateState, TStoreEvent, TSnapshot, TId> repository,
+            IBus bus)
         {
+            _logger = logger;
             _repository = repository;
             _bus = bus;
             _options = optionsMonitor.CurrentValue;
@@ -33,8 +40,11 @@ namespace Infrastructure.Abstractions.EventSourcing.EventStore
         public async Task AppendEventsToStreamAsync(TAggregateState aggregateState, CancellationToken cancellationToken)
         {
             if (aggregateState.IsValid is false)
-                // TODO - Notification
+            {
+                _logger.LogError("Business error: {Errors}", aggregateState.Errors);
+                // TODO - Add Notification
                 return;
+            }
 
             var eventsToStore = GetEventsToStore(aggregateState);
             await AppendEventsToStreamWithSnapshotControlAsync(aggregateState, eventsToStore, cancellationToken);

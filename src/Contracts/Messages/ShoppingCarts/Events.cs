@@ -13,9 +13,9 @@ namespace Messages.ShoppingCarts
 
         public record CartCheckedOut : Event;
 
-        public record ShippingAddressAdded(string City, string Country, int? Number, string State, string Street, string ZipCode) : Event;
+        public record ShippingAddressAdded(Guid CartId, string City, string Country, int? Number, string State, string Street, string ZipCode) : Event;
 
-        public record BillingAddressChanged(string City, string Country, int? Number, string State, string Street, string ZipCode) : Event;
+        public record BillingAddressChanged(Guid CartId, string City, string Country, int? Number, string State, string Street, string ZipCode) : Event;
 
         public record CreditCardAdded(Guid CartId, DateOnly Expiration, string HolderName, string Number, string SecurityNumber) : Event;
     }

@@ -15,6 +15,9 @@ namespace Infrastructure.DependencyInjection.Extensions
             cfg.AddCommandConsumer<AddCartItemConsumer, Commands.AddCartItem>();
             cfg.AddCommandConsumer<CreateCartConsumer, Commands.CreateCart>();
             cfg.AddCommandConsumer<RemoveCartItemConsumer, Commands.RemoveCartItem>();
+            cfg.AddCommandConsumer<ChangeBillingAddressConsumer, Commands.ChangeBillingAddress>();
+            cfg.AddCommandConsumer<AddShippingAddressConsumer, Commands.AddShippingAddress>();
+            cfg.AddCommandConsumer<AddCreditCardConsumer, Commands.AddCreditCard>();
         }
 
         public static void AddEventConsumers(this IRegistrationConfigurator cfg)
@@ -22,11 +25,14 @@ namespace Infrastructure.DependencyInjection.Extensions
             cfg.AddConsumer<CartCreatedConsumer>();
             cfg.AddConsumer<CartItemAddedConsumer>();
             cfg.AddConsumer<CartItemRemovedConsumer>();
+            cfg.AddConsumer<CreditCardAddedConsumer>();
+            cfg.AddConsumer<BillingAddressAddedConsumer>();
+            cfg.AddConsumer<ShippingAddressAddedConsumer>();
         }
 
         public static void AddQueryConsumers(this IRegistrationConfigurator cfg)
         {
-             cfg.AddConsumer<GetShoppingCartConsumer>();
+            cfg.AddConsumer<GetShoppingCartConsumer>();
         }
 
         private static void AddCommandConsumer<TConsumer, TMessage>(this IRegistrationConfigurator configurator)

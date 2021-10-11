@@ -48,10 +48,10 @@ builder.Services
                     host.Username("guest");
                     host.Password("guest");
                 });
-            
+
             bus.ConnectConsumeObserver(new LoggingConsumeObserver());
             bus.ConnectSendObserver(new LoggingSendObserver());
-            
+
             // Account
             MapQueueEndpoint<Messages.Accounts.Commands.DefineProfessionalAddress>();
             MapQueueEndpoint<Messages.Accounts.Commands.DefineResidenceAddress>();
@@ -82,6 +82,9 @@ builder.Services
             MapQueueEndpoint<Messages.ShoppingCarts.Commands.CreateCart>();
             MapQueueEndpoint<Messages.ShoppingCarts.Commands.AddCartItem>();
             MapQueueEndpoint<Messages.ShoppingCarts.Commands.RemoveCartItem>();
+            MapQueueEndpoint<Messages.ShoppingCarts.Commands.AddCreditCard>();
+            MapQueueEndpoint<Messages.ShoppingCarts.Commands.AddShippingAddress>();
+            MapQueueEndpoint<Messages.ShoppingCarts.Commands.ChangeBillingAddress>();
             MapQueueEndpoint<Messages.ShoppingCarts.Queries.GetShoppingCart>();
         });
     })

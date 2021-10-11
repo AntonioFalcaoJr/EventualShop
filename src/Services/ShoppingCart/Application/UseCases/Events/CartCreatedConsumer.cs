@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
@@ -25,18 +24,7 @@ namespace Application.UseCases.Events
             var accountDetails = new CartDetailsProjection
             {
                 Id = cart.Id,
-                IsDeleted = cart.IsDeleted,
-                UserId = cart.UserId,
-                Total = cart.Total,
-                CartItems = cart.Items
-                    .Select(item => new CartItemProjection
-                    {
-                        Quantity = item.Quantity,
-                        PictureUrl = item.PictureUrl,
-                        ProductName = item.ProductName,
-                        UnitPrice = item.UnitPrice,
-                        CatalogItemId = item.CatalogItemId
-                    })
+                UserId = cart.UserId
             };
 
             await _projectionsService.ProjectCartDetailsAsync(accountDetails, context.CancellationToken);

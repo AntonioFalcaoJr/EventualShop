@@ -3,21 +3,23 @@ using System.Threading.Tasks;
 using MassTransit;
 using Serilog;
 
-namespace ECommerce.WebAPI.DependencyInjection.Observers
+namespace Infrastructure.DependencyInjection.Observers
 {
     public class LoggingPublishObserver : IPublishObserver
     {
         public async Task PrePublish<T>(PublishContext<T> context)
             where T : class
         {
-            Log.Information("Starting publishing of {MessageType} event", context.Message.GetType().Name);
+            var messageType = context.Message.GetType();
+            Log.Information("Starting publishing of {Message} event from {Namespace}", messageType.Name, messageType.Namespace);
             await Task.CompletedTask;
         }
 
         public async Task PostPublish<T>(PublishContext<T> context)
             where T : class
         {
-            Log.Information("The event {MessageType} was successfully published", context.Message.GetType().Name);
+            var messageType = context.Message.GetType();
+            Log.Information("The event {MessageType} from {Namespace} was successfully published", messageType.Name, messageType.Namespace);
             await Task.CompletedTask;
         }
 

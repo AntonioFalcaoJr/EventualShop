@@ -9,6 +9,10 @@ namespace Application.EventSourcing.Projections
         public IEnumerable<CartItemProjection> CartItems { get; init; }
         public Guid UserId { get; init; }
         public decimal Total { get; init; }
+        public bool IsCheckedOut { get; init; }
+        public AddressProjection ShippingAddressProjection { get; init; }
+        public AddressProjection BillingAddressProjection { get; init; }
+        public CreditCardProjection CreditCardProjection { get; init; }
         public Guid Id { get; init; }
         public bool IsDeleted { get; init; }
     }
@@ -20,5 +24,23 @@ namespace Application.EventSourcing.Projections
         public decimal UnitPrice { get; init; }
         public int Quantity { get; init; }
         public string PictureUrl { get; init; }
+    }
+
+    public record AddressProjection
+    {
+        public string City { get; init; }
+        public string Country { get; init; }
+        public int? Number { get; init; }
+        public string State { get; init; }
+        public string Street { get; init; }
+        public string ZipCode { get; init; }
+    }
+
+    public record CreditCardProjection
+    {
+        public DateOnly Expiration { get; init; }
+        public string HolderName { get; init; }
+        public string Number { get; init; }
+        public string SecurityNumber { get; init; }
     }
 }
