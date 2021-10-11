@@ -44,8 +44,8 @@ namespace Infrastructure.EventSourcing.EventStore.Contexts
                 .EnableDetailedErrors()
                 .EnableSensitiveDataLogging()
                 .UseSqlServer(
-                    _configuration.GetConnectionString("DefaultConnection"),
-                    SqlServerOptionsAction)
+                    connectionString: _configuration.GetConnectionString("DefaultConnection"),
+                    sqlServerOptionsAction: SqlServerOptionsAction)
                 .UseLoggerFactory(_loggerFactory);
         }
 
@@ -53,10 +53,10 @@ namespace Infrastructure.EventSourcing.EventStore.Contexts
             => optionsBuilder
                 .ExecutionStrategy(
                     dependencies => new SqlServerRetryingExecutionStrategy(
-                        dependencies,
-                        _options.MaxRetryCount,
-                        _options.MaxRetryDelay,
-                        _options.ErrorNumbersToAdd))
+                        dependencies: dependencies,
+                        maxRetryCount: _options.MaxRetryCount,
+                        maxRetryDelay: _options.MaxRetryDelay,
+                        errorNumbersToAdd: _options.ErrorNumbersToAdd))
                 .MigrationsAssembly(typeof(EventStoreDbContext).Assembly.GetName().Name);
     }
 }

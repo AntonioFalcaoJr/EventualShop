@@ -5,12 +5,10 @@ namespace Infrastructure.DependencyInjection.Options
 {
     public class SqlServerRetryingOptions
     {
-        [Required]
-        [Range(5, 20)]
+        [Required, Range(5, 20)]
         public int MaxRetryCount { get; init; }
 
-        [Required]
-        [Range(5, 20)]
+        [Required, Range(5, 20)]
         public int MaxSecondsRetryDelay { get; init; }
 
         public int[] ErrorNumbersToAdd { get; init; }

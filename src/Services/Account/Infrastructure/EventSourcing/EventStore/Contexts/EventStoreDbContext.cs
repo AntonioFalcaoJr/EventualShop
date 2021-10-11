@@ -57,6 +57,6 @@ namespace Infrastructure.EventSourcing.EventStore.Contexts
                         maxRetryCount: _options.MaxRetryCount,
                         maxRetryDelay: _options.MaxRetryDelay,
                         errorNumbersToAdd: _options.ErrorNumbersToAdd))
-                .MigrationsAssembly(assemblyName: typeof(EventStoreDbContext).Assembly.GetName().Name);
+                .MigrationsAssembly(typeof(EventStoreDbContext).Assembly.GetName().Name);
     }
 }

@@ -4,24 +4,19 @@ namespace Infrastructure.DependencyInjection.Options
 {
     public record MongoDbOptions
     {
-        [Required]
-        [MinLength(5)]
+        [Required, MinLength(5)]
         public string ConnectionString { get; init; }
 
-        [Required]
-        [MinLength(5)]
+        [Required, MinLength(5)]
         public string Database { get; init; }
 
-        [Required]
-        [MinLength(5)]
+        [Required, MinLength(5)]
         public string Username { get; init; }
 
-        [Required]
-        [MinLength(5)]
+        [Required, MinLength(5)]
         public string Password { get; init; }
 
-        [Required]
-        [MinLength(5)]
+        [Required, MinLength(5)]
         public string Host { get; init; }
 
         [Required]
