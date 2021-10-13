@@ -1,5 +1,4 @@
-using Infrastructure.DependencyInjection.Options;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 
 namespace Infrastructure.Abstractions.EventSourcing.Projections.Contexts
@@ -7,14 +6,11 @@ namespace Infrastructure.Abstractions.EventSourcing.Projections.Contexts
     public abstract class MongoDbContext : IMongoDbContext
     {
         private readonly IMongoDatabase _database;
-        private readonly MongoDbOptions _options;
 
-        protected MongoDbContext(IOptionsMonitor<MongoDbOptions> optionsSnapshot)
+        protected MongoDbContext(IConfiguration configuration)
         {
-            _options = optionsSnapshot.CurrentValue;
-
-            _database = new MongoClient(new MongoUrl(_options.ConnectionStringFormed))
-                .GetDatabase(_options.Database);
+            var mongoUrl = new MongoUrl(configuration.GetConnectionString("Projections"));
+            _database = new MongoClient(mongoUrl).GetDatabase(mongoUrl.DatabaseName);
         }
 
         public IMongoCollection<T> GetCollection<T>()

@@ -44,7 +44,7 @@ namespace Infrastructure.EventSourcing.EventStore.Contexts
                 .EnableDetailedErrors()
                 .EnableSensitiveDataLogging()
                 .UseSqlServer(
-                    connectionString: _configuration.GetConnectionString("DefaultConnection"),
+                    connectionString: _configuration.GetConnectionString("EventStore"),
                     sqlServerOptionsAction: SqlServerOptionsAction)
                 .UseLoggerFactory(_loggerFactory);
         }

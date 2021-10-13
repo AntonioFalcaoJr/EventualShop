@@ -92,13 +92,6 @@ namespace Infrastructure.DependencyInjection.Extensions
                 .ValidateDataAnnotations()
                 .ValidateOnStart();
 
-        public static OptionsBuilder<MongoDbOptions> ConfigureMongoDbOptions(this IServiceCollection services, IConfigurationSection section)
-            => services
-                .AddOptions<MongoDbOptions>()
-                .Bind(section)
-                .ValidateDataAnnotations()
-                .ValidateOnStart();
-
         public static OptionsBuilder<EventStoreOptions> ConfigureEventStoreOptions(this IServiceCollection services, IConfigurationSection section)
             => services
                 .AddOptions<EventStoreOptions>()

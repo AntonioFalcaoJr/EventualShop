@@ -18,6 +18,7 @@ namespace Infrastructure.DependencyInjection.Extensions
             cfg.AddCommandConsumer<ChangeBillingAddressConsumer, Commands.ChangeBillingAddress>();
             cfg.AddCommandConsumer<AddShippingAddressConsumer, Commands.AddShippingAddress>();
             cfg.AddCommandConsumer<AddCreditCardConsumer, Commands.AddCreditCard>();
+            cfg.AddCommandConsumer<CheckOutCartConsumer, Commands.CheckOutCart>();
         }
 
         public static void AddEventConsumers(this IRegistrationConfigurator cfg)
@@ -28,6 +29,7 @@ namespace Infrastructure.DependencyInjection.Extensions
             cfg.AddConsumer<CreditCardAddedConsumer>();
             cfg.AddConsumer<BillingAddressAddedConsumer>();
             cfg.AddConsumer<ShippingAddressAddedConsumer>();
+            cfg.AddConsumer<CartCheckedOutConsumer>();
         }
 
         public static void AddQueryConsumers(this IRegistrationConfigurator cfg)
