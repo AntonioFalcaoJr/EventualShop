@@ -57,9 +57,6 @@ builder.ConfigureServices((context, services) =>
     services.ConfigureEventStoreOptions(
         context.Configuration.GetSection(nameof(EventStoreOptions)));
 
-    services.ConfigureMongoDbOptions(
-        context.Configuration.GetSection(nameof(MongoDbOptions)));
-
     services.ConfigureSqlServerRetryingOptions(
         context.Configuration.GetSection(nameof(SqlServerRetryingOptions)));
 });
