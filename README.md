@@ -295,7 +295,8 @@ https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 To configure database resource, `init` secrets in [`./src/WebAPI`](./src/WebAPI), and then define the `DefaultConnection` in `ConnectionStrings` options:
 
 ```bash
-dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Server=<IP_ADDRESS>,1433;Database=EventStore;User=sa;Password=!MyStrongPassword"
+dotnet user-secrets set "ConnectionStrings:EventStore" "Server=<IP_ADDRESS>,1433;Database=YourContextNameEventStore;User=sa;Password=<PASSWORD>"
+dotnet user-secrets set "ConnectionStrings:Projections" "mongodb://<USER_NAME>:<PASSWORD>@<IP_ADDRESS>:27017/YourContextNameProjections/?authSource=admin"
 ```
 
 ##### AppSettings
