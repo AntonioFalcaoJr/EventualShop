@@ -33,7 +33,7 @@ namespace Infrastructure.EventSourcing.EventStore.Configurations
                 .HasMaxLength(1000)
                 .IsUnicode(false)
                 .HasConversion(
-                    domainEvent => JsonConvert.SerializeObject(domainEvent, typeof(IEvent),
+                    @event => JsonConvert.SerializeObject(@event, typeof(IEvent),
                         new JsonSerializerSettings
                         {
                             TypeNameHandling = TypeNameHandling.Auto
