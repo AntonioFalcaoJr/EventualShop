@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
-        <PackageReference Include="MassTransit" Version="7.2.3-develop.249"/>
-        <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.2.3-develop.249"/>
+        <PackageReference Include="MassTransit" Version="7.2.3" />
+        <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.2.3" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Contracts\Messages\Messages.csproj"/>
-        <ProjectReference Include="..\Domain\Domain.csproj"/>
+        <ProjectReference Include="..\..\..\Contracts\Messages\Messages.csproj" />
+        <ProjectReference Include="..\Domain\Domain.csproj" />
     </ItemGroup>
 </Project>
