@@ -2,7 +2,7 @@
     <ItemGroup>
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.3" />
         <PackageReference Include="JsonNet.ContractResolvers" Version="2.0.0" />
-        <PackageReference Include="MassTransit.AspNetCore" Version="7.2.3-develop.249" />
+        <PackageReference Include="MassTransit.AspNetCore" Version="7.2.3" />
         <PackageReference Include="MassTransit.RabbitMQ" Version="7.2.3-develop.249" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0-rc.1.21452.10" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.0-rc.1.21452.10" />
