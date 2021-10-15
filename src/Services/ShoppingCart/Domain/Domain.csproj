@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
         <PackageReference Include="FluentValidation" Version="10.3.3"/>
-        <PackageReference Include="MassTransit" Version="7.2.3-develop.249"/>
+        <PackageReference Include="MassTransit" Version="7.2.3"/>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
     </ItemGroup>
     <ItemGroup>
