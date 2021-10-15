@@ -11,7 +11,7 @@ namespace Infrastructure.DependencyInjection.Observers
             where T : class
         {
             var messageType = context.Message.GetType();
-            Log.Information("Starting publishing of {Message} event from {Namespace}", messageType.Name, messageType.Namespace);
+            Log.Information("Publishing {Message} event from {Namespace}", messageType.Name, messageType.Namespace);
             await Task.CompletedTask;
         }
 
@@ -19,7 +19,7 @@ namespace Infrastructure.DependencyInjection.Observers
             where T : class
         {
             var messageType = context.Message.GetType();
-            Log.Information("The event {MessageType} from {Namespace} was successfully published", messageType.Name, messageType.Namespace);
+            Log.Information("{MessageType} event, from {Namespace} was published", messageType.Name, messageType.Namespace);
             await Task.CompletedTask;
         }
         

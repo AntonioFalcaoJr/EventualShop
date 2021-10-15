@@ -53,6 +53,7 @@ namespace Infrastructure.DependencyInjection.Extensions
                         bus.UseConsumeFilter(typeof(MessageValidatorFilter<>), context);
                         bus.ConnectConsumeObserver(new LoggingConsumeObserver());
                         bus.ConnectPublishObserver(new LoggingPublishObserver());
+                        bus.ConnectSendObserver(new LoggingSendObserver());
                         bus.ConfigureEventReceiveEndpoints(context);
                         bus.ConfigureEndpoints(context);
                     });

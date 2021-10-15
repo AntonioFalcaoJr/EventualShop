@@ -11,7 +11,7 @@ namespace Infrastructure.DependencyInjection.Observers
             where T : class
         {
             var messageType = context.Message.GetType();
-            Log.Information("Starting consumption of {Message} message from {Namespace}", messageType.Name, messageType.Namespace);
+            Log.Information("Consuming {Message} message from {Namespace}", messageType.Name, messageType.Namespace);
             await Task.CompletedTask;
         }
 
@@ -19,7 +19,7 @@ namespace Infrastructure.DependencyInjection.Observers
             where T : class
         {
             var messageType = context.Message.GetType();
-            Log.Information("The message {Message} from {Namespace} was successfully consumed", messageType.Name, messageType.Namespace);
+            Log.Information("{Message} message from {Namespace} was consumed", messageType.Name, messageType.Namespace);
             await Task.CompletedTask;
         }
 
