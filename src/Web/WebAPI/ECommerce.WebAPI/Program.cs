@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using ECommerce.WebAPI.DependencyInjection.Extensions;
 using ECommerce.WebAPI.DependencyInjection.Observers;
 using MassTransit;
 using MassTransit.Definition;
@@ -13,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddControllers();
-// .AddApplicationFluentValidation();
+//.AddApplicationFluentValidation();
 
 builder.Services.AddLogging(loggingBuilder =>
 {
@@ -85,6 +86,7 @@ builder.Services
             MapQueueEndpoint<Messages.ShoppingCarts.Commands.AddCreditCard>();
             MapQueueEndpoint<Messages.ShoppingCarts.Commands.AddShippingAddress>();
             MapQueueEndpoint<Messages.ShoppingCarts.Commands.ChangeBillingAddress>();
+            MapQueueEndpoint<Messages.ShoppingCarts.Commands.CheckOutCart>();
             MapQueueEndpoint<Messages.ShoppingCarts.Queries.GetShoppingCart>();
         });
     })

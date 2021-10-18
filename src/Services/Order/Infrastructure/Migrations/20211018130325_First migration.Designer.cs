@@ -4,6 +4,7 @@ using Infrastructure.EventSourcing.EventStore.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(EventStoreDbContext))]
-    partial class EventStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211018130325_First migration")]
+    partial class Firstmigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,7 +25,7 @@ namespace Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Application.EventSourcing.EventStore.Events.UserSnapshot", b =>
+            modelBuilder.Entity("Application.EventSourcing.EventStore.Events.OrderSnapshot", b =>
                 {
                     b.Property<int>("AggregateVersion")
                         .HasColumnType("int");
@@ -44,10 +46,10 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("AggregateVersion", "AggregateId");
 
-                    b.ToTable("UserSnapshots");
+                    b.ToTable("ShoppingCartSnapshots");
                 });
 
-            modelBuilder.Entity("Application.EventSourcing.EventStore.Events.UserStoreEvent", b =>
+            modelBuilder.Entity("Application.EventSourcing.EventStore.Events.OrderStoreEvent", b =>
                 {
                     b.Property<int>("Version")
                         .ValueGeneratedOnAdd()
@@ -77,7 +79,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Version");
 
-                    b.ToTable("UserStoreEvents");
+                    b.ToTable("ShoppingCartStoreEvents");
                 });
 #pragma warning restore 612, 618
         }
