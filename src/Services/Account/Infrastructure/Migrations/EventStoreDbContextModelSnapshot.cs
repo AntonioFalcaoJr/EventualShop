@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+#nullable disable
+
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(EventStoreDbContext))]
@@ -15,10 +17,11 @@ namespace Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CS_AS")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "6.0.0-preview.7.21378.4")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .UseCollation("SQL_Latin1_General_CP1_CS_AS")
+                .HasAnnotation("ProductVersion", "6.0.0-rc.2.21480.5")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("Application.EventSourcing.EventStore.Events.AccountSnapshot", b =>
                 {
@@ -36,9 +39,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("AggregateState")
                         .IsRequired()
-                        .HasMaxLength(1000)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(1000)");
+                        .HasColumnType("varchar(max)");
 
                     b.HasKey("AggregateVersion", "AggregateId");
 
@@ -49,8 +51,9 @@ namespace Infrastructure.Migrations
                 {
                     b.Property<int>("Version")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Version"), 1L, 1);
 
                     b.Property<Guid>("AggregateId")
                         .HasColumnType("uniqueidentifier");
@@ -63,9 +66,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Event")
                         .IsRequired()
-                        .HasMaxLength(1000)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(1000)");
+                        .HasColumnType("varchar(max)");
 
                     b.Property<string>("EventName")
                         .IsRequired()

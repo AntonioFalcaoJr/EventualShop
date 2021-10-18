@@ -23,7 +23,7 @@ namespace Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Application.EventSourcing.EventStore.Events.UserSnapshot", b =>
+            modelBuilder.Entity("Application.EventSourcing.EventStore.Events.OrderSnapshot", b =>
                 {
                     b.Property<int>("AggregateVersion")
                         .HasColumnType("int");
@@ -44,10 +44,10 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("AggregateVersion", "AggregateId");
 
-                    b.ToTable("UserSnapshots");
+                    b.ToTable("ShoppingCartSnapshots");
                 });
 
-            modelBuilder.Entity("Application.EventSourcing.EventStore.Events.UserStoreEvent", b =>
+            modelBuilder.Entity("Application.EventSourcing.EventStore.Events.OrderStoreEvent", b =>
                 {
                     b.Property<int>("Version")
                         .ValueGeneratedOnAdd()
@@ -77,7 +77,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Version");
 
-                    b.ToTable("UserStoreEvents");
+                    b.ToTable("ShoppingCartStoreEvents");
                 });
 #pragma warning restore 612, 618
         }

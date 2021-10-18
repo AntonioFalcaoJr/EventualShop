@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
+#nullable disable
+
 namespace Infrastructure.Migrations
 {
     public partial class Firstmigration : Migration
@@ -8,21 +10,21 @@ namespace Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AccountSnapshots",
+                name: "UserSnapshots",
                 columns: table => new
                 {
                     AggregateVersion = table.Column<int>(type: "int", nullable: false),
                     AggregateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AggregateName = table.Column<string>(type: "varchar(30)", unicode: false, maxLength: 30, nullable: false),
-                    AggregateState = table.Column<string>(type: "varchar(1000)", unicode: false, maxLength: 1000, nullable: false)
+                    AggregateState = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AccountSnapshots", x => new { x.AggregateVersion, x.AggregateId });
+                    table.PrimaryKey("PK_UserSnapshots", x => new { x.AggregateVersion, x.AggregateId });
                 });
 
             migrationBuilder.CreateTable(
-                name: "AccountStoreEvents",
+                name: "UserStoreEvents",
                 columns: table => new
                 {
                     Version = table.Column<int>(type: "int", nullable: false)
@@ -30,21 +32,21 @@ namespace Infrastructure.Migrations
                     AggregateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AggregateName = table.Column<string>(type: "varchar(30)", unicode: false, maxLength: 30, nullable: false),
                     EventName = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
-                    Event = table.Column<string>(type: "varchar(1000)", unicode: false, maxLength: 1000, nullable: false)
+                    Event = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AccountStoreEvents", x => x.Version);
+                    table.PrimaryKey("PK_UserStoreEvents", x => x.Version);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AccountSnapshots");
+                name: "UserSnapshots");
 
             migrationBuilder.DropTable(
-                name: "AccountStoreEvents");
+                name: "UserStoreEvents");
         }
     }
 }

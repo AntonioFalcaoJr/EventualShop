@@ -29,7 +29,6 @@ namespace Infrastructure.EventSourcing.EventStore.Configurations
 
             builder
                 .Property(snapshot => snapshot.AggregateState)
-                .HasMaxLength(1000)
                 .IsUnicode(false)
                 .HasConversion(
                     catalog => JsonConvert.SerializeObject(catalog),

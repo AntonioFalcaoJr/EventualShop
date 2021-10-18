@@ -30,7 +30,6 @@ namespace Infrastructure.EventSourcing.EventStore.Configurations
 
             builder
                 .Property(storeEvent => storeEvent.Event)
-                .HasMaxLength(1000)
                 .IsUnicode(false)
                 .HasConversion(
                     @event => JsonConvert.SerializeObject(@event, typeof(IEvent),
