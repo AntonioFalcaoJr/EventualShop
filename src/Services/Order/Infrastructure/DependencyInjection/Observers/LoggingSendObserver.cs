@@ -23,8 +23,7 @@ namespace Infrastructure.DependencyInjection.Observers
             await Task.CompletedTask;
         }
 
-        public Task SendFault<T>(SendContext<T> context, Exception exception) 
-            where T : class
+        public Task SendFault<T>(SendContext<T> context, Exception exception) where T : class
             => Task.CompletedTask;
     }
 }

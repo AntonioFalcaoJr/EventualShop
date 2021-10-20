@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Messages.Abstractions.Events;
 
 namespace Messages.ShoppingCarts
@@ -11,7 +12,7 @@ namespace Messages.ShoppingCarts
 
         public record CartItemRemoved(Guid CartId, Guid CatalogItemId) : Event;
 
-        public record CartCheckedOut : Event;
+        public record CartCheckedOut(Guid CartId, IEnumerable<Models.Item> CartItems, Models.Address BillingAddress, Models.CreditCard CreditCard, Models.Address ShippingAddress) : Event;
 
         public record ShippingAddressAdded(Guid CartId, string City, string Country, int? Number, string State, string Street, string ZipCode) : Event;
 

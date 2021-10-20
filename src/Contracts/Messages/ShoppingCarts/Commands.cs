@@ -15,10 +15,7 @@ namespace Messages.ShoppingCarts
 
         public record CreateCart(Guid CustomerId) : Command;
 
-        public record CheckoutCart(Guid CartId, string BillingAddressCity, string BillingAddressCountry,
-            int? BillingAddressNumber, string BillingAddressState, string BillingAddressStreet, string BillingAddressZipCode,
-            string ShippingAddressCity, string ShippingAddressCountry, int? ShippingAddressNumber, string ShippingAddressState,
-            string ShippingAddressStreet, string ShippingAddressZipCode) : Command;
+        public record CheckOutCart(Guid CartId) : Command;
 
         public record RemoveCartItem(Guid CartId, Guid ProductId) : Command;
     }

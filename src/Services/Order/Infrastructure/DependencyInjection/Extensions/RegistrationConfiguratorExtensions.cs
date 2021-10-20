@@ -11,16 +11,12 @@ namespace Infrastructure.DependencyInjection.Extensions
     {
         public static void AddCommandConsumers(this IRegistrationConfigurator cfg)
         {
-            cfg.AddCommandConsumer<AddCartItemConsumer, Commands.AddCartItem>();
-            cfg.AddCommandConsumer<CreateCartConsumer, Commands.CreateCart>();
-            cfg.AddCommandConsumer<RemoveCartItemConsumer, Commands.RemoveCartItem>();
+            cfg.AddCommandConsumer<PlaceOrderConsumer, Commands.CreateCart>();
         }
 
         public static void AddEventConsumers(this IRegistrationConfigurator cfg)
         {
-            cfg.AddConsumer<CartCreatedConsumer>();
-            cfg.AddConsumer<CartItemAddedConsumer>();
-            cfg.AddConsumer<CartItemRemovedConsumer>();
+            cfg.AddConsumer<OrderPlacedConsumer>();
         }
 
         public static void AddQueryConsumers(this IRegistrationConfigurator cfg)

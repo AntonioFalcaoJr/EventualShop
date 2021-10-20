@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Linq;
 using Domain.Abstractions.Validators;
-using Domain.Entities.CartItems;
+using Domain.Entities.OrderItems;
 using FluentValidation;
 
 namespace Domain.Aggregates
 {
-    public class CartValidator : EntityValidator<Order, Guid>
+    public class OrderValidator : EntityValidator<Order, Guid>
     {
-        public CartValidator()
+        public OrderValidator()
         {
             RuleFor(cart => cart.UserId)
                 .NotEqual(Guid.Empty);
 
             RuleForEach(cart => cart.Items)
-                .SetValidator(new CartItemValidator());
+                .SetValidator(new OrderItemValidator());
 
             When(cart => cart.Items.Any(), () =>
             {

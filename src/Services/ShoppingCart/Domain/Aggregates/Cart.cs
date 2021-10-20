@@ -33,9 +33,6 @@ namespace Domain.Aggregates
         public void Create(Guid userId)
             => RaiseEvent(new Events.CartCreated(Guid.NewGuid(), userId));
 
-        public void CheckOut()
-            => RaiseEvent(new Events.CartCheckedOut());
-
         public void AddCreditCard(DateOnly expiration, string holderName, string number, string securityNumber)
             => RaiseEvent(new Events.CreditCardAdded(Id, expiration, holderName, number, securityNumber));
 
