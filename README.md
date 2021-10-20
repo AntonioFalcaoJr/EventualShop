@@ -298,6 +298,13 @@ To configure database resource, `init` secrets in [`./src/WebAPI`](./src/WebAPI)
 dotnet user-secrets set "ConnectionStrings:EventStore" "Server=<IP_ADDRESS>,1433;Database=YourContextNameEventStore;User=sa;Password=<PASSWORD>"
 dotnet user-secrets set "ConnectionStrings:Projections" "mongodb://<USER_NAME>:<PASSWORD>@<IP_ADDRESS>:27017/YourContextNameProjections/?authSource=admin"
 ```
+Expected
+
+```bash
+dotnet user-secrets list
+ConnectionStrings:Projections = mongodb://mongoadmin:secret@192.168.100.9:27017/OrderProjections/?authSource=admin
+ConnectionStrings:EventStore = Server=192.168.100.9,1433;Database=OrderEventStore;User=sa;Password=!MyStrongPassword
+```
 
 ##### AppSettings
 
