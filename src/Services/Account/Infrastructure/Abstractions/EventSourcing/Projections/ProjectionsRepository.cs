@@ -37,12 +37,6 @@ namespace Infrastructure.Abstractions.EventSourcing.Projections
             where TProjection : IProjection
             => _context.GetCollection<TProjection>().InsertOneAsync(projection, cancellationToken: cancellationToken);
 
-        public virtual Task SaveManyAsync<TProjection>(IEnumerable<TProjection> projections, CancellationToken cancellationToken)
-            where TProjection : IProjection
-            => _context
-                .GetCollection<TProjection>()
-                .InsertManyAsync(projections, cancellationToken: cancellationToken);
-
         public virtual Task UpdateAsync<TProjection>(TProjection replacement, CancellationToken cancellationToken)
             where TProjection : IProjection
             => _context
@@ -51,13 +45,7 @@ namespace Infrastructure.Abstractions.EventSourcing.Projections
                     new ObjectUpdateDefinition<TProjection>(replacement),
                     cancellationToken: cancellationToken);
 
-        public virtual Task UpdateManyAsync<TProjection>(IEnumerable<TProjection> projections, CancellationToken cancellationToken) where TProjection : IProjection
-            => throw new NotImplementedException();
-
         public virtual Task DeleteAsync<TProjection>(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken) where TProjection : IProjection
             => _context.GetCollection<TProjection>().DeleteOneAsync(filter, cancellationToken);
-
-        public virtual Task DeleteManyAsync<TProjection>(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken) where TProjection : IProjection
-            => _context.GetCollection<TProjection>().DeleteManyAsync(filter, cancellationToken);
     }
 }

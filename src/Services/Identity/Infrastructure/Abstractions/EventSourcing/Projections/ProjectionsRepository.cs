@@ -46,26 +46,7 @@ namespace Infrastructure.Abstractions.EventSourcing.Projections
                     options: new ReplaceOptions { IsUpsert = true },
                     cancellationToken: cancellationToken);
 
-        public virtual Task SaveManyAsync<TProjection>(IEnumerable<TProjection> projections, CancellationToken cancellationToken)
-            where TProjection : IProjection
-            => _context
-                .GetCollection<TProjection>()
-                .InsertManyAsync(projections, cancellationToken: cancellationToken);
-
-        public virtual Task UpdateAsync<TProjection>(TProjection replacement, CancellationToken cancellationToken)
-            where TProjection : IProjection
-            => _context
-                .GetCollection<TProjection>()
-                .ReplaceOneAsync(projection
-                    => projection.Id.Equals(replacement.Id), replacement, default(ReplaceOptions), cancellationToken);
-
-        public virtual Task UpdateManyAsync<TProjection>(IEnumerable<TProjection> projections, CancellationToken cancellationToken) where TProjection : IProjection
-            => throw new NotImplementedException();
-
         public virtual Task DeleteAsync<TProjection>(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken) where TProjection : IProjection
             => _context.GetCollection<TProjection>().DeleteOneAsync(filter, cancellationToken);
-
-        public virtual Task DeleteManyAsync<TProjection>(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken) where TProjection : IProjection
-            => _context.GetCollection<TProjection>().DeleteManyAsync(filter, cancellationToken);
     }
 }
