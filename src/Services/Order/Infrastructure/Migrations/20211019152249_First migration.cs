@@ -10,7 +10,7 @@ namespace Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ShoppingCartSnapshots",
+                name: "OrderSnapshots",
                 columns: table => new
                 {
                     AggregateVersion = table.Column<int>(type: "int", nullable: false),
@@ -20,11 +20,11 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ShoppingCartSnapshots", x => new { x.AggregateVersion, x.AggregateId });
+                    table.PrimaryKey("PK_OrderSnapshots", x => new { x.AggregateVersion, x.AggregateId });
                 });
 
             migrationBuilder.CreateTable(
-                name: "ShoppingCartStoreEvents",
+                name: "OrderStoreEvents",
                 columns: table => new
                 {
                     Version = table.Column<int>(type: "int", nullable: false)
@@ -36,17 +36,17 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ShoppingCartStoreEvents", x => x.Version);
+                    table.PrimaryKey("PK_OrderStoreEvents", x => x.Version);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ShoppingCartSnapshots");
+                name: "OrderSnapshots");
 
             migrationBuilder.DropTable(
-                name: "ShoppingCartStoreEvents");
+                name: "OrderStoreEvents");
         }
     }
 }

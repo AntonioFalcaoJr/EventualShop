@@ -4,7 +4,7 @@ using GreenPipes;
 using MassTransit;
 using MassTransit.RabbitMqTransport;
 using Messages.Abstractions.Events;
-using Messages.ShoppingCarts;
+using Messages.Orders;
 
 namespace Infrastructure.DependencyInjection.Extensions
 {
@@ -12,9 +12,7 @@ namespace Infrastructure.DependencyInjection.Extensions
     {
         public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
         {
-            cfg.ConfigureEventReceiveEndpoint<CartCreatedConsumer, Events.CartCreated>(registration);
-            cfg.ConfigureEventReceiveEndpoint<CartItemAddedConsumer, Events.CartItemAdded>(registration);
-            cfg.ConfigureEventReceiveEndpoint<CartItemRemovedConsumer, Events.CartItemRemoved>(registration);
+            cfg.ConfigureEventReceiveEndpoint<OrderPlacedConsumer, Events.OrderPlaced>(registration);
         }
 
         private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)

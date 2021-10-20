@@ -44,7 +44,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("AggregateVersion", "AggregateId");
 
-                    b.ToTable("ShoppingCartSnapshots");
+                    b.ToTable("OrderSnapshots");
                 });
 
             modelBuilder.Entity("Application.EventSourcing.EventStore.Events.OrderStoreEvent", b =>
@@ -77,7 +77,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Version");
 
-                    b.ToTable("ShoppingCartStoreEvents");
+                    b.ToTable("OrderStoreEvents");
                 });
 #pragma warning restore 612, 618
         }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(EventStoreDbContext))]
-    [Migration("20211018130325_First migration")]
+    [Migration("20211019152249_First migration")]
     partial class Firstmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,7 +46,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("AggregateVersion", "AggregateId");
 
-                    b.ToTable("ShoppingCartSnapshots");
+                    b.ToTable("OrderSnapshots");
                 });
 
             modelBuilder.Entity("Application.EventSourcing.EventStore.Events.OrderStoreEvent", b =>
@@ -79,7 +79,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Version");
 
-                    b.ToTable("ShoppingCartStoreEvents");
+                    b.ToTable("OrderStoreEvents");
                 });
 #pragma warning restore 612, 618
         }

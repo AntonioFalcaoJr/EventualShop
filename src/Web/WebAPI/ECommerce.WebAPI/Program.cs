@@ -88,6 +88,9 @@ builder.Services
             MapQueueEndpoint<Messages.ShoppingCarts.Commands.ChangeBillingAddress>();
             MapQueueEndpoint<Messages.ShoppingCarts.Commands.CheckOutCart>();
             MapQueueEndpoint<Messages.ShoppingCarts.Queries.GetShoppingCart>();
+            
+            // Order
+            MapQueueEndpoint<Messages.Orders.Commands.PlaceOrder>();
         });
     })
     .AddGenericRequestClient()

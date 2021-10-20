@@ -2,68 +2,86 @@
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Abstractions.Aggregates;
-using Domain.Entities.CartItems;
-using Domain.Entities.Coupons;
+using Domain.Entities.OrderItems;
+using Domain.ValueObjects.Addresses;
+using Domain.ValueObjects.CreditCards;
+using Messages;
 using Messages.Abstractions.Events;
-using Messages.ShoppingCarts;
+using Messages.Orders;
 
 namespace Domain.Aggregates
 {
     public class Order : AggregateRoot<Guid>
     {
-        private readonly List<Coupon> _coupons = new();
-        private readonly List<CartItem> _items = new();
+        private readonly List<OrderItem> _items = new();
+
+        public string Affiliation { get; private set; }
+        public decimal Discount { get; private set; }
+        public string Currency { get; private set; }
+        public Address ShippingAddress { get; private set; }
+        public Address BillingAddress { get; private set; }
+        public CreditCard CreditCard { get; private set; }
         public Guid UserId { get; private set; }
 
         public decimal Total
             => Items.Sum(item
-                => item.UnitPrice * item.Quantity);
+                => item.Price * item.Quantity);
 
-        public IEnumerable<CartItem> Items
+        public IEnumerable<OrderItem> Items
             => _items;
 
-        public void AddItem(Guid cartId, Guid catalogItemId, string productName, int quantity, decimal unitPrice)
-            => RaiseEvent(new Events.CartItemAdded(cartId, catalogItemId, productName, quantity, unitPrice));
-
-        public void Create(Guid userId)
-            => RaiseEvent(new Events.CartCreated(Guid.NewGuid(), userId));
-
-        public void RemoveItem(Guid cartId, Guid catalogItemId)
-            => RaiseEvent(new Events.CartItemRemoved(cartId, catalogItemId));
+        public void Place(Guid customerId, IEnumerable<Models.Item> items, Models.Address billingAddress, Models.CreditCard creditCard, Models.Address shippingAddress)
+            => RaiseEvent(new Events.OrderPlaced(Guid.NewGuid(), customerId, items, billingAddress, creditCard, shippingAddress));
 
         protected override void ApplyEvent(IEvent @event)
             => When(@event as dynamic);
 
-        private void When(Events.CartCreated @event)
-            => (Id, UserId) = @event;
-
-        private void When(Events.CartItemAdded @event)
+        private void When(Events.OrderPlaced @event)
         {
-            if (_items.Exists(item => item.CatalogItemId == @event.CatalogItemId))
-                IncreaseItemQuantity(@event);
-            else AddNewItem(@event);
+            Id = @event.OrderId;
+            UserId = @event.CustomerId;
+
+            BillingAddress = new()
+            {
+                City = @event.BillingAddress.City,
+                Country = @event.BillingAddress.Country,
+                Number = @event.BillingAddress.Number,
+                State = @event.BillingAddress.State,
+                Street = @event.BillingAddress.Street,
+                ZipCode = @event.BillingAddress.ZipCode
+            };
+
+            CreditCard = new()
+            {
+                Expiration = @event.CreditCard.Expiration,
+                Number = @event.CreditCard.Number,
+                HolderName = @event.CreditCard.HolderName,
+                SecurityNumber = @event.CreditCard.SecurityNumber
+            };
+
+            ShippingAddress = new()
+            {
+                City = @event.ShippingAddress.City,
+                Country = @event.ShippingAddress.Country,
+                Number = @event.ShippingAddress.Number,
+                State = @event.ShippingAddress.State,
+                Street = @event.ShippingAddress.Street,
+                ZipCode = @event.ShippingAddress.ZipCode
+            };
+
+            _items.AddRange(@event.Items.Select(item
+                => new OrderItem(
+                    item.CatalogItemId,
+                    item.ProductName,
+                    "SKU",
+                    "CATEGORY",
+                    "BRAND",
+                    item.UnitPrice,
+                    item.Quantity,
+                    item.PictureUrl)));
         }
-
-        private void When(Events.CartItemRemoved @event)
-            => _items.RemoveAll(item => item.CatalogItemId == @event.CatalogItemId);
-
-        private void AddNewItem(Events.CartItemAdded @event)
-        {
-            var cartItem = new CartItem(
-                @event.CatalogItemId,
-                @event.CatalogItemName,
-                @event.UnitPrice,
-                @event.Quantity);
-
-            _items.Add(cartItem);
-        }
-
-        private void IncreaseItemQuantity(Events.CartItemAdded @event)
-            => _items
-                .Single(item => item.CatalogItemId == @event.CatalogItemId)
-                .IncreaseQuantity(@event.Quantity);
 
         protected sealed override bool Validate()
-            => OnValidate<CartValidator, Order>();
+            => OnValidate<OrderValidator, Order>();
     }
 }

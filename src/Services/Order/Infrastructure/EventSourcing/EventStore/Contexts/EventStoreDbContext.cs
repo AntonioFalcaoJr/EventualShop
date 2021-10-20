@@ -27,8 +27,8 @@ namespace Infrastructure.EventSourcing.EventStore.Contexts
             _options = optionsSnapshot.Value;
         }
 
-        public DbSet<OrderStoreEvent> ShoppingCartStoreEvents { get; set; }
-        public DbSet<OrderSnapshot> ShoppingCartSnapshots { get; set; }
+        public DbSet<OrderStoreEvent> OrderStoreEvents { get; set; }
+        public DbSet<OrderSnapshot> OrderSnapshots { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

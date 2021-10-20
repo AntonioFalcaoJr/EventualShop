@@ -18,7 +18,6 @@ namespace Infrastructure.DependencyInjection.Extensions
             cfg.AddCommandConsumer<ChangeBillingAddressConsumer, Commands.ChangeBillingAddress>();
             cfg.AddCommandConsumer<AddShippingAddressConsumer, Commands.AddShippingAddress>();
             cfg.AddCommandConsumer<AddCreditCardConsumer, Commands.AddCreditCard>();
-            cfg.AddCommandConsumer<CheckOutCartConsumer, Commands.CheckOutCart>();
         }
 
         public static void AddEventConsumers(this IRegistrationConfigurator cfg)
