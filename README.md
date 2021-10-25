@@ -116,6 +116,12 @@ https://microservices.io/patterns/data/event-sourcing.html
 Fig. 4: Battermann, Leif. *12 Things You Should Know About Event Sourcing*.    
 http://blog.leifbattermann.de/2017/04/21/12-things-you-should-know-about-event-sourcing/
 
+State transition during events applying:
+
+![](./.assets/img/applyTo_event-sourcing.png)
+Fig. 5: Reitzammer, Benjamin & Seitz, Johannes. *Event Sourcingin practice*.    
+https://ookami86.github.io/event-sourcing-in-practice/#title.md
+
 ### Event Store/Stream
 
 > So, Event Sourcing is the persistence mechanism where each state transition for a given entity is represented as a domain event that gets persisted to an event database (event store). When the entity state mutates, a new event is produced and saved. When we need to restore the entity state, we read all the events for that entity and apply each event to change the state, reaching the correct final state of the entity when all available events are read and applied.
@@ -124,14 +130,8 @@ http://blog.leifbattermann.de/2017/04/21/12-things-you-should-know-about-event-s
 > https://www.eventstore.com/blog/what-is-event-sourcing
 
 ![](./.assets/img/event-store.png)  
-Fig. 5: Shilkov, Mikhail. *Event Sourcing and IO Complexity*.    
+Fig. 6: Shilkov, Mikhail. *Event Sourcing and IO Complexity*.    
 https://mikhail.io/2016/11/event-sourcing-and-io-complexity/
-
-State transition during events applying: 
-
-![](./.assets/img/applyTo_event-sourcing.png)
-Fig. 6: Reitzammer, Benjamin & Seitz, Johannes. *Event Sourcingin practice*.    
-https://ookami86.github.io/event-sourcing-in-practice/#title.md
 
 The following picture shows the difference between approaches:
 
