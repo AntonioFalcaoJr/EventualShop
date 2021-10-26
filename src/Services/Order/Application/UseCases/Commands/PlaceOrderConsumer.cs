@@ -18,15 +18,7 @@ namespace Application.UseCases.Commands
         public async Task Consume(ConsumeContext<PlaceOrderCommand> context)
         {
             var order = new Order();
-
-            order.Place(
-                context.Message.CustomerId,
-                context.Message.Items,
-                context.Message.BillingAddress,
-                context.Message.CreditCard,
-                context.Message.ShippingAddress
-            );
-
+            order.Handle(context.Message);
             await _eventStoreService.AppendEventsToStreamAsync(order, context.CancellationToken);
         }
     }

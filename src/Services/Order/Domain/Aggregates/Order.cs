@@ -5,7 +5,6 @@ using Domain.Abstractions.Aggregates;
 using Domain.Entities.OrderItems;
 using Domain.ValueObjects.Addresses;
 using Domain.ValueObjects.CreditCards;
-using Messages;
 using Messages.Abstractions.Events;
 using Messages.Orders;
 
@@ -14,10 +13,6 @@ namespace Domain.Aggregates
     public class Order : AggregateRoot<Guid>
     {
         private readonly List<OrderItem> _items = new();
-
-        public string Affiliation { get; private set; }
-        public decimal Discount { get; private set; }
-        public string Currency { get; private set; }
         public Address ShippingAddress { get; private set; }
         public Address BillingAddress { get; private set; }
         public CreditCard CreditCard { get; private set; }
@@ -30,8 +25,15 @@ namespace Domain.Aggregates
         public IEnumerable<OrderItem> Items
             => _items;
 
-        public void Place(Guid customerId, IEnumerable<Models.Item> items, Models.Address billingAddress, Models.CreditCard creditCard, Models.Address shippingAddress)
-            => RaiseEvent(new Events.OrderPlaced(Guid.NewGuid(), customerId, items, billingAddress, creditCard, shippingAddress));
+        public void Handle(Commands.PlaceOrder command)
+            => RaiseEvent(
+                new Events.OrderPlaced(
+                    Guid.NewGuid(),
+                    command.CustomerId,
+                    command.Items,
+                    command.BillingAddress,
+                    command.CreditCard,
+                    command.ShippingAddress));
 
         protected override void ApplyEvent(IEvent @event)
             => When(@event as dynamic);
