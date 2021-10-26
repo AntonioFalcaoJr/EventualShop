@@ -17,13 +17,7 @@ namespace Application.UseCases.Commands
         public async Task Consume(ConsumeContext<AddCreditCardCommand> context)
         {
             var cart = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CartId, context.CancellationToken);
-
-            cart.AddCreditCard(
-                context.Message.Expiration,
-                context.Message.HolderName,
-                context.Message.Number,
-                context.Message.SecurityNumber);
-
+            cart.Handle(context.Message);
             await _eventStoreService.AppendEventsToStreamAsync(cart, context.CancellationToken);
         }
     }

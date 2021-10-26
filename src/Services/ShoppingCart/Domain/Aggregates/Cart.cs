@@ -27,23 +27,23 @@ namespace Domain.Aggregates
         public IEnumerable<CartItem> Items
             => _items;
 
-        public void AddItem(Guid catalogItemId, string productName, int quantity, decimal unitPrice)
-            => RaiseEvent(new Events.CartItemAdded(Id, catalogItemId, productName, quantity, unitPrice));
+        public void Handle(Commands.AddCartItem cmd)
+            => RaiseEvent(new Events.CartItemAdded(Id, cmd.ProductId, cmd.ProductName, cmd.Quantity, cmd.UnitPrice));
+       
+        public void Handle(Commands.CreateCart cmd)
+            => RaiseEvent(new Events.CartCreated(Guid.NewGuid(), cmd.CustomerId));
+        
+        public void Handle(Commands.AddCreditCard cmd)
+            => RaiseEvent(new Events.CreditCardAdded(Id, cmd.Expiration, cmd.HolderName, cmd.Number, cmd.SecurityNumber));
 
-        public void Create(Guid userId)
-            => RaiseEvent(new Events.CartCreated(Guid.NewGuid(), userId));
+        public void Handle(Commands.AddShippingAddress cmd)
+            => RaiseEvent(new Events.ShippingAddressAdded(Id, cmd.City, cmd.Country, cmd.Number, cmd.State, cmd.Street, cmd.ZipCode));
+        
+        public void Handle(Commands.ChangeBillingAddress cmd)
+            => RaiseEvent(new Events.BillingAddressChanged(Id, cmd.City, cmd.Country, cmd.Number, cmd.State, cmd.Street, cmd.ZipCode));
 
-        public void AddCreditCard(DateOnly expiration, string holderName, string number, string securityNumber)
-            => RaiseEvent(new Events.CreditCardAdded(Id, expiration, holderName, number, securityNumber));
-
-        public void AddShippingAddress(string city, string country, int? number, string state, string street, string zipCode)
-            => RaiseEvent(new Events.ShippingAddressAdded(Id, city, country, number, state, street, zipCode));
-
-        public void ChangeBillingAddress(string city, string country, int? number, string state, string street, string zipCode)
-            => RaiseEvent(new Events.BillingAddressChanged(Id, city, country, number, state, street, zipCode));
-
-        public void RemoveItem(Guid catalogItemId)
-            => RaiseEvent(new Events.CartItemRemoved(Id, catalogItemId));
+        public void Handle(Commands.RemoveCartItem cmd)
+            => RaiseEvent(new Events.CartItemRemoved(Id, cmd.ProductId));
 
         protected override void ApplyEvent(IEvent @event)
             => When(@event as dynamic);

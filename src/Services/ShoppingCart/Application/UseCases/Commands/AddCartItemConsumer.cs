@@ -17,13 +17,7 @@ namespace Application.UseCases.Commands
         public async Task Consume(ConsumeContext<AddCartItemCommand> context)
         {
             var cart = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CartId, context.CancellationToken);
-
-            cart.AddItem(
-                context.Message.ProductId,
-                context.Message.ProductName,
-                context.Message.Quantity,
-                context.Message.UnitPrice);
-
+            cart.Handle(context.Message);
             await _eventStoreService.AppendEventsToStreamAsync(cart, context.CancellationToken);
         }
     }

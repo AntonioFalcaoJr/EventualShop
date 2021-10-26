@@ -17,15 +17,7 @@ namespace Application.UseCases.Commands
         public async Task Consume(ConsumeContext<AddShippingAddressCommand> context)
         {
             var cart = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CartId, context.CancellationToken);
-
-            cart.AddShippingAddress(
-                context.Message.City,
-                context.Message.Country,
-                context.Message.Number,
-                context.Message.State,
-                context.Message.Street,
-                context.Message.ZipCode);
-
+            cart.Handle(context.Message);
             await _eventStoreService.AppendEventsToStreamAsync(cart, context.CancellationToken);
         }
     }
