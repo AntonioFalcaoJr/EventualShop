@@ -31,7 +31,7 @@ namespace Infrastructure.EventSourcing.EventStore.Configurations
                 .Property(snapshot => snapshot.AggregateState)
                 .IsUnicode(false)
                 .HasConversion(
-                    account => JsonConvert.SerializeObject(account),
+                    cart => JsonConvert.SerializeObject(cart),
                     jsonString => JsonConvert.DeserializeObject<Cart>(jsonString,
                         new JsonSerializerSettings { ContractResolver = new PrivateSetterContractResolver() }))
                 .IsRequired();
