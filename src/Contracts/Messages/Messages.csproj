@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
-        <PackageReference Include="FluentValidation" Version="10.3.3" />
+        <PackageReference Include="FluentValidation" Version="10.3.4" />
         <PackageReference Include="MassTransit" Version="7.2.3" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     </ItemGroup>
