@@ -20,8 +20,8 @@ namespace Infrastructure.DependencyInjection.Extensions
             where TMessage : class, IEvent
         {
             bus.ReceiveEndpoint(
-                $"order-{typeof(TMessage).ToKebabCaseString()}",
-                endpoint =>
+                queueName: $"order-{typeof(TMessage).ToKebabCaseString()}",
+                configureEndpoint: endpoint =>
                 {
                     endpoint.ConfigureConsumeTopology = false;
 

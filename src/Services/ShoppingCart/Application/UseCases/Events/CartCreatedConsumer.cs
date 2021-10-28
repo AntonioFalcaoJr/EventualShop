@@ -27,7 +27,7 @@ namespace Application.UseCases.Events
                 UserId = cart.UserId
             };
 
-            await _projectionsService.ProjectCartDetailsAsync(accountDetails, context.CancellationToken);
+            await _projectionsService.ProjectNewAsync(accountDetails, context.CancellationToken);
         }
     }
 }

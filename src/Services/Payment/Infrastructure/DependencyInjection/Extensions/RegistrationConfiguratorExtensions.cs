@@ -1,10 +1,11 @@
 ﻿using System;
 using Application.UseCases.Commands;
 using Application.UseCases.Events;
+using Application.UseCases.Events.Projections;
 using Application.UseCases.Queries;
 using MassTransit;
 using Messages.Abstractions;
-using Messages.ShoppingCarts;
+using Messages.Payments;
 
 namespace Infrastructure.DependencyInjection.Extensions
 {
@@ -12,14 +13,15 @@ namespace Infrastructure.DependencyInjection.Extensions
     {
         public static void AddCommandConsumers(this IRegistrationConfigurator cfg)
         {
-            cfg.AddCommandConsumer<RequestPaymentConsumer, Commands.CreateCart>();
-            cfg.AddCommandConsumer<CancelPaymentConsumer, Commands.RemoveCartItem>();
+            cfg.AddCommandConsumer<RequestPaymentConsumer, Commands.RequestPayment>();
+            cfg.AddCommandConsumer<CancelPaymentConsumer, Commands.CancelPayment>();
         }
 
         public static void AddEventConsumers(this IRegistrationConfigurator cfg)
         {
             cfg.AddConsumer<PaymentRequestedConsumer>();
             cfg.AddConsumer<PaymentChangedConsumer>();
+            cfg.AddConsumer<OrderPlacedConsumer>();
         }
 
         public static void AddQueryConsumers(this IRegistrationConfigurator cfg)

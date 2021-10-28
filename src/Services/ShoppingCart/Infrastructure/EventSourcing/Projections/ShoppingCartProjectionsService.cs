@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Abstractions.EventSourcing.Projections;
 using Application.EventSourcing.Projections;
 
 namespace Infrastructure.EventSourcing.Projections
@@ -14,13 +15,18 @@ namespace Infrastructure.EventSourcing.Projections
             _repository = repository;
         }
 
-        public Task ProjectCartDetailsAsync(CartDetailsProjection cartDetails, CancellationToken cancellationToken)
-            => _repository.SaveAsync(cartDetails, cancellationToken);
-        
-        public Task UpdateCartDetailsAsync(CartDetailsProjection cartDetails, CancellationToken cancellationToken)
-            => _repository.UpsertAsync(cartDetails, cancellationToken);
+        public Task ProjectNewAsync<TProjection>(TProjection projection, CancellationToken cancellationToken)
+            where TProjection : IProjection
+            => _repository.SaveAsync(projection, cancellationToken);
 
-        public Task<CartDetailsProjection> GetCartDetailsByUserIdAsync(Guid userId, CancellationToken cancellationToken)
-            => _repository.FindAsync<CartDetailsProjection>(projection => projection.UserId == userId, cancellationToken);
+        public Task ProjectAsync<TProjection>(TProjection projection, CancellationToken cancellationToken)
+            where TProjection : IProjection
+            => _repository.UpsertAsync(projection, cancellationToken);
+
+        public Task<CartDetailsProjection> GetCartDetailsAsync(Guid userId, CancellationToken cancellationToken)
+            => _repository.FindAsync<CartDetailsProjection>(cart => cart.UserId == userId, cancellationToken);
+
+        public Task DiscardCartAsync(Guid userId, CancellationToken cancellationToken)
+            => _repository.DeleteAsync<CartDetailsProjection>(cart => cart.UserId == userId, cancellationToken);
     }
 }

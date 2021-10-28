@@ -1,6 +1,5 @@
 using System;
 using System.Reflection;
-using ECommerce.WebAPI.DependencyInjection.Extensions;
 using ECommerce.WebAPI.DependencyInjection.Observers;
 using MassTransit;
 using MassTransit.Definition;
@@ -91,6 +90,11 @@ builder.Services
             
             // Order
             MapQueueEndpoint<Messages.Orders.Commands.PlaceOrder>();
+            
+            // Payment
+            MapQueueEndpoint<Messages.Payments.Commands.CancelPayment>();
+            MapQueueEndpoint<Messages.Payments.Commands.RequestPayment>();
+            MapQueueEndpoint<Messages.Payments.Queries.GetPaymentDetails>();
         });
     })
     .AddGenericRequestClient()

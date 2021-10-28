@@ -17,7 +17,7 @@ namespace Application.UseCases.Queries
 
         public async Task Consume(ConsumeContext<GetShoppingCartQuery> context)
         {
-            var cartDetails = await _projectionsService.GetCartDetailsByUserIdAsync(context.Message.UserId, context.CancellationToken);
+            var cartDetails = await _projectionsService.GetCartDetailsAsync(context.Message.UserId, context.CancellationToken);
             await context.RespondAsync<Responses.CartDetails>(cartDetails);
         }
     }

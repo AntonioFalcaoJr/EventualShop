@@ -1,10 +1,12 @@
 ﻿using System;
 using Application.UseCases.Events;
+using Application.UseCases.Events.Projections;
 using GreenPipes;
 using MassTransit;
 using MassTransit.RabbitMqTransport;
 using Messages.Abstractions.Events;
-using Messages.ShoppingCarts;
+using Payments = Messages.Payments.Events;
+using Orders = Messages.Orders.Events;
 
 namespace Infrastructure.DependencyInjection.Extensions
 {
@@ -12,8 +14,9 @@ namespace Infrastructure.DependencyInjection.Extensions
     {
         public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
         {
-            cfg.ConfigureEventReceiveEndpoint<PaymentRequestedConsumer, Events.CartCreated>(registration);
-            cfg.ConfigureEventReceiveEndpoint<PaymentChangedConsumer, Events.BillingAddressChanged>(registration);
+            cfg.ConfigureEventReceiveEndpoint<PaymentRequestedConsumer, Payments.PaymentRequested>(registration);
+            cfg.ConfigureEventReceiveEndpoint<PaymentChangedConsumer, Payments.PaymentCanceled>(registration);
+            cfg.ConfigureEventReceiveEndpoint<OrderPlacedConsumer, Orders.OrderPlaced>(registration);
         }
 
         private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)

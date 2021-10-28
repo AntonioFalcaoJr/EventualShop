@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Abstractions.EventSourcing.Projections;
 
 namespace Application.EventSourcing.Projections
 {
-    public interface IShoppingCartProjectionsService
+    public interface IShoppingCartProjectionsService : IProjectionsService
     {
-        Task ProjectCartDetailsAsync(CartDetailsProjection cartDetails, CancellationToken cancellationToken);
-        Task UpdateCartDetailsAsync(CartDetailsProjection cartDetails, CancellationToken cancellationToken);
-        Task<CartDetailsProjection> GetCartDetailsByUserIdAsync(Guid userId, CancellationToken cancellationToken);
+        Task<CartDetailsProjection> GetCartDetailsAsync(Guid userId, CancellationToken cancellationToken);
+        Task DiscardCartAsync(Guid userId, CancellationToken cancellationToken);
     }
 }

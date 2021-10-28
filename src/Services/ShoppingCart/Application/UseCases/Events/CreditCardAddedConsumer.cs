@@ -71,7 +71,7 @@ namespace Application.UseCases.Events
                 IsCheckedOut = cart.IsCheckedOut
             };
 
-            await _projectionsService.UpdateCartDetailsAsync(accountDetails, context.CancellationToken);
+            await _projectionsService.ProjectAsync(accountDetails, context.CancellationToken);
         }
     }
 }

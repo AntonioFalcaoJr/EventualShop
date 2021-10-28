@@ -58,8 +58,7 @@ namespace Infrastructure.DependencyInjection.Extensions
                         bus.ConfigureEndpoints(context);
                     });
                 })
-                .AddMassTransitHostedService()
-                .AddGenericRequestClient();
+                .AddMassTransitHostedService();
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
             => services

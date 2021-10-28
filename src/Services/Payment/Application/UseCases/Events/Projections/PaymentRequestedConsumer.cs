@@ -1,24 +1,23 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using PaymentCanceledEvent = Messages.Payments.Events.PaymentCanceled;
+using PaymentRequestedEvent = Messages.Payments.Events.PaymentRequested;
 
-namespace Application.UseCases.Events
+namespace Application.UseCases.Events.Projections
 {
-    public class PaymentChangedConsumer : IConsumer<PaymentCanceledEvent>
+    public class PaymentRequestedConsumer : IConsumer<PaymentRequestedEvent>
     {
         private readonly IPaymentEventStoreService _eventStoreService;
         private readonly IPaymentProjectionsService _projectionsService;
 
-        public PaymentChangedConsumer(IPaymentEventStoreService eventStoreService, IPaymentProjectionsService projectionsService)
+        public PaymentRequestedConsumer(IPaymentEventStoreService eventStoreService, IPaymentProjectionsService projectionsService)
         {
             _eventStoreService = eventStoreService;
             _projectionsService = projectionsService;
         }
 
-        public async Task Consume(ConsumeContext<PaymentCanceledEvent> context)
+        public async Task Consume(ConsumeContext<PaymentRequestedEvent> context)
         {
             var payment = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.PaymentId, context.CancellationToken);
 
@@ -51,7 +50,7 @@ namespace Application.UseCases.Events
                     }
             };
 
-            await _projectionsService.UpdatePaymentDetailsAsync(paymentDetails, context.CancellationToken);
+            await _projectionsService.ProjectPaymentDetailsAsync(paymentDetails, context.CancellationToken);
         }
     }
 }

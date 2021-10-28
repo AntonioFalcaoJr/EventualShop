@@ -17,8 +17,8 @@ namespace Domain.Aggregates
         public CreditCard CreditCard { get; private set; }
 
         public void Handle(Commands.RequestPayment cmd)
-            => RaiseEvent(new Events.PaymentRequested(Id, cmd.OrderId, cmd.Amount, cmd.BillingAddress, cmd.CreditCard));
-        
+            => RaiseEvent(new Events.PaymentRequested(Guid.NewGuid(), cmd.OrderId, cmd.Amount, cmd.BillingAddress, cmd.CreditCard));
+
         public void Handle(Commands.CancelPayment cmd)
             => RaiseEvent(new Events.PaymentCanceled(Id, cmd.OrderId));
 
