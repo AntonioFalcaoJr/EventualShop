@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
-        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.3" />
-        <PackageReference Include="JsonNet.ContractResolvers" Version="2.0.0" />
-        <PackageReference Include="MassTransit.AspNetCore" Version="7.2.3" />
-        <PackageReference Include="MassTransit.RabbitMQ" Version="7.2.3" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0-rc.2.21480.5" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.0-rc.2.21480.5" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0-rc.2.21480.5" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0-rc.2.21480.5" />
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0-rc.2.21480.5" />
-        <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="6.0.0-rc.2.21480.5" />
-        <PackageReference Include="MongoDB.Driver" Version="2.13.2" />
-        <PackageReference Include="Serilog" Version="2.11.0-dev-01371" />
-        <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0-rc.2.21480.5" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="$(FluentValidation_Version)" />
+        <PackageReference Include="JsonNet.ContractResolvers" Version="$(ContractResolvers_Version)" />
+        <PackageReference Include="MassTransit.AspNetCore" Version="$(MassTransit_Version)" />
+        <PackageReference Include="MassTransit.RabbitMQ" Version="$(MassTransit_Version)" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EntityFrameworkCore_Version)" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EntityFrameworkCore_Version)" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="$(EntityFrameworkCore_Version)" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EntityFrameworkCore_Version)" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="$(EntityFrameworkCore_Version)" />
+        <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="$(EntityFrameworkCore_Version)" />
+        <PackageReference Include="MongoDB.Driver" Version="$(MongoDb_Version)" />
+        <PackageReference Include="Serilog" Version="$(Serilog_Version)" />
+        <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="$(EntityFrameworkCore_Version)" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\..\Contracts\Messages\Messages.csproj" />

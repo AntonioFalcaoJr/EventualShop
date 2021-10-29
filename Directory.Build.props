@@ -14,23 +14,25 @@
         <Microsoft_Extensions_Version>6.0.0-preview.4.21253.7</Microsoft_Extensions_Version>
 
         <!--EF Core-->
-        <Microsoft_EntityFrameworkCore_Version>6.0.0-preview.4.21253.1</Microsoft_EntityFrameworkCore_Version>
-        <Microsoft_EntityFrameworkCore_DependencyInjection_Version>6.0.0-preview.2.21154.6</Microsoft_EntityFrameworkCore_DependencyInjection_Version>
-        <Microsoft_HealthChecks_EntityFrameworkCore_Version>6.0.0-preview.4.21253.5</Microsoft_HealthChecks_EntityFrameworkCore_Version>
+        <EntityFrameworkCore_Version>6.0.0-rc.2.21480.5</EntityFrameworkCore_Version>
 
-        <!--AutoMapper-->
-        <AutoMapper_DependencyInjection_Version>8.1.1</AutoMapper_DependencyInjection_Version>
-        <AutoMapper_Version>10.1.1</AutoMapper_Version>
+        <!--MongoDb-->
+        <MongoDb_Version>2.13.2</MongoDb_Version>
+
+        <!--MassTransit-->
+        <MassTransit_Version>7.2.4-develop.287</MassTransit_Version>
+
+        <!--Newtonsoft-->
+        <Newtonsoft_Version>13.0.1</Newtonsoft_Version>
+        <ContractResolvers_Version>2.0.0</ContractResolvers_Version>
 
         <!--Serilog-->
-        <Serilog_Version>4.1.0</Serilog_Version>
+        <Serilog_Version>2.11.0-dev-01371</Serilog_Version>
+        <Serilog_AspNetCore_Version>4.1.1-dev-00229</Serilog_AspNetCore_Version>
+        <Serilog_Extensions_Version>4.1.2</Serilog_Extensions_Version>
 
-        <!--HealthChecks-->
-        <HealthChecks_Version>5.0.1</HealthChecks_Version>
-
-        <!--Others-->
-        <FluentValidation_Version>10.2.1</FluentValidation_Version>
-        <Scrutor_Version>3.3.0</Scrutor_Version>
+        <!--FluentValidation-->
+        <FluentValidation_Version>10.3.4</FluentValidation_Version>
 
     </PropertyGroup>
 
