@@ -1,10 +1,9 @@
-﻿namespace Application.Abstractions.EventSourcing.Projections.Pagination
+﻿namespace Application.Abstractions.EventSourcing.Projections.Pagination;
+
+public interface IPageInfo
 {
-    public interface IPageInfo
-    {
-        int Current { get; }
-        int Size { get; }
-        bool HasPrevious { get; }
-        bool HasNext { get; }
-    }
+    int Current { get; }
+    int Size { get; }
+    bool HasPrevious { get; }
+    bool HasNext { get; }
 }

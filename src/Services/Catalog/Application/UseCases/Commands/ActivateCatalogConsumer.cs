@@ -3,22 +3,21 @@ using Application.EventSourcing.EventStore;
 using MassTransit;
 using ActivateCatalogCommand = Messages.Catalogs.Commands.ActivateCatalog;
 
-namespace Application.UseCases.Commands
+namespace Application.UseCases.Commands;
+
+public class ActivateCatalogConsumer : IConsumer<ActivateCatalogCommand>
 {
-    public class ActivateCatalogConsumer : IConsumer<ActivateCatalogCommand>
+    private readonly ICatalogEventStoreService _eventStoreService;
+
+    public ActivateCatalogConsumer(ICatalogEventStoreService eventStoreService)
     {
-        private readonly ICatalogEventStoreService _eventStoreService;
+        _eventStoreService = eventStoreService;
+    }
 
-        public ActivateCatalogConsumer(ICatalogEventStoreService eventStoreService)
-        {
-            _eventStoreService = eventStoreService;
-        }
-
-        public async Task Consume(ConsumeContext<ActivateCatalogCommand> context)
-        {
-            var catalog = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CatalogId, context.CancellationToken);
-            catalog.Activate(context.Message.CatalogId);
-            await _eventStoreService.AppendEventsToStreamAsync(catalog, context.CancellationToken);
-        }
+    public async Task Consume(ConsumeContext<ActivateCatalogCommand> context)
+    {
+        var catalog = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CatalogId, context.CancellationToken);
+        catalog.Activate(context.Message.CatalogId);
+        await _eventStoreService.AppendEventsToStreamAsync(catalog, context.CancellationToken);
     }
 }

@@ -3,29 +3,28 @@ using Application.EventSourcing.EventStore;
 using MassTransit;
 using AddCatalogItemCommand = Messages.Catalogs.Commands.AddCatalogItem;
 
-namespace Application.UseCases.Commands
+namespace Application.UseCases.Commands;
+
+public class AddCatalogItemConsumer : IConsumer<AddCatalogItemCommand>
 {
-    public class AddCatalogItemConsumer : IConsumer<AddCatalogItemCommand>
+    private readonly ICatalogEventStoreService _eventStoreService;
+
+    public AddCatalogItemConsumer(ICatalogEventStoreService eventStoreService)
     {
-        private readonly ICatalogEventStoreService _eventStoreService;
+        _eventStoreService = eventStoreService;
+    }
 
-        public AddCatalogItemConsumer(ICatalogEventStoreService eventStoreService)
-        {
-            _eventStoreService = eventStoreService;
-        }
+    public async Task Consume(ConsumeContext<AddCatalogItemCommand> context)
+    {
+        var catalog = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CatalogId, context.CancellationToken);
 
-        public async Task Consume(ConsumeContext<AddCatalogItemCommand> context)
-        {
-            var catalog = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CatalogId, context.CancellationToken);
+        catalog.AddItem(
+            catalog.Id,
+            context.Message.Name,
+            context.Message.Description,
+            context.Message.Price,
+            context.Message.PictureUri);
 
-            catalog.AddItem(
-                catalog.Id,
-                context.Message.Name,
-                context.Message.Description,
-                context.Message.Price,
-                context.Message.PictureUri);
-
-            await _eventStoreService.AppendEventsToStreamAsync(catalog, context.CancellationToken);
-        }
+        await _eventStoreService.AppendEventsToStreamAsync(catalog, context.CancellationToken);
     }
 }

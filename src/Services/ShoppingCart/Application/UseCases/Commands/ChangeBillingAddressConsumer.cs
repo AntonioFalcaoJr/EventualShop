@@ -3,22 +3,21 @@ using Application.EventSourcing.EventStore;
 using MassTransit;
 using ChangeBillingAddressCommand = Messages.ShoppingCarts.Commands.ChangeBillingAddress;
 
-namespace Application.UseCases.Commands
+namespace Application.UseCases.Commands;
+
+public class ChangeBillingAddressConsumer : IConsumer<ChangeBillingAddressCommand>
 {
-    public class ChangeBillingAddressConsumer : IConsumer<ChangeBillingAddressCommand>
+    private readonly IShoppingCartEventStoreService _eventStoreService;
+
+    public ChangeBillingAddressConsumer(IShoppingCartEventStoreService eventStoreService)
     {
-        private readonly IShoppingCartEventStoreService _eventStoreService;
+        _eventStoreService = eventStoreService;
+    }
 
-        public ChangeBillingAddressConsumer(IShoppingCartEventStoreService eventStoreService)
-        {
-            _eventStoreService = eventStoreService;
-        }
-
-        public async Task Consume(ConsumeContext<ChangeBillingAddressCommand> context)
-        {
-            var cart = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CartId, context.CancellationToken);
-            cart.Handle(context.Message);
-            await _eventStoreService.AppendEventsToStreamAsync(cart, context.CancellationToken);
-        }
+    public async Task Consume(ConsumeContext<ChangeBillingAddressCommand> context)
+    {
+        var cart = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CartId, context.CancellationToken);
+        cart.Handle(context.Message);
+        await _eventStoreService.AppendEventsToStreamAsync(cart, context.CancellationToken);
     }
 }

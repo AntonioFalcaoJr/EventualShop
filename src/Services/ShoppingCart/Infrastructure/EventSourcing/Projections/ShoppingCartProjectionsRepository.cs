@@ -2,11 +2,10 @@
 using Infrastructure.Abstractions.EventSourcing.Projections;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 
-namespace Infrastructure.EventSourcing.Projections
+namespace Infrastructure.EventSourcing.Projections;
+
+public class ShoppingCartProjectionsRepository : ProjectionsRepository, IShoppingCartProjectionsRepository
 {
-    public class ShoppingCartProjectionsRepository : ProjectionsRepository, IShoppingCartProjectionsRepository
-    {
-        public ShoppingCartProjectionsRepository(IMongoDbContext context)
-            : base(context) { }
-    }
+    public ShoppingCartProjectionsRepository(IMongoDbContext context)
+        : base(context) { }
 }

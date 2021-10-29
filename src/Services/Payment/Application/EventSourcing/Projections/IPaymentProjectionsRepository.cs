@@ -1,6 +1,5 @@
 ﻿using Application.Abstractions.EventSourcing.Projections;
 
-namespace Application.EventSourcing.Projections
-{
-    public interface IPaymentProjectionsRepository : IProjectionsRepository { }
-}
+namespace Application.EventSourcing.Projections;
+
+public interface IPaymentProjectionsRepository : IProjectionsRepository { }

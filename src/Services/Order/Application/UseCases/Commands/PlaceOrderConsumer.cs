@@ -4,22 +4,21 @@ using Domain.Aggregates;
 using MassTransit;
 using PlaceOrderCommand = Messages.Orders.Commands.PlaceOrder;
 
-namespace Application.UseCases.Commands
+namespace Application.UseCases.Commands;
+
+public class PlaceOrderConsumer : IConsumer<PlaceOrderCommand>
 {
-    public class PlaceOrderConsumer : IConsumer<PlaceOrderCommand>
+    private readonly IOrderEventStoreService _eventStoreService;
+
+    public PlaceOrderConsumer(IOrderEventStoreService eventStoreService)
     {
-        private readonly IOrderEventStoreService _eventStoreService;
+        _eventStoreService = eventStoreService;
+    }
 
-        public PlaceOrderConsumer(IOrderEventStoreService eventStoreService)
-        {
-            _eventStoreService = eventStoreService;
-        }
-
-        public async Task Consume(ConsumeContext<PlaceOrderCommand> context)
-        {
-            var order = new Order();
-            order.Handle(context.Message);
-            await _eventStoreService.AppendEventsToStreamAsync(order, context.CancellationToken);
-        }
+    public async Task Consume(ConsumeContext<PlaceOrderCommand> context)
+    {
+        var order = new Order();
+        order.Handle(context.Message);
+        await _eventStoreService.AppendEventsToStreamAsync(order, context.CancellationToken);
     }
 }

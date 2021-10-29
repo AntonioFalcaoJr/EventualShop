@@ -8,44 +8,43 @@ using UserRegisteredEvent = Messages.Identities.Events.UserRegistered;
 using UserPasswordChangedEvent = Messages.Identities.Events.UserPasswordChanged;
 using UserDeletedEvent = Messages.Identities.Events.UserDeleted;
 
-namespace Application.UseCases.Events
+namespace Application.UseCases.Events;
+
+public class UserChangedConsumer :
+    IConsumer<UserRegisteredEvent>,
+    IConsumer<UserPasswordChangedEvent>,
+    IConsumer<UserDeletedEvent>
 {
-    public class UserChangedConsumer :
-        IConsumer<UserRegisteredEvent>,
-        IConsumer<UserPasswordChangedEvent>,
-        IConsumer<UserDeletedEvent>
+    private readonly IUserEventStoreService _eventStoreService;
+    private readonly IUserProjectionsService _projectionsService;
+
+    public UserChangedConsumer(IUserEventStoreService eventStoreService, IUserProjectionsService projectionsService)
     {
-        private readonly IUserEventStoreService _eventStoreService;
-        private readonly IUserProjectionsService _projectionsService;
+        _eventStoreService = eventStoreService;
+        _projectionsService = projectionsService;
+    }
 
-        public UserChangedConsumer(IUserEventStoreService eventStoreService, IUserProjectionsService projectionsService)
+    public Task Consume(ConsumeContext<UserDeletedEvent> context)
+        => Project(context.Message.UserId, context.CancellationToken);
+
+    public Task Consume(ConsumeContext<UserPasswordChangedEvent> context)
+        => Project(context.Message.UserId, context.CancellationToken);
+
+    public Task Consume(ConsumeContext<UserRegisteredEvent> context)
+        => Project(context.Message.UserId, context.CancellationToken);
+
+    private async Task Project(Guid userId, CancellationToken cancellationToken)
+    {
+        var user = await _eventStoreService.LoadAggregateFromStreamAsync(userId, cancellationToken);
+
+        var userAuthenticationDetails = new UserAuthenticationDetailsProjection
         {
-            _eventStoreService = eventStoreService;
-            _projectionsService = projectionsService;
-        }
+            Id = user.Id,
+            Email = user.Email,
+            Password = user.Password,
+            IsDeleted = user.IsDeleted
+        };
 
-        public Task Consume(ConsumeContext<UserDeletedEvent> context)
-            => Project(context.Message.UserId, context.CancellationToken);
-
-        public Task Consume(ConsumeContext<UserPasswordChangedEvent> context)
-            => Project(context.Message.UserId, context.CancellationToken);
-
-        public Task Consume(ConsumeContext<UserRegisteredEvent> context)
-            => Project(context.Message.UserId, context.CancellationToken);
-
-        private async Task Project(Guid userId, CancellationToken cancellationToken)
-        {
-            var user = await _eventStoreService.LoadAggregateFromStreamAsync(userId, cancellationToken);
-
-            var userAuthenticationDetails = new UserAuthenticationDetailsProjection
-            {
-                Id = user.Id,
-                Email = user.Email,
-                Password = user.Password,
-                IsDeleted = user.IsDeleted
-            };
-
-            await _projectionsService.ProjectUserAuthenticationDetailsAsync(userAuthenticationDetails, cancellationToken);
-        }
+        await _projectionsService.ProjectUserAuthenticationDetailsAsync(userAuthenticationDetails, cancellationToken);
     }
 }

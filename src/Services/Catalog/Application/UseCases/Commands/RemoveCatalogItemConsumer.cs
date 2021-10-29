@@ -3,22 +3,21 @@ using Application.EventSourcing.EventStore;
 using MassTransit;
 using RemoveCatalogItemCommand = Messages.Catalogs.Commands.RemoveCatalogItem;
 
-namespace Application.UseCases.Commands
+namespace Application.UseCases.Commands;
+
+public class RemoveCatalogItemConsumer : IConsumer<RemoveCatalogItemCommand>
 {
-    public class RemoveCatalogItemConsumer : IConsumer<RemoveCatalogItemCommand>
+    private readonly ICatalogEventStoreService _eventStoreService;
+
+    public RemoveCatalogItemConsumer(ICatalogEventStoreService eventStoreService)
     {
-        private readonly ICatalogEventStoreService _eventStoreService;
+        _eventStoreService = eventStoreService;
+    }
 
-        public RemoveCatalogItemConsumer(ICatalogEventStoreService eventStoreService)
-        {
-            _eventStoreService = eventStoreService;
-        }
-
-        public async Task Consume(ConsumeContext<RemoveCatalogItemCommand> context)
-        {
-            var catalog = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CatalogId, context.CancellationToken);
-            catalog.RemoveItem(catalog.Id, context.Message.CatalogItemId);
-            await _eventStoreService.AppendEventsToStreamAsync(catalog, context.CancellationToken);
-        }
+    public async Task Consume(ConsumeContext<RemoveCatalogItemCommand> context)
+    {
+        var catalog = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CatalogId, context.CancellationToken);
+        catalog.RemoveItem(catalog.Id, context.Message.CatalogItemId);
+        await _eventStoreService.AppendEventsToStreamAsync(catalog, context.CancellationToken);
     }
 }

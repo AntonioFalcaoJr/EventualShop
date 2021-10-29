@@ -4,28 +4,27 @@ using Domain.Aggregates;
 using MassTransit;
 using RegisterUserCommand = Messages.Identities.Commands.RegisterUser;
 
-namespace Application.UseCases.Commands
+namespace Application.UseCases.Commands;
+
+public class RegisterUserConsumer : IConsumer<RegisterUserCommand>
 {
-    public class RegisterUserConsumer : IConsumer<RegisterUserCommand>
+    private readonly IUserEventStoreService _eventStoreService;
+
+    public RegisterUserConsumer(IUserEventStoreService eventStoreService)
     {
-        private readonly IUserEventStoreService _eventStoreService;
+        _eventStoreService = eventStoreService;
+    }
 
-        public RegisterUserConsumer(IUserEventStoreService eventStoreService)
-        {
-            _eventStoreService = eventStoreService;
-        }
+    public async Task Consume(ConsumeContext<RegisterUserCommand> context)
+    {
+        var user = new User();
 
-        public async Task Consume(ConsumeContext<RegisterUserCommand> context)
-        {
-            var user = new User();
+        user.Register(
+            context.Message.Email,
+            context.Message.FirstName,
+            context.Message.Password,
+            context.Message.PasswordConfirmation);
 
-            user.Register(
-                context.Message.Email,
-                context.Message.FirstName,
-                context.Message.Password,
-                context.Message.PasswordConfirmation);
-
-            await _eventStoreService.AppendEventsToStreamAsync(user, context.CancellationToken);
-        }
+        await _eventStoreService.AppendEventsToStreamAsync(user, context.CancellationToken);
     }
 }

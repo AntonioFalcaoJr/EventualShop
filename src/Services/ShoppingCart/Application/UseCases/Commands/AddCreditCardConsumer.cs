@@ -3,22 +3,21 @@ using Application.EventSourcing.EventStore;
 using MassTransit;
 using AddCreditCardCommand = Messages.ShoppingCarts.Commands.AddCreditCard;
 
-namespace Application.UseCases.Commands
+namespace Application.UseCases.Commands;
+
+public class AddCreditCardConsumer : IConsumer<AddCreditCardCommand>
 {
-    public class AddCreditCardConsumer : IConsumer<AddCreditCardCommand>
+    private readonly IShoppingCartEventStoreService _eventStoreService;
+
+    public AddCreditCardConsumer(IShoppingCartEventStoreService eventStoreService)
     {
-        private readonly IShoppingCartEventStoreService _eventStoreService;
+        _eventStoreService = eventStoreService;
+    }
 
-        public AddCreditCardConsumer(IShoppingCartEventStoreService eventStoreService)
-        {
-            _eventStoreService = eventStoreService;
-        }
-
-        public async Task Consume(ConsumeContext<AddCreditCardCommand> context)
-        {
-            var cart = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CartId, context.CancellationToken);
-            cart.Handle(context.Message);
-            await _eventStoreService.AppendEventsToStreamAsync(cart, context.CancellationToken);
-        }
+    public async Task Consume(ConsumeContext<AddCreditCardCommand> context)
+    {
+        var cart = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CartId, context.CancellationToken);
+        cart.Handle(context.Message);
+        await _eventStoreService.AppendEventsToStreamAsync(cart, context.CancellationToken);
     }
 }

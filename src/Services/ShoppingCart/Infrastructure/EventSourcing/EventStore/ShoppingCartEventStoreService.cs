@@ -8,11 +8,10 @@ using MassTransit;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Infrastructure.EventSourcing.EventStore
+namespace Infrastructure.EventSourcing.EventStore;
+
+public class ShoppingCartEventStoreService : EventStoreService<Cart, ShoppingCartStoreEvent, ShoppingCartSnapshot, Guid>, IShoppingCartEventStoreService
 {
-    public class ShoppingCartEventStoreService : EventStoreService<Cart, ShoppingCartStoreEvent, ShoppingCartSnapshot, Guid>, IShoppingCartEventStoreService
-    {
-        public ShoppingCartEventStoreService(ILogger<ShoppingCartEventStoreService> logger, IOptionsMonitor<EventStoreOptions> optionsMonitor, IShoppingCartEventStoreRepository repository, IBus bus)
-            : base(logger, optionsMonitor, repository, bus) { }
-    }
+    public ShoppingCartEventStoreService(ILogger<ShoppingCartEventStoreService> logger, IOptionsMonitor<EventStoreOptions> optionsMonitor, IShoppingCartEventStoreRepository repository, IBus bus)
+        : base(logger, optionsMonitor, repository, bus) { }
 }

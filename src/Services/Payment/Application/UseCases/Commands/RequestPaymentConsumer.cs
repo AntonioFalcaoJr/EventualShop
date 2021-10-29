@@ -4,22 +4,21 @@ using Domain.Aggregates;
 using MassTransit;
 using RequestPaymentCommand = Messages.Payments.Commands.RequestPayment;
 
-namespace Application.UseCases.Commands
+namespace Application.UseCases.Commands;
+
+public class RequestPaymentConsumer : IConsumer<RequestPaymentCommand>
 {
-    public class RequestPaymentConsumer : IConsumer<RequestPaymentCommand>
+    private readonly IPaymentEventStoreService _eventStoreService;
+
+    public RequestPaymentConsumer(IPaymentEventStoreService eventStoreService)
     {
-        private readonly IPaymentEventStoreService _eventStoreService;
+        _eventStoreService = eventStoreService;
+    }
 
-        public RequestPaymentConsumer(IPaymentEventStoreService eventStoreService)
-        {
-            _eventStoreService = eventStoreService;
-        }
-
-        public async Task Consume(ConsumeContext<RequestPaymentCommand> context)
-        {
-            var payment = new Payment();
-            payment.Handle(context.Message);
-            await _eventStoreService.AppendEventsToStreamAsync(payment, context.CancellationToken);
-        }
+    public async Task Consume(ConsumeContext<RequestPaymentCommand> context)
+    {
+        var payment = new Payment();
+        payment.Handle(context.Message);
+        await _eventStoreService.AppendEventsToStreamAsync(payment, context.CancellationToken);
     }
 }

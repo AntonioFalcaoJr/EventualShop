@@ -5,10 +5,9 @@ using Domain.Aggregates;
 using Infrastructure.Abstractions.EventSourcing.EventStore;
 using Infrastructure.EventSourcing.EventStore.Contexts;
 
-namespace Infrastructure.EventSourcing.EventStore
+namespace Infrastructure.EventSourcing.EventStore;
+
+public class ShoppingCartEventStoreRepository : EventStoreRepository<Cart, ShoppingCartStoreEvent, ShoppingCartSnapshot, Guid>, IShoppingCartEventStoreRepository
 {
-    public class ShoppingCartEventStoreRepository : EventStoreRepository<Cart, ShoppingCartStoreEvent, ShoppingCartSnapshot, Guid>, IShoppingCartEventStoreRepository
-    {
-        public ShoppingCartEventStoreRepository(EventStoreDbContext dbContext) : base(dbContext) { }
-    }
+    public ShoppingCartEventStoreRepository(EventStoreDbContext dbContext) : base(dbContext) { }
 }

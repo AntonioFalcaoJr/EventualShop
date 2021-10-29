@@ -4,36 +4,35 @@ using Application.EventSourcing.Projections;
 using MassTransit;
 using AccountCreatedEvent = Messages.Accounts.Events.AccountCreated;
 
-namespace Application.UseCases.Events.Projections
+namespace Application.UseCases.Events.Projections;
+
+public class AccountCreatedConsumer : IConsumer<AccountCreatedEvent>
 {
-    public class AccountCreatedConsumer : IConsumer<AccountCreatedEvent>
+    private readonly IAccountEventStoreService _eventStoreService;
+    private readonly IAccountProjectionsService _projectionsService;
+
+    public AccountCreatedConsumer(IAccountEventStoreService eventStoreService, IAccountProjectionsService projectionsService)
     {
-        private readonly IAccountEventStoreService _eventStoreService;
-        private readonly IAccountProjectionsService _projectionsService;
+        _eventStoreService = eventStoreService;
+        _projectionsService = projectionsService;
+    }
 
-        public AccountCreatedConsumer(IAccountEventStoreService eventStoreService, IAccountProjectionsService projectionsService)
+    public async Task Consume(ConsumeContext<AccountCreatedEvent> context)
+    {
+        var account = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.AccountId, context.CancellationToken);
+
+        var accountDetails = new AccountDetailsProjection
         {
-            _eventStoreService = eventStoreService;
-            _projectionsService = projectionsService;
-        }
-
-        public async Task Consume(ConsumeContext<AccountCreatedEvent> context)
-        {
-            var account = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.AccountId, context.CancellationToken);
-
-            var accountDetails = new AccountDetailsProjection
+            Id = account.Id,
+            UserId = account.UserId,
+            Profile = new()
             {
-                Id = account.Id,
-                UserId = account.UserId,
-                Profile = new()
-                {
-                    Email = account.Profile.Email,
-                    FirstName = account.Profile.FirstName
-                },
-                IsDeleted = account.IsDeleted
-            };
+                Email = account.Profile.Email,
+                FirstName = account.Profile.FirstName
+            },
+            IsDeleted = account.IsDeleted
+        };
 
-            await _projectionsService.ProjectNewAsync(accountDetails, context.CancellationToken);
-        }
+        await _projectionsService.ProjectNewAsync(accountDetails, context.CancellationToken);
     }
 }

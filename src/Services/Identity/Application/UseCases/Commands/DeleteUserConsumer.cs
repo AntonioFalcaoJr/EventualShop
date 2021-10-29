@@ -3,22 +3,21 @@ using Application.EventSourcing.EventStore;
 using MassTransit;
 using DeleteUserCommand = Messages.Identities.Commands.DeleteUser;
 
-namespace Application.UseCases.Commands
+namespace Application.UseCases.Commands;
+
+public class DeleteUserConsumer : IConsumer<DeleteUserCommand>
 {
-    public class DeleteUserConsumer : IConsumer<DeleteUserCommand>
+    private readonly IUserEventStoreService _eventStoreService;
+
+    public DeleteUserConsumer(IUserEventStoreService eventStoreService)
     {
-        private readonly IUserEventStoreService _eventStoreService;
+        _eventStoreService = eventStoreService;
+    }
 
-        public DeleteUserConsumer(IUserEventStoreService eventStoreService)
-        {
-            _eventStoreService = eventStoreService;
-        }
-
-        public async Task Consume(ConsumeContext<DeleteUserCommand> context)
-        {
-            var user = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.UserId, context.CancellationToken);
-            user.Delete(user.Id);
-            await _eventStoreService.AppendEventsToStreamAsync(user, context.CancellationToken);
-        }
+    public async Task Consume(ConsumeContext<DeleteUserCommand> context)
+    {
+        var user = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.UserId, context.CancellationToken);
+        user.Delete(user.Id);
+        await _eventStoreService.AppendEventsToStreamAsync(user, context.CancellationToken);
     }
 }

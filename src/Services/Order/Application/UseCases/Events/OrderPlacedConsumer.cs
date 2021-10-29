@@ -4,30 +4,29 @@ using Application.EventSourcing.Projections;
 using MassTransit;
 using OrderPlacedEvent = Messages.Orders.Events.OrderPlaced;
 
-namespace Application.UseCases.Events
+namespace Application.UseCases.Events;
+
+public class OrderPlacedConsumer : IConsumer<OrderPlacedEvent>
 {
-    public class OrderPlacedConsumer : IConsumer<OrderPlacedEvent>
+    private readonly IOrderEventStoreService _eventStoreService;
+    private readonly IOrderProjectionsService _projectionsService;
+
+    public OrderPlacedConsumer(IOrderEventStoreService eventStoreService, IOrderProjectionsService projectionsService)
     {
-        private readonly IOrderEventStoreService _eventStoreService;
-        private readonly IOrderProjectionsService _projectionsService;
+        _eventStoreService = eventStoreService;
+        _projectionsService = projectionsService;
+    }
 
-        public OrderPlacedConsumer(IOrderEventStoreService eventStoreService, IOrderProjectionsService projectionsService)
-        {
-            _eventStoreService = eventStoreService;
-            _projectionsService = projectionsService;
-        }
-
-        public async Task Consume(ConsumeContext<OrderPlacedEvent> context)
-        {
-            var order = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.OrderId, context.CancellationToken);
+    public async Task Consume(ConsumeContext<OrderPlacedEvent> context)
+    {
+        var order = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.OrderId, context.CancellationToken);
             
-            var orderDetailsProjection = new OrderDetailsProjection
-            {
-                Id = order.Id,
-                IsDeleted = order.IsDeleted
-            };
+        var orderDetailsProjection = new OrderDetailsProjection
+        {
+            Id = order.Id,
+            IsDeleted = order.IsDeleted
+        };
             
-            await _projectionsService.ProjectOrderDetailsAsync(orderDetailsProjection, context.CancellationToken);
-        }
+        await _projectionsService.ProjectOrderDetailsAsync(orderDetailsProjection, context.CancellationToken);
     }
 }
