@@ -4,7 +4,7 @@
         <PackageReference Include="MassTransit.AspNetCore" Version="$(MassTransit_Version)" />
         <PackageReference Include="MassTransit.RabbitMQ" Version="$(MassTransit_Version)" />
         <PackageReference Include="Serilog.AspNetCore" Version="$(Serilog_AspNetCore_Version)" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.2" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\..\Contracts\Messages\Messages.csproj" />
