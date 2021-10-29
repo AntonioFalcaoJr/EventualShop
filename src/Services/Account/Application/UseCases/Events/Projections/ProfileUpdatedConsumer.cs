@@ -24,7 +24,7 @@ namespace Application.UseCases.Events.Projections
             var accountDetails = new AccountDetailsProjection
             {
                 Id = account.Id,
-                Profile = new ProfileProjection
+                Profile = new ()
                 {
                     Birthdate = account.Profile.Birthdate,
                     Email = account.Profile.Email,
@@ -33,7 +33,7 @@ namespace Application.UseCases.Events.Projections
                 }
             };
 
-            await _projectionsService.UpdateAccountProfileAsync(accountDetails, context.CancellationToken);
+            await _projectionsService.ProjectAsync(accountDetails, context.CancellationToken);
         }
     }
 }

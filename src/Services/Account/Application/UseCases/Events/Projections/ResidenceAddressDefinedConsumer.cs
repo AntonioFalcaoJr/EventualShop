@@ -24,9 +24,9 @@ namespace Application.UseCases.Events.Projections
             var accountDetails = new AccountDetailsProjection
             {
                 Id = account.Id,
-                Profile = new ProfileProjection
+                Profile = new ()
                 {
-                    ProfessionalAddress = new AddressProjection
+                    ProfessionalAddress = new ()
                     {
                         City = account.Profile.ProfessionalAddress.City,
                         Country = account.Profile.ProfessionalAddress.Country,
@@ -38,7 +38,7 @@ namespace Application.UseCases.Events.Projections
                 }
             };
 
-            await _projectionsService.UpdateAccountProfileAsync(accountDetails, context.CancellationToken);
+            await _projectionsService.ProjectAsync(accountDetails, context.CancellationToken);
         }
     }
 }

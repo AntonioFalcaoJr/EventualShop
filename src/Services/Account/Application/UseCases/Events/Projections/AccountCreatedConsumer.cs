@@ -25,7 +25,7 @@ namespace Application.UseCases.Events.Projections
             {
                 Id = account.Id,
                 UserId = account.UserId,
-                Profile = new ProfileProjection
+                Profile = new()
                 {
                     Email = account.Profile.Email,
                     FirstName = account.Profile.FirstName
@@ -33,7 +33,7 @@ namespace Application.UseCases.Events.Projections
                 IsDeleted = account.IsDeleted
             };
 
-            await _projectionsService.ProjectNewAccountDetailsAsync(accountDetails, context.CancellationToken);
+            await _projectionsService.ProjectNewAsync(accountDetails, context.CancellationToken);
         }
     }
 }
