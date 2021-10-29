@@ -20,84 +20,83 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 
-namespace Infrastructure.DependencyInjection.Extensions
+namespace Infrastructure.DependencyInjection.Extensions;
+
+public static class ServiceCollectionExtensions
 {
-    public static class ServiceCollectionExtensions
-    {
-        private static readonly RabbitMqOptions Options = new();
+    private static readonly RabbitMqOptions Options = new();
 
-        public static IServiceCollection AddMassTransitWithRabbitMq(this IServiceCollection services, Action<RabbitMqOptions> optionsAction)
-            => services.AddMassTransit(cfg =>
+    public static IServiceCollection AddMassTransitWithRabbitMq(this IServiceCollection services, Action<RabbitMqOptions> optionsAction)
+        => services.AddMassTransit(cfg =>
+            {
+                optionsAction(Options);
+
+                cfg.SetKebabCaseEndpointNameFormatter();
+
+                cfg.AddCommandConsumers();
+                cfg.AddEventConsumers();
+                cfg.AddQueryConsumers();
+
+                cfg.UsingRabbitMq((context, bus) =>
                 {
-                    optionsAction(Options);
+                    bus.Host(
+                        host: Options.Host,
+                        port: Options.Port,
+                        virtualHost: Options.VirtualHost,
+                        host =>
+                        {
+                            host.Username(Options.Username);
+                            host.Password(Options.Password);
+                        });
 
-                    cfg.SetKebabCaseEndpointNameFormatter();
+                    bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
+                    bus.UseConsumeFilter(typeof(MessageValidatorFilter<>), context);
+                    bus.ConnectConsumeObserver(new LoggingConsumeObserver());
+                    bus.ConnectPublishObserver(new LoggingPublishObserver());
+                    bus.ConnectSendObserver(new LoggingSendObserver());
+                    bus.ConfigureEventReceiveEndpoints(context);
+                    bus.ConfigureEndpoints(context);
+                });
+            })
+            .AddMassTransitHostedService()
+            .AddGenericRequestClient();
 
-                    cfg.AddCommandConsumers();
-                    cfg.AddEventConsumers();
-                    cfg.AddQueryConsumers();
+    public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        => services
+            .AddScoped<IAccountEventStoreService, AccountEventStoreService>()
+            .AddScoped<IAccountProjectionsService, AccountProjectionsService>();
 
-                    cfg.UsingRabbitMq((context, bus) =>
-                    {
-                        bus.Host(
-                            host: Options.Host,
-                            port: Options.Port,
-                            virtualHost: Options.VirtualHost,
-                            host =>
-                            {
-                                host.Username(Options.Username);
-                                host.Password(Options.Password);
-                            });
+    public static IServiceCollection AddEventStoreDbContext(this IServiceCollection services)
+        => services
+            .AddScoped<DbContext, EventStoreDbContext>()
+            .AddDbContext<EventStoreDbContext>();
 
-                        bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
-                        bus.UseConsumeFilter(typeof(MessageValidatorFilter<>), context);
-                        bus.ConnectConsumeObserver(new LoggingConsumeObserver());
-                        bus.ConnectPublishObserver(new LoggingPublishObserver());
-                        bus.ConnectSendObserver(new LoggingSendObserver());
-                        bus.ConfigureEventReceiveEndpoints(context);
-                        bus.ConfigureEndpoints(context);
-                    });
-                })
-                .AddMassTransitHostedService()
-                .AddGenericRequestClient();
-
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
-            => services
-                .AddScoped<IAccountEventStoreService, AccountEventStoreService>()
-                .AddScoped<IAccountProjectionsService, AccountProjectionsService>();
-
-        public static IServiceCollection AddEventStoreDbContext(this IServiceCollection services)
-            => services
-                .AddScoped<DbContext, EventStoreDbContext>()
-                .AddDbContext<EventStoreDbContext>();
-
-        public static IServiceCollection AddProjectionsDbContext(this IServiceCollection services)
-        {
-            BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.CSharpLegacy));
-            return services.AddScoped<IMongoDbContext, ProjectionsDbContext>();
-        }
-
-        public static IServiceCollection AddEventStoreRepositories(this IServiceCollection services)
-            => services.AddScoped<IAccountEventStoreRepository, AccountEventStoreRepository>();
-
-        public static IServiceCollection AddProjectionsRepositories(this IServiceCollection services)
-            => services.AddScoped<IAccountProjectionsRepository, AccountProjectionsRepository>();
-
-        public static IServiceCollection AddMessageFluentValidation(this IServiceCollection services)
-            => services.AddValidatorsFromAssemblyContaining(typeof(IMessage));
-
-        public static OptionsBuilder<SqlServerRetryingOptions> ConfigureSqlServerRetryingOptions(this IServiceCollection services, IConfigurationSection section)
-            => services
-                .AddOptions<SqlServerRetryingOptions>()
-                .Bind(section)
-                .ValidateDataAnnotations()
-                .ValidateOnStart();
-
-        public static OptionsBuilder<EventStoreOptions> ConfigureEventStoreOptions(this IServiceCollection services, IConfigurationSection section)
-            => services
-                .AddOptions<EventStoreOptions>()
-                .Bind(section)
-                .ValidateDataAnnotations()
-                .ValidateOnStart();
+    public static IServiceCollection AddProjectionsDbContext(this IServiceCollection services)
+    {
+        BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.CSharpLegacy));
+        return services.AddScoped<IMongoDbContext, ProjectionsDbContext>();
     }
+
+    public static IServiceCollection AddEventStoreRepositories(this IServiceCollection services)
+        => services.AddScoped<IAccountEventStoreRepository, AccountEventStoreRepository>();
+
+    public static IServiceCollection AddProjectionsRepositories(this IServiceCollection services)
+        => services.AddScoped<IAccountProjectionsRepository, AccountProjectionsRepository>();
+
+    public static IServiceCollection AddMessageFluentValidation(this IServiceCollection services)
+        => services.AddValidatorsFromAssemblyContaining(typeof(IMessage));
+
+    public static OptionsBuilder<SqlServerRetryingOptions> ConfigureSqlServerRetryingOptions(this IServiceCollection services, IConfigurationSection section)
+        => services
+            .AddOptions<SqlServerRetryingOptions>()
+            .Bind(section)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+
+    public static OptionsBuilder<EventStoreOptions> ConfigureEventStoreOptions(this IServiceCollection services, IConfigurationSection section)
+        => services
+            .AddOptions<EventStoreOptions>()
+            .Bind(section)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
 }

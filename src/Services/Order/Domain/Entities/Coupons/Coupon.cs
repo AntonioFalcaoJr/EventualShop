@@ -1,10 +1,9 @@
 ﻿using System;
 using Domain.Abstractions.Entities;
 
-namespace Domain.Entities.Coupons
+namespace Domain.Entities.Coupons;
+
+public class Coupon : Entity<Guid>
 {
-    public class Coupon : Entity<Guid>
-    {
-        protected override bool Validate() => throw new NotImplementedException();
-    }
+    protected override bool Validate() => throw new NotImplementedException();
 }

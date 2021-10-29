@@ -2,15 +2,14 @@
 using Domain.Abstractions.Validators;
 using FluentValidation;
 
-namespace Domain.Entities.CatalogItems
+namespace Domain.Entities.CatalogItems;
+
+public class CatalogItemValidator : EntityValidator<CatalogItem, Guid>
 {
-    public class CatalogItemValidator : EntityValidator<CatalogItem, Guid>
+    public CatalogItemValidator()
     {
-        public CatalogItemValidator()
-        {
-            RuleFor(foo => foo.Name)
-                .NotNull()
-                .NotEmpty();
-        }
+        RuleFor(foo => foo.Name)
+            .NotNull()
+            .NotEmpty();
     }
 }

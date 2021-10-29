@@ -5,27 +5,26 @@ using MassTransit;
 using Messages.Identities;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ECommerce.WebAPI.Controllers
+namespace ECommerce.WebAPI.Controllers;
+
+public class IdentitiesController : ApplicationController
 {
-    public class IdentitiesController : ApplicationController
-    {
-        public IdentitiesController(IBus bus)
-            : base(bus) { }
+    public IdentitiesController(IBus bus)
+        : base(bus) { }
 
-        [HttpGet]
-        public Task<IActionResult> GetUserAuthenticationDetails([FromQuery] Queries.GetUserAuthenticationDetails query, CancellationToken cancellationToken)
-            => GetQueryResponseAsync<Queries.GetUserAuthenticationDetails, Responses.UserAuthenticationDetails>(query, cancellationToken);
+    [HttpGet]
+    public Task<IActionResult> GetUserAuthenticationDetails([FromQuery] Queries.GetUserAuthenticationDetails query, CancellationToken cancellationToken)
+        => GetQueryResponseAsync<Queries.GetUserAuthenticationDetails, Responses.UserAuthenticationDetails>(query, cancellationToken);
 
-        [HttpPost]
-        public Task<IActionResult> RegisterUser(Commands.RegisterUser command, CancellationToken cancellationToken)
-            => SendCommandAsync(command, cancellationToken);
+    [HttpPost]
+    public Task<IActionResult> RegisterUser(Commands.RegisterUser command, CancellationToken cancellationToken)
+        => SendCommandAsync(command, cancellationToken);
 
-        [HttpPut]
-        public Task<IActionResult> ChangeUserPassword(Commands.ChangeUserPassword command, CancellationToken cancellationToken)
-            => SendCommandAsync(command, cancellationToken);
+    [HttpPut]
+    public Task<IActionResult> ChangeUserPassword(Commands.ChangeUserPassword command, CancellationToken cancellationToken)
+        => SendCommandAsync(command, cancellationToken);
 
-        [HttpDelete]
-        public Task<IActionResult> DeleteUser(Commands.DeleteUser command, CancellationToken cancellationToken)
-            => SendCommandAsync(command, cancellationToken);
-    }
+    [HttpDelete]
+    public Task<IActionResult> DeleteUser(Commands.DeleteUser command, CancellationToken cancellationToken)
+        => SendCommandAsync(command, cancellationToken);
 }

@@ -5,15 +5,14 @@ using MassTransit;
 using Messages.Orders;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ECommerce.WebAPI.Controllers
-{
-    public class OrdersController : ApplicationController
-    {
-        public OrdersController(IBus bus)
-            : base(bus) { }
+namespace ECommerce.WebAPI.Controllers;
 
-        [HttpPost]
-        public Task<IActionResult> PlaceOrder(Commands.PlaceOrder command, CancellationToken cancellationToken)
-            => SendCommandAsync(command, cancellationToken);
-    }
+public class OrdersController : ApplicationController
+{
+    public OrdersController(IBus bus)
+        : base(bus) { }
+
+    [HttpPost]
+    public Task<IActionResult> PlaceOrder(Commands.PlaceOrder command, CancellationToken cancellationToken)
+        => SendCommandAsync(command, cancellationToken);
 }

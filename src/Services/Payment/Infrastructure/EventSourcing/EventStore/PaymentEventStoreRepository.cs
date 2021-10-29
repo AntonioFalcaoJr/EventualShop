@@ -5,10 +5,9 @@ using Domain.Aggregates;
 using Infrastructure.Abstractions.EventSourcing.EventStore;
 using Infrastructure.EventSourcing.EventStore.Contexts;
 
-namespace Infrastructure.EventSourcing.EventStore
+namespace Infrastructure.EventSourcing.EventStore;
+
+public class PaymentEventStoreRepository : EventStoreRepository<Payment, PaymentStoreEvent, PaymentSnapshot, Guid>, IPaymentEventStoreRepository
 {
-    public class PaymentEventStoreRepository : EventStoreRepository<Payment, PaymentStoreEvent, PaymentSnapshot, Guid>, IPaymentEventStoreRepository
-    {
-        public PaymentEventStoreRepository(EventStoreDbContext dbContext) : base(dbContext) { }
-    }
+    public PaymentEventStoreRepository(EventStoreDbContext dbContext) : base(dbContext) { }
 }

@@ -2,25 +2,24 @@
 using Domain.Abstractions.Validators;
 using FluentValidation;
 
-namespace Domain.Aggregates
+namespace Domain.Aggregates;
+
+public class UserValidator : EntityValidator<User, Guid>
 {
-    public class UserValidator : EntityValidator<User, Guid>
+    public UserValidator()
     {
-        public UserValidator()
-        {
-            RuleFor(user => user.Password)
-                .NotNull()
-                .NotEmpty()
-                .Equal(user => user.PasswordConfirmation);
+        RuleFor(user => user.Password)
+            .NotNull()
+            .NotEmpty()
+            .Equal(user => user.PasswordConfirmation);
 
-            RuleFor(user => user.PasswordConfirmation)
-                .NotNull()
-                .NotEmpty()
-                .Equal(user => user.Password);
+        RuleFor(user => user.PasswordConfirmation)
+            .NotNull()
+            .NotEmpty()
+            .Equal(user => user.Password);
 
-            RuleFor(user => user.FirstName)
-                .NotNull()
-                .NotEmpty();
-        }
+        RuleFor(user => user.FirstName)
+            .NotNull()
+            .NotEmpty();
     }
 }

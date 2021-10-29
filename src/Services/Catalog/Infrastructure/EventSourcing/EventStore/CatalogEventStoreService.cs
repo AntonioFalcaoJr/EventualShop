@@ -8,11 +8,10 @@ using MassTransit;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Infrastructure.EventSourcing.EventStore
+namespace Infrastructure.EventSourcing.EventStore;
+
+public class CatalogEventStoreService : EventStoreService<Catalog, CatalogStoreEvent, CatalogSnapshot, Guid>, ICatalogEventStoreService
 {
-    public class CatalogEventStoreService : EventStoreService<Catalog, CatalogStoreEvent, CatalogSnapshot, Guid>, ICatalogEventStoreService
-    {
-        public CatalogEventStoreService(ILogger<CatalogEventStoreService> logger, IOptionsMonitor<EventStoreOptions> optionsMonitor, ICatalogEventStoreRepository repository, IBus bus)
-            : base(logger, optionsMonitor, repository, bus) { }
-    }
+    public CatalogEventStoreService(ILogger<CatalogEventStoreService> logger, IOptionsMonitor<EventStoreOptions> optionsMonitor, ICatalogEventStoreRepository repository, IBus bus)
+        : base(logger, optionsMonitor, repository, bus) { }
 }

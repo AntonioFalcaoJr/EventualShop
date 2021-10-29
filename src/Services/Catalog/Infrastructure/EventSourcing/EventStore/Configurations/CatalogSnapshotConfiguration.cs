@@ -5,36 +5,35 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
 
-namespace Infrastructure.EventSourcing.EventStore.Configurations
+namespace Infrastructure.EventSourcing.EventStore.Configurations;
+
+public class CatalogSnapshotConfiguration : IEntityTypeConfiguration<CatalogSnapshot>
 {
-    public class CatalogSnapshotConfiguration : IEntityTypeConfiguration<CatalogSnapshot>
+    public void Configure(EntityTypeBuilder<CatalogSnapshot> builder)
     {
-        public void Configure(EntityTypeBuilder<CatalogSnapshot> builder)
-        {
-            builder.HasKey(snapshot => new { snapshot.AggregateVersion, snapshot.AggregateId });
+        builder.HasKey(snapshot => new { snapshot.AggregateVersion, snapshot.AggregateId });
 
-            builder
-                .Property(snapshot => snapshot.AggregateVersion)
-                .IsRequired();
+        builder
+            .Property(snapshot => snapshot.AggregateVersion)
+            .IsRequired();
 
-            builder
-                .Property(snapshot => snapshot.AggregateId)
-                .IsRequired();
+        builder
+            .Property(snapshot => snapshot.AggregateId)
+            .IsRequired();
 
-            builder
-                .Property(snapshot => snapshot.AggregateName)
-                .HasMaxLength(30)
-                .IsUnicode(false)
-                .IsRequired();
+        builder
+            .Property(snapshot => snapshot.AggregateName)
+            .HasMaxLength(30)
+            .IsUnicode(false)
+            .IsRequired();
 
-            builder
-                .Property(snapshot => snapshot.AggregateState)
-                .IsUnicode(false)
-                .HasConversion(
-                    catalog => JsonConvert.SerializeObject(catalog),
-                    jsonString => JsonConvert.DeserializeObject<Catalog>(jsonString,
-                        new JsonSerializerSettings { ContractResolver = new PrivateSetterContractResolver() }))
-                .IsRequired();
-        }
+        builder
+            .Property(snapshot => snapshot.AggregateState)
+            .IsUnicode(false)
+            .HasConversion(
+                catalog => JsonConvert.SerializeObject(catalog),
+                jsonString => JsonConvert.DeserializeObject<Catalog>(jsonString,
+                    new JsonSerializerSettings { ContractResolver = new PrivateSetterContractResolver() }))
+            .IsRequired();
     }
 }

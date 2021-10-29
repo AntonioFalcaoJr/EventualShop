@@ -2,11 +2,10 @@
 using Infrastructure.Abstractions.EventSourcing.Projections;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 
-namespace Infrastructure.EventSourcing.Projections
+namespace Infrastructure.EventSourcing.Projections;
+
+public class OrderProjectionsRepository : ProjectionsRepository, IOrderProjectionsRepository
 {
-    public class OrderProjectionsRepository : ProjectionsRepository, IOrderProjectionsRepository
-    {
-        public OrderProjectionsRepository(IMongoDbContext context)
-            : base(context) { }
-    }
+    public OrderProjectionsRepository(IMongoDbContext context)
+        : base(context) { }
 }

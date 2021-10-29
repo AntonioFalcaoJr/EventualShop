@@ -2,14 +2,13 @@
 using Domain.Abstractions.Validators;
 using Domain.ValueObjects.Profiles;
 
-namespace Domain.Aggregates
+namespace Domain.Aggregates;
+
+public class AccountValidator : EntityValidator<Account, Guid>
 {
-    public class AccountValidator : EntityValidator<Account, Guid>
+    public AccountValidator()
     {
-        public AccountValidator()
-        {
-            RuleFor(account => account.Profile)
-                .SetValidator(new ProfileValidator());
-        }
+        RuleFor(account => account.Profile)
+            .SetValidator(new ProfileValidator());
     }
 }

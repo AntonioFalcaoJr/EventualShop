@@ -8,11 +8,10 @@ using MassTransit;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Infrastructure.EventSourcing.EventStore
+namespace Infrastructure.EventSourcing.EventStore;
+
+public class PaymentEventStoreService : EventStoreService<Payment, PaymentStoreEvent, PaymentSnapshot, Guid>, IPaymentEventStoreService
 {
-    public class PaymentEventStoreService : EventStoreService<Payment, PaymentStoreEvent, PaymentSnapshot, Guid>, IPaymentEventStoreService
-    {
-        public PaymentEventStoreService(ILogger<PaymentEventStoreService> logger, IOptionsMonitor<EventStoreOptions> optionsMonitor, IPaymentEventStoreRepository repository, IBus bus)
-            : base(logger, optionsMonitor, repository, bus) { }
-    }
+    public PaymentEventStoreService(ILogger<PaymentEventStoreService> logger, IOptionsMonitor<EventStoreOptions> optionsMonitor, IPaymentEventStoreRepository repository, IBus bus)
+        : base(logger, optionsMonitor, repository, bus) { }
 }

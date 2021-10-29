@@ -5,10 +5,9 @@ using Domain.Aggregates;
 using Infrastructure.Abstractions.EventSourcing.EventStore;
 using Infrastructure.EventSourcing.EventStore.Contexts;
 
-namespace Infrastructure.EventSourcing.EventStore
+namespace Infrastructure.EventSourcing.EventStore;
+
+public class CatalogEventStoreRepository : EventStoreRepository<Catalog, CatalogStoreEvent, CatalogSnapshot, Guid>, ICatalogEventStoreRepository
 {
-    public class CatalogEventStoreRepository : EventStoreRepository<Catalog, CatalogStoreEvent, CatalogSnapshot, Guid>, ICatalogEventStoreRepository
-    {
-        public CatalogEventStoreRepository(EventStoreDbContext dbContext) : base(dbContext) { }
-    }
+    public CatalogEventStoreRepository(EventStoreDbContext dbContext) : base(dbContext) { }
 }

@@ -1,11 +1,10 @@
-﻿namespace Domain.Enumerations
+﻿namespace Domain.Enumerations;
+
+public enum PaymentStatus
 {
-    public enum PaymentStatus
-    {
-        Authorized,
-        Canceled,
-        Pending,
-        Refunded,
-        Unauthorized,
-    }
+    Authorized,
+    Canceled,
+    Pending,
+    Refunded,
+    Unauthorized,
 }

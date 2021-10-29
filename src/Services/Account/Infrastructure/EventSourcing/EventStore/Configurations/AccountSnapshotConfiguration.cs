@@ -5,36 +5,35 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
 
-namespace Infrastructure.EventSourcing.EventStore.Configurations
+namespace Infrastructure.EventSourcing.EventStore.Configurations;
+
+public class AccountSnapshotConfiguration : IEntityTypeConfiguration<AccountSnapshot>
 {
-    public class AccountSnapshotConfiguration : IEntityTypeConfiguration<AccountSnapshot>
+    public void Configure(EntityTypeBuilder<AccountSnapshot> builder)
     {
-        public void Configure(EntityTypeBuilder<AccountSnapshot> builder)
-        {
-            builder.HasKey(snapshot => new { snapshot.AggregateVersion, snapshot.AggregateId });
+        builder.HasKey(snapshot => new { snapshot.AggregateVersion, snapshot.AggregateId });
 
-            builder
-                .Property(snapshot => snapshot.AggregateVersion)
-                .IsRequired();
+        builder
+            .Property(snapshot => snapshot.AggregateVersion)
+            .IsRequired();
 
-            builder
-                .Property(snapshot => snapshot.AggregateId)
-                .IsRequired();
+        builder
+            .Property(snapshot => snapshot.AggregateId)
+            .IsRequired();
 
-            builder
-                .Property(snapshot => snapshot.AggregateName)
-                .HasMaxLength(30)
-                .IsUnicode(false)
-                .IsRequired();
+        builder
+            .Property(snapshot => snapshot.AggregateName)
+            .HasMaxLength(30)
+            .IsUnicode(false)
+            .IsRequired();
 
-            builder
-                .Property(snapshot => snapshot.AggregateState)
-                .IsUnicode(false)
-                .HasConversion(
-                    account => JsonConvert.SerializeObject(account),
-                    jsonString => JsonConvert.DeserializeObject<Account>(jsonString,
-                        new JsonSerializerSettings { ContractResolver = new PrivateSetterContractResolver() }))
-                .IsRequired();
-        }
+        builder
+            .Property(snapshot => snapshot.AggregateState)
+            .IsUnicode(false)
+            .HasConversion(
+                account => JsonConvert.SerializeObject(account),
+                jsonString => JsonConvert.DeserializeObject<Account>(jsonString,
+                    new JsonSerializerSettings { ContractResolver = new PrivateSetterContractResolver() }))
+            .IsRequired();
     }
 }

@@ -2,11 +2,10 @@ using Application.EventSourcing.Projections;
 using Infrastructure.Abstractions.EventSourcing.Projections;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 
-namespace Infrastructure.EventSourcing.Projections
+namespace Infrastructure.EventSourcing.Projections;
+
+public class CatalogProjectionsRepository : ProjectionsRepository, ICatalogProjectionsRepository
 {
-    public class CatalogProjectionsRepository : ProjectionsRepository, ICatalogProjectionsRepository
-    {
-        public CatalogProjectionsRepository(IMongoDbContext context)
-            : base(context) { }
-    }
+    public CatalogProjectionsRepository(IMongoDbContext context)
+        : base(context) { }
 }
