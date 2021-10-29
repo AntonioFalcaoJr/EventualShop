@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 
-namespace Messages.ShoppingCarts.Validators
-{
-    public class AddShippingAddressValidator : AbstractValidator<Commands.AddShippingAddress> { }
-}
+namespace Messages.ShoppingCarts.Validators;
+
+public class AddShippingAddressValidator : AbstractValidator<Commands.AddShippingAddress> { }

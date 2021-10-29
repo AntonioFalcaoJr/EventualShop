@@ -1,13 +1,12 @@
 ﻿using FluentValidation;
 
-namespace Messages.Identities.Validators
+namespace Messages.Identities.Validators;
+
+public class UserRegisteredValidator : AbstractValidator<Events.UserRegistered>
 {
-    public class UserRegisteredValidator : AbstractValidator<Events.UserRegistered>
+    public UserRegisteredValidator()
     {
-        public UserRegisteredValidator()
-        {
-            RuleFor(user => user.Email)
-                .EmailAddress();
-        }
+        RuleFor(user => user.Email)
+            .EmailAddress();
     }
 }

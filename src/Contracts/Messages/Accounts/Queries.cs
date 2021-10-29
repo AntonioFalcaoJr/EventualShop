@@ -1,12 +1,11 @@
 ﻿using System;
 using Messages.Abstractions.Queries;
 
-namespace Messages.Accounts
-{
-    public static class Queries
-    {
-        public record GetAccountDetails(Guid AccountId) : Query;
+namespace Messages.Accounts;
 
-        public record GetAccountsDetailsWithPagination(int Limit, int Offset) : QueryPaging(Limit, Offset);
-    }
+public static class Queries
+{
+    public record GetAccountDetails(Guid AccountId) : Query;
+
+    public record GetAccountsDetailsWithPagination(int Limit, int Offset) : QueryPaging(Limit, Offset);
 }

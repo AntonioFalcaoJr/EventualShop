@@ -1,23 +1,22 @@
 ﻿using System;
 using FluentValidation;
 
-namespace Messages.Accounts.Validators
+namespace Messages.Accounts.Validators;
+
+public class CreateAccountValidator : AbstractValidator<Commands.CreateAccount>
 {
-    public class CreateAccountValidator : AbstractValidator<Commands.CreateAccount>
+    public CreateAccountValidator()
     {
-        public CreateAccountValidator()
-        {
-            RuleFor(account => account.UserId)
-                .NotEqual(default(Guid));
+        RuleFor(account => account.UserId)
+            .NotEqual(default(Guid));
 
-            RuleFor(account => account.Email)
-                .NotNull()
-                .NotEmpty()
-                .EmailAddress();
+        RuleFor(account => account.Email)
+            .NotNull()
+            .NotEmpty()
+            .EmailAddress();
 
-            RuleFor(account => account.FirstName)
-                .NotNull()
-                .NotEmpty();
-        }
+        RuleFor(account => account.FirstName)
+            .NotNull()
+            .NotEmpty();
     }
 }

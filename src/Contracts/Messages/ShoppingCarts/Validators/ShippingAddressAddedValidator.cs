@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 
-namespace Messages.ShoppingCarts.Validators
-{
-    public class ShippingAddressAddedValidator : AbstractValidator<Events.ShippingAddressAdded> { }
-}
+namespace Messages.ShoppingCarts.Validators;
+
+public class ShippingAddressAddedValidator : AbstractValidator<Events.ShippingAddressAdded> { }

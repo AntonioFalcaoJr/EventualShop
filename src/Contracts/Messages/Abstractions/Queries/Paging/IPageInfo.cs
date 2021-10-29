@@ -1,10 +1,9 @@
-namespace Messages.Abstractions.Queries.Paging
+namespace Messages.Abstractions.Queries.Paging;
+
+public interface IPageInfo
 {
-    public interface IPageInfo
-    {
-        int Current { get; }
-        int Size { get; }
-        bool HasPrevious { get; }
-        bool HasNext { get; }
-    }
+    int Current { get; }
+    int Size { get; }
+    bool HasPrevious { get; }
+    bool HasNext { get; }
 }

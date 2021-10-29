@@ -1,10 +1,9 @@
 ﻿using System;
 using Messages.Abstractions.Queries;
 
-namespace Messages.ShoppingCarts
+namespace Messages.ShoppingCarts;
+
+public static class Queries
 {
-    public static class Queries
-    {
-        public record GetShoppingCart(Guid UserId) : Query;
-    }
+    public record GetShoppingCart(Guid UserId) : Query;
 }

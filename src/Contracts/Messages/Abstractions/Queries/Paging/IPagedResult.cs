@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using MassTransit.Topology;
 
-namespace Messages.Abstractions.Queries.Paging
+namespace Messages.Abstractions.Queries.Paging;
+
+[ExcludeFromTopology]
+public interface IPagedResult<out T>
 {
-    [ExcludeFromTopology]
-    public interface IPagedResult<out T>
-    {
-        IEnumerable<T> Items { get; }
-        IPageInfo PageInfo { get; }
-    }
+    IEnumerable<T> Items { get; }
+    IPageInfo PageInfo { get; }
 }

@@ -1,11 +1,10 @@
 ﻿using System;
 using MassTransit.Topology;
 
-namespace Messages.Abstractions
+namespace Messages.Abstractions;
+
+[ExcludeFromTopology]
+public interface IMessage
 {
-    [ExcludeFromTopology]
-    public interface IMessage
-    {
-        DateTimeOffset Timestamp { get; }
-    }
+    DateTimeOffset Timestamp { get; }
 }

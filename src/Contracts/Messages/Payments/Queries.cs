@@ -1,10 +1,9 @@
 ﻿using System;
 using Messages.Abstractions.Queries;
 
-namespace Messages.Payments
+namespace Messages.Payments;
+
+public static class Queries
 {
-    public static class Queries
-    {
-        public record GetPaymentDetails(Guid PaymentId) : Query;
-    }
+    public record GetPaymentDetails(Guid PaymentId) : Query;
 }

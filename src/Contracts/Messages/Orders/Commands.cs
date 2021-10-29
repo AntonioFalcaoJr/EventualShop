@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using Messages.Abstractions.Commands;
 
-namespace Messages.Orders
+namespace Messages.Orders;
+
+public static class Commands
 {
-    public static class Commands
-    {
-        public record PlaceOrder(Guid CustomerId, IEnumerable<Models.Item> Items, Models.Address BillingAddress, Models.CreditCard CreditCard, Models.Address ShippingAddress) : Command;
-    }
+    public record PlaceOrder(Guid CustomerId, IEnumerable<Models.Item> Items, Models.Address BillingAddress, Models.CreditCard CreditCard, Models.Address ShippingAddress) : Command;
 }
