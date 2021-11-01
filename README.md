@@ -120,7 +120,7 @@ State transition during events applying:
 
 ![](./.assets/img/applyTo_event-sourcing.png)
 Fig. 5: Reitzammer, Benjamin & Seitz, Johannes. *Event Sourcingin practice*.    
-https://ookami86.github.io/event-sourcing-in-practice/#title.md
+https://ookami86.github.io/event-sourcing-in-practice/#making-eventsourcing-work/18-concurrent-modifictations.md
 
 ### Event Store/Stream
 
