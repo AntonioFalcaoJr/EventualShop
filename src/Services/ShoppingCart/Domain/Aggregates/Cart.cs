@@ -27,18 +27,18 @@ public class Cart : AggregateRoot<Guid>
     public IEnumerable<CartItem> Items
         => _items;
 
-    public void Handle(Commands.AddCartItem cmd)
-        => RaiseEvent(new Events.CartItemAdded(Id, cmd.ProductId, cmd.ProductName, cmd.Quantity, cmd.UnitPrice));
-       
+    public void Handle(Commands.AddCartItem cmd) 
+        => RaiseEvent(new Events.CartItemAdded(Id, cmd.Product, cmd.Quantity));
+
     public void Handle(Commands.CreateCart cmd)
         => RaiseEvent(new Events.CartCreated(Guid.NewGuid(), cmd.CustomerId));
-        
+
     public void Handle(Commands.AddCreditCard cmd)
         => RaiseEvent(new Events.CreditCardAdded(Id, cmd.Expiration, cmd.HolderName, cmd.Number, cmd.SecurityNumber));
 
     public void Handle(Commands.AddShippingAddress cmd)
         => RaiseEvent(new Events.ShippingAddressAdded(Id, cmd.City, cmd.Country, cmd.Number, cmd.State, cmd.Street, cmd.ZipCode));
-        
+
     public void Handle(Commands.ChangeBillingAddress cmd)
         => RaiseEvent(new Events.BillingAddressChanged(Id, cmd.City, cmd.Country, cmd.Number, cmd.State, cmd.Street, cmd.ZipCode));
 
@@ -56,7 +56,7 @@ public class Cart : AggregateRoot<Guid>
 
     private void When(Events.CartItemAdded @event)
     {
-        if (_items.Exists(item => item.CatalogItemId == @event.CatalogItemId))
+        if (_items.Exists(item => item.CatalogItemId == @event.Product.Id))
             IncreaseItemQuantity(@event);
         else AddNewItem(@event);
     }
@@ -68,11 +68,11 @@ public class Cart : AggregateRoot<Guid>
     private void AddNewItem(Events.CartItemAdded @event)
         => _items.Add(
             new CartItem(
-                @event.CatalogItemId,
-                @event.CatalogItemName,
-                @event.UnitPrice,
+                @event.Product.Id,
+                @event.Product.Name,
+                @event.Product.UnitPrice,
                 @event.Quantity));
-
+    
     private void When(Events.CreditCardAdded @event)
         => CreditCard =
             new CreditCard
@@ -116,7 +116,7 @@ public class Cart : AggregateRoot<Guid>
 
     private void IncreaseItemQuantity(Events.CartItemAdded @event)
         => _items
-            .Single(item => item.CatalogItemId == @event.CatalogItemId)
+            .Single(item => item.CatalogItemId == @event.Product.Id)
             .IncreaseQuantity(@event.Quantity);
 
     protected sealed override bool Validate()
