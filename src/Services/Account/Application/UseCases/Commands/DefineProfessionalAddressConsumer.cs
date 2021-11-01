@@ -17,16 +17,7 @@ public class DefineProfessionalAddressConsumer : IConsumer<DefineProfessionalAdd
     public async Task Consume(ConsumeContext<DefineProfessionalAddressCommand> context)
     {
         var account = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.AccountId, context.CancellationToken);
-
-        account.DefineProfessionalAddress(
-            account.Id,
-            context.Message.City,
-            context.Message.Country,
-            context.Message.Number,
-            context.Message.State,
-            context.Message.Street,
-            context.Message.ZipCode);
-
+        account.Handle(context.Message);
         await _eventStoreService.AppendEventsToStreamAsync(account, context.CancellationToken);
     }
 }

@@ -17,16 +17,7 @@ public class DefineResidenceAddressConsumer : IConsumer<DefineResidenceAddressCo
     public async Task Consume(ConsumeContext<DefineResidenceAddressCommand> context)
     {
         var account = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.AccountId, context.CancellationToken);
-
-        account.DefineResidenceAddress(
-            account.Id,
-            context.Message.City,
-            context.Message.Country,
-            context.Message.Number,
-            context.Message.State,
-            context.Message.Street,
-            context.Message.ZipCode);
-
+        account.Handle(context.Message);
         await _eventStoreService.AppendEventsToStreamAsync(account, context.CancellationToken);
     }
 }

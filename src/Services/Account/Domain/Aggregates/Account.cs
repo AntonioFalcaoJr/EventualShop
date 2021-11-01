@@ -12,20 +12,20 @@ public class Account : AggregateRoot<Guid>
     public Guid UserId { get; private set; }
     public Profile Profile { get; private set; }
 
-    public void Create(Guid userId, string email, string firstName)
-        => RaiseEvent(new Events.AccountCreated(Guid.NewGuid(), userId, email, firstName));
+    public void Handle(Commands.CreateAccount cmd)
+        => RaiseEvent(new Events.AccountCreated(Guid.NewGuid(), cmd.UserId, cmd.Email, cmd.FirstName));
 
-    public void Delete(Guid id)
-        => RaiseEvent(new Events.AccountDeleted(id));
+    public void Handle(Commands.DeleteAccount cmd)
+        => RaiseEvent(new Events.AccountDeleted(cmd.AccountId));
 
-    public void UpdateProfile(Guid id, DateOnly birthdate, string email, string firstName, string lastName)
-        => RaiseEvent(new Events.ProfileUpdated(id, birthdate, email, firstName, lastName));
+    public void Handle(Commands.UpdateProfile cmd)
+        => RaiseEvent(new Events.ProfileUpdated(cmd.AccountId, cmd.Birthdate, cmd.Email, cmd.FirstName, cmd.LastName));
 
-    public void DefineResidenceAddress(Guid id, string city, string country, int? number, string state, string street, string zipCode)
-        => RaiseEvent(new Events.ResidenceAddressDefined(id, city, country, number, state, street, zipCode));
+    public void Handle(Commands.DefineResidenceAddress cmd)
+        => RaiseEvent(new Events.ResidenceAddressDefined(cmd.AccountId, cmd.City, cmd.Country, cmd.Number, cmd.State, cmd.Street, cmd.ZipCode));
 
-    public void DefineProfessionalAddress(Guid id, string city, string country, int? number, string state, string street, string zipCode)
-        => RaiseEvent(new Events.ProfessionalAddressDefined(id, city, country, number, state, street, zipCode));
+    public void Handle(Commands.DefineProfessionalAddress cmd)
+        => RaiseEvent(new Events.ProfessionalAddressDefined(cmd.AccountId, cmd.City, cmd.Country, cmd.Number, cmd.State, cmd.Street, cmd.ZipCode));
 
     protected override void ApplyEvent(IEvent domainEvent)
         => When(domainEvent as dynamic);

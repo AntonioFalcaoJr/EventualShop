@@ -17,7 +17,7 @@ public class DeleteAccountConsumer : IConsumer<DeleteAccountCommand>
     public async Task Consume(ConsumeContext<DeleteAccountCommand> context)
     {
         var account = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.AccountId, context.CancellationToken);
-        account.Delete(account.Id);
+        account.Handle(context.Message);
         await _eventStoreService.AppendEventsToStreamAsync(account, context.CancellationToken);
     }
 }

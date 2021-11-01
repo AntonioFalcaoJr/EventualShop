@@ -22,13 +22,7 @@ public class UpdateProfileConsumer : IConsumer<UpdateProfileCommand>
             // TODO - Notification
             return;
 
-        account.UpdateProfile(
-            account.Id,
-            context.Message.Birthdate,
-            context.Message.Email,
-            context.Message.FirstName,
-            context.Message.LastName);
-
+        account.Handle(context.Message);
         await _eventStoreService.AppendEventsToStreamAsync(account, context.CancellationToken);
     }
 }
