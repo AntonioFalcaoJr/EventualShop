@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using AccountDeletedEvent = Messages.Services.Accounts.Events.AccountDeleted;
+using AccountDeletedEvent = Messages.Services.Accounts.DomainEvents.AccountDeleted;
 
 namespace Application.UseCases.Events.Projections;
 

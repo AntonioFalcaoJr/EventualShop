@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using CatalogActivatedEvent = Messages.Services.Catalogs.Events.CatalogActivated;
-using CatalogDeactivatedEvent = Messages.Services.Catalogs.Events.CatalogDeactivated;
-using CatalogUpdatedEvent = Messages.Services.Catalogs.Events.CatalogUpdated;
-using CatalogDeletedEvent = Messages.Services.Catalogs.Events.CatalogDeleted;
-using CatalogItemAddedEvent = Messages.Services.Catalogs.Events.CatalogItemAdded;
-using CatalogItemRemovedEvent = Messages.Services.Catalogs.Events.CatalogItemRemoved;
-using CatalogItemUpdatedEvent = Messages.Services.Catalogs.Events.CatalogItemUpdated;
+using CatalogActivatedEvent = Messages.Services.Catalogs.DomainEvents.CatalogActivated;
+using CatalogDeactivatedEvent = Messages.Services.Catalogs.DomainEvents.CatalogDeactivated;
+using CatalogUpdatedEvent = Messages.Services.Catalogs.DomainEvents.CatalogUpdated;
+using CatalogDeletedEvent = Messages.Services.Catalogs.DomainEvents.CatalogDeleted;
+using CatalogItemAddedEvent = Messages.Services.Catalogs.DomainEvents.CatalogItemAdded;
+using CatalogItemRemovedEvent = Messages.Services.Catalogs.DomainEvents.CatalogItemRemoved;
+using CatalogItemUpdatedEvent = Messages.Services.Catalogs.DomainEvents.CatalogItemUpdated;
 
 namespace Application.UseCases.Events;
 

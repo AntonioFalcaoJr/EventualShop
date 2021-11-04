@@ -13,12 +13,12 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
     {
-        cfg.ConfigureEventReceiveEndpoint<AccountCreatedConsumer, Events.AccountCreated>(registration);
-        cfg.ConfigureEventReceiveEndpoint<AccountDeletedConsumer, Events.AccountDeleted>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProfessionalAddressDefinedConsumer, Events.ProfessionalAddressDefined>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProfileUpdatedConsumer, Events.ProfileUpdated>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ResidenceAddressDefinedConsumer, Events.ResidenceAddressDefined>(registration);
-        cfg.ConfigureEventReceiveEndpoint<UserRegisteredConsumer, Messages.Services.Identities.Events.UserRegistered>(registration);
+        cfg.ConfigureEventReceiveEndpoint<AccountCreatedConsumer, DomainEvents.AccountCreated>(registration);
+        cfg.ConfigureEventReceiveEndpoint<AccountDeletedConsumer, DomainEvents.AccountDeleted>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProfessionalAddressDefinedConsumer, DomainEvents.ProfessionalAddressDefined>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProfileUpdatedConsumer, DomainEvents.ProfileUpdated>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ResidenceAddressDefinedConsumer, DomainEvents.ResidenceAddressDefined>(registration);
+        cfg.ConfigureEventReceiveEndpoint<UserRegisteredConsumer, Messages.Services.Identities.DomainEvents.UserRegistered>(registration);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)

@@ -3,7 +3,7 @@ using Messages.Abstractions.Events;
 
 namespace Messages.Services.Catalogs;
 
-public static class Events
+public static class DomainEvents
 {
     public record CatalogCreated(Guid CatalogId, string Title) : Event;
 

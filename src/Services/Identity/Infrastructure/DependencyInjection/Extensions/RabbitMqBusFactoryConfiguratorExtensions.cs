@@ -12,9 +12,9 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
     {
-        cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, Events.UserRegistered>(registration);
-        cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, Events.UserPasswordChanged>(registration);
-        cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, Events.UserDeleted>(registration);
+        cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, DomainEvents.UserRegistered>(registration);
+        cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, DomainEvents.UserPasswordChanged>(registration);
+        cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, DomainEvents.UserDeleted>(registration);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)

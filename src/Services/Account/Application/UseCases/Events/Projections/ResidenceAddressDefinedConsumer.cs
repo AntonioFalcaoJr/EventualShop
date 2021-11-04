@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using ResidenceAddressDefinedEvent = Messages.Services.Accounts.Events.ResidenceAddressDefined;
+using ResidenceAddressDefinedEvent = Messages.Services.Accounts.DomainEvents.ResidenceAddressDefined;
 
 namespace Application.UseCases.Events.Projections;
 

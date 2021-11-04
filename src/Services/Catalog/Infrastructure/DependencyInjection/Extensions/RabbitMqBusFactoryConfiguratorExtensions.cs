@@ -12,14 +12,14 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
     {
-        cfg.ConfigureEventReceiveEndpoint<CatalogCreatedConsumer, Events.CatalogCreated>(registration);
-        cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, Events.CatalogDeleted>(registration);
-        cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, Events.CatalogActivated>(registration);
-        cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, Events.CatalogDeactivated>(registration);
-        cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, Events.CatalogUpdated>(registration);
-        cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, Events.CatalogItemAdded>(registration);
-        cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, Events.CatalogItemRemoved>(registration);
-        cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, Events.CatalogItemUpdated>(registration);
+        cfg.ConfigureEventReceiveEndpoint<CatalogCreatedConsumer, DomainEvents.CatalogCreated>(registration);
+        cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, DomainEvents.CatalogDeleted>(registration);
+        cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, DomainEvents.CatalogActivated>(registration);
+        cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, DomainEvents.CatalogDeactivated>(registration);
+        cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, DomainEvents.CatalogUpdated>(registration);
+        cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, DomainEvents.CatalogItemAdded>(registration);
+        cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, DomainEvents.CatalogItemRemoved>(registration);
+        cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, DomainEvents.CatalogItemUpdated>(registration);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)

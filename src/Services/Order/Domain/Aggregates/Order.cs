@@ -27,7 +27,7 @@ public class Order : AggregateRoot<Guid>
 
     public void Handle(Commands.PlaceOrder command)
         => RaiseEvent(
-            new Events.OrderPlaced(
+            new DomainEvents.OrderPlaced(
                 Guid.NewGuid(),
                 command.CustomerId,
                 command.Items,
@@ -38,7 +38,7 @@ public class Order : AggregateRoot<Guid>
     protected override void ApplyEvent(IEvent @event)
         => When(@event as dynamic);
 
-    private void When(Events.OrderPlaced @event)
+    private void When(DomainEvents.OrderPlaced @event)
     {
         Id = @event.OrderId;
         UserId = @event.CustomerId;

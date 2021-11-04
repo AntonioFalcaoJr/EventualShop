@@ -6,7 +6,6 @@ using MassTransit;
 using MassTransit.RabbitMqTransport;
 using Messages.Abstractions.Events;
 using Messages.Services.Payments;
-using Orders = Messages.Services.Orders.Events;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 
@@ -16,7 +15,7 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
     {
         cfg.ConfigureEventReceiveEndpoint<PaymentRequestedConsumer, DomainEvents.PaymentRequested>(registration);
         cfg.ConfigureEventReceiveEndpoint<PaymentChangedConsumer, DomainEvents.PaymentCanceled>(registration);
-        cfg.ConfigureEventReceiveEndpoint<OrderPlacedConsumer, Orders.OrderPlaced>(registration);
+        cfg.ConfigureEventReceiveEndpoint<OrderPlacedConsumer, Messages.Services.Orders.DomainEvents.OrderPlaced>(registration);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)

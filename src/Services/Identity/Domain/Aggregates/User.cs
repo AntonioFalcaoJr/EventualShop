@@ -13,24 +13,24 @@ public class User : AggregateRoot<Guid>
     public string PasswordConfirmation { get; private set; }
 
     public void Register(string email, string firstName, string password, string passwordConfirmation)
-        => RaiseEvent(new Events.UserRegistered(Guid.NewGuid(), email, firstName, password, passwordConfirmation));
+        => RaiseEvent(new DomainEvents.UserRegistered(Guid.NewGuid(), email, firstName, password, passwordConfirmation));
 
     public void ChangePassword(Guid userId, string newPassword, string newPasswordConfirmation)
-        => RaiseEvent(new Events.UserPasswordChanged(userId, newPassword, newPasswordConfirmation));
+        => RaiseEvent(new DomainEvents.UserPasswordChanged(userId, newPassword, newPasswordConfirmation));
 
     public void Delete(Guid userId)
-        => RaiseEvent(new Events.UserDeleted(userId));
+        => RaiseEvent(new DomainEvents.UserDeleted(userId));
 
     protected override void ApplyEvent(IEvent @event)
         => When(@event as dynamic);
 
-    private void When(Events.UserRegistered @event)
+    private void When(DomainEvents.UserRegistered @event)
         => (Id, Email, FirstName, Password, PasswordConfirmation) = @event;
 
-    private void When(Events.UserPasswordChanged @event)
+    private void When(DomainEvents.UserPasswordChanged @event)
         => (_, Password, PasswordConfirmation) = @event;
 
-    private void When(Events.UserDeleted _)
+    private void When(DomainEvents.UserDeleted _)
         => IsDeleted = true;
 
     protected sealed override bool Validate()

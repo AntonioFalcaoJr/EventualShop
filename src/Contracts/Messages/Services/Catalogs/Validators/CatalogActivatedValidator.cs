@@ -2,4 +2,4 @@
 
 namespace Messages.Services.Catalogs.Validators;
 
-public class CatalogActivatedValidator : AbstractValidator<Events.CatalogActivated> { }
+public class CatalogActivatedValidator : AbstractValidator<DomainEvents.CatalogActivated> { }

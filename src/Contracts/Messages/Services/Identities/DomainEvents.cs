@@ -3,7 +3,7 @@ using Messages.Abstractions.Events;
 
 namespace Messages.Services.Identities;
 
-public static class Events
+public static class DomainEvents
 {
     public record UserDeleted(Guid UserId) : Event;
 

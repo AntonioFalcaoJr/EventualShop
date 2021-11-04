@@ -2,7 +2,7 @@
 using Application.EventSourcing.EventStore;
 using Domain.Aggregates;
 using MassTransit;
-using OrderPlacedEvent = Messages.Services.Orders.Events.OrderPlaced;
+using OrderPlacedEvent = Messages.Services.Orders.DomainEvents.OrderPlaced;
 using RequestPaymentCommand = Messages.Services.Payments.Commands.RequestPayment;
 
 namespace Application.UseCases.Events;

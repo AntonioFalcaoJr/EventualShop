@@ -18,51 +18,51 @@ public class Catalog : AggregateRoot<Guid>
         => _items;
 
     public void Create(string title)
-        => RaiseEvent(new Events.CatalogCreated(Guid.NewGuid(), title));
+        => RaiseEvent(new DomainEvents.CatalogCreated(Guid.NewGuid(), title));
 
     public void Delete(Guid id)
-        => RaiseEvent(new Events.CatalogDeleted(id));
+        => RaiseEvent(new DomainEvents.CatalogDeleted(id));
 
     public void Activate(Guid id)
-        => RaiseEvent(new Events.CatalogActivated(id));
+        => RaiseEvent(new DomainEvents.CatalogActivated(id));
 
     public void Deactivate(Guid id)
-        => RaiseEvent(new Events.CatalogDeactivated(id));
+        => RaiseEvent(new DomainEvents.CatalogDeactivated(id));
 
     public void Update(Guid id, string title)
-        => RaiseEvent(new Events.CatalogUpdated(id, title));
+        => RaiseEvent(new DomainEvents.CatalogUpdated(id, title));
 
     public void AddItem(Guid id, string name, string description, decimal price, string pictureUri)
-        => RaiseEvent(new Events.CatalogItemAdded(id, name, description, price, pictureUri));
+        => RaiseEvent(new DomainEvents.CatalogItemAdded(id, name, description, price, pictureUri));
 
     public void RemoveItem(Guid id, Guid itemId)
-        => RaiseEvent(new Events.CatalogItemRemoved(id, itemId));
+        => RaiseEvent(new DomainEvents.CatalogItemRemoved(id, itemId));
 
     public void UpdateItem(Guid id, Guid catalogItemId, string name, string description, decimal price, string pictureUri)
-        => RaiseEvent(new Events.CatalogItemUpdated(id, catalogItemId, name, description, price, pictureUri));
+        => RaiseEvent(new DomainEvents.CatalogItemUpdated(id, catalogItemId, name, description, price, pictureUri));
 
     protected override void ApplyEvent(IEvent @event)
         => When(@event as dynamic);
 
-    private void When(Events.CatalogCreated @event)
+    private void When(DomainEvents.CatalogCreated @event)
         => (Id, Title) = @event;
 
-    private void When(Events.CatalogUpdated @event)
+    private void When(DomainEvents.CatalogUpdated @event)
         => Title = @event.Title;
 
-    private void When(Events.CatalogDeleted _)
+    private void When(DomainEvents.CatalogDeleted _)
         => IsDeleted = true;
 
-    private void When(Events.CatalogItemRemoved @event)
+    private void When(DomainEvents.CatalogItemRemoved @event)
         => _items.RemoveAll(item => item.Id == @event.CatalogItemId);
 
-    private void When(Events.CatalogActivated _)
+    private void When(DomainEvents.CatalogActivated _)
         => IsActive = true;
 
-    private void When(Events.CatalogDeactivated _)
+    private void When(DomainEvents.CatalogDeactivated _)
         => IsActive = false;
 
-    private void When(Events.CatalogItemAdded @event)
+    private void When(DomainEvents.CatalogItemAdded @event)
     {
         var catalogItem = new CatalogItem(
             @event.Name,
@@ -73,7 +73,7 @@ public class Catalog : AggregateRoot<Guid>
         _items.Add(catalogItem);
     }
 
-    private void When(Events.CatalogItemUpdated @event)
+    private void When(DomainEvents.CatalogItemUpdated @event)
         => _items
             .Where(item => item.Id == @event.CatalogItemId)
             .ToList()
