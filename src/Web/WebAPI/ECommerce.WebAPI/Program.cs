@@ -1,19 +1,25 @@
 using System;
 using System.Reflection;
+using ECommerce.WebAPI.DependencyInjection.Extensions;
 using ECommerce.WebAPI.DependencyInjection.Observers;
 using MassTransit;
 using MassTransit.Definition;
+using Messages.JsonConverters;
+using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Any;
+using Microsoft.OpenApi.Models;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
-    .AddControllers();
-//.AddApplicationFluentValidation();
+    .AddControllers()
+    .AddNewtonsoftJson(options => options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter()))
+    .AddApplicationFluentValidation();
 
 builder.Services.AddLogging(loggingBuilder =>
 {
@@ -25,14 +31,14 @@ builder.Services.AddLogging(loggingBuilder =>
     loggingBuilder.AddSerilog();
 });
 
-builder.Services.AddSwaggerGen(options
-    => options.SwaggerDoc(
-        name: "v1",
-        info: new()
-        {
-            Title = "WebAPI",
-            Version = "v1"
-        }));
+builder.Services
+    .AddSwaggerGenNewtonsoftSupport()
+    .AddFluentValidationRulesToSwagger()
+    .AddSwaggerGen(options =>
+    {
+        options.SwaggerDoc("v1", new() { Title = "WebAPI", Version = "v1" });
+        options.MapType<DateOnly>(() => new OpenApiSchema{Format = "date",Example = new OpenApiString(DateOnly.MaxValue.ToString())});
+    });
 
 builder.Services
     .AddMassTransit(cfg =>
@@ -51,6 +57,12 @@ builder.Services
 
             bus.ConnectConsumeObserver(new LoggingConsumeObserver());
             bus.ConnectSendObserver(new LoggingSendObserver());
+            
+            bus.ConfigureJsonSerializer(settings =>
+            {
+                settings.Converters.Add(new DateOnlyJsonConverter()); 
+                return settings;
+            });
 
             // Account
             MapQueueEndpoint<Messages.Accounts.Commands.DefineProfessionalAddress>();
@@ -87,10 +99,10 @@ builder.Services
             MapQueueEndpoint<Messages.ShoppingCarts.Commands.ChangeBillingAddress>();
             MapQueueEndpoint<Messages.ShoppingCarts.Commands.CheckOutCart>();
             MapQueueEndpoint<Messages.ShoppingCarts.Queries.GetShoppingCart>();
-            
+
             // Order
             MapQueueEndpoint<Messages.Orders.Commands.PlaceOrder>();
-            
+
             // Payment
             MapQueueEndpoint<Messages.Payments.Commands.CancelPayment>();
             MapQueueEndpoint<Messages.Payments.Commands.RequestPayment>();
