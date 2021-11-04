@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using ECommerce.WebAPI.Abstractions;
 using MassTransit;
-using Messages.Orders;
+using Messages.Services.Orders;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.WebAPI.Controllers;

@@ -65,48 +65,48 @@ builder.Services
             });
 
             // Account
-            MapQueueEndpoint<Messages.Accounts.Commands.DefineProfessionalAddress>();
-            MapQueueEndpoint<Messages.Accounts.Commands.DefineResidenceAddress>();
-            MapQueueEndpoint<Messages.Accounts.Commands.DeleteAccount>();
-            MapQueueEndpoint<Messages.Accounts.Commands.CreateAccount>();
-            MapQueueEndpoint<Messages.Accounts.Commands.UpdateProfile>();
-            MapQueueEndpoint<Messages.Accounts.Queries.GetAccountDetails>();
-            MapQueueEndpoint<Messages.Accounts.Queries.GetAccountsDetailsWithPagination>();
+            MapQueueEndpoint<Messages.Services.Accounts.Commands.DefineProfessionalAddress>();
+            MapQueueEndpoint<Messages.Services.Accounts.Commands.DefineResidenceAddress>();
+            MapQueueEndpoint<Messages.Services.Accounts.Commands.DeleteAccount>();
+            MapQueueEndpoint<Messages.Services.Accounts.Commands.CreateAccount>();
+            MapQueueEndpoint<Messages.Services.Accounts.Commands.UpdateProfile>();
+            MapQueueEndpoint<Messages.Services.Accounts.Queries.GetAccountDetails>();
+            MapQueueEndpoint<Messages.Services.Accounts.Queries.GetAccountsDetailsWithPagination>();
 
             // Catalog
-            MapQueueEndpoint<Messages.Catalogs.Commands.CreateCatalog>();
-            MapQueueEndpoint<Messages.Catalogs.Commands.UpdateCatalog>();
-            MapQueueEndpoint<Messages.Catalogs.Commands.DeleteCatalog>();
-            MapQueueEndpoint<Messages.Catalogs.Commands.ActivateCatalog>();
-            MapQueueEndpoint<Messages.Catalogs.Commands.DeactivateCatalog>();
-            MapQueueEndpoint<Messages.Catalogs.Commands.AddCatalogItem>();
-            MapQueueEndpoint<Messages.Catalogs.Commands.RemoveCatalogItem>();
-            MapQueueEndpoint<Messages.Catalogs.Commands.UpdateCatalogItem>();
-            MapQueueEndpoint<Messages.Catalogs.Queries.GetCatalogItemsDetailsWithPagination>();
+            MapQueueEndpoint<Messages.Services.Catalogs.Commands.CreateCatalog>();
+            MapQueueEndpoint<Messages.Services.Catalogs.Commands.UpdateCatalog>();
+            MapQueueEndpoint<Messages.Services.Catalogs.Commands.DeleteCatalog>();
+            MapQueueEndpoint<Messages.Services.Catalogs.Commands.ActivateCatalog>();
+            MapQueueEndpoint<Messages.Services.Catalogs.Commands.DeactivateCatalog>();
+            MapQueueEndpoint<Messages.Services.Catalogs.Commands.AddCatalogItem>();
+            MapQueueEndpoint<Messages.Services.Catalogs.Commands.RemoveCatalogItem>();
+            MapQueueEndpoint<Messages.Services.Catalogs.Commands.UpdateCatalogItem>();
+            MapQueueEndpoint<Messages.Services.Catalogs.Queries.GetCatalogItemsDetailsWithPagination>();
 
             //Identity
-            MapQueueEndpoint<Messages.Identities.Commands.RegisterUser>();
-            MapQueueEndpoint<Messages.Identities.Commands.ChangeUserPassword>();
-            MapQueueEndpoint<Messages.Identities.Commands.DeleteUser>();
-            MapQueueEndpoint<Messages.Identities.Queries.GetUserAuthenticationDetails>();
+            MapQueueEndpoint<Messages.Services.Identities.Commands.RegisterUser>();
+            MapQueueEndpoint<Messages.Services.Identities.Commands.ChangeUserPassword>();
+            MapQueueEndpoint<Messages.Services.Identities.Commands.DeleteUser>();
+            MapQueueEndpoint<Messages.Services.Identities.Queries.GetUserAuthenticationDetails>();
 
             //Shopping Cart
-            MapQueueEndpoint<Messages.ShoppingCarts.Commands.CreateCart>();
-            MapQueueEndpoint<Messages.ShoppingCarts.Commands.AddCartItem>();
-            MapQueueEndpoint<Messages.ShoppingCarts.Commands.RemoveCartItem>();
-            MapQueueEndpoint<Messages.ShoppingCarts.Commands.AddCreditCard>();
-            MapQueueEndpoint<Messages.ShoppingCarts.Commands.AddShippingAddress>();
-            MapQueueEndpoint<Messages.ShoppingCarts.Commands.ChangeBillingAddress>();
-            MapQueueEndpoint<Messages.ShoppingCarts.Commands.CheckOutCart>();
-            MapQueueEndpoint<Messages.ShoppingCarts.Queries.GetShoppingCart>();
+            MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.CreateCart>();
+            MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.AddCartItem>();
+            MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.RemoveCartItem>();
+            MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.AddCreditCard>();
+            MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.AddShippingAddress>();
+            MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.ChangeBillingAddress>();
+            MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.CheckOutCart>();
+            MapQueueEndpoint<Messages.Services.ShoppingCarts.Queries.GetShoppingCart>();
 
             // Order
-            MapQueueEndpoint<Messages.Orders.Commands.PlaceOrder>();
+            MapQueueEndpoint<Messages.Services.Orders.Commands.PlaceOrder>();
 
             // Payment
-            MapQueueEndpoint<Messages.Payments.Commands.CancelPayment>();
-            MapQueueEndpoint<Messages.Payments.Commands.RequestPayment>();
-            MapQueueEndpoint<Messages.Payments.Queries.GetPaymentDetails>();
+            MapQueueEndpoint<Messages.Services.Payments.Commands.CancelPayment>();
+            MapQueueEndpoint<Messages.Services.Payments.Commands.RequestPayment>();
+            MapQueueEndpoint<Messages.Services.Payments.Queries.GetPaymentDetails>();
         });
     })
     .AddGenericRequestClient()
