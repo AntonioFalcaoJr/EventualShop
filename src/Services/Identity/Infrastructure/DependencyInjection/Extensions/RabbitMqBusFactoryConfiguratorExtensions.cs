@@ -4,7 +4,7 @@ using GreenPipes;
 using MassTransit;
 using MassTransit.RabbitMqTransport;
 using Messages.Abstractions.Events;
-using Messages.Identities;
+using Messages.Services.Identities;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 

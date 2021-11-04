@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using MassTransit;
-using ChangeUserPasswordCommand = Messages.Identities.Commands.ChangeUserPassword;
+using ChangeUserPasswordCommand = Messages.Services.Identities.Commands.ChangeUserPassword;
 
 namespace Application.UseCases.Commands;
 

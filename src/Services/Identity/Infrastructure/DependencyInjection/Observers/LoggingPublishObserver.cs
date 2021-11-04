@@ -11,7 +11,7 @@ public class LoggingPublishObserver : IPublishObserver
         where T : class
     {
         var messageType = context.Message.GetType();
-        Log.Information("Publishing {Message} event from {Namespace}", messageType.Name, messageType.Namespace);
+        Log.Information("Publishing {Message} event from {Namespace}, ConversationId: {ConversationId}", messageType.Name, messageType.Namespace, context.ConversationId);
         await Task.CompletedTask;
     }
 
@@ -19,7 +19,7 @@ public class LoggingPublishObserver : IPublishObserver
         where T : class
     {
         var messageType = context.Message.GetType();
-        Log.Information("{MessageType} event, from {Namespace} was published", messageType.Name, messageType.Namespace);
+        Log.Information("{MessageType} event, from {Namespace} was published, ConversationId: {ConversationId}", messageType.Name, messageType.Namespace, context.ConversationId);
         await Task.CompletedTask;
     }
 

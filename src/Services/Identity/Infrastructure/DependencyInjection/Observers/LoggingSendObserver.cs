@@ -11,7 +11,7 @@ public class LoggingSendObserver : ISendObserver
         where T : class
     {
         var messageType = context.Message.GetType();
-        Log.Information("Sending {Message} message from {Namespace}", messageType.Name, messageType.Namespace);
+        Log.Information("Sending {Message} message from {Namespace}, ConversationId: {ConversationId}", messageType.Name, messageType.Namespace, context.ConversationId);
         await Task.CompletedTask;
     }
 
@@ -19,7 +19,7 @@ public class LoggingSendObserver : ISendObserver
         where T : class
     {
         var messageType = context.Message.GetType();
-        Log.Information("{MessageType} message from {Namespace} was sent", messageType.Name, messageType.Namespace);
+        Log.Information("{MessageType} message from {Namespace} was sent, ConversationId: {ConversationId}", messageType.Name, messageType.Namespace, context.ConversationId);
         await Task.CompletedTask;
     }
 

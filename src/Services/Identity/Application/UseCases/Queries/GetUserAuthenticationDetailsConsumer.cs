@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using Messages.Identities;
-using GetUserAuthenticationDetailsQuery = Messages.Identities.Queries.GetUserAuthenticationDetails;
+using Messages.Services.Identities;
+using GetUserAuthenticationDetailsQuery = Messages.Services.Identities.Queries.GetUserAuthenticationDetails;
 
 namespace Application.UseCases.Queries;
 

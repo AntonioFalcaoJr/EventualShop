@@ -2,7 +2,7 @@
 using Application.EventSourcing.EventStore;
 using Domain.Aggregates;
 using MassTransit;
-using RegisterUserCommand = Messages.Identities.Commands.RegisterUser;
+using RegisterUserCommand = Messages.Services.Identities.Commands.RegisterUser;
 
 namespace Application.UseCases.Commands;
 

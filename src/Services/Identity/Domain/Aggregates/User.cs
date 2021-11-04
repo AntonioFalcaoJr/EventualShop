@@ -1,7 +1,7 @@
 ﻿using System;
 using Domain.Abstractions.Aggregates;
 using Messages.Abstractions.Events;
-using Messages.Identities;
+using Messages.Services.Identities;
 
 namespace Domain.Aggregates;
 

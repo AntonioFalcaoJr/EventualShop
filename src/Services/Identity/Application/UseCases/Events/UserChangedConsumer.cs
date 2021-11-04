@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using UserRegisteredEvent = Messages.Identities.Events.UserRegistered;
-using UserPasswordChangedEvent = Messages.Identities.Events.UserPasswordChanged;
-using UserDeletedEvent = Messages.Identities.Events.UserDeleted;
+using UserRegisteredEvent = Messages.Services.Identities.Events.UserRegistered;
+using UserPasswordChangedEvent = Messages.Services.Identities.Events.UserPasswordChanged;
+using UserDeletedEvent = Messages.Services.Identities.Events.UserDeleted;
 
 namespace Application.UseCases.Events;
 
