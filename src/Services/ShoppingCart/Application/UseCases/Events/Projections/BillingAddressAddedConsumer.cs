@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using BillingAddressChangedEvent = Messages.ShoppingCarts.Events.BillingAddressChanged;
+using BillingAddressChangedEvent = Messages.Services.ShoppingCarts.DomainEvents.BillingAddressChanged;
 
-namespace Application.UseCases.Events;
+namespace Application.UseCases.Events.Projections;
 
 public class BillingAddressAddedConsumer : IConsumer<BillingAddressChangedEvent>
 {

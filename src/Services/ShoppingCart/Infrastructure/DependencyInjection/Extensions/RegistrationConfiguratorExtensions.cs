@@ -1,10 +1,11 @@
 ﻿using System;
 using Application.UseCases.Commands;
-using Application.UseCases.Events;
+using Application.UseCases.Events.Integrations;
+using Application.UseCases.Events.Projections;
 using Application.UseCases.Queries;
 using MassTransit;
 using Messages.Abstractions;
-using Messages.ShoppingCarts;
+using Messages.Services.ShoppingCarts;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 
@@ -29,6 +30,7 @@ public static class RegistrationConfiguratorExtensions
         cfg.AddConsumer<BillingAddressAddedConsumer>();
         cfg.AddConsumer<ShippingAddressAddedConsumer>();
         cfg.AddConsumer<CartCheckedOutConsumer>();
+        cfg.AddConsumer<PublishCartSubmittedWhenCartCheckedOutConsumer>();
     }
 
     public static void AddQueryConsumers(this IRegistrationConfigurator cfg)

@@ -1,10 +1,11 @@
 ﻿using System;
-using Application.UseCases.Events;
+using Application.UseCases.Events.Integrations;
+using Application.UseCases.Events.Projections;
 using GreenPipes;
 using MassTransit;
 using MassTransit.RabbitMqTransport;
 using Messages.Abstractions.Events;
-using Messages.ShoppingCarts;
+using Messages.Services.ShoppingCarts;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 
@@ -12,13 +13,14 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
     {
-        cfg.ConfigureEventReceiveEndpoint<CartCreatedConsumer, Events.CartCreated>(registration);
-        cfg.ConfigureEventReceiveEndpoint<CartItemAddedConsumer, Events.CartItemAdded>(registration);
-        cfg.ConfigureEventReceiveEndpoint<CartItemRemovedConsumer, Events.CartItemRemoved>(registration);
-        cfg.ConfigureEventReceiveEndpoint<CreditCardAddedConsumer, Events.CreditCardAdded>(registration);
-        cfg.ConfigureEventReceiveEndpoint<BillingAddressAddedConsumer, Events.BillingAddressChanged>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ShippingAddressAddedConsumer, Events.ShippingAddressAdded>(registration);
-        cfg.ConfigureEventReceiveEndpoint<CartCheckedOutConsumer, Events.CartCheckedOut>(registration);
+        cfg.ConfigureEventReceiveEndpoint<CartCreatedConsumer, DomainEvents.CartCreated>(registration);
+        cfg.ConfigureEventReceiveEndpoint<CartItemAddedConsumer, DomainEvents.CartItemAdded>(registration);
+        cfg.ConfigureEventReceiveEndpoint<CartItemRemovedConsumer, DomainEvents.CartItemRemoved>(registration);
+        cfg.ConfigureEventReceiveEndpoint<CreditCardAddedConsumer, DomainEvents.CreditCardAdded>(registration);
+        cfg.ConfigureEventReceiveEndpoint<BillingAddressAddedConsumer, DomainEvents.BillingAddressChanged>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ShippingAddressAddedConsumer, DomainEvents.ShippingAddressAdded>(registration);
+        cfg.ConfigureEventReceiveEndpoint<CartCheckedOutConsumer, DomainEvents.CartCheckedOut>(registration);
+        cfg.ConfigureEventReceiveEndpoint<PublishCartSubmittedWhenCartCheckedOutConsumer, DomainEvents.CartCheckedOut>(registration);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)
@@ -26,7 +28,7 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
         where TMessage : class, IEvent
     {
         bus.ReceiveEndpoint(
-            queueName: $"shoppingcart-{typeof(TMessage).ToKebabCaseString()}",
+            queueName: $"shoppingcart-{typeof(TConsumer).ToKebabCaseString()}-{typeof(TMessage).ToKebabCaseString()}",
             configureEndpoint: endpoint =>
             {
                 endpoint.ConfigureConsumeTopology = false;

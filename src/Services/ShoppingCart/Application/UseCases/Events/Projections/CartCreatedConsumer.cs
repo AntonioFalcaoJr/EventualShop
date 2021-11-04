@@ -2,9 +2,9 @@
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using CartCreatedEvent = Messages.ShoppingCarts.Events.CartCreated;
+using CartCreatedEvent = Messages.Services.ShoppingCarts.DomainEvents.CartCreated;
 
-namespace Application.UseCases.Events;
+namespace Application.UseCases.Events.Projections;
 
 public class CartCreatedConsumer : IConsumer<CartCreatedEvent>
 {

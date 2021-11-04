@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using Messages.ShoppingCarts;
-using GetShoppingCartQuery = Messages.ShoppingCarts.Queries.GetShoppingCart;
+using Messages.Services.ShoppingCarts;
+using GetShoppingCartQuery = Messages.Services.ShoppingCarts.Queries.GetShoppingCart;
 
 namespace Application.UseCases.Queries;
 

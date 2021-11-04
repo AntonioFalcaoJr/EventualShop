@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using MassTransit;
-using AddCreditCardCommand = Messages.ShoppingCarts.Commands.AddCreditCard;
+using AddCreditCardCommand = Messages.Services.ShoppingCarts.Commands.AddCreditCard;
 
 namespace Application.UseCases.Commands;
 

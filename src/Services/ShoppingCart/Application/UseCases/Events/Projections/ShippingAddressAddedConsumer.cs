@@ -3,22 +3,22 @@ using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using CartCheckedOutEvent = Messages.ShoppingCarts.Events.CartCheckedOut;
+using ShippingAddressAddedEvent = Messages.Services.ShoppingCarts.DomainEvents.ShippingAddressAdded;
 
-namespace Application.UseCases.Events;
+namespace Application.UseCases.Events.Projections;
 
-public class CartCheckedOutConsumer : IConsumer<CartCheckedOutEvent>
+public class ShippingAddressAddedConsumer : IConsumer<ShippingAddressAddedEvent>
 {
     private readonly IShoppingCartEventStoreService _eventStoreService;
     private readonly IShoppingCartProjectionsService _projectionsService;
 
-    public CartCheckedOutConsumer(IShoppingCartEventStoreService eventStoreService, IShoppingCartProjectionsService projectionsService)
+    public ShippingAddressAddedConsumer(IShoppingCartEventStoreService eventStoreService, IShoppingCartProjectionsService projectionsService)
     {
         _eventStoreService = eventStoreService;
         _projectionsService = projectionsService;
     }
 
-    public async Task Consume(ConsumeContext<CartCheckedOutEvent> context)
+    public async Task Consume(ConsumeContext<ShippingAddressAddedEvent> context)
     {
         var cart = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CartId, context.CancellationToken);
 
@@ -39,7 +39,7 @@ public class CartCheckedOutConsumer : IConsumer<CartCheckedOutEvent>
                 }),
             BillingAddressProjection = cart.BillingAddress is null
                 ? default
-                : new()
+                : new AddressProjection
                 {
                     City = cart.BillingAddress.City,
                     Country = cart.BillingAddress.Country,
@@ -50,7 +50,7 @@ public class CartCheckedOutConsumer : IConsumer<CartCheckedOutEvent>
                 },
             ShippingAddressProjection = cart.ShippingAddress is null
                 ? default
-                : new()
+                : new AddressProjection
                 {
                     City = cart.ShippingAddress.City,
                     Country = cart.ShippingAddress.Country,
@@ -61,7 +61,7 @@ public class CartCheckedOutConsumer : IConsumer<CartCheckedOutEvent>
                 },
             CreditCardProjection = cart.CreditCard is null
                 ? default
-                : new()
+                : new CreditCardProjection
                 {
                     Expiration = cart.CreditCard.Expiration,
                     Number = cart.CreditCard.Number,

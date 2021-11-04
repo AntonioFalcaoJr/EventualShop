@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using MassTransit;
-using AddCartItemCommand = Messages.ShoppingCarts.Commands.AddCartItem;
+using AddCartItemCommand = Messages.Services.ShoppingCarts.Commands.AddCartItem;
 
 namespace Application.UseCases.Commands;
 

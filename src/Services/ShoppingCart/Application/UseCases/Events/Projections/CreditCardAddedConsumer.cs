@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using CreditCardAddedEvent = Messages.ShoppingCarts.Events.CreditCardAdded;
+using CreditCardAddedEvent = Messages.Services.ShoppingCarts.DomainEvents.CreditCardAdded;
 
-namespace Application.UseCases.Events;
+namespace Application.UseCases.Events.Projections;
 
 public class CreditCardAddedConsumer : IConsumer<CreditCardAddedEvent>
 {

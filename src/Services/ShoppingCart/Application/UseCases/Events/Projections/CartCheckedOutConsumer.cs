@@ -3,22 +3,22 @@ using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using CartItemRemovedEvent = Messages.ShoppingCarts.Events.CartItemRemoved;
+using CartCheckedOutEvent = Messages.Services.ShoppingCarts.DomainEvents.CartCheckedOut;
 
-namespace Application.UseCases.Events;
+namespace Application.UseCases.Events.Projections;
 
-public class CartItemRemovedConsumer : IConsumer<CartItemRemovedEvent>
+public class CartCheckedOutConsumer : IConsumer<CartCheckedOutEvent>
 {
     private readonly IShoppingCartEventStoreService _eventStoreService;
     private readonly IShoppingCartProjectionsService _projectionsService;
 
-    public CartItemRemovedConsumer(IShoppingCartEventStoreService eventStoreService, IShoppingCartProjectionsService projectionsService)
+    public CartCheckedOutConsumer(IShoppingCartEventStoreService eventStoreService, IShoppingCartProjectionsService projectionsService)
     {
         _eventStoreService = eventStoreService;
         _projectionsService = projectionsService;
     }
 
-    public async Task Consume(ConsumeContext<CartItemRemovedEvent> context)
+    public async Task Consume(ConsumeContext<CartCheckedOutEvent> context)
     {
         var cart = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CartId, context.CancellationToken);
 
@@ -39,7 +39,7 @@ public class CartItemRemovedConsumer : IConsumer<CartItemRemovedEvent>
                 }),
             BillingAddressProjection = cart.BillingAddress is null
                 ? default
-                : new AddressProjection
+                : new()
                 {
                     City = cart.BillingAddress.City,
                     Country = cart.BillingAddress.Country,
@@ -50,7 +50,7 @@ public class CartItemRemovedConsumer : IConsumer<CartItemRemovedEvent>
                 },
             ShippingAddressProjection = cart.ShippingAddress is null
                 ? default
-                : new AddressProjection
+                : new()
                 {
                     City = cart.ShippingAddress.City,
                     Country = cart.ShippingAddress.Country,
@@ -61,7 +61,7 @@ public class CartItemRemovedConsumer : IConsumer<CartItemRemovedEvent>
                 },
             CreditCardProjection = cart.CreditCard is null
                 ? default
-                : new CreditCardProjection
+                : new()
                 {
                     Expiration = cart.CreditCard.Expiration,
                     Number = cart.CreditCard.Number,
