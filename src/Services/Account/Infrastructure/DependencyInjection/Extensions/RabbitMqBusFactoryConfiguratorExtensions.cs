@@ -5,7 +5,7 @@ using GreenPipes;
 using MassTransit;
 using MassTransit.RabbitMqTransport;
 using Messages.Abstractions.Events;
-using Messages.Accounts;
+using Messages.Services.Accounts;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 
@@ -18,7 +18,7 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
         cfg.ConfigureEventReceiveEndpoint<ProfessionalAddressDefinedConsumer, Events.ProfessionalAddressDefined>(registration);
         cfg.ConfigureEventReceiveEndpoint<ProfileUpdatedConsumer, Events.ProfileUpdated>(registration);
         cfg.ConfigureEventReceiveEndpoint<ResidenceAddressDefinedConsumer, Events.ResidenceAddressDefined>(registration);
-        cfg.ConfigureEventReceiveEndpoint<UserRegisteredConsumer, Messages.Identities.Events.UserRegistered>(registration);
+        cfg.ConfigureEventReceiveEndpoint<UserRegisteredConsumer, Messages.Services.Identities.Events.UserRegistered>(registration);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)

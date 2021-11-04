@@ -25,7 +25,7 @@ namespace Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Application.EventSourcing.EventStore.Events.AccountSnapshot", b =>
+            modelBuilder.Entity("Application.EventSourcing.EventStore.DomainEvents.AccountSnapshot", b =>
                 {
                     b.Property<int>("AggregateVersion")
                         .HasColumnType("int");
@@ -49,7 +49,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("AccountSnapshots");
                 });
 
-            modelBuilder.Entity("Application.EventSourcing.EventStore.Events.AccountStoreEvent", b =>
+            modelBuilder.Entity("Application.EventSourcing.EventStore.DomainEvents.AccountStoreEvent", b =>
                 {
                     b.Property<int>("Version")
                         .ValueGeneratedOnAdd()

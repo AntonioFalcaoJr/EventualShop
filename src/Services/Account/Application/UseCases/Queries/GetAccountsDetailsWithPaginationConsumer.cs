@@ -2,8 +2,8 @@ using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.Projections.Pagination;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using Messages.Accounts;
-using GetAccountsDetailsWithPaginationQuery = Messages.Accounts.Queries.GetAccountsDetailsWithPagination;
+using Messages.Services.Accounts;
+using GetAccountsDetailsWithPaginationQuery = Messages.Services.Accounts.Queries.GetAccountsDetailsWithPagination;
 
 namespace Application.UseCases.Queries;
 

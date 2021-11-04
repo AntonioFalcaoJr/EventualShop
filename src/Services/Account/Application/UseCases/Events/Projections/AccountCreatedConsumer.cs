@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using AccountCreatedEvent = Messages.Accounts.Events.AccountCreated;
+using AccountCreatedEvent = Messages.Services.Accounts.Events.AccountCreated;
 
 namespace Application.UseCases.Events.Projections;
 

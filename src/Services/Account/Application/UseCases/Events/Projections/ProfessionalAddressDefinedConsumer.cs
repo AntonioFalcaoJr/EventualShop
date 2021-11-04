@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using ProfessionalAddressDefinedEvent = Messages.Accounts.Events.ProfessionalAddressDefined;
+using ProfessionalAddressDefinedEvent = Messages.Services.Accounts.Events.ProfessionalAddressDefined;
 
 namespace Application.UseCases.Events.Projections;
 

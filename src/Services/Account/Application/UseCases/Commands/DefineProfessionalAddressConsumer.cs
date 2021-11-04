@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using MassTransit;
-using DefineProfessionalAddressCommand = Messages.Accounts.Commands.DefineProfessionalAddress;
+using DefineProfessionalAddressCommand = Messages.Services.Accounts.Commands.DefineProfessionalAddress;
 
 namespace Application.UseCases.Commands;
 

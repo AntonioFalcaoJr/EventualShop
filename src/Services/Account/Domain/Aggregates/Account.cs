@@ -3,7 +3,7 @@ using Domain.Abstractions.Aggregates;
 using Domain.ValueObjects.Addresses;
 using Domain.ValueObjects.Profiles;
 using Messages.Abstractions.Events;
-using Messages.Accounts;
+using Messages.Services.Accounts;
 
 namespace Domain.Aggregates;
 

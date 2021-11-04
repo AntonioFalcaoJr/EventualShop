@@ -2,8 +2,8 @@
 using Application.EventSourcing.EventStore;
 using Domain.Aggregates;
 using MassTransit;
-using UserRegisteredEvent = Messages.Identities.Events.UserRegistered;
-using CreateAccountCommand = Messages.Accounts.Commands.CreateAccount;
+using UserRegisteredEvent = Messages.Services.Identities.Events.UserRegistered;
+using CreateAccountCommand = Messages.Services.Accounts.Commands.CreateAccount;
 
 namespace Application.UseCases.Events;
 

@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using ProfileUpdatedEvent = Messages.Accounts.Events.ProfileUpdated;
+using ProfileUpdatedEvent = Messages.Services.Accounts.Events.ProfileUpdated;
 
 namespace Application.UseCases.Events.Projections;
 

@@ -2,7 +2,7 @@
 using Application.EventSourcing.EventStore;
 using Domain.Aggregates;
 using MassTransit;
-using CreateAccountCommand = Messages.Accounts.Commands.CreateAccount;
+using CreateAccountCommand = Messages.Services.Accounts.Commands.CreateAccount;
 
 namespace Application.UseCases.Commands;
 
