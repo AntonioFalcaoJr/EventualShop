@@ -13,7 +13,7 @@ public static class Models
         public string Street { get; init; }
         public string ZipCode { get; init; }
     }
-        
+
     public record CreditCard
     {
         public DateOnly Expiration { get; init; }
@@ -21,13 +21,22 @@ public static class Models
         public string Number { get; init; }
         public string SecurityNumber { get; init; }
     }
-        
+
     public record Item
     {
         public Guid CatalogItemId { get; init; }
         public string ProductName { get; init; }
         public decimal UnitPrice { get; init; }
         public int Quantity { get; init; }
+        public string PictureUrl { get; init; }
+    }
+
+    public record Product
+    {
+        public Guid Id { get; init; }
+        public string Name { get; init; }
+        public decimal UnitPrice { get; init; }
+        public int QuantityOnHand { get; init; }
         public string PictureUrl { get; init; }
     }
 }
