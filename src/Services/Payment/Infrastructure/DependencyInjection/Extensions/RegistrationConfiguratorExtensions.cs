@@ -5,7 +5,7 @@ using Application.UseCases.Events.Projections;
 using Application.UseCases.Queries;
 using MassTransit;
 using Messages.Abstractions;
-using Messages.Payments;
+using Messages.Services.Payments;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 

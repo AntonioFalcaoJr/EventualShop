@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using MassTransit;
-using CancelPaymentCommand = Messages.Payments.Commands.CancelPayment;
+using CancelPaymentCommand = Messages.Services.Payments.Commands.CancelPayment;
 
 namespace Application.UseCases.Commands;
 

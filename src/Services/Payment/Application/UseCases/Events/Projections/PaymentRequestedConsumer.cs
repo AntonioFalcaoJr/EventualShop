@@ -2,7 +2,7 @@
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using PaymentRequestedEvent = Messages.Payments.Events.PaymentRequested;
+using PaymentRequestedEvent = Messages.Services.Payments.DomainEvents.PaymentRequested;
 
 namespace Application.UseCases.Events.Projections;
 

@@ -4,7 +4,7 @@ using Domain.Enumerations;
 using Domain.ValueObjects.Addresses;
 using Domain.ValueObjects.CreditCards;
 using Messages.Abstractions.Events;
-using Messages.Payments;
+using Messages.Services.Payments;
 
 namespace Domain.Aggregates;
 
@@ -17,15 +17,15 @@ public class Payment : AggregateRoot<Guid>
     public CreditCard CreditCard { get; private set; }
 
     public void Handle(Commands.RequestPayment cmd)
-        => RaiseEvent(new Events.PaymentRequested(Guid.NewGuid(), cmd.OrderId, cmd.Amount, cmd.BillingAddress, cmd.CreditCard));
+        => RaiseEvent(new DomainEvents.PaymentRequested(Guid.NewGuid(), cmd.OrderId, cmd.Amount, cmd.BillingAddress, cmd.CreditCard));
 
     public void Handle(Commands.CancelPayment cmd)
-        => RaiseEvent(new Events.PaymentCanceled(Id, cmd.OrderId));
+        => RaiseEvent(new DomainEvents.PaymentCanceled(Id, cmd.OrderId));
 
     protected override void ApplyEvent(IEvent @event)
         => When(@event as dynamic);
 
-    private void When(Events.PaymentRequested @event)
+    private void When(DomainEvents.PaymentRequested @event)
     {
         Id = @event.PaymentId;
         OrderId = @event.OrderId;

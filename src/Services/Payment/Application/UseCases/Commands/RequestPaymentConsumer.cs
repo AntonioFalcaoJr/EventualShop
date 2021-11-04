@@ -2,7 +2,7 @@
 using Application.EventSourcing.EventStore;
 using Domain.Aggregates;
 using MassTransit;
-using RequestPaymentCommand = Messages.Payments.Commands.RequestPayment;
+using RequestPaymentCommand = Messages.Services.Payments.Commands.RequestPayment;
 
 namespace Application.UseCases.Commands;
 

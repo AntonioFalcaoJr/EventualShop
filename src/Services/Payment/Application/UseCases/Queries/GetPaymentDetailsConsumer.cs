@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using Messages.Payments;
-using GetPaymentDetailsQuery =  Messages.Payments.Queries.GetPaymentDetails;
+using Messages.Services.Payments;
+using GetPaymentDetailsQuery =  Messages.Services.Payments.Queries.GetPaymentDetails;
 
 namespace Application.UseCases.Queries;
 

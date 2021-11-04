@@ -2,7 +2,7 @@
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using PaymentCanceledEvent = Messages.Payments.Events.PaymentCanceled;
+using PaymentCanceledEvent = Messages.Services.Payments.DomainEvents.PaymentCanceled;
 
 namespace Application.UseCases.Events.Projections;
 
