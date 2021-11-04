@@ -2,7 +2,7 @@
 using Application.EventSourcing.EventStore;
 using Domain.Aggregates;
 using MassTransit;
-using CreateCatalogCommand = Messages.Catalogs.Commands.CreateCatalog;
+using CreateCatalogCommand = Messages.Services.Catalogs.Commands.CreateCatalog;
 
 namespace Application.UseCases.Commands;
 

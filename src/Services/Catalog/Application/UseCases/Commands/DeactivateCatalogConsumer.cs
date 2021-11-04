@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using MassTransit;
-using DeactivateCatalogCommand = Messages.Catalogs.Commands.DeactivateCatalog;
+using DeactivateCatalogCommand = Messages.Services.Catalogs.Commands.DeactivateCatalog;
 
 namespace Application.UseCases.Commands;
 

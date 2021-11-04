@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using CatalogCreatedEvent = Messages.Catalogs.Events.CatalogCreated;
+using CatalogCreatedEvent = Messages.Services.Catalogs.Events.CatalogCreated;
 
 namespace Application.UseCases.Events;
 

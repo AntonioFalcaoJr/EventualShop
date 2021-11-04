@@ -4,7 +4,7 @@ using Application.UseCases.Events;
 using Application.UseCases.Queries;
 using MassTransit;
 using Messages.Abstractions;
-using Messages.Catalogs;
+using Messages.Services.Catalogs;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 

@@ -4,7 +4,7 @@ using System.Linq;
 using Domain.Abstractions.Aggregates;
 using Domain.Entities.CatalogItems;
 using Messages.Abstractions.Events;
-using Messages.Catalogs;
+using Messages.Services.Catalogs;
 
 namespace Domain.Aggregates;
 

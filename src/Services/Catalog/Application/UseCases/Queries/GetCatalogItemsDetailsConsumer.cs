@@ -2,8 +2,8 @@ using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.Projections.Pagination;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using Messages.Catalogs;
-using GetCatalogItemsDetailsWithPaginationQuery = Messages.Catalogs.Queries.GetCatalogItemsDetailsWithPagination;
+using Messages.Services.Catalogs;
+using GetCatalogItemsDetailsWithPaginationQuery = Messages.Services.Catalogs.Queries.GetCatalogItemsDetailsWithPagination;
 
 namespace Application.UseCases.Queries;
 
