@@ -6,7 +6,7 @@ using Domain.Entities.OrderItems;
 using Domain.ValueObjects.Addresses;
 using Domain.ValueObjects.CreditCards;
 using Messages.Abstractions.Events;
-using Messages.Orders;
+using Messages.Services.Orders;
 
 namespace Domain.Aggregates;
 

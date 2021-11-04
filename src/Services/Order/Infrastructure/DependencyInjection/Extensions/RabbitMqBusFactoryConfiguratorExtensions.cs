@@ -1,10 +1,11 @@
 ﻿using System;
 using Application.UseCases.Events;
+using Application.UseCases.Events.Projections;
 using GreenPipes;
 using MassTransit;
 using MassTransit.RabbitMqTransport;
 using Messages.Abstractions.Events;
-using Messages.Orders;
+using Messages.Services.Orders;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 

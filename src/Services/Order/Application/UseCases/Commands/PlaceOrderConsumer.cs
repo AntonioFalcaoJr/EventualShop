@@ -2,7 +2,7 @@
 using Application.EventSourcing.EventStore;
 using Domain.Aggregates;
 using MassTransit;
-using PlaceOrderCommand = Messages.Orders.Commands.PlaceOrder;
+using PlaceOrderCommand = Messages.Services.Orders.Commands.PlaceOrder;
 
 namespace Application.UseCases.Commands;
 
