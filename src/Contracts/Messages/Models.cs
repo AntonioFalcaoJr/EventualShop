@@ -1,4 +1,6 @@
 ﻿using System;
+using Messages.JsonConverters;
+using Newtonsoft.Json;
 
 namespace Messages;
 
@@ -16,6 +18,7 @@ public static class Models
 
     public record CreditCard
     {
+        [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
         public DateOnly Expiration { get; init; }
         public string HolderName { get; init; }
         public string Number { get; init; }

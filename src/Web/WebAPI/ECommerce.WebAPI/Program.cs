@@ -18,7 +18,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddControllers()
-    .AddNewtonsoftJson(options => options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter()))
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter());
+        options.SerializerSettings.Converters.Add(new ExpirationDateOnlyJsonConverter());
+    })
     .AddApplicationFluentValidation();
 
 builder.Services.AddLogging(loggingBuilder =>
@@ -37,7 +41,7 @@ builder.Services
     .AddSwaggerGen(options =>
     {
         options.SwaggerDoc("v1", new() { Title = "WebAPI", Version = "v1" });
-        options.MapType<DateOnly>(() => new OpenApiSchema{Format = "date",Example = new OpenApiString(DateOnly.MaxValue.ToString())});
+        options.MapType<DateOnly>(() => new OpenApiSchema { Format = "date", Example = new OpenApiString(DateOnly.MinValue.ToString()) });
     });
 
 builder.Services
@@ -57,10 +61,11 @@ builder.Services
 
             bus.ConnectConsumeObserver(new LoggingConsumeObserver());
             bus.ConnectSendObserver(new LoggingSendObserver());
-            
+
             bus.ConfigureJsonSerializer(settings =>
             {
-                settings.Converters.Add(new DateOnlyJsonConverter()); 
+                settings.Converters.Add(new DateOnlyJsonConverter());
+                settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
                 return settings;
             });
 

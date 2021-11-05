@@ -1,11 +1,12 @@
 ﻿using System;
-using Application.UseCases.Events;
+using Application.UseCases.Events.Integrations;
 using Application.UseCases.Events.Projections;
 using GreenPipes;
 using MassTransit;
 using MassTransit.RabbitMqTransport;
 using Messages.Abstractions.Events;
-using Messages.Services.Orders;
+using Messages.Services.ShoppingCarts;
+using DomainEvents = Messages.Services.Orders.DomainEvents;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 
@@ -13,6 +14,7 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
     {
+        cfg.ConfigureEventReceiveEndpoint<CartSubmittedConsumer, IntegrationEvents.CartSubmitted>(registration);
         cfg.ConfigureEventReceiveEndpoint<OrderPlacedConsumer, DomainEvents.OrderPlaced>(registration);
     }
 

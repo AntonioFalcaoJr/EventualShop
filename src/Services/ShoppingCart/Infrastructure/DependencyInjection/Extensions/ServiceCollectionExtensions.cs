@@ -3,6 +3,7 @@ using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using FluentValidation;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
+using Infrastructure.Abstractions.EventSourcing.Projections.Contexts.BsonSerializers;
 using Infrastructure.DependencyInjection.Filters;
 using Infrastructure.DependencyInjection.Observers;
 using Infrastructure.DependencyInjection.Options;
@@ -20,6 +21,7 @@ using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
+using Newtonsoft.Json;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 
@@ -58,9 +60,20 @@ public static class ServiceCollectionExtensions
                     bus.ConfigureEventReceiveEndpoints(context);
                     bus.ConfigureEndpoints(context);
                     
+                    
+                    bus.ConfigureJsonSerializer(settings =>  new JsonSerializerSettings());
+                    
+                    bus.ConfigureJsonSerializer(settings =>
+                    {
+                        settings.Converters.Add(new DateOnlyJsonConverter()); 
+                        settings.Converters.Add(new ExpirationDateOnlyJsonConverter()); 
+                        return settings;
+                    });
+                    
                     bus.ConfigureJsonDeserializer(settings =>
                     {
                         settings.Converters.Add(new DateOnlyJsonConverter()); 
+                        settings.Converters.Add(new ExpirationDateOnlyJsonConverter()); 
                         return settings;
                     });
                 });
@@ -79,7 +92,10 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddProjectionsDbContext(this IServiceCollection services)
     {
+        BsonSerializer.RegisterSerializer(new DateOnlyBsonSerializer());
+        //BsonSerializer.RegisterSerializer(new ExpirationDateOnlyBsonSerializer());
         BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.CSharpLegacy));
+        
         return services.AddScoped<IMongoDbContext, ProjectionsDbContext>();
     }
 

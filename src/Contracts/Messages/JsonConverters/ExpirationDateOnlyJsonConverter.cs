@@ -6,7 +6,7 @@ namespace Messages.JsonConverters;
 
 public class ExpirationDateOnlyJsonConverter : JsonConverter
 {
-    public const string Format = "MM/yy";
+    private const string Format = "MM/yy";
 
     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         => writer.WriteValue(((DateOnly)value).ToString(Format, CultureInfo.InvariantCulture));

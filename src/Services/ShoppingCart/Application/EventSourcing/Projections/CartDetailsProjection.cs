@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Application.Abstractions.EventSourcing.Projections;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Application.EventSourcing.Projections;
 
@@ -38,6 +39,7 @@ public record AddressProjection
 
 public record CreditCardProjection
 {
+    [BsonSerializer(typeof(ExpirationDateOnlyBsonSerializer))]
     public DateOnly Expiration { get; init; }
     public string HolderName { get; init; }
     public string Number { get; init; }

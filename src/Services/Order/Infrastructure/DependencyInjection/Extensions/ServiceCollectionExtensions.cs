@@ -12,6 +12,7 @@ using Infrastructure.EventSourcing.Projections;
 using Infrastructure.EventSourcing.Projections.Contexts;
 using MassTransit;
 using Messages.Abstractions;
+using Messages.JsonConverters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -56,6 +57,20 @@ public static class ServiceCollectionExtensions
                     bus.ConnectSendObserver(new LoggingSendObserver());
                     bus.ConfigureEventReceiveEndpoints(context);
                     bus.ConfigureEndpoints(context);
+                    
+                    bus.ConfigureJsonSerializer(settings =>
+                    {
+                        settings.Converters.Add(new DateOnlyJsonConverter()); 
+                        settings.Converters.Add(new ExpirationDateOnlyJsonConverter()); 
+                        return settings;
+                    });
+                    
+                    bus.ConfigureJsonDeserializer(settings =>
+                    {
+                        settings.Converters.Add(new DateOnlyJsonConverter()); 
+                        settings.Converters.Add(new ExpirationDateOnlyJsonConverter()); 
+                        return settings;
+                    });
                 });
             })
             .AddMassTransitHostedService()
