@@ -1,6 +1,7 @@
 ﻿using Application.EventSourcing.EventStore.Events;
 using JsonNet.ContractResolvers;
 using Messages.Abstractions.Events;
+using Messages.JsonConverters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
@@ -32,17 +33,33 @@ public class ShoppingCartStoreEventConfiguration : IEntityTypeConfiguration<Shop
             .Property(storeEvent => storeEvent.Event)
             .IsUnicode(false)
             .HasConversion(
-                @event => JsonConvert.SerializeObject(@event, typeof(IEvent),
-                    new JsonSerializerSettings
-                    {
-                        TypeNameHandling = TypeNameHandling.Auto
-                    }),
-                jsonString => JsonConvert.DeserializeObject<IEvent>(jsonString,
-                    new JsonSerializerSettings
-                    {
-                        TypeNameHandling = TypeNameHandling.All,
-                        ContractResolver = new PrivateSetterContractResolver()
-                    }))
+                @event => JsonConvert.SerializeObject(@event, typeof(IEvent), SerializerSettings()),
+                jsonString => JsonConvert.DeserializeObject<IEvent>(jsonString, DeserializerSettings()))
             .IsRequired();
+    }
+
+    private static JsonSerializerSettings SerializerSettings()
+    {
+        var jsonSerializerSettings = new JsonSerializerSettings
+        {
+            TypeNameHandling = TypeNameHandling.Auto
+        };
+        jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());
+        jsonSerializerSettings.Converters.Add(new ExpirationDateOnlyJsonConverter());
+
+        return jsonSerializerSettings;
+    }
+
+    private static JsonSerializerSettings DeserializerSettings()
+    {
+        var jsonDeserializerSettings = new JsonSerializerSettings
+        {
+            TypeNameHandling = TypeNameHandling.All,
+            ContractResolver = new PrivateSetterContractResolver()
+        };
+        jsonDeserializerSettings.Converters.Add(new DateOnlyJsonConverter());
+        jsonDeserializerSettings.Converters.Add(new ExpirationDateOnlyJsonConverter());
+
+        return jsonDeserializerSettings;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Application.EventSourcing.EventStore.Events;
 using Domain.Aggregates;
 using JsonNet.ContractResolvers;
+using Messages.JsonConverters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
@@ -31,9 +32,31 @@ public class ShoppingCartSnapshotConfiguration : IEntityTypeConfiguration<Shoppi
             .Property(snapshot => snapshot.AggregateState)
             .IsUnicode(false)
             .HasConversion(
-                cart => JsonConvert.SerializeObject(cart),
-                jsonString => JsonConvert.DeserializeObject<Cart>(jsonString,
-                    new JsonSerializerSettings { ContractResolver = new PrivateSetterContractResolver() }))
+                cart => JsonConvert.SerializeObject(cart, SerializerSettings()),
+                jsonString => JsonConvert.DeserializeObject<Cart>(jsonString, DeserializerSettings()))
             .IsRequired();
+    }
+
+    private static JsonSerializerSettings SerializerSettings()
+    {
+        var jsonSerializerSettings = new JsonSerializerSettings();
+        
+        jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());
+        jsonSerializerSettings.Converters.Add(new ExpirationDateOnlyJsonConverter());
+        
+        return jsonSerializerSettings;
+    }
+
+    private static JsonSerializerSettings DeserializerSettings()
+    {
+        var jsonDeserializerSettings = new JsonSerializerSettings
+        {
+            ContractResolver = new PrivateSetterContractResolver()
+        };
+        
+        jsonDeserializerSettings.Converters.Add(new DateOnlyJsonConverter());
+        jsonDeserializerSettings.Converters.Add(new ExpirationDateOnlyJsonConverter());
+
+        return jsonDeserializerSettings;
     }
 }
