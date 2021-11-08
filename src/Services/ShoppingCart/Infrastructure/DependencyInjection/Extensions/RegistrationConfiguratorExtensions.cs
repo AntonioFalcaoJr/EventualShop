@@ -24,13 +24,7 @@ public static class RegistrationConfiguratorExtensions
 
     public static void AddEventConsumers(this IRegistrationConfigurator cfg)
     {
-        cfg.AddConsumer<CartCreatedConsumer>();
-        cfg.AddConsumer<CartItemAddedConsumer>();
-        cfg.AddConsumer<CartItemRemovedConsumer>();
-        cfg.AddConsumer<CreditCardAddedConsumer>();
-        cfg.AddConsumer<BillingAddressAddedConsumer>();
-        cfg.AddConsumer<ShippingAddressAddedConsumer>();
-        cfg.AddConsumer<CartCheckedOutConsumer>();
+        cfg.AddConsumer<ProjectCartDetailsWhenCartChangedConsumer>();
         cfg.AddConsumer<PublishCartSubmittedWhenCartCheckedOutConsumer>();
     }
 

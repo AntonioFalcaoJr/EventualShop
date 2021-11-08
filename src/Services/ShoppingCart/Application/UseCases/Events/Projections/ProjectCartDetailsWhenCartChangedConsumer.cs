@@ -1,26 +1,62 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
+using BillingAddressChangedEvent = Messages.Services.ShoppingCarts.DomainEvents.BillingAddressChanged;
+using CartCreatedEvent = Messages.Services.ShoppingCarts.DomainEvents.CartCreated;
 using CartItemAddedEvent = Messages.Services.ShoppingCarts.DomainEvents.CartItemAdded;
+using CreditCardAddedEvent = Messages.Services.ShoppingCarts.DomainEvents.CreditCardAdded;
+using CartItemRemovedEvent = Messages.Services.ShoppingCarts.DomainEvents.CartItemRemoved;
+using CartCheckedOutEvent = Messages.Services.ShoppingCarts.DomainEvents.CartCheckedOut;
+using ShippingAddressAddedEvent = Messages.Services.ShoppingCarts.DomainEvents.ShippingAddressAdded;
 
 namespace Application.UseCases.Events.Projections;
 
-public class CartItemAddedConsumer : IConsumer<CartItemAddedEvent>
+public class ProjectCartDetailsWhenCartChangedConsumer :
+    IConsumer<BillingAddressChangedEvent>,
+    IConsumer<CartCreatedEvent>,
+    IConsumer<CartItemAddedEvent>,
+    IConsumer<CreditCardAddedEvent>,
+    IConsumer<CartItemRemovedEvent>,
+    IConsumer<CartCheckedOutEvent>,
+    IConsumer<ShippingAddressAddedEvent>
 {
     private readonly IShoppingCartEventStoreService _eventStoreService;
     private readonly IShoppingCartProjectionsService _projectionsService;
 
-    public CartItemAddedConsumer(IShoppingCartEventStoreService eventStoreService, IShoppingCartProjectionsService projectionsService)
+    public ProjectCartDetailsWhenCartChangedConsumer(IShoppingCartEventStoreService eventStoreService, IShoppingCartProjectionsService projectionsService)
     {
         _eventStoreService = eventStoreService;
         _projectionsService = projectionsService;
     }
 
-    public async Task Consume(ConsumeContext<CartItemAddedEvent> context)
+    public Task Consume(ConsumeContext<BillingAddressChangedEvent> context)
+        => Project(context.Message.CartId, context.CancellationToken);
+
+    public Task Consume(ConsumeContext<CartCreatedEvent> context)
+        => Project(context.Message.CartId, context.CancellationToken);
+
+    public Task Consume(ConsumeContext<CartItemAddedEvent> context)
+        => Project(context.Message.CartId, context.CancellationToken);
+
+    public Task Consume(ConsumeContext<CreditCardAddedEvent> context)
+        => Project(context.Message.CartId, context.CancellationToken);
+
+    public Task Consume(ConsumeContext<CartItemRemovedEvent> context)
+        => Project(context.Message.CartId, context.CancellationToken);
+
+    public Task Consume(ConsumeContext<CartCheckedOutEvent> context)
+        => Project(context.Message.CartId, context.CancellationToken);
+
+    public Task Consume(ConsumeContext<ShippingAddressAddedEvent> context)
+        => Project(context.Message.CartId, context.CancellationToken);
+
+    private async Task Project(Guid cartId, CancellationToken cancellationToken)
     {
-        var cart = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CartId, context.CancellationToken);
+        var cart = await _eventStoreService.LoadAggregateFromStreamAsync(cartId, cancellationToken);
 
         var accountDetails = new CartDetailsProjection
         {
@@ -39,7 +75,7 @@ public class CartItemAddedConsumer : IConsumer<CartItemAddedEvent>
                 }),
             BillingAddressProjection = cart.BillingAddress is null
                 ? default
-                : new AddressProjection
+                : new()
                 {
                     City = cart.BillingAddress.City,
                     Country = cart.BillingAddress.Country,
@@ -50,7 +86,7 @@ public class CartItemAddedConsumer : IConsumer<CartItemAddedEvent>
                 },
             ShippingAddressProjection = cart.ShippingAddress is null
                 ? default
-                : new AddressProjection
+                : new()
                 {
                     City = cart.ShippingAddress.City,
                     Country = cart.ShippingAddress.Country,
@@ -61,7 +97,7 @@ public class CartItemAddedConsumer : IConsumer<CartItemAddedEvent>
                 },
             CreditCardProjection = cart.CreditCard is null
                 ? default
-                : new CreditCardProjection
+                : new()
                 {
                     Expiration = cart.CreditCard.Expiration,
                     Number = cart.CreditCard.Number,
@@ -71,6 +107,6 @@ public class CartItemAddedConsumer : IConsumer<CartItemAddedEvent>
             IsCheckedOut = cart.IsCheckedOut
         };
 
-        await _projectionsService.ProjectAsync(accountDetails, context.CancellationToken);
+        await _projectionsService.ProjectAsync(accountDetails, cancellationToken);
     }
 }

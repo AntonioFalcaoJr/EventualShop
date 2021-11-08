@@ -13,13 +13,13 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
     {
-        cfg.ConfigureEventReceiveEndpoint<CartCreatedConsumer, DomainEvents.CartCreated>(registration);
-        cfg.ConfigureEventReceiveEndpoint<CartItemAddedConsumer, DomainEvents.CartItemAdded>(registration);
-        cfg.ConfigureEventReceiveEndpoint<CartItemRemovedConsumer, DomainEvents.CartItemRemoved>(registration);
-        cfg.ConfigureEventReceiveEndpoint<CreditCardAddedConsumer, DomainEvents.CreditCardAdded>(registration);
-        cfg.ConfigureEventReceiveEndpoint<BillingAddressAddedConsumer, DomainEvents.BillingAddressChanged>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ShippingAddressAddedConsumer, DomainEvents.ShippingAddressAdded>(registration);
-        cfg.ConfigureEventReceiveEndpoint<CartCheckedOutConsumer, DomainEvents.CartCheckedOut>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenCartChangedConsumer, DomainEvents.CartCreated>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenCartChangedConsumer, DomainEvents.CartItemAdded>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenCartChangedConsumer, DomainEvents.CartItemRemoved>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenCartChangedConsumer, DomainEvents.CreditCardAdded>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenCartChangedConsumer, DomainEvents.BillingAddressChanged>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenCartChangedConsumer, DomainEvents.ShippingAddressAdded>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenCartChangedConsumer, DomainEvents.CartCheckedOut>(registration);
         cfg.ConfigureEventReceiveEndpoint<PublishCartSubmittedWhenCartCheckedOutConsumer, DomainEvents.CartCheckedOut>(registration);
     }
 
