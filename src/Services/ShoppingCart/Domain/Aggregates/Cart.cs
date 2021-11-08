@@ -31,7 +31,9 @@ public class Cart : AggregateRoot<Guid>
         => RaiseEvent(new DomainEvents.CartCreated(Guid.NewGuid(), cmd.CustomerId));
 
     public void Handle(Commands.AddCartItem cmd)
-        => RaiseEvent(new DomainEvents.CartItemAdded(cmd.CartId, cmd.Product, cmd.Quantity));
+        => RaiseEvent(_items.Exists(item => item.Id == cmd.Product.Id)
+            ? new DomainEvents.CartItemQuantityIncreased(cmd.CartId, cmd.Product.Id, cmd.Quantity)
+            : new DomainEvents.CartItemAdded(cmd.CartId, cmd.Product, cmd.Quantity));
 
     public void Handle(Commands.AddCreditCard cmd)
         => RaiseEvent(new DomainEvents.CreditCardAdded(cmd.CartId, cmd.Expiration, cmd.HolderName, cmd.Number, cmd.SecurityNumber));
@@ -57,18 +59,13 @@ public class Cart : AggregateRoot<Guid>
     private void When(DomainEvents.CartCheckedOut _)
         => IsCheckedOut = true;
 
-    private void When(DomainEvents.CartItemAdded @event)
-    {
-        if (_items.Exists(item => item.CatalogItemId == @event.Product.Id))
-            IncreaseItemQuantity(@event);
-        else AddNewItem(@event);
-    }
+    private void When(DomainEvents.CartItemQuantityIncreased @event)
+        => _items.Single(item => item.CatalogItemId == @event.ProductId).IncreaseQuantity(@event.Quantity);
 
     private void When(DomainEvents.CartItemRemoved @event)
-        => _items.RemoveAll(item
-            => item.CatalogItemId == @event.CatalogItemId);
+        => _items.RemoveAll(item => item.CatalogItemId == @event.CatalogItemId);
 
-    private void AddNewItem(DomainEvents.CartItemAdded @event)
+    private void When(DomainEvents.CartItemAdded @event)
         => _items.Add(
             new CartItem(
                 @event.Product.Id,
@@ -116,11 +113,6 @@ public class Cart : AggregateRoot<Guid>
 
         ShippingAndBillingAddressesAreSame = false;
     }
-
-    private void IncreaseItemQuantity(DomainEvents.CartItemAdded @event)
-        => _items
-            .Single(item => item.CatalogItemId == @event.Product.Id)
-            .IncreaseQuantity(@event.Quantity);
 
     protected sealed override bool Validate()
         => OnValidate<CartValidator, Cart>();

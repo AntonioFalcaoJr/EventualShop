@@ -11,6 +11,8 @@ public static class DomainEvents
 
     public record CartItemAdded(Guid CartId, Models.Product Product, int Quantity) : Event;
 
+    public record CartItemQuantityIncreased(Guid CartId, Guid ProductId, int Quantity) : Event;
+
     public record CartItemRemoved(Guid CartId, Guid CatalogItemId) : Event;
 
     public record CartCheckedOut(Guid CartId) : Event;
