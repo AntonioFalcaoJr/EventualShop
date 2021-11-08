@@ -103,7 +103,7 @@ https://www.oreilly.com/library/view/software-architecture-patterns/978149197143
 
 ![](./.assets/img/event-sourcing-overview.png)  
 Fig. 3: MSDN. *Event Sourcing pattern*.    
-https://microservices.io/patterns/data/event-sourcing.html
+https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing#solution
 
 ### Pattern
 

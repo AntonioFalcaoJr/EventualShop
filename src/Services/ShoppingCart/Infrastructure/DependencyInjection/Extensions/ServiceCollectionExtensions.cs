@@ -60,9 +60,6 @@ public static class ServiceCollectionExtensions
                     bus.ConfigureEventReceiveEndpoints(context);
                     bus.ConfigureEndpoints(context);
                     
-                    
-                    bus.ConfigureJsonSerializer(settings =>  new JsonSerializerSettings());
-                    
                     bus.ConfigureJsonSerializer(settings =>
                     {
                         settings.Converters.Add(new DateOnlyJsonConverter()); 
@@ -93,7 +90,6 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddProjectionsDbContext(this IServiceCollection services)
     {
         BsonSerializer.RegisterSerializer(new DateOnlyBsonSerializer());
-        //BsonSerializer.RegisterSerializer(new ExpirationDateOnlyBsonSerializer());
         BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.CSharpLegacy));
         
         return services.AddScoped<IMongoDbContext, ProjectionsDbContext>();
