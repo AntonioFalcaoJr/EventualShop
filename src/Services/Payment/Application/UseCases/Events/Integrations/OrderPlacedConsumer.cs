@@ -5,7 +5,7 @@ using MassTransit;
 using OrderPlacedEvent = Messages.Services.Orders.DomainEvents.OrderPlaced;
 using RequestPaymentCommand = Messages.Services.Payments.Commands.RequestPayment;
 
-namespace Application.UseCases.Events;
+namespace Application.UseCases.Events.Integrations;
 
 public class OrderPlacedConsumer : IConsumer<OrderPlacedEvent>
 {

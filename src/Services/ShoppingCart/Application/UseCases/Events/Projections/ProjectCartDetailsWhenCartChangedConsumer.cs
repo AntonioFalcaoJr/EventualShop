@@ -27,7 +27,9 @@ public class ProjectCartDetailsWhenCartChangedConsumer :
     private readonly IShoppingCartEventStoreService _eventStoreService;
     private readonly IShoppingCartProjectionsService _projectionsService;
 
-    public ProjectCartDetailsWhenCartChangedConsumer(IShoppingCartEventStoreService eventStoreService, IShoppingCartProjectionsService projectionsService)
+    public ProjectCartDetailsWhenCartChangedConsumer(
+        IShoppingCartEventStoreService eventStoreService,
+        IShoppingCartProjectionsService projectionsService)
     {
         _eventStoreService = eventStoreService;
         _projectionsService = projectionsService;
@@ -71,7 +73,7 @@ public class ProjectCartDetailsWhenCartChangedConsumer :
                     PictureUrl = item.PictureUrl,
                     ProductName = item.ProductName,
                     UnitPrice = item.UnitPrice,
-                    CatalogItemId = item.CatalogItemId
+                    CatalogItemId = item.ProductId
                 }),
             BillingAddressProjection = cart.BillingAddress is null
                 ? default

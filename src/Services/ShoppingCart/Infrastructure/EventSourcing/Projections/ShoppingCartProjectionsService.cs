@@ -15,10 +15,6 @@ public class ShoppingCartProjectionsService : IShoppingCartProjectionsService
         _repository = repository;
     }
 
-    public Task ProjectNewAsync<TProjection>(TProjection projection, CancellationToken cancellationToken)
-        where TProjection : IProjection
-        => _repository.SaveAsync(projection, cancellationToken);
-
     public Task ProjectAsync<TProjection>(TProjection projection, CancellationToken cancellationToken)
         where TProjection : IProjection
         => _repository.UpsertAsync(projection, cancellationToken);

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using Domain.Abstractions.Validators;
-using Domain.Entities.CartItems;
 using Domain.ValueObjects.Addresses;
+using Domain.ValueObjects.CartItems;
 using Domain.ValueObjects.CreditCards;
 using FluentValidation;
 
