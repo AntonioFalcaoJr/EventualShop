@@ -21,7 +21,6 @@ using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
-using Newtonsoft.Json;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 
