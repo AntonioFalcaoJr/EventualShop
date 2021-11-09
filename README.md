@@ -26,7 +26,7 @@ Fig. 1: Falcão Jr., Antônio. *An EDA solution architecture*.
 > https://developer.ibm.com/articles/advantages-of-an-event-driven-architecture/
 
  ![](./.assets/img/eda.png)    
- Fig. 1: Uit de Bos, Oskar. *A simple illustration of events using the publish/subscribe messaging model*.    
+ Fig. 2: Uit de Bos, Oskar. *A simple illustration of events using the publish/subscribe messaging model*.    
  https://medium.com/swlh/the-engineers-guide-to-event-driven-architectures-benefits-and-challenges-3e96ded8568b
 
 ### EDA & Microservices Architecture
@@ -81,7 +81,7 @@ https://www.confluent.io/blog/soa-vs-eda-is-not-life-simply-a-series-of-events/
 > https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch02.html
 
 ![](./.assets/img/broker_topology_eda.png)    
-Fig. 2: Richards, Mark. "Broker Topology." *Software Architecture Patterns by Mark Richards*, O'Reilly.  
+Fig. 3: Richards, Mark. "Broker Topology." *Software Architecture Patterns by Mark Richards*, O'Reilly.  
 https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch02.html
 
 ## Choreography-based SAGA
@@ -92,7 +92,7 @@ https://www.oreilly.com/library/view/software-architecture-patterns/978149197143
 > [https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html](https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html#:%7E:text=In%20a%20choreography%2Dbased%20saga,and%20publishes%20a%20domain%20event.&text=The%20step%20of%20the%20saga,data%20and%20emits%20an%20event)
 
 ![](./.assets/img/Saga.png)    
-Fig. 3: Richardson, Chris. "Implementing a choreography-based saga." *Managing data consistency in a microservice architecture using Sagas*, chrisrichardson.net.  
+Fig. 4: Richardson, Chris. "Implementing a choreography-based saga." *Managing data consistency in a microservice architecture using Sagas*, chrisrichardson.net.  
 [https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html](https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html#:%7E:text=In%20a%20choreography%2Dbased%20saga,and%20publishes%20a%20domain%20event.&text=The%20step%20of%20the%20saga,data%20and%20emits%20an%20event)
 
 ## Event sourcing
@@ -112,7 +112,7 @@ Fig. 3: Richardson, Chris. "Implementing a choreography-based saga." *Managing d
 <br>
 
 ![](./.assets/img/event-sourcing-overview.png)  
-Fig. 3: MSDN. *Event Sourcing pattern*.    
+Fig. 5: MSDN. *Event Sourcing pattern*.    
 https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing#solution
 
 ### Pattern
@@ -195,7 +195,7 @@ https://pablo-iorio.medium.com/event-driven-architectures-vs-event-sourcing-patt
 <br>
 
 ![](./.assets/img/EventSourcing_EDA.jpeg)
-Fig. 10: Nowak, Aleksander. *Understanding Event-Driven Design Patterns for Microservices*.    
+Fig. 11: Nowak, Aleksander. *Understanding Event-Driven Design Patterns for Microservices*.    
 https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-microservices-659b3c9fb51f
 
 ## CQRS
