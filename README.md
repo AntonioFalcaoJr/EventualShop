@@ -9,6 +9,8 @@ This project uses the **EventStorming** workshop to identify the business capabi
 
 ### Give a Star! :star:
 
+If this project helped you in some way, please give it a star. Thanks!
+
 ## The Solution Architecture
 
 ![](./.assets/img/test.png)    
