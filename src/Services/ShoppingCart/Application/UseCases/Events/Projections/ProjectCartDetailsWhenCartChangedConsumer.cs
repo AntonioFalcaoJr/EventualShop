@@ -12,6 +12,8 @@ using CreditCardAddedEvent = Messages.Services.ShoppingCarts.DomainEvents.Credit
 using CartItemRemovedEvent = Messages.Services.ShoppingCarts.DomainEvents.CartItemRemoved;
 using CartCheckedOutEvent = Messages.Services.ShoppingCarts.DomainEvents.CartCheckedOut;
 using ShippingAddressAddedEvent = Messages.Services.ShoppingCarts.DomainEvents.ShippingAddressAdded;
+using CartItemQuantityUpdatedEvent = Messages.Services.ShoppingCarts.DomainEvents.CartItemQuantityUpdated;
+using CartItemQuantityIncreasedEvent = Messages.Services.ShoppingCarts.DomainEvents.CartItemQuantityIncreased;
 
 namespace Application.UseCases.Events.Projections;
 
@@ -22,7 +24,9 @@ public class ProjectCartDetailsWhenCartChangedConsumer :
     IConsumer<CreditCardAddedEvent>,
     IConsumer<CartItemRemovedEvent>,
     IConsumer<CartCheckedOutEvent>,
-    IConsumer<ShippingAddressAddedEvent>
+    IConsumer<ShippingAddressAddedEvent>,
+    IConsumer<CartItemQuantityUpdatedEvent>,
+    IConsumer<CartItemQuantityIncreasedEvent>
 {
     private readonly IShoppingCartEventStoreService _eventStoreService;
     private readonly IShoppingCartProjectionsService _projectionsService;
@@ -56,6 +60,12 @@ public class ProjectCartDetailsWhenCartChangedConsumer :
     public Task Consume(ConsumeContext<ShippingAddressAddedEvent> context)
         => Project(context.Message.CartId, context.CancellationToken);
 
+    public Task Consume(ConsumeContext<CartItemQuantityUpdatedEvent> context)
+        => Project(context.Message.CartId, context.CancellationToken);
+
+    public Task Consume(ConsumeContext<CartItemQuantityIncreasedEvent> context)
+        => Project(context.Message.CartId, context.CancellationToken);
+
     private async Task Project(Guid cartId, CancellationToken cancellationToken)
     {
         var cart = await _eventStoreService.LoadAggregateFromStreamAsync(cartId, cancellationToken);
@@ -66,15 +76,17 @@ public class ProjectCartDetailsWhenCartChangedConsumer :
             IsDeleted = cart.IsDeleted,
             UserId = cart.UserId,
             Total = cart.Total,
-            CartItems = cart.Items
-                .Select(item => new CartItemProjection
-                {
-                    Quantity = item.Quantity,
-                    PictureUrl = item.PictureUrl,
-                    ProductName = item.ProductName,
-                    UnitPrice = item.UnitPrice,
-                    CatalogItemId = item.ProductId
-                }),
+            CartItems = cart.Items.Any()
+                ? cart.Items.Select(item => new CartItemProjection
+                    {
+                        Quantity = item.Quantity,
+                        PictureUrl = item.PictureUrl,
+                        ProductName = item.ProductName,
+                        UnitPrice = item.UnitPrice,
+                        ProductId = item.ProductId
+                    }
+                )
+                : Enumerable.Empty<CartItemProjection>(),
             BillingAddressProjection = cart.BillingAddress is null
                 ? default
                 : new()

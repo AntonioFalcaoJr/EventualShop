@@ -6,7 +6,7 @@ using Messages.Services.Catalogs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.WebAPI.Controllers;
-
+[Route("api/[controller]/[action]")]
 public class CatalogsController : ApplicationController
 {
     public CatalogsController(IBus bus)

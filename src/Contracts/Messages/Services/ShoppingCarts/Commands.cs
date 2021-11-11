@@ -7,13 +7,13 @@ namespace Messages.Services.ShoppingCarts;
 
 public static class Commands
 {
-    public record AddCartItem(Guid CartId, Models.Product Product, int Quantity) : Command;
+    public record AddCartItem(Guid CartId, Models.Item Item) : Command;
 
-    public record AddCreditCard(Guid CartId, [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))] DateOnly Expiration, string HolderName, string Number, string SecurityNumber) : Command;
+    public record AddCreditCard(Guid CartId, Models.CreditCard CreditCard) : Command;
 
-    public record AddShippingAddress(Guid CartId, string City, string Country, int? Number, string State, string Street, string ZipCode) : Command;
+    public record AddShippingAddress(Guid CartId, Models.Address Address) : Command;
 
-    public record ChangeBillingAddress(Guid CartId, string City, string Country, int? Number, string State, string Street, string ZipCode) : Command;
+    public record ChangeBillingAddress(Guid CartId, Models.Address Address) : Command;
 
     public record CreateCart(Guid CustomerId) : Command;
 
@@ -21,7 +21,7 @@ public static class Commands
 
     public record RemoveCartItem(Guid CartId, Guid ProductId) : Command;
 
-    public record IncreaseCartItemQuantity(Guid CartId, Guid ProductId, int Quantity) : Command;
+    public record UpdateCartItemQuantity(Guid CartId, Guid ProductId, int Quantity) : Command;
 
-    public record DecreaseCartItemQuantity(Guid CartId, Guid ProductId, int Quantity) : Command;
+    public record DiscardCart(Guid CartId) : Command;
 }

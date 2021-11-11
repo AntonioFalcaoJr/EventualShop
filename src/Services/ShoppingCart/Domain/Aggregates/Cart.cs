@@ -31,30 +31,38 @@ public class Cart : AggregateRoot<Guid>
         => RaiseEvent(new DomainEvents.CartCreated(Guid.NewGuid(), cmd.CustomerId));
 
     public void Handle(Commands.AddCartItem cmd)
-        => RaiseEvent(_items.Exists(item => item.ProductId == cmd.Product.Id)
-            ? new DomainEvents.CartItemQuantityIncreased(cmd.CartId, cmd.Product.Id, cmd.Quantity)
-            : new DomainEvents.CartItemAdded(cmd.CartId, cmd.Product, cmd.Quantity));
+        => RaiseEvent(ItemExists(cmd.Item.ProductId) 
+            ? new DomainEvents.CartItemQuantityIncreased(cmd.CartId, cmd.Item.ProductId, cmd.Item.Quantity)
+            : new DomainEvents.CartItemAdded(cmd.CartId, cmd.Item));
 
-    public void Handle(Commands.IncreaseCartItemQuantity cmd)
-        => RaiseEvent(new DomainEvents.CartItemQuantityIncreased(cmd.CartId, cmd.ProductId, cmd.Quantity));
-
-    public void Handle(Commands.DecreaseCartItemQuantity cmd)
-        => RaiseEvent(new DomainEvents.CartItemQuantityDecreased(cmd.CartId, cmd.ProductId, cmd.Quantity));
+    public void Handle(Commands.UpdateCartItemQuantity cmd)
+    {
+        if (ItemExists(cmd.ProductId))
+            RaiseEvent(cmd.Quantity > 0
+                ? new DomainEvents.CartItemQuantityUpdated(cmd.CartId, cmd.ProductId, cmd.Quantity)
+                : new DomainEvents.CartItemRemoved(cmd.CartId, cmd.ProductId));
+    }
 
     public void Handle(Commands.RemoveCartItem cmd)
-        => RaiseEvent(new DomainEvents.CartItemRemoved(cmd.CartId, cmd.ProductId));
+    {
+        if (ItemExists(cmd.ProductId))
+            RaiseEvent(new DomainEvents.CartItemRemoved(cmd.CartId, cmd.ProductId));
+    }
 
     public void Handle(Commands.AddCreditCard cmd)
-        => RaiseEvent(new DomainEvents.CreditCardAdded(cmd.CartId, cmd.Expiration, cmd.HolderName, cmd.Number, cmd.SecurityNumber));
+        => RaiseEvent(new DomainEvents.CreditCardAdded(cmd.CartId, cmd.CreditCard));
 
     public void Handle(Commands.AddShippingAddress cmd)
-        => RaiseEvent(new DomainEvents.ShippingAddressAdded(cmd.CartId, cmd.City, cmd.Country, cmd.Number, cmd.State, cmd.Street, cmd.ZipCode));
+        => RaiseEvent(new DomainEvents.ShippingAddressAdded(cmd.CartId, cmd.Address));
 
     public void Handle(Commands.ChangeBillingAddress cmd)
-        => RaiseEvent(new DomainEvents.BillingAddressChanged(cmd.CartId, cmd.City, cmd.Country, cmd.Number, cmd.State, cmd.Street, cmd.ZipCode));
+        => RaiseEvent(new DomainEvents.BillingAddressChanged(cmd.CartId, cmd.Address));
 
     public void Handle(Commands.CheckOutCart cmd)
         => RaiseEvent(new DomainEvents.CartCheckedOut(cmd.CartId));
+
+    public void Handle(Commands.DiscardCart cmd)
+        => RaiseEvent(new DomainEvents.CartDiscarded(cmd.CartId));
 
     protected override void ApplyEvent(IEvent @event)
         => When(@event as dynamic);
@@ -68,43 +76,42 @@ public class Cart : AggregateRoot<Guid>
     private void When(DomainEvents.CartItemQuantityIncreased @event)
         => _items.Single(item => item.ProductId == @event.ProductId).IncreaseQuantity(@event.Quantity);
 
-    private void When(DomainEvents.CartItemQuantityDecreased @event)
-        => _items.Single(item => item.ProductId == @event.ProductId).DecreaseQuantity(@event.Quantity);
+    private void When(DomainEvents.CartItemQuantityUpdated @event)
+        => _items.Single(item => item.ProductId == @event.ProductId).UpdateQuantity(@event.Quantity);
 
     private void When(DomainEvents.CartItemRemoved @event)
-        => _items.RemoveAll(item => item.ProductId == @event.CatalogItemId);
+        => _items.RemoveAll(item => item.ProductId == @event.ProductId);
 
     private void When(DomainEvents.CartItemAdded @event)
         => _items.Add(
             new CartItem
             {
-                ProductId = @event.Product.Id,
-                ProductName = @event.Product.Name,
-                UnitPrice = @event.Product.UnitPrice,
-                Quantity = @event.Quantity,
-                PictureUrl = @event.Product.PictureUrl
+                ProductId = @event.Item.ProductId,
+                ProductName = @event.Item.ProductName,
+                UnitPrice = @event.Item.UnitPrice,
+                Quantity = @event.Item.Quantity,
+                PictureUrl = @event.Item.PictureUrl
             });
 
     private void When(DomainEvents.CreditCardAdded @event)
-        => CreditCard =
-            new CreditCard
-            {
-                Expiration = @event.Expiration,
-                HolderName = @event.HolderName,
-                Number = @event.Number,
-                SecurityNumber = @event.SecurityNumber
-            };
+        => CreditCard = new CreditCard
+        {
+            Expiration = @event.CreditCard.Expiration,
+            HolderName = @event.CreditCard.HolderName,
+            Number = @event.CreditCard.Number,
+            SecurityNumber = @event.CreditCard.SecurityNumber
+        };
 
     private void When(DomainEvents.ShippingAddressAdded @event)
     {
         ShippingAddress = new Address
         {
-            City = @event.City,
-            Country = @event.Country,
-            Number = @event.Number,
-            State = @event.State,
-            Street = @event.Street,
-            ZipCode = @event.ZipCode
+            City = @event.Address.City,
+            Country = @event.Address.Country,
+            Number = @event.Address.Number,
+            State = @event.Address.State,
+            Street = @event.Address.Street,
+            ZipCode = @event.Address.ZipCode
         };
 
         if (ShippingAndBillingAddressesAreSame)
@@ -115,16 +122,19 @@ public class Cart : AggregateRoot<Guid>
     {
         BillingAddress = new Address
         {
-            City = @event.City,
-            Country = @event.Country,
-            Number = @event.Number,
-            State = @event.State,
-            Street = @event.Street,
-            ZipCode = @event.ZipCode
+            City = @event.Address.City,
+            Country = @event.Address.Country,
+            Number = @event.Address.Number,
+            State = @event.Address.State,
+            Street = @event.Address.Street,
+            ZipCode = @event.Address.ZipCode
         };
 
         ShippingAndBillingAddressesAreSame = false;
     }
+
+    private bool ItemExists(Guid productId)
+        => _items.Exists(item => item.ProductId == productId);
 
     protected sealed override bool Validate()
         => OnValidate<CartValidator, Cart>();

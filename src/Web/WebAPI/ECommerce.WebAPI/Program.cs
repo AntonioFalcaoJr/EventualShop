@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using ECommerce.WebAPI.DependencyInjection.Extensions;
 using ECommerce.WebAPI.DependencyInjection.Observers;
 using MassTransit;
@@ -7,6 +8,8 @@ using MassTransit.Definition;
 using Messages.JsonConverters;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -17,7 +20,13 @@ using Serilog;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
-    .AddControllers()
+    .AddRouting(options
+        => options.LowercaseUrls = true)
+    .AddControllers(options =>
+    {
+        options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
+        options.SuppressAsyncSuffixInActionNames = true;
+    })
     .AddNewtonsoftJson(options =>
     {
         options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter());
@@ -103,6 +112,7 @@ builder.Services
             MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.AddShippingAddress>();
             MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.ChangeBillingAddress>();
             MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.CheckOutCart>();
+            MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.UpdateCartItemQuantity>();
             MapQueueEndpoint<Messages.Services.ShoppingCarts.Queries.GetShoppingCart>();
 
             // Order
@@ -129,8 +139,11 @@ if (builder.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseRouting();
+
 app.UseEndpoints(endpoints
-    => endpoints.MapControllers());
+    => endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller:slugify}/{action:slugify}"));
 
 try
 {
@@ -152,3 +165,9 @@ static void MapQueueEndpoint<TMessage>()
 
 static string ToKebabCaseString(MemberInfo member)
     => KebabCaseEndpointNameFormatter.Instance.SanitizeName(member.Name);
+
+public class SlugifyParameterTransformer : IOutboundParameterTransformer
+{
+    public string TransformOutbound(object value)
+        => Regex.Replace(value.ToString() ?? string.Empty, "([a-z])([A-Z])", "$1-$2").ToLower();
+}

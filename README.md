@@ -132,7 +132,7 @@ State transition during events applying:
 Fig. 6: Reitzammer, Benjamin & Seitz, Johannes. *Event Sourcingin practice*.    
 https://ookami86.github.io/event-sourcing-in-practice/#making-eventsourcing-work/18-concurrent-modifictations.md
 
-### Event Store/Stream
+### Event Store
 
 > So, Event Sourcing is the persistence mechanism where each state transition for a given entity is represented as a domain event that gets persisted to an event database (event store). When the entity state mutates, a new event is produced and saved. When we need to restore the entity state, we read all the events for that entity and apply each event to change the state, reaching the correct final state of the entity when all available events are read and applied.
 >

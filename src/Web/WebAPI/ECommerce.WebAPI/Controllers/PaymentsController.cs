@@ -6,7 +6,7 @@ using Messages.Services.Payments;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.WebAPI.Controllers;
-
+[Route("api/[controller]/[action]")]
 public class PaymentsController : ApplicationController
 {
     public PaymentsController(IBus bus)

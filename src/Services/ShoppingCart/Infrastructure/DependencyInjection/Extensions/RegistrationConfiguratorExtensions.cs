@@ -20,6 +20,7 @@ public static class RegistrationConfiguratorExtensions
         cfg.AddCommandConsumer<AddShippingAddressConsumer, Commands.AddShippingAddress>();
         cfg.AddCommandConsumer<AddCreditCardConsumer, Commands.AddCreditCard>();
         cfg.AddCommandConsumer<CheckOutCartConsumer, Commands.CheckOutCart>();
+        cfg.AddCommandConsumer<UpdateCartItemQuantityConsumer, Commands.UpdateCartItemQuantity>();
     }
 
     public static void AddEventConsumers(this IRegistrationConfigurator cfg)

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.WebAPI.Abstractions;
 
-[ApiController, Route("api/[controller]/[action]")]
+[ApiController]
 public abstract class ApplicationController : ControllerBase
 {
     private readonly IBus _bus;

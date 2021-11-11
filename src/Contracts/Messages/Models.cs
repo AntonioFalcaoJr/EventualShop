@@ -27,7 +27,7 @@ public static class Models
 
     public record Item
     {
-        public Guid CatalogItemId { get; init; }
+        public Guid ProductId { get; init; }
         public string ProductName { get; init; }
         public decimal UnitPrice { get; init; }
         public int Quantity { get; init; }

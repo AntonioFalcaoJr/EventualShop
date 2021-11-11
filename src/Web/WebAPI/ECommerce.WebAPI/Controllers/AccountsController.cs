@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.WebAPI.Controllers;
 
+[Route("api/[controller]/[action]")]
 public class AccountsController : ApplicationController
 {
     public AccountsController(IBus bus)

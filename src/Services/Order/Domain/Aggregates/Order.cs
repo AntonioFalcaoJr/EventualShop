@@ -73,7 +73,7 @@ public class Order : AggregateRoot<Guid>
 
         _items.AddRange(@event.Items.Select(item
             => new OrderItem(
-                item.CatalogItemId,
+                item.ProductId,
                 item.ProductName,
                 "SKU",
                 "CATEGORY",
