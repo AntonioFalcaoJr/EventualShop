@@ -292,7 +292,7 @@ https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
 > Fowler, Martin. "BoundedContext," *martinfowler.com*, last edited on 15 Jan 2014.  
 > https://martinfowler.com/bliki/DomainDrivenDesign.html
 
-![](./.assets/img/BoundedContext.png)  
+![](./.assets/img/BoundedContext.jpg)  
 Fig. 17: Martin, Fowler. *BoundedContext*.    
 https://martinfowler.com/bliki/DomainDrivenDesign.html
 
