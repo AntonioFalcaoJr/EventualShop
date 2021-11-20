@@ -109,15 +109,15 @@ public class ProjectCartDetailsWhenCartChangedConsumer :
                     Street = cart.ShippingAddress.Street,
                     ZipCode = cart.ShippingAddress.ZipCode
                 },
-            CreditCardProjection = cart.CreditCard is null
-                ? default
-                : new()
-                {
-                    Expiration = cart.CreditCard.Expiration,
-                    Number = cart.CreditCard.Number,
-                    HolderName = cart.CreditCard.HolderName,
-                    SecurityNumber = cart.CreditCard.SecurityNumber
-                },
+            // CreditCardProjection = cart.CreditCard is null
+            //     ? default
+            //     : new()
+            //     {
+            //         Expiration = cart.CreditCard.Expiration,
+            //         Number = cart.CreditCard.Number,
+            //         HolderName = cart.CreditCard.HolderName,
+            //         SecurityNumber = cart.CreditCard.SecurityNumber
+            //     },
             IsCheckedOut = cart.IsCheckedOut
         };
 

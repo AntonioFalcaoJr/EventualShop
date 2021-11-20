@@ -44,6 +44,7 @@ public class ShoppingCartStoreEventConfiguration : IEntityTypeConfiguration<Shop
         {
             TypeNameHandling = TypeNameHandling.Auto
         };
+        
         jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());
         jsonSerializerSettings.Converters.Add(new ExpirationDateOnlyJsonConverter());
 
@@ -57,6 +58,7 @@ public class ShoppingCartStoreEventConfiguration : IEntityTypeConfiguration<Shop
             TypeNameHandling = TypeNameHandling.All,
             ContractResolver = new PrivateSetterContractResolver()
         };
+        
         jsonDeserializerSettings.Converters.Add(new DateOnlyJsonConverter());
         jsonDeserializerSettings.Converters.Add(new ExpirationDateOnlyJsonConverter());
 

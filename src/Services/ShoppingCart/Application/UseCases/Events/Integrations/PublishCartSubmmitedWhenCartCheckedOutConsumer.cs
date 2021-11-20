@@ -1,8 +1,10 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
+using Domain.ValueObjects.PaymentMethods.CreditCards;
 using MassTransit;
 using Messages;
+using Microsoft.Extensions.DependencyInjection;
 using CartCheckedOutEvent = Messages.Services.ShoppingCarts.DomainEvents.CartCheckedOut;
 using CartSubmittedEvent = Messages.Services.ShoppingCarts.IntegrationEvents.CartSubmitted;
 
@@ -41,13 +43,16 @@ public class PublishCartSubmittedWhenCartCheckedOutConsumer : IConsumer<CartChec
                 Street = cart.BillingAddress.Street,
                 ZipCode = cart.BillingAddress.ZipCode
             },
-            CreditCard: new Models.CreditCard
-            {
-                Expiration = cart.CreditCard.Expiration,
-                Number = cart.CreditCard.Number,
-                HolderName = cart.CreditCard.HolderName,
-                SecurityNumber = cart.CreditCard.SecurityNumber
-            },
+            CreditCard: cart.PaymentMethods.Select(method
+                => method is CreditCard card
+                    ? new Models.CreditCard
+                    {
+                        Expiration = card.Expiration,
+                        Number = card.Number,
+                        HolderName = card.HolderName,
+                        SecurityNumber = card.SecurityNumber
+                    }
+                    : null).First(),
             ShippingAddress: new Models.Address
             {
                 City = cart.ShippingAddress.City,

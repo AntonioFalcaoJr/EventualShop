@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using ECommerce.WebAPI;
 using ECommerce.WebAPI.DependencyInjection.Extensions;
 using ECommerce.WebAPI.DependencyInjection.Observers;
 using MassTransit;
@@ -166,8 +167,11 @@ static void MapQueueEndpoint<TMessage>()
 static string ToKebabCaseString(MemberInfo member)
     => KebabCaseEndpointNameFormatter.Instance.SanitizeName(member.Name);
 
-public class SlugifyParameterTransformer : IOutboundParameterTransformer
+namespace ECommerce.WebAPI
 {
-    public string TransformOutbound(object value)
-        => Regex.Replace(value.ToString() ?? string.Empty, "([a-z])([A-Z])", "$1-$2").ToLower();
+    public class SlugifyParameterTransformer : IOutboundParameterTransformer
+    {
+        public string TransformOutbound(object value)
+            => Regex.Replace(value.ToString() ?? string.Empty, "([a-z])([A-Z])", "$1-$2").ToLower();
+    }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Application.UseCases.Events.Behaviors;
 using Application.UseCases.Events.Integrations;
 using Application.UseCases.Events.Projections;
 using GreenPipes;
@@ -13,8 +14,8 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
     {
-        cfg.ConfigureEventReceiveEndpoint<PaymentRequestedConsumer, DomainEvents.PaymentRequested>(registration);
         cfg.ConfigureEventReceiveEndpoint<PaymentChangedConsumer, DomainEvents.PaymentCanceled>(registration);
+        cfg.ConfigureEventReceiveEndpoint<PaymentRequestedConsumer, DomainEvents.PaymentRequested>(registration);
         cfg.ConfigureEventReceiveEndpoint<OrderPlacedConsumer, Messages.Services.Orders.DomainEvents.OrderPlaced>(registration);
     }
 

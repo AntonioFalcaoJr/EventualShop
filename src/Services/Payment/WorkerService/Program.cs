@@ -43,6 +43,9 @@ builder.ConfigureServices((context, services) =>
 
     services.AddApplicationServices();
 
+    services.AddPayPalHttpClient();
+    services.AddCreditCardHttpClient();
+
     services.AddEventStoreRepositories();
     services.AddProjectionsRepositories();
 
@@ -59,6 +62,12 @@ builder.ConfigureServices((context, services) =>
 
     services.ConfigureSqlServerRetryingOptions(
         context.Configuration.GetSection(nameof(SqlServerRetryingOptions)));
+
+    services.ConfigureCreditCardHttpClientOptions(
+        context.Configuration.GetSection(nameof(CreditCardHttpClientOptions)));
+
+    services.ConfigurePayPalHttpClientOptions(
+        context.Configuration.GetSection(nameof(PayPalHttpClientOptions)));
 });
 
 var host = builder.Build();

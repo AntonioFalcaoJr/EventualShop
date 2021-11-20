@@ -1,12 +1,16 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using PaymentCanceledEvent = Messages.Services.Payments.DomainEvents.PaymentCanceled;
+using Messages.Services.Payments;
 
 namespace Application.UseCases.Events.Projections;
 
-public class PaymentChangedConsumer : IConsumer<PaymentCanceledEvent>
+public class PaymentChangedConsumer :
+    IConsumer<DomainEvents.PaymentCanceled>,
+    IConsumer<DomainEvents.PaymentRequested>
 {
     private readonly IPaymentEventStoreService _eventStoreService;
     private readonly IPaymentProjectionsService _projectionsService;
@@ -17,9 +21,15 @@ public class PaymentChangedConsumer : IConsumer<PaymentCanceledEvent>
         _projectionsService = projectionsService;
     }
 
-    public async Task Consume(ConsumeContext<PaymentCanceledEvent> context)
+    public Task Consume(ConsumeContext<DomainEvents.PaymentCanceled> context)
+        => Project(context.Message.PaymentId, context.CancellationToken);
+
+    public Task Consume(ConsumeContext<DomainEvents.PaymentRequested> context)
+        => Project(context.Message.PaymentId, context.CancellationToken);
+
+    private async Task Project(Guid paymentId, CancellationToken cancellationToken)
     {
-        var payment = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.PaymentId, context.CancellationToken);
+        var payment = await _eventStoreService.LoadAggregateFromStreamAsync(paymentId, cancellationToken);
 
         var paymentDetails = new PaymentDetailsProjection
         {
@@ -39,17 +49,17 @@ public class PaymentChangedConsumer : IConsumer<PaymentCanceledEvent>
                     Street = payment.BillingAddress.Street,
                     ZipCode = payment.BillingAddress.ZipCode
                 },
-            CreditCardProjection = payment.CreditCard is null
-                ? default
-                : new()
-                {
-                    Expiration = payment.CreditCard.Expiration,
-                    Number = payment.CreditCard.Number,
-                    HolderName = payment.CreditCard.HolderName,
-                    SecurityNumber = payment.CreditCard.SecurityNumber
-                }
+            // CreditCardProjection = payment.CreditCardPaymentMethod is null
+            //     ? default
+            //     : new()
+            //     {
+            //         Expiration = payment.CreditCardPaymentMethod.Expiration,
+            //         Number = payment.CreditCardPaymentMethod.Number,
+            //         HolderName = payment.CreditCardPaymentMethod.HolderName,
+            //         SecurityNumber = payment.CreditCardPaymentMethod.SecurityNumber
+            //     }
         };
 
-        await _projectionsService.UpdatePaymentDetailsAsync(paymentDetails, context.CancellationToken);
+        await _projectionsService.UpdatePaymentDetailsAsync(paymentDetails, cancellationToken);
     }
 }

@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Domain.Abstractions.Aggregates;
+using Domain.Entities.PaymentMethods;
+using Domain.Entities.PaymentMethods.CreditCards;
 using Domain.Enumerations;
 using Domain.ValueObjects.Addresses;
-using Domain.ValueObjects.CreditCards;
 using Messages.Abstractions.Events;
 using Messages.Services.Payments;
 
@@ -10,17 +13,36 @@ namespace Domain.Aggregates;
 
 public class Payment : AggregateRoot<Guid>
 {
+    private List<IPaymentMethod> _methods = new();
+
     public Guid OrderId { get; private set; }
     public decimal Amount { get; private set; }
     public PaymentStatus Status { get; private set; }
     public Address BillingAddress { get; private set; }
-    public CreditCard CreditCard { get; private set; }
+
+    public decimal AmountDue
+        => _methods
+            .Where(method => method.Authorized is false)
+            .Sum(method => method.Amount);
+
+    public IEnumerable<IPaymentMethod> Methods
+        => _methods;
 
     public void Handle(Commands.RequestPayment cmd)
         => RaiseEvent(new DomainEvents.PaymentRequested(Guid.NewGuid(), cmd.OrderId, cmd.Amount, cmd.BillingAddress, cmd.CreditCard));
 
+    public void Handle(Commands.ProceedWithPayment cmd)
+        => RaiseEvent(AmountDue > 0
+            ? new DomainEvents.PaymentNotCompleted(cmd.PaymentId, cmd.OrderId)
+            : new DomainEvents.PaymentCompleted(cmd.PaymentId, cmd.OrderId));
+
     public void Handle(Commands.CancelPayment cmd)
-        => RaiseEvent(new DomainEvents.PaymentCanceled(Id, cmd.OrderId));
+        => RaiseEvent(new DomainEvents.PaymentCanceled(cmd.PaymentId, cmd.OrderId));
+
+    public void Handle(Commands.UpdatePaymentMethod cmd)
+        => RaiseEvent(cmd.Authorized
+            ? new DomainEvents.PaymentMethodAuthorized(cmd.PaymentId, cmd.PaymentMethodId, cmd.TransactionId)
+            : new DomainEvents.PaymentMethodDenied(cmd.PaymentId, cmd.PaymentMethodId));
 
     protected override void ApplyEvent(IEvent @event)
         => When(@event as dynamic);
@@ -41,16 +63,49 @@ public class Payment : AggregateRoot<Guid>
             ZipCode = @event.BillingAddress.ZipCode
         };
 
-        CreditCard = new()
+        _methods = new List<IPaymentMethod>
         {
-            Expiration = @event.CreditCard.Expiration,
-            Number = @event.CreditCard.Number,
-            HolderName = @event.CreditCard.HolderName,
-            SecurityNumber = @event.CreditCard.SecurityNumber
+            new CreditCardPaymentMethod
+            {
+                Amount = @event.Amount,
+                Expiration = @event.CreditCard.Expiration,
+                Number = @event.CreditCard.Number,
+                HolderName = @event.CreditCard.HolderName,
+                SecurityNumber = @event.CreditCard.SecurityNumber
+            },
+
+            new CreditCardPaymentMethod
+            {
+                Amount = @event.Amount,
+                Expiration = @event.CreditCard.Expiration,
+                Number = @event.CreditCard.Number,
+                HolderName = @event.CreditCard.HolderName,
+                SecurityNumber = @event.CreditCard.SecurityNumber
+            },
+
+            new CreditCardPaymentMethod
+            {
+                Amount = @event.Amount,
+                Expiration = @event.CreditCard.Expiration,
+                Number = @event.CreditCard.Number,
+                HolderName = @event.CreditCard.HolderName,
+                SecurityNumber = @event.CreditCard.SecurityNumber
+            }
         };
 
         Status = PaymentStatus.Pending;
     }
+
+    private void When(DomainEvents.PaymentMethodAuthorized @event)
+        => _methods
+            .First(method => method.Id == @event.PaymentMethodId)
+            .Authorize();
+
+    private void When(DomainEvents.PaymentCompleted _)
+        => Status = PaymentStatus.Complete;
+
+    private void When(DomainEvents.PaymentNotCompleted _)
+        => Status = PaymentStatus.Insufficient;
 
     protected override bool Validate()
         => true;

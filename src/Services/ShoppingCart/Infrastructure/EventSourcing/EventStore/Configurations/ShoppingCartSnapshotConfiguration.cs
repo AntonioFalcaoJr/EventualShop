@@ -39,7 +39,10 @@ public class ShoppingCartSnapshotConfiguration : IEntityTypeConfiguration<Shoppi
 
     private static JsonSerializerSettings SerializerSettings()
     {
-        var jsonSerializerSettings = new JsonSerializerSettings();
+        var jsonSerializerSettings = new JsonSerializerSettings
+        {
+            TypeNameHandling = TypeNameHandling.Auto
+        };
         
         jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());
         jsonSerializerSettings.Converters.Add(new ExpirationDateOnlyJsonConverter());
@@ -51,6 +54,7 @@ public class ShoppingCartSnapshotConfiguration : IEntityTypeConfiguration<Shoppi
     {
         var jsonDeserializerSettings = new JsonSerializerSettings
         {
+            TypeNameHandling = TypeNameHandling.Auto,
             ContractResolver = new PrivateSetterContractResolver()
         };
         

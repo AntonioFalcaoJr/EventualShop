@@ -1,6 +1,11 @@
 ﻿using System;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
+using Application.Services;
+using Application.Services.CreditCards;
+using Application.Services.CreditCards.Http;
+using Application.Services.PayPal;
+using Application.Services.PayPal.Http;
 using FluentValidation;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.DependencyInjection.Filters;
@@ -10,6 +15,8 @@ using Infrastructure.EventSourcing.EventStore;
 using Infrastructure.EventSourcing.EventStore.Contexts;
 using Infrastructure.EventSourcing.Projections;
 using Infrastructure.EventSourcing.Projections.Contexts;
+using Infrastructure.Services.CreditCards;
+using Infrastructure.Services.PayPal;
 using MassTransit;
 using Messages.Abstractions;
 using Microsoft.EntityFrameworkCore;
@@ -64,7 +71,28 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         => services
             .AddScoped<IPaymentEventStoreService, PaymentEventStoreService>()
-            .AddScoped<IPaymentProjectionsService, PaymentProjectionsService>();
+            .AddScoped<IPaymentProjectionsService, PaymentProjectionsService>()
+            .AddScoped<IPayPalPaymentService, PayPalPaymentService>()
+            .AddScoped<ICreditCardPaymentService, CreditCardPaymentService>()
+            .AddScoped<IPaymentStrategy, PaymentStrategy>();
+
+    public static IHttpClientBuilder AddPayPalHttpClient(this IServiceCollection services) 
+        => services
+            .AddHttpClient<IPayPalHttpClient, PayPalHttpClient>()
+            .ConfigureHttpClient((provider, client) =>
+            {
+                var options = provider.GetRequiredService<IOptions<PayPalHttpClientOptions>>();
+                client.BaseAddress = new(options.Value.BaseAddress);
+            });
+
+    public static IHttpClientBuilder AddCreditCardHttpClient(this IServiceCollection services)
+        => services
+            .AddHttpClient<ICreditCardHttpClient, CreditCardHttpClient>()
+            .ConfigureHttpClient((provider, client) =>
+            {
+                var options = provider.GetRequiredService<IOptions<CreditCardHttpClientOptions>>();
+                client.BaseAddress = new(options.Value.BaseAddress);
+            });
 
     public static IServiceCollection AddEventStoreDbContext(this IServiceCollection services)
         => services
@@ -96,6 +124,20 @@ public static class ServiceCollectionExtensions
     public static OptionsBuilder<EventStoreOptions> ConfigureEventStoreOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<EventStoreOptions>()
+            .Bind(section)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+
+    public static OptionsBuilder<PayPalHttpClientOptions> ConfigurePayPalHttpClientOptions(this IServiceCollection services, IConfigurationSection section)
+        => services
+            .AddOptions<PayPalHttpClientOptions>()
+            .Bind(section)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+
+    public static OptionsBuilder<CreditCardHttpClientOptions> ConfigureCreditCardHttpClientOptions(this IServiceCollection services, IConfigurationSection section)
+        => services
+            .AddOptions<CreditCardHttpClientOptions>()
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();

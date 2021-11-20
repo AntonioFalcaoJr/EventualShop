@@ -1,5 +1,6 @@
 ﻿using System;
 using Application.UseCases.Commands;
+using Application.UseCases.Events.Behaviors;
 using Application.UseCases.Events.Integrations;
 using Application.UseCases.Events.Projections;
 using Application.UseCases.Queries;
@@ -19,8 +20,8 @@ public static class RegistrationConfiguratorExtensions
 
     public static void AddEventConsumers(this IRegistrationConfigurator cfg)
     {
-        cfg.AddConsumer<PaymentRequestedConsumer>();
         cfg.AddConsumer<PaymentChangedConsumer>();
+        cfg.AddConsumer<PaymentRequestedConsumer>();
         cfg.AddConsumer<OrderPlacedConsumer>();
     }
 

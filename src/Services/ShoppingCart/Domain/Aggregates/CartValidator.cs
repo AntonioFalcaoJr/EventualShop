@@ -3,7 +3,7 @@ using System.Linq;
 using Domain.Abstractions.Validators;
 using Domain.ValueObjects.Addresses;
 using Domain.ValueObjects.CartItems;
-using Domain.ValueObjects.CreditCards;
+using Domain.ValueObjects.PaymentMethods.CreditCards;
 using FluentValidation;
 
 namespace Domain.Aggregates;
@@ -25,8 +25,8 @@ public class CartValidator : EntityValidator<Cart, Guid>
                 .GreaterThan(0);
         });
 
-        RuleFor(cart => cart.CreditCard)
-            .SetValidator(new CreditCardValidator());
+        // RuleFor(cart => cart.CreditCard)
+        //     .SetValidator(new CreditCardValidator());
 
         RuleFor(cart => cart.BillingAddress)
             .SetValidator(new AddressValidator());

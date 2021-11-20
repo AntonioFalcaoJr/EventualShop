@@ -4,7 +4,9 @@ using System.Linq;
 using Domain.Abstractions.Aggregates;
 using Domain.ValueObjects.Addresses;
 using Domain.ValueObjects.CartItems;
-using Domain.ValueObjects.CreditCards;
+using Domain.ValueObjects.PaymentMethods;
+using Domain.ValueObjects.PaymentMethods.CreditCards;
+using Messages;
 using Messages.Abstractions.Events;
 using Messages.Services.ShoppingCarts;
 
@@ -13,31 +15,33 @@ namespace Domain.Aggregates;
 public class Cart : AggregateRoot<Guid>
 {
     private readonly List<CartItem> _items = new();
+    private readonly List<IPaymentMethod> _paymentMethods = new();
     public Guid UserId { get; private set; }
     public bool IsCheckedOut { get; private set; }
     public Address ShippingAddress { get; private set; }
     public Address BillingAddress { get; private set; }
-    public CreditCard CreditCard { get; private set; }
     private bool ShippingAndBillingAddressesAreSame { get; set; } = true;
 
     public decimal Total
-        => Items.Sum(item
-            => item.UnitPrice * item.Quantity);
+        => Items.Sum(item => item.UnitPrice * item.Quantity);
 
     public IEnumerable<CartItem> Items
         => _items;
+
+    public IEnumerable<IPaymentMethod> PaymentMethods
+        => _paymentMethods;
 
     public void Handle(Commands.CreateCart cmd)
         => RaiseEvent(new DomainEvents.CartCreated(Guid.NewGuid(), cmd.CustomerId));
 
     public void Handle(Commands.AddCartItem cmd)
-        => RaiseEvent(ItemExists(cmd.Item.ProductId) 
+        => RaiseEvent(_items.Exists(item => item.ProductId == cmd.Item.ProductId)
             ? new DomainEvents.CartItemQuantityIncreased(cmd.CartId, cmd.Item.ProductId, cmd.Item.Quantity)
             : new DomainEvents.CartItemAdded(cmd.CartId, cmd.Item));
 
     public void Handle(Commands.UpdateCartItemQuantity cmd)
     {
-        if (ItemExists(cmd.ProductId))
+        if (_items.Exists(item => item.ProductId == cmd.ProductId))
             RaiseEvent(cmd.Quantity > 0
                 ? new DomainEvents.CartItemQuantityUpdated(cmd.CartId, cmd.ProductId, cmd.Quantity)
                 : new DomainEvents.CartItemRemoved(cmd.CartId, cmd.ProductId));
@@ -45,7 +49,7 @@ public class Cart : AggregateRoot<Guid>
 
     public void Handle(Commands.RemoveCartItem cmd)
     {
-        if (ItemExists(cmd.ProductId))
+        if (_items.Exists(item => item.ProductId == cmd.ProductId))
             RaiseEvent(new DomainEvents.CartItemRemoved(cmd.CartId, cmd.ProductId));
     }
 
@@ -73,6 +77,9 @@ public class Cart : AggregateRoot<Guid>
     private void When(DomainEvents.CartCheckedOut _)
         => IsCheckedOut = true;
 
+    private void When(DomainEvents.CartDiscarded _)
+        => IsDeleted = true;
+
     private void When(DomainEvents.CartItemQuantityIncreased @event)
         => _items.Single(item => item.ProductId == @event.ProductId).IncreaseQuantity(@event.Quantity);
 
@@ -83,24 +90,24 @@ public class Cart : AggregateRoot<Guid>
         => _items.RemoveAll(item => item.ProductId == @event.ProductId);
 
     private void When(DomainEvents.CartItemAdded @event)
-        => _items.Add(
-            new CartItem
-            {
-                ProductId = @event.Item.ProductId,
-                ProductName = @event.Item.ProductName,
-                UnitPrice = @event.Item.UnitPrice,
-                Quantity = @event.Item.Quantity,
-                PictureUrl = @event.Item.PictureUrl
-            });
+        => _items.Add(new CartItem
+        {
+            ProductId = @event.Item.ProductId,
+            ProductName = @event.Item.ProductName,
+            UnitPrice = @event.Item.UnitPrice,
+            Quantity = @event.Item.Quantity,
+            PictureUrl = @event.Item.PictureUrl
+        });
 
     private void When(DomainEvents.CreditCardAdded @event)
-        => CreditCard = new CreditCard
+        => _paymentMethods.Add(new CreditCard
         {
+            Amount = @event.CreditCard.Amount,
             Expiration = @event.CreditCard.Expiration,
             HolderName = @event.CreditCard.HolderName,
             Number = @event.CreditCard.Number,
             SecurityNumber = @event.CreditCard.SecurityNumber
-        };
+        });
 
     private void When(DomainEvents.ShippingAddressAdded @event)
     {
@@ -132,9 +139,6 @@ public class Cart : AggregateRoot<Guid>
 
         ShippingAndBillingAddressesAreSame = false;
     }
-
-    private bool ItemExists(Guid productId)
-        => _items.Exists(item => item.ProductId == productId);
 
     protected sealed override bool Validate()
         => OnValidate<CartValidator, Cart>();

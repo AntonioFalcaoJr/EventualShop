@@ -18,6 +18,8 @@ public static class Models
 
     public record CreditCard
     {
+        public decimal Amount { get; init; }
+
         [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
         public DateOnly Expiration { get; init; }
         public string HolderName { get; init; }
