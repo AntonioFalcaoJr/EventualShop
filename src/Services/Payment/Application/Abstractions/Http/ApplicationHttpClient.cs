@@ -35,7 +35,7 @@ public abstract class ApplicationHttpClient
         return new()
         {
             Success = response.IsSuccessStatusCode,
-            PayloadResult = response.IsSuccessStatusCode 
+            ActionResult = response.IsSuccessStatusCode 
                 ? await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken: cancellationToken) 
                 : new()
         };

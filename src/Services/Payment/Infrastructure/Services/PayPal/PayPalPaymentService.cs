@@ -30,6 +30,6 @@ public class PayPalPaymentService : PaymentService, IPayPalPaymentService
             // Use IPaymentMethod to hydrate  
         };
 
-        return (await _client.AuthorizeAsync(request, cancellationToken)).PayloadResult;
+        return (await _client.AuthorizeAsync(request, cancellationToken)).ActionResult;
     }
 }

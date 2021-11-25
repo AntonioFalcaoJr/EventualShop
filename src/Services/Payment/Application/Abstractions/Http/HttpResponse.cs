@@ -3,5 +3,5 @@
 public class HttpResponse<T>
 {
     public bool Success { get; init; }
-    public T PayloadResult { get; init; }
+    public T ActionResult { get; init; }
 }
