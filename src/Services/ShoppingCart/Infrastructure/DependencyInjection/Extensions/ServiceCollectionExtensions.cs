@@ -26,13 +26,9 @@ namespace Infrastructure.DependencyInjection.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    private static readonly RabbitMqOptions Options = new();
-
-    public static IServiceCollection AddMassTransitWithRabbitMq(this IServiceCollection services, Action<RabbitMqOptions> optionsAction)
+    public static IServiceCollection AddMassTransitWithRabbitMq(this IServiceCollection services)
         => services.AddMassTransit(cfg =>
             {
-                optionsAction(Options);
-
                 cfg.SetKebabCaseEndpointNameFormatter();
 
                 cfg.AddCommandConsumers();
@@ -41,14 +37,18 @@ public static class ServiceCollectionExtensions
 
                 cfg.UsingRabbitMq((context, bus) =>
                 {
+                    var options = context
+                        .GetRequiredService<IOptions<RabbitMqOptions>>()
+                        .Value;
+                    
                     bus.Host(
-                        host: Options.Host,
-                        port: Options.Port,
-                        virtualHost: Options.VirtualHost,
+                        host: options.Host,
+                        port: options.Port,
+                        virtualHost: options.VirtualHost,
                         host =>
                         {
-                            host.Username(Options.Username);
-                            host.Password(Options.Password);
+                            host.Username(options.Username);
+                            host.Password(options.Password);
                         });
 
                     bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
@@ -113,6 +113,13 @@ public static class ServiceCollectionExtensions
     public static OptionsBuilder<EventStoreOptions> ConfigureEventStoreOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<EventStoreOptions>()
+            .Bind(section)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+    
+    public static OptionsBuilder<RabbitMqOptions> ConfigureRabbitMqOptions(this IServiceCollection services, IConfigurationSection section)
+        => services
+            .AddOptions<RabbitMqOptions>()
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();

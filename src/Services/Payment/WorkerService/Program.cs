@@ -54,14 +54,16 @@ builder.ConfigureServices((context, services) =>
 
     services.AddMessageFluentValidation();
 
-    services.AddMassTransitWithRabbitMq(options
-        => context.Configuration.Bind(nameof(RabbitMqOptions), options));
+    services.AddMassTransitWithRabbitMq();
 
     services.ConfigureEventStoreOptions(
         context.Configuration.GetSection(nameof(EventStoreOptions)));
 
     services.ConfigureSqlServerRetryingOptions(
         context.Configuration.GetSection(nameof(SqlServerRetryingOptions)));
+    
+    services.ConfigureRabbitMqOptions(
+        context.Configuration.GetSection(nameof(RabbitMqOptions)));
 
     services.ConfigureCreditCardHttpClientOptions(
         context.Configuration.GetSection(nameof(CreditCardHttpClientOptions)));

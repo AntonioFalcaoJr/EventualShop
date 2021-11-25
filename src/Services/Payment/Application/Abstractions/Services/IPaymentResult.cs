@@ -4,8 +4,8 @@ namespace Application.Abstractions.Services;
 
 public interface IPaymentResult
 {
-    public bool Success { get; init; }
-    public int Code { get; init; }
-    public string Message { get; init; }
-    public Guid TransactionId { get; init; }
+    bool Success { get; }
+    int Code { get; }
+    string Message { get; }
+    Guid TransactionId { get; }
 }
