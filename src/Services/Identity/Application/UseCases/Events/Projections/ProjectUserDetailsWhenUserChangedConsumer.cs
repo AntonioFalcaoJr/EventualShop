@@ -45,6 +45,6 @@ public class ProjectUserDetailsWhenUserChangedConsumer :
             IsDeleted = user.IsDeleted
         };
 
-        await _projectionsService.ProjectUserAuthenticationDetailsAsync(userAuthenticationDetails, cancellationToken);
+        await _projectionsService.ProjectAsync(userAuthenticationDetails, cancellationToken);
     }
 }

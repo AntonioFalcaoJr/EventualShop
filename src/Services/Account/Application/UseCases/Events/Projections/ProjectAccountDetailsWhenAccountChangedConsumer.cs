@@ -81,6 +81,6 @@ public class ProjectAccountDetailsWhenAccountChangedConsumer :
             IsDeleted = account.IsDeleted
         };
 
-        await _projectionsService.ProjectNewAsync(accountDetails, cancellationToken);
+        await _projectionsService.ProjectAsync(accountDetails, cancellationToken);
     }
 }

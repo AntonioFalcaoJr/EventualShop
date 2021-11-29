@@ -27,6 +27,6 @@ public class ProjectOrderDetailsWhenOrderChangedConsumer : IConsumer<OrderPlaced
             IsDeleted = order.IsDeleted
         };
             
-        await _projectionsService.ProjectOrderDetailsAsync(orderDetailsProjection, context.CancellationToken);
+        await _projectionsService.ProjectAsync(orderDetailsProjection, context.CancellationToken);
     }
 }

@@ -1,6 +1,8 @@
 using System;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Abstractions.EventSourcing.Projections;
 using Application.EventSourcing.Projections;
 
 namespace Infrastructure.EventSourcing.Projections;
@@ -19,7 +21,12 @@ public class UserProjectionsService : IUserProjectionsService
             predicate: projection => projection.Id.Equals(userId) &&
                                      projection.IsDeleted == false,
             cancellationToken: cancellationToken);
+    
+    public Task ProjectAsync<TProjection>(TProjection projection, CancellationToken cancellationToken)
+        where TProjection : IProjection
+        => _repository.UpsertAsync(projection, cancellationToken);
 
-    public Task ProjectUserAuthenticationDetailsAsync(UserAuthenticationDetailsProjection userAuthenticationDetails, CancellationToken cancellationToken)
-        => _repository.UpsertAsync(userAuthenticationDetails, cancellationToken);
+    public Task RemoveAsync<TProjection>(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken)
+        where TProjection : IProjection
+        => _repository.DeleteAsync(filter, cancellationToken);
 }

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Abstractions.EventSourcing.Projections;
 using Application.EventSourcing.Projections;
 
 namespace Infrastructure.EventSourcing.Projections;
@@ -14,12 +16,14 @@ public class PaymentProjectionsService : IPaymentProjectionsService
         _repository = repository;
     }
 
-    public Task ProjectPaymentDetailsAsync(PaymentDetailsProjection paymentDetails, CancellationToken cancellationToken)
-        => _repository.SaveAsync(paymentDetails, cancellationToken);
-        
-    public Task UpdatePaymentDetailsAsync(PaymentDetailsProjection paymentDetails, CancellationToken cancellationToken)
-        => _repository.UpsertAsync(paymentDetails, cancellationToken);
-
     public Task<PaymentDetailsProjection> GetPaymentDetailsAsync(Guid paymentId, CancellationToken cancellationToken)
         => _repository.FindAsync<PaymentDetailsProjection>(projection => projection.Id == paymentId, cancellationToken);
+
+    public Task ProjectAsync<TProjection>(TProjection projection, CancellationToken cancellationToken)
+        where TProjection : IProjection
+        => _repository.UpsertAsync(projection, cancellationToken);
+
+    public Task RemoveAsync<TProjection>(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken)
+        where TProjection : IProjection
+        => _repository.DeleteAsync(filter, cancellationToken);
 }

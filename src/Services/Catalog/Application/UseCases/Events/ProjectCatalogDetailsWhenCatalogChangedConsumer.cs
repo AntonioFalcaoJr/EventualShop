@@ -81,6 +81,6 @@ public class ProjectCatalogDetailsWhenCatalogChangedConsumer :
                     })
         };
 
-        await _projectionsService.ProjectCatalogDetailsAsync(catalogDetails, cancellationToken);
+        await _projectionsService.ProjectAsync(catalogDetails, cancellationToken);
     }
 }

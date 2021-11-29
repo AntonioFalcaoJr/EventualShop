@@ -15,7 +15,9 @@ public class ProjectPaymentDetailsWhenPaymentChangedConsumer :
     private readonly IPaymentEventStoreService _eventStoreService;
     private readonly IPaymentProjectionsService _projectionsService;
 
-    public ProjectPaymentDetailsWhenPaymentChangedConsumer(IPaymentEventStoreService eventStoreService, IPaymentProjectionsService projectionsService)
+    public ProjectPaymentDetailsWhenPaymentChangedConsumer(
+        IPaymentEventStoreService eventStoreService, 
+        IPaymentProjectionsService projectionsService)
     {
         _eventStoreService = eventStoreService;
         _projectionsService = projectionsService;
@@ -60,6 +62,6 @@ public class ProjectPaymentDetailsWhenPaymentChangedConsumer :
             //     }
         };
 
-        await _projectionsService.UpdatePaymentDetailsAsync(paymentDetails, cancellationToken);
+        await _projectionsService.ProjectAsync(paymentDetails, cancellationToken);
     }
 }

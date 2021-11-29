@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,7 +18,11 @@ public interface IProjectionsRepository
     Task<IPagedResult<TProjection>> GetAllAsync<TProjection>(Paging paging, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
         where TProjection : IProjection;
 
-    Task SaveAsync<TProjection>(TProjection projection, CancellationToken cancellationToken)
+    Task<IPagedResult<TProjectionResult>> GetAllNestedAsync<TProjection, TProjectionResult>(Paging paging, Expression<Func<TProjection, bool>> predicate, Expression<Func<TProjection, IEnumerable<TProjectionResult>>> selector, CancellationToken cancellationToken)
+        where TProjection : IProjection
+        where TProjectionResult : IProjection;
+
+    Task UpsertAsync<TProjection>(TProjection replacement, CancellationToken cancellationToken)
         where TProjection : IProjection;
 
     Task DeleteAsync<TProjection>(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken)

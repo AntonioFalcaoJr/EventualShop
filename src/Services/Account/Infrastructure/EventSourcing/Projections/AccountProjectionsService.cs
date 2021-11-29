@@ -23,13 +23,9 @@ public class AccountProjectionsService : IAccountProjectionsService
     public Task<AccountDetailsProjection> GetAccountDetailsAsync(Guid accountId, CancellationToken cancellationToken)
         => _repository.GetAsync<AccountDetailsProjection, Guid>(accountId, cancellationToken);
 
-    public Task ProjectNewAsync<TProjection>(TProjection projection, CancellationToken cancellationToken)
-        where TProjection : IProjection
-        => _repository.SaveAsync(projection, cancellationToken);
-
     public Task ProjectAsync<TProjection>(TProjection projection, CancellationToken cancellationToken)
         where TProjection : IProjection
-        => _repository.UpdateAsync(projection, cancellationToken);
+        => _repository.UpsertAsync(projection, cancellationToken);
 
     public Task RemoveAsync<TProjection>(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken)
         where TProjection : IProjection
