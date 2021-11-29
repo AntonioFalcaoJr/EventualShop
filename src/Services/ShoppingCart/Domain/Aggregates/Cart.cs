@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Abstractions.Aggregates;
+using Domain.Entities.PaymentMethods;
+using Domain.Entities.PaymentMethods.CreditCards;
 using Domain.ValueObjects.Addresses;
 using Domain.ValueObjects.CartItems;
-using Domain.ValueObjects.PaymentMethods;
-using Domain.ValueObjects.PaymentMethods.CreditCards;
 using Messages.Abstractions.Events;
 using Messages.Services.ShoppingCarts;
 
@@ -15,6 +15,7 @@ public class Cart : AggregateRoot<Guid>
 {
     private readonly List<CartItem> _items = new();
     private readonly List<IPaymentMethod> _paymentMethods = new();
+
     public Guid UserId { get; private set; }
     public bool IsCheckedOut { get; private set; }
     public Address ShippingAddress { get; private set; }
@@ -99,7 +100,7 @@ public class Cart : AggregateRoot<Guid>
         });
 
     private void When(DomainEvents.CreditCardAdded @event)
-        => _paymentMethods.Add(new CreditCard
+        => _paymentMethods.Add(new CreditCardPaymentMethod
         {
             Amount = @event.CreditCard.Amount,
             Expiration = @event.CreditCard.Expiration,

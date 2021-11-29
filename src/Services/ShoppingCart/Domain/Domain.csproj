@@ -7,7 +7,4 @@
     <ItemGroup>
         <ProjectReference Include="..\..\..\Contracts\Messages\Messages.csproj" />
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="ValueObjects\CreditCards" />
-    </ItemGroup>
 </Project>

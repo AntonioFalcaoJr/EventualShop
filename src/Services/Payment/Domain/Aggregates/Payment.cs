@@ -4,8 +4,11 @@ using System.Linq;
 using Domain.Abstractions.Aggregates;
 using Domain.Entities.PaymentMethods;
 using Domain.Entities.PaymentMethods.CreditCards;
+using Domain.Entities.PaymentMethods.DebitCards;
+using Domain.Entities.PaymentMethods.PayPal;
 using Domain.Enumerations;
 using Domain.ValueObjects.Addresses;
+using Messages;
 using Messages.Abstractions.Events;
 using Messages.Services.Payments;
 
@@ -13,7 +16,7 @@ namespace Domain.Aggregates;
 
 public class Payment : AggregateRoot<Guid>
 {
-    private List<IPaymentMethod> _methods = new();
+    private readonly List<IPaymentMethod> _paymentMethods = new();
 
     public Guid OrderId { get; private set; }
     public decimal Amount { get; private set; }
@@ -21,15 +24,15 @@ public class Payment : AggregateRoot<Guid>
     public Address BillingAddress { get; private set; }
 
     public decimal AmountDue
-        => _methods
+        => _paymentMethods
             .Where(method => method.Authorized is false)
             .Sum(method => method.Amount);
 
-    public IEnumerable<IPaymentMethod> Methods
-        => _methods;
+    public IEnumerable<IPaymentMethod> PaymentMethods
+        => _paymentMethods;
 
     public void Handle(Commands.RequestPayment cmd)
-        => RaiseEvent(new DomainEvents.PaymentRequested(Guid.NewGuid(), cmd.OrderId, cmd.Amount, cmd.BillingAddress, cmd.CreditCard));
+        => RaiseEvent(new DomainEvents.PaymentRequested(Guid.NewGuid(), cmd.OrderId, cmd.AmountDue, cmd.BillingAddress, cmd.PaymentMethods));
 
     public void Handle(Commands.ProceedWithPayment cmd)
         => RaiseEvent(AmountDue > 0
@@ -63,41 +66,38 @@ public class Payment : AggregateRoot<Guid>
             ZipCode = @event.BillingAddress.ZipCode
         };
 
-        _methods = new List<IPaymentMethod>
-        {
-            new CreditCardPaymentMethod
+        _paymentMethods.AddRange(@event.PaymentMethods.Select<Models.IPaymentMethod, IPaymentMethod>(method
+            => method switch
             {
-                Amount = @event.Amount,
-                Expiration = @event.CreditCard.Expiration,
-                Number = @event.CreditCard.Number,
-                HolderName = @event.CreditCard.HolderName,
-                SecurityNumber = @event.CreditCard.SecurityNumber
-            },
-
-            new CreditCardPaymentMethod
-            {
-                Amount = @event.Amount,
-                Expiration = @event.CreditCard.Expiration,
-                Number = @event.CreditCard.Number,
-                HolderName = @event.CreditCard.HolderName,
-                SecurityNumber = @event.CreditCard.SecurityNumber
-            },
-
-            new CreditCardPaymentMethod
-            {
-                Amount = @event.Amount,
-                Expiration = @event.CreditCard.Expiration,
-                Number = @event.CreditCard.Number,
-                HolderName = @event.CreditCard.HolderName,
-                SecurityNumber = @event.CreditCard.SecurityNumber
-            }
-        };
+                Models.CreditCard creditCard => new CreditCardPaymentMethod
+                {
+                    Amount = creditCard.Amount,
+                    Expiration = creditCard.Expiration,
+                    Number = creditCard.Number,
+                    HolderName = creditCard.HolderName,
+                    SecurityNumber = creditCard.SecurityNumber
+                },
+                Models.DebitCard debitCard => new DebitCardPaymentMethod
+                {
+                    Amount = debitCard.Amount,
+                    Expiration = debitCard.Expiration,
+                    Number = debitCard.Number,
+                    HolderName = debitCard.HolderName,
+                    SecurityNumber = debitCard.SecurityNumber
+                },
+                Models.PayPal payPal => new PayPalPaymentMethod
+                {
+                    Amount = payPal.Amount,
+                    Password = payPal.Password,
+                    UserName = payPal.UserName
+                }
+            }));
 
         Status = PaymentStatus.Pending;
     }
 
     private void When(DomainEvents.PaymentMethodAuthorized @event)
-        => _methods
+        => _paymentMethods
             .First(method => method.Id == @event.PaymentMethodId)
             .Authorize();
 

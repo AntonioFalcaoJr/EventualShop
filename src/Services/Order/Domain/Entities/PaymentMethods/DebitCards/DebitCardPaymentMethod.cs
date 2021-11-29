@@ -1,9 +1,8 @@
 ﻿using System;
-using Domain.Abstractions.ValueObjects;
 
-namespace Domain.ValueObjects.CreditCards;
+namespace Domain.Entities.PaymentMethods.DebitCards;
 
-public record CreditCard : ValueObject
+public class DebitCardPaymentMethod : PaymentMethod
 {
     public DateOnly Expiration { get; init; }
     public string HolderName { get; init; }
@@ -11,5 +10,5 @@ public record CreditCard : ValueObject
     public string SecurityNumber { get; init; }
 
     protected override bool Validate()
-        => OnValidate<CreditCardValidator, CreditCard>();
+        => OnValidate<DebitCardPaymentMethodValidator, DebitCardPaymentMethod>();
 }

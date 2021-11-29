@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Application.Abstractions.Services;
 using Application.Services.CreditCards;
+using Application.Services.DebitCards;
 using Application.Services.PayPal;
 using Domain.Aggregates;
 using Messages.Services.Payments;
@@ -14,18 +15,19 @@ public class PaymentStrategy : IPaymentStrategy
 
     public PaymentStrategy(
         ICreditCardPaymentService creditCardPaymentService,
+        IDebitCardPaymentService debitCardPaymentService,
         IPayPalPaymentService payPalPaymentService)
     {
-        
-            creditCardPaymentService
-                .SetNext(payPalPaymentService); //Invoice Service
+        creditCardPaymentService
+            .SetNext(debitCardPaymentService)
+            .SetNext(payPalPaymentService);
 
-            _paymentService = creditCardPaymentService;
+        _paymentService = creditCardPaymentService;
     }
 
     public async Task ProceedWithPaymentAsync(Payment payment, CancellationToken cancellationToken)
     {
-        foreach (var paymentMethod in payment.Methods)
+        foreach (var paymentMethod in payment.PaymentMethods)
         {
             if (payment.AmountDue <= 0) break;
 

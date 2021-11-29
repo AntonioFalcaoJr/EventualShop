@@ -3,6 +3,8 @@ using Application.EventSourcing.Projections;
 using Application.Services;
 using Application.Services.CreditCards;
 using Application.Services.CreditCards.Http;
+using Application.Services.DebitCards;
+using Application.Services.DebitCards.Http;
 using Application.Services.PayPal;
 using Application.Services.PayPal.Http;
 using FluentValidation;
@@ -15,6 +17,7 @@ using Infrastructure.EventSourcing.EventStore.Contexts;
 using Infrastructure.EventSourcing.Projections;
 using Infrastructure.EventSourcing.Projections.Contexts;
 using Infrastructure.Services.CreditCards;
+using Infrastructure.Services.DebitCards;
 using Infrastructure.Services.PayPal;
 using MassTransit;
 using Messages.Abstractions;
@@ -73,6 +76,7 @@ public static class ServiceCollectionExtensions
             .AddScoped<IPaymentProjectionsService, PaymentProjectionsService>()
             .AddScoped<IPayPalPaymentService, PayPalPaymentService>()
             .AddScoped<ICreditCardPaymentService, CreditCardPaymentService>()
+            .AddScoped<IDebitCardPaymentService, DebitCardPaymentService>()
             .AddScoped<IPaymentStrategy, PaymentStrategy>();
 
     public static IHttpClientBuilder AddPayPalHttpClient(this IServiceCollection services)
@@ -90,6 +94,15 @@ public static class ServiceCollectionExtensions
             .ConfigureHttpClient((provider, client) =>
             {
                 var options = provider.GetRequiredService<IOptions<CreditCardHttpClientOptions>>().Value;
+                client.BaseAddress = new(options.BaseAddress);
+            });
+    
+    public static IHttpClientBuilder AddDebitCardHttpClient(this IServiceCollection services)
+        => services
+            .AddHttpClient<IDebitCardHttpClient, DebitCardHttpClient>()
+            .ConfigureHttpClient((provider, client) =>
+            {
+                var options = provider.GetRequiredService<IOptions<DebitCardHttpClientOptions>>().Value;
                 client.BaseAddress = new(options.BaseAddress);
             });
 

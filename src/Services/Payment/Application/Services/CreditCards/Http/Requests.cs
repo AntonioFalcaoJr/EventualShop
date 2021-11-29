@@ -2,9 +2,9 @@
 
 public static class Requests
 {
-    public record ThirdPartyCreditCardAuthorizePayment;
+    public record CreditCardAuthorizePayment;
 
-    public record ThirdPartyCreditCardCancelPayment;
+    public record CreditCardCancelPayment;
 
-    public record ThirdPartyCreditCardRefundPayment;
+    public record CreditCardRefundPayment;
 }

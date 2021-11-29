@@ -1,5 +1,5 @@
 ﻿using System;
-using Application.UseCases.Events;
+using Application.UseCases.Events.Integrations;
 using Application.UseCases.Events.Projections;
 using GreenPipes;
 using MassTransit;

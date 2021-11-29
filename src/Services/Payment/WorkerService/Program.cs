@@ -42,6 +42,7 @@ builder.ConfigureServices((context, services) =>
 
     services.AddPayPalHttpClient();
     services.AddCreditCardHttpClient();
+    services.AddDebitCardHttpClient();
 
     services.AddEventStoreRepositories();
     services.AddProjectionsRepositories();

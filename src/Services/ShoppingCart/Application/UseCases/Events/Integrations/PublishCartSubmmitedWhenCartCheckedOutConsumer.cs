@@ -1,7 +1,10 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
-using Domain.ValueObjects.PaymentMethods.CreditCards;
+using Domain.Entities.PaymentMethods;
+using Domain.Entities.PaymentMethods.CreditCards;
+using Domain.Entities.PaymentMethods.DebitCards;
+using Domain.Entities.PaymentMethods.PayPal;
 using MassTransit;
 using Messages;
 using CartCheckedOutEvent = Messages.Services.ShoppingCarts.DomainEvents.CartCheckedOut;
@@ -42,16 +45,6 @@ public class PublishCartSubmittedWhenCartCheckedOutConsumer : IConsumer<CartChec
                 Street = cart.BillingAddress.Street,
                 ZipCode = cart.BillingAddress.ZipCode
             },
-            CreditCard: cart.PaymentMethods.Select(method
-                => method is CreditCard card
-                    ? new Models.CreditCard
-                    {
-                        Expiration = card.Expiration,
-                        Number = card.Number,
-                        HolderName = card.HolderName,
-                        SecurityNumber = card.SecurityNumber
-                    }
-                    : null).First(),
             ShippingAddress: new Models.Address
             {
                 City = cart.ShippingAddress.City,
@@ -60,7 +53,34 @@ public class PublishCartSubmittedWhenCartCheckedOutConsumer : IConsumer<CartChec
                 State = cart.ShippingAddress.State,
                 Street = cart.ShippingAddress.Street,
                 ZipCode = cart.ShippingAddress.ZipCode
-            });
+            },
+            Total: cart.Total,
+            PaymentMethods: cart.PaymentMethods.Select<IPaymentMethod, Models.IPaymentMethod>(method
+                => method switch
+                {
+                    CreditCardPaymentMethod creditCard => new Models.CreditCard
+                    {
+                        Amount = creditCard.Amount,
+                        Expiration = creditCard.Expiration,
+                        Number = creditCard.Number,
+                        HolderName = creditCard.HolderName,
+                        SecurityNumber = creditCard.SecurityNumber
+                    },
+                    DebitCardPaymentMethod debitCard => new Models.DebitCard
+                    {
+                        Amount = debitCard.Amount,
+                        Expiration = debitCard.Expiration,
+                        Number = debitCard.Number,
+                        HolderName = debitCard.HolderName,
+                        SecurityNumber = debitCard.SecurityNumber
+                    },
+                    PayPalPaymentMethod payPal => new Models.PayPal
+                    {
+                        Amount = payPal.Amount,
+                        Password = payPal.Password,
+                        UserName = payPal.UserName
+                    }
+                }));
 
         await context.Publish(cartSubmittedEvent);
     }

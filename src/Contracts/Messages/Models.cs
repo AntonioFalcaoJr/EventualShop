@@ -16,15 +16,35 @@ public static class Models
         public string ZipCode { get; init; }
     }
 
-    public record CreditCard
+    public record CreditCard : IPaymentMethod
     {
         public decimal Amount { get; init; }
 
         [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
         public DateOnly Expiration { get; init; }
+
         public string HolderName { get; init; }
         public string Number { get; init; }
         public string SecurityNumber { get; init; }
+    }
+
+    public record DebitCard : IPaymentMethod
+    {
+        public decimal Amount { get; init; }
+
+        [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
+        public DateOnly Expiration { get; init; }
+
+        public string HolderName { get; init; }
+        public string Number { get; init; }
+        public string SecurityNumber { get; init; }
+    }
+
+    public record PayPal : IPaymentMethod
+    {
+        public decimal Amount { get; init; }
+        public string UserName { get; init; }
+        public string Password { get; init; }
     }
 
     public record Item
@@ -43,5 +63,10 @@ public static class Models
         public decimal UnitPrice { get; init; }
         public int QuantityOnHand { get; init; }
         public string PictureUrl { get; init; }
+    }
+
+    public interface IPaymentMethod
+    {
+        decimal Amount { get; }
     }
 }

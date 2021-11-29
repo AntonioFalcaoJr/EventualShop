@@ -18,8 +18,8 @@ public class PayPalPaymentService : PaymentService, IPayPalPaymentService
     }
 
     public override async Task<IPaymentResult> HandleAsync(IPaymentMethod paymentMethod, CancellationToken cancellationToken)
-        => paymentMethod is PayPalPaymentMethod method
-            ? await AuthorizeAsync(method, cancellationToken)
+        => paymentMethod is PayPalPaymentMethod payPalPaymentMethod
+            ? await AuthorizeAsync(payPalPaymentMethod, cancellationToken)
             : await Next.HandleAsync(paymentMethod, cancellationToken);
 
 

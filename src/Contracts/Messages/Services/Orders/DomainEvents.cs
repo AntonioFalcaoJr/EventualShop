@@ -6,5 +6,5 @@ namespace Messages.Services.Orders;
 
 public static class DomainEvents
 {
-    public record OrderPlaced(Guid OrderId, Guid CustomerId, IEnumerable<Models.Item> Items, Models.Address BillingAddress, Models.CreditCard CreditCard, Models.Address ShippingAddress) : Event;
+    public record OrderPlaced(Guid OrderId, Guid CustomerId, decimal Total, IEnumerable<Models.Item> Items, Models.Address BillingAddress, Models.Address ShippingAddress, IEnumerable<Models.IPaymentMethod> PaymentMethods) : Event;
 }

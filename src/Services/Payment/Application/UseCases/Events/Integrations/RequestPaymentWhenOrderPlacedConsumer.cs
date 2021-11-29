@@ -22,9 +22,9 @@ public class RequestPaymentWhenOrderPlacedConsumer : IConsumer<OrderPlacedEvent>
 
         payment.Handle(new RequestPaymentCommand(
             context.Message.OrderId,
-            0,
+            context.Message.Total,
             context.Message.BillingAddress,
-            context.Message.CreditCard));
+            context.Message.PaymentMethods));
 
         await _eventStoreService.AppendEventsToStreamAsync(payment, context.CancellationToken);
     }

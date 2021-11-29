@@ -5,7 +5,7 @@ using MassTransit;
 using UserRegisteredEvent = Messages.Services.Identities.DomainEvents.UserRegistered;
 using CreateAccountCommand = Messages.Services.Accounts.Commands.CreateAccount;
 
-namespace Application.UseCases.Events;
+namespace Application.UseCases.Events.Integrations;
 
 public class CreateAccountWhenUserRegisteredConsumer : IConsumer<UserRegisteredEvent>
 {

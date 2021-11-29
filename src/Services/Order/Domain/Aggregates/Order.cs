@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Domain.Abstractions.Aggregates;
 using Domain.Entities.OrderItems;
+using Domain.Entities.PaymentMethods;
+using Domain.Entities.PaymentMethods.CreditCards;
+using Domain.Entities.PaymentMethods.DebitCards;
+using Domain.Entities.PaymentMethods.PayPal;
 using Domain.ValueObjects.Addresses;
-using Domain.ValueObjects.CreditCards;
+using Messages;
 using Messages.Abstractions.Events;
 using Messages.Services.Orders;
 
@@ -13,27 +17,30 @@ namespace Domain.Aggregates;
 public class Order : AggregateRoot<Guid>
 {
     private readonly List<OrderItem> _items = new();
+    private readonly List<IPaymentMethod> _paymentMethods = new();
     public Address ShippingAddress { get; private set; }
     public Address BillingAddress { get; private set; }
-    public CreditCard CreditCard { get; private set; }
     public Guid UserId { get; private set; }
 
     public decimal Total
         => Items.Sum(item
             => item.Price * item.Quantity);
 
+    public IEnumerable<IPaymentMethod> PaymentMethods
+        => _paymentMethods;
+
     public IEnumerable<OrderItem> Items
         => _items;
 
-    public void Handle(Commands.PlaceOrder command)
-        => RaiseEvent(
-            new DomainEvents.OrderPlaced(
-                Guid.NewGuid(),
-                command.CustomerId,
-                command.Items,
-                command.BillingAddress,
-                command.CreditCard,
-                command.ShippingAddress));
+    public void Handle(Commands.PlaceOrder cmd)
+        => RaiseEvent(new DomainEvents.OrderPlaced(
+            Guid.NewGuid(),
+            cmd.CustomerId,
+            cmd.Total,
+            cmd.Items,
+            cmd.BillingAddress,
+            cmd.ShippingAddress,
+            cmd.PaymentMethods));
 
     protected override void ApplyEvent(IEvent @event)
         => When(@event as dynamic);
@@ -51,14 +58,6 @@ public class Order : AggregateRoot<Guid>
             State = @event.BillingAddress.State,
             Street = @event.BillingAddress.Street,
             ZipCode = @event.BillingAddress.ZipCode
-        };
-
-        CreditCard = new()
-        {
-            Expiration = @event.CreditCard.Expiration,
-            Number = @event.CreditCard.Number,
-            HolderName = @event.CreditCard.HolderName,
-            SecurityNumber = @event.CreditCard.SecurityNumber
         };
 
         ShippingAddress = new()
@@ -81,6 +80,33 @@ public class Order : AggregateRoot<Guid>
                 item.UnitPrice,
                 item.Quantity,
                 item.PictureUrl)));
+
+        _paymentMethods.AddRange(@event.PaymentMethods.Select<Models.IPaymentMethod, IPaymentMethod>(method
+            => method switch
+            {
+                Models.CreditCard creditCard => new CreditCardPaymentMethod
+                {
+                    Amount = creditCard.Amount,
+                    Expiration = creditCard.Expiration,
+                    Number = creditCard.Number,
+                    HolderName = creditCard.HolderName,
+                    SecurityNumber = creditCard.SecurityNumber
+                },
+                Models.DebitCard debitCard => new DebitCardPaymentMethod
+                {
+                    Amount = debitCard.Amount,
+                    Expiration = debitCard.Expiration,
+                    Number = debitCard.Number,
+                    HolderName = debitCard.HolderName,
+                    SecurityNumber = debitCard.SecurityNumber
+                },
+                Models.PayPal payPal => new PayPalPaymentMethod
+                {
+                    Amount = payPal.Amount,
+                    Password = payPal.Password,
+                    UserName = payPal.UserName
+                }
+            }));
     }
 
     protected sealed override bool Validate()
