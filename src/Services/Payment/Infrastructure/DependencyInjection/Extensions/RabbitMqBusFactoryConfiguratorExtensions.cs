@@ -14,9 +14,9 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
     {
-        cfg.ConfigureEventReceiveEndpoint<PaymentChangedConsumer, DomainEvents.PaymentCanceled>(registration);
-        cfg.ConfigureEventReceiveEndpoint<PaymentRequestedConsumer, DomainEvents.PaymentRequested>(registration);
-        cfg.ConfigureEventReceiveEndpoint<OrderPlacedConsumer, Messages.Services.Orders.DomainEvents.OrderPlaced>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectPaymentDetailsWhenPaymentChangedConsumer, DomainEvents.PaymentCanceled>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProceedWithPaymentWhenPaymentRequestedConsumer, DomainEvents.PaymentRequested>(registration);
+        cfg.ConfigureEventReceiveEndpoint<RequestPaymentWhenOrderPlacedConsumer, Messages.Services.Orders.DomainEvents.OrderPlaced>(registration);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)

@@ -8,9 +8,9 @@ using UserRegisteredEvent = Messages.Services.Identities.DomainEvents.UserRegist
 using UserPasswordChangedEvent = Messages.Services.Identities.DomainEvents.UserPasswordChanged;
 using UserDeletedEvent = Messages.Services.Identities.DomainEvents.UserDeleted;
 
-namespace Application.UseCases.Events;
+namespace Application.UseCases.Events.Projections;
 
-public class UserChangedConsumer :
+public class ProjectUserDetailsWhenUserChangedConsumer :
     IConsumer<UserRegisteredEvent>,
     IConsumer<UserPasswordChangedEvent>,
     IConsumer<UserDeletedEvent>
@@ -18,22 +18,22 @@ public class UserChangedConsumer :
     private readonly IUserEventStoreService _eventStoreService;
     private readonly IUserProjectionsService _projectionsService;
 
-    public UserChangedConsumer(IUserEventStoreService eventStoreService, IUserProjectionsService projectionsService)
+    public ProjectUserDetailsWhenUserChangedConsumer(IUserEventStoreService eventStoreService, IUserProjectionsService projectionsService)
     {
         _eventStoreService = eventStoreService;
         _projectionsService = projectionsService;
     }
 
     public Task Consume(ConsumeContext<UserDeletedEvent> context)
-        => Project(context.Message.UserId, context.CancellationToken);
+        => ProjectAsync(context.Message.UserId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<UserPasswordChangedEvent> context)
-        => Project(context.Message.UserId, context.CancellationToken);
+        => ProjectAsync(context.Message.UserId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<UserRegisteredEvent> context)
-        => Project(context.Message.UserId, context.CancellationToken);
+        => ProjectAsync(context.Message.UserId, context.CancellationToken);
 
-    private async Task Project(Guid userId, CancellationToken cancellationToken)
+    private async Task ProjectAsync(Guid userId, CancellationToken cancellationToken)
     {
         var user = await _eventStoreService.LoadAggregateFromStreamAsync(userId, cancellationToken);
 

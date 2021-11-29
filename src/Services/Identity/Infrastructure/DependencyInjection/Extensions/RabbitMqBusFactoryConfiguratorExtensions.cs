@@ -1,5 +1,6 @@
 ﻿using System;
 using Application.UseCases.Events;
+using Application.UseCases.Events.Projections;
 using GreenPipes;
 using MassTransit;
 using MassTransit.RabbitMqTransport;
@@ -12,9 +13,9 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
     {
-        cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, DomainEvents.UserRegistered>(registration);
-        cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, DomainEvents.UserPasswordChanged>(registration);
-        cfg.ConfigureEventReceiveEndpoint<UserChangedConsumer, DomainEvents.UserDeleted>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectUserDetailsWhenUserChangedConsumer, DomainEvents.UserRegistered>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectUserDetailsWhenUserChangedConsumer, DomainEvents.UserPasswordChanged>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectUserDetailsWhenUserChangedConsumer, DomainEvents.UserDeleted>(registration);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)

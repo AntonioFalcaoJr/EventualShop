@@ -12,14 +12,14 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
     {
-        cfg.ConfigureEventReceiveEndpoint<CatalogCreatedConsumer, DomainEvents.CatalogCreated>(registration);
-        cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, DomainEvents.CatalogDeleted>(registration);
-        cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, DomainEvents.CatalogActivated>(registration);
-        cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, DomainEvents.CatalogDeactivated>(registration);
-        cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, DomainEvents.CatalogUpdated>(registration);
-        cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, DomainEvents.CatalogItemAdded>(registration);
-        cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, DomainEvents.CatalogItemRemoved>(registration);
-        cfg.ConfigureEventReceiveEndpoint<CatalogChangedConsumer, DomainEvents.CatalogItemUpdated>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCatalogDetailsWhenCatalogChangedConsumer, DomainEvents.CatalogCreated>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCatalogDetailsWhenCatalogChangedConsumer, DomainEvents.CatalogDeleted>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCatalogDetailsWhenCatalogChangedConsumer, DomainEvents.CatalogActivated>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCatalogDetailsWhenCatalogChangedConsumer, DomainEvents.CatalogDeactivated>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCatalogDetailsWhenCatalogChangedConsumer, DomainEvents.CatalogUpdated>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCatalogDetailsWhenCatalogChangedConsumer, DomainEvents.CatalogItemAdded>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCatalogDetailsWhenCatalogChangedConsumer, DomainEvents.CatalogItemRemoved>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCatalogDetailsWhenCatalogChangedConsumer, DomainEvents.CatalogItemUpdated>(registration);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)

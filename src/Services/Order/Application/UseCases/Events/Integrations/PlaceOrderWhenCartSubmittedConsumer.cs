@@ -7,11 +7,11 @@ using PlaceOrderCommand = Messages.Services.Orders.Commands.PlaceOrder;
 
 namespace Application.UseCases.Events.Integrations;
 
-public class CartSubmittedConsumer : IConsumer<CartSubmittedEvent>
+public class PlaceOrderWhenCartSubmittedConsumer : IConsumer<CartSubmittedEvent>
 {
     private readonly IOrderEventStoreService _eventStoreService;
 
-    public CartSubmittedConsumer(IOrderEventStoreService eventStoreService)
+    public PlaceOrderWhenCartSubmittedConsumer(IOrderEventStoreService eventStoreService)
     {
         _eventStoreService = eventStoreService;
     }

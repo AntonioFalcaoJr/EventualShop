@@ -8,26 +8,26 @@ using Messages.Services.Payments;
 
 namespace Application.UseCases.Events.Projections;
 
-public class PaymentChangedConsumer :
+public class ProjectPaymentDetailsWhenPaymentChangedConsumer :
     IConsumer<DomainEvents.PaymentCanceled>,
     IConsumer<DomainEvents.PaymentRequested>
 {
     private readonly IPaymentEventStoreService _eventStoreService;
     private readonly IPaymentProjectionsService _projectionsService;
 
-    public PaymentChangedConsumer(IPaymentEventStoreService eventStoreService, IPaymentProjectionsService projectionsService)
+    public ProjectPaymentDetailsWhenPaymentChangedConsumer(IPaymentEventStoreService eventStoreService, IPaymentProjectionsService projectionsService)
     {
         _eventStoreService = eventStoreService;
         _projectionsService = projectionsService;
     }
 
     public Task Consume(ConsumeContext<DomainEvents.PaymentCanceled> context)
-        => Project(context.Message.PaymentId, context.CancellationToken);
+        => ProjectAsync(context.Message.PaymentId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvents.PaymentRequested> context)
-        => Project(context.Message.PaymentId, context.CancellationToken);
+        => ProjectAsync(context.Message.PaymentId, context.CancellationToken);
 
-    private async Task Project(Guid paymentId, CancellationToken cancellationToken)
+    private async Task ProjectAsync(Guid paymentId, CancellationToken cancellationToken)
     {
         var payment = await _eventStoreService.LoadAggregateFromStreamAsync(paymentId, cancellationToken);
 

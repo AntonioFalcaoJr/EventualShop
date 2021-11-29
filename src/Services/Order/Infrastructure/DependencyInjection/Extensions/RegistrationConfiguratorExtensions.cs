@@ -17,8 +17,8 @@ public static class RegistrationConfiguratorExtensions
 
     public static void AddEventConsumers(this IRegistrationConfigurator cfg)
     {
-        cfg.AddConsumer<OrderPlacedConsumer>();
-        cfg.AddConsumer<CartSubmittedConsumer>();
+        cfg.AddConsumer<ProjectOrderDetailsWhenOrderChangedConsumer>();
+        cfg.AddConsumer<PlaceOrderWhenCartSubmittedConsumer>();
     }
 
     public static void AddQueryConsumers(this IRegistrationConfigurator cfg)

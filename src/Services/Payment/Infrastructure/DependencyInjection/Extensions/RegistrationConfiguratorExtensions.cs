@@ -20,9 +20,9 @@ public static class RegistrationConfiguratorExtensions
 
     public static void AddEventConsumers(this IRegistrationConfigurator cfg)
     {
-        cfg.AddConsumer<PaymentChangedConsumer>();
-        cfg.AddConsumer<PaymentRequestedConsumer>();
-        cfg.AddConsumer<OrderPlacedConsumer>();
+        cfg.AddConsumer<ProjectPaymentDetailsWhenPaymentChangedConsumer>();
+        cfg.AddConsumer<ProceedWithPaymentWhenPaymentRequestedConsumer>();
+        cfg.AddConsumer<RequestPaymentWhenOrderPlacedConsumer>();
     }
 
     public static void AddQueryConsumers(this IRegistrationConfigurator cfg)

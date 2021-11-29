@@ -13,12 +13,12 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
     {
-        cfg.ConfigureEventReceiveEndpoint<AccountCreatedConsumer, DomainEvents.AccountCreated>(registration);
-        cfg.ConfigureEventReceiveEndpoint<AccountDeletedConsumer, DomainEvents.AccountDeleted>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProfessionalAddressDefinedConsumer, DomainEvents.ProfessionalAddressDefined>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProfileUpdatedConsumer, DomainEvents.ProfileUpdated>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ResidenceAddressDefinedConsumer, DomainEvents.ResidenceAddressDefined>(registration);
-        cfg.ConfigureEventReceiveEndpoint<UserRegisteredConsumer, Messages.Services.Identities.DomainEvents.UserRegistered>(registration);
+        cfg.ConfigureEventReceiveEndpoint<CreateAccountWhenUserRegisteredConsumer, Messages.Services.Identities.DomainEvents.UserRegistered>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectAccountDetailsWhenAccountChangedConsumer, DomainEvents.ProfessionalAddressDefined>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectAccountDetailsWhenAccountChangedConsumer, DomainEvents.ProfileUpdated>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectAccountDetailsWhenAccountChangedConsumer, DomainEvents.ResidenceAddressDefined>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectAccountDetailsWhenAccountChangedConsumer, DomainEvents.AccountCreated>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectAccountDetailsWhenAccountChangedConsumer, DomainEvents.AccountDeleted>(registration);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)

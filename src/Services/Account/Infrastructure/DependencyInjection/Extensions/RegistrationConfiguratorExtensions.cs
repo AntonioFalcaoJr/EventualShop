@@ -22,12 +22,8 @@ public static class RegistrationConfiguratorExtensions
 
     public static void AddEventConsumers(this IRegistrationConfigurator cfg)
     {
-        cfg.AddConsumer<AccountCreatedConsumer>();
-        cfg.AddConsumer<AccountDeletedConsumer>();
-        cfg.AddConsumer<ProfessionalAddressDefinedConsumer>();
-        cfg.AddConsumer<ProfileUpdatedConsumer>();
-        cfg.AddConsumer<ResidenceAddressDefinedConsumer>();
-        cfg.AddConsumer<UserRegisteredConsumer>();
+        cfg.AddConsumer<CreateAccountWhenUserRegisteredConsumer>();
+        cfg.AddConsumer<ProjectAccountDetailsWhenAccountChangedConsumer>();
     }
 
     public static void AddQueryConsumers(this IRegistrationConfigurator cfg)

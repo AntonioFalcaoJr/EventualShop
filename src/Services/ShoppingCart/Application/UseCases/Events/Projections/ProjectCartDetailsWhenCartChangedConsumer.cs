@@ -40,33 +40,33 @@ public class ProjectCartDetailsWhenCartChangedConsumer :
     }
 
     public Task Consume(ConsumeContext<BillingAddressChangedEvent> context)
-        => Project(context.Message.CartId, context.CancellationToken);
+        => ProjectAsync(context.Message.CartId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<CartCreatedEvent> context)
-        => Project(context.Message.CartId, context.CancellationToken);
+        => ProjectAsync(context.Message.CartId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<CartItemAddedEvent> context)
-        => Project(context.Message.CartId, context.CancellationToken);
+        => ProjectAsync(context.Message.CartId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<CreditCardAddedEvent> context)
-        => Project(context.Message.CartId, context.CancellationToken);
+        => ProjectAsync(context.Message.CartId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<CartItemRemovedEvent> context)
-        => Project(context.Message.CartId, context.CancellationToken);
+        => ProjectAsync(context.Message.CartId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<CartCheckedOutEvent> context)
-        => Project(context.Message.CartId, context.CancellationToken);
+        => ProjectAsync(context.Message.CartId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<ShippingAddressAddedEvent> context)
-        => Project(context.Message.CartId, context.CancellationToken);
+        => ProjectAsync(context.Message.CartId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<CartItemQuantityUpdatedEvent> context)
-        => Project(context.Message.CartId, context.CancellationToken);
+        => ProjectAsync(context.Message.CartId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<CartItemQuantityIncreasedEvent> context)
-        => Project(context.Message.CartId, context.CancellationToken);
+        => ProjectAsync(context.Message.CartId, context.CancellationToken);
 
-    private async Task Project(Guid cartId, CancellationToken cancellationToken)
+    private async Task ProjectAsync(Guid cartId, CancellationToken cancellationToken)
     {
         var cart = await _eventStoreService.LoadAggregateFromStreamAsync(cartId, cancellationToken);
 

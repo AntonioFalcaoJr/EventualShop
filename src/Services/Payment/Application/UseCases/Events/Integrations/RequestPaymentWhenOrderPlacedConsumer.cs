@@ -7,11 +7,11 @@ using RequestPaymentCommand = Messages.Services.Payments.Commands.RequestPayment
 
 namespace Application.UseCases.Events.Integrations;
 
-public class OrderPlacedConsumer : IConsumer<OrderPlacedEvent>
+public class RequestPaymentWhenOrderPlacedConsumer : IConsumer<OrderPlacedEvent>
 {
     private readonly IPaymentEventStoreService _eventStoreService;
 
-    public OrderPlacedConsumer(IPaymentEventStoreService eventStoreService)
+    public RequestPaymentWhenOrderPlacedConsumer(IPaymentEventStoreService eventStoreService)
     {
         _eventStoreService = eventStoreService;
     }

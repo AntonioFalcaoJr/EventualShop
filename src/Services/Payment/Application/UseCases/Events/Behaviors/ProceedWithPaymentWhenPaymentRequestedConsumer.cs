@@ -7,12 +7,12 @@ using PaymentRequestedEvent = Messages.Services.Payments.DomainEvents.PaymentReq
 
 namespace Application.UseCases.Events.Behaviors;
 
-public class PaymentRequestedConsumer : IConsumer<PaymentRequestedEvent>
+public class ProceedWithPaymentWhenPaymentRequestedConsumer : IConsumer<PaymentRequestedEvent>
 {
     private readonly IPaymentEventStoreService _eventStoreService;
     private readonly IPaymentStrategy _strategy;
 
-    public PaymentRequestedConsumer(IPaymentEventStoreService eventStoreService, IPaymentStrategy strategy)
+    public ProceedWithPaymentWhenPaymentRequestedConsumer(IPaymentEventStoreService eventStoreService, IPaymentStrategy strategy)
     {
         _eventStoreService = eventStoreService;
         _strategy = strategy;

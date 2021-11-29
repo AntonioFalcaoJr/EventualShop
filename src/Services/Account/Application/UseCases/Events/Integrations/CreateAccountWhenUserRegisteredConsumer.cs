@@ -7,11 +7,11 @@ using CreateAccountCommand = Messages.Services.Accounts.Commands.CreateAccount;
 
 namespace Application.UseCases.Events;
 
-public class UserRegisteredConsumer : IConsumer<UserRegisteredEvent>
+public class CreateAccountWhenUserRegisteredConsumer : IConsumer<UserRegisteredEvent>
 {
     private readonly IAccountEventStoreService _eventStoreService;
 
-    public UserRegisteredConsumer(IAccountEventStoreService eventStoreService)
+    public CreateAccountWhenUserRegisteredConsumer(IAccountEventStoreService eventStoreService)
     {
         _eventStoreService = eventStoreService;
     }

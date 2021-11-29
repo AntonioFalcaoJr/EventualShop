@@ -24,8 +24,7 @@ public static class RegistrationConfiguratorExtensions
 
     public static void AddEventConsumers(this IRegistrationConfigurator cfg)
     {
-        cfg.AddConsumer<CatalogCreatedConsumer>();
-        cfg.AddConsumer<CatalogChangedConsumer>();
+        cfg.AddConsumer<ProjectCatalogDetailsWhenCatalogChangedConsumer>();
     }
 
     public static void AddQueryConsumers(this IRegistrationConfigurator cfg)

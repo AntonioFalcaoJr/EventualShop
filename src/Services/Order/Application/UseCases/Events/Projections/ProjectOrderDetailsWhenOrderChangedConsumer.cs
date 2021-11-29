@@ -6,12 +6,12 @@ using OrderPlacedEvent = Messages.Services.Orders.DomainEvents.OrderPlaced;
 
 namespace Application.UseCases.Events.Projections;
 
-public class OrderPlacedConsumer : IConsumer<OrderPlacedEvent>
+public class ProjectOrderDetailsWhenOrderChangedConsumer : IConsumer<OrderPlacedEvent>
 {
     private readonly IOrderEventStoreService _eventStoreService;
     private readonly IOrderProjectionsService _projectionsService;
 
-    public OrderPlacedConsumer(IOrderEventStoreService eventStoreService, IOrderProjectionsService projectionsService)
+    public ProjectOrderDetailsWhenOrderChangedConsumer(IOrderEventStoreService eventStoreService, IOrderProjectionsService projectionsService)
     {
         _eventStoreService = eventStoreService;
         _projectionsService = projectionsService;

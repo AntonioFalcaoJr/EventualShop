@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
+using CatalogCreatedEvent = Messages.Services.Catalogs.DomainEvents.CatalogCreated;
 using CatalogActivatedEvent = Messages.Services.Catalogs.DomainEvents.CatalogActivated;
 using CatalogDeactivatedEvent = Messages.Services.Catalogs.DomainEvents.CatalogDeactivated;
 using CatalogUpdatedEvent = Messages.Services.Catalogs.DomainEvents.CatalogUpdated;
@@ -15,7 +16,8 @@ using CatalogItemUpdatedEvent = Messages.Services.Catalogs.DomainEvents.CatalogI
 
 namespace Application.UseCases.Events;
 
-public class CatalogChangedConsumer :
+public class ProjectCatalogDetailsWhenCatalogChangedConsumer :
+    IConsumer<CatalogCreatedEvent>,
     IConsumer<CatalogActivatedEvent>,
     IConsumer<CatalogDeactivatedEvent>,
     IConsumer<CatalogUpdatedEvent>,
@@ -27,34 +29,37 @@ public class CatalogChangedConsumer :
     private readonly ICatalogEventStoreService _eventStoreService;
     private readonly ICatalogProjectionsService _projectionsService;
 
-    public CatalogChangedConsumer(ICatalogEventStoreService eventStoreService, ICatalogProjectionsService projectionsService)
+    public ProjectCatalogDetailsWhenCatalogChangedConsumer(ICatalogEventStoreService eventStoreService, ICatalogProjectionsService projectionsService)
     {
         _eventStoreService = eventStoreService;
         _projectionsService = projectionsService;
     }
 
+    public Task Consume(ConsumeContext<CatalogCreatedEvent> context)
+        => ProjectAsync(context.Message.CatalogId, context.CancellationToken);
+    
     public Task Consume(ConsumeContext<CatalogActivatedEvent> context)
-        => Project(context.Message.CatalogId, context.CancellationToken);
+        => ProjectAsync(context.Message.CatalogId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<CatalogDeactivatedEvent> context)
-        => Project(context.Message.CatalogId, context.CancellationToken);
+        => ProjectAsync(context.Message.CatalogId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<CatalogDeletedEvent> context)
-        => Project(context.Message.CatalogId, context.CancellationToken);
+        => ProjectAsync(context.Message.CatalogId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<CatalogItemAddedEvent> context)
-        => Project(context.Message.CatalogId, context.CancellationToken);
+        => ProjectAsync(context.Message.CatalogId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<CatalogItemRemovedEvent> context)
-        => Project(context.Message.CatalogId, context.CancellationToken);
+        => ProjectAsync(context.Message.CatalogId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<CatalogItemUpdatedEvent> context)
-        => Project(context.Message.CatalogId, context.CancellationToken);
+        => ProjectAsync(context.Message.CatalogId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<CatalogUpdatedEvent> context)
-        => Project(context.Message.CatalogId, context.CancellationToken);
+        => ProjectAsync(context.Message.CatalogId, context.CancellationToken);
 
-    private async Task Project(Guid catalogId, CancellationToken cancellationToken)
+    private async Task ProjectAsync(Guid catalogId, CancellationToken cancellationToken)
     {
         var catalog = await _eventStoreService.LoadAggregateFromStreamAsync(catalogId, cancellationToken);
 

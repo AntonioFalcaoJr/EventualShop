@@ -14,8 +14,8 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
     {
-        cfg.ConfigureEventReceiveEndpoint<CartSubmittedConsumer, IntegrationEvents.CartSubmitted>(registration);
-        cfg.ConfigureEventReceiveEndpoint<OrderPlacedConsumer, DomainEvents.OrderPlaced>(registration);
+        cfg.ConfigureEventReceiveEndpoint<PlaceOrderWhenCartSubmittedConsumer, IntegrationEvents.CartSubmitted>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectOrderDetailsWhenOrderChangedConsumer, DomainEvents.OrderPlaced>(registration);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)

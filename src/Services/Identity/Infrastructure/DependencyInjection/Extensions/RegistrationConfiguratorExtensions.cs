@@ -1,6 +1,7 @@
 ﻿using System;
 using Application.UseCases.Commands;
 using Application.UseCases.Events;
+using Application.UseCases.Events.Projections;
 using Application.UseCases.Queries;
 using MassTransit;
 using Messages.Abstractions;
@@ -19,7 +20,7 @@ public static class RegistrationConfiguratorExtensions
 
     public static void AddEventConsumers(this IRegistrationConfigurator cfg)
     {
-        cfg.AddConsumer<UserChangedConsumer>();
+        cfg.AddConsumer<ProjectUserDetailsWhenUserChangedConsumer>();
     }
 
     public static void AddQueryConsumers(this IRegistrationConfigurator cfg)
