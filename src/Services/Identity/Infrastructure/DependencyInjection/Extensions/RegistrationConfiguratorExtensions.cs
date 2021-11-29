@@ -1,6 +1,5 @@
 ﻿using System;
 using Application.UseCases.Commands;
-using Application.UseCases.Events;
 using Application.UseCases.Events.Projections;
 using Application.UseCases.Queries;
 using MassTransit;

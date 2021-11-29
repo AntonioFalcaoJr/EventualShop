@@ -1,5 +1,4 @@
 ﻿using System;
-using Domain.Abstractions.Entities;
 
 namespace Domain.Entities.PaymentMethods.PayPal;
 

@@ -4,7 +4,6 @@ using Application.EventSourcing.EventStore;
 using Domain.ValueObjects.PaymentMethods.CreditCards;
 using MassTransit;
 using Messages;
-using Microsoft.Extensions.DependencyInjection;
 using CartCheckedOutEvent = Messages.Services.ShoppingCarts.DomainEvents.CartCheckedOut;
 using CartSubmittedEvent = Messages.Services.ShoppingCarts.IntegrationEvents.CartSubmitted;
 

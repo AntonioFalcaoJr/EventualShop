@@ -6,7 +6,6 @@ using Domain.ValueObjects.Addresses;
 using Domain.ValueObjects.CartItems;
 using Domain.ValueObjects.PaymentMethods;
 using Domain.ValueObjects.PaymentMethods.CreditCards;
-using Messages;
 using Messages.Abstractions.Events;
 using Messages.Services.ShoppingCarts;
 

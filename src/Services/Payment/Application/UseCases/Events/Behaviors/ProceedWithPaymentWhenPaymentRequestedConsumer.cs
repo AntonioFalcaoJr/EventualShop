@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.Services;
-using Domain.Aggregates;
 using MassTransit;
 using PaymentRequestedEvent = Messages.Services.Payments.DomainEvents.PaymentRequested;
 

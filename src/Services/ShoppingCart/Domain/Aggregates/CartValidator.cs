@@ -3,7 +3,6 @@ using System.Linq;
 using Domain.Abstractions.Validators;
 using Domain.ValueObjects.Addresses;
 using Domain.ValueObjects.CartItems;
-using Domain.ValueObjects.PaymentMethods.CreditCards;
 using FluentValidation;
 
 namespace Domain.Aggregates;

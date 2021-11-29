@@ -1,4 +1,3 @@
-using System;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using FluentValidation;

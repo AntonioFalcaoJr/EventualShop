@@ -38,9 +38,6 @@ builder.UseSerilog();
 
 builder.ConfigureServices((context, services) =>
 {
-    services.AddLogging(loggingBuilder
-        => loggingBuilder.AddSerilog());
-
     services.AddApplicationServices();
 
     services.AddPayPalHttpClient();

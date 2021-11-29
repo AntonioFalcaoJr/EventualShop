@@ -1,5 +1,4 @@
-﻿using System;
-using Application.EventSourcing.EventStore;
+﻿using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using Application.Services;
 using Application.Services.CreditCards;
@@ -45,7 +44,7 @@ public static class ServiceCollectionExtensions
                     var options = context
                         .GetRequiredService<IOptions<RabbitMqOptions>>()
                         .Value;
-                    
+
                     bus.Host(
                         host: options.Host,
                         port: options.Port,
@@ -76,7 +75,7 @@ public static class ServiceCollectionExtensions
             .AddScoped<ICreditCardPaymentService, CreditCardPaymentService>()
             .AddScoped<IPaymentStrategy, PaymentStrategy>();
 
-    public static IHttpClientBuilder AddPayPalHttpClient(this IServiceCollection services) 
+    public static IHttpClientBuilder AddPayPalHttpClient(this IServiceCollection services)
         => services
             .AddHttpClient<IPayPalHttpClient, PayPalHttpClient>()
             .ConfigureHttpClient((provider, client) =>
@@ -127,7 +126,7 @@ public static class ServiceCollectionExtensions
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();
-    
+
     public static OptionsBuilder<RabbitMqOptions> ConfigureRabbitMqOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<RabbitMqOptions>()

@@ -1,7 +1,5 @@
 ﻿using System;
 using Messages.Abstractions.Events;
-using Messages.JsonConverters;
-using Newtonsoft.Json;
 
 namespace Messages.Services.ShoppingCarts;
 
