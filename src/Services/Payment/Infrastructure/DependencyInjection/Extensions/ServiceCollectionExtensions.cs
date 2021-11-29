@@ -80,8 +80,8 @@ public static class ServiceCollectionExtensions
             .AddHttpClient<IPayPalHttpClient, PayPalHttpClient>()
             .ConfigureHttpClient((provider, client) =>
             {
-                var options = provider.GetRequiredService<IOptions<PayPalHttpClientOptions>>();
-                client.BaseAddress = new(options.Value.BaseAddress);
+                var options = provider.GetRequiredService<IOptions<PayPalHttpClientOptions>>().Value;
+                client.BaseAddress = new(options.BaseAddress);
             });
 
     public static IHttpClientBuilder AddCreditCardHttpClient(this IServiceCollection services)
@@ -89,8 +89,8 @@ public static class ServiceCollectionExtensions
             .AddHttpClient<ICreditCardHttpClient, CreditCardHttpClient>()
             .ConfigureHttpClient((provider, client) =>
             {
-                var options = provider.GetRequiredService<IOptions<CreditCardHttpClientOptions>>();
-                client.BaseAddress = new(options.Value.BaseAddress);
+                var options = provider.GetRequiredService<IOptions<CreditCardHttpClientOptions>>().Value;
+                client.BaseAddress = new(options.BaseAddress);
             });
 
     public static IServiceCollection AddEventStoreDbContext(this IServiceCollection services)
