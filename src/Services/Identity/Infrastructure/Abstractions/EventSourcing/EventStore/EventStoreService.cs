@@ -53,7 +53,7 @@ public abstract class EventStoreService<TAggregateState, TStoreEvent, TSnapshot,
 
     public async Task<TAggregateState> LoadAggregateFromStreamAsync(TId aggregateId, CancellationToken cancellationToken)
     {
-        var snapshot = await _repository.GetSnapshotAsync(aggregateId, cancellationToken) ?? new TSnapshot();
+        var snapshot = await _repository.GetSnapshotAsync(aggregateId, cancellationToken) ?? new();
         var events = await _repository.GetStreamAsync(aggregateId, snapshot.AggregateVersion, cancellationToken);
         snapshot.AggregateState.LoadEvents(events);
         return snapshot.AggregateState;
