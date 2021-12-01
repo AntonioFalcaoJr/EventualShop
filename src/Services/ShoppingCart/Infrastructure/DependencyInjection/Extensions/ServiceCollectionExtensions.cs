@@ -20,6 +20,7 @@ using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
+using Newtonsoft.Json;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 
@@ -39,7 +40,7 @@ public static class ServiceCollectionExtensions
                     var options = context
                         .GetRequiredService<IOptions<RabbitMqOptions>>()
                         .Value;
-                    
+
                     bus.Host(
                         host: options.Host,
                         port: options.Port,
@@ -57,18 +58,19 @@ public static class ServiceCollectionExtensions
                     bus.ConnectSendObserver(new LoggingSendObserver());
                     bus.ConfigureEventReceiveEndpoints(context);
                     bus.ConfigureEndpoints(context);
-                    
+
                     bus.ConfigureJsonSerializer(settings =>
                     {
-                        settings.Converters.Add(new DateOnlyJsonConverter()); 
-                        settings.Converters.Add(new ExpirationDateOnlyJsonConverter()); 
+                        settings.Converters.Add(new TypeNameHandlingConverter(TypeNameHandling.Objects));
+                        settings.Converters.Add(new DateOnlyJsonConverter());
+                        settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
                         return settings;
                     });
-                    
+
                     bus.ConfigureJsonDeserializer(settings =>
                     {
-                        settings.Converters.Add(new DateOnlyJsonConverter()); 
-                        settings.Converters.Add(new ExpirationDateOnlyJsonConverter()); 
+                        settings.Converters.Add(new DateOnlyJsonConverter());
+                        settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
                         return settings;
                     });
                 });
@@ -89,7 +91,11 @@ public static class ServiceCollectionExtensions
     {
         BsonSerializer.RegisterSerializer(new DateOnlyBsonSerializer());
         BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.CSharpLegacy));
-        
+
+        BsonClassMap.RegisterClassMap<CreditCardPaymentMethodProjection>();
+        BsonClassMap.RegisterClassMap<DebitCardPaymentMethodProjection>();
+        BsonClassMap.RegisterClassMap<PayPalPaymentMethodProjection>();
+
         return services.AddScoped<IMongoDbContext, ProjectionsDbContext>();
     }
 
@@ -115,7 +121,7 @@ public static class ServiceCollectionExtensions
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();
-    
+
     public static OptionsBuilder<RabbitMqOptions> ConfigureRabbitMqOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<RabbitMqOptions>()

@@ -9,6 +9,8 @@ public static class Commands
 
     public record AddCreditCard(Guid CartId, Models.CreditCard CreditCard) : Command;
 
+    public record AddPayPal(Guid CartId, Models.PayPal PayPal) : Command;
+
     public record AddShippingAddress(Guid CartId, Models.Address Address) : Command;
 
     public record ChangeBillingAddress(Guid CartId, Models.Address Address) : Command;

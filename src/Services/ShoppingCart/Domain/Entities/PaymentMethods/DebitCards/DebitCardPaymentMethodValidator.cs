@@ -1,9 +1,10 @@
 ﻿using System;
+using Domain.Abstractions.Validators;
 using FluentValidation;
 
 namespace Domain.Entities.PaymentMethods.DebitCards;
 
-public class DebitCardPaymentMethodValidator : AbstractValidator<DebitCardPaymentMethod>
+public class DebitCardPaymentMethodValidator : EntityValidator<DebitCardPaymentMethod, Guid>
 {
     public DebitCardPaymentMethodValidator()
     {

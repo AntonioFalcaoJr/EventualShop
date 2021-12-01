@@ -16,6 +16,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -79,6 +80,14 @@ builder.Services
                 return settings;
             });
 
+            bus.ConfigureJsonDeserializer(settings =>
+            {
+                settings.Converters.Add(new TypeNameHandlingConverter(TypeNameHandling.Objects));
+                settings.Converters.Add(new DateOnlyJsonConverter());
+                settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
+                return settings;
+            });
+
             // Account
             MapQueueEndpoint<Messages.Services.Accounts.Commands.DefineProfessionalAddress>();
             MapQueueEndpoint<Messages.Services.Accounts.Commands.DefineResidenceAddress>();
@@ -110,6 +119,7 @@ builder.Services
             MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.AddCartItem>();
             MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.RemoveCartItem>();
             MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.AddCreditCard>();
+            MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.AddPayPal>();
             MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.AddShippingAddress>();
             MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.ChangeBillingAddress>();
             MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.CheckOutCart>();

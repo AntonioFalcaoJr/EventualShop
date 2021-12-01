@@ -22,6 +22,8 @@ public static class DomainEvents
     public record BillingAddressChanged(Guid CartId, Models.Address Address) : Event;
 
     public record CreditCardAdded(Guid CartId, Models.CreditCard CreditCard) : Event;
+    
+    public record PayPalAdded(Guid CartId, Models.PayPal PayPal) : Event;
 
     public record CartDiscarded(Guid CartId) : Event;
 }

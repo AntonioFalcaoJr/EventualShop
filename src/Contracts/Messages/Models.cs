@@ -18,6 +18,7 @@ public static class Models
 
     public record CreditCard : IPaymentMethod
     {
+        public Guid Id { get; init; }
         public decimal Amount { get; init; }
 
         [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
@@ -30,6 +31,7 @@ public static class Models
 
     public record DebitCard : IPaymentMethod
     {
+        public Guid Id { get; init; }
         public decimal Amount { get; init; }
 
         [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
@@ -42,6 +44,7 @@ public static class Models
 
     public record PayPal : IPaymentMethod
     {
+        public Guid Id { get; init; }
         public decimal Amount { get; init; }
         public string UserName { get; init; }
         public string Password { get; init; }
@@ -67,6 +70,7 @@ public static class Models
 
     public interface IPaymentMethod
     {
+        Guid Id { get; }
         decimal Amount { get; }
     }
 }

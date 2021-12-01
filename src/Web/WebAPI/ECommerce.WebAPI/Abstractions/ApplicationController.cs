@@ -34,10 +34,10 @@ public abstract class ApplicationController : ControllerBase
         return Ok(response.Message);
     }
 
-    private Task<Response<TResponse>> GetResponseAsync<TMessage, TResponse>(TMessage message, CancellationToken cancellationToken)
-        where TMessage : class, IMessage
+    private Task<Response<TResponse>> GetResponseAsync<TRequest, TResponse>(TRequest request, CancellationToken cancellationToken)
+        where TRequest : class, IQuery
         where TResponse : class, IResponse
-        => _bus.CreateRequestClient<TMessage>().GetResponse<TResponse>(message, cancellationToken);
+        => _bus.CreateRequestClient<TRequest>().GetResponse<TResponse>(request, cancellationToken);
 
     private Task SendMessage<TMessage>(TMessage message, CancellationToken cancellationToken)
         where TMessage : IMessage

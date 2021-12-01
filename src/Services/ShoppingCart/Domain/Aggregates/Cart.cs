@@ -4,6 +4,7 @@ using System.Linq;
 using Domain.Abstractions.Aggregates;
 using Domain.Entities.PaymentMethods;
 using Domain.Entities.PaymentMethods.CreditCards;
+using Domain.Entities.PaymentMethods.PayPal;
 using Domain.ValueObjects.Addresses;
 using Domain.ValueObjects.CartItems;
 using Messages.Abstractions.Events;
@@ -56,6 +57,9 @@ public class Cart : AggregateRoot<Guid>
     public void Handle(Commands.AddCreditCard cmd)
         => RaiseEvent(new DomainEvents.CreditCardAdded(cmd.CartId, cmd.CreditCard));
 
+    public void Handle(Commands.AddPayPal cmd)
+        => RaiseEvent(new DomainEvents.PayPalAdded(cmd.CartId, cmd.PayPal));
+
     public void Handle(Commands.AddShippingAddress cmd)
         => RaiseEvent(new DomainEvents.ShippingAddressAdded(cmd.CartId, cmd.Address));
 
@@ -107,6 +111,14 @@ public class Cart : AggregateRoot<Guid>
             HolderName = @event.CreditCard.HolderName,
             Number = @event.CreditCard.Number,
             SecurityNumber = @event.CreditCard.SecurityNumber
+        });
+
+    private void When(DomainEvents.PayPalAdded @event)
+        => _paymentMethods.Add(new PayPalPaymentMethod
+        {
+            Amount = @event.PayPal.Amount,
+            Password = @event.PayPal.Password,
+            UserName = @event.PayPal.UserName,
         });
 
     private void When(DomainEvents.ShippingAddressAdded @event)

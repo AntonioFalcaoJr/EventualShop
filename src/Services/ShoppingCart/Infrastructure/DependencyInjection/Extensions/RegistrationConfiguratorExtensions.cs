@@ -19,6 +19,7 @@ public static class RegistrationConfiguratorExtensions
         cfg.AddCommandConsumer<ChangeBillingAddressConsumer, Commands.ChangeBillingAddress>();
         cfg.AddCommandConsumer<AddShippingAddressConsumer, Commands.AddShippingAddress>();
         cfg.AddCommandConsumer<AddCreditCardConsumer, Commands.AddCreditCard>();
+        cfg.AddCommandConsumer<AddPayPalConsumer, Commands.AddPayPal>();
         cfg.AddCommandConsumer<CheckOutCartConsumer, Commands.CheckOutCart>();
         cfg.AddCommandConsumer<UpdateCartItemQuantityConsumer, Commands.UpdateCartItemQuantity>();
     }

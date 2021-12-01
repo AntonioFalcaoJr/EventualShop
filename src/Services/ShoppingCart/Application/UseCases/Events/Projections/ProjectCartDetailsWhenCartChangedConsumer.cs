@@ -4,16 +4,21 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
+using Domain.Entities.PaymentMethods.CreditCards;
+using Domain.Entities.PaymentMethods.DebitCards;
+using Domain.Entities.PaymentMethods.PayPal;
 using MassTransit;
 using BillingAddressChangedEvent = Messages.Services.ShoppingCarts.DomainEvents.BillingAddressChanged;
 using CartCreatedEvent = Messages.Services.ShoppingCarts.DomainEvents.CartCreated;
 using CartItemAddedEvent = Messages.Services.ShoppingCarts.DomainEvents.CartItemAdded;
 using CreditCardAddedEvent = Messages.Services.ShoppingCarts.DomainEvents.CreditCardAdded;
+using PayPalAddedEvent = Messages.Services.ShoppingCarts.DomainEvents.PayPalAdded;
 using CartItemRemovedEvent = Messages.Services.ShoppingCarts.DomainEvents.CartItemRemoved;
 using CartCheckedOutEvent = Messages.Services.ShoppingCarts.DomainEvents.CartCheckedOut;
 using ShippingAddressAddedEvent = Messages.Services.ShoppingCarts.DomainEvents.ShippingAddressAdded;
 using CartItemQuantityUpdatedEvent = Messages.Services.ShoppingCarts.DomainEvents.CartItemQuantityUpdated;
 using CartItemQuantityIncreasedEvent = Messages.Services.ShoppingCarts.DomainEvents.CartItemQuantityIncreased;
+using IPaymentMethod = Domain.Entities.PaymentMethods.IPaymentMethod;
 
 namespace Application.UseCases.Events.Projections;
 
@@ -22,6 +27,7 @@ public class ProjectCartDetailsWhenCartChangedConsumer :
     IConsumer<CartCreatedEvent>,
     IConsumer<CartItemAddedEvent>,
     IConsumer<CreditCardAddedEvent>,
+    IConsumer<PayPalAddedEvent>,
     IConsumer<CartItemRemovedEvent>,
     IConsumer<CartCheckedOutEvent>,
     IConsumer<ShippingAddressAddedEvent>,
@@ -49,6 +55,9 @@ public class ProjectCartDetailsWhenCartChangedConsumer :
         => ProjectAsync(context.Message.CartId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<CreditCardAddedEvent> context)
+        => ProjectAsync(context.Message.CartId, context.CancellationToken);
+    
+    public Task Consume(ConsumeContext<PayPalAddedEvent> context)
         => ProjectAsync(context.Message.CartId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<CartItemRemovedEvent> context)
@@ -109,15 +118,36 @@ public class ProjectCartDetailsWhenCartChangedConsumer :
                     Street = cart.ShippingAddress.Street,
                     ZipCode = cart.ShippingAddress.ZipCode
                 },
-            // CreditCardProjection = cart.CreditCard is null
-            //     ? default
-            //     : new()
-            //     {
-            //         Expiration = cart.CreditCard.Expiration,
-            //         Number = cart.CreditCard.Number,
-            //         HolderName = cart.CreditCard.HolderName,
-            //         SecurityNumber = cart.CreditCard.SecurityNumber
-            //     },
+
+            PaymentMethods = cart.PaymentMethods.Select<IPaymentMethod, IPaymentMethodProjection>(method
+                => method switch
+                {
+                    CreditCardPaymentMethod creditCard => new CreditCardPaymentMethodProjection
+                    {
+                        Id = creditCard.Id,
+                        Amount = creditCard.Amount,
+                        Expiration = creditCard.Expiration,
+                        Number = creditCard.Number,
+                        HolderName = creditCard.HolderName,
+                        SecurityNumber = creditCard.SecurityNumber
+                    },
+                    DebitCardPaymentMethod debitCard => new DebitCardPaymentMethodProjection
+                    {
+                        Id = debitCard.Id,
+                        Amount = debitCard.Amount,
+                        Expiration = debitCard.Expiration,
+                        Number = debitCard.Number,
+                        HolderName = debitCard.HolderName,
+                        SecurityNumber = debitCard.SecurityNumber
+                    },
+                    PayPalPaymentMethod payPal => new PayPalPaymentMethodProjection
+                    {
+                        Id = payPal.Id,
+                        Amount = payPal.Amount,
+                        Password = payPal.Password,
+                        UserName = payPal.UserName
+                    }
+                }),
             IsCheckedOut = cart.IsCheckedOut
         };
 

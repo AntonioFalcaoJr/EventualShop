@@ -11,6 +11,7 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
         <PackageReference Include="MicroElements.Swashbuckle.FluentValidation" Version="5.4.0" />
         <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.2.3" />
+        <PackageReference Include="Newtonsoft.Json" Version="$(Newtonsoft_Version)" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\..\Contracts\Messages\Messages.csproj" />

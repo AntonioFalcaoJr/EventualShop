@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
 using Domain.Abstractions.Validators;
+using Domain.Entities.PaymentMethods.CreditCards;
+using Domain.Entities.PaymentMethods.DebitCards;
+using Domain.Entities.PaymentMethods.PayPal;
 using Domain.ValueObjects.Addresses;
 using Domain.ValueObjects.CartItems;
 using FluentValidation;
@@ -24,13 +27,18 @@ public class CartValidator : EntityValidator<Cart, Guid>
                 .GreaterThan(0);
         });
 
-        // RuleFor(cart => cart.CreditCard)
-        //     .SetValidator(new CreditCardValidator());
-
         RuleFor(cart => cart.BillingAddress)
             .SetValidator(new AddressValidator());
 
         RuleFor(cart => cart.ShippingAddress)
             .SetValidator(new AddressValidator());
+
+        RuleForEach(cart => cart.PaymentMethods)
+            .SetInheritanceValidator(validator =>
+            {
+                validator.Add(new CreditCardPaymentMethodValidator());
+                validator.Add(new DebitCardPaymentMethodValidator());
+                validator.Add(new PayPalPaymentMethodValidator());
+            });
     }
 }

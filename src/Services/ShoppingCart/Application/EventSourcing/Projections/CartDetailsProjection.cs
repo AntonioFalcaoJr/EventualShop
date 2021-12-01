@@ -8,12 +8,12 @@ namespace Application.EventSourcing.Projections;
 public record CartDetailsProjection : IProjection
 {
     public IEnumerable<CartItemProjection> CartItems { get; init; }
+    public IEnumerable<IPaymentMethodProjection> PaymentMethods { get; init; }
     public Guid UserId { get; init; }
     public decimal Total { get; init; }
     public bool IsCheckedOut { get; init; }
     public AddressProjection ShippingAddressProjection { get; init; }
     public AddressProjection BillingAddressProjection { get; init; }
-    public CreditCardProjection CreditCardProjection { get; init; }
     public Guid Id { get; init; }
     public bool IsDeleted { get; init; }
 }
@@ -37,11 +37,39 @@ public record AddressProjection
     public string ZipCode { get; init; }
 }
 
-public record CreditCardProjection
+public interface IPaymentMethodProjection
 {
+    Guid Id { get; }
+    decimal Amount { get; }
+}
+
+public record CreditCardPaymentMethodProjection : IPaymentMethodProjection
+{
+    public Guid Id { get; init; }
+    public decimal Amount { get; init; }
     [BsonSerializer(typeof(ExpirationDateOnlyBsonSerializer))]
     public DateOnly Expiration { get; init; }
     public string HolderName { get; init; }
     public string Number { get; init; }
     public string SecurityNumber { get; init; }
+}
+
+public record DebitCardPaymentMethodProjection : IPaymentMethodProjection
+{
+    public Guid Id { get; init; }
+    public decimal Amount { get; init; }
+
+    [BsonSerializer(typeof(ExpirationDateOnlyBsonSerializer))]
+    public DateOnly Expiration { get; init; }
+    public string HolderName { get; init; }
+    public string Number { get; init; }
+    public string SecurityNumber { get; init; }
+}
+
+public record PayPalPaymentMethodProjection : IPaymentMethodProjection
+{
+    public Guid Id { get; init; }
+    public decimal Amount { get; init; }
+    public string Password { get; init; }
+    public string UserName { get; init; }
 }

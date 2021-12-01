@@ -281,8 +281,35 @@ https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 > https://serialized.io/ddd/domain-event/
 
 #### Integration Event
+
+>Integration events are used for bringing domain state in sync across multiple microservices or external systems. This functionality is done by publishing integration events outside the microservice. When an event is published to multiple receiver microservices (to as many microservices as are subscribed to the integration event), the appropriate event handler in each receiver microservice handles the event.
+>
+> MSDN. "Implementing event-based communication between microservices (integration events)", *docs.microsoft.com*, last edited on 30 Nov 2021.   
+> https://docs.microsoft.com/en-us/dotnet/architecture/microservices/multi-container-microservice-net-applications/integration-event-based-microservice-communications
+
+>Should you publish Domain Events or Integration Events? Common advice is to not publish domain events outside of your service boundary. They should only exist within your service boundary. Instead, you should publish integration events for other service boundaries. While this general advice makes sense, it’s not so cut-and-dry. There are many reasons why you would want to publish domain events for other services to consume.
+>
+> Domain Events or Integration Events? As always, it depends. If your domain events are stable business concepts and they are understood outside of your boundary as a part of a long-running business process, then yes, publishing domain events outside of your boundary are acceptable.  If events are used for data propagation or are more CRUD in nature, then publish Integration Events.
+>
+> Comartin, Derek. "Should you publish Domain Events or Integration Events?", *codeopinion.com*, last edited on 24 Nov 2021.   
+> https://codeopinion.com/should-you-publish-domain-events-or-integration-events/
+
 #### Notification Event
+
+>Most times events used for notifications are generally pretty slim. They don’t contain much data. If a consumer is handling an event but needs more information, to, for example, react and perform some action, it might have to make an RPC call back to the producing service to get more information. And this is what leads people to Event carried State Transfer, so they do not have to make these RPC calls.
+>
+> Comartin, Derek. "Event Based Architecture: What do you mean by EVENT?", *codeopinion.com*, last edited on 05 Mai 2021.   
+> https://codeopinion.com/should-you-publish-domain-events-or-integration-events/
 #### Carried State Transfer Event
+
+>The most common way I see events being used and explained is for state propagation. Meaning, you’re publishing events about state changes within a service, so other services (consumers) can keep a local cache copy of the data.
+>
+>This is often referred to as Event Carried State Transfer.
+>
+>The reason services will want a local cache copy of another service’s data, is so they do not need to make RPC calls to other services to get data. The issue with making the RPC call is if there are issues with availability or latency, the call might fail. In order to be available when other services are unavailable, they want the data they need locally.
+>
+> Comartin, Derek. "Event Based Architecture: What do you mean by EVENT?", *codeopinion.com*, last edited on 05 Mai 2021.   
+> https://codeopinion.com/should-you-publish-domain-events-or-integration-events/
 
 ## EventStorming
 
