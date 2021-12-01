@@ -86,7 +86,7 @@ https://www.confluent.io/blog/soa-vs-eda-is-not-life-simply-a-series-of-events/
 Fig. 3: Richards, Mark. "Broker Topology." *Software Architecture Patterns by Mark Richards*, O'Reilly.  
 https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch02.html
 
-## Choreography-based SAGA
+### Choreography-based SAGA
 
 > In a choreography-based saga, the saga participants collaborate by exchanging events. Each step of a choreography-based saga updates the database (e.g. an aggregate) and publishes a domain event. The first step of a saga is initiated by a command that’s invoked by an external request, such an HTTP POST. Each subsequent step is triggered by an event emitted by a previous step.
 >
@@ -97,6 +97,24 @@ https://www.oreilly.com/library/view/software-architecture-patterns/978149197143
 Fig. 4: Richardson, Chris. "Implementing a choreography-based saga." *Managing data consistency in a microservice architecture using Sagas*, chrisrichardson.net.  
 [https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html](https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html#:%7E:text=In%20a%20choreography%2Dbased%20saga,and%20publishes%20a%20domain%20event.&text=The%20step%20of%20the%20saga,data%20and%20emits%20an%20event)
 
+#### Orchestration vs Choreography
+
+*SAGA - A long story about past events over a long period of time.*
+
+>Orchestration entails actively controlling all elements and interactions like a conductor directs the musicians of an orchestra, while choreography entails establishing a pattern or routine that microservices follow as the music plays, without requiring supervision and instructions.
+>
+> Schabowsky, Jonathan. "The Benefits of Choreography", *solace.com*, last edited on 16 Nov 2019.   
+> https://solace.com/blog/microservices-choreography-vs-orchestration/
+
+##### Orchestration
+
+![](./.assets/img/orchestration.png)
+Fig. 5: Falcão, Antônio. "Order orchestration-based saga".
+
+##### Choreography
+
+![](./.assets/img/choreography.png)
+Fig. 6: Falcão, Antônio. "Order choreography-based saga".
 ## Event sourcing
 
 > Instead of storing just the current state of the data in a domain, use an append-only store to record the full series of actions taken on that data. The store acts as the system of record and can be used to materialize the domain objects. This can simplify tasks in complex domains, by avoiding the need to synchronize the data model and the business domain, while improving performance, scalability, and responsiveness. It can also provide consistency for transactional data, and maintain full audit trails and history that can enable compensating actions.
@@ -114,7 +132,7 @@ Fig. 4: Richardson, Chris. "Implementing a choreography-based saga." *Managing d
 <br>
 
 ![](./.assets/img/event-sourcing-overview.png)  
-Fig. 5: MSDN. *Event Sourcing pattern*.    
+Fig. 7: MSDN. *Event Sourcing pattern*.    
 https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing#solution
 
 ### Pattern
@@ -125,13 +143,13 @@ https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing#solu
 > -- <cite> gregyoung (@gregyoung) </cite>
 
 ![](./.assets/img/event-sourcing-state-transition.png)  
-Fig. 5: Battermann, Leif. *12 Things You Should Know About Event Sourcing*.    
+Fig. 8: Battermann, Leif. *12 Things You Should Know About Event Sourcing*.    
 http://blog.leifbattermann.de/2017/04/21/12-things-you-should-know-about-event-sourcing/
 
 State transition during events applying:
 
 ![](./.assets/img/applyTo_event-sourcing.png)
-Fig. 6: Reitzammer, Benjamin & Seitz, Johannes. *Event Sourcingin practice*.    
+Fig. 9: Reitzammer, Benjamin & Seitz, Johannes. *Event Sourcingin practice*.    
 https://ookami86.github.io/event-sourcing-in-practice/#making-eventsourcing-work/18-concurrent-modifictations.md
 
 ### Event Store
@@ -142,13 +160,13 @@ https://ookami86.github.io/event-sourcing-in-practice/#making-eventsourcing-work
 > https://www.eventstore.com/blog/what-is-event-sourcing
 
 ![](./.assets/img/event-store.png)  
-Fig. 7: Shilkov, Mikhail. *Event Sourcing and IO Complexity*.    
+Fig. 10: Shilkov, Mikhail. *Event Sourcing and IO Complexity*.    
 https://mikhail.io/2016/11/event-sourcing-and-io-complexity/
 
 The following picture shows the difference between approaches:
 
 ![](./.assets/img/event-sourcing.png)
-Fig. 8: Richardson, Chris. *Pattern: Event sourcing*.    
+Fig. 11: Richardson, Chris. *Pattern: Event sourcing*.    
 https://microservices.io/patterns/data/event-sourcing.html
 
 ### Snapshot
@@ -164,13 +182,13 @@ https://microservices.io/patterns/data/event-sourcing.html
 > https://domaincentric.net/blog/event-sourcing-snapshotting
 
 ![](./.assets/img/snapshot.png)  
-Fig. 9: Comartin, Derek. *Snapshots in Event Sourcing for Rehydrating Aggregates*.    
+Fig. 12: Comartin, Derek. *Snapshots in Event Sourcing for Rehydrating Aggregates*.    
 https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates/
 
 Snapshot stream:
 
 ![](./.assets/img/stream_snapshot.png)  
-Fig. 10: Comartin, Derek. *Snapshots in Event Sourcing for Rehydrating Aggregates*.    
+Fig. 13: Comartin, Derek. *Snapshots in Event Sourcing for Rehydrating Aggregates*.    
 https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates/
 
 ## EDA + Event-sourcing
@@ -197,7 +215,7 @@ https://pablo-iorio.medium.com/event-driven-architectures-vs-event-sourcing-patt
 <br>
 
 ![](./.assets/img/EventSourcing_EDA.jpeg)
-Fig. 11: Nowak, Aleksander. *Understanding Event-Driven Design Patterns for Microservices*.    
+Fig. 14: Nowak, Aleksander. *Understanding Event-Driven Design Patterns for Microservices*.    
 https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-microservices-659b3c9fb51f
 
 ## CQRS
@@ -209,13 +227,13 @@ https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-
 <br>
 
 ![](.assets/img/cqrs.png)   
-Fig. 12: Bürckel, Marco. *Some thoughts on using CQRS without Event Sourcing*.    
+Fig. 15: Bürckel, Marco. *Some thoughts on using CQRS without Event Sourcing*.    
 https://medium.com/@mbue/some-thoughts-on-using-cqrs-without-event-sourcing-938b878166a2
 
 <br>
 
 ![](.assets/img/cqrs.jpg)   
-Fig. 13: Go, Jayson. *From Monolith to Event-Driven: Finding Seams in Your Future Architecture*.    
+Fig. 16: Go, Jayson. *From Monolith to Event-Driven: Finding Seams in Your Future Architecture*.    
 https://www.eventstore.com/blog/what-is-event-sourcing
 
 ### Projections
@@ -234,13 +252,13 @@ data storage mechanism for the domain.
 > https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs#event-sourcing-and-cqrs-pattern
 
  ![](./.assets/img/cqrs-eventsourcing-diagram.png)
- Fig. 14: Whittaker, Daniel. *CQRS + Event Sourcing – Step by Step*.    
+ Fig. 17: Whittaker, Daniel. *CQRS + Event Sourcing – Step by Step*.    
  https://danielwhittaker.me/2020/02/20/cqrs-step-step-guide-flow-typical-application/
 
 <br>
 
 ![](./.assets/img/cqrs-eventsourcing-flow.png)  
-Fig. 15: Katwatka, Piotr. *Event Sourcing with CQRS*.  
+Fig. 18: Katwatka, Piotr. *Event Sourcing with CQRS*.  
 https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 
 ### Commands vs Events
@@ -249,6 +267,22 @@ https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 >
 > Tulka, Tomas. "Events vs. Commands in DDD", *blog.ttulka.com*, last edited on 25 Mar 2020.   
 > https://blog.ttulka.com/events-vs-commands-in-ddd
+
+#### Domain Event
+
+>In domain-driven design, domain events are described as something that happens in the domain and is important to domain experts. Such events typically occur regardless of whether or to what extent the domain is implemented in a software system. They are also independent of technologies. Accordingly, domain events have a high-value semantics, which is expressed in the language spoken by domain experts.
+>
+> Stettler, Christina. "Domain Events vs. Event Sourcing", *innoq.com*, last edited on 15 Jan 2019.   
+> https://www.innoq.com/en/blog/domain-events-versus-event-sourcing/
+
+>Event Sourcing is when you use Domain Events to store the state of an Aggregate within a Bounded Context. This basically means replacing your relational data model (or other data store) with an ever-growing log of Domain Events, which is called an event store. This is the core of Event Sourcing. So to use Event Sourcing you definitely need to understand Domain Events.
+>
+> Holmqvist, Mattias. "What are Domain Events?", *serialized.io*, last edited on 20 Aug 2020.   
+> https://serialized.io/ddd/domain-event/
+
+#### Integration Event
+#### Notification Event
+#### Carried State Transfer Event
 
 ## EventStorming
 
@@ -267,7 +301,7 @@ https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 > https://www.eventstorming.com/
 
 ![](./.assets/img/event-storming.jpg)  
-Fig. 16: Baas-Schwegler, Kenny & Richardson, Chris. *Picture that explains "Almost" Everything*.    
+Fig. 19: Baas-Schwegler, Kenny & Richardson, Chris. *Picture that explains "Almost" Everything*.    
 https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
 
 ### EventStorming (WIP)
@@ -295,7 +329,7 @@ https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
 > https://martinfowler.com/bliki/DomainDrivenDesign.html
 
 ![](./.assets/img/BoundedContext.jpg)  
-Fig. 17: Martin, Fowler. *BoundedContext*.    
+Fig. 20: Martin, Fowler. *BoundedContext*.    
 https://martinfowler.com/bliki/DomainDrivenDesign.html
 
 ## Clean Architecture
@@ -308,7 +342,7 @@ https://martinfowler.com/bliki/DomainDrivenDesign.html
 > https://whatis.techtarget.com/definition/clean-architecture
 
 ![](./.assets/img/CleanArchitecture.jpg)  
-Fig. 18: C. Martin, Robert. *The Clean Architecture*.    
+Fig. 21: C. Martin, Robert. *The Clean Architecture*.    
 https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
 ## Running
