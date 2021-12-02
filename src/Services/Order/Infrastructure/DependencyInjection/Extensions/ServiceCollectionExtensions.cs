@@ -19,6 +19,7 @@ using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
+using Newtonsoft.Json;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 
@@ -59,15 +60,17 @@ public static class ServiceCollectionExtensions
                     
                     bus.ConfigureJsonSerializer(settings =>
                     {
-                        settings.Converters.Add(new DateOnlyJsonConverter()); 
-                        settings.Converters.Add(new ExpirationDateOnlyJsonConverter()); 
+                        settings.Converters.Add(new TypeNameHandlingConverter(TypeNameHandling.Objects));
+                        settings.Converters.Add(new DateOnlyJsonConverter());
+                        settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
                         return settings;
                     });
-                    
+
                     bus.ConfigureJsonDeserializer(settings =>
                     {
-                        settings.Converters.Add(new DateOnlyJsonConverter()); 
-                        settings.Converters.Add(new ExpirationDateOnlyJsonConverter()); 
+                        settings.Converters.Add(new TypeNameHandlingConverter(TypeNameHandling.Objects));
+                        settings.Converters.Add(new DateOnlyJsonConverter());
+                        settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
                         return settings;
                     });
                 });

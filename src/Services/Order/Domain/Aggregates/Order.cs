@@ -84,28 +84,32 @@ public class Order : AggregateRoot<Guid>
         _paymentMethods.AddRange(@event.PaymentMethods.Select<Models.IPaymentMethod, IPaymentMethod>(method
             => method switch
             {
-                Models.CreditCard creditCard => new CreditCardPaymentMethod
-                {
-                    Amount = creditCard.Amount,
-                    Expiration = creditCard.Expiration,
-                    Number = creditCard.Number,
-                    HolderName = creditCard.HolderName,
-                    SecurityNumber = creditCard.SecurityNumber
-                },
-                Models.DebitCard debitCard => new DebitCardPaymentMethod
-                {
-                    Amount = debitCard.Amount,
-                    Expiration = debitCard.Expiration,
-                    Number = debitCard.Number,
-                    HolderName = debitCard.HolderName,
-                    SecurityNumber = debitCard.SecurityNumber
-                },
-                Models.PayPal payPal => new PayPalPaymentMethod
-                {
-                    Amount = payPal.Amount,
-                    Password = payPal.Password,
-                    UserName = payPal.UserName
-                }
+                Models.CreditCard creditCard
+                    => new CreditCardPaymentMethod
+                    {
+                        Amount = creditCard.Amount,
+                        Expiration = creditCard.Expiration,
+                        Number = creditCard.Number,
+                        HolderName = creditCard.HolderName,
+                        SecurityNumber = creditCard.SecurityNumber
+                    },
+                Models.DebitCard debitCard
+                    => new DebitCardPaymentMethod
+                    {
+                        Amount = debitCard.Amount,
+                        Expiration = debitCard.Expiration,
+                        Number = debitCard.Number,
+                        HolderName = debitCard.HolderName,
+                        SecurityNumber = debitCard.SecurityNumber
+                    },
+                Models.PayPal payPal
+                    => new PayPalPaymentMethod
+                    {
+                        Amount = payPal.Amount,
+                        Password = payPal.Password,
+                        UserName = payPal.UserName
+                    },
+                _ => default
             }));
     }
 
