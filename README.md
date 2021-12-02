@@ -111,10 +111,25 @@ Fig. 4: Richardson, Chris. "Implementing a choreography-based saga." *Managing d
 ![](./.assets/img/orchestration.png)
 Fig. 5: Falcão, Antônio. "Order orchestration-based saga".
 
+Benefits & drawbacks of Orchestration
+
+* Centralized logic: this can be good and bad;
+* Easier to understand the workflow since its defined in a central location;
+* Full control over the workflow steps via commands;
+* Point of failure;
+* Easier to debug and test.
+
 ##### Choreography
 
 ![](./.assets/img/choreography.png)
 Fig. 6: Falcão, Antônio. "Order choreography-based saga".
+
+Benefits & drawbacks of Choreography
+* No centralized logic: this can be good and bad;
+* Useful for small/simple workflows;
+* Difficult to conceptualize if a lot of services are involved;
+* Harder to debug & test if a lot of services are involved.
+
 ## Event sourcing
 
 > Instead of storing just the current state of the data in a domain, use an append-only store to record the full series of actions taken on that data. The store acts as the system of record and can be used to materialize the domain objects. This can simplify tasks in complex domains, by avoiding the need to synchronize the data model and the business domain, while improving performance, scalability, and responsiveness. It can also provide consistency for transactional data, and maintain full audit trails and history that can enable compensating actions.
@@ -294,13 +309,19 @@ https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 > Comartin, Derek. "Should you publish Domain Events or Integration Events?", *codeopinion.com*, last edited on 24 Nov 2021.   
 > https://codeopinion.com/should-you-publish-domain-events-or-integration-events/
 
-#### Notification Event
+##### Event Notification
 
 >Most times events used for notifications are generally pretty slim. They don’t contain much data. If a consumer is handling an event but needs more information, to, for example, react and perform some action, it might have to make an RPC call back to the producing service to get more information. And this is what leads people to Event carried State Transfer, so they do not have to make these RPC calls.
 >
 > Comartin, Derek. "Event Based Architecture: What do you mean by EVENT?", *codeopinion.com*, last edited on 05 Mai 2021.   
 > https://codeopinion.com/should-you-publish-domain-events-or-integration-events/
-#### Carried State Transfer Event
+
+>In this mode, the event producer sends a notification to the event system that a change has happened to the entity. The change itself was NOT specified in the event. Consumers are expected to query the read endpoint to understand the latest state of the data.
+>
+> Balachandran, Arvind. "Event Notification vs. Event-Carried State Transfer", *Start it up*, last edited on 27 Oct 2019. 
+> https://medium.com/swlh/event-notification-vs-event-carried-state-transfer-2e4fdf8f6662
+
+##### Event-Carried State Transfer
 
 >The most common way I see events being used and explained is for state propagation. Meaning, you’re publishing events about state changes within a service, so other services (consumers) can keep a local cache copy of the data.
 >
@@ -310,6 +331,11 @@ https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 >
 > Comartin, Derek. "Event Based Architecture: What do you mean by EVENT?", *codeopinion.com*, last edited on 05 Mai 2021.   
 > https://codeopinion.com/should-you-publish-domain-events-or-integration-events/
+
+>In stark contrast to the event notification model, the event-carried state transfer model puts the data as part of the event itself. There are two key variants to implementing this. Fine-Grained and Snapshots.
+>
+> Balachandran, Arvind. "Event Notification vs. Event-Carried State Transfer", *Start it up*, last edited on 27 Oct 2019.   
+> https://medium.com/swlh/event-notification-vs-event-carried-state-transfer-2e4fdf8f6662
 
 ## EventStorming
 
