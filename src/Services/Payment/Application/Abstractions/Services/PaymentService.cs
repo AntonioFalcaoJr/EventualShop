@@ -6,14 +6,13 @@ namespace Application.Abstractions.Services;
 
 public abstract class PaymentService : IPaymentService
 {
-    protected IPaymentService Next;
+    private IPaymentService _next;
 
     public IPaymentService SetNext(IPaymentService next)
-    {
-        Next = next;
-        return Next;
-    }
+        => _next = next;
 
-    public abstract Task<IPaymentResult> HandleAsync(IPaymentMethod paymentMethod, CancellationToken cancellationToken);
+    public virtual Task<IPaymentResult> HandleAsync(IPaymentMethod method, CancellationToken cancellationToken)
+        => _next?.HandleAsync(method, cancellationToken);
+
     protected abstract Task<IPaymentResult> AuthorizeAsync(IPaymentMethod method, CancellationToken cancellationToken);
 }

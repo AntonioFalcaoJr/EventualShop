@@ -7,5 +7,5 @@ namespace Application.Abstractions.Services;
 public interface IPaymentService
 {
     IPaymentService SetNext(IPaymentService next);
-    Task<IPaymentResult> HandleAsync(IPaymentMethod paymentMethod, CancellationToken cancellationToken);
+    Task<IPaymentResult> HandleAsync(IPaymentMethod method, CancellationToken cancellationToken);
 }
