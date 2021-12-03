@@ -17,17 +17,18 @@ public class PayPalPaymentService : PaymentService, IPayPalPaymentService
         _client = client;
     }
 
-    public override async Task<IPaymentResult> HandleAsync(IPaymentMethod paymentMethod, CancellationToken cancellationToken)
-        => paymentMethod is PayPalPaymentMethod payPalPaymentMethod
-            ? await AuthorizeAsync(payPalPaymentMethod, cancellationToken)
-            : await Next.HandleAsync(paymentMethod, cancellationToken);
-
+    public override Task<IPaymentResult> HandleAsync(IPaymentMethod method, CancellationToken cancellationToken)
+        => method is PayPalPaymentMethod
+            ? AuthorizeAsync(method, cancellationToken)
+            : base.HandleAsync(method, cancellationToken);
 
     protected override async Task<IPaymentResult> AuthorizeAsync(IPaymentMethod method, CancellationToken cancellationToken)
     {
+        method = method as PayPalPaymentMethod;
+
         var request = new Requests.PaypalAuthorizePayment
         {
-            // Use IPaymentMethod to hydrate  
+            // Use method to hydrate  
         };
 
         return (await _client.AuthorizeAsync(request, cancellationToken)).ActionResult;

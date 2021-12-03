@@ -17,17 +17,18 @@ public class DebitCardPaymentService : PaymentService, IDebitCardPaymentService
         _client = client;
     }
 
-    public override async Task<IPaymentResult> HandleAsync(IPaymentMethod paymentMethod, CancellationToken cancellationToken)
-        => paymentMethod is DebitCardPaymentMethod debitCardPaymentMethod
-            ? await AuthorizeAsync(debitCardPaymentMethod, cancellationToken)
-            : await Next.HandleAsync(paymentMethod, cancellationToken);
-
+    public override Task<IPaymentResult> HandleAsync(IPaymentMethod method, CancellationToken cancellationToken)
+        => method is DebitCardPaymentMethod
+            ? AuthorizeAsync(method, cancellationToken)
+            : base.HandleAsync(method, cancellationToken);
 
     protected override async Task<IPaymentResult> AuthorizeAsync(IPaymentMethod method, CancellationToken cancellationToken)
     {
+        method = method as DebitCardPaymentMethod;
+
         var request = new Requests.DebitCardAuthorizePayment()
         {
-            // Use IPaymentMethod to hydrate  
+            // Use method to hydrate  
         };
 
         return (await _client.AuthorizeAsync(request, cancellationToken)).ActionResult;

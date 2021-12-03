@@ -17,17 +17,19 @@ public class CreditCardPaymentService : PaymentService, ICreditCardPaymentServic
         _client = client;
     }
 
-    public override async Task<IPaymentResult> HandleAsync(IPaymentMethod paymentMethod, CancellationToken cancellationToken)
-        => paymentMethod is CreditCardPaymentMethod creditCardPaymentMethod
-            ? await AuthorizeAsync(creditCardPaymentMethod, cancellationToken)
-            : await Next.HandleAsync(paymentMethod, cancellationToken);
+    public override Task<IPaymentResult> HandleAsync(IPaymentMethod method, CancellationToken cancellationToken)
+        => method is CreditCardPaymentMethod 
+            ? AuthorizeAsync(method, cancellationToken)
+            : base.HandleAsync(method, cancellationToken);
 
 
     protected override async Task<IPaymentResult> AuthorizeAsync(IPaymentMethod method, CancellationToken cancellationToken)
     {
+        method = method as CreditCardPaymentMethod;
+
         var request = new Requests.CreditCardAuthorizePayment
         {
-            // Use IPaymentMethod to hydrate  
+            // Use method to hydrate  
         };
 
         return (await _client.AuthorizeAsync(request, cancellationToken)).ActionResult;
