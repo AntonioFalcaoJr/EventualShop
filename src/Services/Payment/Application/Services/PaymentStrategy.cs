@@ -27,15 +27,15 @@ public class PaymentStrategy : IPaymentStrategy
 
     public async Task ProceedWithPaymentAsync(Payment payment, CancellationToken cancellationToken)
     {
-        foreach (var paymentMethod in payment.PaymentMethods)
+        foreach (var method in payment.Methods)
         {
             if (payment.AmountDue <= 0) break;
 
-            var paymentResult = await _paymentService.HandleAsync(paymentMethod, cancellationToken);
+            var paymentResult = await _paymentService.HandleAsync(method, cancellationToken);
 
             payment.Handle(new Commands.UpdatePaymentMethod(
                 payment.Id,
-                paymentMethod.Id,
+                method.Id,
                 paymentResult.TransactionId,
                 paymentResult.Success));
         }
