@@ -65,6 +65,9 @@ builder.ConfigureServices((context, services) =>
 
     services.ConfigureCreditCardHttpClientOptions(
         context.Configuration.GetSection(nameof(CreditCardHttpClientOptions)));
+    
+    services.ConfigureDebitCardHttpClientOptions(
+        context.Configuration.GetSection(nameof(DebitCardHttpClientOptions)));
 
     services.ConfigurePayPalHttpClientOptions(
         context.Configuration.GetSection(nameof(PayPalHttpClientOptions)));
