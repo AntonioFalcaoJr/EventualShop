@@ -21,6 +21,7 @@ using Infrastructure.Services.DebitCards;
 using Infrastructure.Services.PayPal;
 using MassTransit;
 using Messages.Abstractions;
+using Messages.JsonConverters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,6 +29,7 @@ using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
+using Newtonsoft.Json;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 
@@ -65,6 +67,22 @@ public static class ServiceCollectionExtensions
                     bus.ConnectSendObserver(new LoggingSendObserver());
                     bus.ConfigureEventReceiveEndpoints(context);
                     bus.ConfigureEndpoints(context);
+                    
+                    bus.ConfigureJsonSerializer(settings =>
+                    {
+                        settings.Converters.Add(new TypeNameHandlingConverter(TypeNameHandling.Objects));
+                        settings.Converters.Add(new DateOnlyJsonConverter());
+                        settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
+                        return settings;
+                    });
+
+                    bus.ConfigureJsonDeserializer(settings =>
+                    {
+                        settings.Converters.Add(new TypeNameHandlingConverter(TypeNameHandling.Objects));
+                        settings.Converters.Add(new DateOnlyJsonConverter());
+                        settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
+                        return settings;
+                    });
                 });
             })
             .AddMassTransitHostedService()
@@ -157,6 +175,13 @@ public static class ServiceCollectionExtensions
     public static OptionsBuilder<CreditCardHttpClientOptions> ConfigureCreditCardHttpClientOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<CreditCardHttpClientOptions>()
+            .Bind(section)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+    
+    public static OptionsBuilder<DebitCardHttpClientOptions> ConfigureDebitCardHttpClientOptions(this IServiceCollection services, IConfigurationSection section)
+        => services
+            .AddOptions<DebitCardHttpClientOptions>()
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();
