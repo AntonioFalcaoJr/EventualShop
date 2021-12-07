@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Abstractions.Aggregates;
-using Domain.Entities.PaymentMethods;
-using Domain.Entities.PaymentMethods.CreditCards;
-using Domain.Entities.PaymentMethods.PayPal;
+using Domain.Entities.CartItems;
 using Domain.ValueObjects.Addresses;
-using Domain.ValueObjects.CartItems;
-using Messages.Abstractions.Events;
-using Messages.Services.ShoppingCarts;
+using Domain.ValueObjects.PaymentMethods;
+using Domain.ValueObjects.PaymentMethods.CreditCards;
+using Domain.ValueObjects.PaymentMethods.PayPal;
+using ECommerce.Abstractions.Events;
+using ECommerce.Contracts.ShoppingCart;
 
 namespace Domain.Aggregates;
 
@@ -17,7 +17,7 @@ public class Cart : AggregateRoot<Guid>
     private readonly List<CartItem> _items = new();
     private readonly List<IPaymentMethod> _paymentMethods = new();
 
-    public Guid UserId { get; private set; }
+    public Guid CustomerId { get; private set; }
     public bool IsCheckedOut { get; private set; }
     public Address ShippingAddress { get; private set; }
     public Address BillingAddress { get; private set; }
@@ -38,7 +38,7 @@ public class Cart : AggregateRoot<Guid>
     public void Handle(Commands.AddCartItem cmd)
         => RaiseEvent(_items.Exists(item => item.ProductId == cmd.Item.ProductId)
             ? new DomainEvents.CartItemQuantityIncreased(cmd.CartId, cmd.Item.ProductId, cmd.Item.Quantity)
-            : new DomainEvents.CartItemAdded(cmd.CartId, cmd.Item));
+            : new DomainEvents.CartItemAdded(cmd.CartId, Guid.NewGuid(), cmd.Item.ProductId, cmd.Item.ProductName, cmd.Item.UnitPrice, cmd.Item.Quantity, cmd.Item.PictureUrl));
 
     public void Handle(Commands.UpdateCartItemQuantity cmd)
     {
@@ -76,7 +76,7 @@ public class Cart : AggregateRoot<Guid>
         => When(@event as dynamic);
 
     private void When(DomainEvents.CartCreated @event)
-        => (Id, UserId) = @event;
+        => (Id, CustomerId) = @event;
 
     private void When(DomainEvents.CartCheckedOut _)
         => IsCheckedOut = true;
@@ -85,41 +85,41 @@ public class Cart : AggregateRoot<Guid>
         => IsDeleted = true;
 
     private void When(DomainEvents.CartItemQuantityIncreased @event)
-        => _items.Single(item => item.ProductId == @event.ProductId).IncreaseQuantity(@event.Quantity);
+        => _items.Single(item => item.Id == @event.ItemId).IncreaseQuantity(@event.Quantity);
+
+    private void When(DomainEvents.CartItemQuantityDecreased @event)
+        => _items.Single(item => item.Id == @event.ItemId).DecreaseQuantity(@event.Quantity);
 
     private void When(DomainEvents.CartItemQuantityUpdated @event)
-        => _items.Single(item => item.ProductId == @event.ProductId).UpdateQuantity(@event.Quantity);
+        => _items.Single(item => item.Id == @event.ItemId).UpdateQuantity(@event.Quantity);
 
     private void When(DomainEvents.CartItemRemoved @event)
-        => _items.RemoveAll(item => item.ProductId == @event.ProductId);
+        => _items.RemoveAll(item => item.Id == @event.ItemId);
 
     private void When(DomainEvents.CartItemAdded @event)
-        => _items.Add(new CartItem
-        {
-            ProductId = @event.Item.ProductId,
-            ProductName = @event.Item.ProductName,
-            UnitPrice = @event.Item.UnitPrice,
-            Quantity = @event.Item.Quantity,
-            PictureUrl = @event.Item.PictureUrl
-        });
+        => _items.Add(new(
+            @event.ItemId,
+            @event.ProductId,
+            @event.ProductName,
+            @event.UnitPrice,
+            @event.Quantity,
+            @event.PictureUrl));
 
     private void When(DomainEvents.CreditCardAdded @event)
-        => _paymentMethods.Add(new CreditCardPaymentMethod
-        {
-            Amount = @event.CreditCard.Amount,
-            Expiration = @event.CreditCard.Expiration,
-            HolderName = @event.CreditCard.HolderName,
-            Number = @event.CreditCard.Number,
-            SecurityNumber = @event.CreditCard.SecurityNumber
-        });
+        => _paymentMethods.Add(
+            new CreditCardPaymentMethod(
+                @event.CreditCard.Amount,
+                @event.CreditCard.Expiration,
+                @event.CreditCard.HolderName,
+                @event.CreditCard.Number,
+                @event.CreditCard.SecurityNumber));
 
     private void When(DomainEvents.PayPalAdded @event)
-        => _paymentMethods.Add(new PayPalPaymentMethod
-        {
-            Amount = @event.PayPal.Amount,
-            Password = @event.PayPal.Password,
-            UserName = @event.PayPal.UserName,
-        });
+        => _paymentMethods.Add(
+            new PayPalPaymentMethod(
+                @event.PayPal.Amount,
+                @event.PayPal.UserName,
+                @event.PayPal.Password));
 
     private void When(DomainEvents.ShippingAddressAdded @event)
     {

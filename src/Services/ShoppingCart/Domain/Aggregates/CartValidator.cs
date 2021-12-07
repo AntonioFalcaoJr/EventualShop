@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 using Domain.Abstractions.Validators;
-using Domain.Entities.PaymentMethods.CreditCards;
-using Domain.Entities.PaymentMethods.DebitCards;
-using Domain.Entities.PaymentMethods.PayPal;
+using Domain.Entities.CartItems;
 using Domain.ValueObjects.Addresses;
-using Domain.ValueObjects.CartItems;
+using Domain.ValueObjects.PaymentMethods.CreditCards;
+using Domain.ValueObjects.PaymentMethods.DebitCards;
+using Domain.ValueObjects.PaymentMethods.PayPal;
 using FluentValidation;
 
 namespace Domain.Aggregates;
@@ -14,7 +14,7 @@ public class CartValidator : EntityValidator<Cart, Guid>
 {
     public CartValidator()
     {
-        RuleFor(cart => cart.UserId)
+        RuleFor(cart => cart.CustomerId)
             .NotEqual(Guid.Empty);
 
         RuleForEach(cart => cart.Items)
