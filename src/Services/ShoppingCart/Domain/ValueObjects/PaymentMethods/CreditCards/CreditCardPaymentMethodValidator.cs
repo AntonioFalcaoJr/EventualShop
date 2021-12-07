@@ -1,10 +1,9 @@
 ﻿using System;
-using Domain.Abstractions.Validators;
 using FluentValidation;
 
-namespace Domain.Entities.PaymentMethods.CreditCards;
+namespace Domain.ValueObjects.PaymentMethods.CreditCards;
 
-public class CreditCardPaymentMethodValidator : EntityValidator<CreditCardPaymentMethod, Guid>
+public class CreditCardPaymentMethodValidator : AbstractValidator<CreditCardPaymentMethod>
 {
     public CreditCardPaymentMethodValidator()
     {

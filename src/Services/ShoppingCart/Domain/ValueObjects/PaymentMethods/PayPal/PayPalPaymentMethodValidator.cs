@@ -1,10 +1,8 @@
-﻿using System;
-using Domain.Abstractions.Validators;
-using FluentValidation;
+﻿using FluentValidation;
 
-namespace Domain.Entities.PaymentMethods.PayPal;
+namespace Domain.ValueObjects.PaymentMethods.PayPal;
 
-public class PayPalPaymentMethodValidator : EntityValidator<PayPalPaymentMethod, Guid>
+public class PayPalPaymentMethodValidator : AbstractValidator<PayPalPaymentMethod>
 {
     public PayPalPaymentMethodValidator()
     {
