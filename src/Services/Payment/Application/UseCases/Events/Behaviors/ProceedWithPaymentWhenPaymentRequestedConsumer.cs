@@ -2,8 +2,8 @@
 using Application.EventSourcing.EventStore;
 using Application.Services;
 using MassTransit;
-using PaymentRequestedEvent = Messages.Services.Payments.DomainEvents.PaymentRequested;
-using ProceedWithPaymentCommand = Messages.Services.Payments.Commands.ProceedWithPayment;
+using PaymentRequestedEvent = ECommerce.Contracts.Payment.DomainEvents.PaymentRequested;
+using ProceedWithPaymentCommand =ECommerce.Contracts.Payment.Commands.ProceedWithPayment;
 
 namespace Application.UseCases.Events.Behaviors;
 
