@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Domain.Abstractions.Aggregates;
 using Domain.Entities.CatalogItems;
-using Messages.Abstractions.Events;
-using Messages.Services.Catalogs;
+using ECommerce.Abstractions.Events;
+using ECommerce.Contracts.Catalog;
 
 namespace Domain.Aggregates;
 

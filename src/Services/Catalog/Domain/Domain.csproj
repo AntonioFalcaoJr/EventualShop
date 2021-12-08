@@ -5,6 +5,6 @@
         <PackageReference Include="Newtonsoft.Json" Version="$(Newtonsoft_Version)" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Contracts\Messages\Messages.csproj" />
+        <ProjectReference Include="..\..\..\Contracts\ECommerce\ECommerce.csproj" />
     </ItemGroup>
 </Project>

@@ -8,9 +8,9 @@ using Domain.Entities.PaymentMethods.CreditCards;
 using Domain.Entities.PaymentMethods.DebitCards;
 using Domain.Entities.PaymentMethods.PayPal;
 using Domain.ValueObjects.Addresses;
-using Messages;
-using Messages.Abstractions.Events;
-using Messages.Services.Orders;
+using ECommerce.Abstractions.Events;
+using ECommerce.Contracts.Common;
+using ECommerce.Contracts.Order;
 
 namespace Domain.Aggregates;
 

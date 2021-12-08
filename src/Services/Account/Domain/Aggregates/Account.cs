@@ -2,8 +2,8 @@
 using Domain.Abstractions.Aggregates;
 using Domain.ValueObjects.Addresses;
 using Domain.ValueObjects.Profiles;
-using Messages.Abstractions.Events;
-using Messages.Services.Accounts;
+using ECommerce.Abstractions.Events;
+using ECommerce.Contracts.Account;
 
 namespace Domain.Aggregates;
 
