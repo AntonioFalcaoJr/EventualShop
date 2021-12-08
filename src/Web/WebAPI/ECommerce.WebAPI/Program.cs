@@ -1,12 +1,12 @@
 using System;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using ECommerce.JsonConverters;
 using ECommerce.WebAPI;
 using ECommerce.WebAPI.DependencyInjection.Extensions;
 using ECommerce.WebAPI.DependencyInjection.Observers;
 using MassTransit;
 using MassTransit.Definition;
-using Messages.JsonConverters;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
@@ -89,50 +89,50 @@ builder.Services
             });
 
             // Account
-            MapQueueEndpoint<Messages.Services.Accounts.Commands.DefineProfessionalAddress>();
-            MapQueueEndpoint<Messages.Services.Accounts.Commands.DefineResidenceAddress>();
-            MapQueueEndpoint<Messages.Services.Accounts.Commands.DeleteAccount>();
-            MapQueueEndpoint<Messages.Services.Accounts.Commands.CreateAccount>();
-            MapQueueEndpoint<Messages.Services.Accounts.Commands.UpdateProfile>();
-            MapQueueEndpoint<Messages.Services.Accounts.Queries.GetAccountDetails>();
-            MapQueueEndpoint<Messages.Services.Accounts.Queries.GetAccountsDetailsWithPagination>();
+            MapQueueEndpoint<ECommerce.Contracts.Account.Commands.DefineProfessionalAddress>();
+            MapQueueEndpoint<ECommerce.Contracts.Account.Commands.DefineResidenceAddress>();
+            MapQueueEndpoint<ECommerce.Contracts.Account.Commands.DeleteAccount>();
+            MapQueueEndpoint<ECommerce.Contracts.Account.Commands.CreateAccount>();
+            MapQueueEndpoint<ECommerce.Contracts.Account.Commands.UpdateProfile>();
+            MapQueueEndpoint<ECommerce.Contracts.Account.Queries.GetAccountDetails>();
+            MapQueueEndpoint<ECommerce.Contracts.Account.Queries.GetAccountsDetailsWithPagination>();
 
             // Catalog
-            MapQueueEndpoint<Messages.Services.Catalogs.Commands.CreateCatalog>();
-            MapQueueEndpoint<Messages.Services.Catalogs.Commands.UpdateCatalog>();
-            MapQueueEndpoint<Messages.Services.Catalogs.Commands.DeleteCatalog>();
-            MapQueueEndpoint<Messages.Services.Catalogs.Commands.ActivateCatalog>();
-            MapQueueEndpoint<Messages.Services.Catalogs.Commands.DeactivateCatalog>();
-            MapQueueEndpoint<Messages.Services.Catalogs.Commands.AddCatalogItem>();
-            MapQueueEndpoint<Messages.Services.Catalogs.Commands.RemoveCatalogItem>();
-            MapQueueEndpoint<Messages.Services.Catalogs.Commands.UpdateCatalogItem>();
-            MapQueueEndpoint<Messages.Services.Catalogs.Queries.GetCatalogItemsDetailsWithPagination>();
+            MapQueueEndpoint<ECommerce.Contracts.Catalog.Commands.CreateCatalog>();
+            MapQueueEndpoint<ECommerce.Contracts.Catalog.Commands.UpdateCatalog>();
+            MapQueueEndpoint<ECommerce.Contracts.Catalog.Commands.DeleteCatalog>();
+            MapQueueEndpoint<ECommerce.Contracts.Catalog.Commands.ActivateCatalog>();
+            MapQueueEndpoint<ECommerce.Contracts.Catalog.Commands.DeactivateCatalog>();
+            MapQueueEndpoint<ECommerce.Contracts.Catalog.Commands.AddCatalogItem>();
+            MapQueueEndpoint<ECommerce.Contracts.Catalog.Commands.RemoveCatalogItem>();
+            MapQueueEndpoint<ECommerce.Contracts.Catalog.Commands.UpdateCatalogItem>();
+            MapQueueEndpoint<ECommerce.Contracts.Catalog.Queries.GetCatalogItemsDetailsWithPagination>();
 
             //Identity
-            MapQueueEndpoint<Messages.Services.Identities.Commands.RegisterUser>();
-            MapQueueEndpoint<Messages.Services.Identities.Commands.ChangeUserPassword>();
-            MapQueueEndpoint<Messages.Services.Identities.Commands.DeleteUser>();
-            MapQueueEndpoint<Messages.Services.Identities.Queries.GetUserAuthenticationDetails>();
+            MapQueueEndpoint<ECommerce.Contracts.Identity.Commands.RegisterUser>();
+            MapQueueEndpoint<ECommerce.Contracts.Identity.Commands.ChangeUserPassword>();
+            MapQueueEndpoint<ECommerce.Contracts.Identity.Commands.DeleteUser>();
+            MapQueueEndpoint<ECommerce.Contracts.Identity.Queries.GetUserAuthenticationDetails>();
 
             //Shopping Cart
-            MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.CreateCart>();
-            MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.AddCartItem>();
-            MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.RemoveCartItem>();
-            MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.AddCreditCard>();
-            MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.AddPayPal>();
-            MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.AddShippingAddress>();
-            MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.ChangeBillingAddress>();
-            MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.CheckOutCart>();
-            MapQueueEndpoint<Messages.Services.ShoppingCarts.Commands.UpdateCartItemQuantity>();
-            MapQueueEndpoint<Messages.Services.ShoppingCarts.Queries.GetShoppingCart>();
+            MapQueueEndpoint<ECommerce.Contracts.ShoppingCart.Commands.CreateCart>();
+            MapQueueEndpoint<ECommerce.Contracts.ShoppingCart.Commands.AddCartItem>();
+            MapQueueEndpoint<ECommerce.Contracts.ShoppingCart.Commands.RemoveCartItem>();
+            MapQueueEndpoint<ECommerce.Contracts.ShoppingCart.Commands.AddCreditCard>();
+            MapQueueEndpoint<ECommerce.Contracts.ShoppingCart.Commands.AddPayPal>();
+            MapQueueEndpoint<ECommerce.Contracts.ShoppingCart.Commands.AddShippingAddress>();
+            MapQueueEndpoint<ECommerce.Contracts.ShoppingCart.Commands.ChangeBillingAddress>();
+            MapQueueEndpoint<ECommerce.Contracts.ShoppingCart.Commands.CheckOutCart>();
+            MapQueueEndpoint<ECommerce.Contracts.ShoppingCart.Commands.UpdateCartItemQuantity>();
+            MapQueueEndpoint<ECommerce.Contracts.ShoppingCart.Queries.GetShoppingCart>();
 
             // Order
-            MapQueueEndpoint<Messages.Services.Orders.Commands.PlaceOrder>();
+            MapQueueEndpoint<ECommerce.Contracts.Order.Commands.PlaceOrder>();
 
             // Payment
-            MapQueueEndpoint<Messages.Services.Payments.Commands.CancelPayment>();
-            MapQueueEndpoint<Messages.Services.Payments.Commands.RequestPayment>();
-            MapQueueEndpoint<Messages.Services.Payments.Queries.GetPaymentDetails>();
+            MapQueueEndpoint<ECommerce.Contracts.Payment.Commands.CancelPayment>();
+            MapQueueEndpoint<ECommerce.Contracts.Payment.Commands.RequestPayment>();
+            MapQueueEndpoint<ECommerce.Contracts.Payment.Queries.GetPaymentDetails>();
         });
     })
     .AddGenericRequestClient()

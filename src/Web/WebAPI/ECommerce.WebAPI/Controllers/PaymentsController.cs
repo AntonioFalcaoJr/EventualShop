@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using ECommerce.Contracts.Payment;
 using ECommerce.WebAPI.Abstractions;
 using MassTransit;
-using Messages.Services.Payments;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.WebAPI.Controllers;

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using ECommerce.Contracts.Common;
+using ECommerce.Contracts.ShoppingCart;
 using ECommerce.WebAPI.Abstractions;
 using MassTransit;
-using Messages;
-using Messages.Services.ShoppingCarts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.WebAPI.Controllers;

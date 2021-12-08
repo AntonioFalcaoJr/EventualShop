@@ -1,10 +1,10 @@
 using System.Threading;
 using System.Threading.Tasks;
+using ECommerce.Abstractions;
+using ECommerce.Abstractions.Commands;
+using ECommerce.Abstractions.Queries;
+using ECommerce.Abstractions.Queries.Responses;
 using MassTransit;
-using Messages.Abstractions;
-using Messages.Abstractions.Commands;
-using Messages.Abstractions.Queries;
-using Messages.Abstractions.Queries.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.WebAPI.Abstractions;
