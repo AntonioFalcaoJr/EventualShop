@@ -5,7 +5,7 @@ using Application.Services.CreditCards;
 using Application.Services.DebitCards;
 using Application.Services.PayPal;
 using Domain.Aggregates;
-using Messages.Services.Payments;
+using ECommerce.Contracts.Payment;
 
 namespace Application.Services;
 
@@ -41,35 +41,3 @@ public class PaymentStrategy : IPaymentStrategy
         }
     }
 }
-
-public interface IPaymentStrategy
-{
-    Task ProceedWithPaymentAsync(Payment payment, CancellationToken cancellationToken);
-}
-
-//     public void Handle(Order order)
-//     {
-//         foreach (var receiver in _receivers)
-//         {
-//             Console.WriteLine($"Running: {receiver.GetType().Name}");
-//
-//             if (order.AmountDue > 0)
-//             {
-//                 receiver.Handle(order);
-//             }
-//             else
-//             {
-//                 break;
-//             }
-//         }
-//
-//         if (order.AmountDue > 0)
-//         {
-//             throw new Exception("Insufficient payment");
-//         }
-//         else
-//         {
-//             // order.ShippingStatus = ShippingStatus.ReadyForShipment;
-//         }
-//     }
-//
