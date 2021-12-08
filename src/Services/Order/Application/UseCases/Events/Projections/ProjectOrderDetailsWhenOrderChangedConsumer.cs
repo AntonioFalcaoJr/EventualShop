@@ -2,7 +2,7 @@
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using OrderPlacedEvent = Messages.Services.Orders.DomainEvents.OrderPlaced;
+using OrderPlacedEvent = ECommerce.Contracts.Order.DomainEvents.OrderPlaced;
 
 namespace Application.UseCases.Events.Projections;
 

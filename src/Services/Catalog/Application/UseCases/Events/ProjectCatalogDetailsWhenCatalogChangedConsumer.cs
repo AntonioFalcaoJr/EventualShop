@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using CatalogCreatedEvent = Messages.Services.Catalogs.DomainEvents.CatalogCreated;
-using CatalogActivatedEvent = Messages.Services.Catalogs.DomainEvents.CatalogActivated;
-using CatalogDeactivatedEvent = Messages.Services.Catalogs.DomainEvents.CatalogDeactivated;
-using CatalogUpdatedEvent = Messages.Services.Catalogs.DomainEvents.CatalogUpdated;
-using CatalogDeletedEvent = Messages.Services.Catalogs.DomainEvents.CatalogDeleted;
-using CatalogItemAddedEvent = Messages.Services.Catalogs.DomainEvents.CatalogItemAdded;
-using CatalogItemRemovedEvent = Messages.Services.Catalogs.DomainEvents.CatalogItemRemoved;
-using CatalogItemUpdatedEvent = Messages.Services.Catalogs.DomainEvents.CatalogItemUpdated;
+using CatalogCreatedEvent = ECommerce.Contracts.Catalog.DomainEvents.CatalogCreated;
+using CatalogActivatedEvent = ECommerce.Contracts.Catalog.DomainEvents.CatalogActivated;
+using CatalogDeactivatedEvent = ECommerce.Contracts.Catalog.DomainEvents.CatalogDeactivated;
+using CatalogUpdatedEvent = ECommerce.Contracts.Catalog.DomainEvents.CatalogUpdated;
+using CatalogDeletedEvent = ECommerce.Contracts.Catalog.DomainEvents.CatalogDeleted;
+using CatalogItemAddedEvent = ECommerce.Contracts.Catalog.DomainEvents.CatalogItemAdded;
+using CatalogItemRemovedEvent = ECommerce.Contracts.Catalog.DomainEvents.CatalogItemRemoved;
+using CatalogItemUpdatedEvent = ECommerce.Contracts.Catalog.DomainEvents.CatalogItemUpdated;
 
 namespace Application.UseCases.Events;
 
@@ -37,7 +37,7 @@ public class ProjectCatalogDetailsWhenCatalogChangedConsumer :
 
     public Task Consume(ConsumeContext<CatalogCreatedEvent> context)
         => ProjectAsync(context.Message.CatalogId, context.CancellationToken);
-    
+
     public Task Consume(ConsumeContext<CatalogActivatedEvent> context)
         => ProjectAsync(context.Message.CatalogId, context.CancellationToken);
 

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using MassTransit;
-using DefineResidenceAddressCommand = Messages.Services.Accounts.Commands.DefineResidenceAddress;
+using DefineResidenceAddressCommand = ECommerce.Contracts.Account.Commands.DefineResidenceAddress;
 
 namespace Application.UseCases.Commands;
 

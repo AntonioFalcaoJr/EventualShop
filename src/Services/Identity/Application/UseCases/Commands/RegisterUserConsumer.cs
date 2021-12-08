@@ -2,7 +2,7 @@
 using Application.EventSourcing.EventStore;
 using Domain.Aggregates;
 using MassTransit;
-using RegisterUserCommand = Messages.Services.Identities.Commands.RegisterUser;
+using RegisterUserCommand = ECommerce.Contracts.Identity.Commands.RegisterUser;
 
 namespace Application.UseCases.Commands;
 

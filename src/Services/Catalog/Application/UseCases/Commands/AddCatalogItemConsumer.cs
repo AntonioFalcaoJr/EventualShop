@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using MassTransit;
-using AddCatalogItemCommand = Messages.Services.Catalogs.Commands.AddCatalogItem;
+using AddCatalogItemCommand = ECommerce.Contracts.Catalog.Commands.AddCatalogItem;
 
 namespace Application.UseCases.Commands;
 

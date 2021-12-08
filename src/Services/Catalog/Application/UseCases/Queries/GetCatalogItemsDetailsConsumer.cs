@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.Projections.Pagination;
 using Application.EventSourcing.Projections;
+using ECommerce.Contracts.Catalog;
 using MassTransit;
-using Messages.Services.Catalogs;
-using GetCatalogItemsDetailsWithPaginationQuery = Messages.Services.Catalogs.Queries.GetCatalogItemsDetailsWithPagination;
+using GetCatalogItemsDetailsWithPaginationQuery = ECommerce.Contracts.Catalog.Queries.GetCatalogItemsDetailsWithPagination;
 
 namespace Application.UseCases.Queries;
 

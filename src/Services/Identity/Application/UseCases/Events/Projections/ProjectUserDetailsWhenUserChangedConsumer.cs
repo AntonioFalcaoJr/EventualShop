@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using UserRegisteredEvent = Messages.Services.Identities.DomainEvents.UserRegistered;
-using UserPasswordChangedEvent = Messages.Services.Identities.DomainEvents.UserPasswordChanged;
-using UserDeletedEvent = Messages.Services.Identities.DomainEvents.UserDeleted;
+using UserRegisteredEvent = ECommerce.Contracts.Identity.DomainEvents.UserRegistered;
+using UserPasswordChangedEvent = ECommerce.Contracts.Identity.DomainEvents.UserPasswordChanged;
+using UserDeletedEvent = ECommerce.Contracts.Identity.DomainEvents.UserDeleted;
 
 namespace Application.UseCases.Events.Projections;
 

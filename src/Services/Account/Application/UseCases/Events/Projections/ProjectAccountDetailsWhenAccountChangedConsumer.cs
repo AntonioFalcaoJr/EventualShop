@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using AccountCreatedEvent = Messages.Services.Accounts.DomainEvents.AccountCreated;
-using AccountDeletedEvent = Messages.Services.Accounts.DomainEvents.AccountDeleted;
-using ProfessionalAddressDefinedEvent = Messages.Services.Accounts.DomainEvents.ProfessionalAddressDefined;
-using ProfileUpdatedEvent = Messages.Services.Accounts.DomainEvents.ProfileUpdated;
-using ResidenceAddressDefinedEvent = Messages.Services.Accounts.DomainEvents.ResidenceAddressDefined;
+using AccountCreatedEvent = ECommerce.Contracts.Account.DomainEvents.AccountCreated;
+using AccountDeletedEvent = ECommerce.Contracts.Account.DomainEvents.AccountDeleted;
+using ProfessionalAddressDefinedEvent = ECommerce.Contracts.Account.DomainEvents.ProfessionalAddressDefined;
+using ProfileUpdatedEvent = ECommerce.Contracts.Account.DomainEvents.ProfileUpdated;
+using ResidenceAddressDefinedEvent = ECommerce.Contracts.Account.DomainEvents.ResidenceAddressDefined;
 
 namespace Application.UseCases.Events.Projections;
 

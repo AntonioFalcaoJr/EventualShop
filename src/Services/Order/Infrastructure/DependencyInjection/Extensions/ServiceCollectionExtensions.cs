@@ -1,5 +1,7 @@
 ﻿using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
+using ECommerce.Abstractions;
+using ECommerce.JsonConverters;
 using FluentValidation;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.DependencyInjection.Filters;
@@ -10,8 +12,6 @@ using Infrastructure.EventSourcing.EventStore.Contexts;
 using Infrastructure.EventSourcing.Projections;
 using Infrastructure.EventSourcing.Projections.Contexts;
 using MassTransit;
-using Messages.Abstractions;
-using Messages.JsonConverters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

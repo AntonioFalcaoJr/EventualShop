@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Application.EventSourcing.Projections;
+using ECommerce.Contracts.Identity;
 using MassTransit;
-using Messages.Services.Identities;
-using GetUserAuthenticationDetailsQuery = Messages.Services.Identities.Queries.GetUserAuthenticationDetails;
+using GetUserAuthenticationDetailsQuery = ECommerce.Contracts.Identity.Queries.GetUserAuthenticationDetails;
 
 namespace Application.UseCases.Queries;
 

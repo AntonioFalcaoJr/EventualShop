@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using MassTransit;
-using UpdateProfileCommand = Messages.Services.Accounts.Commands.UpdateProfile;
+using UpdateProfileCommand = ECommerce.Contracts.Account.Commands.UpdateProfile;
 
 namespace Application.UseCases.Commands;
 

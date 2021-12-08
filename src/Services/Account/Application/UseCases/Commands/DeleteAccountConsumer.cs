@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using MassTransit;
-using DeleteAccountCommand = Messages.Services.Accounts.Commands.DeleteAccount;
+using DeleteAccountCommand = ECommerce.Contracts.Account.Commands.DeleteAccount;
 
 namespace Application.UseCases.Commands;
 

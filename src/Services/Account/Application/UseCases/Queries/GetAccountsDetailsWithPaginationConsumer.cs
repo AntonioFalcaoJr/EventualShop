@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.Projections.Pagination;
 using Application.EventSourcing.Projections;
+using ECommerce.Contracts.Account;
 using MassTransit;
-using Messages.Services.Accounts;
-using GetAccountsDetailsWithPaginationQuery = Messages.Services.Accounts.Queries.GetAccountsDetailsWithPagination;
+using GetAccountsDetailsWithPaginationQuery = ECommerce.Contracts.Account.Queries.GetAccountsDetailsWithPagination;
 
 namespace Application.UseCases.Queries;
 

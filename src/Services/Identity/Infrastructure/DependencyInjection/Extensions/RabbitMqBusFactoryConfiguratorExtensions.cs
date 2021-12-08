@@ -1,10 +1,10 @@
 ﻿using System;
 using Application.UseCases.Events.Projections;
+using ECommerce.Abstractions.Events;
+using ECommerce.Contracts.Identity;
 using GreenPipes;
 using MassTransit;
 using MassTransit.RabbitMqTransport;
-using Messages.Abstractions.Events;
-using Messages.Services.Identities;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 
@@ -17,18 +17,17 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
         cfg.ConfigureEventReceiveEndpoint<ProjectUserDetailsWhenUserChangedConsumer, DomainEvents.UserDeleted>(registration);
     }
 
-    private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)
+    private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)
         where TConsumer : class, IConsumer
-        where TMessage : class, IEvent
-    {
-        bus.ReceiveEndpoint(
-            queueName: $"identity-{typeof(TMessage).ToKebabCaseString()}",
+        where TEvent : class, IEvent
+        => bus.ReceiveEndpoint(
+            queueName: $"identity-{typeof(TEvent).ToKebabCaseString()}",
             configureEndpoint: endpoint =>
             {
                 endpoint.ConfigureConsumeTopology = false;
 
                 endpoint.ConfigureConsumer<TConsumer>(registration);
-                endpoint.Bind<TMessage>();
+                endpoint.Bind<TEvent>();
 
                 endpoint.UseCircuitBreaker(circuitBreaker => // TODO - Options
                 {
@@ -40,5 +39,4 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 
                 endpoint.UseRateLimit(100, TimeSpan.FromSeconds(1)); // TODO - Options
             });
-    }
 }

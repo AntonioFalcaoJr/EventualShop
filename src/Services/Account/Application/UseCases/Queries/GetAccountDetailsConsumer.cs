@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Application.EventSourcing.Projections;
+using ECommerce.Contracts.Account;
 using MassTransit;
-using Messages.Services.Accounts;
-using GetAccountDetailsQuery = Messages.Services.Accounts.Queries.GetAccountDetails;
+using GetAccountDetailsQuery = ECommerce.Contracts.Account.Queries.GetAccountDetails;
 
 namespace Application.UseCases.Queries;
 

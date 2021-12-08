@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using ECommerce.Abstractions.Validations;
 using FluentValidation;
 using GreenPipes;
 using MassTransit;
 using MassTransit.Definition;
-using Messages.Abstractions.Validations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 

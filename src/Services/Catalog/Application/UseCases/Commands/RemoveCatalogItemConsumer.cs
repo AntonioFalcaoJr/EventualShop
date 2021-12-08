@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using MassTransit;
-using RemoveCatalogItemCommand = Messages.Services.Catalogs.Commands.RemoveCatalogItem;
+using RemoveCatalogItemCommand = ECommerce.Contracts.Catalog.Commands.RemoveCatalogItem;
 
 namespace Application.UseCases.Commands;
 

@@ -2,8 +2,8 @@
 using Application.EventSourcing.EventStore;
 using Domain.Aggregates;
 using MassTransit;
-using CartSubmittedEvent = Messages.Services.ShoppingCarts.IntegrationEvents.CartSubmitted;
-using PlaceOrderCommand = Messages.Services.Orders.Commands.PlaceOrder;
+using CartSubmittedEvent = ECommerce.Contracts.ShoppingCart.IntegrationEvents.CartSubmitted;
+using PlaceOrderCommand = ECommerce.Contracts.Order.Commands.PlaceOrder;
 
 namespace Application.UseCases.Events.Integrations;
 

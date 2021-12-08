@@ -2,9 +2,10 @@
 using Application.UseCases.Commands;
 using Application.UseCases.Events;
 using Application.UseCases.Queries;
+using ECommerce.Abstractions;
+using ECommerce.Abstractions.Commands;
+using ECommerce.Contracts.Catalog;
 using MassTransit;
-using Messages.Abstractions;
-using Messages.Services.Catalogs;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 
@@ -32,14 +33,14 @@ public static class RegistrationConfiguratorExtensions
         cfg.AddConsumer<GetCatalogItemsDetailsConsumer>();
     }
 
-    private static void AddCommandConsumer<TConsumer, TMessage>(this IRegistrationConfigurator configurator)
+    private static void AddCommandConsumer<TConsumer, TCommand>(this IRegistrationConfigurator configurator)
         where TConsumer : class, IConsumer
-        where TMessage : class, IMessage
+        where TCommand : class, ICommand
     {
         configurator
             .AddConsumer<TConsumer>()
             .Endpoint(endpoint => endpoint.ConfigureConsumeTopology = false);
 
-        EndpointConvention.Map<TMessage>(new Uri($"exchange:{typeof(TMessage).ToKebabCaseString()}"));
+        EndpointConvention.Map<TCommand>(new Uri($"exchange:{typeof(TCommand).ToKebabCaseString()}"));
     }
 }
