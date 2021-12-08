@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Domain.Abstractions.Entities;
-using Messages.Abstractions.Events;
+using ECommerce.Abstractions.Events;
 
 namespace Domain.Abstractions.Aggregates;
 

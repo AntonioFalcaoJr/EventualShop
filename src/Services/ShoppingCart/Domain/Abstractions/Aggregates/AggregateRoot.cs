@@ -18,7 +18,7 @@ public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot<TId>
     public void LoadEvents(IEnumerable<IEvent> events)
     {
         foreach (var @event in events)
-            ApplyEvent((dynamic)@event);
+            ApplyEvent(@event);
     }
 
     private void AddEvent(IEvent @event)
@@ -28,8 +28,7 @@ public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot<TId>
 
     protected void RaiseEvent(IEvent @event)
     {
-        ApplyEvent((dynamic)@event);
-        if (IsValid is false) return;
-        AddEvent(@event);
+        ApplyEvent(@event);
+        if (IsValid) AddEvent(@event);
     }
 }
