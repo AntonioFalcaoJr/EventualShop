@@ -3,7 +3,6 @@
         <UserSecretsId>593843d2-95e9-43e5-a079-becb80a9a273</UserSecretsId>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="$(EntityFrameworkCore_Version)" />
         <PackageReference Include="Serilog.Extensions.Hosting" Version="$(Serilog_Extensions_Version)" />
         <PackageReference Include="Serilog.AspNetCore" Version="$(Serilog_AspNetCore_Version)" />
     </ItemGroup>
