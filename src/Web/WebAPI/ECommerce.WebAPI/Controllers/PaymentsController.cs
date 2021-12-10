@@ -14,7 +14,7 @@ public class PaymentsController : ApplicationController
 
     [HttpGet]
     public Task<IActionResult> GetPaymentDetails([FromQuery] Queries.GetPaymentDetails query, CancellationToken cancellationToken)
-        => GetQueryResponseAsync<Queries.GetPaymentDetails, Responses.PaymentDetails>(query, cancellationToken);
+        => GetResponseAsync<Queries.GetPaymentDetails, Responses.PaymentDetails>(query, cancellationToken);
 
     [HttpPost]
     public Task<IActionResult> RequestPayment(Commands.RequestPayment command, CancellationToken cancellationToken)

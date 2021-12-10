@@ -17,7 +17,7 @@ public class ShoppingCartsController : ApplicationController
 
     [HttpGet("{customerId:guid}")]
     public Task<IActionResult> GetShoppingCartAsync(Guid customerId, CancellationToken cancellationToken)
-        => GetQueryResponseAsync<Queries.GetShoppingCart, Responses.CartDetails>(new(customerId), cancellationToken);
+        => GetResponseAsync<Queries.GetShoppingCart, Responses.CartDetails>(new(customerId), cancellationToken);
 
     [HttpPost("{customerId:guid}")]
     public Task<IActionResult> CreateCartAsync(Guid customerId, CancellationToken cancellationToken)
@@ -33,7 +33,7 @@ public class ShoppingCartsController : ApplicationController
 
     [HttpGet("{cartId:guid}/items")]
     public Task<IActionResult> GetShoppingCartItemsAsync(Guid cartId, CancellationToken cancellationToken)
-        => GetQueryResponseAsync<Queries.GetShoppingCart, Responses.CartDetails>(new(cartId), cancellationToken);
+        => GetResponseAsync<Queries.GetShoppingCart, Responses.CartDetails>(new(cartId), cancellationToken);
 
     [HttpPost("{cartId:guid}/items")]
     public Task<IActionResult> AddCartItemAsync(Guid cartId, Models.Item item, CancellationToken cancellationToken)
@@ -41,7 +41,7 @@ public class ShoppingCartsController : ApplicationController
 
     [HttpGet("{cartId:guid}/items/{productId:guid}")]
     public Task<IActionResult> GetShoppingCartItemAsync(Guid cartId, Guid productId, CancellationToken cancellationToken)
-        => GetQueryResponseAsync<Queries.GetShoppingCart, Responses.CartDetails>(new(cartId), cancellationToken);
+        => GetResponseAsync<Queries.GetShoppingCart, Responses.CartDetails>(new(cartId), cancellationToken);
 
     [HttpDelete("{cartId:guid}/items/{productId:guid}")]
     public Task<IActionResult> RemoveCartItemAsync(Guid cartId, Guid productId, CancellationToken cancellationToken)
