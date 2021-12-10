@@ -1,5 +1,7 @@
 using System;
 using System.Reflection;
+using ECommerce.Abstractions;
+using FluentValidation;
 using Infrastructure.DependencyInjection.Extensions;
 using Infrastructure.DependencyInjection.Options;
 using Microsoft.EntityFrameworkCore;
@@ -34,19 +36,17 @@ builder.ConfigureLogging((context, loggingBuilder) =>
     loggingBuilder.AddSerilog();
 });
 
-builder.UseSerilog();
-
 builder.ConfigureServices((context, services) =>
 {
     services.AddApplicationServices();
 
-    services.AddEventStoreRepositories();
-    services.AddProjectionsRepositories();
+    services.AddEventStoreRepository();
+    services.AddProjectionsRepository();
 
     services.AddEventStoreDbContext();
     services.AddProjectionsDbContext();
 
-    services.AddMessageFluentValidation();
+    services.AddMessagesFluentValidation();
 
     services.AddMassTransitWithRabbitMq();
 

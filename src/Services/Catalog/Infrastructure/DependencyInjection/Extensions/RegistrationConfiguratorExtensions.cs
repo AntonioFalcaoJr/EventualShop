@@ -2,7 +2,6 @@
 using Application.UseCases.Commands;
 using Application.UseCases.Events;
 using Application.UseCases.Queries;
-using ECommerce.Abstractions;
 using ECommerce.Abstractions.Commands;
 using ECommerce.Contracts.Catalog;
 using MassTransit;

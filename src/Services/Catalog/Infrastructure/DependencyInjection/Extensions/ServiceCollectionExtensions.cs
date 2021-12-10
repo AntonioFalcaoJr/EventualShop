@@ -76,13 +76,13 @@ public static class ServiceCollectionExtensions
         return services.AddScoped<IMongoDbContext, ProjectionsDbContext>();
     }
 
-    public static IServiceCollection AddEventStoreRepositories(this IServiceCollection services)
+    public static IServiceCollection AddEventStoreRepository(this IServiceCollection services)
         => services.AddScoped<ICatalogEventStoreRepository, CatalogEventStoreRepository>();
 
-    public static IServiceCollection AddProjectionsRepositories(this IServiceCollection services)
+    public static IServiceCollection AddProjectionsRepository(this IServiceCollection services)
         => services.AddScoped<ICatalogProjectionsRepository, CatalogProjectionsRepository>();
 
-    public static IServiceCollection AddMessageFluentValidation(this IServiceCollection services)
+    public static IServiceCollection AddMessagesFluentValidation(this IServiceCollection services)
         => services.AddValidatorsFromAssemblyContaining(typeof(IMessage));
 
     public static OptionsBuilder<SqlServerRetryingOptions> ConfigureSqlServerRetryingOptions(this IServiceCollection services, IConfigurationSection section)

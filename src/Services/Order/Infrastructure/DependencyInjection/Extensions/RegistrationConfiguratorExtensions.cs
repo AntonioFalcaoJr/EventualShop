@@ -2,7 +2,6 @@
 using Application.UseCases.Commands;
 using Application.UseCases.Events.Integrations;
 using Application.UseCases.Events.Projections;
-using ECommerce.Abstractions;
 using ECommerce.Abstractions.Commands;
 using ECommerce.Contracts.ShoppingCart;
 using MassTransit;
