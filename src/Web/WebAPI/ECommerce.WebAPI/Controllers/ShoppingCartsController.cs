@@ -55,15 +55,15 @@ public class ShoppingCartsController : ApplicationController
     public Task<IActionResult> AddShippingAddressAsync(Guid cartId, Models.Address address, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.AddShippingAddress>(new(cartId, address), cancellationToken);
 
+    [HttpPut("{cartId:guid}/customers/[action]")]
+    public Task<IActionResult> ChangeBillingAddressAsync(Guid cartId, Models.Address address, CancellationToken cancellationToken)
+        => SendCommandAsync<Commands.ChangeBillingAddress>(new(cartId, address), cancellationToken);
+
     [HttpPost("{cartId:guid}/payment-methods/[action]")]
     public Task<IActionResult> AddCreditCardAsync(Guid cartId, Models.CreditCard creditCard, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.AddCreditCard>(new(cartId, creditCard), cancellationToken);
-    
+
     [HttpPost("{cartId:guid}/payment-methods/[action]")]
     public Task<IActionResult> AddPayPalAsync(Guid cartId, Models.PayPal payPal, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.AddPayPal>(new(cartId, payPal), cancellationToken);
-
-    [HttpPut("{cartId:guid}/payment-methods/[action]")]
-    public Task<IActionResult> ChangeBillingAddressAsync(Guid cartId, Models.Address address, CancellationToken cancellationToken)
-        => SendCommandAsync<Commands.ChangeBillingAddress>(new(cartId, address), cancellationToken);
 }

@@ -13,7 +13,7 @@ public class PaymentsController : ApplicationController
         : base(bus) { }
 
     [HttpGet]
-    public Task<IActionResult> GetCart([FromQuery] Queries.GetPaymentDetails query, CancellationToken cancellationToken)
+    public Task<IActionResult> GetPaymentDetails([FromQuery] Queries.GetPaymentDetails query, CancellationToken cancellationToken)
         => GetQueryResponseAsync<Queries.GetPaymentDetails, Responses.PaymentDetails>(query, cancellationToken);
 
     [HttpPost]
