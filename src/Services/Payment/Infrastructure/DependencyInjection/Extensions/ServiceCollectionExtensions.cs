@@ -7,6 +7,8 @@ using Application.Services.DebitCards;
 using Application.Services.DebitCards.Http;
 using Application.Services.PayPal;
 using Application.Services.PayPal.Http;
+using ECommerce.Abstractions;
+using ECommerce.JsonConverters;
 using FluentValidation;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.DependencyInjection.Filters;
@@ -20,8 +22,6 @@ using Infrastructure.Services.CreditCards;
 using Infrastructure.Services.DebitCards;
 using Infrastructure.Services.PayPal;
 using MassTransit;
-using Messages.Abstractions;
-using Messages.JsonConverters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -135,13 +135,13 @@ public static class ServiceCollectionExtensions
         return services.AddScoped<IMongoDbContext, ProjectionsDbContext>();
     }
 
-    public static IServiceCollection AddEventStoreRepositories(this IServiceCollection services)
+    public static IServiceCollection AddEventStoreRepository(this IServiceCollection services)
         => services.AddScoped<IPaymentEventStoreRepository, PaymentEventStoreRepository>();
 
-    public static IServiceCollection AddProjectionsRepositories(this IServiceCollection services)
+    public static IServiceCollection AddProjectionsRepository(this IServiceCollection services)
         => services.AddScoped<IPaymentProjectionsRepository, PaymentProjectionsRepository>();
 
-    public static IServiceCollection AddMessageFluentValidation(this IServiceCollection services)
+    public static IServiceCollection AddMessagesFluentValidation(this IServiceCollection services)
         => services.AddValidatorsFromAssemblyContaining(typeof(IMessage));
 
     public static OptionsBuilder<SqlServerRetryingOptions> ConfigureSqlServerRetryingOptions(this IServiceCollection services, IConfigurationSection section)

@@ -1,13 +1,24 @@
 ﻿using System;
 using Domain.Abstractions.Entities;
+using Domain.Enumerations;
 
 namespace Domain.Entities.PaymentMethods;
 
 public abstract class PaymentMethod : Entity<Guid>, IPaymentMethod
 {
-    public bool Authorized { get; private set; }
-    public decimal Amount { get; init; }
+    protected PaymentMethod(Guid id, decimal amount)
+    {
+        Id = id;
+        Amount = amount;
+        Status = PaymentMethodStatus.Ready;
+    }
+
+    public decimal Amount { get; }
+    public PaymentMethodStatus Status { get; private set; }
 
     public void Authorize()
-        => Authorized = true;
+        => Status = PaymentMethodStatus.Authorized;
+
+    public void Deny()
+        => Status = PaymentMethodStatus.Denied;
 }

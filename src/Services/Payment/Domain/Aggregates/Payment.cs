@@ -8,36 +8,36 @@ using Domain.Entities.PaymentMethods.DebitCards;
 using Domain.Entities.PaymentMethods.PayPal;
 using Domain.Enumerations;
 using Domain.ValueObjects.Addresses;
-using Messages;
-using Messages.Abstractions.Events;
-using Messages.Services.Payments;
+using ECommerce.Abstractions.Events;
+using ECommerce.Contracts.Common;
+using ECommerce.Contracts.Payment;
 
 namespace Domain.Aggregates;
 
 public class Payment : AggregateRoot<Guid>
 {
-    private readonly List<IPaymentMethod> _paymentMethods = new();
+    private readonly List<IPaymentMethod> _methods = new();
 
     public Guid OrderId { get; private set; }
     public decimal Amount { get; private set; }
-    public PaymentStatus Status { get; private set; }
+    public PaymentStatus Status { get; private set; } = PaymentStatus.Ready;
     public Address BillingAddress { get; private set; }
 
     public decimal AmountDue
-        => _paymentMethods
-            .Where(method => method.Authorized is false)
+        => _methods
+            .Where(method => method.Status is not PaymentMethodStatus.Authorized)
             .Sum(method => method.Amount);
 
-    public IEnumerable<IPaymentMethod> PaymentMethods
-        => _paymentMethods;
+    public IEnumerable<IPaymentMethod> Methods
+        => _methods;
 
     public void Handle(Commands.RequestPayment cmd)
         => RaiseEvent(new DomainEvents.PaymentRequested(Guid.NewGuid(), cmd.OrderId, cmd.AmountDue, cmd.BillingAddress, cmd.PaymentMethods));
 
     public void Handle(Commands.ProceedWithPayment cmd)
-        => RaiseEvent(AmountDue > 0
-            ? new DomainEvents.PaymentNotCompleted(cmd.PaymentId, cmd.OrderId)
-            : new DomainEvents.PaymentCompleted(cmd.PaymentId, cmd.OrderId));
+        => RaiseEvent(AmountDue is 0
+            ? new DomainEvents.PaymentCompleted(cmd.PaymentId, cmd.OrderId)
+            : new DomainEvents.PaymentNotCompleted(cmd.PaymentId, cmd.OrderId));
 
     public void Handle(Commands.CancelPayment cmd)
         => RaiseEvent(new DomainEvents.PaymentCanceled(cmd.PaymentId, cmd.OrderId));
@@ -66,46 +66,49 @@ public class Payment : AggregateRoot<Guid>
             ZipCode = @event.BillingAddress.ZipCode
         };
 
-        _paymentMethods.AddRange(@event.PaymentMethods.Select<Models.IPaymentMethod, IPaymentMethod>(method
-            => method switch
-            {
-                Models.CreditCard creditCard => new CreditCardPaymentMethod
+        _methods.AddRange(@event.PaymentMethods
+            .Select<Models.IPaymentMethod, IPaymentMethod>(method
+                => method switch
                 {
-                    Amount = creditCard.Amount,
-                    Expiration = creditCard.Expiration,
-                    Number = creditCard.Number,
-                    HolderName = creditCard.HolderName,
-                    SecurityNumber = creditCard.SecurityNumber
-                },
-                Models.DebitCard debitCard => new DebitCardPaymentMethod
-                {
-                    Amount = debitCard.Amount,
-                    Expiration = debitCard.Expiration,
-                    Number = debitCard.Number,
-                    HolderName = debitCard.HolderName,
-                    SecurityNumber = debitCard.SecurityNumber
-                },
-                Models.PayPal payPal => new PayPalPaymentMethod
-                {
-                    Amount = payPal.Amount,
-                    Password = payPal.Password,
-                    UserName = payPal.UserName
-                }
-            }));
+                    Models.CreditCard creditCard
+                        => new CreditCardPaymentMethod(
+                            creditCard.Id,
+                            creditCard.Amount,
+                            creditCard.Expiration,
+                            creditCard.Number,
+                            creditCard.HolderName,
+                            creditCard.SecurityNumber),
+                    Models.DebitCard debitCard
+                        => new DebitCardPaymentMethod(
+                            debitCard.Id,
+                            debitCard.Amount,
+                            debitCard.Expiration,
+                            debitCard.Number,
+                            debitCard.HolderName,
+                            debitCard.SecurityNumber),
+                    Models.PayPal payPal
+                        => new PayPalPaymentMethod(
+                            payPal.Id,
+                            payPal.Amount,
+                            payPal.Password,
+                            payPal.UserName),
+                    _ => default
+                }));
 
-        Status = PaymentStatus.Pending;
+        Status = PaymentStatus.Ready;
     }
 
     private void When(DomainEvents.PaymentMethodAuthorized @event)
-        => _paymentMethods
-            .First(method => method.Id == @event.PaymentMethodId)
-            .Authorize();
+        => _methods.Single(method => method.Id == @event.PaymentMethodId).Authorize();
+
+    private void When(DomainEvents.PaymentMethodDenied @event)
+        => _methods.Single(method => method.Id == @event.PaymentMethodId).Deny();
 
     private void When(DomainEvents.PaymentCompleted _)
-        => Status = PaymentStatus.Complete;
+        => Status = PaymentStatus.Completed;
 
     private void When(DomainEvents.PaymentNotCompleted _)
-        => Status = PaymentStatus.Insufficient;
+        => Status = PaymentStatus.Pending;
 
     protected override bool Validate()
         => true;

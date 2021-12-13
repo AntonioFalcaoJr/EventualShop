@@ -2,10 +2,9 @@
 
 public enum PaymentStatus
 {
-    Complete,
+    Ready,
+    Completed,
     Canceled,
     Pending,
-    Refunded,
-    Unauthorized,
-    Insufficient 
+    Refunded
 }

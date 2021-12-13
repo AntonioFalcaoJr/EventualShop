@@ -4,9 +4,9 @@ using Application.UseCases.Events.Behaviors;
 using Application.UseCases.Events.Integrations;
 using Application.UseCases.Events.Projections;
 using Application.UseCases.Queries;
+using ECommerce.Abstractions.Commands;
+using ECommerce.Contracts.Payment;
 using MassTransit;
-using Messages.Abstractions;
-using Messages.Services.Payments;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 
@@ -30,14 +30,14 @@ public static class RegistrationConfiguratorExtensions
         cfg.AddConsumer<GetPaymentDetailsConsumer>();
     }
 
-    private static void AddCommandConsumer<TConsumer, TMessage>(this IRegistrationConfigurator configurator)
+    private static void AddCommandConsumer<TConsumer, TCommand>(this IRegistrationConfigurator configurator)
         where TConsumer : class, IConsumer
-        where TMessage : class, IMessage
+        where TCommand : class, ICommand
     {
         configurator
             .AddConsumer<TConsumer>()
             .Endpoint(endpoint => endpoint.ConfigureConsumeTopology = false);
 
-        EndpointConvention.Map<TMessage>(new Uri($"exchange:{typeof(TMessage).ToKebabCaseString()}"));
+        EndpointConvention.Map<TCommand>(new Uri($"exchange:{typeof(TCommand).ToKebabCaseString()}"));
     }
 }

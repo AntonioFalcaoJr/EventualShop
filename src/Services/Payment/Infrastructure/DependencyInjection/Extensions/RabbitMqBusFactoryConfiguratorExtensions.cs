@@ -2,11 +2,11 @@
 using Application.UseCases.Events.Behaviors;
 using Application.UseCases.Events.Integrations;
 using Application.UseCases.Events.Projections;
+using ECommerce.Abstractions.Events;
+using ECommerce.Contracts.Payment;
 using GreenPipes;
 using MassTransit;
 using MassTransit.RabbitMqTransport;
-using Messages.Abstractions.Events;
-using Messages.Services.Payments;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 
@@ -16,21 +16,20 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
     {
         cfg.ConfigureEventReceiveEndpoint<ProjectPaymentDetailsWhenPaymentChangedConsumer, DomainEvents.PaymentCanceled>(registration);
         cfg.ConfigureEventReceiveEndpoint<ProceedWithPaymentWhenPaymentRequestedConsumer, DomainEvents.PaymentRequested>(registration);
-        cfg.ConfigureEventReceiveEndpoint<RequestPaymentWhenOrderPlacedConsumer, Messages.Services.Orders.DomainEvents.OrderPlaced>(registration);
+        cfg.ConfigureEventReceiveEndpoint<RequestPaymentWhenOrderPlacedConsumer, ECommerce.Contracts.Order.DomainEvents.OrderPlaced>(registration);
     }
 
-    private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)
+    private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)
         where TConsumer : class, IConsumer
-        where TMessage : class, IEvent
-    {
-        bus.ReceiveEndpoint(
-            queueName: $"payment-{typeof(TMessage).ToKebabCaseString()}",
+        where TEvent : class, IEvent
+        => bus.ReceiveEndpoint(
+            queueName: $"payment-{typeof(TEvent).ToKebabCaseString()}",
             configureEndpoint: endpoint =>
             {
                 endpoint.ConfigureConsumeTopology = false;
 
                 endpoint.ConfigureConsumer<TConsumer>(registration);
-                endpoint.Bind<TMessage>();
+                endpoint.Bind<TEvent>();
 
                 endpoint.UseCircuitBreaker(circuitBreaker => // TODO - Options
                 {
@@ -42,5 +41,4 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 
                 endpoint.UseRateLimit(100, TimeSpan.FromSeconds(1)); // TODO - Options
             });
-    }
 }

@@ -1,12 +1,14 @@
 ﻿using System;
 using Domain.Abstractions.Entities;
+using Domain.Enumerations;
 
 namespace Domain.Entities.PaymentMethods;
 
 public interface IPaymentMethod : IEntity<Guid>
 {
-    bool Authorized { get; }
     decimal Amount { get; }
+    PaymentMethodStatus Status { get; }
 
     void Authorize();
+    void Deny();
 }

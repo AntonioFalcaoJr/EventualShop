@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.EventStore;
 using Application.Abstractions.EventSourcing.EventStore.Events;
 using Domain.Abstractions.Aggregates;
+using ECommerce.Abstractions.Events;
 using Infrastructure.DependencyInjection.Options;
 using MassTransit;
-using Messages.Abstractions.Events;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 

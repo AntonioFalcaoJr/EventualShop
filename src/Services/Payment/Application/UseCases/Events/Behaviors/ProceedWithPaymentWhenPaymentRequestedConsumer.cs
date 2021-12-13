@@ -23,7 +23,7 @@ public class ProceedWithPaymentWhenPaymentRequestedConsumer : IConsumer<PaymentR
     public async Task Consume(ConsumeContext<PaymentRequestedEvent> context)
     {
         var payment = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.PaymentId, context.CancellationToken);
-        await _paymentStrategy.ProceedWithPaymentAsync(payment, context.CancellationToken);
+        await _paymentStrategy.AuthorizePaymentAsync(payment, context.CancellationToken);
         payment.Handle(new ProceedWithPaymentCommand(payment.Id, payment.OrderId));
         await _eventStoreService.AppendEventsToStreamAsync(payment, context.CancellationToken);
     }

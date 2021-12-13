@@ -34,8 +34,6 @@ builder.ConfigureLogging((context, loggingBuilder) =>
     loggingBuilder.AddSerilog();
 });
 
-builder.UseSerilog();
-
 builder.ConfigureServices((context, services) =>
 {
     services.AddApplicationServices();
@@ -44,16 +42,16 @@ builder.ConfigureServices((context, services) =>
     services.AddCreditCardHttpClient();
     services.AddDebitCardHttpClient();
 
-    services.AddEventStoreRepositories();
-    services.AddProjectionsRepositories();
+    services.AddEventStoreRepository();
+    services.AddProjectionsRepository();
 
     services.AddEventStoreDbContext();
     services.AddProjectionsDbContext();
 
-    services.AddMessageFluentValidation();
+    services.AddMessagesFluentValidation();
 
     services.AddMassTransitWithRabbitMq();
-
+    
     services.ConfigureEventStoreOptions(
         context.Configuration.GetSection(nameof(EventStoreOptions)));
 

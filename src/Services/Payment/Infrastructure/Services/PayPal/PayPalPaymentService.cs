@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions.Services;
 using Application.Services.PayPal;
@@ -17,20 +18,47 @@ public class PayPalPaymentService : PaymentService, IPayPalPaymentService
         _client = client;
     }
 
-    public override Task<IPaymentResult> HandleAsync(IPaymentMethod method, CancellationToken cancellationToken)
+    public override Task<IPaymentResult> HandleAsync(Func<IPaymentService, IPaymentMethod, CancellationToken, Task<IPaymentResult>> behaviorProcessor, IPaymentMethod method, CancellationToken cancellationToken)
         => method is PayPalPaymentMethod
-            ? AuthorizeAsync(method, cancellationToken)
-            : base.HandleAsync(method, cancellationToken);
+            ? behaviorProcessor(this, method, cancellationToken)
+            : base.HandleAsync(behaviorProcessor, method, cancellationToken);
 
-    protected override async Task<IPaymentResult> AuthorizeAsync(IPaymentMethod method, CancellationToken cancellationToken)
+    public override async Task<IPaymentResult> AuthorizeAsync(IPaymentMethod method, CancellationToken cancellationToken)
     {
         method = method as PayPalPaymentMethod;
 
         var request = new Requests.PaypalAuthorizePayment
         {
-            // Use method to hydrate  
+            // TODO - Use method to hydrate  
         };
 
-        return (await _client.AuthorizeAsync(request, cancellationToken)).ActionResult;
+        var response = await _client.AuthorizeAsync(request, cancellationToken);
+        return response.ActionResult;
+    }
+
+    public override async Task<IPaymentResult> CancelAsync(IPaymentMethod method, CancellationToken cancellationToken)
+    {
+        method = method as PayPalPaymentMethod;
+
+        var request = new Requests.PaypalCancelPayment
+        {
+            // TODO - Use method to hydrate  
+        };
+
+        var response = await _client.CancelAsync(Guid.NewGuid(), request, cancellationToken);
+        return response.ActionResult;
+    }
+
+    public override async Task<IPaymentResult> RefundAsync(IPaymentMethod method, CancellationToken cancellationToken)
+    {
+        method = method as PayPalPaymentMethod;
+
+        var request = new Requests.PaypalRefundPayment
+        {
+            // TODO - Use method to hydrate  
+        };
+
+        var response = await _client.RefundAsync(Guid.NewGuid(), request, cancellationToken);
+        return response.ActionResult;
     }
 }
