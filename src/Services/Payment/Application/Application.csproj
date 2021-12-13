@@ -2,7 +2,7 @@
     <ItemGroup>
         <PackageReference Include="MassTransit" Version="$(MassTransit_Version)" />
         <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="$(MassTransit_Version)" />
-        <PackageReference Include="MongoDB.Bson" Version="2.14.0-beta1" />
+        <PackageReference Include="MongoDB.Bson" Version="2.14.1" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\..\Contracts\ECommerce\ECommerce.csproj" />
