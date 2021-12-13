@@ -39,13 +39,11 @@ public record AddressProjection
 
 public interface IPaymentMethodProjection
 {
-    Guid Id { get; }
     decimal Amount { get; }
 }
 
 public record CreditCardPaymentMethodProjection : IPaymentMethodProjection
 {
-    public Guid Id { get; init; }
     public decimal Amount { get; init; }
     [BsonSerializer(typeof(ExpirationDateOnlyBsonSerializer))]
     public DateOnly Expiration { get; init; }
@@ -56,7 +54,6 @@ public record CreditCardPaymentMethodProjection : IPaymentMethodProjection
 
 public record DebitCardPaymentMethodProjection : IPaymentMethodProjection
 {
-    public Guid Id { get; init; }
     public decimal Amount { get; init; }
 
     [BsonSerializer(typeof(ExpirationDateOnlyBsonSerializer))]
@@ -68,7 +65,6 @@ public record DebitCardPaymentMethodProjection : IPaymentMethodProjection
 
 public record PayPalPaymentMethodProjection : IPaymentMethodProjection
 {
-    public Guid Id { get; init; }
     public decimal Amount { get; init; }
     public string Password { get; init; }
     public string UserName { get; init; }

@@ -1,16 +1,14 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
-using Domain.Entities.PaymentMethods;
-using Domain.Entities.PaymentMethods.CreditCards;
-using Domain.Entities.PaymentMethods.DebitCards;
-using Domain.Entities.PaymentMethods.PayPal;
+using Domain.ValueObjects.PaymentMethods;
+using Domain.ValueObjects.PaymentMethods.CreditCards;
+using Domain.ValueObjects.PaymentMethods.DebitCards;
+using Domain.ValueObjects.PaymentMethods.PayPal;
+using ECommerce.Contracts.Common;
 using MassTransit;
-using Messages;
-using Microsoft.VisualBasic;
-using CartCheckedOutEvent = Messages.Services.ShoppingCarts.DomainEvents.CartCheckedOut;
-using CartSubmittedEvent = Messages.Services.ShoppingCarts.IntegrationEvents.CartSubmitted;
+using CartCheckedOutEvent = ECommerce.Contracts.ShoppingCart.DomainEvents.CartCheckedOut;
+using CartSubmittedEvent = ECommerce.Contracts.ShoppingCart.IntegrationEvents.CartSubmitted;
 
 namespace Application.UseCases.Events.Integrations;
 
@@ -29,7 +27,7 @@ public class PublishCartSubmittedWhenCartCheckedOutConsumer : IConsumer<CartChec
 
         var cartSubmittedEvent = new CartSubmittedEvent(
             CartId: cart.Id,
-            CustomerId: cart.UserId,
+            CustomerId: cart.CustomerId,
             CartItems: cart.Items.Select(item => new Models.Item
             {
                 ProductId = item.ProductId,
@@ -60,28 +58,32 @@ public class PublishCartSubmittedWhenCartCheckedOutConsumer : IConsumer<CartChec
             PaymentMethods: cart.PaymentMethods.Select<IPaymentMethod, Models.IPaymentMethod>(method
                 => method switch
                 {
-                    CreditCardPaymentMethod creditCard => new Models.CreditCard
-                    {
-                        Amount = creditCard.Amount,
-                        Expiration = creditCard.Expiration,
-                        Number = creditCard.Number,
-                        HolderName = creditCard.HolderName,
-                        SecurityNumber = creditCard.SecurityNumber
-                    },
-                    DebitCardPaymentMethod debitCard => new Models.DebitCard
-                    {
-                        Amount = debitCard.Amount,
-                        Expiration = debitCard.Expiration,
-                        Number = debitCard.Number,
-                        HolderName = debitCard.HolderName,
-                        SecurityNumber = debitCard.SecurityNumber
-                    },
-                    PayPalPaymentMethod payPal => new Models.PayPal
-                    {
-                        Amount = payPal.Amount,
-                        Password = payPal.Password,
-                        UserName = payPal.UserName
-                    }
+                    CreditCardPaymentMethod creditCard
+                        => new Models.CreditCard
+                        {
+                            Amount = creditCard.Amount,
+                            Expiration = creditCard.Expiration,
+                            Number = creditCard.Number,
+                            HolderName = creditCard.HolderName,
+                            SecurityNumber = creditCard.SecurityNumber
+                        },
+                    DebitCardPaymentMethod debitCard
+                        => new Models.DebitCard
+                        {
+                            Amount = debitCard.Amount,
+                            Expiration = debitCard.Expiration,
+                            Number = debitCard.Number,
+                            HolderName = debitCard.HolderName,
+                            SecurityNumber = debitCard.SecurityNumber
+                        },
+                    PayPalPaymentMethod payPal
+                        => new Models.PayPal
+                        {
+                            Amount = payPal.Amount,
+                            Password = payPal.Password,
+                            UserName = payPal.UserName
+                        },
+                    _ => default
                 }));
 
         await context.Publish(cartSubmittedEvent);

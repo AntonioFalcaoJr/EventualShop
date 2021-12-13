@@ -1,14 +1,10 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Application.EventSourcing.Projections;
-using Application.UseCases.Events.Integrations;
-using Domain.Entities.PaymentMethods.CreditCards;
-using Domain.Entities.PaymentMethods.DebitCards;
-using Domain.Entities.PaymentMethods.PayPal;
+using ECommerce.Contracts.Common;
+using ECommerce.Contracts.ShoppingCart;
 using MassTransit;
-using Messages;
-using Messages.Services.ShoppingCarts;
-using GetShoppingCartQuery = Messages.Services.ShoppingCarts.Queries.GetShoppingCart;
+using GetShoppingCartQuery = ECommerce.Contracts.ShoppingCart.Queries.GetShoppingCart;
 
 namespace Application.UseCases.Queries;
 
@@ -45,7 +41,6 @@ public class GetShoppingCartConsumer : IConsumer<GetShoppingCartQuery>
                     CreditCardPaymentMethodProjection creditCard
                         => new Models.CreditCard
                         {
-                            Id = creditCard.Id,
                             Amount = creditCard.Amount,
                             Expiration = creditCard.Expiration,
                             Number = creditCard.Number,
@@ -55,7 +50,6 @@ public class GetShoppingCartConsumer : IConsumer<GetShoppingCartQuery>
                     DebitCardPaymentMethodProjection debitCard
                         => new Models.DebitCard
                         {
-                            Id = debitCard.Id,
                             Amount = debitCard.Amount,
                             Expiration = debitCard.Expiration,
                             Number = debitCard.Number,
@@ -65,11 +59,11 @@ public class GetShoppingCartConsumer : IConsumer<GetShoppingCartQuery>
                     PayPalPaymentMethodProjection payPal
                         => new Models.PayPal
                         {
-                            Id = payPal.Id,
                             Amount = payPal.Amount,
                             Password = payPal.Password,
                             UserName = payPal.UserName
-                        }
+                        },
+                    _ => default
                 }),
             UserId = cartDetails.UserId
         };

@@ -1,5 +1,7 @@
 ﻿using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
+using ECommerce.Abstractions;
+using ECommerce.JsonConverters;
 using FluentValidation;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts.BsonSerializers;
@@ -11,8 +13,6 @@ using Infrastructure.EventSourcing.EventStore.Contexts;
 using Infrastructure.EventSourcing.Projections;
 using Infrastructure.EventSourcing.Projections.Contexts;
 using MassTransit;
-using Messages.Abstractions;
-using Messages.JsonConverters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -69,6 +69,7 @@ public static class ServiceCollectionExtensions
 
                     bus.ConfigureJsonDeserializer(settings =>
                     {
+                        settings.Converters.Add(new TypeNameHandlingConverter(TypeNameHandling.Objects));
                         settings.Converters.Add(new DateOnlyJsonConverter());
                         settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
                         return settings;
@@ -99,13 +100,13 @@ public static class ServiceCollectionExtensions
         return services.AddScoped<IMongoDbContext, ProjectionsDbContext>();
     }
 
-    public static IServiceCollection AddEventStoreRepositories(this IServiceCollection services)
+    public static IServiceCollection AddEventStoreRepository(this IServiceCollection services)
         => services.AddScoped<IShoppingCartEventStoreRepository, ShoppingCartEventStoreRepository>();
 
-    public static IServiceCollection AddProjectionsRepositories(this IServiceCollection services)
+    public static IServiceCollection AddProjectionsRepository(this IServiceCollection services)
         => services.AddScoped<IShoppingCartProjectionsRepository, ShoppingCartProjectionsRepository>();
 
-    public static IServiceCollection AddMessageFluentValidation(this IServiceCollection services)
+    public static IServiceCollection AddMessagesFluentValidation(this IServiceCollection services)
         => services.AddValidatorsFromAssemblyContaining(typeof(IMessage));
 
     public static OptionsBuilder<SqlServerRetryingOptions> ConfigureSqlServerRetryingOptions(this IServiceCollection services, IConfigurationSection section)

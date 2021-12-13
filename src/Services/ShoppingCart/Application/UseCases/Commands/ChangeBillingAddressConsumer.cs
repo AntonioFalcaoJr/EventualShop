@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using MassTransit;
-using ChangeBillingAddressCommand = Messages.Services.ShoppingCarts.Commands.ChangeBillingAddress;
+using ChangeBillingAddressCommand = ECommerce.Contracts.ShoppingCart.Commands.ChangeBillingAddress;
 
 namespace Application.UseCases.Commands;
 

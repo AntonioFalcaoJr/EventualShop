@@ -14,8 +14,8 @@ public static class RegistrationConfiguratorExtensions
 {
     public static void AddCommandConsumers(this IRegistrationConfigurator cfg)
     {
-        cfg.AddCommandConsumer<RequestPaymentConsumer, Commands.RequestPayment>();
-        cfg.AddCommandConsumer<CancelPaymentConsumer, Commands.CancelPayment>();
+        cfg.AddCommandConsumer<RequestPaymentConsumer>();
+        cfg.AddCommandConsumer<CancelPaymentConsumer>();
     }
 
     public static void AddEventConsumers(this IRegistrationConfigurator cfg)
@@ -30,14 +30,9 @@ public static class RegistrationConfiguratorExtensions
         cfg.AddConsumer<GetPaymentDetailsConsumer>();
     }
 
-    private static void AddCommandConsumer<TConsumer, TCommand>(this IRegistrationConfigurator configurator)
+    private static void AddCommandConsumer<TConsumer>(this IRegistrationConfigurator cfg)
         where TConsumer : class, IConsumer
-        where TCommand : class, ICommand
-    {
-        configurator
+        => cfg
             .AddConsumer<TConsumer>()
             .Endpoint(endpoint => endpoint.ConfigureConsumeTopology = false);
-
-        EndpointConvention.Map<TCommand>(new Uri($"exchange:{typeof(TCommand).ToKebabCaseString()}"));
-    }
 }

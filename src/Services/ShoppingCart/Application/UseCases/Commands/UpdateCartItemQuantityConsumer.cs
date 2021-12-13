@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using MassTransit;
-using UpdateCartItemQuantityCommand = Messages.Services.ShoppingCarts.Commands.UpdateCartItemQuantity;
+using UpdateCartItemQuantityCommand = ECommerce.Contracts.ShoppingCart.Commands.UpdateCartItemQuantity;
 
 namespace Application.UseCases.Commands;
 

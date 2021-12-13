@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using MassTransit;
-using AddAddPayPalCommand = Messages.Services.ShoppingCarts.Commands.AddPayPal;
+using AddAddPayPalCommand = ECommerce.Contracts.ShoppingCart.Commands.AddPayPal;
 
 namespace Application.UseCases.Commands;
 

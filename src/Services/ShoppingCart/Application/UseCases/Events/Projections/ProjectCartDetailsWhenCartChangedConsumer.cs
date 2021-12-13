@@ -4,21 +4,21 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
-using Domain.Entities.PaymentMethods.CreditCards;
-using Domain.Entities.PaymentMethods.DebitCards;
-using Domain.Entities.PaymentMethods.PayPal;
+using Domain.ValueObjects.PaymentMethods;
+using Domain.ValueObjects.PaymentMethods.CreditCards;
+using Domain.ValueObjects.PaymentMethods.DebitCards;
+using Domain.ValueObjects.PaymentMethods.PayPal;
 using MassTransit;
-using BillingAddressChangedEvent = Messages.Services.ShoppingCarts.DomainEvents.BillingAddressChanged;
-using CartCreatedEvent = Messages.Services.ShoppingCarts.DomainEvents.CartCreated;
-using CartItemAddedEvent = Messages.Services.ShoppingCarts.DomainEvents.CartItemAdded;
-using CreditCardAddedEvent = Messages.Services.ShoppingCarts.DomainEvents.CreditCardAdded;
-using PayPalAddedEvent = Messages.Services.ShoppingCarts.DomainEvents.PayPalAdded;
-using CartItemRemovedEvent = Messages.Services.ShoppingCarts.DomainEvents.CartItemRemoved;
-using CartCheckedOutEvent = Messages.Services.ShoppingCarts.DomainEvents.CartCheckedOut;
-using ShippingAddressAddedEvent = Messages.Services.ShoppingCarts.DomainEvents.ShippingAddressAdded;
-using CartItemQuantityUpdatedEvent = Messages.Services.ShoppingCarts.DomainEvents.CartItemQuantityUpdated;
-using CartItemQuantityIncreasedEvent = Messages.Services.ShoppingCarts.DomainEvents.CartItemQuantityIncreased;
-using IPaymentMethod = Domain.Entities.PaymentMethods.IPaymentMethod;
+using BillingAddressChangedEvent = ECommerce.Contracts.ShoppingCart.DomainEvents.BillingAddressChanged;
+using CartCreatedEvent = ECommerce.Contracts.ShoppingCart.DomainEvents.CartCreated;
+using CartItemAddedEvent = ECommerce.Contracts.ShoppingCart.DomainEvents.CartItemAdded;
+using CreditCardAddedEvent = ECommerce.Contracts.ShoppingCart.DomainEvents.CreditCardAdded;
+using PayPalAddedEvent = ECommerce.Contracts.ShoppingCart.DomainEvents.PayPalAdded;
+using CartItemRemovedEvent = ECommerce.Contracts.ShoppingCart.DomainEvents.CartItemRemoved;
+using CartCheckedOutEvent = ECommerce.Contracts.ShoppingCart.DomainEvents.CartCheckedOut;
+using ShippingAddressAddedEvent = ECommerce.Contracts.ShoppingCart.DomainEvents.ShippingAddressAdded;
+using CartItemQuantityUpdatedEvent = ECommerce.Contracts.ShoppingCart.DomainEvents.CartItemQuantityUpdated;
+using CartItemQuantityIncreasedEvent = ECommerce.Contracts.ShoppingCart.DomainEvents.CartItemQuantityIncreased;
 
 namespace Application.UseCases.Events.Projections;
 
@@ -56,7 +56,7 @@ public class ProjectCartDetailsWhenCartChangedConsumer :
 
     public Task Consume(ConsumeContext<CreditCardAddedEvent> context)
         => ProjectAsync(context.Message.CartId, context.CancellationToken);
-    
+
     public Task Consume(ConsumeContext<PayPalAddedEvent> context)
         => ProjectAsync(context.Message.CartId, context.CancellationToken);
 
@@ -83,7 +83,7 @@ public class ProjectCartDetailsWhenCartChangedConsumer :
         {
             Id = cart.Id,
             IsDeleted = cart.IsDeleted,
-            UserId = cart.UserId,
+            UserId = cart.CustomerId,
             Total = cart.Total,
             CartItems = cart.Items.Any()
                 ? cart.Items.Select(item => new CartItemProjection
@@ -122,31 +122,32 @@ public class ProjectCartDetailsWhenCartChangedConsumer :
             PaymentMethods = cart.PaymentMethods.Select<IPaymentMethod, IPaymentMethodProjection>(method
                 => method switch
                 {
-                    CreditCardPaymentMethod creditCard => new CreditCardPaymentMethodProjection
-                    {
-                        Id = creditCard.Id,
-                        Amount = creditCard.Amount,
-                        Expiration = creditCard.Expiration,
-                        Number = creditCard.Number,
-                        HolderName = creditCard.HolderName,
-                        SecurityNumber = creditCard.SecurityNumber
-                    },
-                    DebitCardPaymentMethod debitCard => new DebitCardPaymentMethodProjection
-                    {
-                        Id = debitCard.Id,
-                        Amount = debitCard.Amount,
-                        Expiration = debitCard.Expiration,
-                        Number = debitCard.Number,
-                        HolderName = debitCard.HolderName,
-                        SecurityNumber = debitCard.SecurityNumber
-                    },
-                    PayPalPaymentMethod payPal => new PayPalPaymentMethodProjection
-                    {
-                        Id = payPal.Id,
-                        Amount = payPal.Amount,
-                        Password = payPal.Password,
-                        UserName = payPal.UserName
-                    }
+                    CreditCardPaymentMethod creditCard
+                        => new CreditCardPaymentMethodProjection
+                        {
+                            Amount = creditCard.Amount,
+                            Expiration = creditCard.Expiration,
+                            Number = creditCard.Number,
+                            HolderName = creditCard.HolderName,
+                            SecurityNumber = creditCard.SecurityNumber
+                        },
+                    DebitCardPaymentMethod debitCard
+                        => new DebitCardPaymentMethodProjection
+                        {
+                            Amount = debitCard.Amount,
+                            Expiration = debitCard.Expiration,
+                            Number = debitCard.Number,
+                            HolderName = debitCard.HolderName,
+                            SecurityNumber = debitCard.SecurityNumber
+                        },
+                    PayPalPaymentMethod payPal
+                        => new PayPalPaymentMethodProjection
+                        {
+                            Amount = payPal.Amount,
+                            Password = payPal.Password,
+                            UserName = payPal.UserName
+                        },
+                    _ => default
                 }),
             IsCheckedOut = cart.IsCheckedOut
         };

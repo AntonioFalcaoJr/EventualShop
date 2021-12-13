@@ -2,7 +2,7 @@
 using Application.EventSourcing.EventStore;
 using Domain.Aggregates;
 using MassTransit;
-using CreateCartCommand = Messages.Services.ShoppingCarts.Commands.CreateCart;
+using CreateCartCommand = ECommerce.Contracts.ShoppingCart.Commands.CreateCart;
 
 namespace Application.UseCases.Commands;
 

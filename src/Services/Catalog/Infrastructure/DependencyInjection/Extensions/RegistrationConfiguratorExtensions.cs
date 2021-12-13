@@ -12,14 +12,14 @@ public static class RegistrationConfiguratorExtensions
 {
     public static void AddCommandConsumers(this IRegistrationConfigurator cfg)
     {
-        cfg.AddCommandConsumer<DeleteCatalogConsumer, Commands.DeleteCatalog>();
-        cfg.AddCommandConsumer<UpdateCatalogConsumer, Commands.UpdateCatalog>();
-        cfg.AddCommandConsumer<CreateCatalogConsumer, Commands.CreateCatalog>();
-        cfg.AddCommandConsumer<ActivateCatalogConsumer, Commands.ActivateCatalog>();
-        cfg.AddCommandConsumer<DeactivateCatalogConsumer, Commands.DeactivateCatalog>();
-        cfg.AddCommandConsumer<AddCatalogItemConsumer, Commands.AddCatalogItem>();
-        cfg.AddCommandConsumer<RemoveCatalogItemConsumer, Commands.RemoveCatalogItem>();
-        cfg.AddCommandConsumer<UpdateCatalogItemConsumer, Commands.UpdateCatalogItem>();
+        cfg.AddCommandConsumer<DeleteCatalogConsumer>();
+        cfg.AddCommandConsumer<UpdateCatalogConsumer>();
+        cfg.AddCommandConsumer<CreateCatalogConsumer>();
+        cfg.AddCommandConsumer<ActivateCatalogConsumer>();
+        cfg.AddCommandConsumer<DeactivateCatalogConsumer>();
+        cfg.AddCommandConsumer<AddCatalogItemConsumer>();
+        cfg.AddCommandConsumer<RemoveCatalogItemConsumer>();
+        cfg.AddCommandConsumer<UpdateCatalogItemConsumer>();
     }
 
     public static void AddEventConsumers(this IRegistrationConfigurator cfg)
@@ -32,14 +32,9 @@ public static class RegistrationConfiguratorExtensions
         cfg.AddConsumer<GetCatalogItemsDetailsConsumer>();
     }
 
-    private static void AddCommandConsumer<TConsumer, TCommand>(this IRegistrationConfigurator configurator)
+    private static void AddCommandConsumer<TConsumer>(this IRegistrationConfigurator cfg)
         where TConsumer : class, IConsumer
-        where TCommand : class, ICommand
-    {
-        configurator
+        => cfg
             .AddConsumer<TConsumer>()
             .Endpoint(endpoint => endpoint.ConfigureConsumeTopology = false);
-
-        EndpointConvention.Map<TCommand>(new Uri($"exchange:{typeof(TCommand).ToKebabCaseString()}"));
-    }
 }

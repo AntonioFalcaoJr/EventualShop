@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using MassTransit;
-using AddShippingAddressCommand = Messages.Services.ShoppingCarts.Commands.AddShippingAddress;
+using AddShippingAddressCommand = ECommerce.Contracts.ShoppingCart.Commands.AddShippingAddress;
 
 namespace Application.UseCases.Commands;
 

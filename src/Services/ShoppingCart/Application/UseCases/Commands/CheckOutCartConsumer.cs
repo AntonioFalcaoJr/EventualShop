@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using MassTransit;
-using CheckOutCartCommand = Messages.Services.ShoppingCarts.Commands.CheckOutCart;
+using CheckOutCartCommand = ECommerce.Contracts.ShoppingCart.Commands.CheckOutCart;
 
 namespace Application.UseCases.Commands;
 

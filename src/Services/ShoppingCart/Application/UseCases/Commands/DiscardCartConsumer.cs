@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using MassTransit;
-using DiscardCartCommand = Messages.Services.ShoppingCarts.Commands.DiscardCart;
+using DiscardCartCommand = ECommerce.Contracts.ShoppingCart.Commands.DiscardCart;
 
 namespace Application.UseCases.Commands;
 

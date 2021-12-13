@@ -1,7 +1,7 @@
 ﻿using Application.EventSourcing.EventStore.Events;
+using ECommerce.Abstractions.Events;
+using ECommerce.JsonConverters;
 using JsonNet.ContractResolvers;
-using Messages.Abstractions.Events;
-using Messages.JsonConverters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;

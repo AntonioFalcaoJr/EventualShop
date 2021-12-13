@@ -1,11 +1,8 @@
-﻿using System;
-using Application.UseCases.Commands;
+﻿using Application.UseCases.Commands;
 using Application.UseCases.Events.Integrations;
 using Application.UseCases.Events.Projections;
 using Application.UseCases.Queries;
 using MassTransit;
-using Messages.Abstractions;
-using Messages.Services.ShoppingCarts;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 
@@ -13,15 +10,15 @@ public static class RegistrationConfiguratorExtensions
 {
     public static void AddCommandConsumers(this IRegistrationConfigurator cfg)
     {
-        cfg.AddCommandConsumer<AddCartItemConsumer, Commands.AddCartItem>();
-        cfg.AddCommandConsumer<CreateCartConsumer, Commands.CreateCart>();
-        cfg.AddCommandConsumer<RemoveCartItemConsumer, Commands.RemoveCartItem>();
-        cfg.AddCommandConsumer<ChangeBillingAddressConsumer, Commands.ChangeBillingAddress>();
-        cfg.AddCommandConsumer<AddShippingAddressConsumer, Commands.AddShippingAddress>();
-        cfg.AddCommandConsumer<AddCreditCardConsumer, Commands.AddCreditCard>();
-        cfg.AddCommandConsumer<AddPayPalConsumer, Commands.AddPayPal>();
-        cfg.AddCommandConsumer<CheckOutCartConsumer, Commands.CheckOutCart>();
-        cfg.AddCommandConsumer<UpdateCartItemQuantityConsumer, Commands.UpdateCartItemQuantity>();
+        cfg.AddCommandConsumer<AddCartItemConsumer>();
+        cfg.AddCommandConsumer<CreateCartConsumer>();
+        cfg.AddCommandConsumer<RemoveCartItemConsumer>();
+        cfg.AddCommandConsumer<ChangeBillingAddressConsumer>();
+        cfg.AddCommandConsumer<AddShippingAddressConsumer>();
+        cfg.AddCommandConsumer<AddCreditCardConsumer>();
+        cfg.AddCommandConsumer<AddPayPalConsumer>();
+        cfg.AddCommandConsumer<CheckOutCartConsumer>();
+        cfg.AddCommandConsumer<UpdateCartItemQuantityConsumer>();
     }
 
     public static void AddEventConsumers(this IRegistrationConfigurator cfg)
@@ -35,14 +32,9 @@ public static class RegistrationConfiguratorExtensions
         cfg.AddConsumer<GetShoppingCartConsumer>();
     }
 
-    private static void AddCommandConsumer<TConsumer, TMessage>(this IRegistrationConfigurator configurator)
+    private static void AddCommandConsumer<TConsumer>(this IRegistrationConfigurator cfg)
         where TConsumer : class, IConsumer
-        where TMessage : class, IMessage
-    {
-        configurator
+        => cfg
             .AddConsumer<TConsumer>()
             .Endpoint(endpoint => endpoint.ConfigureConsumeTopology = false);
-
-        EndpointConvention.Map<TMessage>(new Uri($"exchange:{typeof(TMessage).ToKebabCaseString()}"));
-    }
 }

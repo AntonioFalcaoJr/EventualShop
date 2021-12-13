@@ -1,5 +1,5 @@
 ﻿using Domain.Abstractions.Aggregates;
-using Messages.Abstractions.Events;
+using ECommerce.Abstractions.Events;
 
 namespace Application.Abstractions.EventSourcing.EventStore.Events;
 

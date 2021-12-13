@@ -12,7 +12,7 @@ public static class RegistrationConfiguratorExtensions
 {
     public static void AddCommandConsumers(this IRegistrationConfigurator cfg)
     {
-        cfg.AddCommandConsumer<PlaceOrderConsumer, Commands.CreateCart>();
+        cfg.AddCommandConsumer<PlaceOrderConsumer>();
     }
 
     public static void AddEventConsumers(this IRegistrationConfigurator cfg)
@@ -26,14 +26,9 @@ public static class RegistrationConfiguratorExtensions
         // cfg.AddConsumer<GetUserAuthenticationDetailsConsumer>();
     }
 
-    private static void AddCommandConsumer<TConsumer, TCommand>(this IRegistrationConfigurator configurator)
+    private static void AddCommandConsumer<TConsumer>(this IRegistrationConfigurator cfg)
         where TConsumer : class, IConsumer
-        where TCommand : class, ICommand
-    {
-        configurator
+        => cfg
             .AddConsumer<TConsumer>()
             .Endpoint(endpoint => endpoint.ConfigureConsumeTopology = false);
-
-        EndpointConvention.Map<TCommand>(new Uri($"exchange:{typeof(TCommand).ToKebabCaseString()}"));
-    }
 }

@@ -1,11 +1,11 @@
 ﻿using System;
 using Application.UseCases.Events.Integrations;
 using Application.UseCases.Events.Projections;
+using ECommerce.Abstractions.Events;
+using ECommerce.Contracts.ShoppingCart;
 using GreenPipes;
 using MassTransit;
 using MassTransit.RabbitMqTransport;
-using Messages.Abstractions.Events;
-using Messages.Services.ShoppingCarts;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 
@@ -26,18 +26,17 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
         cfg.ConfigureEventReceiveEndpoint<PublishCartSubmittedWhenCartCheckedOutConsumer, DomainEvents.CartCheckedOut>(registration);
     }
 
-    private static void ConfigureEventReceiveEndpoint<TConsumer, TMessage>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)
+    private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)
         where TConsumer : class, IConsumer
-        where TMessage : class, IEvent
-    {
-        bus.ReceiveEndpoint(
-            queueName: $"shoppingcart-{typeof(TConsumer).ToKebabCaseString()}-{typeof(TMessage).ToKebabCaseString()}",
+        where TEvent : class, IEvent
+        => bus.ReceiveEndpoint(
+            queueName: $"shoppingcart-{typeof(TConsumer).ToKebabCaseString()}-{typeof(TEvent).ToKebabCaseString()}",
             configureEndpoint: endpoint =>
             {
                 endpoint.ConfigureConsumeTopology = false;
 
                 endpoint.ConfigureConsumer<TConsumer>(registration);
-                endpoint.Bind<TMessage>();
+                endpoint.Bind<TEvent>();
 
                 endpoint.UseCircuitBreaker(circuitBreaker => // TODO - Options
                 {
@@ -49,5 +48,4 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 
                 endpoint.UseRateLimit(100, TimeSpan.FromSeconds(1)); // TODO - Options
             });
-    }
 }
