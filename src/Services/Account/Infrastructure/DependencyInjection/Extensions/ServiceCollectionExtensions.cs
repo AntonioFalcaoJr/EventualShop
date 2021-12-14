@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Reflection;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using ECommerce.Abstractions;
@@ -27,17 +29,14 @@ public static class ServiceCollectionExtensions
         => services.AddMassTransit(cfg =>
             {
                 cfg.SetKebabCaseEndpointNameFormatter();
-
-                cfg.AddCommandConsumers();
-                cfg.AddEventConsumers();
-                cfg.AddQueryConsumers();
+                cfg.AddConsumers();
 
                 cfg.UsingRabbitMq((context, bus) =>
                 {
                     var options = context
                         .GetRequiredService<IOptions<RabbitMqOptions>>()
                         .Value;
-                    
+
                     bus.Host(
                         host: options.Host,
                         port: options.Port,
@@ -57,8 +56,17 @@ public static class ServiceCollectionExtensions
                     bus.ConfigureEndpoints(context);
                 });
             })
-            .AddMassTransitHostedService()
-            .AddGenericRequestClient();
+            .AddMassTransitHostedService();
+
+    private static void AddConsumers(this IRegistrationConfigurator cfg)
+    {
+        cfg.AddConsumers(Assembly
+            .GetExecutingAssembly()
+            .GetReferencedAssemblies()
+            .Where(assemblyName => assemblyName.Name is nameof(Application))
+            .Select(Assembly.Load)
+            .ToArray());
+    }
 
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         => services
@@ -98,7 +106,7 @@ public static class ServiceCollectionExtensions
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();
-    
+
     public static OptionsBuilder<RabbitMqOptions> ConfigureRabbitMqOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<RabbitMqOptions>()

@@ -1,4 +1,6 @@
-﻿using Application.EventSourcing.EventStore;
+﻿using System.Linq;
+using System.Reflection;
+using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using Application.Services;
 using Application.Services.CreditCards;
@@ -39,10 +41,7 @@ public static class ServiceCollectionExtensions
         => services.AddMassTransit(cfg =>
             {
                 cfg.SetKebabCaseEndpointNameFormatter();
-
-                cfg.AddCommandConsumers();
-                cfg.AddEventConsumers();
-                cfg.AddQueryConsumers();
+                cfg.AddConsumers();
 
                 cfg.UsingRabbitMq((context, bus) =>
                 {
@@ -67,7 +66,7 @@ public static class ServiceCollectionExtensions
                     bus.ConnectSendObserver(new LoggingSendObserver());
                     bus.ConfigureEventReceiveEndpoints(context);
                     bus.ConfigureEndpoints(context);
-                    
+
                     bus.ConfigureJsonSerializer(settings =>
                     {
                         settings.Converters.Add(new TypeNameHandlingConverter(TypeNameHandling.Objects));
@@ -85,8 +84,17 @@ public static class ServiceCollectionExtensions
                     });
                 });
             })
-            .AddMassTransitHostedService()
-            .AddGenericRequestClient();
+            .AddMassTransitHostedService();
+
+    private static void AddConsumers(this IRegistrationConfigurator cfg)
+    {
+        cfg.AddConsumers(Assembly
+            .GetExecutingAssembly()
+            .GetReferencedAssemblies()
+            .Where(assemblyName => assemblyName.Name is nameof(Application))
+            .Select(Assembly.Load)
+            .ToArray());
+    }
 
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         => services
@@ -114,7 +122,7 @@ public static class ServiceCollectionExtensions
                 var options = provider.GetRequiredService<IOptions<CreditCardHttpClientOptions>>().Value;
                 client.BaseAddress = new(options.BaseAddress);
             });
-    
+
     public static IHttpClientBuilder AddDebitCardHttpClient(this IServiceCollection services)
         => services
             .AddHttpClient<IDebitCardHttpClient, DebitCardHttpClient>()
@@ -178,7 +186,7 @@ public static class ServiceCollectionExtensions
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();
-    
+
     public static OptionsBuilder<DebitCardHttpClientOptions> ConfigureDebitCardHttpClientOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<DebitCardHttpClientOptions>()

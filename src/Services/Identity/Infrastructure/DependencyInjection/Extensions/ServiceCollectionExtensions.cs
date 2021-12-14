@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Reflection;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using ECommerce.Abstractions;
@@ -27,10 +29,7 @@ public static class ServiceCollectionExtensions
         => services.AddMassTransit(cfg =>
             {
                 cfg.SetKebabCaseEndpointNameFormatter();
-
-                cfg.AddCommandConsumers();
-                cfg.AddEventConsumers();
-                cfg.AddQueryConsumers();
+                cfg.AddConsumers();
 
                 cfg.UsingRabbitMq((context, bus) =>
                 {
@@ -57,8 +56,17 @@ public static class ServiceCollectionExtensions
                     bus.ConfigureEndpoints(context);
                 });
             })
-            .AddMassTransitHostedService()
-            .AddGenericRequestClient();
+            .AddMassTransitHostedService();
+
+    private static void AddConsumers(this IRegistrationConfigurator cfg)
+    {
+        cfg.AddConsumers(Assembly
+            .GetExecutingAssembly()
+            .GetReferencedAssemblies()
+            .Where(assemblyName => assemblyName.Name is nameof(Application))
+            .Select(Assembly.Load)
+            .ToArray());
+    }
 
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         => services
