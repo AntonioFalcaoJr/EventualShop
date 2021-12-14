@@ -15,8 +15,6 @@ public static class DomainEvents
 
     public record PaymentMethodDenied(Guid PaymentId, Guid PaymentMethodId) : Event;
 
-    public record PaymentProceeded(Guid PaymentId, Guid OrderId) : Event;
-
     public record PaymentCompleted(Guid PaymentId, Guid OrderId) : Event;
 
     public record PaymentNotCompleted(Guid PaymentId, Guid OrderId) : Event;

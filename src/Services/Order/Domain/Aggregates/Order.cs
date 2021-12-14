@@ -7,6 +7,7 @@ using Domain.Entities.PaymentMethods;
 using Domain.Entities.PaymentMethods.CreditCards;
 using Domain.Entities.PaymentMethods.DebitCards;
 using Domain.Entities.PaymentMethods.PayPal;
+using Domain.Enumerations;
 using Domain.ValueObjects.Addresses;
 using ECommerce.Abstractions.Events;
 using ECommerce.Contracts.Common;
@@ -20,6 +21,7 @@ public class Order : AggregateRoot<Guid>
     private readonly List<IPaymentMethod> _paymentMethods = new();
     public Address ShippingAddress { get; private set; }
     public Address BillingAddress { get; private set; }
+    public OrderStatus Status { get; private set; } = OrderStatus.PendingPayment;
     public Guid UserId { get; private set; }
 
     public decimal Total
@@ -41,6 +43,9 @@ public class Order : AggregateRoot<Guid>
             cmd.BillingAddress,
             cmd.ShippingAddress,
             cmd.PaymentMethods));
+
+    public void Handle(Commands.ConfirmOrder cmd)
+        => RaiseEvent(new DomainEvents.OrderConfirmed(cmd.OrderId));
 
     protected override void ApplyEvent(IEvent @event)
         => When(@event as dynamic);
@@ -112,6 +117,9 @@ public class Order : AggregateRoot<Guid>
                 _ => default
             }));
     }
+
+    private void When(DomainEvents.OrderConfirmed _) 
+        => Status = OrderStatus.Confirmed;
 
     protected sealed override bool Validate()
         => OnValidate<OrderValidator, Order>();
