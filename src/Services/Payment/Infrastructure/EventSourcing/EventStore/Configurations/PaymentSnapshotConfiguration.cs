@@ -1,5 +1,6 @@
 ﻿using Application.EventSourcing.EventStore.Events;
 using Domain.Aggregates;
+using ECommerce.JsonConverters;
 using JsonNet.ContractResolvers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -31,9 +32,35 @@ public class PaymentSnapshotConfiguration : IEntityTypeConfiguration<PaymentSnap
             .Property(snapshot => snapshot.AggregateState)
             .IsUnicode(false)
             .HasConversion(
-                payment => JsonConvert.SerializeObject(payment),
-                jsonString => JsonConvert.DeserializeObject<Payment>(jsonString,
-                    new JsonSerializerSettings { ContractResolver = new PrivateSetterContractResolver() }))
+                payment => JsonConvert.SerializeObject(payment, SerializerSettings()),
+                jsonString => JsonConvert.DeserializeObject<Payment>(jsonString, DeserializerSettings()))
             .IsRequired();
+    }
+
+    private static JsonSerializerSettings SerializerSettings()
+    {
+        var jsonSerializerSettings = new JsonSerializerSettings
+        {
+            TypeNameHandling = TypeNameHandling.Auto
+        };
+        
+        jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());
+        jsonSerializerSettings.Converters.Add(new ExpirationDateOnlyJsonConverter());
+        
+        return jsonSerializerSettings;
+    }
+
+    private static JsonSerializerSettings DeserializerSettings()
+    {
+        var jsonDeserializerSettings = new JsonSerializerSettings
+        {
+            TypeNameHandling = TypeNameHandling.Auto,
+            ContractResolver = new PrivateSetterContractResolver()
+        };
+        
+        jsonDeserializerSettings.Converters.Add(new DateOnlyJsonConverter());
+        jsonDeserializerSettings.Converters.Add(new ExpirationDateOnlyJsonConverter());
+
+        return jsonDeserializerSettings;
     }
 }
