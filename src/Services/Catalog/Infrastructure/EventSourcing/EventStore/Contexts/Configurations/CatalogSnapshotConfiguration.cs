@@ -1,11 +1,8 @@
 using Application.EventSourcing.EventStore.Events;
-using Domain.Aggregates;
-using JsonNet.ContractResolvers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Newtonsoft.Json;
 
-namespace Infrastructure.EventSourcing.EventStore.Configurations;
+namespace Infrastructure.EventSourcing.EventStore.Contexts.Configurations;
 
 public class CatalogSnapshotConfiguration : IEntityTypeConfiguration<CatalogSnapshot>
 {
@@ -24,16 +21,10 @@ public class CatalogSnapshotConfiguration : IEntityTypeConfiguration<CatalogSnap
         builder
             .Property(snapshot => snapshot.AggregateName)
             .HasMaxLength(30)
-            .IsUnicode(false)
             .IsRequired();
 
         builder
             .Property(snapshot => snapshot.AggregateState)
-            .IsUnicode(false)
-            .HasConversion(
-                catalog => JsonConvert.SerializeObject(catalog),
-                jsonString => JsonConvert.DeserializeObject<Catalog>(jsonString,
-                    new JsonSerializerSettings { ContractResolver = new PrivateSetterContractResolver() }))
             .IsRequired();
     }
 }

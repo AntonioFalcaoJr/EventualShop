@@ -1,15 +1,12 @@
 using Application.EventSourcing.EventStore.Events;
-using Domain.Aggregates;
-using JsonNet.ContractResolvers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Newtonsoft.Json;
 
-namespace Infrastructure.EventSourcing.EventStore.Configurations;
+namespace Infrastructure.EventSourcing.EventStore.Contexts.Configurations;
 
-public class AccountSnapshotConfiguration : IEntityTypeConfiguration<AccountSnapshot>
+public class UserSnapshotConfiguration : IEntityTypeConfiguration<UserSnapshot>
 {
-    public void Configure(EntityTypeBuilder<AccountSnapshot> builder)
+    public void Configure(EntityTypeBuilder<UserSnapshot> builder)
     {
         builder.HasKey(snapshot => new { snapshot.AggregateVersion, snapshot.AggregateId });
 
@@ -24,16 +21,10 @@ public class AccountSnapshotConfiguration : IEntityTypeConfiguration<AccountSnap
         builder
             .Property(snapshot => snapshot.AggregateName)
             .HasMaxLength(30)
-            .IsUnicode(false)
             .IsRequired();
 
         builder
             .Property(snapshot => snapshot.AggregateState)
-            .IsUnicode(false)
-            .HasConversion(
-                account => JsonConvert.SerializeObject(account),
-                jsonString => JsonConvert.DeserializeObject<Account>(jsonString,
-                    new JsonSerializerSettings { ContractResolver = new PrivateSetterContractResolver() }))
             .IsRequired();
     }
 }

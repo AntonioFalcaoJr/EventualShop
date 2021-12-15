@@ -1,5 +1,8 @@
 ﻿using Application.EventSourcing.EventStore.Events;
+using Domain.Aggregates;
+using ECommerce.Abstractions.Events;
 using Infrastructure.DependencyInjection.Options;
+using Infrastructure.EventSourcing.EventStore.Contexts.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
@@ -58,4 +61,24 @@ public class EventStoreDbContext : DbContext
                     maxRetryDelay: _options.MaxRetryDelay,
                     errorNumbersToAdd: _options.ErrorNumbersToAdd))
             .MigrationsAssembly(typeof(EventStoreDbContext).Assembly.GetName().Name);
+    
+    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+    {
+        configurationBuilder
+            .Properties<string>()
+            .AreUnicode(false)
+            .HaveMaxLength(1024);
+
+        configurationBuilder
+            .Properties<IEvent>()
+            .HaveConversion<EventConverter>()
+            .AreUnicode(false)
+            .HaveMaxLength(1024);
+
+        configurationBuilder
+            .Properties<Order>()
+            .HaveConversion<OrderConverter>()
+            .AreUnicode(false)
+            .HaveMaxLength(1024);
+    }
 }
