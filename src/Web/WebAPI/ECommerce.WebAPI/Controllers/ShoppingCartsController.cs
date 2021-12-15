@@ -19,9 +19,9 @@ public class ShoppingCartsController : ApplicationController
     public Task<IActionResult> GetShoppingCartAsync(Guid customerId, CancellationToken cancellationToken)
         => GetResponseAsync<Queries.GetShoppingCart, Responses.CartDetails>(new(customerId), cancellationToken);
 
-    [HttpPost("{customerId:guid}")]
-    public Task<IActionResult> CreateCartAsync(Guid customerId, CancellationToken cancellationToken)
-        => SendCommandAsync<Commands.CreateCart>(new(customerId), cancellationToken);
+    [HttpPost]
+    public Task<IActionResult> CreateCartAsync(Commands.CreateCart command, CancellationToken cancellationToken)
+        => SendCommandAsync(command, cancellationToken);
 
     [HttpPut("{cartId:guid}/[action]")]
     public Task<IActionResult> CheckOutAsync(Guid cartId, CancellationToken cancellationToken)
@@ -47,23 +47,23 @@ public class ShoppingCartsController : ApplicationController
     public Task<IActionResult> RemoveCartItemAsync(Guid cartId, Guid productId, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.RemoveCartItem>(new(cartId, productId), cancellationToken);
 
-    [HttpPut("{cartId:guid}/items/{productId:guid}/[action]")]
+    [HttpPut("{cartId:guid}/items/{productId:guid}")]
     public Task<IActionResult> UpdateQuantityAsync(Guid cartId, Guid productId, int quantity, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.UpdateCartItemQuantity>(new(cartId, productId, quantity), cancellationToken);
 
-    [HttpPost("{cartId:guid}/customers/[action]")]
+    [HttpPost("{cartId:guid}/customers/shipping-address")]
     public Task<IActionResult> AddShippingAddressAsync(Guid cartId, Models.Address address, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.AddShippingAddress>(new(cartId, address), cancellationToken);
 
-    [HttpPut("{cartId:guid}/customers/[action]")]
+    [HttpPut("{cartId:guid}/customers/billing-address")]
     public Task<IActionResult> ChangeBillingAddressAsync(Guid cartId, Models.Address address, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.ChangeBillingAddress>(new(cartId, address), cancellationToken);
 
-    [HttpPost("{cartId:guid}/payment-methods/[action]")]
+    [HttpPost("{cartId:guid}/payment-methods/credit-card")]
     public Task<IActionResult> AddCreditCardAsync(Guid cartId, Models.CreditCard creditCard, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.AddCreditCard>(new(cartId, creditCard), cancellationToken);
 
-    [HttpPost("{cartId:guid}/payment-methods/[action]")]
+    [HttpPost("{cartId:guid}/payment-methods/pay-pal")]
     public Task<IActionResult> AddPayPalAsync(Guid cartId, Models.PayPal payPal, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.AddPayPal>(new(cartId, payPal), cancellationToken);
 }

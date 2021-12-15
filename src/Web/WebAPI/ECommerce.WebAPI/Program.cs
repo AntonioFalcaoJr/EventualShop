@@ -43,7 +43,7 @@ builder.Host.ConfigureLogging((context, loggingBuilder) =>
 });
 
 builder.Services
-    .AddRouting(options 
+    .AddRouting(options
         => options.LowercaseUrls = true)
     .AddControllers(options =>
     {
@@ -55,7 +55,7 @@ builder.Services
         options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter());
         options.SerializerSettings.Converters.Add(new ExpirationDateOnlyJsonConverter());
     })
-    .AddFluentValidation(cfg 
+    .AddFluentValidation(cfg
         => cfg.RegisterValidatorsFromAssemblyContaining(typeof(IMessage)));
 
 builder.Services
