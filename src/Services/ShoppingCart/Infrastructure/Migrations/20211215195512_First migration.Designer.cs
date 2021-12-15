@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(EventStoreDbContext))]
-    [Migration("20211018130715_First migration")]
+    [Migration("20211215195512_First migration")]
     partial class Firstmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,12 +20,12 @@ namespace Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .UseCollation("SQL_Latin1_General_CP1_CS_AS")
-                .HasAnnotation("ProductVersion", "6.0.0-rc.2.21480.5")
+                .HasAnnotation("ProductVersion", "6.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Application.EventSourcing.EventStore.DomainEvents.ShoppingCartSnapshot", b =>
+            modelBuilder.Entity("Application.EventSourcing.EventStore.Events.ShoppingCartSnapshot", b =>
                 {
                     b.Property<int>("AggregateVersion")
                         .HasColumnType("int");
@@ -41,15 +41,16 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("AggregateState")
                         .IsRequired()
+                        .HasMaxLength(1024)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(max)");
+                        .HasColumnType("varchar(1024)");
 
                     b.HasKey("AggregateVersion", "AggregateId");
 
                     b.ToTable("ShoppingCartSnapshots");
                 });
 
-            modelBuilder.Entity("Application.EventSourcing.EventStore.DomainEvents.ShoppingCartStoreEvent", b =>
+            modelBuilder.Entity("Application.EventSourcing.EventStore.Events.ShoppingCartStoreEvent", b =>
                 {
                     b.Property<int>("Version")
                         .ValueGeneratedOnAdd()
@@ -68,8 +69,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Event")
                         .IsRequired()
+                        .HasMaxLength(1024)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(max)");
+                        .HasColumnType("varchar(1024)");
 
                     b.Property<string>("EventName")
                         .IsRequired()

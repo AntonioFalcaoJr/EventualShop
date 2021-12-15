@@ -1,7 +1,5 @@
 using System;
 using System.Reflection;
-using ECommerce.Abstractions;
-using FluentValidation;
 using Infrastructure.DependencyInjection.Extensions;
 using Infrastructure.DependencyInjection.Options;
 using Microsoft.EntityFrameworkCore;
