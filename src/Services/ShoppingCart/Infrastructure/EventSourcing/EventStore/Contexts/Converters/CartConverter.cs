@@ -1,17 +1,17 @@
-﻿using ECommerce.Abstractions.Events;
+﻿using Domain.Aggregates;
 using ECommerce.JsonConverters;
 using JsonNet.ContractResolvers;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Newtonsoft.Json;
 
-namespace Infrastructure.EventSourcing.EventStore.Converters;
+namespace Infrastructure.EventSourcing.EventStore.Contexts.Converters;
 
-public class EventConverter : ValueConverter<IEvent, string>
+public class CartConverter : ValueConverter<Cart, string> 
 {
-    public EventConverter()
+    public CartConverter()
         : base(
-            @event => JsonConvert.SerializeObject(@event, typeof(IEvent), SerializerSettings()),
-            jsonString => JsonConvert.DeserializeObject<IEvent>(jsonString, DeserializerSettings())) { }
+            @event => JsonConvert.SerializeObject(@event, typeof(Cart), SerializerSettings()),
+            jsonString => JsonConvert.DeserializeObject<Cart>(jsonString, DeserializerSettings())) { }
 
     private static JsonSerializerSettings SerializerSettings()
     {
@@ -30,7 +30,7 @@ public class EventConverter : ValueConverter<IEvent, string>
     {
         var jsonDeserializerSettings = new JsonSerializerSettings
         {
-            TypeNameHandling = TypeNameHandling.All,
+            TypeNameHandling = TypeNameHandling.Auto,
             ContractResolver = new PrivateSetterContractResolver()
         };
 

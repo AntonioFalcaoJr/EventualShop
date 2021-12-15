@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.EventSourcing.EventStore.Configurations;
+namespace Infrastructure.EventSourcing.EventStore.Contexts.Configurations;
 
 public class ShoppingCartStoreEventConfiguration : IEntityTypeConfiguration<ShoppingCartStoreEvent>
 {

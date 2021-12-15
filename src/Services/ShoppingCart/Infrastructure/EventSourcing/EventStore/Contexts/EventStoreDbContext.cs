@@ -2,7 +2,7 @@
 using Domain.Aggregates;
 using ECommerce.Abstractions.Events;
 using Infrastructure.DependencyInjection.Options;
-using Infrastructure.EventSourcing.EventStore.Converters;
+using Infrastructure.EventSourcing.EventStore.Contexts.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
