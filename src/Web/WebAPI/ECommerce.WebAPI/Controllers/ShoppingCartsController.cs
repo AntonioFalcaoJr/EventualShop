@@ -36,20 +36,24 @@ public class ShoppingCartsController : ApplicationController
         => GetResponseAsync<Queries.GetShoppingCart, Responses.CartDetails>(new(cartId), cancellationToken);
 
     [HttpPost("{cartId:guid}/items")]
-    public Task<IActionResult> AddCartItemAsync(Guid cartId, Models.Item item, CancellationToken cancellationToken)
+    public Task<IActionResult> AddCartItemAsync(Guid cartId, [FromBody] Models.Item item, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.AddCartItem>(new(cartId, item), cancellationToken);
 
-    [HttpGet("{cartId:guid}/items/{productId:guid}")]
+    [HttpGet("{cartId:guid}/items/{itemId:guid}")]
     public Task<IActionResult> GetShoppingCartItemAsync(Guid cartId, Guid productId, CancellationToken cancellationToken)
         => GetResponseAsync<Queries.GetShoppingCart, Responses.CartDetails>(new(cartId), cancellationToken);
 
-    [HttpDelete("{cartId:guid}/items/{productId:guid}")]
+    [HttpDelete("{cartId:guid}/items/{itemId:guid}")]
     public Task<IActionResult> RemoveCartItemAsync(Guid cartId, Guid productId, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.RemoveCartItem>(new(cartId, productId), cancellationToken);
 
-    [HttpPut("{cartId:guid}/items/{productId:guid}")]
-    public Task<IActionResult> UpdateQuantityAsync(Guid cartId, Guid productId, int quantity, CancellationToken cancellationToken)
-        => SendCommandAsync<Commands.UpdateCartItemQuantity>(new(cartId, productId, quantity), cancellationToken);
+    [HttpPut("{cartId:guid}/items/{itemId:guid}/[action]")]
+    public Task<IActionResult> IncreaseQuantityAsync(Guid cartId, Guid itemId, CancellationToken cancellationToken)
+        => SendCommandAsync<Commands.IncreaseCartItemQuantity>(new(cartId, itemId), cancellationToken);
+
+    [HttpPut("{cartId:guid}/items/{itemId:guid}/[action]")]
+    public Task<IActionResult> DecreaseQuantityAsync(Guid cartId, Guid itemId, CancellationToken cancellationToken)
+        => SendCommandAsync<Commands.DecreaseCartItemQuantity>(new(cartId, itemId), cancellationToken);
 
     [HttpPost("{cartId:guid}/customers/shipping-address")]
     public Task<IActionResult> AddShippingAddressAsync(Guid cartId, Models.Address address, CancellationToken cancellationToken)
