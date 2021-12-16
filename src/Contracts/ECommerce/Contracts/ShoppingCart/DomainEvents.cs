@@ -10,11 +10,9 @@ public static class DomainEvents
 
     public record CartItemAdded(Guid CartId, Guid ItemId, Guid ProductId, string ProductName, decimal UnitPrice, int Quantity, string PictureUrl) : Event;
 
-    public record CartItemQuantityIncreased(Guid CartId, Guid ItemId, int Quantity) : Event;
+    public record CartItemQuantityIncreased(Guid CartId, Guid ItemId) : Event;
 
-    public record CartItemQuantityDecreased(Guid CartId, Guid ItemId, int Quantity) : Event;
-
-    public record CartItemQuantityUpdated(Guid CartId, Guid ItemId, int Quantity) : Event;
+    public record CartItemQuantityDecreased(Guid CartId, Guid ItemId) : Event;
 
     public record CartItemRemoved(Guid CartId, Guid ItemId) : Event;
 

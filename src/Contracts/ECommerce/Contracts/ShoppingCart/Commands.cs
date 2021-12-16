@@ -20,9 +20,11 @@ public static class Commands
 
     public record CheckOutCart(Guid CartId) : Command;
 
-    public record RemoveCartItem(Guid CartId, Guid ProductId) : Command;
+    public record RemoveCartItem(Guid CartId, Guid ItemId) : Command;
 
-    public record UpdateCartItemQuantity(Guid CartId, Guid ProductId, int Quantity) : Command;
+    public record IncreaseCartItemQuantity(Guid CartId, Guid ItemId) : Command;
+
+    public record DecreaseCartItemQuantity(Guid CartId, Guid ItemId) : Command;
 
     public record DiscardCart(Guid CartId) : Command;
 }
