@@ -32,7 +32,7 @@
         <Serilog_Extensions_Version>4.2.0</Serilog_Extensions_Version>
 
         <!--FluentValidation-->
-        <FluentValidation_Version>10.3.4</FluentValidation_Version>
+        <FluentValidation_Version>10.3.6</FluentValidation_Version>
 
     </PropertyGroup>
 
