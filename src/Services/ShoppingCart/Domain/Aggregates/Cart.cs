@@ -19,7 +19,7 @@ public class Cart : AggregateRoot<Guid>
     private readonly List<IPaymentMethod> _paymentMethods = new();
 
     public Guid CustomerId { get; private set; }
-    public CartStatus Status { get; private set; }
+    public CartStatus Status { get; private set; } = CartStatus.Confirmed;
     public Address ShippingAddress { get; private set; }
     public Address BillingAddress { get; private set; }
     private bool ShippingAndBillingAddressesAreSame { get; set; } = true;
@@ -94,7 +94,7 @@ public class Cart : AggregateRoot<Guid>
         => _items.RemoveAll(item => item.Id == @event.ItemId);
 
     private void When(DomainEvents.CartItemAdded @event)
-        => _items.Add(new(
+        => _items.Add(new CartItem(
             @event.ItemId,
             @event.ProductId,
             @event.ProductName,
