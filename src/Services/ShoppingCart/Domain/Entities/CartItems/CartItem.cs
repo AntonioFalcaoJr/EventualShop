@@ -21,14 +21,11 @@ public class CartItem : Entity<Guid>
     public int Quantity { get; private set; }
     public string PictureUrl { get; }
 
-    public void IncreaseQuantity(int quantity)
-        => Quantity += quantity;
+    public void IncreaseQuantity()
+        => Quantity += 1;
 
-    public void DecreaseQuantity(int quantity)
-        => Quantity -= quantity;
-
-    public void UpdateQuantity(int quantity)
-        => Quantity = quantity;
+    public void DecreaseQuantity()
+        => Quantity -= 1;
 
     protected override bool Validate()
         => OnValidate<CartItemValidator, CartItem>();
