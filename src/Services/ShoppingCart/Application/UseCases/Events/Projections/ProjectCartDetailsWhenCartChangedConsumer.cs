@@ -17,8 +17,8 @@ using PayPalAddedEvent = ECommerce.Contracts.ShoppingCart.DomainEvents.PayPalAdd
 using CartItemRemovedEvent = ECommerce.Contracts.ShoppingCart.DomainEvents.CartItemRemoved;
 using CartCheckedOutEvent = ECommerce.Contracts.ShoppingCart.DomainEvents.CartCheckedOut;
 using ShippingAddressAddedEvent = ECommerce.Contracts.ShoppingCart.DomainEvents.ShippingAddressAdded;
-using CartItemQuantityUpdatedEvent = ECommerce.Contracts.ShoppingCart.DomainEvents.CartItemQuantityUpdated;
 using CartItemQuantityIncreasedEvent = ECommerce.Contracts.ShoppingCart.DomainEvents.CartItemQuantityIncreased;
+using CartItemQuantityDecreasedEvent = ECommerce.Contracts.ShoppingCart.DomainEvents.CartItemQuantityDecreased;
 
 namespace Application.UseCases.Events.Projections;
 
@@ -31,8 +31,8 @@ public class ProjectCartDetailsWhenCartChangedConsumer :
     IConsumer<CartItemRemovedEvent>,
     IConsumer<CartCheckedOutEvent>,
     IConsumer<ShippingAddressAddedEvent>,
-    IConsumer<CartItemQuantityUpdatedEvent>,
-    IConsumer<CartItemQuantityIncreasedEvent>
+    IConsumer<CartItemQuantityIncreasedEvent>,
+    IConsumer<CartItemQuantityDecreasedEvent>
 {
     private readonly IShoppingCartEventStoreService _eventStoreService;
     private readonly IShoppingCartProjectionsService _projectionsService;
@@ -69,10 +69,10 @@ public class ProjectCartDetailsWhenCartChangedConsumer :
     public Task Consume(ConsumeContext<ShippingAddressAddedEvent> context)
         => ProjectAsync(context.Message.CartId, context.CancellationToken);
 
-    public Task Consume(ConsumeContext<CartItemQuantityUpdatedEvent> context)
-        => ProjectAsync(context.Message.CartId, context.CancellationToken);
-
     public Task Consume(ConsumeContext<CartItemQuantityIncreasedEvent> context)
+        => ProjectAsync(context.Message.CartId, context.CancellationToken);
+    
+    public Task Consume(ConsumeContext<CartItemQuantityDecreasedEvent> context)
         => ProjectAsync(context.Message.CartId, context.CancellationToken);
 
     private async Task ProjectAsync(Guid cartId, CancellationToken cancellationToken)
@@ -88,6 +88,7 @@ public class ProjectCartDetailsWhenCartChangedConsumer :
             CartItems = cart.Items.Any()
                 ? cart.Items.Select(item => new CartItemProjection
                     {
+                        Id = item.Id,
                         Quantity = item.Quantity,
                         PictureUrl = item.PictureUrl,
                         ProductName = item.ProductName,
@@ -149,7 +150,7 @@ public class ProjectCartDetailsWhenCartChangedConsumer :
                         },
                     _ => default
                 }),
-            IsCheckedOut = cart.IsCheckedOut
+            Status = cart.Status.ToString()
         };
 
         await _projectionsService.ProjectAsync(accountDetails, cancellationToken);

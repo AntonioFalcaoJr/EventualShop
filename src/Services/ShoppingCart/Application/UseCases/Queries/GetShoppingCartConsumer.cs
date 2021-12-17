@@ -28,6 +28,7 @@ public class GetShoppingCartConsumer : IConsumer<GetShoppingCartQuery>
             CartItems = cartDetails.CartItems.Select(projection
                 => new Models.Item
                 {
+                    Id = projection.Id,
                     ProductId = projection.ProductId,
                     Quantity = projection.Quantity,
                     PictureUrl = projection.PictureUrl,

@@ -30,6 +30,7 @@ public class PublishCartSubmittedWhenCartCheckedOutConsumer : IConsumer<CartChec
             CustomerId: cart.CustomerId,
             CartItems: cart.Items.Select(item => new Models.Item
             {
+                Id = item.Id,
                 ProductId = item.ProductId,
                 Quantity = item.Quantity,
                 PictureUrl = item.PictureUrl,

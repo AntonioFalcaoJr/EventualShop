@@ -1,20 +1,20 @@
 ﻿using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using MassTransit;
-using UpdateCartItemQuantityCommand = ECommerce.Contracts.ShoppingCart.Commands.UpdateCartItemQuantity;
+using DecreaseCartItemQuantityCommand = ECommerce.Contracts.ShoppingCart.Commands.DecreaseCartItemQuantity;
 
 namespace Application.UseCases.Commands;
 
-public class UpdateCartItemQuantityConsumer : IConsumer<UpdateCartItemQuantityCommand>
+public class DecreaseCartItemQuantityConsumer : IConsumer<DecreaseCartItemQuantityCommand>
 {
     private readonly IShoppingCartEventStoreService _eventStoreService;
 
-    public UpdateCartItemQuantityConsumer(IShoppingCartEventStoreService eventStoreService)
+    public DecreaseCartItemQuantityConsumer(IShoppingCartEventStoreService eventStoreService)
     {
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<UpdateCartItemQuantityCommand> context)
+    public async Task Consume(ConsumeContext<DecreaseCartItemQuantityCommand> context)
     {
         var cart = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CartId, context.CancellationToken);
         cart.Handle(context.Message);

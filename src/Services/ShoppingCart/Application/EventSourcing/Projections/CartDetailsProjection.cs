@@ -11,7 +11,7 @@ public record CartDetailsProjection : IProjection
     public IEnumerable<IPaymentMethodProjection> PaymentMethods { get; init; }
     public Guid UserId { get; init; }
     public decimal Total { get; init; }
-    public bool IsCheckedOut { get; init; }
+    public string Status { get; init; }
     public AddressProjection ShippingAddressProjection { get; init; }
     public AddressProjection BillingAddressProjection { get; init; }
     public Guid Id { get; init; }
@@ -20,6 +20,7 @@ public record CartDetailsProjection : IProjection
 
 public record CartItemProjection
 {
+    public Guid Id { get; init; }
     public Guid ProductId { get; init; }
     public string ProductName { get; init; }
     public decimal UnitPrice { get; init; }
