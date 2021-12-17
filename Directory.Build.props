@@ -20,19 +20,19 @@
         <MongoDb_Version>2.14.1</MongoDb_Version>
 
         <!--MassTransit-->
-        <MassTransit_Version>7.3.0-develop.317</MassTransit_Version>
+        <MassTransit_Version>7.3.0</MassTransit_Version>
 
         <!--Newtonsoft-->
         <Newtonsoft_Version>13.0.1</Newtonsoft_Version>
         <ContractResolvers_Version>2.0.0</ContractResolvers_Version>
 
         <!--Serilog-->
-        <Serilog_Version>2.11.0-dev-01371</Serilog_Version>
+        <Serilog_Version>2.11.0-dev-01377</Serilog_Version>
         <Serilog_AspNetCore_Version>4.1.1-dev-00241</Serilog_AspNetCore_Version>
         <Serilog_Extensions_Version>4.2.0</Serilog_Extensions_Version>
 
         <!--FluentValidation-->
-        <FluentValidation_Version>10.3.4</FluentValidation_Version>
+        <FluentValidation_Version>10.3.6</FluentValidation_Version>
 
     </PropertyGroup>
 
