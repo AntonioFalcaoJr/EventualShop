@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using MassTransit.Topology;
 
 namespace ECommerce.Abstractions.Queries.Paging;

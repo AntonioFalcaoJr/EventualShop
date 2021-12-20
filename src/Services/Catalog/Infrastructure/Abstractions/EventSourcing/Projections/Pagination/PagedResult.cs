@@ -1,7 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.Projections.Pagination;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;

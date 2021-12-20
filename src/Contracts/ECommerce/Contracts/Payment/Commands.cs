@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using ECommerce.Abstractions.Commands;
+﻿using ECommerce.Abstractions.Commands;
 using ECommerce.Contracts.Common;
 
 namespace ECommerce.Contracts.Payment;

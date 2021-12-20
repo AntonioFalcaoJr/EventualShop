@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using ECommerce.Abstractions.Commands;
 using ECommerce.Abstractions.Queries;
 using ECommerce.Abstractions.Queries.Responses;

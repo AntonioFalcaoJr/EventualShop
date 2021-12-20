@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using ECommerce.Abstractions.Validations;
+﻿using ECommerce.Abstractions.Validations;
 using FluentValidation;
 using GreenPipes;
 using MassTransit;

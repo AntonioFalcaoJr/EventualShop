@@ -1,5 +1,4 @@
-﻿using System;
-using ECommerce.Abstractions.Commands;
+﻿using ECommerce.Abstractions.Commands;
 
 namespace ECommerce.Contracts.Identity;
 

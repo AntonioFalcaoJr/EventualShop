@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using ECommerce.Contracts.Common;
+﻿using ECommerce.Contracts.Common;
 using ECommerce.Contracts.ShoppingCart;
 using ECommerce.WebAPI.Abstractions;
 using MassTransit;

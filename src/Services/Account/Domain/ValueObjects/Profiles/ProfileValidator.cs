@@ -1,5 +1,4 @@
-﻿using System;
-using Domain.ValueObjects.Addresses;
+﻿using Domain.ValueObjects.Addresses;
 using FluentValidation;
 
 namespace Domain.ValueObjects.Profiles;

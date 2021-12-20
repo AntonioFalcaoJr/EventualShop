@@ -1,5 +1,4 @@
-﻿using System;
-using MassTransit.Topology;
+﻿using MassTransit.Topology;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace ECommerce.Abstractions;

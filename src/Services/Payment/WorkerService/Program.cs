@@ -1,12 +1,7 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using Infrastructure.DependencyInjection.Extensions;
 using Infrastructure.DependencyInjection.Options;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Serilog;
 
 var builder = Host.CreateDefaultBuilder(args);

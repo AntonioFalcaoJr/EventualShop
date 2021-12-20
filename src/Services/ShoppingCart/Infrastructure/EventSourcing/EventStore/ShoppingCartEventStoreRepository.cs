@@ -1,5 +1,4 @@
-﻿using System;
-using Application.EventSourcing.EventStore;
+﻿using Application.EventSourcing.EventStore;
 using Application.EventSourcing.EventStore.Events;
 using Domain.Aggregates;
 using Infrastructure.Abstractions.EventSourcing.EventStore;

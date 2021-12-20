@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Application.EventSourcing.EventStore;
+﻿using Application.EventSourcing.EventStore;
 using Domain.ValueObjects.PaymentMethods;
 using Domain.ValueObjects.PaymentMethods.CreditCards;
 using Domain.ValueObjects.PaymentMethods.DebitCards;

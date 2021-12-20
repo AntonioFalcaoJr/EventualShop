@@ -1,5 +1,4 @@
-﻿using Domain.Aggregates;
-using ECommerce.JsonConverters;
+﻿using ECommerce.JsonConverters;
 using JsonNet.ContractResolvers;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Newtonsoft.Json;

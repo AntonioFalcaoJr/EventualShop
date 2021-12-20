@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Application.Abstractions.Services;
+﻿using Application.Abstractions.Services;
 using Application.Services.PayPal;
 using Application.Services.PayPal.Http;
 using Domain.Entities.PaymentMethods;

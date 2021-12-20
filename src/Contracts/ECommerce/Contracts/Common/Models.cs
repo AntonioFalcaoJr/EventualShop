@@ -1,5 +1,4 @@
-﻿using System;
-using ECommerce.JsonConverters;
+﻿using ECommerce.JsonConverters;
 using Newtonsoft.Json;
 
 namespace ECommerce.Contracts.Common;
@@ -20,6 +19,7 @@ public static class Models
     {
         [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
         public DateOnly Expiration { get; init; }
+
         public string HolderName { get; init; }
         public string Number { get; init; }
         public string SecurityNumber { get; init; }
@@ -31,6 +31,7 @@ public static class Models
     {
         [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
         public DateOnly Expiration { get; init; }
+
         public string HolderName { get; init; }
         public string Number { get; init; }
         public string SecurityNumber { get; init; }
@@ -59,11 +60,10 @@ public static class Models
 
     public record Product
     {
-        public Guid Id { get; init; }
+        public string Sku { get; init; }
         public string Name { get; init; }
-        public decimal UnitPrice { get; init; }
-        public int QuantityOnHand { get; init; }
-        public string PictureUrl { get; init; }
+        public string Description { get; init; }
+        public int Quantity { get; init; }
     }
 
     public interface IPaymentMethod

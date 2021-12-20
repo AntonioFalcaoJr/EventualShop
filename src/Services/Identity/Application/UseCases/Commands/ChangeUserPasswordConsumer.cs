@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Application.EventSourcing.EventStore;
+﻿using Application.EventSourcing.EventStore;
 using MassTransit;
 using ChangeUserPasswordCommand = ECommerce.Contracts.Identity.Commands.ChangeUserPassword;
 

@@ -1,5 +1,4 @@
-﻿using System;
-using Domain.Abstractions.ValueObjects;
+﻿using Domain.Abstractions.ValueObjects;
 using Domain.ValueObjects.Addresses;
 
 namespace Domain.ValueObjects.Profiles;
