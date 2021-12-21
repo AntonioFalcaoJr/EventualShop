@@ -1,4 +1,5 @@
-﻿using ECommerce.JsonConverters;
+﻿using System;
+using ECommerce.JsonConverters;
 using Newtonsoft.Json;
 
 namespace ECommerce.Contracts.Common;

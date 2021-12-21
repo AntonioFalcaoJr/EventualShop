@@ -1,4 +1,6 @@
-﻿using ECommerce.Contracts.Catalog;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using ECommerce.Contracts.Catalog;
 using ECommerce.WebAPI.Abstractions;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;

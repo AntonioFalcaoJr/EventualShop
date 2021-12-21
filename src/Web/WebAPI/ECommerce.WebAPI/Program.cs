@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using ECommerce.Abstractions;
 using ECommerce.JsonConverters;
@@ -6,7 +7,12 @@ using ECommerce.WebAPI.DependencyInjection.Options;
 using ECommerce.WebAPI.DependencyInjection.ParameterTransformers;
 using FluentValidation.AspNetCore;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Serilog;

@@ -1,4 +1,5 @@
-﻿using Domain.Abstractions.Entities;
+﻿using System;
+using Domain.Abstractions.Entities;
 
 namespace Domain.Entities.PaymentMethods;
 

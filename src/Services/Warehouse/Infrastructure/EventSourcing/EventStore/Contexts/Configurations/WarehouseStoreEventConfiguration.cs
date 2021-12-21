@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.EventSourcing.EventStore.Contexts.Configurations;
 
-public class ShoppingCartStoreEventConfiguration : IEntityTypeConfiguration<ShoppingCartStoreEvent>
+public class WarehouseStoreEventConfiguration : IEntityTypeConfiguration<WarehouseStoreEvent>
 {
-    public void Configure(EntityTypeBuilder<ShoppingCartStoreEvent> builder)
+    public void Configure(EntityTypeBuilder<WarehouseStoreEvent> builder)
     {
         builder.HasKey(storeEvent => storeEvent.Version);
 

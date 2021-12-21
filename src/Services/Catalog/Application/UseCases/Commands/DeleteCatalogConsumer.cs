@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using MassTransit;
 using DeleteCatalogCommand = ECommerce.Contracts.Catalog.Commands.DeleteCatalog;

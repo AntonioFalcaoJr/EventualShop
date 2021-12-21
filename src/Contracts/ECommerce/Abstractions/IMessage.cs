@@ -1,4 +1,5 @@
-﻿using MassTransit.Topology;
+﻿using System;
+using MassTransit.Topology;
 
 namespace ECommerce.Abstractions;
 

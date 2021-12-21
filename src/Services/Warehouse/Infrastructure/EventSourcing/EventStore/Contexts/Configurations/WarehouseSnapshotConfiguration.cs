@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.EventSourcing.EventStore.Contexts.Configurations;
 
-public class ShoppingCartSnapshotConfiguration : IEntityTypeConfiguration<ShoppingCartSnapshot>
+public class WarehouseSnapshotConfiguration : IEntityTypeConfiguration<WarehouseSnapshot>
 {
-    public void Configure(EntityTypeBuilder<ShoppingCartSnapshot> builder)
+    public void Configure(EntityTypeBuilder<WarehouseSnapshot> builder)
     {
         builder.HasKey(snapshot => new { snapshot.AggregateVersion, snapshot.AggregateId });
 

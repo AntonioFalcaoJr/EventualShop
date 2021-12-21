@@ -1,4 +1,5 @@
-﻿using ECommerce.Abstractions.Commands;
+﻿using System;
+using ECommerce.Abstractions.Commands;
 using ECommerce.Contracts.Common;
 
 namespace ECommerce.Contracts.ShoppingCart;

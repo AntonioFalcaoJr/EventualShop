@@ -1,4 +1,5 @@
-﻿using Application.Abstractions.EventSourcing.Projections;
+﻿using System;
+using Application.Abstractions.EventSourcing.Projections;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Application.EventSourcing.Projections;

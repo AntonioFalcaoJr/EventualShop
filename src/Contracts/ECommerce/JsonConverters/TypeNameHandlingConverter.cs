@@ -1,4 +1,5 @@
-﻿using MassTransit;
+﻿using System;
+using MassTransit;
 using Newtonsoft.Json;
 
 namespace ECommerce.JsonConverters;

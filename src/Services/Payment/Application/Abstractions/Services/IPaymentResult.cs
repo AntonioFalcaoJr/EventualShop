@@ -1,4 +1,6 @@
-﻿namespace Application.Abstractions.Services;
+﻿using System;
+
+namespace Application.Abstractions.Services;
 
 public interface IPaymentResult
 {

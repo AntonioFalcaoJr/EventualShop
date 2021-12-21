@@ -1,4 +1,5 @@
-﻿using Domain.Abstractions.Validators;
+﻿using System;
+using Domain.Abstractions.Validators;
 using FluentValidation;
 
 namespace Domain.Aggregates;

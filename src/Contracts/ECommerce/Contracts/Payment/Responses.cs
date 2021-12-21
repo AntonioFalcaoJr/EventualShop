@@ -1,4 +1,5 @@
-﻿using ECommerce.Abstractions.Queries.Responses;
+﻿using System;
+using ECommerce.Abstractions.Queries.Responses;
 
 namespace ECommerce.Contracts.Payment;
 

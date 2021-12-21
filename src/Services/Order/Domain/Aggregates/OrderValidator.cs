@@ -1,4 +1,6 @@
-﻿using Domain.Abstractions.Validators;
+﻿using System;
+using System.Linq;
+using Domain.Abstractions.Validators;
 using Domain.Entities.OrderItems;
 using FluentValidation;
 

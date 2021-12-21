@@ -1,4 +1,5 @@
-﻿using Domain.Abstractions.Aggregates;
+﻿using System;
+using Domain.Abstractions.Aggregates;
 using ECommerce.Abstractions.Events;
 using ECommerce.Contracts.Identity;
 

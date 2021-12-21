@@ -1,4 +1,5 @@
-﻿using Application.EventSourcing.EventStore;
+﻿using System.Threading.Tasks;
+using Application.EventSourcing.EventStore;
 using MassTransit;
 using DefineProfessionalAddressCommand = ECommerce.Contracts.Account.Commands.DefineProfessionalAddress;
 

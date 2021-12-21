@@ -30,8 +30,8 @@ public class EventStoreDbContext : DbContext
         _options = optionsSnapshot.Value;
     }
 
-    public DbSet<ShoppingCartStoreEvent> ShoppingCartStoreEvents { get; set; }
-    public DbSet<ShoppingCartSnapshot> ShoppingCartSnapshots { get; set; }
+    public DbSet<WarehouseStoreEvent> ShoppingCartStoreEvents { get; set; }
+    public DbSet<WarehouseSnapshot> ShoppingCartSnapshots { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

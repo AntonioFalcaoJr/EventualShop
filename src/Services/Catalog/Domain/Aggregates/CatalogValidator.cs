@@ -1,4 +1,5 @@
-﻿using Domain.Abstractions.Validators;
+﻿using System;
+using Domain.Abstractions.Validators;
 using Domain.Entities.CatalogItems;
 using FluentValidation;
 

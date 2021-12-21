@@ -1,4 +1,5 @@
-﻿using Application.EventSourcing.EventStore;
+﻿using System.Threading.Tasks;
+using Application.EventSourcing.EventStore;
 using MassTransit;
 using PaymentCompletedEvent = ECommerce.Contracts.Payment.DomainEvents.PaymentCompleted;
 using ConfirmOrderCommand = ECommerce.Contracts.Order.Commands.ConfirmOrder;

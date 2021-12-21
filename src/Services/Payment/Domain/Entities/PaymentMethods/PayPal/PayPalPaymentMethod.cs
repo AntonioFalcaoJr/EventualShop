@@ -1,4 +1,6 @@
-﻿namespace Domain.Entities.PaymentMethods.PayPal;
+﻿using System;
+
+namespace Domain.Entities.PaymentMethods.PayPal;
 
 public class PayPalPaymentMethod : PaymentMethod
 {

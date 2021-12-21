@@ -1,4 +1,5 @@
-﻿using Application.Abstractions.EventSourcing.Projections;
+﻿using System;
+using Application.Abstractions.EventSourcing.Projections;
 
 namespace Application.EventSourcing.Projections;
 

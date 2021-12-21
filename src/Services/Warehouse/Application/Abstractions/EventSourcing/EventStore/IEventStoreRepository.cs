@@ -1,4 +1,7 @@
-﻿using Application.Abstractions.EventSourcing.EventStore.Events;
+﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using Application.Abstractions.EventSourcing.EventStore.Events;
 using Domain.Abstractions.Aggregates;
 using ECommerce.Abstractions.Events;
 

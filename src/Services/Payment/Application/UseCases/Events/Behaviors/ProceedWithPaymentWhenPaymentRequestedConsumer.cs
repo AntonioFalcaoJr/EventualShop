@@ -1,4 +1,5 @@
-﻿using Application.EventSourcing.EventStore;
+﻿using System.Threading.Tasks;
+using Application.EventSourcing.EventStore;
 using Application.Services;
 using MassTransit;
 using PaymentRequestedEvent = ECommerce.Contracts.Payment.DomainEvents.PaymentRequested;

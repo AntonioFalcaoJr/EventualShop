@@ -2,6 +2,8 @@
 using ECommerce.WebAPI.DependencyInjection.Observers;
 using ECommerce.WebAPI.DependencyInjection.Options;
 using MassTransit;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 

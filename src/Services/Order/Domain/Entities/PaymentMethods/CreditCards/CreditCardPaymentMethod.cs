@@ -1,4 +1,6 @@
-﻿namespace Domain.Entities.PaymentMethods.CreditCards;
+﻿using System;
+
+namespace Domain.Entities.PaymentMethods.CreditCards;
 
 public class CreditCardPaymentMethod : PaymentMethod
 {

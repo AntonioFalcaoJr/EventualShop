@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Reflection;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;

@@ -1,4 +1,8 @@
-﻿using Application.EventSourcing.EventStore;
+﻿using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using Domain.ValueObjects.PaymentMethods;
 using Domain.ValueObjects.PaymentMethods.CreditCards;

@@ -1,4 +1,5 @@
-﻿using Application.EventSourcing.EventStore;
+﻿using System;
+using Application.EventSourcing.EventStore;
 using Application.EventSourcing.EventStore.Events;
 using Domain.Aggregates;
 using Infrastructure.Abstractions.EventSourcing.EventStore;
@@ -9,8 +10,8 @@ using Microsoft.Extensions.Options;
 
 namespace Infrastructure.EventSourcing.EventStore;
 
-public class WarehouseEventStoreService : EventStoreService<Product, ShoppingCartStoreEvent, ShoppingCartSnapshot, Guid>, IWarehouseEventStoreService
+public class WarehouseEventStoreService : EventStoreService<Product, WarehouseStoreEvent, WarehouseSnapshot, Guid>, IWarehouseEventStoreService
 {
-    public WarehouseEventStoreService(ILogger<WarehouseEventStoreService> logger, IOptionsMonitor<EventStoreOptions> optionsMonitor, IShoppingCartEventStoreRepository repository, IBus bus)
+    public WarehouseEventStoreService(ILogger<WarehouseEventStoreService> logger, IOptionsMonitor<EventStoreOptions> optionsMonitor, IWarehouseEventStoreRepository repository, IBus bus)
         : base(logger, optionsMonitor, repository, bus) { }
 }

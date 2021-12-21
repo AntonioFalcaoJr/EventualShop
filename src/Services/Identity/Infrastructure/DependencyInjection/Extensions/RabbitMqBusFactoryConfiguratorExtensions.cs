@@ -1,4 +1,5 @@
-﻿using Application.UseCases.Events.Projections;
+﻿using System;
+using Application.UseCases.Events.Projections;
 using ECommerce.Abstractions.Events;
 using ECommerce.Contracts.Identity;
 using GreenPipes;

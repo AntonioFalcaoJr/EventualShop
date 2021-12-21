@@ -1,4 +1,5 @@
-﻿using Application.EventSourcing.EventStore;
+﻿using System.Threading.Tasks;
+using Application.EventSourcing.EventStore;
 using MassTransit;
 using RemoveCartItemCommand = ECommerce.Contracts.ShoppingCart.Commands.RemoveCartItem;
 

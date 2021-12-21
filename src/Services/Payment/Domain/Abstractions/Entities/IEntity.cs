@@ -1,4 +1,5 @@
-﻿using FluentValidation.Results;
+﻿using System.Collections.Generic;
+using FluentValidation.Results;
 
 namespace Domain.Abstractions.Entities;
 

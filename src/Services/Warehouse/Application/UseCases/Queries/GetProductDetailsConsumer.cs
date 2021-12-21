@@ -1,4 +1,5 @@
-﻿using Application.EventSourcing.Projections;
+﻿using System.Threading.Tasks;
+using Application.EventSourcing.Projections;
 using ECommerce.Contracts.Warehouse;
 using MassTransit;
 using GetProductDetailsQuery = ECommerce.Contracts.Warehouse.Queries.GetProductDetails;

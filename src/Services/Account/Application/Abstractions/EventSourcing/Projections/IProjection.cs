@@ -1,3 +1,4 @@
+using System;
 using MassTransit.Topology;
 
 namespace Application.Abstractions.EventSourcing.Projections;

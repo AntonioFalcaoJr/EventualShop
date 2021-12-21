@@ -1,4 +1,5 @@
-﻿using Application.EventSourcing.EventStore;
+﻿using System.Threading.Tasks;
+using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
 using OrderPlacedEvent = ECommerce.Contracts.Order.DomainEvents.OrderPlaced;

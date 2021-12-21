@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Linq;
+using System.Reflection;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using ECommerce.Abstractions;
@@ -105,7 +106,7 @@ public static class ServiceCollectionExtensions
     }
 
     public static IServiceCollection AddEventStoreRepository(this IServiceCollection services)
-        => services.AddScoped<IShoppingCartEventStoreRepository, ShoppingCartEventStoreRepository>();
+        => services.AddScoped<IWarehouseEventStoreRepository, WarehouseEventStoreRepository>();
 
     public static IServiceCollection AddProjectionsRepository(this IServiceCollection services)
         => services.AddScoped<IWarehouseProjectionsRepository, WarehouseProjectionsRepository>();
