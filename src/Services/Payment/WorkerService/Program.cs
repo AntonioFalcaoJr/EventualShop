@@ -51,19 +51,19 @@ builder.ConfigureServices((context, services) =>
     services.AddMessagesFluentValidation();
 
     services.AddMassTransitWithRabbitMq();
-    
+
     services.ConfigureEventStoreOptions(
         context.Configuration.GetSection(nameof(EventStoreOptions)));
 
     services.ConfigureSqlServerRetryingOptions(
         context.Configuration.GetSection(nameof(SqlServerRetryingOptions)));
-    
+
     services.ConfigureRabbitMqOptions(
         context.Configuration.GetSection(nameof(RabbitMqOptions)));
 
     services.ConfigureCreditCardHttpClientOptions(
         context.Configuration.GetSection(nameof(CreditCardHttpClientOptions)));
-    
+
     services.ConfigureDebitCardHttpClientOptions(
         context.Configuration.GetSection(nameof(DebitCardHttpClientOptions)));
 
@@ -71,22 +71,30 @@ builder.ConfigureServices((context, services) =>
         context.Configuration.GetSection(nameof(PayPalHttpClientOptions)));
 });
 
-var host = builder.Build();
+using var host = builder.Build();
 
 try
 {
-    await using var scope = host.Services.CreateAsyncScope();
-    var dbContext = scope.ServiceProvider.GetRequiredService<DbContext>();
-    await dbContext.Database.MigrateAsync();
-    await dbContext.Database.EnsureCreatedAsync();
+    var environment = host.Services.GetRequiredService<IHostEnvironment>();
+
+    if (environment.IsDevelopment())
+    {
+        await using var scope = host.Services.CreateAsyncScope();
+        await using var dbContext = scope.ServiceProvider.GetRequiredService<DbContext>();
+        await dbContext.Database.MigrateAsync();
+        await dbContext.Database.EnsureCreatedAsync();
+    }
+
     await host.RunAsync();
     Log.Information("Stopped cleanly");
 }
 catch (Exception ex)
 {
     Log.Fatal(ex, "An unhandled exception occured during bootstrapping");
+    await host.StopAsync();
 }
 finally
 {
     Log.CloseAndFlush();
+    host.Dispose();
 }
