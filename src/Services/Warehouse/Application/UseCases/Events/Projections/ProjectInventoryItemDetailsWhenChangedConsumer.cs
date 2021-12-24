@@ -3,20 +3,20 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
+using ECommerce.Contracts.Warehouse;
 using MassTransit;
 using InventoryAdjustedEvent = ECommerce.Contracts.Warehouse.DomainEvents.InventoryAdjusted;
-using ProductReceivedEvent = ECommerce.Contracts.Warehouse.DomainEvents.ProductReceived;
 
 namespace Application.UseCases.Events.Projections;
 
-public class ProjectProductDetailsWhenProductChangedConsumer :
+public class ProjectInventoryItemDetailsWhenChangedConsumer :
     IConsumer<InventoryAdjustedEvent>,
-    IConsumer<ProductReceivedEvent>
+    IConsumer<DomainEvents.InventoryItemReceived>
 {
     private readonly IWarehouseEventStoreService _eventStoreService;
     private readonly IWarehouseProjectionsService _projectionsService;
 
-    public ProjectProductDetailsWhenProductChangedConsumer(
+    public ProjectInventoryItemDetailsWhenChangedConsumer(
         IWarehouseEventStoreService eventStoreService,
         IWarehouseProjectionsService projectionsService)
     {
@@ -27,23 +27,23 @@ public class ProjectProductDetailsWhenProductChangedConsumer :
     public Task Consume(ConsumeContext<InventoryAdjustedEvent> context)
         => ProjectAsync(context.Message.ProductId, context.CancellationToken);
 
-    public Task Consume(ConsumeContext<ProductReceivedEvent> context)
+    public Task Consume(ConsumeContext<DomainEvents.InventoryItemReceived> context)
         => ProjectAsync(context.Message.ProductId, context.CancellationToken);
 
     private async Task ProjectAsync(Guid productId, CancellationToken cancellationToken)
     {
-        var product = await _eventStoreService.LoadAggregateFromStreamAsync(productId, cancellationToken);
+        var inventoryItem = await _eventStoreService.LoadAggregateFromStreamAsync(productId, cancellationToken);
 
-        var productDetails = new ProductDetailsProjection
+        var inventoryItemDetails = new InventoryItemDetailsProjection
         {
-            Id = product.Id,
-            Description = product.Description,
-            Name = product.Name,
-            Quantity = product.Quantity,
-            Sku = product.Sku,
-            IsDeleted = product.IsDeleted
+            Id = inventoryItem.Id,
+            Description = inventoryItem.Description,
+            Name = inventoryItem.Name,
+            Quantity = inventoryItem.Quantity,
+            Sku = inventoryItem.Sku,
+            IsDeleted = inventoryItem.IsDeleted
         };
 
-        await _projectionsService.ProjectAsync(productDetails, cancellationToken);
+        await _projectionsService.ProjectAsync(inventoryItemDetails, cancellationToken);
     }
 }

@@ -3,7 +3,7 @@ using Application.Abstractions.EventSourcing.Projections;
 
 namespace Application.EventSourcing.Projections;
 
-public record ProductDetailsProjection : IProjection
+public record InventoryItemDetailsProjection : IProjection
 {
     public Guid Id { get; init; }
     public string Sku { get; init; }

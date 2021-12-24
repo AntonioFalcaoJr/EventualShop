@@ -6,7 +6,6 @@ using ECommerce.Abstractions;
 using ECommerce.JsonConverters;
 using FluentValidation;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
-using Infrastructure.Abstractions.EventSourcing.Projections.Contexts.BsonSerializers;
 using Infrastructure.DependencyInjection.Filters;
 using Infrastructure.DependencyInjection.Observers;
 using Infrastructure.DependencyInjection.Options;
@@ -99,9 +98,7 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddProjectionsDbContext(this IServiceCollection services)
     {
-        BsonSerializer.RegisterSerializer(new DateOnlyBsonSerializer());
         BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.CSharpLegacy));
-
         return services.AddScoped<IMongoDbContext, ProjectionsDbContext>();
     }
 

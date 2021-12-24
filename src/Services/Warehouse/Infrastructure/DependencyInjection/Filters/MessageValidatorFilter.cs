@@ -33,7 +33,7 @@ public class MessageValidatorFilter<T> : IFilter<ConsumeContext<T>>
             _logger.LogError("Message validation errors: {Errors}", validationResult.Errors);
 
             await context.Send(
-                destinationAddress: new($"queue:shoppingcart-{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}-validation-errors"),
+                destinationAddress: new($"queue:warehouse-{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}-validation-errors"),
                 message: new ValidationResultMessage<T>(context.Message, validationResult));
 
             return;

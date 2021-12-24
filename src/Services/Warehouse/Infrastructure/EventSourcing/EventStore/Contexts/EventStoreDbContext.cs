@@ -30,8 +30,8 @@ public class EventStoreDbContext : DbContext
         _options = optionsSnapshot.Value;
     }
 
-    public DbSet<WarehouseStoreEvent> ShoppingCartStoreEvents { get; set; }
-    public DbSet<WarehouseSnapshot> ShoppingCartSnapshots { get; set; }
+    public DbSet<WarehouseStoreEvent> WarehouseStoreEvents { get; set; }
+    public DbSet<WarehouseSnapshot> WarehouseSnapshots { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -76,8 +76,8 @@ public class EventStoreDbContext : DbContext
             .HaveMaxLength(1024);
 
         configurationBuilder
-            .Properties<Product>()
-            .HaveConversion<CartConverter>()
+            .Properties<InventoryItem>()
+            .HaveConversion<InventoryItemConverter>()
             .AreUnicode(false)
             .HaveMaxLength(1024);
     }

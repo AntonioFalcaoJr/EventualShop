@@ -5,5 +5,5 @@ namespace ECommerce.Contracts.Warehouse;
 
 public static class Queries
 {
-    public record GetProductDetails(Guid ProductId) : Query;
+    public record GetInventoryItemDetails(Guid ProductId) : Query;
 }

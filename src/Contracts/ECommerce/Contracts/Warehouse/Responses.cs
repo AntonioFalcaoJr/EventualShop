@@ -4,7 +4,7 @@ namespace ECommerce.Contracts.Warehouse;
 
 public static class Responses
 {
-    public record ProductDetails : Response
+    public record InventoryItemDetails : Response
     {
         public string Sku { get; init; }
         public string Name { get; init; }

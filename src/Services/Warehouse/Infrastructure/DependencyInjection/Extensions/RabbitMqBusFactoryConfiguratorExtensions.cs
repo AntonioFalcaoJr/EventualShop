@@ -1,4 +1,5 @@
 ﻿using System;
+using Application.UseCases.Events.Integrations;
 using Application.UseCases.Events.Projections;
 using ECommerce.Abstractions.Events;
 using ECommerce.Contracts.Warehouse;
@@ -12,8 +13,9 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
     {
-        cfg.ConfigureEventReceiveEndpoint<ProjectProductDetailsWhenProductChangedConsumer, DomainEvents.InventoryAdjusted>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectProductDetailsWhenProductChangedConsumer, DomainEvents.ProductReceived>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectInventoryItemDetailsWhenChangedConsumer, DomainEvents.InventoryAdjusted>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectInventoryItemDetailsWhenChangedConsumer, DomainEvents.InventoryItemReceived>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ReserveInventoryItemWhenCartItemAddedConsumer, ECommerce.Contracts.ShoppingCart.DomainEvents.CartItemAdded>(registration);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)

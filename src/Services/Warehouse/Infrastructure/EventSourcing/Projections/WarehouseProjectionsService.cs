@@ -16,8 +16,8 @@ public class WarehouseProjectionsService : IWarehouseProjectionsService
         _repository = repository;
     }
 
-    public Task<ProductDetailsProjection> GetProductDetailsAsync(Guid productId, CancellationToken cancellationToken)
-        => _repository.FindAsync<ProductDetailsProjection>(product => product.Id == productId, cancellationToken);
+    public Task<InventoryItemDetailsProjection> GetProductDetailsAsync(Guid productId, CancellationToken cancellationToken)
+        => _repository.FindAsync<InventoryItemDetailsProjection>(product => product.Id == productId, cancellationToken);
 
     public Task ProjectAsync<TProjection>(TProjection projection, CancellationToken cancellationToken)
         where TProjection : IProjection

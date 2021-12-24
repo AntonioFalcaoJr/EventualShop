@@ -5,4 +5,4 @@ using Domain.Aggregates;
 
 namespace Application.EventSourcing.EventStore;
 
-public interface IWarehouseEventStoreRepository : IEventStoreRepository<Product, WarehouseStoreEvent, WarehouseSnapshot, Guid> { }
+public interface IWarehouseEventStoreRepository : IEventStoreRepository<InventoryItem, WarehouseStoreEvent, WarehouseSnapshot, Guid> { }
