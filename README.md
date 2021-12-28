@@ -1,8 +1,15 @@
 # EDA.CleanArch.DDD.CQRS.EventSourcing
 
-Note. _Greg Young takes the next steps beyond the DDD principles and best practices introduced by Eric Evans in **Domain-Driven Design: Tackling Complexity in the Heart of Software**, using DDD with **Command-Query Responsibility Segregation** (CQRS) and **event sourcing** to simplify construction, decentralize decision-making, and make system development more flexible and responsive._ Adapted from "Event Centric: Finding Simplicity in Complex Systems" by Y. Greg, 2012.
+Note. _Greg Young takes the next steps beyond the DDD principles and best practices introduced by Eric Evans in **
+Domain-Driven Design: Tackling Complexity in the Heart of Software**, using DDD with **Command-Query Responsibility
+Segregation** (CQRS) and **event sourcing** to simplify construction, decentralize decision-making, and make system
+development more flexible and responsive._ Adapted from "Event Centric: Finding Simplicity in Complex Systems" by Y.
+Greg, 2012.
 
-This project uses the **EventStorming** workshop to identify the business capabilities and the respective **Bounded Contexts** of a simple e-commerce, as well as the integration events that occur between them. In addition to demonstrating the implementation under an **Event-driven architecture** (EDA), through an **event-sourcing** design supported by the **CQRS** pattern in a **Clean Architecture**.
+This project uses the **EventStorming** workshop to identify the business capabilities and the respective **Bounded
+Contexts** of a simple e-commerce, as well as the integration events that occur between them. In addition to
+demonstrating the implementation under an **Event-driven architecture** (EDA), through an **event-sourcing** design
+supported by the **CQRS** pattern in a **Clean Architecture**.
 
 > State transitions are an important part of our problem space and should be modelled within our domain.    
 > -- <cite> Greg Young </cite>
@@ -14,7 +21,7 @@ If this project helped you in some way, please give it a star. Thanks!
 ## The Solution Architecture
 
 ![](./.assets/img/solution_architecture.png)    
-Fig. 1: Falcão Jr., Antônio. *An EDA solution architecture*.    
+Fig. 1: Falcão Jr., Antônio. *An EDA solution architecture*.
 
 ## Messaging - Making good use of Context Mapping
 
@@ -28,8 +35,9 @@ Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed
 > Vernon, V. (2016) Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional, pp65-67.
 
 ## Event-driven architecture (EDA)
-> Event-driven architecture (EDA) is a software architecture paradigm promoting the production, detection, consumption of, and reaction to events. An event can be defined as "a significant change in state".      
-> 
+
+> Event-driven architecture (EDA) is a software architecture paradigm promoting the production, detection, consumption of, and reaction to events. An event can be defined as "a significant change in state".
+>
 > "Event-driven architecture." *Wikipedia*, Wikimedia Foundation, last edited on 9 May 2021.  
 > https://en.wikipedia.org/wiki/Event-driven_architecture
 
@@ -38,9 +46,9 @@ Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed
 > Jansen, Grace & Saladas, Johanna. "Advantages of the event-driven architecture pattern." *developer.ibm.com*, IBM Developer, last edited on 12 May 2021.  
 > https://developer.ibm.com/articles/advantages-of-an-event-driven-architecture/
 
- ![](./.assets/img/eda.png)    
- Fig. 3: Uit de Bos, Oskar. *A simple illustration of events using the publish/subscribe messaging model*.    
- https://medium.com/swlh/the-engineers-guide-to-event-driven-architectures-benefits-and-challenges-3e96ded8568b
+![](./.assets/img/eda.png)    
+Fig. 3: Uit de Bos, Oskar. *A simple illustration of events using the publish/subscribe messaging model*.    
+https://medium.com/swlh/the-engineers-guide-to-event-driven-architectures-benefits-and-challenges-3e96ded8568b
 
 ### EDA & Microservices Architecture
 
@@ -57,8 +65,9 @@ The following table shows how EDA and Microservices architectural styles complim
 | Ability to build processing pipelines | Evolutionary in nature |
 | Availability of sophisticated event brokers reduce code complexity | Set of standard reusable technical services often referred as `MicroServices Chassis`  |
 | A rich palate of proven [Enterprise Integration Patterns](https://www.enterpriseintegrationpatterns.com/) | Provides a rich repository of reusable [implementation patterns](https://microservices.io/patterns/microservices.html) |
-  
-Table 1: Ambre, Tanmay. *Architectural styles compliment*, Architectural considerations for event-driven microservices-based systems.    
+
+Table 1: Ambre, Tanmay. *Architectural styles compliment*, Architectural considerations for event-driven
+microservices-based systems.    
 https://developer.ibm.com/articles/eda-and-microservices-architecture-best-practices/
 
 ### EDA vs SOA
@@ -68,7 +77,8 @@ https://developer.ibm.com/articles/eda-and-microservices-architecture-best-pract
 > Mathew, Jerry. "SOA vs. EDA: Is Not Life Simply a Series of Events?." *Confluent.io*, last edited on 19 Mar 2019.  
 > https://www.confluent.io/blog/soa-vs-eda-is-not-life-simply-a-series-of-events/
 
-According to Mathew, here are some reasons why the EDA patterns can alleviate some of the challenges traditional SOA patterns bring:
+According to Mathew, here are some reasons why the EDA patterns can alleviate some of the challenges traditional SOA
+patterns bring:
 
 |   | SOA | EDA |
 |---|---|---|
@@ -105,14 +115,15 @@ https://www.oreilly.com/library/view/software-architecture-patterns/978149197143
 > [https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html](https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html#:%7E:text=In%20a%20choreography%2Dbased%20saga,and%20publishes%20a%20domain%20event.&text=The%20step%20of%20the%20saga,data%20and%20emits%20an%20event)
 
 ![](./.assets/img/Saga.png)    
-Fig. 5: Richardson, Chris. "Implementing a choreography-based saga." *Managing data consistency in a microservice architecture using Sagas*, chrisrichardson.net.  
+Fig. 5: Richardson, Chris. "Implementing a choreography-based saga." *Managing data consistency in a microservice
+architecture using Sagas*, chrisrichardson.net.  
 [https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html](https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html#:%7E:text=In%20a%20choreography%2Dbased%20saga,and%20publishes%20a%20domain%20event.&text=The%20step%20of%20the%20saga,data%20and%20emits%20an%20event)
 
 #### Orchestration vs Choreography
 
 *SAGA - A long story about past events over a long period of time.*
 
->Orchestration entails actively controlling all elements and interactions like a conductor directs the musicians of an orchestra, while choreography entails establishing a pattern or routine that microservices follow as the music plays, without requiring supervision and instructions.
+> Orchestration entails actively controlling all elements and interactions like a conductor directs the musicians of an orchestra, while choreography entails establishing a pattern or routine that microservices follow as the music plays, without requiring supervision and instructions.
 >
 > Schabowsky, Jonathan. "The Benefits of Choreography", *solace.com*, last edited on 16 Nov 2019.   
 > https://solace.com/blog/microservices-choreography-vs-orchestration/
@@ -136,6 +147,7 @@ Benefits & drawbacks of Orchestration
 Fig. 7: Falcão, Antônio. "Order choreography-based saga".
 
 Benefits & drawbacks of Choreography
+
 * No centralized logic: this can be good and bad;
 * Useful for small/simple workflows;
 * Difficult to conceptualize if a lot of services are involved;
@@ -149,7 +161,7 @@ Benefits & drawbacks of Choreography
 > https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing
 
 > We can query an application's state to find out the current state of the world, and this answers many questions. However there are times when we don't just want to see where we are, we also want to know how we got there.
-> 
+>
 > Event Sourcing ensures that all changes to application state are stored as a sequence of events. Not just can we query these events, we can also use the event log to reconstruct past states, and as a foundation to automatically adjust the state to cope with retroactive changes.
 >
 > Fowler, Martin. "Eventsourcing," *martinfowler.com*, last edited on 12 Dec 2005.     
@@ -165,7 +177,7 @@ https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing#solu
 
 > _want to learn event sourcing?_  
 > _f(state, event) => state_
-> 
+>
 > -- <cite> gregyoung (@gregyoung) </cite>
 
 ![](./.assets/img/event-sourcing-state-transition.png)  
@@ -245,6 +257,7 @@ Fig. 15: Nowak, Aleksander. *Understanding Event-Driven Design Patterns for Micr
 https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-microservices-659b3c9fb51f
 
 ## CQRS
+
 > CQRS stands for Command and Query Responsibility Segregation, a pattern that separates read and update operations for a data store. Implementing CQRS in your application can maximize its performance, scalability, and security. The flexibility created by migrating to CQRS allows a system to better evolve over time and prevents update commands from causing merge conflicts at the domain level.
 >
 > "What is the CQRS pattern?" *MSDN*, Microsoft Docs, last edited on 2 Nov 2020.  
@@ -263,23 +276,25 @@ Fig. 17: Go, Jayson. *From Monolith to Event-Driven: Finding Seams in Your Futur
 https://www.eventstore.com/blog/what-is-event-sourcing
 
 ### Projections
-To cover this topic was prepared [this presentation](https://www.canva.com/design/DAEY9ttmPgY/F_lh7TXQEdG-su-qojEjdw/view?utm_content=DAEY9ttmPgY&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink) with some different strategies and ways to implement projections.
 
-## Event-sourcing + CQRS 
+To cover this topic was
+prepared [this presentation](https://www.canva.com/design/DAEY9ttmPgY/F_lh7TXQEdG-su-qojEjdw/view?utm_content=DAEY9ttmPgY&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
+with some different strategies and ways to implement projections.
 
-> CQRS and Event Sourcing have a symbiotic relationship. CQRS allows Event Sourcing to be used as the
-data storage mechanism for the domain.  
-> 
-> Young Greg, 2012, *CQRS and Event Sourcing*, **CQRS Documents by Greg Young**, p50. 
+## Event-sourcing + CQRS
+
+> CQRS and Event Sourcing have a symbiotic relationship. CQRS allows Event Sourcing to be used as the data storage mechanism for the domain.
+>
+> Young Greg, 2012, *CQRS and Event Sourcing*, **CQRS Documents by Greg Young**, p50.
 
 > The CQRS pattern is often used along with the Event Sourcing pattern. CQRS-based systems use separate read and write data models, each tailored to relevant tasks and often located in physically separate stores. When used with the Event Sourcing pattern, the store of events is the write model, and is the official source of information. The read model of a CQRS-based system provides materialized views of the data, typically as highly denormalized views. These views are tailored to the interfaces and display requirements of the application, which helps to maximize both display and query performance.
 >
 > "Event Sourcing and CQRS pattern" *MSDN*, Microsoft Docs, last edited on 02 Nov 2020.   
 > https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs#event-sourcing-and-cqrs-pattern
 
- ![](./.assets/img/cqrs-eventsourcing-diagram.png)
- Fig. 18: Whittaker, Daniel. *CQRS + Event Sourcing – Step by Step*.    
- https://danielwhittaker.me/2020/02/20/cqrs-step-step-guide-flow-typical-application/
+![](./.assets/img/cqrs-eventsourcing-diagram.png)
+Fig. 18: Whittaker, Daniel. *CQRS + Event Sourcing – Step by Step*.    
+https://danielwhittaker.me/2020/02/20/cqrs-step-step-guide-flow-typical-application/
 
 <br>
 
@@ -296,45 +311,45 @@ https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 
 #### Domain Event
 
->In domain-driven design, domain events are described as something that happens in the domain and is important to domain experts. Such events typically occur regardless of whether or to what extent the domain is implemented in a software system. They are also independent of technologies. Accordingly, domain events have a high-value semantics, which is expressed in the language spoken by domain experts.
+> In domain-driven design, domain events are described as something that happens in the domain and is important to domain experts. Such events typically occur regardless of whether or to what extent the domain is implemented in a software system. They are also independent of technologies. Accordingly, domain events have a high-value semantics, which is expressed in the language spoken by domain experts.
 >
 > Stettler, Christina. "Domain Events vs. Event Sourcing", *innoq.com*, last edited on 15 Jan 2019.   
 > https://www.innoq.com/en/blog/domain-events-versus-event-sourcing/
 
->Event Sourcing is when you use Domain Events to store the state of an Aggregate within a Bounded Context. This basically means replacing your relational data model (or other data store) with an ever-growing log of Domain Events, which is called an event store. This is the core of Event Sourcing. So to use Event Sourcing you definitely need to understand Domain Events.
+> Event Sourcing is when you use Domain Events to store the state of an Aggregate within a Bounded Context. This basically means replacing your relational data model (or other data store) with an ever-growing log of Domain Events, which is called an event store. This is the core of Event Sourcing. So to use Event Sourcing you definitely need to understand Domain Events.
 >
 > Holmqvist, Mattias. "What are Domain Events?", *serialized.io*, last edited on 20 Aug 2020.   
 > https://serialized.io/ddd/domain-event/
 
 #### Integration Event
 
->Integration events are used for bringing domain state in sync across multiple microservices or external systems. This functionality is done by publishing integration events outside the microservice. When an event is published to multiple receiver microservices (to as many microservices as are subscribed to the integration event), the appropriate event handler in each receiver microservice handles the event.
+> Integration events are used for bringing domain state in sync across multiple microservices or external systems. This functionality is done by publishing integration events outside the microservice. When an event is published to multiple receiver microservices (to as many microservices as are subscribed to the integration event), the appropriate event handler in each receiver microservice handles the event.
 >
 > MSDN. "Implementing event-based communication between microservices (integration events)", *docs.microsoft.com*, last edited on 30 Nov 2021.   
 > https://docs.microsoft.com/en-us/dotnet/architecture/microservices/multi-container-microservice-net-applications/integration-event-based-microservice-communications
 
->Should you publish Domain Events or Integration Events? Common advice is to not publish domain events outside of your service boundary. They should only exist within your service boundary. Instead, you should publish integration events for other service boundaries. While this general advice makes sense, it’s not so cut-and-dry. There are many reasons why you would want to publish domain events for other services to consume.
+> Should you publish Domain Events or Integration Events? Common advice is to not publish domain events outside of your service boundary. They should only exist within your service boundary. Instead, you should publish integration events for other service boundaries. While this general advice makes sense, it’s not so cut-and-dry. There are many reasons why you would want to publish domain events for other services to consume.
 >
-> Domain Events or Integration Events? As always, it depends. If your domain events are stable business concepts and they are understood outside of your boundary as a part of a long-running business process, then yes, publishing domain events outside of your boundary are acceptable.  If events are used for data propagation or are more CRUD in nature, then publish Integration Events.
+> Domain Events or Integration Events? As always, it depends. If your domain events are stable business concepts and they are understood outside of your boundary as a part of a long-running business process, then yes, publishing domain events outside of your boundary are acceptable. If events are used for data propagation or are more CRUD in nature, then publish Integration Events.
 >
 > Comartin, Derek. "Should you publish Domain Events or Integration Events?", *codeopinion.com*, last edited on 24 Nov 2021.   
 > https://codeopinion.com/should-you-publish-domain-events-or-integration-events/
 
 ##### Event Notification
 
->Most times events used for notifications are generally pretty slim. They don’t contain much data. If a consumer is handling an event but needs more information, to, for example, react and perform some action, it might have to make an RPC call back to the producing service to get more information. And this is what leads people to Event carried State Transfer, so they do not have to make these RPC calls.
+> Most times events used for notifications are generally pretty slim. They don’t contain much data. If a consumer is handling an event but needs more information, to, for example, react and perform some action, it might have to make an RPC call back to the producing service to get more information. And this is what leads people to Event carried State Transfer, so they do not have to make these RPC calls.
 >
 > Comartin, Derek. "Event Based Architecture: What do you mean by EVENT?", *codeopinion.com*, last edited on 05 Mai 2021.   
 > https://codeopinion.com/should-you-publish-domain-events-or-integration-events/
 
->In this mode, the event producer sends a notification to the event system that a change has happened to the entity. The change itself was NOT specified in the event. Consumers are expected to query the read endpoint to understand the latest state of the data.
+> In this mode, the event producer sends a notification to the event system that a change has happened to the entity. The change itself was NOT specified in the event. Consumers are expected to query the read endpoint to understand the latest state of the data.
 >
-> Balachandran, Arvind. "Event Notification vs. Event-Carried State Transfer", *Start it up*, last edited on 27 Oct 2019. 
+> Balachandran, Arvind. "Event Notification vs. Event-Carried State Transfer", *Start it up*, last edited on 27 Oct 2019.
 > https://medium.com/swlh/event-notification-vs-event-carried-state-transfer-2e4fdf8f6662
 
 ##### Event-Carried State Transfer
 
->The most common way I see events being used and explained is for state propagation. Meaning, you’re publishing events about state changes within a service, so other services (consumers) can keep a local cache copy of the data.
+> The most common way I see events being used and explained is for state propagation. Meaning, you’re publishing events about state changes within a service, so other services (consumers) can keep a local cache copy of the data.
 >
 >This is often referred to as Event Carried State Transfer.
 >
@@ -343,14 +358,14 @@ https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 > Comartin, Derek. "Event Based Architecture: What do you mean by EVENT?", *codeopinion.com*, last edited on 05 Mai 2021.   
 > https://codeopinion.com/should-you-publish-domain-events-or-integration-events/
 
->In stark contrast to the event notification model, the event-carried state transfer model puts the data as part of the event itself. There are two key variants to implementing this. Fine-Grained and Snapshots.
+> In stark contrast to the event notification model, the event-carried state transfer model puts the data as part of the event itself. There are two key variants to implementing this. Fine-Grained and Snapshots.
 >
 > Balachandran, Arvind. "Event Notification vs. Event-Carried State Transfer", *Start it up*, last edited on 27 Oct 2019.   
 > https://medium.com/swlh/event-notification-vs-event-carried-state-transfer-2e4fdf8f6662
 
 ## EventStorming
 
->EventStorming is a flexible workshop format for collaborative exploration of complex business domains.
+> EventStorming is a flexible workshop format for collaborative exploration of complex business domains.
 >
 >It comes in different flavours, that can be used in different scenarios:
 >
@@ -369,6 +384,7 @@ Fig. 20: Baas-Schwegler, Kenny & Richardson, Chris. *Picture that explains "Almo
 https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
 
 ### EventStorming (WIP)
+
 ![](./.assets/img/event-storming-wip.jpg)
 
 ## Domain-driven design (DDD)
@@ -419,6 +435,7 @@ To configure database resource, `init` secrets in [`./src/WebAPI`](./src/WebAPI)
 dotnet user-secrets set "ConnectionStrings:EventStore" "Server=<IP_ADDRESS>,1433;Database=YourContextNameEventStore;User=sa;Password=<PASSWORD>"
 dotnet user-secrets set "ConnectionStrings:Projections" "mongodb://<USER_NAME>:<PASSWORD>@<IP_ADDRESS>:27017/YourContextNameProjections/?authSource=admin"
 ```
+
 Expected
 
 ```bash
@@ -438,9 +455,13 @@ If prefer, define it on WebAPI [`appsettings.Development.json`](./src/WebAPI/app
   }
 }
 ```
+
 ### Production
 
-Considering use Docker for CD (Continuous Deployment). On respective [compose](./docker-compose.yml) the **web application** and **sql server** are in the same network, and then we can use named hosts. Already defined on WebAPI [`appsettings.json`](./src/Dotnet6.GraphQL4.Store.WebAPI/appsettings.json) and WebMVC [`appsettings.json`](./src/Dotnet6.GraphQL4.Store.WebMVC/appsettings.json) files:
+Considering use Docker for CD (Continuous Deployment). On respective [compose](./docker-compose.yml) the **web
+application** and **sql server** are in the same network, and then we can use named hosts. Already defined on
+WebAPI [`appsettings.json`](./src/Dotnet6.GraphQL4.Store.WebAPI/appsettings.json) and
+WebMVC [`appsettings.json`](./src/Dotnet6.GraphQL4.Store.WebMVC/appsettings.json) files:
 
 #### AppSettings
 
@@ -453,6 +474,7 @@ WebAPI
   }
 }
 ```
+
 ### Docker
 
 The [`./docker-compose.yml`](./docker-compose.yml) provide the `WebAPI` and `MS SQL Server`:
@@ -524,6 +546,7 @@ networks:
 Docker commands
 
 MSSQL
+
 ```bash
 docker run -d \
 -e 'ACCEPT_EULA=Y' \
@@ -532,7 +555,9 @@ docker run -d \
 --name mssql \
 mcr.microsoft.com/mssql/server
 ```
+
 MongoDB
+
 ```bash
 docker run -d \
 -e 'MONGO_INITDB_ROOT_USERNAME=mongoadmin' \
@@ -541,7 +566,9 @@ docker run -d \
 --name mongodb \
 mongo
 ```
+
 RabbitMQ
+
 ```bash
 docker run -d \
 -p 15672:15672 \
