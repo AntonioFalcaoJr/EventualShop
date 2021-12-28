@@ -16,6 +16,17 @@ If this project helped you in some way, please give it a star. Thanks!
 ![](./.assets/img/solution_architecture.png)    
 Fig. 1: Falcão Jr., Antônio. *An EDA solution architecture*.    
 
+## Messaging - Making good use of Context Mapping
+
+![](./.assets/img/messaging_context_mapping.png)  
+Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed, p65.
+
+> When using asynchronous messaging to integrate, much can be accomplished by a client Bounded Context subscribing to the Domain Events published by your own or another Bounded Context. Using messaging is one of the most robust forms of integration because you remove much of the temporal coupling associated with blocking forms such as RPC and REST. Since you already anticipate the latency of message exchange, you tend to build more robust systems because you never expect immediate results.
+>
+> Typically an Aggregate in one Bounded Context publishes a Domain Event, which could be consumed by any number of interested parties. When a subscribing Bounded Context receives the Domain Event, some action will be taken based on its type and value. Normally it will cause a new Aggregate to be created or an existing Aggregate to be modified in the consuming Bounded Context.
+>
+> Vernon, V. (2016) Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional, pp65-67.
+
 ## Event-driven architecture (EDA)
 > Event-driven architecture (EDA) is a software architecture paradigm promoting the production, detection, consumption of, and reaction to events. An event can be defined as "a significant change in state".      
 > 
@@ -28,7 +39,7 @@ Fig. 1: Falcão Jr., Antônio. *An EDA solution architecture*.
 > https://developer.ibm.com/articles/advantages-of-an-event-driven-architecture/
 
  ![](./.assets/img/eda.png)    
- Fig. 2: Uit de Bos, Oskar. *A simple illustration of events using the publish/subscribe messaging model*.    
+ Fig. 3: Uit de Bos, Oskar. *A simple illustration of events using the publish/subscribe messaging model*.    
  https://medium.com/swlh/the-engineers-guide-to-event-driven-architectures-benefits-and-challenges-3e96ded8568b
 
 ### EDA & Microservices Architecture
@@ -83,7 +94,7 @@ https://www.confluent.io/blog/soa-vs-eda-is-not-life-simply-a-series-of-events/
 > https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch02.html
 
 ![](./.assets/img/broker_topology_eda.png)    
-Fig. 3: Richards, Mark. "Broker Topology." *Software Architecture Patterns by Mark Richards*, O'Reilly.  
+Fig. 4: Richards, Mark. "Broker Topology." *Software Architecture Patterns by Mark Richards*, O'Reilly.  
 https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch02.html
 
 ### Choreography-based SAGA
@@ -94,7 +105,7 @@ https://www.oreilly.com/library/view/software-architecture-patterns/978149197143
 > [https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html](https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html#:%7E:text=In%20a%20choreography%2Dbased%20saga,and%20publishes%20a%20domain%20event.&text=The%20step%20of%20the%20saga,data%20and%20emits%20an%20event)
 
 ![](./.assets/img/Saga.png)    
-Fig. 4: Richardson, Chris. "Implementing a choreography-based saga." *Managing data consistency in a microservice architecture using Sagas*, chrisrichardson.net.  
+Fig. 5: Richardson, Chris. "Implementing a choreography-based saga." *Managing data consistency in a microservice architecture using Sagas*, chrisrichardson.net.  
 [https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html](https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html#:%7E:text=In%20a%20choreography%2Dbased%20saga,and%20publishes%20a%20domain%20event.&text=The%20step%20of%20the%20saga,data%20and%20emits%20an%20event)
 
 #### Orchestration vs Choreography
@@ -109,7 +120,7 @@ Fig. 4: Richardson, Chris. "Implementing a choreography-based saga." *Managing d
 ##### Orchestration
 
 ![](./.assets/img/orchestration.png)
-Fig. 5: Falcão, Antônio. "Order orchestration-based saga".
+Fig. 6: Falcão, Antônio. "Order orchestration-based saga".
 
 Benefits & drawbacks of Orchestration
 
@@ -122,7 +133,7 @@ Benefits & drawbacks of Orchestration
 ##### Choreography
 
 ![](./.assets/img/choreography.png)
-Fig. 6: Falcão, Antônio. "Order choreography-based saga".
+Fig. 7: Falcão, Antônio. "Order choreography-based saga".
 
 Benefits & drawbacks of Choreography
 * No centralized logic: this can be good and bad;
@@ -147,7 +158,7 @@ Benefits & drawbacks of Choreography
 <br>
 
 ![](./.assets/img/event-sourcing-overview.png)  
-Fig. 7: MSDN. *Event Sourcing pattern*.    
+Fig. 8: MSDN. *Event Sourcing pattern*.    
 https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing#solution
 
 ### Pattern
@@ -158,13 +169,13 @@ https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing#solu
 > -- <cite> gregyoung (@gregyoung) </cite>
 
 ![](./.assets/img/event-sourcing-state-transition.png)  
-Fig. 8: Battermann, Leif. *12 Things You Should Know About Event Sourcing*.    
+Fig. 9: Battermann, Leif. *12 Things You Should Know About Event Sourcing*.    
 http://blog.leifbattermann.de/2017/04/21/12-things-you-should-know-about-event-sourcing/
 
 State transition during events applying:
 
 ![](./.assets/img/applyTo_event-sourcing.png)
-Fig. 9: Reitzammer, Benjamin & Seitz, Johannes. *Event Sourcingin practice*.    
+Fig. 10: Reitzammer, Benjamin & Seitz, Johannes. *Event Sourcingin practice*.    
 https://ookami86.github.io/event-sourcing-in-practice/#making-eventsourcing-work/18-concurrent-modifictations.md
 
 ### Event Store
@@ -175,13 +186,13 @@ https://ookami86.github.io/event-sourcing-in-practice/#making-eventsourcing-work
 > https://www.eventstore.com/blog/what-is-event-sourcing
 
 ![](./.assets/img/event-store.png)  
-Fig. 10: Shilkov, Mikhail. *Event Sourcing and IO Complexity*.    
+Fig. 11: Shilkov, Mikhail. *Event Sourcing and IO Complexity*.    
 https://mikhail.io/2016/11/event-sourcing-and-io-complexity/
 
 The following picture shows the difference between approaches:
 
 ![](./.assets/img/event-sourcing.png)
-Fig. 11: Richardson, Chris. *Pattern: Event sourcing*.    
+Fig. 12: Richardson, Chris. *Pattern: Event sourcing*.    
 https://microservices.io/patterns/data/event-sourcing.html
 
 ### Snapshot
@@ -197,13 +208,13 @@ https://microservices.io/patterns/data/event-sourcing.html
 > https://domaincentric.net/blog/event-sourcing-snapshotting
 
 ![](./.assets/img/snapshot.png)  
-Fig. 12: Comartin, Derek. *Snapshots in Event Sourcing for Rehydrating Aggregates*.    
+Fig. 13: Comartin, Derek. *Snapshots in Event Sourcing for Rehydrating Aggregates*.    
 https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates/
 
 Snapshot stream:
 
 ![](./.assets/img/stream_snapshot.png)  
-Fig. 13: Comartin, Derek. *Snapshots in Event Sourcing for Rehydrating Aggregates*.    
+Fig. 14: Comartin, Derek. *Snapshots in Event Sourcing for Rehydrating Aggregates*.    
 https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates/
 
 ## EDA + Event-sourcing
@@ -230,7 +241,7 @@ https://pablo-iorio.medium.com/event-driven-architectures-vs-event-sourcing-patt
 <br>
 
 ![](./.assets/img/EventSourcing_EDA.jpeg)
-Fig. 14: Nowak, Aleksander. *Understanding Event-Driven Design Patterns for Microservices*.    
+Fig. 15: Nowak, Aleksander. *Understanding Event-Driven Design Patterns for Microservices*.    
 https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-microservices-659b3c9fb51f
 
 ## CQRS
@@ -242,13 +253,13 @@ https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-
 <br>
 
 ![](.assets/img/cqrs.png)   
-Fig. 15: Bürckel, Marco. *Some thoughts on using CQRS without Event Sourcing*.    
+Fig. 16: Bürckel, Marco. *Some thoughts on using CQRS without Event Sourcing*.    
 https://medium.com/@mbue/some-thoughts-on-using-cqrs-without-event-sourcing-938b878166a2
 
 <br>
 
 ![](.assets/img/cqrs.jpg)   
-Fig. 16: Go, Jayson. *From Monolith to Event-Driven: Finding Seams in Your Future Architecture*.    
+Fig. 17: Go, Jayson. *From Monolith to Event-Driven: Finding Seams in Your Future Architecture*.    
 https://www.eventstore.com/blog/what-is-event-sourcing
 
 ### Projections
@@ -267,13 +278,13 @@ data storage mechanism for the domain.
 > https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs#event-sourcing-and-cqrs-pattern
 
  ![](./.assets/img/cqrs-eventsourcing-diagram.png)
- Fig. 17: Whittaker, Daniel. *CQRS + Event Sourcing – Step by Step*.    
+ Fig. 18: Whittaker, Daniel. *CQRS + Event Sourcing – Step by Step*.    
  https://danielwhittaker.me/2020/02/20/cqrs-step-step-guide-flow-typical-application/
 
 <br>
 
 ![](./.assets/img/cqrs-eventsourcing-flow.png)  
-Fig. 18: Katwatka, Piotr. *Event Sourcing with CQRS*.  
+Fig. 19: Katwatka, Piotr. *Event Sourcing with CQRS*.  
 https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 
 ### Commands vs Events
@@ -354,7 +365,7 @@ https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 > https://www.eventstorming.com/
 
 ![](./.assets/img/event-storming.jpg)  
-Fig. 19: Baas-Schwegler, Kenny & Richardson, Chris. *Picture that explains "Almost" Everything*.    
+Fig. 20: Baas-Schwegler, Kenny & Richardson, Chris. *Picture that explains "Almost" Everything*.    
 https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
 
 ### EventStorming (WIP)
@@ -382,7 +393,7 @@ https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
 > https://martinfowler.com/bliki/DomainDrivenDesign.html
 
 ![](./.assets/img/BoundedContext.jpg)  
-Fig. 20: Martin, Fowler. *BoundedContext*.    
+Fig. 21: Martin, Fowler. *BoundedContext*.    
 https://martinfowler.com/bliki/DomainDrivenDesign.html
 
 ## Clean Architecture
@@ -395,7 +406,7 @@ https://martinfowler.com/bliki/DomainDrivenDesign.html
 > https://whatis.techtarget.com/definition/clean-architecture
 
 ![](./.assets/img/CleanArchitecture.jpg)  
-Fig. 21: C. Martin, Robert. *The Clean Architecture*.    
+Fig. 22: C. Martin, Robert. *The Clean Architecture*.    
 https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
 ## Running
