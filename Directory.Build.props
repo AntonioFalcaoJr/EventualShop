@@ -11,16 +11,16 @@
     <PropertyGroup Label="Packages dependency versions">
 
         <!--Microsoft-->
-        <Microsoft_Extensions_Version>6.0.0-preview.4.21253.7</Microsoft_Extensions_Version>
+        <Microsoft_Extensions_Version>6.0.0</Microsoft_Extensions_Version>
 
         <!--EF Core-->
-        <EntityFrameworkCore_Version>6.0.0</EntityFrameworkCore_Version>
+        <EntityFrameworkCore_Version>6.0.1</EntityFrameworkCore_Version>
 
         <!--MongoDb-->
         <MongoDb_Version>2.14.1</MongoDb_Version>
 
         <!--MassTransit-->
-        <MassTransit_Version>7.3.0</MassTransit_Version>
+        <MassTransit_Version>7.3.1-develop.340</MassTransit_Version>
 
         <!--Newtonsoft-->
         <Newtonsoft_Version>13.0.1</Newtonsoft_Version>

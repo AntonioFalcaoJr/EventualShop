@@ -8,9 +8,9 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EntityFrameworkCore_Version)" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="$(EntityFrameworkCore_Version)" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EntityFrameworkCore_Version)" />
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="$(EntityFrameworkCore_Version)" />
-        <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="$(EntityFrameworkCore_Version)" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="$(Microsoft_Extensions_Version)" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="$(Microsoft_Extensions_Version)" />
+        <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="$(Microsoft_Extensions_Version)" />
         <PackageReference Include="MongoDB.Driver" Version="$(MongoDb_Version)" />
         <PackageReference Include="Serilog" Version="$(Serilog_Version)" />
         <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="$(EntityFrameworkCore_Version)" />
