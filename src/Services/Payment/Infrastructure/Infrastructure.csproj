@@ -13,7 +13,6 @@
         <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="$(Microsoft_Extensions_Version)" />
         <PackageReference Include="MongoDB.Driver" Version="$(MongoDb_Version)" />
         <PackageReference Include="Serilog" Version="$(Serilog_Version)" />
-        <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="$(EntityFrameworkCore_Version)" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\..\Contracts\ECommerce\ECommerce.csproj" />
