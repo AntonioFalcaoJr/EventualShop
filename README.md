@@ -423,8 +423,12 @@ https://martinfowler.com/bliki/BoundedContext.html
 >
 > When you are just getting started in your software modeling efforts, your Bounded Context is somewhat conceptual. You could think of it as part of your problem space. However, as your model starts to take on deeper meaning and clarity, your Bounded Context will quickly transition to your solution space , with your software model being reflected as project source code. Remember that a Bounded Context is where a model is implemented, and you will have separate software artifacts for each Bounded Context.
 >
-> Vernon, V. (2016). "Strategic Design with Bounded Contexts and the
-Ubiquitous Language", Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional.
+> Vernon, V. (2016). "Strategic Design with Bounded Contexts and the Ubiquitous Language", Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional.
+
+> Explicitly	 define	 the	 context	 within	 which	 a	 model	 applies. Explicitly	 set	 boundaries	 in terms	 of	 team	 organization, usage	 within	 specific	 parts	 of	 the	 application, and	 physical manifestations	such	as	code	bases	and	database	schemas. Apply	Continuous	Integration	to keep	 model	 concepts	 and	 terms	 strictly	 consistent	 within	 these	 bounds, but	 don’t	 be distracted	or	confused	by	issues	outside. Standardize	a	single	development	process	within the	context, which	need	not	be	used	elsewhere.
+>
+> Evans, Eric. (2015). "Bounded Context", Domain-Driven	Design Reference.
+> https://www.domainlanguage.com/ddd/reference/
 
 ## Clean Architecture
 
