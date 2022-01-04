@@ -413,11 +413,11 @@ Fig. 21: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st 
 > Bounded Context is a central pattern in Domain-Driven Design. It is the focus of DDD's strategic design section which is all about dealing with large models and teams. DDD deals with large models by dividing them into different Bounded Contexts and being explicit about their interrelationships.
 >
 > Fowler, Martin. "BoundedContext," *martinfowler.com*, last edited on 15 Jan 2014.  
-> https://martinfowler.com/bliki/DomainDrivenDesign.html
+> https://martinfowler.com/bliki/BoundedContext.html
 
 ![](./.assets/img/BoundedContext.jpg)  
 Fig. 22: Martin, Fowler. *BoundedContext*.    
-https://martinfowler.com/bliki/DomainDrivenDesign.html
+https://martinfowler.com/bliki/BoundedContext.html
 
 > First, a Bounded Context is a semantic contextual boundary. This means that within the boundary each component of the software model has a specific meaning and does specific things. The components inside a Bounded Context are context specific and semantically motivated. That’s simple enough.
 >
