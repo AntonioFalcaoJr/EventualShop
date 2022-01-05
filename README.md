@@ -1,12 +1,10 @@
 # EDA.CleanArch.DDD.CQRS.EventSourcing
 
-Note. _Greg Young takes the next steps beyond the DDD principles and best practices introduced by Eric Evans in
-**Domain-Driven Design: Tackling Complexity in the Heart of Software**, using DDD with **Command-Query Responsibility
-Segregation** (CQRS) and **event sourcing** to simplify construction, decentralize decision-making, and make system
-development more flexible and responsive._ Adapted from "Event Centric: Finding Simplicity in Complex Systems" by Y.
-Greg, 2012.
+Note. _Greg Young takes the next steps beyond the DDD principles and best practices introduced by Eric Evans in **Domain-Driven Design: Tackling Complexity in the Heart of Software**, using DDD with **Command-Query Responsibility Segregation** (CQRS) and **event sourcing** to simplify construction,
+decentralize decision-making, and make system development more flexible and responsive._ Adapted from "Event Centric: Finding Simplicity in Complex Systems" by Y. Greg, 2012.
 
-Through the workshop **Event Storming** was explored the business domain of a simple e-commerce, as well as the integration events that occur between each **Bounded Context**. In addition to demonstrating the implementation under an **Event-driven Architecture** (EDA) through an **event-sourcing** design supported by the **CQRS** pattern in a **Clean Architecture**.
+This project applies the **EventStorming** workshop to explore the business capabilities and identify the respective **Bounded Contexts** of a simple e-commerce, as well as the integration events that occur between them. In addition to demonstrating the implementation under an **Event-driven
+architecture** (EDA), through an **event-sourcing** design supported by the **CQRS** pattern in a **Clean Architecture**.
 
 > State transitions are an important part of our problem space and should be modelled within our domain.    
 > -- <cite> Greg Young </cite>
