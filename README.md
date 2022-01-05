@@ -3,8 +3,8 @@
 Note. _Greg Young takes the next steps beyond the DDD principles and best practices introduced by Eric Evans in **Domain-Driven Design: Tackling Complexity in the Heart of Software**, using DDD with **Command-Query Responsibility Segregation** (CQRS) and **event sourcing** to simplify construction,
 decentralize decision-making, and make system development more flexible and responsive._ Adapted from "Event Centric: Finding Simplicity in Complex Systems" by Y. Greg, 2012.
 
-This project applies the **EventStorming** workshop to explore the business capabilities and identify the respective **Bounded Contexts** of a simple e-commerce, as well as the integration events that occur between them. In addition to demonstrating the implementation under an **Event-driven
-architecture** (EDA), through an **event-sourcing** design supported by the **CQRS** pattern in a **Clean Architecture**.
+This project applies the **EventStorming** workshop to explore the business capabilities and identify the respective **Bounded Contexts** of a simple e-commerce, as well as the **Domain Events** that provide integration between them. In addition to demonstrating the implementation under an **Event-driven
+architecture** (EDA), through the **event-sourcing** design supported by the **CQRS** pattern in a **Clean Architecture**.
 
 > State transitions are an important part of our problem space and should be modelled within our domain.    
 > -- <cite> Greg Young </cite>
@@ -618,9 +618,15 @@ CREATE TABLE [CustomerStoreEvents] (
 dotnet ef migrations add "First migration" -s .\WorkerService\ -p .\Infrastructure\
 ```
 
-## References
+## Main references:
 
-* [Event Centric: Finding Simplicity in Complex Systems](https://www.amazon.com/Event-Centric-Simplicity-Addison-Wesley-Signature/dp/0321768221)
+* [Evans, Eric (2003), Domain-Driven Design: Tackling Complexity in the Heart of Software.](https://www.amazon.com/dp-0321125215/dp/0321125215/ref=mt_other?_encoding=UTF8&me=&qid=1641385448)
+* [Young, Greg (2012), Event Centric: Finding Simplicity in Complex Systems.](https://www.amazon.com/Event-Centric-Simplicity-Addison-Wesley-Signature/dp/0321768221)
+* [Vernon, Vaughn (2016), Domain-Driven Design Distilled.](https://www.amazon.com/dp-0134434420/dp/0134434420/ref=mt_other?_encoding=UTF8&me=&qid=1641385096)
+* [Richardson, Chris (2018), Microservices Patterns: With examples in Java.](https://www.amazon.com/-/pt/dp-B09782192F/dp/B09782192F/ref=mt_other?_encoding=UTF8&me=&qid=1641385683)
+
+## Complementary references
+
 * [CQRS Documents - Greg Young](https://cqrs.files.wordpress.com/2010/11/cqrs_documents.pdf)
 * [Versioning in an Event Sourced - Greg Young](https://leanpub.com/esversioning/read)
 * [Pattern: Event sourcing - Chris Richardson](https://microservices.io/patterns/data/event-sourcing.html)
