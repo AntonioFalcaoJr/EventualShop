@@ -5,6 +5,7 @@ using ECommerce.Abstractions.Events;
 using ECommerce.Contracts.Account;
 using GreenPipes;
 using MassTransit;
+using MassTransit.Context;
 using MassTransit.RabbitMqTransport;
 
 namespace Infrastructure.DependencyInjection.Extensions;
@@ -28,10 +29,14 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
             queueName: $"account.{typeof(TConsumer).ToKebabCaseString()}.{typeof(TEvent).ToKebabCaseString()}",
             configureEndpoint: endpoint =>
             {
+                MessageCorrelation.UseCorrelationId<TEvent>(_ => Guid.NewGuid());                
+                
                 endpoint.ConfigureConsumeTopology = false;
 
                 endpoint.ConfigureConsumer<TConsumer>(registration);
                 endpoint.Bind<TEvent>();
+                
+                endpoint.UseMessageRetry(retry => retry.Immediate(10)); // TODO - Options
 
                 endpoint.UseCircuitBreaker(circuitBreaker => // TODO - Options
                 {

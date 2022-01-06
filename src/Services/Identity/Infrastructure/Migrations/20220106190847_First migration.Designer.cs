@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(EventStoreDbContext))]
-    [Migration("20211215205315_First migration")]
+    [Migration("20220106190847_First migration")]
     partial class Firstmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,12 +20,12 @@ namespace Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .UseCollation("SQL_Latin1_General_CP1_CS_AS")
-                .HasAnnotation("ProductVersion", "6.0.0")
+                .HasAnnotation("ProductVersion", "6.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Application.EventSourcing.EventStore.Events.PaymentSnapshot", b =>
+            modelBuilder.Entity("Application.EventSourcing.EventStore.Events.UserSnapshot", b =>
                 {
                     b.Property<int>("AggregateVersion")
                         .HasColumnType("int");
@@ -41,16 +41,16 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("AggregateState")
                         .IsRequired()
-                        .HasMaxLength(1024)
+                        .HasMaxLength(2048)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(1024)");
+                        .HasColumnType("varchar(2048)");
 
                     b.HasKey("AggregateVersion", "AggregateId");
 
-                    b.ToTable("PaymentSnapshots");
+                    b.ToTable("UserSnapshots");
                 });
 
-            modelBuilder.Entity("Application.EventSourcing.EventStore.Events.PaymentStoreEvent", b =>
+            modelBuilder.Entity("Application.EventSourcing.EventStore.Events.UserStoreEvent", b =>
                 {
                     b.Property<int>("Version")
                         .ValueGeneratedOnAdd()
@@ -69,9 +69,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Event")
                         .IsRequired()
-                        .HasMaxLength(1024)
+                        .HasMaxLength(2048)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(1024)");
+                        .HasColumnType("varchar(2048)");
 
                     b.Property<string>("EventName")
                         .IsRequired()
@@ -81,7 +81,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Version");
 
-                    b.ToTable("PaymentStoreEvents");
+                    b.ToTable("UserStoreEvents");
                 });
 #pragma warning restore 612, 618
         }

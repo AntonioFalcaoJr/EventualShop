@@ -18,7 +18,7 @@ namespace Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .UseCollation("SQL_Latin1_General_CP1_CS_AS")
-                .HasAnnotation("ProductVersion", "6.0.0")
+                .HasAnnotation("ProductVersion", "6.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -39,9 +39,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("AggregateState")
                         .IsRequired()
-                        .HasMaxLength(1024)
+                        .HasMaxLength(2048)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(1024)");
+                        .HasColumnType("varchar(2048)");
 
                     b.HasKey("AggregateVersion", "AggregateId");
 
@@ -67,9 +67,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Event")
                         .IsRequired()
-                        .HasMaxLength(1024)
+                        .HasMaxLength(2048)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(1024)");
+                        .HasColumnType("varchar(2048)");
 
                     b.Property<string>("EventName")
                         .IsRequired()

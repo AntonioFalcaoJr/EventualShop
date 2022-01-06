@@ -19,7 +19,7 @@ public class GetCatalogItemsDetailsConsumer : IConsumer<GetCatalogItemsDetailsWi
     public async Task Consume(ConsumeContext<GetCatalogItemsDetailsWithPaginationQuery> context)
     {
         var catalogItems = await _projectionsService.GetCatalogItemsWithPaginationAsync(
-            paging: new Paging { Limit = context.Message.Limit, Offset = context.Message.Offset },
+            paging: new() { Limit = context.Message.Limit, Offset = context.Message.Offset },
             predicate: catalog => catalog.Id == context.Message.CatalogId
                                   && catalog.IsActive
                                   && catalog.IsDeleted == false,

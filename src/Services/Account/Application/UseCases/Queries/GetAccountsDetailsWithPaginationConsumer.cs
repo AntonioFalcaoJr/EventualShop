@@ -19,7 +19,7 @@ public class GetAccountsDetailsWithPaginationConsumer : IConsumer<GetAccountsDet
     public async Task Consume(ConsumeContext<GetAccountsDetailsWithPaginationQuery> context)
     {
         var paginatedResult = await _projectionsService.GetAccountsDetailsWithPaginationAsync(
-            paging: new Paging { Limit = context.Message.Limit, Offset = context.Message.Offset },
+            paging: new() { Limit = context.Message.Limit, Offset = context.Message.Offset },
             predicate: _ => true,
             cancellationToken: context.CancellationToken);
 

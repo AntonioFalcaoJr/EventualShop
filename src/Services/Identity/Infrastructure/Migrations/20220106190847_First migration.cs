@@ -16,7 +16,7 @@ namespace Infrastructure.Migrations
                     AggregateVersion = table.Column<int>(type: "int", nullable: false),
                     AggregateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AggregateName = table.Column<string>(type: "varchar(30)", unicode: false, maxLength: 30, nullable: false),
-                    AggregateState = table.Column<string>(type: "varchar(1024)", unicode: false, maxLength: 1024, nullable: false)
+                    AggregateState = table.Column<string>(type: "varchar(2048)", unicode: false, maxLength: 2048, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,7 +32,7 @@ namespace Infrastructure.Migrations
                     AggregateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AggregateName = table.Column<string>(type: "varchar(30)", unicode: false, maxLength: 30, nullable: false),
                     EventName = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
-                    Event = table.Column<string>(type: "varchar(1024)", unicode: false, maxLength: 1024, nullable: false)
+                    Event = table.Column<string>(type: "varchar(2048)", unicode: false, maxLength: 2048, nullable: false)
                 },
                 constraints: table =>
                 {

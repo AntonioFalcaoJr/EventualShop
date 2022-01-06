@@ -33,7 +33,7 @@ public static class ServiceCollectionExtensions
             {
                 cfg.SetKebabCaseEndpointNameFormatter();
                 cfg.AddConsumers();
-
+                
                 cfg.UsingRabbitMq((context, bus) =>
                 {
                     var options = context
@@ -79,6 +79,16 @@ public static class ServiceCollectionExtensions
 
     private static void AddConsumers(this IRegistrationConfigurator cfg)
     {
+        
+        // var assemblyService = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.FullName.Contains("Corporate.FixedIncome.TradeCapture.Service"));
+        //
+        //
+        // if (assemblyService != null)
+        // {
+        //     busModel.Connections.Find(f => f.Host.Contains("orderInstitucional")).Consumers = assemblyService;
+        //     busModel.Connections.Find(f => f.Host.Contains("orderInstitucional")).Bus = typeof(ITradeCaptureInstitucionalChangedBus);
+        // }
+        
         cfg.AddConsumers(Assembly
             .GetExecutingAssembly()
             .GetReferencedAssemblies()

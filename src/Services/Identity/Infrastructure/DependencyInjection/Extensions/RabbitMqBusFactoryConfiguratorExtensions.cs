@@ -28,6 +28,8 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 
                 endpoint.ConfigureConsumer<TConsumer>(registration);
                 endpoint.Bind<TEvent>();
+                
+                endpoint.UseMessageRetry(retry => retry.Immediate(10)); // TODO - Options
 
                 endpoint.UseCircuitBreaker(circuitBreaker => // TODO - Options
                 {

@@ -11,7 +11,7 @@ public class LoggingConsumeObserver : IConsumeObserver
         where T : class
     {
         var messageType = context.Message.GetType();
-        Log.Information("Consuming {Message} message from {Namespace}, ConversationId: {ConversationId}", messageType.Name, messageType.Namespace, context.ConversationId);
+        Log.Information("Consuming {Message} message from {Namespace}, CorrelationId: {CorrelationId}", messageType.Name, messageType.Namespace, context.CorrelationId);
         await Task.CompletedTask;
     }
 

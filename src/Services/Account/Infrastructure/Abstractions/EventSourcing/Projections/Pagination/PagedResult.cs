@@ -14,11 +14,11 @@ public class PagedResult<T> : IPagedResult<T>
     private readonly int _limit;
     private readonly int _offset;
 
-    private PagedResult(IEnumerable<T> items, int offset, int limit)
+    private PagedResult(IEnumerable<T> items, int limit, int offset)
     {
         _items = items;
-        _offset = offset;
         _limit = limit;
+        _offset = offset;
     }
 
     public IEnumerable<T> Items
@@ -35,9 +35,9 @@ public class PagedResult<T> : IPagedResult<T>
 
     public static async Task<IPagedResult<T>> CreateAsync(Paging paging, IQueryable<T> source, CancellationToken cancellationToken)
     {
-        paging ??= new Paging();
+        paging ??= new();
         var items = await ApplyPagination(paging, source).ToListAsync(cancellationToken);
-        return new PagedResult<T>(items, paging.Offset, paging.Limit);
+        return new PagedResult<T>(items, paging.Limit, paging.Offset);
     }
 
     private static IMongoQueryable<T> ApplyPagination(Paging paging, IQueryable<T> source)

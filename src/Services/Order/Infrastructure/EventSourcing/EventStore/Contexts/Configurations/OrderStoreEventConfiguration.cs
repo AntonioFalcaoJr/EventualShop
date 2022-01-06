@@ -1,4 +1,5 @@
 ﻿using Application.EventSourcing.EventStore.Events;
+using Infrastructure.EventSourcing.EventStore.Contexts.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -19,12 +20,16 @@ public class OrderStoreEventConfiguration : IEntityTypeConfiguration<OrderStoreE
             .HasMaxLength(30)
             .IsRequired();
 
-        builder.Property(storeEvent => storeEvent.EventName)
+        builder
+            .Property(storeEvent => storeEvent.EventName)
             .HasMaxLength(50)
             .IsRequired();
 
         builder
             .Property(storeEvent => storeEvent.Event)
+            .HasConversion<EventConverter>()
+            .IsUnicode(false)
+            .HasMaxLength(2048)
             .IsRequired();
     }
 }

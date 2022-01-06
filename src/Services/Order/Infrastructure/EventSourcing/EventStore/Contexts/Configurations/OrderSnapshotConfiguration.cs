@@ -1,4 +1,5 @@
 ﻿using Application.EventSourcing.EventStore.Events;
+using Infrastructure.EventSourcing.EventStore.Contexts.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -25,6 +26,9 @@ public class OrderSnapshotConfiguration : IEntityTypeConfiguration<OrderSnapshot
 
         builder
             .Property(snapshot => snapshot.AggregateState)
+            .HasConversion<OrderConverter>()
+            .IsUnicode(false)
+            .HasMaxLength(2048)
             .IsRequired();
     }
 }
