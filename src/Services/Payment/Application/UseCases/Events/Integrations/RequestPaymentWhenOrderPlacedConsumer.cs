@@ -26,6 +26,6 @@ public class RequestPaymentWhenOrderPlacedConsumer : IConsumer<OrderPlacedEvent>
             context.Message.BillingAddress,
             context.Message.PaymentMethods));
 
-        await _eventStoreService.AppendEventsToStreamAsync(payment, context.CancellationToken);
+        await _eventStoreService.AppendEventsToStreamAsync(payment, context.Message, context.CancellationToken);
     }
 }

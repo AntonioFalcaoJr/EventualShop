@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -6,9 +7,11 @@ using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.EventStore;
 using Application.Abstractions.EventSourcing.EventStore.Events;
 using Domain.Abstractions.Aggregates;
+using ECommerce.Abstractions;
 using ECommerce.Abstractions.Events;
 using Infrastructure.DependencyInjection.Options;
 using MassTransit;
+using MassTransit.Definition;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -37,12 +40,12 @@ public abstract class EventStoreService<TAggregateState, TStoreEvent, TSnapshot,
         _options = optionsMonitor.CurrentValue;
     }
 
-    public async Task AppendEventsToStreamAsync(TAggregateState aggregateState, CancellationToken cancellationToken)
+    public async Task AppendEventsToStreamAsync(TAggregateState aggregateState, IMessage message, CancellationToken cancellationToken)
     {
         if (aggregateState.IsValid is false)
         {
             _logger.LogError("Business error: {Errors}", aggregateState.Errors);
-            // TODO - Add Notification
+            await MoveToDeadLetterQueueAsync(message, cancellationToken);
             return;
         }
 
@@ -95,4 +98,10 @@ public abstract class EventStoreService<TAggregateState, TStoreEvent, TSnapshot,
                 Event = @event,
                 EventName = @event.GetType().Name
             });
+    
+    private async Task MoveToDeadLetterQueueAsync(IMessage message, CancellationToken cancellationToken)
+    {
+        var sendEndpoint = await _bus.GetSendEndpoint(new Uri($"queue:payment.{KebabCaseEndpointNameFormatter.Instance.SanitizeName(message.GetType().Name)}.business-error"));
+        await sendEndpoint.Send(message, cancellationToken);
+    }
 }

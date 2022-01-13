@@ -18,6 +18,6 @@ public class CancelPaymentConsumer : IConsumer<CancelPaymentCommand>
     {
         var payment = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.PaymentId, context.CancellationToken);
         payment.Handle(context.Message);
-        await _eventStoreService.AppendEventsToStreamAsync(payment, context.CancellationToken);
+        await _eventStoreService.AppendEventsToStreamAsync(payment, context.Message, context.CancellationToken);
     }
 }
