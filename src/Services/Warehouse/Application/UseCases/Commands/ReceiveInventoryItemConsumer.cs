@@ -19,6 +19,6 @@ public class ReceiveInventoryItemConsumer : IConsumer<ReceiveInventoryItemComman
     {
         var inventoryItem = new InventoryItem();
         inventoryItem.Handle(context.Message);
-        await _eventStoreService.AppendEventsToStreamAsync(inventoryItem, context.CancellationToken);
+        await _eventStoreService.AppendEventsToStreamAsync(inventoryItem, context.Message, context.CancellationToken);
     }
 }

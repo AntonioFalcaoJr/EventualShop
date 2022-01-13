@@ -18,6 +18,6 @@ public class AdjustInventoryConsumer : IConsumer<AdjustInventoryCommand>
     {
         var inventoryItem = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.ProductId, context.CancellationToken);
         inventoryItem.Handle(context.Message);
-        await _eventStoreService.AppendEventsToStreamAsync(inventoryItem, context.CancellationToken);
+        await _eventStoreService.AppendEventsToStreamAsync(inventoryItem, context.Message, context.CancellationToken);
     }
 }
