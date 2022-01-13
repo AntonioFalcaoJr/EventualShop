@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Domain.Aggregates;
 using MassTransit;
@@ -19,6 +20,6 @@ public class CreateCartConsumer : IConsumer<CreateCartCommand>
     {
         var cart = new Cart();
         cart.Handle(context.Message);
-        await _eventStoreService.AppendEventsToStreamAsync(cart, context.CancellationToken);
+        await _eventStoreService.AppendEventsToStreamAsync(cart, context.Message, context.CancellationToken);
     }
 }
