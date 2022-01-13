@@ -23,6 +23,6 @@ public class UpdateProfileConsumer : IConsumer<UpdateProfileCommand>
             return;
 
         account.Handle(context.Message);
-        await _eventStoreService.AppendEventsToStreamAsync(account, context.CancellationToken);
+        await _eventStoreService.AppendEventsToStreamAsync(account, context.Message, context.CancellationToken);
     }
 }

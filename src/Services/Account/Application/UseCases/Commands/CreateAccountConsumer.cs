@@ -19,6 +19,6 @@ public class CreateAccountConsumer : IConsumer<CreateAccountCommand>
     {
         var account = new Account();
         account.Handle(context.Message);
-        await _eventStoreService.AppendEventsToStreamAsync(account, context.CancellationToken);
+        await _eventStoreService.AppendEventsToStreamAsync(account, context.Message, context.CancellationToken);
     }
 }
