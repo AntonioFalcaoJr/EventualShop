@@ -18,6 +18,6 @@ public class UpdateCatalogConsumer : IConsumer<UpdateCatalogCommand>
     {
         var catalog = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CatalogId, context.CancellationToken);
         catalog.Update(context.Message.CatalogId, context.Message.Title);
-        await _eventStoreService.AppendEventsToStreamAsync(catalog, context.CancellationToken);
+        await _eventStoreService.AppendEventsToStreamAsync(catalog, context.Message, context.CancellationToken);
     }
 }

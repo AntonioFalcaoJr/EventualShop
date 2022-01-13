@@ -26,6 +26,6 @@ public class UpdateCatalogItemConsumer : IConsumer<UpdateCatalogItemCommand>
             context.Message.Price,
             context.Message.PictureUri);
 
-        await _eventStoreService.AppendEventsToStreamAsync(catalog, context.CancellationToken);
+        await _eventStoreService.AppendEventsToStreamAsync(catalog, context.Message, context.CancellationToken);
     }
 }

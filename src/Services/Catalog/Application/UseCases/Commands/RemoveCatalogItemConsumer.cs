@@ -18,6 +18,6 @@ public class RemoveCatalogItemConsumer : IConsumer<RemoveCatalogItemCommand>
     {
         var catalog = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CatalogId, context.CancellationToken);
         catalog.RemoveItem(catalog.Id, context.Message.CatalogItemId);
-        await _eventStoreService.AppendEventsToStreamAsync(catalog, context.CancellationToken);
+        await _eventStoreService.AppendEventsToStreamAsync(catalog, context.Message, context.CancellationToken);
     }
 }
