@@ -17,7 +17,7 @@ public class DeleteCatalogConsumer : IConsumer<DeleteCatalogCommand>
     public async Task Consume(ConsumeContext<DeleteCatalogCommand> context)
     {
         var catalog = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CatalogId, context.CancellationToken);
-        catalog.Delete(context.Message.CatalogId);
+        catalog.Handle(context.Message);
         await _eventStoreService.AppendEventsToStreamAsync(catalog, context.Message, context.CancellationToken);
     }
 }

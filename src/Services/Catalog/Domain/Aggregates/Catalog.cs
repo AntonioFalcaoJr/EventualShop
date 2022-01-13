@@ -17,29 +17,29 @@ public class Catalog : AggregateRoot<Guid>
     public IEnumerable<CatalogItem> Items
         => _items;
 
-    public void Create(string title)
-        => RaiseEvent(new DomainEvents.CatalogCreated(Guid.NewGuid(), title));
+    public void Handle(Commands.CreateCatalog cmd)
+        => RaiseEvent(new DomainEvents.CatalogCreated(Guid.NewGuid(), cmd.Title));
 
-    public void Delete(Guid id)
-        => RaiseEvent(new DomainEvents.CatalogDeleted(id));
+    public void Handle(Commands.DeleteCatalog cmd)
+        => RaiseEvent(new DomainEvents.CatalogDeleted(cmd.CatalogId));
 
-    public void Activate(Guid id)
-        => RaiseEvent(new DomainEvents.CatalogActivated(id));
+    public void Handle(Commands.ActivateCatalog cmd)
+        => RaiseEvent(new DomainEvents.CatalogActivated(cmd.CatalogId));
 
-    public void Deactivate(Guid id)
-        => RaiseEvent(new DomainEvents.CatalogDeactivated(id));
+    public void Handle(Commands.DeactivateCatalog cmd)
+        => RaiseEvent(new DomainEvents.CatalogDeactivated(cmd.CatalogId));
 
-    public void Update(Guid id, string title)
-        => RaiseEvent(new DomainEvents.CatalogUpdated(id, title));
+    public void Handle(Commands.UpdateCatalog cmd)
+        => RaiseEvent(new DomainEvents.CatalogUpdated(cmd.CatalogId, cmd.Title));
 
-    public void AddItem(Guid id, string name, string description, decimal price, string pictureUri)
-        => RaiseEvent(new DomainEvents.CatalogItemAdded(id, name, description, price, pictureUri));
+    public void Handle(Commands.AddCatalogItem cmd)
+        => RaiseEvent(new DomainEvents.CatalogItemAdded(cmd.CatalogId, cmd.Name, cmd.Description, cmd.Price, cmd.PictureUri));
 
-    public void RemoveItem(Guid id, Guid itemId)
-        => RaiseEvent(new DomainEvents.CatalogItemRemoved(id, itemId));
+    public void Handle(Commands.RemoveCatalogItem cmd)
+        => RaiseEvent(new DomainEvents.CatalogItemRemoved(cmd.CatalogId, cmd.CatalogItemId));
 
-    public void UpdateItem(Guid id, Guid catalogItemId, string name, string description, decimal price, string pictureUri)
-        => RaiseEvent(new DomainEvents.CatalogItemUpdated(id, catalogItemId, name, description, price, pictureUri));
+    public void Handle(Commands.UpdateCatalogItem cmd)
+        => RaiseEvent(new DomainEvents.CatalogItemUpdated(cmd.CatalogId, cmd.CatalogItemId, cmd.Name, cmd.Description, cmd.Price, cmd.PictureUri));
 
     protected override void ApplyEvent(IEvent @event)
         => When(@event as dynamic);

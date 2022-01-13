@@ -17,7 +17,7 @@ public class UpdateCatalogConsumer : IConsumer<UpdateCatalogCommand>
     public async Task Consume(ConsumeContext<UpdateCatalogCommand> context)
     {
         var catalog = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CatalogId, context.CancellationToken);
-        catalog.Update(context.Message.CatalogId, context.Message.Title);
+        catalog.Handle(context.Message);
         await _eventStoreService.AppendEventsToStreamAsync(catalog, context.Message, context.CancellationToken);
     }
 }
