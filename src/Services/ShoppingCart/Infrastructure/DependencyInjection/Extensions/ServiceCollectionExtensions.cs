@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Reflection;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
@@ -23,6 +24,8 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using Newtonsoft.Json;
+using Quartz;
+using Quartz.Spi;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 
@@ -32,8 +35,8 @@ public static class ServiceCollectionExtensions
         => services.AddMassTransit(cfg =>
             {
                 cfg.SetKebabCaseEndpointNameFormatter();
-                cfg.AddConsumers();
-                
+                cfg.AddConsumers(Assembly.Load(nameof(Application)));
+
                 cfg.UsingRabbitMq((context, bus) =>
                 {
                     var options = context
@@ -49,6 +52,16 @@ public static class ServiceCollectionExtensions
                             host.Username(options.Username);
                             host.Password(options.Password);
                         });
+
+                    cfg.AddMessageScheduler(new Uri($"queue:{options.SchedulerQueueName}"));
+
+                    bus.UseInMemoryScheduler(schedulerCfg =>
+                    {
+                        schedulerCfg.QueueName = options.SchedulerQueueName;
+                        schedulerCfg.SchedulerFactory = context.GetRequiredService<ISchedulerFactory>();
+                        schedulerCfg.JobFactory = context.GetRequiredService<IJobFactory>();
+                        schedulerCfg.StartScheduler = true;
+                    });
 
                     bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
                     bus.UseConsumeFilter(typeof(MessageValidatorFilter<>), context);
@@ -77,25 +90,10 @@ public static class ServiceCollectionExtensions
             })
             .AddMassTransitHostedService();
 
-    private static void AddConsumers(this IRegistrationConfigurator cfg)
-    {
-        
-        // var assemblyService = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.FullName.Contains("Corporate.FixedIncome.TradeCapture.Service"));
-        //
-        //
-        // if (assemblyService != null)
-        // {
-        //     busModel.Connections.Find(f => f.Host.Contains("orderInstitucional")).Consumers = assemblyService;
-        //     busModel.Connections.Find(f => f.Host.Contains("orderInstitucional")).Bus = typeof(ITradeCaptureInstitucionalChangedBus);
-        // }
-        
-        cfg.AddConsumers(Assembly
-            .GetExecutingAssembly()
-            .GetReferencedAssemblies()
-            .Where(assemblyName => assemblyName.Name is nameof(Application))
-            .Select(Assembly.Load)
-            .ToArray());
-    }
+    public static void AddQuartz(this IServiceCollection services)
+        => services.AddQuartz(configurator
+            => configurator.UsePersistentStore(options
+                => options.UseClustering()));
 
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         => services
@@ -145,6 +143,13 @@ public static class ServiceCollectionExtensions
     public static OptionsBuilder<RabbitMqOptions> ConfigureRabbitMqOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<RabbitMqOptions>()
+            .Bind(section)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+
+    public static OptionsBuilder<QuartzOptions> ConfigureQuartzOptions(this IServiceCollection services, IConfigurationSection section)
+        => services
+            .AddOptions<QuartzOptions>()
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();

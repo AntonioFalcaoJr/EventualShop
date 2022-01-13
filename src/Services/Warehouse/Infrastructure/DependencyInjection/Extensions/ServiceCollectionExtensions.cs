@@ -31,7 +31,7 @@ public static class ServiceCollectionExtensions
         => services.AddMassTransit(cfg =>
             {
                 cfg.SetKebabCaseEndpointNameFormatter();
-                cfg.AddConsumers();
+                cfg.AddConsumers(Assembly.Load(nameof(Application)));
 
                 cfg.UsingRabbitMq((context, bus) =>
                 {
@@ -75,16 +75,6 @@ public static class ServiceCollectionExtensions
                 });
             })
             .AddMassTransitHostedService();
-
-    private static void AddConsumers(this IRegistrationConfigurator cfg)
-    {
-        cfg.AddConsumers(Assembly
-            .GetExecutingAssembly()
-            .GetReferencedAssemblies()
-            .Where(assemblyName => assemblyName.Name is nameof(Application))
-            .Select(Assembly.Load)
-            .ToArray());
-    }
 
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         => services
