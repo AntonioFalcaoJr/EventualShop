@@ -19,6 +19,6 @@ public class ConfirmOrderWhenPaymentCompletedConsumer : IConsumer<PaymentComplet
     {
         var order = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.OrderId, context.CancellationToken);
         order.Handle(new ConfirmOrderCommand(context.Message.OrderId));
-        await _eventStoreService.AppendEventsToStreamAsync(order, context.CancellationToken);
+        await _eventStoreService.AppendEventsToStreamAsync(order, context.Message, context.CancellationToken);
     }
 }

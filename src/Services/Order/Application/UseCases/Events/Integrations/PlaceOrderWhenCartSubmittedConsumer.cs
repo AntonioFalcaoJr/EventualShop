@@ -28,6 +28,6 @@ public class PlaceOrderWhenCartSubmittedConsumer : IConsumer<CartSubmittedEvent>
             context.Message.ShippingAddress,
             context.Message.PaymentMethods));
 
-        await _eventStoreService.AppendEventsToStreamAsync(order, context.CancellationToken);
+        await _eventStoreService.AppendEventsToStreamAsync(order, context.Message, context.CancellationToken);
     }
 }
