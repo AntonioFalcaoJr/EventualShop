@@ -447,14 +447,16 @@ To configure database resource, `init` secrets in [`./src/WebAPI`](./src/WebAPI)
 ```bash
 dotnet user-secrets set "ConnectionStrings:EventStore" "Server=<IP_ADDRESS>,1433;Database=YourContextNameEventStore;User=sa;Password=<PASSWORD>"
 dotnet user-secrets set "ConnectionStrings:Projections" "mongodb://<USER_NAME>:<PASSWORD>@<IP_ADDRESS>:27017/YourContextNameProjections/?authSource=admin"
+dotnet user-secrets set "QuartzOptions:quartz.dataSource.default.connectionString" "Server=<IP_ADDRESS>,1433;Database=Quartz;User=sa;Password=<PASSWORD>"
 ```
 
 Expected
 
 ```bash
 dotnet user-secrets list
-ConnectionStrings:Projections = mongodb://mongoadmin:secret@192.168.100.9:27017/OrderProjections/?authSource=admin
-ConnectionStrings:EventStore = Server=192.168.100.9,1433;Database=OrderEventStore;User=sa;Password=!MyStrongPassword
+ConnectionStrings:EventStore = Server=192.168.100.9,1433;Database=ShoppingCartEventStore;User=sa;Password=!MyStrongPassword
+ConnectionStrings:Projections = mongodb://mongoadmin:secret@192.168.100.9:27017/ShoppingCartProjections/?authSource=admin
+QuartzOptions:quartz.dataSource.default.connectionString = Server=192.168.100.9,1433;Database=Quartz;User=sa;Password=!MyStrongPassword
 ```
 
 ##### AppSettings
