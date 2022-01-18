@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using Application.Abstractions.Notifications;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using ECommerce.Abstractions;
@@ -13,6 +14,7 @@ using Infrastructure.EventSourcing.EventStore;
 using Infrastructure.EventSourcing.EventStore.Contexts;
 using Infrastructure.EventSourcing.Projections;
 using Infrastructure.EventSourcing.Projections.Contexts;
+using Infrastructure.Notifications;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -119,6 +121,9 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddMessagesFluentValidation(this IServiceCollection services)
         => services.AddValidatorsFromAssemblyContaining(typeof(IMessage));
 
+    public static IServiceCollection AddNotificationContext(this IServiceCollection services)
+        => services.AddScoped<INotificationContext, NotificationContext>();
+
     public static OptionsBuilder<SqlServerRetryingOptions> ConfigureSqlServerRetryingOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<SqlServerRetryingOptions>()
@@ -136,6 +141,13 @@ public static class ServiceCollectionExtensions
     public static OptionsBuilder<RabbitMqOptions> ConfigureRabbitMqOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<RabbitMqOptions>()
+            .Bind(section)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+
+    public static OptionsBuilder<QuartzOptions> ConfigureQuartzOptions(this IServiceCollection services, IConfigurationSection section)
+        => services
+            .AddOptions<QuartzOptions>()
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();
