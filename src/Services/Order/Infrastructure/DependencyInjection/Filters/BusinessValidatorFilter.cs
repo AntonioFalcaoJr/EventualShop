@@ -1,0 +1,38 @@
+﻿using System.Threading.Tasks;
+using Application.Abstractions;
+using Application.Abstractions.Notifications;
+using ECommerce.Abstractions.Validations;
+using GreenPipes;
+using MassTransit;
+using MassTransit.Definition;
+using Serilog;
+
+namespace Infrastructure.DependencyInjection.Filters;
+
+public class BusinessValidatorFilter<T> : IFilter<ConsumeContext<T>>
+    where T : class
+{
+    private readonly INotificationContext _notificationContext;
+
+    public BusinessValidatorFilter(INotificationContext notificationContext)
+    {
+        _notificationContext = notificationContext;
+    }
+
+    public async Task Send(ConsumeContext<T> context, IPipe<ConsumeContext<T>> next)
+    {
+        await next.Send(context);
+
+        if (_notificationContext.HasNotifications)
+        {
+            Log.Error("Business errors: {Errors}", _notificationContext.Errors);
+
+            await context.Send(
+                destinationAddress: new($"queue:shopping-cart.{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}.business-error"),
+                message: new ValidationResultMessage<T>(context.Message, _notificationContext.Errors));
+        }
+    }
+
+    public void Probe(ProbeContext context)
+        => context.CreateFilterScope("Business validation");
+}
