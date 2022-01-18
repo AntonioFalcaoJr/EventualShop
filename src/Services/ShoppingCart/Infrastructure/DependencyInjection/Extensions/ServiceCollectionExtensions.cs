@@ -1,11 +1,13 @@
 ﻿using System;
-using System.Linq;
 using System.Reflection;
+using Application.Abstractions;
+using Application.Abstractions.Notifications;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using ECommerce.Abstractions;
 using ECommerce.JsonConverters;
 using FluentValidation;
+using Infrastructure.Abstractions;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts.BsonSerializers;
 using Infrastructure.DependencyInjection.Filters;
@@ -15,6 +17,7 @@ using Infrastructure.EventSourcing.EventStore;
 using Infrastructure.EventSourcing.EventStore.Contexts;
 using Infrastructure.EventSourcing.Projections;
 using Infrastructure.EventSourcing.Projections.Contexts;
+using Infrastructure.Notifications;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -42,6 +45,8 @@ public static class ServiceCollectionExtensions
                     var options = context
                         .GetRequiredService<IOptions<RabbitMqOptions>>()
                         .Value;
+                    
+                    bus.UseServiceScope(context);
 
                     bus.Host(
                         host: options.Host,
@@ -64,7 +69,8 @@ public static class ServiceCollectionExtensions
                     });
 
                     bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
-                    bus.UseConsumeFilter(typeof(MessageValidatorFilter<>), context);
+                    bus.UseConsumeFilter(typeof(ContractValidatorFilter<>), context);
+                    bus.UseConsumeFilter(typeof(BusinessValidatorFilter<>), context);
                     bus.ConnectConsumeObserver(new LoggingConsumeObserver());
                     bus.ConnectPublishObserver(new LoggingPublishObserver());
                     bus.ConnectSendObserver(new LoggingSendObserver());
@@ -125,6 +131,9 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddMessagesFluentValidation(this IServiceCollection services)
         => services.AddValidatorsFromAssemblyContaining(typeof(IMessage));
+    
+    public static IServiceCollection AddNotificationContext(this IServiceCollection services)
+        => services.AddScoped<INotificationContext, NotificationContext>();
 
     public static OptionsBuilder<SqlServerRetryingOptions> ConfigureSqlServerRetryingOptions(this IServiceCollection services, IConfigurationSection section)
         => services

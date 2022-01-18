@@ -1,8 +1,9 @@
-using System.Linq;
+using System;
 using System.Reflection;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using ECommerce.Abstractions;
+using ECommerce.JsonConverters;
 using FluentValidation;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.DependencyInjection.Filters;
@@ -20,6 +21,9 @@ using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
+using Newtonsoft.Json;
+using Quartz;
+using Quartz.Spi;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 
@@ -36,7 +40,7 @@ public static class ServiceCollectionExtensions
                     var options = context
                         .GetRequiredService<IOptions<RabbitMqOptions>>()
                         .Value;
-                    
+
                     bus.Host(
                         host: options.Host,
                         port: options.Port,
@@ -47,16 +51,48 @@ public static class ServiceCollectionExtensions
                             host.Password(options.Password);
                         });
 
+                    cfg.AddMessageScheduler(new Uri($"queue:{options.SchedulerQueueName}"));
+
+                    bus.UseInMemoryScheduler(schedulerCfg =>
+                    {
+                        schedulerCfg.QueueName = options.SchedulerQueueName;
+                        schedulerCfg.SchedulerFactory = context.GetRequiredService<ISchedulerFactory>();
+                        schedulerCfg.JobFactory = context.GetRequiredService<IJobFactory>();
+                        schedulerCfg.StartScheduler = true;
+                    });
+
                     bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
-                    bus.UseConsumeFilter(typeof(MessageValidatorFilter<>), context);
+                    bus.UseConsumeFilter(typeof(ContractValidatorFilter<>), context);
+                    bus.UseConsumeFilter(typeof(BusinessValidatorFilter<>), context);
                     bus.ConnectConsumeObserver(new LoggingConsumeObserver());
                     bus.ConnectPublishObserver(new LoggingPublishObserver());
                     bus.ConnectSendObserver(new LoggingSendObserver());
                     bus.ConfigureEventReceiveEndpoints(context);
                     bus.ConfigureEndpoints(context);
+
+                    bus.ConfigureJsonSerializer(settings =>
+                    {
+                        settings.Converters.Add(new TypeNameHandlingConverter(TypeNameHandling.Objects));
+                        settings.Converters.Add(new DateOnlyJsonConverter());
+                        settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
+                        return settings;
+                    });
+
+                    bus.ConfigureJsonDeserializer(settings =>
+                    {
+                        settings.Converters.Add(new TypeNameHandlingConverter(TypeNameHandling.Objects));
+                        settings.Converters.Add(new DateOnlyJsonConverter());
+                        settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
+                        return settings;
+                    });
                 });
             })
             .AddMassTransitHostedService();
+
+    public static void AddQuartz(this IServiceCollection services)
+        => services.AddQuartz(configurator
+            => configurator.UsePersistentStore(options
+                => options.UseClustering()));
 
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         => services

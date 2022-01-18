@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System;
 using System.Reflection;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
@@ -22,6 +22,8 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using Newtonsoft.Json;
+using Quartz;
+using Quartz.Spi;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 
@@ -49,8 +51,19 @@ public static class ServiceCollectionExtensions
                             host.Password(options.Password);
                         });
 
+                    cfg.AddMessageScheduler(new Uri($"queue:{options.SchedulerQueueName}"));
+
+                    bus.UseInMemoryScheduler(schedulerCfg =>
+                    {
+                        schedulerCfg.QueueName = options.SchedulerQueueName;
+                        schedulerCfg.SchedulerFactory = context.GetRequiredService<ISchedulerFactory>();
+                        schedulerCfg.JobFactory = context.GetRequiredService<IJobFactory>();
+                        schedulerCfg.StartScheduler = true;
+                    });
+
                     bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
-                    bus.UseConsumeFilter(typeof(MessageValidatorFilter<>), context);
+                    bus.UseConsumeFilter(typeof(ContractValidatorFilter<>), context);
+                    bus.UseConsumeFilter(typeof(BusinessValidatorFilter<>), context);
                     bus.ConnectConsumeObserver(new LoggingConsumeObserver());
                     bus.ConnectPublishObserver(new LoggingPublishObserver());
                     bus.ConnectSendObserver(new LoggingSendObserver());
@@ -75,6 +88,11 @@ public static class ServiceCollectionExtensions
                 });
             })
             .AddMassTransitHostedService();
+
+    public static void AddQuartz(this IServiceCollection services)
+        => services.AddQuartz(configurator
+            => configurator.UsePersistentStore(options
+                => options.UseClustering()));
 
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         => services
