@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Quartz;
 using Serilog;
 
 var builder = Host.CreateDefaultBuilder(args);
@@ -44,9 +45,13 @@ builder.ConfigureServices((context, services) =>
     services.AddEventStoreDbContext();
     services.AddProjectionsDbContext();
 
+    services.AddMassTransitWithRabbitMq();
+
+    services.AddQuartz();
+    
     services.AddMessagesFluentValidation();
 
-    services.AddMassTransitWithRabbitMq();
+    services.AddNotificationContext();
 
     services.ConfigureEventStoreOptions(
         context.Configuration.GetSection(nameof(EventStoreOptions)));
@@ -56,6 +61,9 @@ builder.ConfigureServices((context, services) =>
 
     services.ConfigureRabbitMqOptions(
         context.Configuration.GetSection(nameof(RabbitMqOptions)));
+
+    services.ConfigureQuartzOptions(
+        context.Configuration.GetSection(nameof(QuartzOptions)));
 });
 
 using var host = builder.Build();
