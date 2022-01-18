@@ -11,7 +11,7 @@ public class LoggingPublishObserver : IPublishObserver
         where T : class
     {
         var messageType = context.Message.GetType();
-        Log.Information("Publishing {Message} event from {Namespace}, ConversationId: {ConversationId}", messageType.Name, messageType.Namespace, context.ConversationId);
+        Log.Information("Publishing {Message} event from {Namespace}, CorrelationId: {CorrelationId}", messageType.Name, messageType.Namespace, context.CorrelationId);
         await Task.CompletedTask;
     }
 
@@ -19,11 +19,15 @@ public class LoggingPublishObserver : IPublishObserver
         where T : class
     {
         var messageType = context.Message.GetType();
-        Log.Information("{MessageType} event, from {Namespace} was published, ConversationId: {ConversationId}", messageType.Name, messageType.Namespace, context.ConversationId);
+        Log.Information("{MessageType} event, from {Namespace} was published, CorrelationId: {CorrelationId}", messageType.Name, messageType.Namespace, context.CorrelationId);
         await Task.CompletedTask;
     }
 
-    public Task PublishFault<T>(PublishContext<T> context, Exception exception)
+    public async Task PublishFault<T>(PublishContext<T> context, Exception exception)
         where T : class
-        => Task.CompletedTask;
+    {
+        var messageType = context.Message.GetType();
+        Log.Warning("Fault on publishing message {Message} from {Namespace}, CorrelationId: {CorrelationId}", messageType.Name, messageType.Namespace, context.CorrelationId);
+        await Task.CompletedTask;
+    }
 }

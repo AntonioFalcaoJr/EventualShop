@@ -11,7 +11,7 @@ public class LoggingSendObserver : ISendObserver
         where T : class
     {
         var messageType = context.Message.GetType();
-        Log.Information("Sending {Message} message from {Namespace}, ConversationId: {ConversationId}", messageType.Name, messageType.Namespace, context.ConversationId);
+        Log.Information("Sending {Message} message from {Namespace}, CorrelationId: {CorrelationId}", messageType.Name, messageType.Namespace, context.CorrelationId);
         await Task.CompletedTask;
     }
 
@@ -19,10 +19,15 @@ public class LoggingSendObserver : ISendObserver
         where T : class
     {
         var messageType = context.Message.GetType();
-        Log.Information("{MessageType} message from {Namespace} was sent, ConversationId: {ConversationId}", messageType.Name, messageType.Namespace, context.ConversationId);
+        Log.Information("{MessageType} message from {Namespace} was sent, CorrelationId: {CorrelationId}", messageType.Name, messageType.Namespace, context.CorrelationId);
         await Task.CompletedTask;
     }
 
-    public Task SendFault<T>(SendContext<T> context, Exception exception) where T : class
-        => Task.CompletedTask;
+    public async Task SendFault<T>(SendContext<T> context, Exception exception)
+        where T : class
+    {
+        var messageType = context.Message.GetType();
+        Log.Warning("Fault on sending message {Message} from {Namespace}, CorrelationId: {CorrelationId}", messageType.Name, messageType.Namespace, context.CorrelationId);
+        await Task.CompletedTask;
+    }
 }
