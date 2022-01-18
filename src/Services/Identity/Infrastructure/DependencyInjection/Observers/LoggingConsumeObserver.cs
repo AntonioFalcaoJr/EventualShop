@@ -27,7 +27,7 @@ public class LoggingConsumeObserver : IConsumeObserver
         where T : class
     {
         var messageType = context.Message.GetType();
-        Log.Warning("Fault on message {Message} from {Namespace}, CorrelationId: {CorrelationId}", messageType.Name, messageType.Namespace, context.CorrelationId);
+        Log.Warning("Fault on consuming message {Message} from {Namespace}, CorrelationId: {CorrelationId}", messageType.Name, messageType.Namespace, context.CorrelationId);
         await Task.CompletedTask;
     }
 }
