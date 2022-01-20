@@ -34,7 +34,7 @@ public class ContractValidatorFilter<T> : IFilter<ConsumeContext<T>>
 
             await context.Send(
                 destinationAddress: new($"queue:order.{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}.validation-errors"),
-                message: new ValidationResultMessage<T>(context.Message, _validationResult.Errors.Select(failure => failure.ErrorMessage)));
+                message: new ContractValidationResult<T>(context.Message, _validationResult.Errors.Select(failure => failure.ErrorMessage)));
 
             return;
         }
