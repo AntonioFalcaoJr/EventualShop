@@ -23,13 +23,13 @@ public class BusinessValidatorFilter<T> : IFilter<ConsumeContext<T>>
     {
         await next.Send(context);
 
-        if (_notificationContext.HasNotifications)
+        if (_notificationContext.HasErrors)
         {
             Log.Error("Business errors: {Errors}", _notificationContext.Errors);
 
             await context.Send(
                 destinationAddress: new($"queue:shopping-cart.{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}.business-error"),
-                message: new ValidationResultMessage<T>(context.Message, _notificationContext.Errors));
+                message: new BusinessValidationResult<T>(context.Message, _notificationContext.Errors));
         }
     }
 
