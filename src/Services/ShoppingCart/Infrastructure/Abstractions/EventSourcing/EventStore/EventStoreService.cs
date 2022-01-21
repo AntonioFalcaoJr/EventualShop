@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.EventStore;
 using Application.Abstractions.EventSourcing.EventStore.Events;
+using Application.Abstractions.Notifications;
 using Domain.Abstractions.Aggregates;
 using ECommerce.Abstractions;
 using ECommerce.Abstractions.Events;
 using Infrastructure.DependencyInjection.Options;
 using MassTransit;
-using MassTransit.Definition;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace Infrastructure.Abstractions.EventSourcing.EventStore;
@@ -23,29 +21,28 @@ public abstract class EventStoreService<TAggregateState, TStoreEvent, TSnapshot,
     where TSnapshot : Snapshot<TAggregateState, TId>, new()
     where TId : struct
 {
-    private readonly IBus _bus;
-    private readonly ILogger _logger;
     private readonly EventStoreOptions _options;
+    private readonly IBus _bus;
     private readonly IEventStoreRepository<TAggregateState, TStoreEvent, TSnapshot, TId> _repository;
+    private readonly INotificationContext _notificationContext;
 
     protected EventStoreService(
-        ILogger logger,
-        IOptionsMonitor<EventStoreOptions> optionsMonitor,
+        IBus bus,
         IEventStoreRepository<TAggregateState, TStoreEvent, TSnapshot, TId> repository,
-        IBus bus)
+        INotificationContext notificationContext,
+        IOptionsMonitor<EventStoreOptions> optionsMonitor)
     {
-        _logger = logger;
-        _repository = repository;
         _bus = bus;
+        _notificationContext = notificationContext;
         _options = optionsMonitor.CurrentValue;
+        _repository = repository;
     }
 
     public async Task AppendEventsToStreamAsync(TAggregateState aggregateState, IMessage message, CancellationToken cancellationToken)
     {
         if (aggregateState.IsValid is false)
         {
-            _logger.LogError("Business error: {Errors}", aggregateState.Errors);
-            await MoveToDeadLetterQueueAsync(message, cancellationToken);
+            _notificationContext.AddErrors(aggregateState.Errors);
             return;
         }
 
@@ -98,10 +95,4 @@ public abstract class EventStoreService<TAggregateState, TStoreEvent, TSnapshot,
                 Event = @event,
                 EventName = @event.GetType().Name
             });
-    
-    private async Task MoveToDeadLetterQueueAsync(IMessage message, CancellationToken cancellationToken)
-    {
-        var sendEndpoint = await _bus.GetSendEndpoint(new Uri($"queue:shopping-cart.{KebabCaseEndpointNameFormatter.Instance.SanitizeName(message.GetType().Name)}.business-error"));
-        await sendEndpoint.Send(message, cancellationToken);
-    }
 }
