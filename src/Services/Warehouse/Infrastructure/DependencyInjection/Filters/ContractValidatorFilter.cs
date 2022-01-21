@@ -30,7 +30,7 @@ public class ContractValidatorFilter<T> : IFilter<ConsumeContext<T>>
 
         if (_validationResult.IsValid is false)
         {
-            Log.Error("Message validation errors: {Errors}", _validationResult.Errors);
+            Log.Error("Contract validation errors: {Errors}", _validationResult.Errors);
 
             await context.Send(
                 destinationAddress: new($"queue:warehouse.{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}.validation-errors"),
