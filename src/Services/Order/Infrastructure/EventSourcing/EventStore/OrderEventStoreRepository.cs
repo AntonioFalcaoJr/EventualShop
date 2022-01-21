@@ -9,5 +9,6 @@ namespace Infrastructure.EventSourcing.EventStore;
 
 public class OrderEventStoreRepository : EventStoreRepository<Order, OrderStoreEvent, OrderSnapshot, Guid>, IOrderEventStoreRepository
 {
-    public OrderEventStoreRepository(EventStoreDbContext dbContext) : base(dbContext) { }
+    public OrderEventStoreRepository(EventStoreDbContext dbContext) 
+        : base(dbContext) { }
 }

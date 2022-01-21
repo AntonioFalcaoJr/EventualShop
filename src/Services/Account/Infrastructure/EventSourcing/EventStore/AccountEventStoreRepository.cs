@@ -9,5 +9,6 @@ namespace Infrastructure.EventSourcing.EventStore;
 
 public class AccountEventStoreRepository : EventStoreRepository<Account, AccountStoreEvent, AccountSnapshot, Guid>, IAccountEventStoreRepository
 {
-    public AccountEventStoreRepository(EventStoreDbContext dbContext) : base(dbContext) { }
+    public AccountEventStoreRepository(EventStoreDbContext dbContext)
+        : base(dbContext) { }
 }

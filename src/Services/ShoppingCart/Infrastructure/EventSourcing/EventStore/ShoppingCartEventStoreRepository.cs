@@ -9,5 +9,6 @@ namespace Infrastructure.EventSourcing.EventStore;
 
 public class ShoppingCartEventStoreRepository : EventStoreRepository<Cart, ShoppingCartStoreEvent, ShoppingCartSnapshot, Guid>, IShoppingCartEventStoreRepository
 {
-    public ShoppingCartEventStoreRepository(EventStoreDbContext dbContext) : base(dbContext) { }
+    public ShoppingCartEventStoreRepository(EventStoreDbContext dbContext) 
+        : base(dbContext) { }
 }
