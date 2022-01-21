@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Reflection;
-using Application.Abstractions;
 using Application.Abstractions.Notifications;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using ECommerce.Abstractions;
 using ECommerce.JsonConverters;
 using FluentValidation;
-using Infrastructure.Abstractions;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts.BsonSerializers;
 using Infrastructure.DependencyInjection.Filters;
