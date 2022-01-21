@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Application.Abstractions;
 using Application.Abstractions.Notifications;
 using ECommerce.Abstractions.Validations;
 using GreenPipes;
@@ -25,7 +24,7 @@ public class BusinessValidatorFilter<T> : IFilter<ConsumeContext<T>>
 
         if (_notificationContext.HasNotifications)
         {
-            Log.Error("Business errors: {Errors}", _notificationContext.Errors);
+            Log.Error("Business validation errors: {Errors}", _notificationContext.Errors);
 
             await context.Send(
                 destinationAddress: new($"queue:shopping-cart.{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}.business-error"),
