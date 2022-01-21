@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Application.Abstractions;
 using Application.Abstractions.Notifications;
 using FluentValidation.Results;
 
@@ -8,17 +7,14 @@ namespace Infrastructure.Notifications;
 
 public class NotificationContext : INotificationContext
 {
-    private readonly List<string> _notifications = new();
+    private readonly List<string> _errors = new();
 
     public IEnumerable<string> Errors
-        => _notifications;
+        => _errors;
 
-    public bool HasNotifications
+    public bool HasErrors
         => Errors.Any();
 
-    public void AddNotification(string message)
-        => _notifications.Add(message);
-
     public void AddErrors(IEnumerable<ValidationFailure> validationFailures)
-        => _notifications.AddRange(validationFailures.Select(failure => failure.ErrorMessage));
+        => _errors.AddRange(validationFailures.Select(failure => failure.ErrorMessage));
 }
