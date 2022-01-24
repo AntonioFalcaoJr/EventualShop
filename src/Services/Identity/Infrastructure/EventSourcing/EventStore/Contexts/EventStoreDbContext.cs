@@ -13,13 +13,13 @@ public class EventStoreDbContext : DbContext
     private const string SqlLatin1GeneralCp1CsAs = "SQL_Latin1_General_CP1_CS_AS";
     private readonly IConfiguration _configuration;
     private readonly ILoggerFactory _loggerFactory;
-    private readonly SqlServerRetryingOptions _options;
+    private readonly SqlServerRetryOptions _options;
 
     public EventStoreDbContext(
         DbContextOptions options,
         ILoggerFactory loggerFactory,
         IConfiguration configuration,
-        IOptionsSnapshot<SqlServerRetryingOptions> optionsSnapshot)
+        IOptionsSnapshot<SqlServerRetryOptions> optionsSnapshot)
         : base(options)
     {
         _loggerFactory = loggerFactory;
