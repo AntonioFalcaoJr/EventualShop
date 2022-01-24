@@ -1,3 +1,4 @@
+using System;
 using Application.EventSourcing.EventStore.Events;
 using Infrastructure.DependencyInjection.Options;
 using Microsoft.EntityFrameworkCore;
@@ -55,7 +56,7 @@ public class EventStoreDbContext : DbContext
                 dependencies => new SqlServerRetryingExecutionStrategy(
                     dependencies: dependencies,
                     maxRetryCount: _options.MaxRetryCount,
-                    maxRetryDelay: _options.MaxRetryDelay,
+                    maxRetryDelay: TimeSpan.FromSeconds(_options.MaxRetryDelay),
                     errorNumbersToAdd: _options.ErrorNumbersToAdd))
             .MigrationsAssembly(typeof(EventStoreDbContext).Assembly.GetName().Name);
     
