@@ -56,8 +56,8 @@ builder.ConfigureServices((context, services) =>
     services.ConfigureEventStoreOptions(
         context.Configuration.GetSection(nameof(EventStoreOptions)));
 
-    services.ConfigureSqlServerRetryingOptions(
-        context.Configuration.GetSection(nameof(SqlServerRetryingOptions)));
+    services.ConfigureSqlServerRetryOptions(
+        context.Configuration.GetSection(nameof(SqlServerRetryOptions)));
 
     services.ConfigureRabbitMqOptions(
         context.Configuration.GetSection(nameof(RabbitMqOptions)));
