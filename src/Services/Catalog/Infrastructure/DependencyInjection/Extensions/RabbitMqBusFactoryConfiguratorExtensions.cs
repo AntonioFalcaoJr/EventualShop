@@ -1,9 +1,8 @@
-﻿using System;
-using Application.UseCases.Events;
+﻿using Application.UseCases.Events;
 using ECommerce.Abstractions.Events;
 using ECommerce.Contracts.Catalog;
-using GreenPipes;
 using MassTransit;
+using MassTransit.Context;
 using MassTransit.RabbitMqTransport;
 
 namespace Infrastructure.DependencyInjection.Extensions;
@@ -29,21 +28,9 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
             queueName: $"catalog.{typeof(TConsumer).ToKebabCaseString()}.{typeof(TEvent).ToKebabCaseString()}",
             configureEndpoint: endpoint =>
             {
+                MessageCorrelation.UseCorrelationId<TEvent>(message => message.CorrelationId);
                 endpoint.ConfigureConsumeTopology = false;
-
-                endpoint.ConfigureConsumer<TConsumer>(registration);
                 endpoint.Bind<TEvent>();
-                
-                endpoint.UseMessageRetry(retry => retry.Immediate(10)); // TODO - Options
-
-                endpoint.UseCircuitBreaker(circuitBreaker => // TODO - Options
-                {
-                    circuitBreaker.TripThreshold = 15;
-                    circuitBreaker.ResetInterval = TimeSpan.FromMinutes(3);
-                    circuitBreaker.TrackingPeriod = TimeSpan.FromMinutes(1);
-                    circuitBreaker.ActiveThreshold = 10;
-                });
-
-                endpoint.UseRateLimit(100, TimeSpan.FromSeconds(1)); // TODO - Options
+                endpoint.ConfigureConsumer<TConsumer>(registration);
             });
 }
