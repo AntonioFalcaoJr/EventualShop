@@ -6,6 +6,7 @@ using Application.EventSourcing.Projections;
 using ECommerce.Abstractions;
 using ECommerce.JsonConverters;
 using FluentValidation;
+using GreenPipes;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts.BsonSerializers;
 using Infrastructure.DependencyInjection.Filters;
@@ -43,8 +44,6 @@ public static class ServiceCollectionExtensions
                     var options = context
                         .GetRequiredService<IOptions<RabbitMqOptions>>()
                         .Value;
-                    
-                    bus.UseServiceScope(context);
 
                     bus.Host(
                         host: options.Host,
@@ -66,14 +65,12 @@ public static class ServiceCollectionExtensions
                         schedulerCfg.StartScheduler = true;
                     });
 
-                    bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
-                    bus.UseConsumeFilter(typeof(ContractValidatorFilter<>), context);
-                    bus.UseConsumeFilter(typeof(BusinessValidatorFilter<>), context);
-                    bus.ConnectConsumeObserver(new LoggingConsumeObserver());
-                    bus.ConnectPublishObserver(new LoggingPublishObserver());
-                    bus.ConnectSendObserver(new LoggingSendObserver());
-                    bus.ConfigureEventReceiveEndpoints(context);
-                    bus.ConfigureEndpoints(context);
+                    bus.UseMessageRetry(retry
+                        => retry.Exponential(
+                            retryLimit: options.RetryLimit,
+                            minInterval: TimeSpan.FromSeconds(options.MinimumInterval),
+                            maxInterval: TimeSpan.FromSeconds(options.MaximumInterval),
+                            intervalDelta: TimeSpan.FromSeconds(options.IntervalDelta)));
 
                     bus.ConfigureJsonSerializer(settings =>
                     {
@@ -90,6 +87,15 @@ public static class ServiceCollectionExtensions
                         settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
                         return settings;
                     });
+
+                    bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
+                    bus.UseConsumeFilter(typeof(ContractValidatorFilter<>), context);
+                    bus.UseConsumeFilter(typeof(BusinessValidatorFilter<>), context);
+                    bus.ConnectConsumeObserver(new LoggingConsumeObserver());
+                    bus.ConnectPublishObserver(new LoggingPublishObserver());
+                    bus.ConnectSendObserver(new LoggingSendObserver());
+                    bus.ConfigureEventReceiveEndpoints(context);
+                    bus.ConfigureEndpoints(context);
                 });
             })
             .AddMassTransitHostedService();
@@ -129,13 +135,13 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddMessagesFluentValidation(this IServiceCollection services)
         => services.AddValidatorsFromAssemblyContaining(typeof(IMessage));
-    
+
     public static IServiceCollection AddNotificationContext(this IServiceCollection services)
         => services.AddScoped<INotificationContext, NotificationContext>();
 
-    public static OptionsBuilder<SqlServerRetryingOptions> ConfigureSqlServerRetryingOptions(this IServiceCollection services, IConfigurationSection section)
+    public static OptionsBuilder<SqlServerRetryOptions> ConfigureSqlServerRetryOptions(this IServiceCollection services, IConfigurationSection section)
         => services
-            .AddOptions<SqlServerRetryingOptions>()
+            .AddOptions<SqlServerRetryOptions>()
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();
