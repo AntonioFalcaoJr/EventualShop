@@ -20,7 +20,7 @@
         <MongoDb_Version>2.14.1</MongoDb_Version>
 
         <!--MassTransit-->
-        <MassTransit_Version>7.3.1-develop.340</MassTransit_Version>
+        <MassTransit_Version>7.3.1</MassTransit_Version>
 
         <!--Newtonsoft-->
         <Newtonsoft_Version>13.0.1</Newtonsoft_Version>
