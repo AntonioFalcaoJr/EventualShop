@@ -45,10 +45,8 @@ builder.ConfigureServices((context, services) =>
     services.AddEventStoreDbContext();
     services.AddProjectionsDbContext();
 
-    services.AddMassTransitWithRabbitMq();
+    services.AddMassTransitWithRabbitMqAndQuartz();
 
-    services.AddQuartz();
-    
     services.AddMessagesFluentValidation();
 
     services.AddNotificationContext();
