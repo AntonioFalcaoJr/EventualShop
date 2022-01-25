@@ -32,7 +32,7 @@ namespace Infrastructure.DependencyInjection.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddMassTransitWithRabbitMq(this IServiceCollection services)
+    public static IServiceCollection AddMassTransitWithRabbitMqAndQuartz(this IServiceCollection services)
         => services.AddMassTransit(cfg =>
             {
                 cfg.SetKebabCaseEndpointNameFormatter();
@@ -97,12 +97,8 @@ public static class ServiceCollectionExtensions
                     bus.ConfigureEndpoints(context);
                 });
             })
-            .AddMassTransitHostedService();
-
-    public static void AddQuartz(this IServiceCollection services)
-        => services.AddQuartz(configurator
-            => configurator.UsePersistentStore(options
-                => options.UseClustering()));
+            .AddMassTransitHostedService()
+            .AddQuartz();
 
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         => services
