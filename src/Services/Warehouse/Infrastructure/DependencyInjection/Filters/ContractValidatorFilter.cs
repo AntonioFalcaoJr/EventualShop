@@ -16,7 +16,7 @@ public class ContractValidatorFilter<T> : IFilter<ConsumeContext<T>>
     where T : class
 {
     private readonly IValidator<T> _validator;
-    private ValidationResult _validationResult = new();
+    private ValidationResult _validationResult;
 
     public ContractValidatorFilter(IServiceProvider serviceProvider)
     {
@@ -25,21 +25,25 @@ public class ContractValidatorFilter<T> : IFilter<ConsumeContext<T>>
 
     public async Task Send(ConsumeContext<T> context, IPipe<ConsumeContext<T>> next)
     {
-        if (_validator is not null)
-            _validationResult = await _validator.ValidateAsync(context.Message, context.CancellationToken);
-
-        if (_validationResult.IsValid is false)
+        if (_validator is null)
         {
-            Log.Error("Contract validation errors: {Errors}", _validationResult.Errors);
-
-            await context.Send(
-                destinationAddress: new($"exchange:warehouse.{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}.contract-errors"),
-                message: new ContractValidationResult<T>(context.Message, _validationResult.Errors.Select(failure => failure.ErrorMessage)));
-
+            await next.Send(context);
             return;
         }
 
-        await next.Send(context);
+        _validationResult = await _validator.ValidateAsync(context.Message, context.CancellationToken);
+
+        if (_validationResult.IsValid)
+        {
+            await next.Send(context);
+            return;
+        }
+
+        Log.Error("Contract validation errors: {Errors}", _validationResult.Errors);
+
+        await context.Send(
+            destinationAddress: new($"exchange:warehouse.{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}.contract-errors"),
+            message: new ContractValidationResult<T>(context.Message, _validationResult.Errors.Select(failure => failure.ErrorMessage)));
     }
 
     public void Probe(ProbeContext context)
