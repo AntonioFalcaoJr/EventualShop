@@ -205,6 +205,12 @@ State transition during events applying:
 Fig. 10: Reitzammer, Benjamin & Seitz, Johannes. *Event Sourcingin practice*.    
 https://ookami86.github.io/event-sourcing-in-practice/#making-eventsourcing-work/18-concurrent-modifictations.md
 
+<br>
+
+![](./.assets/img/eventsourcingrequestflow.png)
+Fig. 11: Eventuate. *Event Sourcing*.    
+https://eventuate.io/whyeventsourcing.html
+
 ### Event Store
 
 > So, Event Sourcing is the persistence mechanism where each state transition for a given entity is represented as a domain event that gets persisted to an event database (event store). When the entity state mutates, a new event is produced and saved. When we need to restore the entity state, we read all the events for that entity and apply each event to change the state, reaching the correct final state of the entity when all available events are read and applied.
@@ -213,13 +219,13 @@ https://ookami86.github.io/event-sourcing-in-practice/#making-eventsourcing-work
 > https://www.eventstore.com/blog/what-is-event-sourcing
 
 ![](./.assets/img/event-store.png)  
-Fig. 11: Shilkov, Mikhail. *Event Sourcing and IO Complexity*.    
+Fig. 12: Shilkov, Mikhail. *Event Sourcing and IO Complexity*.    
 https://mikhail.io/2016/11/event-sourcing-and-io-complexity/
 
 The following picture shows the difference between approaches:
 
 ![](./.assets/img/event-sourcing.png)
-Fig. 12: Richardson, Chris. *Pattern: Event sourcing*.    
+Fig. 13: Richardson, Chris. *Pattern: Event sourcing*.    
 https://microservices.io/patterns/data/event-sourcing.html
 
 ### Snapshot
@@ -235,13 +241,13 @@ https://microservices.io/patterns/data/event-sourcing.html
 > https://domaincentric.net/blog/event-sourcing-snapshotting
 
 ![](./.assets/img/snapshot.png)  
-Fig. 13: Comartin, Derek. *Snapshots in Event Sourcing for Rehydrating Aggregates*.    
+Fig. 14: Comartin, Derek. *Snapshots in Event Sourcing for Rehydrating Aggregates*.    
 https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates/
 
 Snapshot stream:
 
 ![](./.assets/img/stream_snapshot.png)  
-Fig. 14: Comartin, Derek. *Snapshots in Event Sourcing for Rehydrating Aggregates*.    
+Fig. 15: Comartin, Derek. *Snapshots in Event Sourcing for Rehydrating Aggregates*.    
 https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates/
 
 ## EDA + Event-sourcing
@@ -268,7 +274,7 @@ https://pablo-iorio.medium.com/event-driven-architectures-vs-event-sourcing-patt
 <br>
 
 ![](./.assets/img/EventSourcing_EDA.jpeg)
-Fig. 15: Nowak, Aleksander. *Understanding Event-Driven Design Patterns for Microservices*.    
+Fig. 16: Nowak, Aleksander. *Understanding Event-Driven Design Patterns for Microservices*.    
 https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-microservices-659b3c9fb51f
 
 ## CQRS
@@ -281,13 +287,13 @@ https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-
 <br>
 
 ![](.assets/img/cqrs.png)   
-Fig. 16: Bürckel, Marco. *Some thoughts on using CQRS without Event Sourcing*.    
+Fig. 17: Bürckel, Marco. *Some thoughts on using CQRS without Event Sourcing*.    
 https://medium.com/@mbue/some-thoughts-on-using-cqrs-without-event-sourcing-938b878166a2
 
 <br>
 
 ![](.assets/img/cqrs.jpg)   
-Fig. 17: Go, Jayson. *From Monolith to Event-Driven: Finding Seams in Your Future Architecture*.    
+Fig. 18: Go, Jayson. *From Monolith to Event-Driven: Finding Seams in Your Future Architecture*.    
 https://www.eventstore.com/blog/what-is-event-sourcing
 
 ### Projections
@@ -308,13 +314,13 @@ with some different strategies and ways to implement projections.
 > https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs#event-sourcing-and-cqrs-pattern
 
 ![](./.assets/img/cqrs-eventsourcing-diagram.png)
-Fig. 18: Whittaker, Daniel. *CQRS + Event Sourcing – Step by Step*.    
+Fig. 19: Whittaker, Daniel. *CQRS + Event Sourcing – Step by Step*.    
 https://danielwhittaker.me/2020/02/20/cqrs-step-step-guide-flow-typical-application/
 
 <br>
 
 ![](./.assets/img/cqrs-eventsourcing-flow.png)  
-Fig. 19: Katwatka, Piotr. *Event Sourcing with CQRS*.  
+Fig. 20: Katwatka, Piotr. *Event Sourcing with CQRS*.  
 https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 
 ### Commands vs Events
@@ -395,7 +401,7 @@ https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 > https://www.eventstorming.com/
 
 ![](./.assets/img/event-storming.jpg)  
-Fig. 20: Baas-Schwegler, Kenny & Richardson, Chris. *Picture that explains "Almost" Everything*.    
+Fig. 21: Baas-Schwegler, Kenny & Richardson, Chris. *Picture that explains "Almost" Everything*.    
 https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
 
 ### EventStorming (WIP)
@@ -412,7 +418,7 @@ https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
 ### Aggregate
 
 ![](./.assets/img/aggregate.png)  
-Fig. 21: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st ed, p78.
+Fig. 22: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st ed, p78.
 
 > Each Aggregate forms a transactional consistency boundary. This means that within a single Aggregate, all composed parts must be consistent, according to business rules, when the controlling transaction is committed to the database. This doesn't necessarily mean that you are not supposed to compose other elements within an Aggregate that don't need to be consistent after a transaction. After all, an Aggregate also models a conceptual whole. But you should be first and foremost concerned with transactional consistency. The outer boundary drawn around Aggregate Type 1 and Aggregate Type 2 represents a separate transaction that will be in control of atomically persisting each object cluster.
 >
@@ -431,7 +437,7 @@ Fig. 21: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st 
 > https://martinfowler.com/bliki/BoundedContext.html
 
 ![](./.assets/img/BoundedContext.jpg)  
-Fig. 22: Martin, Fowler. *BoundedContext*.    
+Fig. 23: Martin, Fowler. *BoundedContext*.    
 https://martinfowler.com/bliki/BoundedContext.html
 
 > First, a Bounded Context is a semantic contextual boundary. This means that within the boundary each component of the software model has a specific meaning and does specific things. The components inside a Bounded Context are context specific and semantically motivated. That’s simple enough.
@@ -455,7 +461,7 @@ https://martinfowler.com/bliki/BoundedContext.html
 > https://whatis.techtarget.com/definition/clean-architecture
 
 ![](./.assets/img/CleanArchitecture.jpg)  
-Fig. 23: C. Martin, Robert. *The Clean Architecture*.    
+Fig. 24: C. Martin, Robert. *The Clean Architecture*.    
 https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
 ## Running
