@@ -179,6 +179,26 @@ https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing#solu
 Fig. 9: Battermann, Leif. *12 Things You Should Know About Event Sourcing*.    
 http://blog.leifbattermann.de/2017/04/21/12-things-you-should-know-about-event-sourcing/
 
+The mantra of event sourcing and cover the four steps in slightly more details:
+
+    1 - A command is received by an entity.
+    
+    2 - The entity checks to see if the command can be applied.
+    
+    3 - If the command can be applied:
+    
+        1 - The entity creates an event;
+        2 - The entity changes state based on the event details;
+        3 - The entity persists the event;
+        4 - The entity publishes the event to a topic.
+    
+    4 - If the command cannot be applied:
+    
+        1 - The entity creates a failure event;
+        2 - If necessary, the entity changes state based on the failure event;
+        3 - The entity persists the event;
+        4 - The entity publishes the failure event to a channel.
+
 State transition during events applying:
 
 ![](./.assets/img/applyTo_event-sourcing.png)
