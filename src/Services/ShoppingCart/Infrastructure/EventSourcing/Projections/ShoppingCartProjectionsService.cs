@@ -16,8 +16,8 @@ public class ShoppingCartProjectionsService : IShoppingCartProjectionsService
         _repository = repository;
     }
 
-    public Task<CartDetailsProjection> GetCartDetailsAsync(Guid userId, CancellationToken cancellationToken)
-        => _repository.FindAsync<CartDetailsProjection>(cart => cart.UserId == userId, cancellationToken);
+    public Task<CartDetailsProjection> GetCartDetailsAsync(Guid customerId, CancellationToken cancellationToken)
+        => _repository.FindAsync<CartDetailsProjection>(cart => cart.CustomerId == customerId, cancellationToken);
 
     public Task ProjectAsync<TProjection>(TProjection projection, CancellationToken cancellationToken)
         where TProjection : IProjection

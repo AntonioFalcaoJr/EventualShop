@@ -19,7 +19,7 @@ public class GetShoppingCartConsumer : IConsumer<GetShoppingCartQuery>
 
     public async Task Consume(ConsumeContext<GetShoppingCartQuery> context)
     {
-        var cartDetails = await _projectionsService.GetCartDetailsAsync(context.Message.UserId, context.CancellationToken);
+        var cartDetails = await _projectionsService.GetCartDetailsAsync(context.Message.CartId, context.CancellationToken);
 
         var response = new Responses.CartDetails
         {
@@ -66,7 +66,7 @@ public class GetShoppingCartConsumer : IConsumer<GetShoppingCartQuery>
                         },
                     _ => default
                 }),
-            UserId = cartDetails.UserId
+            CustomerId = cartDetails.CustomerId
         };
 
         await context.RespondAsync(response);

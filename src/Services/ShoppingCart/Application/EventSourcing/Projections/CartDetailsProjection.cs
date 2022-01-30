@@ -9,7 +9,7 @@ public record CartDetailsProjection : IProjection
 {
     public IEnumerable<CartItemProjection> CartItems { get; init; }
     public IEnumerable<IPaymentMethodProjection> PaymentMethods { get; init; }
-    public Guid UserId { get; init; }
+    public Guid CustomerId { get; init; }
     public decimal Total { get; init; }
     public string Status { get; init; }
     public AddressProjection ShippingAddressProjection { get; init; }

@@ -83,7 +83,7 @@ public class ProjectCartDetailsWhenCartChangedConsumer :
         {
             Id = cart.Id,
             IsDeleted = cart.IsDeleted,
-            UserId = cart.CustomerId,
+            CustomerId = cart.CustomerId,
             Total = cart.Total,
             CartItems = cart.Items.Any()
                 ? cart.Items.Select(item => new CartItemProjection
