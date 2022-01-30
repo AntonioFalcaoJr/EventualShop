@@ -7,14 +7,14 @@ namespace Infrastructure.Notifications;
 
 public class NotificationContext : INotificationContext
 {
-    private readonly List<string> _errors = new();
+    public ValidationResult ValidationResult { get; } = new();
 
     public IEnumerable<string> Errors
-        => _errors;
+        => ValidationResult.Errors.Select(failure => failure.ErrorMessage);
 
     public bool HasErrors
-        => Errors.Any();
+        => ValidationResult.IsValid is false;
 
     public void AddErrors(IEnumerable<ValidationFailure> validationFailures)
-        => _errors.AddRange(validationFailures.Select(failure => failure.ErrorMessage));
+        => ValidationResult.Errors.AddRange(validationFailures);
 }
