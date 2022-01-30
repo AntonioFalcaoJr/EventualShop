@@ -3,4 +3,4 @@
 namespace ECommerce.Abstractions.Commands;
 
 [ExcludeFromTopology]
-public record Command : Message, ICommand;
+public abstract record Command : Message, ICommand;
