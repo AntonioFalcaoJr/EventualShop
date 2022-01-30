@@ -125,7 +125,7 @@ architecture using Sagas*, chrisrichardson.net.
 
 ##### Orchestration
 
-![](./.assets/img/orchestration.png)
+![](./.assets/img/orchestration.png)    
 Fig. 6: Falcão, Antônio. "Order orchestration-based saga".
 
 Benefits & drawbacks of Orchestration
@@ -138,7 +138,7 @@ Benefits & drawbacks of Orchestration
 
 ##### Choreography
 
-![](./.assets/img/choreography.png)
+![](./.assets/img/choreography.png)     
 Fig. 7: Falcão, Antônio. "Order choreography-based saga".
 
 Benefits & drawbacks of Choreography
@@ -189,15 +189,15 @@ The mantra of event sourcing and cover the four steps in slightly more details:
     
         1 - The entity creates an event;
         2 - The entity changes state based on the event details;
-        3 - The entity persists the event;
-        4 - The entity publishes the event to a topic.
+        3 - The event is persisted in the store;
+        4 - The event is published to the exchange.
     
     4 - If the command cannot be applied:
     
-        1 - The entity creates a failure event;
+        1 - If necessary, the entity creates a failure event;
         2 - If necessary, the entity changes state based on the failure event;
-        3 - The entity persists the event;
-        4 - The entity publishes the failure event to a channel.
+        3 - The failure event is persisted in the store;
+        4 - The failure event is published to the exchange.
 
 State transition during events applying:
 
