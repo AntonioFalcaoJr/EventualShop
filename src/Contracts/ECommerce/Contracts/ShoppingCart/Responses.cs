@@ -8,6 +8,8 @@ namespace ECommerce.Contracts.ShoppingCart;
 
 public static class Responses
 {
+    public record NotFound(string Message = "Not found.") : Response;
+
     public record CartDetails : Response
     {
         public IEnumerable<Models.Item> CartItems { get; init; }
@@ -15,7 +17,7 @@ public static class Responses
         [JsonProperty(TypeNameHandling = TypeNameHandling.Objects)]
         public IEnumerable<Models.IPaymentMethod> PaymentMethods { get; init; }
 
-        public Guid UserId { get; init; }
+        public Guid CustomerId { get; init; }
         public decimal Total { get; init; }
         public Guid Id { get; init; }
         public bool IsDeleted { get; init; }

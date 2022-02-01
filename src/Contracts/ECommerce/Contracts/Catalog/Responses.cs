@@ -5,6 +5,10 @@ namespace ECommerce.Contracts.Catalog;
 
 public static class Responses
 {
+    public record NotFound(string Message = "Not found.") : Response;
+
+    public record CatalogItemsDetailsPagedResult : ResponsePagedResult<CatalogItemsDetails>;
+
     public record CatalogItemsDetails
     {
         public Guid Id { get; init; }
@@ -13,6 +17,4 @@ public static class Responses
         public decimal Price { get; init; }
         public string PictureUri { get; init; }
     }
-
-    public record CatalogItemsDetailsPagedResult : ResponsePagedResult<CatalogItemsDetails>;
 }

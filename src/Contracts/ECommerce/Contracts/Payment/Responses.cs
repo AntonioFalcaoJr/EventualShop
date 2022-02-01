@@ -5,6 +5,8 @@ namespace ECommerce.Contracts.Payment;
 
 public static class Responses
 {
+    public record NotFound(string Message = "Not found.") : Response;
+
     public record PaymentDetails : Response
     {
         public Guid Id { get; init; }
