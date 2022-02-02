@@ -52,7 +52,6 @@ public static class ServiceCollectionExtensions
                     });
                 });
             })
-            .AddGenericRequestClient()
             .AddMassTransitHostedService();
 
     public static OptionsBuilder<RabbitMqOptions> ConfigureRabbitMqOptions(this IServiceCollection services, IConfigurationSection section)
