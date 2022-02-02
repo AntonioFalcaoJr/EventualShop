@@ -6,6 +6,7 @@ using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.WebAPI.Controllers;
+
 [Route("api/[controller]/[action]")]
 public class CatalogsController : ApplicationController
 {
@@ -14,7 +15,7 @@ public class CatalogsController : ApplicationController
 
     [HttpGet]
     public Task<IActionResult> GetCatalogItemsWithPagination([FromQuery] Queries.GetCatalogItemsDetailsWithPagination query, CancellationToken cancellationToken)
-        => GetResponseAsync<Queries.GetCatalogItemsDetailsWithPagination, Responses.CatalogItemsDetailsPagedResult>(query, cancellationToken);
+        => GetResponseAsync<Queries.GetCatalogItemsDetailsWithPagination, Responses.CatalogItemsDetailsPagedResult, Responses.NotFound>(query, cancellationToken);
 
     [HttpPost]
     public Task<IActionResult> CreateCatalog(Commands.CreateCatalog command, CancellationToken cancellationToken)

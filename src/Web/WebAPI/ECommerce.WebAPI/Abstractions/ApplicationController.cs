@@ -28,12 +28,21 @@ public abstract class ApplicationController : ControllerBase
         return Accepted();
     }
 
-    protected async Task<IActionResult> GetResponseAsync<TQuery, TResponse>(TQuery query, CancellationToken cancellationToken)
+    protected async Task<IActionResult> GetResponseAsync<TQuery, TResult, TNotFound>(TQuery query, CancellationToken cancellationToken)
         where TQuery : class, IQuery
-        where TResponse : class, IResponse
+        where TResult : class, IResponse
+        where TNotFound : class, IResponse
     {
-        var response = await _bus.CreateRequestClient<TQuery>(Address<TQuery>()).GetResponse<TResponse>(query, cancellationToken);
-        return Ok(response.Message);
+        var response = await _bus
+            .CreateRequestClient<TQuery>(Address<TQuery>())
+            .GetResponse<TResult, TNotFound>(query, cancellationToken);
+
+        return response switch
+        {
+            { Message: TResult } => Ok(response.Message),
+            { Message: TNotFound } => NotFound(response.Message),
+            _ => Problem()
+        };
     }
 
     private static Uri Address<T>()

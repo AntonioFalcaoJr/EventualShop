@@ -15,11 +15,11 @@ public class AccountsController : ApplicationController
 
     [HttpGet]
     public Task<IActionResult> GetAccountsWithPagination([FromQuery] Queries.GetAccountsDetailsWithPagination query, CancellationToken cancellationToken)
-        => GetResponseAsync<Queries.GetAccountsDetailsWithPagination, Responses.AccountsDetailsPagedResult>(query, cancellationToken);
+        => GetResponseAsync<Queries.GetAccountsDetailsWithPagination, Responses.AccountsDetailsPagedResult, Responses.NotFound>(query, cancellationToken);
 
     [HttpGet]
     public Task<IActionResult> GetAccountDetails([FromQuery] Queries.GetAccountDetails query, CancellationToken cancellationToken)
-        => GetResponseAsync<Queries.GetAccountDetails, Responses.AccountDetails>(query, cancellationToken);
+        => GetResponseAsync<Queries.GetAccountDetails, Responses.AccountDetails, Responses.NotFound>(query, cancellationToken);
 
     [HttpPost]
     public Task<IActionResult> CreateAccount(Commands.CreateAccount command, CancellationToken cancellationToken)

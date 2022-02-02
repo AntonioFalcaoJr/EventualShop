@@ -6,6 +6,7 @@ using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.WebAPI.Controllers;
+
 [Route("api/[controller]/[action]")]
 public class IdentitiesController : ApplicationController
 {
@@ -14,7 +15,7 @@ public class IdentitiesController : ApplicationController
 
     [HttpGet]
     public Task<IActionResult> GetUserAuthenticationDetails([FromQuery] Queries.GetUserAuthenticationDetails query, CancellationToken cancellationToken)
-        => GetResponseAsync<Queries.GetUserAuthenticationDetails, Responses.UserAuthenticationDetails>(query, cancellationToken);
+        => GetResponseAsync<Queries.GetUserAuthenticationDetails, Responses.UserAuthenticationDetails, Responses.NotFound>(query, cancellationToken);
 
     [HttpPost]
     public Task<IActionResult> RegisterUser(Commands.RegisterUser command, CancellationToken cancellationToken)

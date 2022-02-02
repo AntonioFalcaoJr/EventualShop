@@ -5,14 +5,17 @@ using ECommerce.Contracts.Common;
 using ECommerce.Contracts.ShoppingCart;
 using MassTransit;
 using GetShoppingCartQuery = ECommerce.Contracts.ShoppingCart.Queries.GetShoppingCart;
+using GetCustomerShoppingCartQuery = ECommerce.Contracts.ShoppingCart.Queries.GetCustomerShoppingCart;
 
 namespace Application.UseCases.Queries;
 
-public class GetShoppingCartConsumer : IConsumer<GetShoppingCartQuery>
+public class GetShoppingCartDetailsConsumer :
+    IConsumer<GetShoppingCartQuery>,
+    IConsumer<GetCustomerShoppingCartQuery>
 {
     private readonly IShoppingCartProjectionsService _projectionsService;
 
-    public GetShoppingCartConsumer(IShoppingCartProjectionsService projectionsService)
+    public GetShoppingCartDetailsConsumer(IShoppingCartProjectionsService projectionsService)
     {
         _projectionsService = projectionsService;
     }
@@ -20,8 +23,22 @@ public class GetShoppingCartConsumer : IConsumer<GetShoppingCartQuery>
     public async Task Consume(ConsumeContext<GetShoppingCartQuery> context)
     {
         var cartDetails = await _projectionsService.GetCartDetailsAsync(context.Message.CartId, context.CancellationToken);
+        await RespondAsync(cartDetails, context);
+    }
 
-        var response = new Responses.CartDetails
+    public async Task Consume(ConsumeContext<GetCustomerShoppingCartQuery> context)
+    {
+        var cartDetails = await _projectionsService.GetCartDetailsByCustomerIdAsync(context.Message.CustomerId, context.CancellationToken);
+        await RespondAsync(cartDetails, context);
+    }
+
+    private static Task RespondAsync(CartDetailsProjection projection, ConsumeContext context)
+        => projection is null
+            ? context.RespondAsync<Responses.NotFound>(new())
+            : context.RespondAsync(MapToCartDetailsResponse(projection));
+
+    private static Responses.CartDetails MapToCartDetailsResponse(CartDetailsProjection cartDetails)
+        => new()
         {
             Id = cartDetails.Id,
             Total = cartDetails.Total,
@@ -68,7 +85,4 @@ public class GetShoppingCartConsumer : IConsumer<GetShoppingCartQuery>
                 }),
             CustomerId = cartDetails.CustomerId
         };
-
-        await context.RespondAsync(response);
-    }
 }
