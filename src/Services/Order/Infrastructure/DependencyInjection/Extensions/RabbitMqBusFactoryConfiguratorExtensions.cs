@@ -3,7 +3,6 @@ using Application.UseCases.Events.Projections;
 using ECommerce.Abstractions.Events;
 using ECommerce.Contracts.ShoppingCart;
 using MassTransit;
-using MassTransit.Context;
 using MassTransit.RabbitMqTransport;
 using DomainEvents = ECommerce.Contracts.Order.DomainEvents;
 

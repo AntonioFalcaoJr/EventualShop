@@ -2,7 +2,6 @@
 using ECommerce.Abstractions.Events;
 using ECommerce.Contracts.Catalog;
 using MassTransit;
-using MassTransit.Context;
 using MassTransit.RabbitMqTransport;
 
 namespace Infrastructure.DependencyInjection.Extensions;

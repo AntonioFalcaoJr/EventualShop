@@ -4,7 +4,6 @@ using Application.UseCases.Events.Projections;
 using ECommerce.Abstractions.Events;
 using ECommerce.Contracts.Payment;
 using MassTransit;
-using MassTransit.Context;
 using MassTransit.RabbitMqTransport;
 
 namespace Infrastructure.DependencyInjection.Extensions;

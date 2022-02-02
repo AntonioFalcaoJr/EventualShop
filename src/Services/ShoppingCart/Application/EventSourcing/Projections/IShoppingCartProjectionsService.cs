@@ -7,5 +7,6 @@ namespace Application.EventSourcing.Projections;
 
 public interface IShoppingCartProjectionsService : IProjectionsService
 {
-    Task<CartDetailsProjection> GetCartDetailsAsync(Guid customerId, CancellationToken cancellationToken);
+    Task<CartDetailsProjection> GetCartDetailsAsync(Guid cartId, CancellationToken cancellationToken);
+    Task<CartDetailsProjection> GetCartDetailsByCustomerIdAsync(Guid customerId, CancellationToken cancellationToken);
 }
