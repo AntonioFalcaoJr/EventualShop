@@ -24,7 +24,6 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
             queueName: $"warehouse.{typeof(TConsumer).ToKebabCaseString()}.{typeof(TEvent).ToKebabCaseString()}",
             configureEndpoint: endpoint =>
             {
-                MessageCorrelation.UseCorrelationId<TEvent>(message => message.CorrelationId);
                 endpoint.ConfigureConsumeTopology = false;
                 endpoint.Bind<TEvent>();
                 endpoint.ConfigureConsumer<TConsumer>(registration);

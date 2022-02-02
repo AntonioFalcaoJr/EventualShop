@@ -3,7 +3,6 @@ using Application.UseCases.Events.Projections;
 using ECommerce.Abstractions.Events;
 using ECommerce.Contracts.ShoppingCart;
 using MassTransit;
-using MassTransit.Context;
 using MassTransit.RabbitMqTransport;
 
 namespace Infrastructure.DependencyInjection.Extensions;
@@ -32,7 +31,6 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
             queueName: $"shopping-cart.{typeof(TConsumer).ToKebabCaseString()}.{typeof(TEvent).ToKebabCaseString()}",
             configureEndpoint: endpoint =>
             {
-                MessageCorrelation.UseCorrelationId<TEvent>(message => message.CorrelationId);
                 endpoint.ConfigureConsumeTopology = false;
                 endpoint.Bind<TEvent>();
                 endpoint.ConfigureConsumer<TConsumer>(registration);
