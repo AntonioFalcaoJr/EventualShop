@@ -5,5 +5,5 @@ namespace ECommerce.Contracts.Payment;
 
 public static class Queries
 {
-    public record GetPaymentDetails(Guid PaymentId) : Query;
+    public record GetPaymentDetails(Guid PaymentId) : Query(CorrelationId: PaymentId);
 }
