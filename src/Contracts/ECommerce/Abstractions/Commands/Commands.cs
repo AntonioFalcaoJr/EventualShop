@@ -1,6 +1,7 @@
-﻿using MassTransit.Topology;
+﻿using System;
+using MassTransit.Topology;
 
 namespace ECommerce.Abstractions.Commands;
 
 [ExcludeFromTopology]
-public abstract record Command : Message, ICommand;
+public abstract record Command(Guid CorrelationId = default) : Message(CorrelationId), ICommand;
