@@ -30,7 +30,7 @@ public class InventoryItem : AggregateRoot<Guid>
         => RaiseEvent(new DomainEvents.InventoryItemReceived(Guid.NewGuid(), cmd.Sku, cmd.Name, cmd.Description, cmd.Quantity));
 
     public void Handle(Commands.AdjustInventory cmd)
-        => RaiseEvent(new DomainEvents.InventoryAdjusted(cmd.ProductId, cmd.Sku, cmd.Quantity));
+        => RaiseEvent(new DomainEvents.InventoryAdjusted(cmd.ProductId, cmd.Reason, cmd.Quantity));
 
     public void Handle(Commands.ReserveInventory cmd)
         => RaiseEvent(cmd.Quantity switch
