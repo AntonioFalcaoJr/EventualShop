@@ -1,4 +1,4 @@
-using ECommerce.Abstractions.Queries.Paging;
+using ECommerce.Abstractions.Messages.Queries.Paging;
 
 namespace Application.Abstractions.EventSourcing.Projections.Pagination;
 
