@@ -3,7 +3,7 @@ using System.Reflection;
 using Application.Abstractions.Notifications;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
-using ECommerce.Abstractions;
+using ECommerce.Abstractions.Messages;
 using ECommerce.JsonConverters;
 using FluentValidation;
 using GreenPipes;

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.EventStore;
 using Application.Abstractions.EventSourcing.EventStore.Events;
 using Domain.Abstractions.Aggregates;
-using ECommerce.Abstractions.Events;
+using ECommerce.Abstractions.Messages.Events;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Abstractions.EventSourcing.EventStore;

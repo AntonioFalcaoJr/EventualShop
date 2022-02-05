@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.EventStore.Events;
 using Domain.Abstractions.Aggregates;
-using ECommerce.Abstractions.Events;
+using ECommerce.Abstractions.Messages.Events;
 
 namespace Application.Abstractions.EventSourcing.EventStore;
 

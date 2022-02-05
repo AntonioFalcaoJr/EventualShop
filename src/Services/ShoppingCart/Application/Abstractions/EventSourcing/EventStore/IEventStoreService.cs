@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Domain.Abstractions.Aggregates;
-using ECommerce.Abstractions;
+using ECommerce.Abstractions.Messages;
 
 namespace Application.Abstractions.EventSourcing.EventStore;
 

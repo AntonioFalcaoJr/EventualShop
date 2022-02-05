@@ -1,8 +1,9 @@
 ﻿using Application.UseCases.Events.Behaviors;
 using Application.UseCases.Events.Integrations;
 using Application.UseCases.Events.Projections;
-using ECommerce.Abstractions.Events;
+using ECommerce.Abstractions.Messages.Events;
 using ECommerce.Contracts.Payment;
+using GreenPipes;
 using MassTransit;
 using MassTransit.RabbitMqTransport;
 

@@ -1,4 +1,4 @@
-﻿using ECommerce.Abstractions.Events;
+﻿using ECommerce.Abstractions.Messages.Events;
 using ECommerce.JsonConverters;
 using JsonNet.ContractResolvers;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;

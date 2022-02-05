@@ -1,5 +1,5 @@
 ﻿using Application.UseCases.Events;
-using ECommerce.Abstractions.Events;
+using ECommerce.Abstractions.Messages.Events;
 using ECommerce.Contracts.Catalog;
 using MassTransit;
 using MassTransit.RabbitMqTransport;
