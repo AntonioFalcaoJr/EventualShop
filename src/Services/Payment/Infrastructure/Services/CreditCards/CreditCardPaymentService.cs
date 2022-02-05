@@ -19,14 +19,12 @@ public class CreditCardPaymentService : PaymentService, ICreditCardPaymentServic
     }
 
     public override Task<IPaymentResult> HandleAsync(Func<IPaymentService, IPaymentMethod, CancellationToken, Task<IPaymentResult>> behaviorProcessor, IPaymentMethod method, CancellationToken cancellationToken)
-        => method is CreditCardPaymentMethod
-            ? behaviorProcessor(this, method, cancellationToken)
+        => method is CreditCardPaymentMethod creditCardPaymentMethod
+            ? behaviorProcessor(this, creditCardPaymentMethod, cancellationToken)
             : base.HandleAsync(behaviorProcessor, method, cancellationToken);
 
     public override async Task<IPaymentResult> AuthorizeAsync(IPaymentMethod method, CancellationToken cancellationToken)
     {
-        method = method as CreditCardPaymentMethod;
-
         var request = new Requests.CreditCardAuthorizePayment
         {
             // TODO - Use method to hydrate  
@@ -38,8 +36,6 @@ public class CreditCardPaymentService : PaymentService, ICreditCardPaymentServic
 
     public override async Task<IPaymentResult> CancelAsync(IPaymentMethod method, CancellationToken cancellationToken)
     {
-        method = method as CreditCardPaymentMethod;
-
         var request = new Requests.CreditCardCancelPayment
         {
             // TODO - Use method to hydrate  
@@ -51,8 +47,6 @@ public class CreditCardPaymentService : PaymentService, ICreditCardPaymentServic
 
     public override async Task<IPaymentResult> RefundAsync(IPaymentMethod method, CancellationToken cancellationToken)
     {
-        method = method as CreditCardPaymentMethod;
-
         var request = new Requests.CreditCardRefundPayment
         {
             // TODO - Use method to hydrate  

@@ -19,14 +19,12 @@ public class DebitCardPaymentService : PaymentService, IDebitCardPaymentService
     }
 
     public override Task<IPaymentResult> HandleAsync(Func<IPaymentService, IPaymentMethod, CancellationToken, Task<IPaymentResult>> behaviorProcessor, IPaymentMethod method, CancellationToken cancellationToken)
-        => method is DebitCardPaymentMethod
-            ? behaviorProcessor(this, method, cancellationToken)
+        => method is DebitCardPaymentMethod debitCardPaymentMethod
+            ? behaviorProcessor(this, debitCardPaymentMethod, cancellationToken)
             : base.HandleAsync(behaviorProcessor, method, cancellationToken);
 
     public override async Task<IPaymentResult> AuthorizeAsync(IPaymentMethod method, CancellationToken cancellationToken)
     {
-        method = method as DebitCardPaymentMethod;
-
         var request = new Requests.DebitCardAuthorizePayment
         {
             // TODO - Use method to hydrate  
@@ -38,8 +36,6 @@ public class DebitCardPaymentService : PaymentService, IDebitCardPaymentService
 
     public override async Task<IPaymentResult> CancelAsync(IPaymentMethod method, CancellationToken cancellationToken)
     {
-        method = method as DebitCardPaymentMethod;
-
         var request = new Requests.DebitCardCancelPayment
         {
             // TODO - Use method to hydrate  
@@ -51,8 +47,6 @@ public class DebitCardPaymentService : PaymentService, IDebitCardPaymentService
 
     public override async Task<IPaymentResult> RefundAsync(IPaymentMethod method, CancellationToken cancellationToken)
     {
-        method = method as DebitCardPaymentMethod;
-
         var request = new Requests.DebitCardRefundPayment
         {
             // TODO - Use method to hydrate  
