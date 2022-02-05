@@ -1,5 +1,5 @@
 ﻿using System;
-using ECommerce.Abstractions.Commands;
+using ECommerce.Abstractions.Messages.Commands;
 using ECommerce.Contracts.Common;
 
 namespace ECommerce.Contracts.ShoppingCart;

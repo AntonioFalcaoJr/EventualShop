@@ -1,5 +1,5 @@
 ﻿using System;
-using ECommerce.Abstractions.Events;
+using ECommerce.Abstractions.Messages.Events;
 
 namespace ECommerce.Contracts.Identity;
 

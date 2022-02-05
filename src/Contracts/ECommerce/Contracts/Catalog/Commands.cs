@@ -1,5 +1,5 @@
 ﻿using System;
-using ECommerce.Abstractions.Commands;
+using ECommerce.Abstractions.Messages.Commands;
 
 namespace ECommerce.Contracts.Catalog;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using ECommerce.Abstractions.Events;
+using ECommerce.Abstractions.Messages.Events;
 using ECommerce.Contracts.Common;
 
 namespace ECommerce.Contracts.Order;
