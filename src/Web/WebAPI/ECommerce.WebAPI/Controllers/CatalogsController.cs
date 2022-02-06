@@ -14,8 +14,8 @@ public class CatalogsController : ApplicationController
         : base(bus) { }
 
     [HttpGet]
-    public Task<IActionResult> GetCatalogItemsWithPagination([FromQuery] Queries.GetCatalogItemsDetailsWithPagination query, CancellationToken cancellationToken)
-        => GetResponseAsync<Queries.GetCatalogItemsDetailsWithPagination, Responses.CatalogItemsDetailsPagedResult, Responses.NotFound>(query, cancellationToken);
+    public Task<IActionResult> GetCatalogItemsWithPagination([FromQuery] Queries.GetCatalogItemsDetails query, CancellationToken cancellationToken)
+        => GetResponseAsync<Queries.GetCatalogItemsDetails, Responses.CatalogItemsDetailsPagedResult, Responses.NotFound>(query, cancellationToken);
 
     [HttpPost]
     public Task<IActionResult> CreateCatalog(Commands.CreateCatalog command, CancellationToken cancellationToken)
