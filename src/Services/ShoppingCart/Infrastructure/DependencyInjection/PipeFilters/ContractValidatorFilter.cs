@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using ValidationResult = FluentValidation.Results.ValidationResult;
 
-namespace Infrastructure.DependencyInjection.Filters;
+namespace Infrastructure.DependencyInjection.PipeFilters;
 
 public class ContractValidatorFilter<T> : IFilter<ConsumeContext<T>>
     where T : class
@@ -42,7 +42,7 @@ public class ContractValidatorFilter<T> : IFilter<ConsumeContext<T>>
         Log.Error("Contract validation errors: {Errors}", _validationResult.Errors);
 
         await context.Send(
-            destinationAddress: new($"exchange:warehouse.{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}.contract-errors"),
+            destinationAddress: new($"exchange:shopping-cart.{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}.contract-errors"),
             message: new ContractValidationResult<T>(context.Message, _validationResult.Errors.Select(failure => failure.ErrorMessage)));
     }
 

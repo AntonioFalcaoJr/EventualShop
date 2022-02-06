@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using ValidationResult = FluentValidation.Results.ValidationResult;
 
-namespace Infrastructure.DependencyInjection.Filters;
+namespace Infrastructure.DependencyInjection.PipeFilters;
 
 public class ContractValidatorFilter<T> : IFilter<ConsumeContext<T>>
     where T : class
