@@ -10,14 +10,15 @@ using Application.Services.DebitCards;
 using Application.Services.DebitCards.Http;
 using Application.Services.PayPal;
 using Application.Services.PayPal.Http;
-using ECommerce.Abstractions;
+using ECommerce.Abstractions.Messages;
 using ECommerce.JsonConverters;
 using FluentValidation;
 using GreenPipes;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
-using Infrastructure.DependencyInjection.Filters;
-using Infrastructure.DependencyInjection.Observers;
+using Infrastructure.DependencyInjection.HttpPolicies;
 using Infrastructure.DependencyInjection.Options;
+using Infrastructure.DependencyInjection.PipeFilters;
+using Infrastructure.DependencyInjection.PipeObservers;
 using Infrastructure.EventSourcing.EventStore;
 using Infrastructure.EventSourcing.EventStore.Contexts;
 using Infrastructure.EventSourcing.Projections;
@@ -35,6 +36,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using Newtonsoft.Json;
+using Polly;
 using Quartz;
 using Quartz.Spi;
 
@@ -126,6 +128,15 @@ public static class ServiceCollectionExtensions
             {
                 var options = provider.GetRequiredService<IOptions<PayPalHttpClientOptions>>().Value;
                 client.BaseAddress = new(options.BaseAddress);
+                client.Timeout = TimeSpan.FromSeconds(options.OverallTimeout);
+            })
+            .AddPolicyHandler((provider, _) =>
+            {
+                var options = provider.GetRequiredService<IOptionsMonitor<PayPalHttpClientOptions>>().CurrentValue;
+
+                return Policy.WrapAsync(
+                    HttpPolicy.GetRetryPolicyAsync(options.RetryCount, options.SleepDurationPower, options.EachRetryTimeout),
+                    HttpPolicy.GetCircuitBreakerPolicyAsync(options.CircuitBreaking, options.DurationOfBreak));
             });
 
     public static IHttpClientBuilder AddCreditCardHttpClient(this IServiceCollection services)
@@ -133,8 +144,17 @@ public static class ServiceCollectionExtensions
             .AddHttpClient<ICreditCardHttpClient, CreditCardHttpClient>()
             .ConfigureHttpClient((provider, client) =>
             {
-                var options = provider.GetRequiredService<IOptions<CreditCardHttpClientOptions>>().Value;
+                var options = provider.GetRequiredService<IOptionsMonitor<CreditCardHttpClientOptions>>().CurrentValue;
                 client.BaseAddress = new(options.BaseAddress);
+                client.Timeout = TimeSpan.FromSeconds(options.OverallTimeout);
+            })
+            .AddPolicyHandler((provider, _) =>
+            {
+                var options = provider.GetRequiredService<IOptionsMonitor<CreditCardHttpClientOptions>>().CurrentValue;
+
+                return Policy.WrapAsync(
+                    HttpPolicy.GetRetryPolicyAsync(options.RetryCount, options.SleepDurationPower, options.EachRetryTimeout),
+                    HttpPolicy.GetCircuitBreakerPolicyAsync(options.CircuitBreaking, options.DurationOfBreak));
             });
 
     public static IHttpClientBuilder AddDebitCardHttpClient(this IServiceCollection services)
@@ -144,6 +164,15 @@ public static class ServiceCollectionExtensions
             {
                 var options = provider.GetRequiredService<IOptions<DebitCardHttpClientOptions>>().Value;
                 client.BaseAddress = new(options.BaseAddress);
+                client.Timeout = TimeSpan.FromSeconds(options.OverallTimeout);
+            })
+            .AddPolicyHandler((provider, _) =>
+            {
+                var options = provider.GetRequiredService<IOptionsMonitor<DebitCardHttpClientOptions>>().CurrentValue;
+
+                return Policy.WrapAsync(
+                    HttpPolicy.GetRetryPolicyAsync(options.RetryCount, options.SleepDurationPower, options.EachRetryTimeout),
+                    HttpPolicy.GetCircuitBreakerPolicyAsync(options.CircuitBreaking, options.DurationOfBreak));
             });
 
     public static IServiceCollection AddEventStoreDbContext(this IServiceCollection services)
