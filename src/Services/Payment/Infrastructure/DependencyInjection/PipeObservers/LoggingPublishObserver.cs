@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using MassTransit;
 using Serilog;
 
-namespace Infrastructure.DependencyInjection.Observers;
+namespace Infrastructure.DependencyInjection.PipeObservers;
 
 public class LoggingPublishObserver : IPublishObserver
 {
