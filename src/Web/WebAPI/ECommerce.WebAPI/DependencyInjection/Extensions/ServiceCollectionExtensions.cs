@@ -1,6 +1,8 @@
-﻿using ECommerce.JsonConverters;
+﻿using System;
+using ECommerce.JsonConverters;
 using ECommerce.WebAPI.DependencyInjection.Options;
 using ECommerce.WebAPI.DependencyInjection.PipeObservers;
+using GreenPipes;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,9 +34,11 @@ public static class ServiceCollectionExtensions
                             host.Password(options.Password);
                         });
 
-                    bus.ConnectConsumeObserver(new LoggingConsumeObserver());
-                    bus.ConnectSendObserver(new LoggingSendObserver());
-                    bus.ConfigureEndpoints(context);
+                    bus.UseMessageRetry(retry
+                        => retry.Incremental(
+                            retryLimit: options.RetryLimit,
+                            initialInterval: TimeSpan.FromSeconds(options.InitialInterval),
+                            intervalIncrement: TimeSpan.FromSeconds(options.IntervalIncrement)));
 
                     bus.ConfigureJsonSerializer(settings =>
                     {
@@ -50,6 +54,10 @@ public static class ServiceCollectionExtensions
                         settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
                         return settings;
                     });
+
+                    bus.ConnectConsumeObserver(new LoggingConsumeObserver());
+                    bus.ConnectSendObserver(new LoggingSendObserver());
+                    bus.ConfigureEndpoints(context);
                 });
             })
             .AddMassTransitHostedService();
