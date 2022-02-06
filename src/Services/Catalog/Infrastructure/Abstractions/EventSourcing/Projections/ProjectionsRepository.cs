@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.Projections;
 using Application.Abstractions.EventSourcing.Projections.Pagination;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
+using Infrastructure.Abstractions.EventSourcing.Projections.Pagination;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using System.Linq.Dynamic.Core;
 
 namespace Infrastructure.Abstractions.EventSourcing.Projections;
 
@@ -33,37 +33,15 @@ public abstract class ProjectionsRepository : IProjectionsRepository
         where TProjection : IProjection
     {
         var queryable = _context.GetCollection<TProjection>().AsQueryable().Where(predicate);
-        return Pagination.PagedResult<TProjection>.CreateAsync(paging, queryable, cancellationToken);
+        return PagedResult<TProjection>.CreateAsync(paging, queryable, cancellationToken);
     }
 
-    public virtual async Task<IPagedResult<TProjectionResult>> GetAllNestedAsync<TProjection, TProjectionResult>(Paging paging, Expression<Func<TProjection, bool>> predicate, Expression<Func<TProjection, IEnumerable<TProjectionResult>>> selector, CancellationToken cancellationToken)
+    public virtual Task<IPagedResult<TProjectionResult>> GetAllNestedAsync<TProjection, TProjectionResult>(Paging paging, Expression<Func<TProjection, bool>> predicate, Expression<Func<TProjection, IEnumerable<TProjectionResult>>> selector, CancellationToken cancellationToken)
         where TProjection : IProjection
         where TProjectionResult : IProjection
     {
-        
-        //TODO
-        var orderBy = "Title";
-        var sort = "asc";
-        var predicateField = "Title";
-        var predicateValue = "test";
-
-        var query = _context
-            .GetCollection<TProjection>()
-            .AsQueryable()
-            .OrderBy(orderBy, sort)
-            .Where($"{predicateField} == @0", predicateValue);
-
-        var result = await query.ToDynamicListAsync();
-
-
-        var queryable = _context
-            .GetCollection<TProjection>()
-            .AsQueryable()
-            .Where(predicate)
-            .Select(selector)
-            .SelectMany(results => results);
-
-        return await Pagination.PagedResult<TProjectionResult>.CreateAsync(paging, queryable, cancellationToken);
+        var queryable = _context.GetCollection<TProjection>().AsQueryable().Where(predicate).Select(selector).SelectMany(results => results);
+        return PagedResult<TProjectionResult>.CreateAsync(paging, queryable, cancellationToken);
     }
 
     public virtual Task UpsertAsync<TProjection>(TProjection replacement, CancellationToken cancellationToken)
