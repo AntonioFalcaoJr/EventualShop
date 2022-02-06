@@ -3,7 +3,6 @@ using Application.UseCases.Events.Integrations;
 using Application.UseCases.Events.Projections;
 using ECommerce.Abstractions.Messages.Events;
 using ECommerce.Contracts.Payment;
-using GreenPipes;
 using MassTransit;
 using MassTransit.RabbitMqTransport;
 
