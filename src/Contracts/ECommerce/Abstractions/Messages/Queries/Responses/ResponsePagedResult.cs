@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using ECommerce.Abstractions.Queries.Paging;
+using ECommerce.Abstractions.Messages.Queries.Paging;
 using MassTransit.Topology;
 
-namespace ECommerce.Abstractions.Queries.Responses;
+namespace ECommerce.Abstractions.Messages.Queries.Responses;
 
 [ExcludeFromTopology]
 public abstract record ResponsePagedResult<T> : Message, IResponse, IPagedResult<T>

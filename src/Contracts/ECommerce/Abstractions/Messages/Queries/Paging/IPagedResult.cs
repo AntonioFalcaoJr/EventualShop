@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using MassTransit.Topology;
 
-namespace ECommerce.Abstractions.Queries.Paging;
+namespace ECommerce.Abstractions.Messages.Queries.Paging;
 
 [ExcludeFromTopology]
 public interface IPagedResult<out T>

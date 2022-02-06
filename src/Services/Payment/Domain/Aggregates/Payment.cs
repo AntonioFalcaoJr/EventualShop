@@ -8,7 +8,7 @@ using Domain.Entities.PaymentMethods.DebitCards;
 using Domain.Entities.PaymentMethods.PayPal;
 using Domain.Enumerations;
 using Domain.ValueObjects.Addresses;
-using ECommerce.Abstractions.Events;
+using ECommerce.Abstractions.Messages.Events;
 using ECommerce.Contracts.Common;
 using ECommerce.Contracts.Payment;
 

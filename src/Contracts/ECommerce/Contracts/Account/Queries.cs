@@ -1,5 +1,5 @@
 ﻿using System;
-using ECommerce.Abstractions.Queries;
+using ECommerce.Abstractions.Messages.Queries;
 
 namespace ECommerce.Contracts.Account;
 

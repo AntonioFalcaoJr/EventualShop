@@ -1,4 +1,4 @@
-﻿using ECommerce.Abstractions.Queries.Responses;
+﻿using ECommerce.Abstractions.Messages.Queries.Responses;
 
 namespace ECommerce.Contracts.Warehouse;
 

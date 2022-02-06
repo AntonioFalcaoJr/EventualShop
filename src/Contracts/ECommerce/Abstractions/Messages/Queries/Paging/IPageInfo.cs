@@ -1,4 +1,4 @@
-namespace ECommerce.Abstractions.Queries.Paging;
+namespace ECommerce.Abstractions.Messages.Queries.Paging;
 
 public interface IPageInfo
 {

@@ -1,7 +1,7 @@
-﻿using ECommerce.Abstractions.Queries.Paging;
+﻿using ECommerce.Abstractions.Messages.Queries.Paging;
 using MassTransit.Topology;
 
-namespace ECommerce.Abstractions.Queries;
+namespace ECommerce.Abstractions.Messages.Queries;
 
 [ExcludeFromTopology]
 public abstract record QueryPaging(int Limit, int Offset) : Query, IPaging;

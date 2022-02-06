@@ -1,6 +1,6 @@
 using System;
 using System.Reflection;
-using ECommerce.Abstractions;
+using ECommerce.Abstractions.Messages;
 using ECommerce.JsonConverters;
 using ECommerce.WebAPI.DependencyInjection.Extensions;
 using ECommerce.WebAPI.DependencyInjection.Options;

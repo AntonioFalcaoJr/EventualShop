@@ -1,7 +1,7 @@
 ﻿using System;
 using MassTransit.Topology;
 
-namespace ECommerce.Abstractions;
+namespace ECommerce.Abstractions.Messages;
 
 [ExcludeFromTopology]
 public abstract record Message(Guid CorrelationId = default) : IMessage

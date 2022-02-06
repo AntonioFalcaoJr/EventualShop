@@ -1,6 +1,6 @@
 using MassTransit.Topology;
 
-namespace ECommerce.Abstractions.Queries.Paging;
+namespace ECommerce.Abstractions.Messages.Queries.Paging;
 
 [ExcludeFromTopology]
 public interface IPaging

@@ -1,9 +1,9 @@
 ﻿using System;
-using ECommerce.Abstractions.Queries;
+using ECommerce.Abstractions.Messages.Queries;
 
 namespace ECommerce.Contracts.Catalog;
 
 public static class Queries
 {
-    public record GetCatalogItemsDetailsWithPagination(Guid CatalogId, int Limit, int Offset) : QueryPaging(Limit, Offset);
+    public record GetCatalogItemsDetails(Guid CatalogId, int Limit, int Offset) : QueryPaging(Limit, Offset);
 }

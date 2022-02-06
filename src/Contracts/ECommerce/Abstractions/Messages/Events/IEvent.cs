@@ -1,6 +1,6 @@
 ﻿using MassTransit.Topology;
 
-namespace ECommerce.Abstractions.Events;
+namespace ECommerce.Abstractions.Messages.Events;
 
 [ExcludeFromTopology]
 public interface IEvent : IMessage { }

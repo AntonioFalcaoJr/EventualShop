@@ -8,7 +8,7 @@ using Domain.ValueObjects.Addresses;
 using Domain.ValueObjects.PaymentMethods;
 using Domain.ValueObjects.PaymentMethods.CreditCards;
 using Domain.ValueObjects.PaymentMethods.PayPal;
-using ECommerce.Abstractions.Events;
+using ECommerce.Abstractions.Messages.Events;
 using ECommerce.Contracts.ShoppingCart;
 
 namespace Domain.Aggregates;
