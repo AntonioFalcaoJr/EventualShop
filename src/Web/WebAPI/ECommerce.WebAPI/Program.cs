@@ -43,6 +43,17 @@ builder.Host.ConfigureLogging((context, loggingBuilder) =>
 });
 
 builder.Services
+    .AddCors(options
+        => options.AddPolicy(
+            name: "cors",
+            configurePolicy: policyBuilder =>
+            {
+                policyBuilder.AllowAnyHeader();
+                policyBuilder.AllowAnyMethod();
+                policyBuilder.AllowAnyOrigin();
+            }));
+
+builder.Services
     .AddRouting(options
         => options.LowercaseUrls = true)
     .AddControllers(options =>
@@ -81,6 +92,8 @@ if (builder.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ECommerce.WebAPI v1"));
 }
+
+app.UseCors("cors");
 
 app.UseHttpsRedirection();
 
