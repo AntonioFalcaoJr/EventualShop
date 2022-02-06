@@ -65,11 +65,10 @@ public static class ServiceCollectionExtensions
                     });
 
                     bus.UseMessageRetry(retry
-                        => retry.Exponential(
+                        => retry.Incremental(
                             retryLimit: options.RetryLimit,
-                            minInterval: TimeSpan.FromSeconds(options.MinimumInterval),
-                            maxInterval: TimeSpan.FromSeconds(options.MaximumInterval),
-                            intervalDelta: TimeSpan.FromSeconds(options.IntervalDelta)));
+                            initialInterval: TimeSpan.FromSeconds(options.InitialInterval),
+                            intervalIncrement: TimeSpan.FromSeconds(options.IntervalIncrement)));
 
                     bus.ConfigureJsonSerializer(settings =>
                     {
