@@ -25,12 +25,9 @@ public record RabbitMqOptions
     [Required, Range(1, 10)]
     public int RetryLimit { get; init; }
 
-    [Required, Range(1, 10)]
-    public int MinimumInterval { get; init; }
+    [Required, Range(1, 100)]
+    public int InitialInterval { get; init; }
 
     [Required, Range(2, 100)]
-    public int MaximumInterval { get; init; }
-
-    [Required, Range(0, 10)]
-    public int IntervalDelta { get; init; }
+    public int IntervalIncrement { get; init; }
 }

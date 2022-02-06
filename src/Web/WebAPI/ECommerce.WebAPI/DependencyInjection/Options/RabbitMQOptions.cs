@@ -18,4 +18,16 @@ public record RabbitMqOptions
 
     [Required]
     public ushort Port { get; init; }
+
+    [Required, MinLength(5)]
+    public string SchedulerQueueName { get; init; }
+
+    [Required, Range(1, 10)]
+    public int RetryLimit { get; init; }
+
+    [Required, Range(1, 100)]
+    public int InitialInterval { get; init; }
+
+    [Required, Range(2, 100)]
+    public int IntervalIncrement { get; init; }
 }
