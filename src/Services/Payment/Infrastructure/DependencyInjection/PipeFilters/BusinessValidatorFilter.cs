@@ -6,7 +6,7 @@ using MassTransit;
 using MassTransit.Definition;
 using Serilog;
 
-namespace Infrastructure.DependencyInjection.Filters;
+namespace Infrastructure.DependencyInjection.PipeFilters;
 
 public class BusinessValidatorFilter<T> : IFilter<ConsumeContext<T>>
     where T : class
