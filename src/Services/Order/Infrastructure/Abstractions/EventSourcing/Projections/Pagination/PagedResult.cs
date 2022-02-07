@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Abstractions.EventSourcing.Projections.Pagination;
+using ECommerce.Abstractions.Messages.Queries.Paging;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
@@ -33,13 +33,13 @@ public class PagedResult<T> : IPagedResult<T>
             HasPrevious = _offset > 0
         };
 
-    public static async Task<IPagedResult<T>> CreateAsync(Paging paging, IQueryable<T> source, CancellationToken cancellationToken)
+    public static async Task<IPagedResult<T>> CreateAsync(IPaging paging, IQueryable<T> source, CancellationToken cancellationToken)
     {
-        paging ??= new();
+        paging ??= new Paging();
         var items = await ApplyPagination(paging, source).ToListAsync(cancellationToken);
         return new PagedResult<T>(items, paging.Limit, paging.Offset);
     }
 
-    private static IMongoQueryable<T> ApplyPagination(Paging paging, IQueryable<T> source)
+    private static IMongoQueryable<T> ApplyPagination(IPaging paging, IQueryable<T> source)
         => source.Skip(paging.Limit * paging.Offset).Take(paging.Limit + 1) as IMongoQueryable<T>;
 }
