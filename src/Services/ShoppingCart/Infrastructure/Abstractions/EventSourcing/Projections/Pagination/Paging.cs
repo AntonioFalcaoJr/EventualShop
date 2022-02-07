@@ -1,6 +1,6 @@
 using ECommerce.Abstractions.Messages.Queries.Paging;
 
-namespace Application.Abstractions.EventSourcing.Projections.Pagination;
+namespace Infrastructure.Abstractions.EventSourcing.Projections.Pagination;
 
 public record Paging : IPaging
 {
