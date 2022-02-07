@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.Projections;
-using Application.Abstractions.EventSourcing.Projections.Pagination;
+using ECommerce.Abstractions.Messages.Queries.Paging;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.Abstractions.EventSourcing.Projections.Pagination;
 using MongoDB.Driver;
@@ -29,14 +29,14 @@ public abstract class ProjectionsRepository : IProjectionsRepository
         where TProjection : IProjection
         => _context.GetCollection<TProjection>().AsQueryable().Where(predicate).FirstOrDefaultAsync(cancellationToken);
 
-    public virtual Task<IPagedResult<TProjection>> GetAllAsync<TProjection>(Paging paging, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
+    public virtual Task<IPagedResult<TProjection>> GetAllAsync<TProjection>(IPaging paging, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
         where TProjection : IProjection
     {
         var queryable = _context.GetCollection<TProjection>().AsQueryable().Where(predicate);
         return PagedResult<TProjection>.CreateAsync(paging, queryable, cancellationToken);
     }
 
-    public virtual Task<IPagedResult<TProjectionResult>> GetAllNestedAsync<TProjection, TProjectionResult>(Paging paging, Expression<Func<TProjection, bool>> predicate, Expression<Func<TProjection, IEnumerable<TProjectionResult>>> selector, CancellationToken cancellationToken)
+    public virtual Task<IPagedResult<TProjectionResult>> GetAllNestedAsync<TProjection, TProjectionResult>(IPaging paging, Expression<Func<TProjection, bool>> predicate, Expression<Func<TProjection, IEnumerable<TProjectionResult>>> selector, CancellationToken cancellationToken)
         where TProjection : IProjection
         where TProjectionResult : IProjection
     {
