@@ -34,6 +34,6 @@ public record CreditCardHttpClientOptions
     [Required, Range(2, 20)]
     public int CircuitBreaking { get; init; }
 
-    [Required, Range(2, 20)]
+    [Required, Range(2, 60)]
     public int DurationOfBreak { get; init; }
 }
