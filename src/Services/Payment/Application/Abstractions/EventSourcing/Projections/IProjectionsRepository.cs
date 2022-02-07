@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Abstractions.EventSourcing.Projections.Pagination;
+using ECommerce.Abstractions.Messages.Queries.Paging;
 
 namespace Application.Abstractions.EventSourcing.Projections;
 
@@ -15,10 +15,10 @@ public interface IProjectionsRepository
     Task<TProjection> GetAsync<TProjection, TId>(TId id, CancellationToken cancellationToken)
         where TProjection : IProjection;
 
-    Task<IPagedResult<TProjection>> GetAllAsync<TProjection>(Paging paging, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
+    Task<IPagedResult<TProjection>> GetAllAsync<TProjection>(IPaging paging, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
         where TProjection : IProjection;
 
-    Task<IPagedResult<TProjectionResult>> GetAllNestedAsync<TProjection, TProjectionResult>(Paging paging, Expression<Func<TProjection, bool>> predicate, Expression<Func<TProjection, IEnumerable<TProjectionResult>>> selector, CancellationToken cancellationToken)
+    Task<IPagedResult<TProjectionResult>> GetAllNestedAsync<TProjection, TProjectionResult>(IPaging paging, Expression<Func<TProjection, bool>> predicate, Expression<Func<TProjection, IEnumerable<TProjectionResult>>> selector, CancellationToken cancellationToken)
         where TProjection : IProjection
         where TProjectionResult : IProjection;
 
