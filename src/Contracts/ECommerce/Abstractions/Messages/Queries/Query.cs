@@ -1,5 +1,5 @@
 ﻿using System;
-using MassTransit.Topology;
+using MassTransit;
 
 namespace ECommerce.Abstractions.Messages.Queries;
 

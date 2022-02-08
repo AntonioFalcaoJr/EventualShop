@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using MassTransit.Topology;
+using MassTransit;
 
 namespace ECommerce.Abstractions.Messages.Queries.Paging;
 
