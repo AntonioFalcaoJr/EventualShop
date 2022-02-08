@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
-using MassTransit.Definition;
-using MassTransit.Topology;
+using MassTransit;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 
