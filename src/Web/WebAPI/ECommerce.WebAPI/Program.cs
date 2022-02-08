@@ -6,6 +6,7 @@ using ECommerce.WebAPI.DependencyInjection.Extensions;
 using ECommerce.WebAPI.DependencyInjection.Options;
 using ECommerce.WebAPI.DependencyInjection.ParameterTransformers;
 using FluentValidation.AspNetCore;
+using MassTransit;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
@@ -77,11 +78,13 @@ builder.Services
         options.MapType<DateOnly>(() => new() { Format = "date", Example = new OpenApiString(DateOnly.MinValue.ToString()) });
     });
 
-builder.Services
-    .AddMassTransitWithRabbitMq();
+builder.Services.AddMassTransitWithRabbitMq();
 
 builder.Services.ConfigureRabbitMqOptions(
     builder.Configuration.GetSection(nameof(RabbitMqOptions)));
+
+builder.Services.ConfigureMassTransitHostOptions(
+    builder.Configuration.GetSection(nameof(MassTransitHostOptions)));
 
 var app = builder.Build();
 
