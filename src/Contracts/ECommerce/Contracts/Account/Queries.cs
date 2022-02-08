@@ -1,5 +1,6 @@
 ﻿using System;
 using ECommerce.Abstractions.Messages.Queries;
+using ECommerce.Abstractions.Messages.Queries.Paging;
 
 namespace ECommerce.Contracts.Account;
 
@@ -7,5 +8,5 @@ public static class Queries
 {
     public record GetAccountDetails(Guid AccountId) : Query;
 
-    public record GetAccountsDetailsWithPagination(int Limit, int Offset) : QueryPaging(Limit, Offset);
+    public record GetAccountsDetailsWithPagination(IPaging Paging) : QueryPaging(Paging);
 }

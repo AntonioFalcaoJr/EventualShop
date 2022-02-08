@@ -4,4 +4,4 @@ using MassTransit.Topology;
 namespace ECommerce.Abstractions.Messages.Queries;
 
 [ExcludeFromTopology]
-public abstract record QueryPaging(int Limit, int Offset) : Query, IPaging;
+public abstract record QueryPaging(IPaging Paging) : Query;
