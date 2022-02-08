@@ -94,7 +94,7 @@ public class Cart : AggregateRoot<Guid>
         => _items.RemoveAll(item => item.Id == @event.ItemId);
 
     private void When(DomainEvents.CartItemAdded @event)
-        => _items.Add(new CartItem(
+        => _items.Add(new(
             @event.ItemId,
             @event.ProductId,
             @event.ProductName,
@@ -120,7 +120,7 @@ public class Cart : AggregateRoot<Guid>
 
     private void When(DomainEvents.ShippingAddressAdded @event)
     {
-        ShippingAddress = new Address
+        ShippingAddress = new()
         {
             City = @event.Address.City,
             Country = @event.Address.Country,
@@ -136,7 +136,7 @@ public class Cart : AggregateRoot<Guid>
 
     private void When(DomainEvents.BillingAddressChanged @event)
     {
-        BillingAddress = new Address
+        BillingAddress = new()
         {
             City = @event.Address.City,
             Country = @event.Address.Country,

@@ -37,7 +37,7 @@ public class PublishCartSubmittedWhenCartCheckedOutConsumer : IConsumer<CartChec
                 ProductName = item.ProductName,
                 UnitPrice = item.UnitPrice
             }),
-            BillingAddress: new Models.Address
+            BillingAddress: new()
             {
                 City = cart.BillingAddress.City,
                 Country = cart.BillingAddress.Country,
@@ -46,7 +46,7 @@ public class PublishCartSubmittedWhenCartCheckedOutConsumer : IConsumer<CartChec
                 Street = cart.BillingAddress.Street,
                 ZipCode = cart.BillingAddress.ZipCode
             },
-            ShippingAddress: new Models.Address
+            ShippingAddress: new()
             {
                 City = cart.ShippingAddress.City,
                 Country = cart.ShippingAddress.Country,

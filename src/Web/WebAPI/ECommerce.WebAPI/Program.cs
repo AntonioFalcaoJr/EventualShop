@@ -14,7 +14,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Any;
-using Microsoft.OpenApi.Models;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -75,7 +74,7 @@ builder.Services
     .AddSwaggerGen(options =>
     {
         options.SwaggerDoc("v1", new() { Title = "WebAPI", Version = "v1" });
-        options.MapType<DateOnly>(() => new OpenApiSchema { Format = "date", Example = new OpenApiString(DateOnly.MinValue.ToString()) });
+        options.MapType<DateOnly>(() => new() { Format = "date", Example = new OpenApiString(DateOnly.MinValue.ToString()) });
     });
 
 builder.Services

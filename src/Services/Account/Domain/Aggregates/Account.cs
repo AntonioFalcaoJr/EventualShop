@@ -34,7 +34,7 @@ public class Account : AggregateRoot<Guid>
     {
         Id = @event.AccountId;
         UserId = @event.UserId;
-        Profile = new Profile(@event.Email, @event.FirstName);
+        Profile = new(@event.Email, @event.FirstName);
     }
 
     private void When(DomainEvents.AccountDeleted _)
