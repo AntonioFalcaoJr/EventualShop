@@ -1,9 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Application.Abstractions.Notifications;
 using ECommerce.Abstractions.Validations;
-using GreenPipes;
 using MassTransit;
-using MassTransit.Definition;
 using Serilog;
 
 namespace Infrastructure.DependencyInjection.PipeFilters;
