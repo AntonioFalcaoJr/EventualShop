@@ -2,11 +2,11 @@ using System.Threading.Tasks;
 using Application.EventSourcing.Projections;
 using ECommerce.Contracts.Catalog;
 using MassTransit;
-using GetCatalogItemsDetailsWithPaginationQuery = ECommerce.Contracts.Catalog.Queries.GetCatalogItemsDetailsWithPagination;
+using GetCatalogItemsDetailsQuery = ECommerce.Contracts.Catalog.Queries.GetCatalogItemsDetails;
 
 namespace Application.UseCases.Queries;
 
-public class GetCatalogItemsDetailsConsumer : IConsumer<GetCatalogItemsDetailsWithPaginationQuery>
+public class GetCatalogItemsDetailsConsumer : IConsumer<GetCatalogItemsDetailsQuery>
 {
     private readonly ICatalogProjectionsService _projectionsService;
 
@@ -15,16 +15,9 @@ public class GetCatalogItemsDetailsConsumer : IConsumer<GetCatalogItemsDetailsWi
         _projectionsService = projectionsService;
     }
 
-    public async Task Consume(ConsumeContext<GetCatalogItemsDetailsWithPaginationQuery> context)
+    public async Task Consume(ConsumeContext<GetCatalogItemsDetailsQuery> context)
     {
-        var catalogItems = await _projectionsService.GetCatalogItemsWithPaginationAsync(
-            paging: new() { Limit = context.Message.Limit, Offset = context.Message.Offset },
-            predicate: catalog => catalog.Id == context.Message.CatalogId
-                                  && catalog.IsActive
-                                  && catalog.IsDeleted == false,
-            selector: catalog => catalog.Items,
-            cancellationToken: context.CancellationToken);
-
+        var catalogItems = await _projectionsService.GetCatalogItemsAsync(context.Message.CatalogId, context.Message.Paging, context.CancellationToken);
         await context.RespondAsync<Responses.CatalogItemsDetailsPagedResult>(catalogItems);
     }
 }

@@ -8,5 +8,5 @@ public static class Queries
 {
     public record GetAccountDetails(Guid AccountId) : Query;
 
-    public record GetAccountsDetailsWithPagination(IPaging Paging) : QueryPaging(Paging);
+    public record GetAccounts(IPaging Paging) : QueryPaging(Paging);
 }

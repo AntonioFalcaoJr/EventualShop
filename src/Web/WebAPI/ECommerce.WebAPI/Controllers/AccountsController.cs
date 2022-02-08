@@ -14,8 +14,8 @@ public class AccountsController : ApplicationController
         : base(bus) { }
 
     [HttpGet]
-    public Task<IActionResult> GetAccountsWithPagination([FromQuery] Queries.GetAccountsDetailsWithPagination query, CancellationToken cancellationToken)
-        => GetResponseAsync<Queries.GetAccountsDetailsWithPagination, Responses.AccountsDetailsPagedResult, Responses.NotFound>(query, cancellationToken);
+    public Task<IActionResult> GetAccountsWithPagination([FromQuery] Queries.GetAccounts query, CancellationToken cancellationToken)
+        => GetResponseAsync<Queries.GetAccounts, Responses.AccountsDetailsPagedResult, Responses.NotFound>(query, cancellationToken);
 
     [HttpGet]
     public Task<IActionResult> GetAccountDetails([FromQuery] Queries.GetAccountDetails query, CancellationToken cancellationToken)

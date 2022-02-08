@@ -2,11 +2,11 @@ using System.Threading.Tasks;
 using Application.EventSourcing.Projections;
 using ECommerce.Contracts.Account;
 using MassTransit;
-using GetAccountsDetailsWithPaginationQuery = ECommerce.Contracts.Account.Queries.GetAccountsDetailsWithPagination;
+using GetAccountsQuery = ECommerce.Contracts.Account.Queries.GetAccounts;
 
 namespace Application.UseCases.Queries;
 
-public class GetAccountsDetailsWithPaginationConsumer : IConsumer<GetAccountsDetailsWithPaginationQuery>
+public class GetAccountsDetailsWithPaginationConsumer : IConsumer<GetAccountsQuery>
 {
     private readonly IAccountProjectionsService _projectionsService;
 
@@ -15,13 +15,9 @@ public class GetAccountsDetailsWithPaginationConsumer : IConsumer<GetAccountsDet
         _projectionsService = projectionsService;
     }
 
-    public async Task Consume(ConsumeContext<GetAccountsDetailsWithPaginationQuery> context)
+    public async Task Consume(ConsumeContext<GetAccountsQuery> context)
     {
-        var paginatedResult = await _projectionsService.GetAccountsDetailsWithPaginationAsync(
-            paging: new() { Limit = context.Message.Limit, Offset = context.Message.Offset },
-            predicate: _ => true,
-            cancellationToken: context.CancellationToken);
-
+        var paginatedResult = await _projectionsService.GetAccountsAsync(context.Message.Paging, context.CancellationToken);
         await context.RespondAsync<Responses.AccountsDetailsPagedResult>(paginatedResult);
     }
 }
