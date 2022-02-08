@@ -3,8 +3,8 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.Projections;
-using Application.Abstractions.EventSourcing.Projections.Pagination;
 using Application.EventSourcing.Projections;
+using ECommerce.Abstractions.Messages.Queries.Paging;
 
 namespace Infrastructure.EventSourcing.Projections;
 
@@ -17,8 +17,8 @@ public class AccountProjectionsService : IAccountProjectionsService
         _repository = repository;
     }
 
-    public Task<IPagedResult<AccountDetailsProjection>> GetAccountsDetailsWithPaginationAsync(Paging paging, Expression<Func<AccountDetailsProjection, bool>> predicate, CancellationToken cancellationToken)
-        => _repository.GetAllAsync(paging, predicate, cancellationToken);
+    public Task<IPagedResult<AccountDetailsProjection>> GetAccountsDetailsWithPaginationAsync(IPaging paging, CancellationToken cancellationToken)
+        => _repository.GetAllAsync<AccountDetailsProjection>(paging, projection => projection.IsDeleted == false, cancellationToken);
 
     public Task<AccountDetailsProjection> GetAccountDetailsAsync(Guid accountId, CancellationToken cancellationToken)
         => _repository.GetAsync<AccountDetailsProjection, Guid>(accountId, cancellationToken);

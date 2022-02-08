@@ -3,8 +3,8 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.Projections;
-using Application.Abstractions.EventSourcing.Projections.Pagination;
 using Application.EventSourcing.Projections;
+using ECommerce.Abstractions.Messages.Queries.Paging;
 
 namespace Infrastructure.EventSourcing.Projections;
 
@@ -17,7 +17,7 @@ public class OrderProjectionsService : IOrderProjectionsService
         _repository = repository;
     }
 
-    public Task<IPagedResult<OrderDetailsProjection>> GetOrderDetailsWithPaginationAsync(Paging paging, Expression<Func<OrderDetailsProjection, bool>> predicate, CancellationToken cancellationToken)
+    public Task<IPagedResult<OrderDetailsProjection>> GetOrderDetailsWithPaginationAsync(IPaging paging, Expression<Func<OrderDetailsProjection, bool>> predicate, CancellationToken cancellationToken)
         => _repository.GetAllAsync(paging, predicate, cancellationToken);
 
     public Task<OrderDetailsProjection> GetOrderDetailsAsync(Guid orderId, CancellationToken cancellationToken)

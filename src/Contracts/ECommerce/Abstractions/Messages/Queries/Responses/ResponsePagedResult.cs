@@ -8,5 +8,5 @@ namespace ECommerce.Abstractions.Messages.Queries.Responses;
 public abstract record ResponsePagedResult<T> : Message, IResponse, IPagedResult<T>
 {
     public IEnumerable<T> Items { get; init; }
-    public IPageInfo PageInfo { get; init; }
+    public PageInfo PageInfo { get; init; }
 }
