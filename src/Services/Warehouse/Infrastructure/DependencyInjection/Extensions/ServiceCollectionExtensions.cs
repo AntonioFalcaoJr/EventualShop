@@ -6,11 +6,9 @@ using Application.EventSourcing.Projections;
 using ECommerce.Abstractions.Messages;
 using ECommerce.JsonConverters;
 using FluentValidation;
-using GreenPipes;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.DependencyInjection.Options;
 using Infrastructure.DependencyInjection.PipeFilters;
-using Infrastructure.DependencyInjection.PipeObservers;
 using Infrastructure.EventSourcing.EventStore;
 using Infrastructure.EventSourcing.EventStore.Contexts;
 using Infrastructure.EventSourcing.Projections;
@@ -65,10 +63,12 @@ public static class ServiceCollectionExtensions
                     bus.UseMessageRetry(retry
                         => retry.Incremental(
                             retryLimit: options.RetryLimit,
-                            initialInterval: TimeSpan.FromSeconds(options.InitialInterval),
-                            intervalIncrement: TimeSpan.FromSeconds(options.IntervalIncrement)));
+                            initialInterval: options.InitialInterval,
+                            intervalIncrement: options.IntervalIncrement));
 
-                    bus.ConfigureJsonSerializer(settings =>
+                    bus.UseNewtonsoftJsonSerializer();
+
+                    bus.ConfigureNewtonsoftJsonSerializer(settings =>
                     {
                         settings.Converters.Add(new TypeNameHandlingConverter(TypeNameHandling.Objects));
                         settings.Converters.Add(new DateOnlyJsonConverter());
@@ -76,7 +76,7 @@ public static class ServiceCollectionExtensions
                         return settings;
                     });
 
-                    bus.ConfigureJsonDeserializer(settings =>
+                    bus.ConfigureNewtonsoftJsonDeserializer(settings =>
                     {
                         settings.Converters.Add(new TypeNameHandlingConverter(TypeNameHandling.Objects));
                         settings.Converters.Add(new DateOnlyJsonConverter());
@@ -87,14 +87,10 @@ public static class ServiceCollectionExtensions
                     bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
                     bus.UseConsumeFilter(typeof(ContractValidatorFilter<>), context);
                     bus.UseConsumeFilter(typeof(BusinessValidatorFilter<>), context);
-                    bus.ConnectConsumeObserver(new LoggingConsumeObserver());
-                    bus.ConnectPublishObserver(new LoggingPublishObserver());
-                    bus.ConnectSendObserver(new LoggingSendObserver());
                     bus.ConfigureEventReceiveEndpoints(context);
                     bus.ConfigureEndpoints(context);
                 });
             })
-            .AddMassTransitHostedService()
             .AddQuartz();
 
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
@@ -149,6 +145,13 @@ public static class ServiceCollectionExtensions
     public static OptionsBuilder<QuartzOptions> ConfigureQuartzOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<QuartzOptions>()
+            .Bind(section)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+
+    public static OptionsBuilder<MassTransitHostOptions> ConfigureMassTransitHostOptions(this IServiceCollection services, IConfigurationSection section)
+        => services
+            .AddOptions<MassTransitHostOptions>()
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();
