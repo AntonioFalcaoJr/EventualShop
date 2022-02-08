@@ -21,6 +21,7 @@
 
         <!--MassTransit-->
         <MassTransit_Version>7.3.1</MassTransit_Version>
+        <Quartz_Version>3.3.3</Quartz_Version>
 
         <!--Newtonsoft-->
         <Newtonsoft_Version>13.0.1</Newtonsoft_Version>
@@ -33,6 +34,9 @@
 
         <!--FluentValidation-->
         <FluentValidation_Version>10.3.6</FluentValidation_Version>
+
+        <!--Polly-->
+        <Polly_Version>6.0.1</Polly_Version>
 
     </PropertyGroup>
 
