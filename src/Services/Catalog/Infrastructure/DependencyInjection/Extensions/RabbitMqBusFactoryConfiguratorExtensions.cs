@@ -2,13 +2,12 @@
 using ECommerce.Abstractions.Messages.Events;
 using ECommerce.Contracts.Catalog;
 using MassTransit;
-using MassTransit.RabbitMqTransport;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 
 internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
-    public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
+    public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistrationContext registration)
     {
         cfg.ConfigureEventReceiveEndpoint<ProjectCatalogDetailsWhenCatalogChangedConsumer, DomainEvents.CatalogCreated>(registration);
         cfg.ConfigureEventReceiveEndpoint<ProjectCatalogDetailsWhenCatalogChangedConsumer, DomainEvents.CatalogDeleted>(registration);
@@ -20,7 +19,7 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
         cfg.ConfigureEventReceiveEndpoint<ProjectCatalogDetailsWhenCatalogChangedConsumer, DomainEvents.CatalogItemUpdated>(registration);
     }
 
-    private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)
+    private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistrationContext registration)
         where TConsumer : class, IConsumer
         where TEvent : class, IEvent
         => bus.ReceiveEndpoint(

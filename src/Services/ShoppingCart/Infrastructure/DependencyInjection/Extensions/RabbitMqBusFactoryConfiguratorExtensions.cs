@@ -3,13 +3,12 @@ using Application.UseCases.Events.Projections;
 using ECommerce.Abstractions.Messages.Events;
 using ECommerce.Contracts.ShoppingCart;
 using MassTransit;
-using MassTransit.RabbitMqTransport;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 
 internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
-    public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistration registration)
+    public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistrationContext registration)
     {
         cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenCartChangedConsumer, DomainEvents.CartCreated>(registration);
         cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenCartChangedConsumer, DomainEvents.CartItemAdded>(registration);
@@ -24,7 +23,7 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
         cfg.ConfigureEventReceiveEndpoint<PublishCartSubmittedWhenCartCheckedOutConsumer, DomainEvents.CartCheckedOut>(registration);
     }
 
-    private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistration registration)
+    private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistrationContext registration)
         where TConsumer : class, IConsumer
         where TEvent : class, IEvent
         => bus.ReceiveEndpoint(
