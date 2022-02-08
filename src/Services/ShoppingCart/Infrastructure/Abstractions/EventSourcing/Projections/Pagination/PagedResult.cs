@@ -24,8 +24,8 @@ public class PagedResult<T> : IPagedResult<T>
     public IEnumerable<T> Items
         => _items.Take(_limit);
 
-    public IPageInfo PageInfo
-        => new PageInfo
+    public PageInfo PageInfo
+        => new()
         {
             Current = _offset + 1,
             Size = Items.Count(),
