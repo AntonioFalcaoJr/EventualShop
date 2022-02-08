@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ECommerce.WebAPI.DependencyInjection.Options;
 
@@ -25,9 +26,9 @@ public record RabbitMqOptions
     [Required, Range(1, 10)]
     public int RetryLimit { get; init; }
 
-    [Required, Range(1, 100)]
-    public int InitialInterval { get; init; }
+    [Required, Timestamp]
+    public TimeSpan InitialInterval { get; init; }
 
-    [Required, Range(2, 100)]
-    public int IntervalIncrement { get; init; }
+    [Required, Timestamp]
+    public TimeSpan IntervalIncrement { get; init; }
 }
