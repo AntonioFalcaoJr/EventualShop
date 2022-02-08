@@ -2,6 +2,7 @@
 using System.Reflection;
 using Infrastructure.DependencyInjection.Extensions;
 using Infrastructure.DependencyInjection.Options;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -75,6 +76,9 @@ builder.ConfigureServices((context, services) =>
     
     services.ConfigureQuartzOptions(
         context.Configuration.GetSection(nameof(QuartzOptions)));
+    
+    services.ConfigureMassTransitHostOptions(
+        context.Configuration.GetSection(nameof(MassTransitHostOptions)));
 });
 
 using var host = builder.Build();
