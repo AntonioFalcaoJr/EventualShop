@@ -11,7 +11,7 @@
     <PropertyGroup Label="Packages dependency versions">
 
         <!--Microsoft-->
-        <Microsoft_Extensions_Version>6.0.0</Microsoft_Extensions_Version>
+        <Microsoft_Extensions_Version>6.0.2-mauipre.1.22054.8</Microsoft_Extensions_Version>
 
         <!--EF Core-->
         <EntityFrameworkCore_Version>6.0.1</EntityFrameworkCore_Version>
@@ -20,7 +20,7 @@
         <MongoDb_Version>2.14.1</MongoDb_Version>
 
         <!--MassTransit-->
-        <MassTransit_Version>7.3.1</MassTransit_Version>
+        <MassTransit_Version>8.0.0-develop.374</MassTransit_Version>
         <Quartz_Version>3.3.3</Quartz_Version>
 
         <!--Newtonsoft-->
