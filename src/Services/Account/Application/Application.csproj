@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
         <PackageReference Include="MassTransit" Version="$(MassTransit_Version)" />
-        <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="$(MassTransit_Version)" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Domain\Domain.csproj" />
