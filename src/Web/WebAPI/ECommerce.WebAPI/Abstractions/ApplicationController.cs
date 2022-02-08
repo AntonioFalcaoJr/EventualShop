@@ -5,7 +5,6 @@ using ECommerce.Abstractions.Messages.Commands;
 using ECommerce.Abstractions.Messages.Queries;
 using ECommerce.Abstractions.Messages.Queries.Responses;
 using MassTransit;
-using MassTransit.Definition;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.WebAPI.Abstractions;
