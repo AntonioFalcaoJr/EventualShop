@@ -10,6 +10,7 @@ using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.Abstractions.EventSourcing.Projections.Contexts.BsonSerializers;
 using Infrastructure.DependencyInjection.Options;
 using Infrastructure.DependencyInjection.PipeFilters;
+using Infrastructure.DependencyInjection.PipeObservers;
 using Infrastructure.EventSourcing.EventStore;
 using Infrastructure.EventSourcing.EventStore.Contexts;
 using Infrastructure.EventSourcing.Projections;
@@ -90,6 +91,9 @@ public static class ServiceCollectionExtensions
                     bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
                     bus.UseConsumeFilter(typeof(ContractValidatorFilter<>), context);
                     bus.UseConsumeFilter(typeof(BusinessValidatorFilter<>), context);
+                    bus.ConnectConsumeObserver(new LoggingConsumeObserver());
+                    bus.ConnectPublishObserver(new LoggingPublishObserver());
+                    bus.ConnectSendObserver(new LoggingSendObserver());
                     bus.ConfigureEventReceiveEndpoints(context);
                     bus.ConfigureEndpoints(context);
                 });
