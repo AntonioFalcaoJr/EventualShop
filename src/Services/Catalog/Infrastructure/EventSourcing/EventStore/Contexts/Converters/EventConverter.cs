@@ -30,7 +30,7 @@ public class EventConverter : ValueConverter<IEvent, string>
     {
         var jsonDeserializerSettings = new JsonSerializerSettings
         {
-            TypeNameHandling = TypeNameHandling.All,
+            TypeNameHandling = TypeNameHandling.Auto,
             ContractResolver = new PrivateSetterContractResolver()
         };
 
