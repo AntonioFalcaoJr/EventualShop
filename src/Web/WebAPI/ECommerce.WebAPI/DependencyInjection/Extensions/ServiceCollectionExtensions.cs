@@ -55,7 +55,8 @@ public static class ServiceCollectionExtensions
                     settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
                     return settings;
                 });
-
+                bus.ConnectConsumeObserver(new LoggingConsumeObserver());
+                bus.ConnectSendObserver(new LoggingSendObserver());
                 bus.ConfigureEndpoints(context);
             });
         });
