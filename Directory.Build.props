@@ -36,7 +36,7 @@
         <FluentValidation_Version>10.3.6</FluentValidation_Version>
 
         <!--Polly-->
-        <Polly_Version>6.0.1</Polly_Version>
+        <Polly_Version>6.0.2</Polly_Version>
 
     </PropertyGroup>
 
