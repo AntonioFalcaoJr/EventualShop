@@ -97,8 +97,6 @@ if (builder.Environment.IsDevelopment())
 
 app.UseCors("cors");
 
-app.UseHttpsRedirection();
-
 app.UseRouting();
 
 app.UseEndpoints(endpoints
