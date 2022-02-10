@@ -2,7 +2,7 @@
 
 namespace ECommerce.WebAPI.DataTransferObjects.ShoppingCarts;
 
-public abstract class Requests
+public static class Requests
 {
     public record CreateCart(Guid CustomerId);
 }
