@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using ECommerce.Abstractions.Messages.Commands;
 using ECommerce.Abstractions.Messages.Queries;
 using ECommerce.Abstractions.Messages.Queries.Responses;
@@ -13,10 +14,12 @@ namespace ECommerce.WebAPI.Abstractions;
 public abstract class ApplicationController : ControllerBase
 {
     private readonly IBus _bus;
+    private readonly IMapper _mapper;
 
-    protected ApplicationController(IBus bus)
+    protected ApplicationController(IBus bus, IMapper mapper)
     {
         _bus = bus;
+        _mapper = mapper;
     }
 
     protected async Task<IActionResult> SendCommandAsync<TCommand>(TCommand command, CancellationToken cancellationToken)
@@ -27,19 +30,19 @@ public abstract class ApplicationController : ControllerBase
         return Accepted();
     }
 
-    protected async Task<IActionResult> GetResponseAsync<TQuery, TResult, TNotFound>(TQuery query, CancellationToken cancellationToken)
+    protected async Task<IActionResult> GetResponseAsync<TQuery, TResponse, TNotFound, TOutput>(TQuery query, CancellationToken cancellationToken)
         where TQuery : class, IQuery
-        where TResult : class, IResponse
+        where TResponse : class, IResponse
         where TNotFound : class, IResponse
     {
-        var response = await _bus
+        var clientResponse = await _bus
             .CreateRequestClient<TQuery>(Address<TQuery>())
-            .GetResponse<TResult, TNotFound>(query, cancellationToken);
+            .GetResponse<TResponse, TNotFound>(query, cancellationToken);
 
-        return response switch
+        return clientResponse.Message switch
         {
-            { Message: TResult } => Ok(response.Message),
-            { Message: TNotFound } => NotFound(response.Message),
+            TResponse response => Ok(_mapper.Map<TOutput>(response)),
+            TNotFound notFound => NotFound(notFound),
             _ => Problem()
         };
     }
