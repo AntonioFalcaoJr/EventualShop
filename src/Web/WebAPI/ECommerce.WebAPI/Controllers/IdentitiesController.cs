@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using ECommerce.Contracts.Identity;
 using ECommerce.WebAPI.Abstractions;
 using MassTransit;
@@ -10,8 +11,8 @@ namespace ECommerce.WebAPI.Controllers;
 [Route("api/[controller]/[action]")]
 public class IdentitiesController : ApplicationController
 {
-    public IdentitiesController(IBus bus)
-        : base(bus) { }
+    public IdentitiesController(IBus bus, IMapper mapper)
+        : base(bus, mapper) { }
 
     [HttpGet]
     public Task<IActionResult> GetUserAuthenticationDetails([FromQuery] Queries.GetUserAuthenticationDetails query, CancellationToken cancellationToken)

@@ -18,33 +18,35 @@ public static class Models
 
     public record CreditCard : IPaymentMethod
     {
+        public Guid Id { get; } = Guid.NewGuid();
+
         [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
         public DateOnly Expiration { get; init; }
 
         public string HolderName { get; init; }
         public string Number { get; init; }
         public string SecurityNumber { get; init; }
-        public Guid Id { get; } = Guid.NewGuid();
         public decimal Amount { get; init; }
     }
 
     public record DebitCard : IPaymentMethod
     {
+        public Guid Id { get; } = Guid.NewGuid();
+
         [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
         public DateOnly Expiration { get; init; }
 
         public string HolderName { get; init; }
         public string Number { get; init; }
         public string SecurityNumber { get; init; }
-        public Guid Id { get; } = Guid.NewGuid();
         public decimal Amount { get; init; }
     }
 
     public record PayPal : IPaymentMethod
     {
+        public Guid Id { get; } = Guid.NewGuid();
         public string UserName { get; init; }
         public string Password { get; init; }
-        public Guid Id { get; } = Guid.NewGuid();
         public decimal Amount { get; init; }
     }
 

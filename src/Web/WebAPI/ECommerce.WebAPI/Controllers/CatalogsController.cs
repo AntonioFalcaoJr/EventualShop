@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using ECommerce.Contracts.Catalog;
 using ECommerce.WebAPI.Abstractions;
 using MassTransit;
@@ -10,8 +11,8 @@ namespace ECommerce.WebAPI.Controllers;
 [Route("api/[controller]/[action]")]
 public class CatalogsController : ApplicationController
 {
-    public CatalogsController(IBus bus)
-        : base(bus) { }
+    public CatalogsController(IBus bus, IMapper mapper)
+        : base(bus, mapper) { }
 
     [HttpGet]
     public Task<IActionResult> GetCatalogItemsWithPagination([FromQuery] Queries.GetCatalogItemsDetails query, CancellationToken cancellationToken)

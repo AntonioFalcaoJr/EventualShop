@@ -2,9 +2,11 @@ using System;
 using System.Reflection;
 using ECommerce.Abstractions.Messages;
 using ECommerce.JsonConverters;
+using ECommerce.WebAPI.DataTransferObjects.ShoppingCarts;
 using ECommerce.WebAPI.DependencyInjection.Extensions;
 using ECommerce.WebAPI.DependencyInjection.Options;
 using ECommerce.WebAPI.DependencyInjection.ParameterTransformers;
+using ECommerce.WebAPI.MapperProfiles;
 using FluentValidation.AspNetCore;
 using MassTransit;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
@@ -66,8 +68,11 @@ builder.Services
         options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter());
         options.SerializerSettings.Converters.Add(new ExpirationDateOnlyJsonConverter());
     })
-    .AddFluentValidation(cfg
-        => cfg.RegisterValidatorsFromAssemblyContaining(typeof(IMessage)));
+    .AddFluentValidation(cfg =>
+    {
+        cfg.RegisterValidatorsFromAssemblyContaining(typeof(IMessage));
+        cfg.RegisterValidatorsFromAssemblyContaining(typeof(Requests));
+    });
 
 builder.Services
     .AddSwaggerGenNewtonsoftSupport()
@@ -79,6 +84,7 @@ builder.Services
     });
 
 builder.Services.AddMassTransitWithRabbitMq();
+builder.Services.AddAutoMapper(typeof(ShoppingCartProfile));
 
 builder.Services.ConfigureRabbitMqOptions(
     builder.Configuration.GetSection(nameof(RabbitMqOptions)));
@@ -112,8 +118,12 @@ try
 catch (Exception ex)
 {
     Log.Fatal(ex, "An unhandled exception occured during bootstrapping");
+    await app.StopAsync();
 }
 finally
 {
     Log.CloseAndFlush();
+    await app.DisposeAsync();
 }
+
+public partial class Program { }

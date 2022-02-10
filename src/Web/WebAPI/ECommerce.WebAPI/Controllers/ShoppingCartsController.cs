@@ -44,16 +44,22 @@ public class ShoppingCartsController : ApplicationController
         => GetResponseAsync<Queries.GetCustomerShoppingCart, Responses.CartDetails, Responses.NotFound, Outputs.CartDetails>(new(customerId), cancellationToken);
 
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public Task<IActionResult> CreateCartAsync([FromBody] Requests.CreateCart request, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.CreateCart>(new(request.CustomerId), cancellationToken);
 
     [HttpPut("{cartId:guid}/[action]")]
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public Task<IActionResult> CheckOutAsync([NotEmpty] Guid cartId, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.CheckOutCart>(new(cartId), cancellationToken);
 
     [HttpGet("{cartId:guid}/items")]
-    public Task<IActionResult> GetShoppingCartItemsAsync(Guid cartId, CancellationToken cancellationToken)
-        => GetResponseAsync<Queries.GetShoppingCart, Responses.CartDetails, Responses.NotFound, Outputs.CartDetails>(new(cartId), cancellationToken);
+    public Task<IActionResult> GetShoppingCartItemsAsync([NotEmpty] Guid cartId, CancellationToken cancellationToken)
+        => GetResponseAsync<Queries.GetShoppingCartItems, Responses.CartItemsDetailsPagedResult, Responses.NotFound, Outputs.CartDetails>(new(cartId), cancellationToken);
 
     [HttpPost("{cartId:guid}/items")]
     public Task<IActionResult> AddCartItemAsync(Guid cartId, [FromBody] Models.Item item, CancellationToken cancellationToken)

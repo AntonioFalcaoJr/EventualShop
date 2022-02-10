@@ -18,4 +18,6 @@ public static class Responses
         public Guid Id { get; init; }
         public bool IsDeleted { get; init; }
     }
+
+    public record CartItemsDetailsPagedResult : ResponsePagedResult<Models.Item>;
 }
