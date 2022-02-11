@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ECommerce.WebAPI.DependencyInjection.Options;
@@ -19,6 +20,8 @@ public record RabbitMqOptions
 
     [Required]
     public ushort Port { get; init; }
+
+    public List<string> Cluster { get; init; }
 
     [Required, MinLength(5)]
     public string SchedulerQueueName { get; init; }
