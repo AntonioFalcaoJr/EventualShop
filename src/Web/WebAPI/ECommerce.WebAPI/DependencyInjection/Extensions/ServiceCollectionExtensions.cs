@@ -1,4 +1,5 @@
-﻿using ECommerce.JsonConverters;
+﻿using System.Security.Authentication;
+using ECommerce.JsonConverters;
 using ECommerce.WebAPI.DependencyInjection.Options;
 using ECommerce.WebAPI.DependencyInjection.PipeObservers;
 using MassTransit;
@@ -26,10 +27,14 @@ public static class ServiceCollectionExtensions
                     host: options.Host,
                     port: options.Port,
                     virtualHost: options.VirtualHost,
-                    host =>
+                    configure: host =>
                     {
                         host.Username(options.Username);
                         host.Password(options.Password);
+                        host.UseSsl(ssl => ssl.Protocol = SslProtocols.Tls12);
+
+                        options.Cluster?.ForEach(node
+                            => host.UseCluster(cluster => cluster.Node(node)));
                     });
 
                 bus.UseMessageRetry(retry
