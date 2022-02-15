@@ -128,7 +128,7 @@ public static class ServiceCollectionExtensions
             .AddHttpClient<IPayPalHttpClient, PayPalHttpClient>()
             .ConfigureHttpClient((provider, client) =>
             {
-                var options = provider.GetRequiredService<IOptions<PayPalHttpClientOptions>>().Value;
+                var options = provider.GetRequiredService<IOptionsMonitor<PayPalHttpClientOptions>>().CurrentValue;
                 client.BaseAddress = new(options.BaseAddress);
                 client.Timeout = options.OverallTimeout;
             })
@@ -164,7 +164,7 @@ public static class ServiceCollectionExtensions
             .AddHttpClient<IDebitCardHttpClient, DebitCardHttpClient>()
             .ConfigureHttpClient((provider, client) =>
             {
-                var options = provider.GetRequiredService<IOptions<DebitCardHttpClientOptions>>().Value;
+                var options = provider.GetRequiredService<IOptionsMonitor<DebitCardHttpClientOptions>>().CurrentValue;
                 client.BaseAddress = new(options.BaseAddress);
                 client.Timeout = options.OverallTimeout;
             })
