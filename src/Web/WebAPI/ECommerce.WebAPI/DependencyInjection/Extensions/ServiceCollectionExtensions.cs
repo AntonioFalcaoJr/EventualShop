@@ -1,4 +1,4 @@
-﻿using System.Security.Authentication;
+﻿using System.Reflection;
 using ECommerce.JsonConverters;
 using ECommerce.WebAPI.DependencyInjection.Options;
 using ECommerce.WebAPI.DependencyInjection.PipeObservers;
@@ -29,7 +29,7 @@ public static class ServiceCollectionExtensions
                     {
                         host.Username(options.Username);
                         host.Password(options.Password);
-                        host.UseSsl(ssl => ssl.Protocol = SslProtocols.Tls12);
+                        //host.UseSsl(ssl => ssl.Protocol = SslProtocols.Tls12);
 
                         options.Cluster?.ForEach(node
                             => host.UseCluster(cluster => cluster.Node(node)));
@@ -63,6 +63,9 @@ public static class ServiceCollectionExtensions
                 bus.ConfigureEndpoints(context);
             });
         });
+
+    public static void AddAutoMapper(this IServiceCollection services)
+        => services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
     public static OptionsBuilder<RabbitMqOptions> ConfigureRabbitMqOptions(this IServiceCollection services, IConfigurationSection section)
         => services
