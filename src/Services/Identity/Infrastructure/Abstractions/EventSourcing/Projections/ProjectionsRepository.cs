@@ -40,13 +40,7 @@ public abstract class ProjectionsRepository : IProjectionsRepository
         where TProjection : IProjection
         where TProjectionResult : IProjection
     {
-        var queryable = _context
-            .GetCollection<TProjection>()
-            .AsQueryable()
-            .Where(predicate)
-            .Select(selector)
-            .SelectMany(results => results);
-
+        var queryable = _context.GetCollection<TProjection>().AsQueryable().Where(predicate).Select(selector).SelectMany(results => results);
         return PagedResult<TProjectionResult>.CreateAsync(paging, queryable, cancellationToken);
     }
 
