@@ -29,7 +29,7 @@
 
         <!--Serilog-->
         <Serilog_Version>2.11.0-dev-01380</Serilog_Version>
-        <Serilog_AspNetCore_Version>4.1.1-dev-00250</Serilog_AspNetCore_Version>
+        <Serilog_AspNetCore_Version>5.0.0</Serilog_AspNetCore_Version>
         <Serilog_Extensions_Version>4.2.0</Serilog_Extensions_Version>
 
         <!--FluentValidation-->
