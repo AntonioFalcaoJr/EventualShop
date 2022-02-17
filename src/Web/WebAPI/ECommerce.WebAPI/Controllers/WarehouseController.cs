@@ -17,7 +17,7 @@ public class WarehousesController : ApplicationController
 
     [HttpGet("{productId:guid}")]
     public Task<IActionResult> GetInventoryItemDetailsAsync(Guid productId, CancellationToken cancellationToken)
-        => GetResponseAsync<Queries.GetInventoryItemDetails, Responses.InventoryItemDetails, Responses.NotFound>(new(productId), cancellationToken);
+        => GetResponseAsync<Queries.GetInventoryItemDetails, Responses.InventoryItemDetails>(new(productId), cancellationToken);
 
     [HttpPost]
     public Task<IActionResult> ReceiveInventoryItemAsync(Commands.ReceiveInventoryItem command, CancellationToken cancellationToken)

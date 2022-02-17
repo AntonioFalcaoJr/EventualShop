@@ -16,7 +16,7 @@ public class IdentitiesController : ApplicationController
 
     [HttpGet]
     public Task<IActionResult> GetUserAuthenticationDetails([FromQuery] Queries.GetUserAuthenticationDetails query, CancellationToken cancellationToken)
-        => GetResponseAsync<Queries.GetUserAuthenticationDetails, Responses.UserAuthenticationDetails, Responses.NotFound>(query, cancellationToken);
+        => GetResponseAsync<Queries.GetUserAuthenticationDetails, Responses.UserAuthenticationDetails>(query, cancellationToken);
 
     [HttpPost]
     public Task<IActionResult> RegisterUser(Commands.RegisterUser command, CancellationToken cancellationToken)
