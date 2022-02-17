@@ -42,14 +42,14 @@ public class Cart : AggregateRoot<Guid>
 
         RaiseEvent(item is null
             ? new DomainEvents.CartItemAdded(cmd.CartId, Guid.NewGuid(), cmd.Item.ProductId, cmd.Item.ProductName, cmd.Item.UnitPrice, cmd.Item.Quantity, cmd.Item.PictureUrl)
-            : new DomainEvents.CartItemQuantityIncreased(cmd.CartId, item.Id));
+            : new DomainEvents.CartItemIncreased(cmd.CartId, item.Id));
     }
 
     public void Handle(Commands.IncreaseCartItemQuantity cmd)
-        => RaiseEvent(new DomainEvents.CartItemQuantityIncreased(cmd.CartId, cmd.ItemId));
+        => RaiseEvent(new DomainEvents.CartItemIncreased(cmd.CartId, cmd.ItemId));
 
     public void Handle(Commands.DecreaseCartItemQuantity cmd)
-        => RaiseEvent(new DomainEvents.CartItemQuantityDecreased(cmd.CartId, cmd.ItemId));
+        => RaiseEvent(new DomainEvents.CartItemDecreased(cmd.CartId, cmd.ItemId));
 
     public void Handle(Commands.RemoveCartItem cmd)
         => RaiseEvent(new DomainEvents.CartItemRemoved(cmd.CartId, cmd.ItemId));
@@ -84,11 +84,11 @@ public class Cart : AggregateRoot<Guid>
     private void When(DomainEvents.CartDiscarded _)
         => IsDeleted = true;
 
-    private void When(DomainEvents.CartItemQuantityIncreased @event)
-        => _items.Single(item => item.Id == @event.ItemId).IncreaseQuantity();
+    private void When(DomainEvents.CartItemIncreased @event)
+        => _items.Single(item => item.Id == @event.ItemId).Increase();
 
-    private void When(DomainEvents.CartItemQuantityDecreased @event)
-        => _items.Single(item => item.Id == @event.ItemId).DecreaseQuantity();
+    private void When(DomainEvents.CartItemDecreased @event)
+        => _items.Single(item => item.Id == @event.ItemId).Decrease();
 
     private void When(DomainEvents.CartItemRemoved @event)
         => _items.RemoveAll(item => item.Id == @event.ItemId);

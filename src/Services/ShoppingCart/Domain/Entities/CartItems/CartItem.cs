@@ -21,10 +21,10 @@ public class CartItem : Entity<Guid>
     public int Quantity { get; private set; }
     public string PictureUrl { get; }
 
-    public void IncreaseQuantity()
+    public void Increase()
         => Quantity += 1;
 
-    public void DecreaseQuantity()
+    public void Decrease()
         => Quantity -= 1;
 
     protected override bool Validate()
