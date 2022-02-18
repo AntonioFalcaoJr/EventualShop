@@ -62,7 +62,6 @@ public static class ServiceCollectionExtensions
                     {
                         schedulerCfg.QueueName = options.SchedulerQueueName;
                         schedulerCfg.SchedulerFactory = context.GetRequiredService<ISchedulerFactory>();
-                        schedulerCfg.JobFactory = context.GetRequiredService<IJobFactory>();
                         schedulerCfg.StartScheduler = true;
                     });
 
