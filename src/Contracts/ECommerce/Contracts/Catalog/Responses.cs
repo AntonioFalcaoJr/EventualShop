@@ -5,8 +5,6 @@ namespace ECommerce.Contracts.Catalog;
 
 public static class Responses
 {
-    public record NotFound(string Message = "Not found.") : Response;
-
     public record CatalogItemsDetailsPagedResult : ResponsePagedResult<CatalogItemsDetails>;
 
     public record CatalogItemsDetails
