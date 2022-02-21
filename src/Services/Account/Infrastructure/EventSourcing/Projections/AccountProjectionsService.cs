@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.Projections;
 using Application.EventSourcing.Projections;
 using ECommerce.Abstractions.Messages.Queries.Paging;
+using Infrastructure.Abstractions.EventSourcing.Projections.Pagination;
 
 namespace Infrastructure.EventSourcing.Projections;
 
@@ -17,8 +18,11 @@ public class AccountProjectionsService : IAccountProjectionsService
         _repository = repository;
     }
 
-    public Task<IPagedResult<AccountDetailsProjection>> GetAccountsAsync(IPaging paging, CancellationToken cancellationToken)
-        => _repository.GetAllAsync<AccountDetailsProjection>(paging, projection => projection.IsDeleted == false, cancellationToken);
+    public Task<IPagedResult<AccountDetailsProjection>> GetAccountsAsync(int limit, int offset, CancellationToken cancellationToken)
+        => _repository.GetAllAsync<AccountDetailsProjection>(
+            paging: new Paging { Limit = limit, Offset = offset },
+            predicate: projection => projection.IsDeleted == false, 
+            cancellationToken: cancellationToken);
 
     public Task<AccountDetailsProjection> GetAccountDetailsAsync(Guid accountId, CancellationToken cancellationToken)
         => _repository.GetAsync<AccountDetailsProjection, Guid>(accountId, cancellationToken);

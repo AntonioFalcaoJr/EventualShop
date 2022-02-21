@@ -8,6 +8,6 @@ namespace Application.EventSourcing.Projections;
 
 public interface IAccountProjectionsService : IProjectionsService
 {
-    Task<IPagedResult<AccountDetailsProjection>> GetAccountsAsync(IPaging paging, CancellationToken cancellationToken);
+    Task<IPagedResult<AccountDetailsProjection>> GetAccountsAsync(int limit, int offset, CancellationToken cancellationToken);
     Task<AccountDetailsProjection> GetAccountDetailsAsync(Guid accountId, CancellationToken cancellationToken);
 }

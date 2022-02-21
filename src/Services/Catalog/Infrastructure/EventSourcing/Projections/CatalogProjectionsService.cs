@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.Projections;
 using Application.EventSourcing.Projections;
 using ECommerce.Abstractions.Messages.Queries.Paging;
+using Infrastructure.Abstractions.EventSourcing.Projections.Pagination;
 
 namespace Infrastructure.EventSourcing.Projections;
 
@@ -17,15 +18,15 @@ public class CatalogProjectionsService : ICatalogProjectionsService
         _repository = repository;
     }
 
-    public Task<IPagedResult<CatalogProjection>> GetCatalogsAsync(IPaging paging, CancellationToken cancellationToken)
+    public Task<IPagedResult<CatalogProjection>> GetCatalogsAsync(int limit, int offset, CancellationToken cancellationToken)
         => _repository.GetAllAsync<CatalogProjection>(
-            paging: paging,
+            paging: new Paging { Limit = limit, Offset = offset },
             predicate: projection => projection.IsActive && projection.IsDeleted == false,
             cancellationToken: cancellationToken);
 
-    public Task<IPagedResult<CatalogItemProjection>> GetCatalogItemsAsync(Guid catalogId, IPaging paging, CancellationToken cancellationToken)
+    public Task<IPagedResult<CatalogItemProjection>> GetCatalogItemsAsync(Guid catalogId, int limit, int offset, CancellationToken cancellationToken)
         => _repository.GetAllNestedAsync<CatalogProjection, CatalogItemProjection>(
-            paging: paging,
+            paging: new Paging { Limit = limit, Offset = offset },
             predicate: catalog => catalog.Id == catalogId && catalog.IsActive && catalog.IsDeleted == false,
             selector: catalog => catalog.Items,
             cancellationToken: cancellationToken);

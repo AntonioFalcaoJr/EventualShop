@@ -17,7 +17,7 @@ public class GetCatalogItemsDetailsConsumer : IConsumer<GetCatalogItemsDetailsQu
 
     public async Task Consume(ConsumeContext<GetCatalogItemsDetailsQuery> context)
     {
-        var catalogItems = await _projectionsService.GetCatalogItemsAsync(context.Message.CatalogId, context.Message.Paging, context.CancellationToken);
+        var catalogItems = await _projectionsService.GetCatalogItemsAsync(context.Message.CatalogId, context.Message.Limit, context.Message.Offset, context.CancellationToken);
         await context.RespondAsync<Responses.CatalogItemsDetailsPagedResult>(catalogItems);
     }
 }
