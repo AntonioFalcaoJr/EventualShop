@@ -7,7 +7,6 @@ using Application.Abstractions.EventSourcing.EventStore;
 using Application.Abstractions.EventSourcing.EventStore.Events;
 using Application.Abstractions.Notifications;
 using Domain.Abstractions.Aggregates;
-using ECommerce.Abstractions.Messages;
 using ECommerce.Abstractions.Messages.Events;
 using Infrastructure.DependencyInjection.Options;
 using MassTransit;
@@ -15,20 +14,20 @@ using Microsoft.Extensions.Options;
 
 namespace Infrastructure.Abstractions.EventSourcing.EventStore;
 
-public abstract class EventStoreService<TAggregateState, TStoreEvent, TSnapshot, TId> : IEventStoreService<TAggregateState, TId>
-    where TAggregateState : IAggregateRoot<TId>, new()
-    where TStoreEvent : StoreEvent<TAggregateState, TId>, new()
-    where TSnapshot : Snapshot<TAggregateState, TId>, new()
+public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId> : IEventStoreService<TAggregate, TId>
+    where TAggregate : IAggregateRoot<TId>, new()
+    where TStoreEvent : StoreEvent<TAggregate, TId>, new()
+    where TSnapshot : Snapshot<TAggregate, TId>, new()
     where TId : struct
 {
     private readonly EventStoreOptions _options;
     private readonly IBus _bus;
-    private readonly IEventStoreRepository<TAggregateState, TStoreEvent, TSnapshot, TId> _repository;
+    private readonly IEventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId> _repository;
     private readonly INotificationContext _notificationContext;
 
     protected EventStoreService(
         IBus bus,
-        IEventStoreRepository<TAggregateState, TStoreEvent, TSnapshot, TId> repository,
+        IEventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId> repository,
         INotificationContext notificationContext,
         IOptionsMonitor<EventStoreOptions> optionsMonitor)
     {
@@ -38,7 +37,7 @@ public abstract class EventStoreService<TAggregateState, TStoreEvent, TSnapshot,
         _repository = repository;
     }
 
-    public async Task AppendEventsToStreamAsync(TAggregateState aggregateState, IMessage message, CancellationToken cancellationToken)
+    public async Task AppendEventsToStreamAsync(TAggregate aggregateState, CancellationToken cancellationToken)
     {
         if (aggregateState.IsValid is false)
         {
@@ -51,7 +50,7 @@ public abstract class EventStoreService<TAggregateState, TStoreEvent, TSnapshot,
         await PublishEventsAsync(aggregateState.Events, cancellationToken);
     }
 
-    public async Task<TAggregateState> LoadAggregateFromStreamAsync(TId aggregateId, CancellationToken cancellationToken)
+    public async Task<TAggregate> LoadAggregateFromStreamAsync(TId aggregateId, CancellationToken cancellationToken)
     {
         var snapshot = await _repository.GetSnapshotAsync(aggregateId, cancellationToken) ?? new();
         var events = await _repository.GetStreamAsync(aggregateId, snapshot.AggregateVersion, cancellationToken);
@@ -59,7 +58,7 @@ public abstract class EventStoreService<TAggregateState, TStoreEvent, TSnapshot,
         return snapshot.AggregateState;
     }
 
-    private async Task AppendEventsToStreamWithSnapshotControlAsync(TAggregateState aggregateState, IEnumerable<TStoreEvent> eventsToStore, CancellationToken cancellationToken)
+    private async Task AppendEventsToStreamWithSnapshotControlAsync(TAggregate aggregateState, IEnumerable<TStoreEvent> eventsToStore, CancellationToken cancellationToken)
     {
         await foreach (var version in AppendEventToStreamAsync(eventsToStore, cancellationToken))
             if (version % _options.SnapshotInterval is 0)
@@ -72,7 +71,7 @@ public abstract class EventStoreService<TAggregateState, TStoreEvent, TSnapshot,
             yield return await _repository.AppendEventToStreamAsync(storeEvent, cancellationToken);
     }
 
-    private async Task AppendSnapshotToStreamAsync(TAggregateState aggregateState, int aggregateVersion, CancellationToken cancellationToken)
+    private async Task AppendSnapshotToStreamAsync(TAggregate aggregateState, int aggregateVersion, CancellationToken cancellationToken)
     {
         var snapshot = new TSnapshot
         {
@@ -87,7 +86,7 @@ public abstract class EventStoreService<TAggregateState, TStoreEvent, TSnapshot,
     private Task PublishEventsAsync(IEnumerable<IEvent> events, CancellationToken cancellationToken)
         => Task.WhenAll(events.Select(@event => _bus.Publish(@event, @event.GetType(), cancellationToken)));
 
-    private static IEnumerable<TStoreEvent> GetEventsToStore(TAggregateState aggregateState)
+    private static IEnumerable<TStoreEvent> GetEventsToStore(TAggregate aggregateState)
         => aggregateState.Events.Select(@event
             => new TStoreEvent
             {
