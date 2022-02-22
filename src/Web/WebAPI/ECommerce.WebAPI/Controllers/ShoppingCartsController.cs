@@ -17,57 +17,63 @@ namespace ECommerce.WebAPI.Controllers;
 [Route("api/v1/[controller]")]
 public class ShoppingCartsController : ApplicationController
 {
+    private readonly IMapper _mapper;
+
     public ShoppingCartsController(IBus bus, IMapper mapper)
-        : base(bus, mapper) { }
+        : base(bus, mapper)
+    {
+        _mapper = mapper;
+    }
 
     [HttpGet("{cartId:guid}")]
-    [ProducesResponseType(typeof(Responses.CartDetails), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Dtos.Cart), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(Responses.NotFound), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public Task<IActionResult> GetShoppingCartAsync([NotEmpty] Guid cartId, CancellationToken cancellationToken)
-        => GetResponseAsync<Queries.GetShoppingCart, Responses.CartDetails, Responses.NotFound, Outputs.CartDetails>(new(cartId), cancellationToken);
+        => GetResponseAsync<Queries.GetShoppingCart, Responses.Cart, Dtos.Cart>(new(cartId), cancellationToken);
 
     [HttpDelete("{cartId:guid}")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public Task<IActionResult> DiscardCartAsync([NotEmpty] Guid cartId, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.DiscardCart>(new(cartId), cancellationToken);
 
     [HttpGet]
-    [ProducesResponseType(typeof(Responses.CartDetails), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Dtos.Cart), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(Responses.NotFound), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public Task<IActionResult> GetCustomerShoppingCartAsync([Required, NotEmpty] Guid customerId, CancellationToken cancellationToken)
-        => GetResponseAsync<Queries.GetCustomerShoppingCart, Responses.CartDetails, Responses.NotFound, Outputs.CartDetails>(new(customerId), cancellationToken);
+        => GetResponseAsync<Queries.GetCustomerShoppingCart, Responses.Cart, Dtos.Cart>(new(customerId), cancellationToken);
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public Task<IActionResult> CreateCartAsync([FromBody] Requests.CreateCart request, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.CreateCart>(new(request.CustomerId), cancellationToken);
 
     [HttpPut("{cartId:guid}/[action]")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     public Task<IActionResult> CheckOutAsync([NotEmpty] Guid cartId, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.CheckOutCart>(new(cartId), cancellationToken);
 
     [HttpGet("{cartId:guid}/items")]
-    public Task<IActionResult> GetShoppingCartItemsAsync([NotEmpty] Guid cartId, CancellationToken cancellationToken)
-        => GetResponseAsync<Queries.GetShoppingCartItems, Responses.CartItemsDetailsPagedResult, Responses.NotFound, Outputs.CartDetails>(new(cartId), cancellationToken);
+    [ProducesResponseType(typeof(Outputs.CartItemsPagedResult), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> GetShoppingCartItemsAsync([NotEmpty] Guid cartId, int limit, int offset, CancellationToken cancellationToken)
+        => GetResponseAsync<Queries.GetShoppingCartItems, Responses.CartItemsPagedResult, Outputs.CartItemsPagedResult>(new(cartId, limit, offset), cancellationToken);
 
     [HttpPost("{cartId:guid}/items")]
-    public Task<IActionResult> AddCartItemAsync(Guid cartId, [FromBody] Models.Item item, CancellationToken cancellationToken)
-        => SendCommandAsync<Commands.AddCartItem>(new(cartId, item), cancellationToken);
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> AddCartItemAsync(Guid cartId, [FromBody] Dtos.Item item, CancellationToken cancellationToken)
+        => SendCommandAsync<Commands.AddCartItem>(new(cartId, _mapper.Map<Models.Item>(item)), cancellationToken);
 
+    //
     [HttpGet("{cartId:guid}/items/{itemId:guid}")]
-    public Task<IActionResult> GetShoppingCartItemAsync(Guid cartId, Guid productId, CancellationToken cancellationToken)
-        => GetResponseAsync<Queries.GetShoppingCart, Responses.CartDetails, Responses.NotFound, Outputs.CartDetails>(new(cartId), cancellationToken);
+    [ProducesResponseType(typeof(Dtos.Item), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> GetShoppingCartItemAsync(Guid cartId, Guid itemId, CancellationToken cancellationToken)
+        => GetResponseAsync<Queries.GetShoppingCartItem, Responses.CartItem, Dtos.Item>(new(cartId, itemId), cancellationToken);
+    //
 
     [HttpDelete("{cartId:guid}/items/{itemId:guid}")]
     public Task<IActionResult> RemoveCartItemAsync(Guid cartId, Guid productId, CancellationToken cancellationToken)

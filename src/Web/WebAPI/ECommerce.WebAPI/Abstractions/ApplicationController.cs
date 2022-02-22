@@ -30,19 +30,35 @@ public abstract class ApplicationController : ControllerBase
         return Accepted();
     }
 
-    protected async Task<IActionResult> GetResponseAsync<TQuery, TResponse, TNotFound, TOutput>(TQuery query, CancellationToken cancellationToken)
+    // TODO - Remove after migration
+    protected async Task<IActionResult> GetResponseAsync<TQuery, TResponse>(TQuery query, CancellationToken cancellationToken)
         where TQuery : class, IQuery
         where TResponse : class, IResponse
-        where TNotFound : class, IResponse
     {
         var clientResponse = await _bus
             .CreateRequestClient<TQuery>(Address<TQuery>())
-            .GetResponse<TResponse, TNotFound>(query, cancellationToken);
+            .GetResponse<TResponse, NotFound>(query, cancellationToken);
+
+        return clientResponse.Message switch
+        {
+            TResponse response => Ok(response),
+            NotFound _ => NotFound(),
+            _ => Problem()
+        };
+    }
+
+    protected async Task<IActionResult> GetResponseAsync<TQuery, TResponse, TOutput>(TQuery query, CancellationToken cancellationToken)
+        where TQuery : class, IQuery
+        where TResponse : class, IResponse
+    {
+        var clientResponse = await _bus
+            .CreateRequestClient<TQuery>(Address<TQuery>())
+            .GetResponse<TResponse, NotFound>(query, cancellationToken);
 
         return clientResponse.Message switch
         {
             TResponse response => Ok(_mapper.Map<TOutput>(response)),
-            TNotFound notFound => NotFound(notFound),
+            NotFound _ => NotFound(),
             _ => Problem()
         };
     }

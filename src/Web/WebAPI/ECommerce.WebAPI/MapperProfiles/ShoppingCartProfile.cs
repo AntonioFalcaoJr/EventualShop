@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ECommerce.Contracts.Common;
 using ECommerce.Contracts.ShoppingCart;
 using ECommerce.WebAPI.DataTransferObjects.ShoppingCarts;
 
@@ -8,6 +9,11 @@ public class ShoppingCartProfile : Profile
 {
     public ShoppingCartProfile()
     {
-        CreateMap<Responses.CartDetails, Outputs.CartDetails>();
+        CreateMap<Responses.Cart, Dtos.Cart>();
+        CreateMap<Responses.CartItemsPagedResult, Outputs.CartItemsPagedResult>();
+        
+        // TODO - solve this!
+        CreateMap<Dtos.Item, Models.Item>().ReverseMap();
+        CreateMap<Responses.CartItem, Dtos.Item>();
     }
 }

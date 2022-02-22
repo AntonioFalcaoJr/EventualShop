@@ -7,11 +7,9 @@ namespace ECommerce.Contracts.ShoppingCart;
 
 public static class Responses
 {
-    public record NotFound(string Message = "Not found.") : Response;
-
-    public record CartDetails : Response
+    public record Cart : Response
     {
-        public IEnumerable<Models.Item> CartItems { get; init; }
+        public IEnumerable<Models.Item> Items { get; init; }
         public IEnumerable<Models.IPaymentMethod> PaymentMethods { get; init; }
         public Guid CustomerId { get; init; }
         public decimal Total { get; init; }
@@ -19,5 +17,15 @@ public static class Responses
         public bool IsDeleted { get; init; }
     }
 
-    public record CartItemsDetailsPagedResult : ResponsePagedResult<Models.Item>;
+    public record CartItem : Response
+    {
+        public Guid Id { get; init; }
+        public Guid ProductId { get; init; }
+        public string ProductName { get; init; }
+        public decimal UnitPrice { get; init; }
+        public int Quantity { get; init; }
+        public string PictureUrl { get; init; }
+    }
+
+    public record CartItemsPagedResult : ResponsePagedResult<Models.Item>;
 }
