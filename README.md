@@ -168,6 +168,20 @@ Benefits & drawbacks of Choreography
 Fig. 8: MSDN. *Event Sourcing pattern*.    
 https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing#solution
 
+### Updating entities 
+
+> To update an entity’s state we use commands from the outside and events on the inside:
+>
+> - Commands: The state of the entity can be changed only by sending commands to it. The commands are the "external" API of an entity. Commands request state changes. The current state may reject the command, or it may accept it producing zero, one or many events (depending on the command and the current state).
+>
+> 
+> - Events: The events represent changes of the entity’s state and are the only way to change it. The entity creates events from commands. Events are an internal mechanism for the entity to mutate the state, other parties can’t send events. Other parts of the application may listen to the created events. Summing up, events are facts new tab.
+>
+>The events are persisted to the datastore, while the entity state is kept in memory. In case of a restart the latest state gets rebuilt by replaying the events from the Event Journal.
+> 
+> "Event Sourcing" *Akka platform*, developer.lightbend.com.  
+> https://developer.lightbend.com/docs/akka-platform-guide/concepts/event-sourcing.html
+
 ### Pattern
 
 > _want to learn event sourcing?_  
@@ -187,7 +201,7 @@ The mantra of event sourcing and cover the four steps in slightly more details:
     
     3 - If the command can be applied:
     
-        1 - The entity creates an event;
+        1 - The entity creates at least one event;
         2 - The entity changes state based on the event details;
         3 - The event is persisted in the store;
         4 - The event is published to the exchange.
@@ -301,6 +315,8 @@ https://www.eventstore.com/blog/what-is-event-sourcing
 To cover this topic was
 prepared [this presentation](https://www.canva.com/design/DAEY9ttmPgY/F_lh7TXQEdG-su-qojEjdw/view?utm_content=DAEY9ttmPgY&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
 with some different strategies and ways to implement projections.
+
+![](.assets/img/projections.svg)
 
 ## Event-sourcing + CQRS
 
@@ -468,8 +484,6 @@ https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
 ### Development (secrets)
 
-To configure database resource, `init` secrets in [`./src/WebAPI`](./src/WebAPI), and then define the `DefaultConnection` in `ConnectionStrings` options:
-
 ```bash
 dotnet user-secrets set "ConnectionStrings:EventStore" "Server=<IP_ADDRESS>,1433;Database=YourContextNameEventStore;User=sa;Password=<PASSWORD>"
 dotnet user-secrets set "ConnectionStrings:Projections" "mongodb://<USER_NAME>:<PASSWORD>@<IP_ADDRESS>:27017/YourContextNameProjections/?authSource=admin"
@@ -485,104 +499,7 @@ ConnectionStrings:Projections = mongodb://mongoadmin:secret@192.168.100.9:27017/
 QuartzOptions:quartz.dataSource.default.connectionString = Server=192.168.100.9,1433;Database=Quartz;User=sa;Password=!MyStrongPassword
 ```
 
-##### AppSettings
-
-If prefer, define it on WebAPI [`appsettings.Development.json`](./src/WebAPI/appsettings.Development.json) file:
-
-```json5
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=<IP_ADDRESS>,1433;Database=Store;User=sa;Password=!MyComplexPassword"
-  }
-}
-```
-
-### Production
-
-Considering use Docker for CD (Continuous Deployment). On respective [compose](./docker-compose.yml) the **web
-application** and **sql server** are in the same network, and then we can use named hosts. Already defined on
-WebAPI [`appsettings.json`](./src/Dotnet6.GraphQL4.Store.WebAPI/appsettings.json) and
-WebMVC [`appsettings.json`](./src/Dotnet6.GraphQL4.Store.WebMVC/appsettings.json) files:
-
-#### AppSettings
-
-WebAPI
-
-```json5
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=mssql;Database=EventStore;User=sa;Password=!MyStrongPassword"
-  }
-}
-```
-
 ### Docker
-
-The [`./docker-compose.yml`](./docker-compose.yml) provide the `WebAPI` and `MS SQL Server`:
-
-```bash
-docker-compose up -d
-``` 
-
-It's possible to run without a clone of the project using the respective compose:
-
-```yaml
-version: "3.7"
-
-services:
-  mssql:
-    container_name: mssql
-    image: mcr.microsoft.com/mssql/server
-    ports:
-      - 1433:1433
-    environment:
-      SA_PASSWORD: "!MyStrongPassword"
-      ACCEPT_EULA: "Y"
-    healthcheck:
-      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$$SA_PASSWORD" -Q "SELECT 1" || exit 1
-      interval: 10s
-      timeout: 3s
-      retries: 10
-      start_period: 10s
-    networks:
-      - eventstore
-
-  webapi:
-    container_name: webapi
-    image: antoniofalcaojr/dotnet-cleanarch-cqrs-eventsourcing-webapi
-    environment:
-      - ASPNETCORE_URLS=http://*:5000
-    ports:
-      - 5000:5000
-    depends_on:
-      mssql:
-        condition: service_healthy
-    networks:
-      - eventstore
-
-  healthchecks:
-    container_name: healthchecks-ui
-    image: xabarilcoding/healthchecksui
-    depends_on:
-      mssql:
-        condition: service_healthy
-    environment:
-      - storage_provider=SqlServer
-      - storage_connection=Server=mssql;Database=EventStore;User=sa;Password=!MyStrongPassword
-      - Logging:LogLevel:Default=Debug
-      - Logging:Loglevel:Microsoft=Warning
-      - Logging:LogLevel:HealthChecks=Debug
-      - HealthChecksUI:HealthChecks:0:Name=webapi
-      - HealthChecksUI:HealthChecks:0:Uri=http://webapi:5000/healthz
-    ports:
-      - 8000:80
-    networks:
-      - eventstore
-
-networks:
-  eventstore:
-    driver: bridge
-```
 
 Docker commands
 
@@ -649,6 +566,7 @@ dotnet ef migrations add "First migration" -s .\WorkerService\ -p .\Infrastructu
 ## Main references:
 
 * [Evans, Eric (2003), Domain-Driven Design: Tackling Complexity in the Heart of Software.](https://www.amazon.com/dp-0321125215/dp/0321125215/ref=mt_other?_encoding=UTF8&me=&qid=1641385448)
+* [Hohpe, Gregor (2003), Enterprise Integration Patterns: Designing, Building, and Deploying Messaging Solutions](https://www.enterpriseintegrationpatterns.com/)
 * [Young, Greg (2012), Event Centric: Finding Simplicity in Complex Systems.](https://www.amazon.com/Event-Centric-Simplicity-Addison-Wesley-Signature/dp/0321768221)
 * [Vernon, Vaughn (2016), Domain-Driven Design Distilled.](https://www.amazon.com/dp-0134434420/dp/0134434420/ref=mt_other?_encoding=UTF8&me=&qid=1641385096)
 * [Richardson, Chris (2018), Microservices Patterns: With examples in Java.](https://www.amazon.com/-/pt/dp-B09782192F/dp/B09782192F/ref=mt_other?_encoding=UTF8&me=&qid=1641385683)

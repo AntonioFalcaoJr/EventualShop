@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Application.EventSourcing.Projections;
+using ECommerce.Abstractions.Messages.Queries.Responses;
 using ECommerce.Contracts.Common;
 using ECommerce.Contracts.ShoppingCart;
 using MassTransit;
@@ -22,27 +23,27 @@ public class GetShoppingCartDetailsConsumer :
 
     public async Task Consume(ConsumeContext<GetShoppingCartQuery> context)
     {
-        var cartDetails = await _projectionsService.GetCartDetailsAsync(context.Message.CartId, context.CancellationToken);
+        var cartDetails = await _projectionsService.GetCartAsync(context.Message.CartId, context.CancellationToken);
         await RespondAsync(cartDetails, context);
     }
 
     public async Task Consume(ConsumeContext<GetCustomerShoppingCartQuery> context)
     {
-        var cartDetails = await _projectionsService.GetCartDetailsByCustomerIdAsync(context.Message.CustomerId, context.CancellationToken);
+        var cartDetails = await _projectionsService.GetCartByCustomerIdAsync(context.Message.CustomerId, context.CancellationToken);
         await RespondAsync(cartDetails, context);
     }
 
-    private static Task RespondAsync(CartDetailsProjection projection, ConsumeContext context)
+    private static Task RespondAsync(CartProjection projection, ConsumeContext context)
         => projection is null
-            ? context.RespondAsync<Responses.NotFound>(new())
+            ? context.RespondAsync<NotFound>(new())
             : context.RespondAsync(MapToCartDetailsResponse(projection));
 
-    private static Responses.CartDetails MapToCartDetailsResponse(CartDetailsProjection cartDetails)
+    private static Responses.Cart MapToCartDetailsResponse(CartProjection cart)
         => new()
         {
-            Id = cartDetails.Id,
-            Total = cartDetails.Total,
-            CartItems = cartDetails.CartItems.Select(projection
+            Id = cart.Id,
+            Total = cart.Total,
+            Items = cart.Items.Select(projection
                 => new Models.Item
                 {
                     Id = projection.Id,
@@ -52,8 +53,8 @@ public class GetShoppingCartDetailsConsumer :
                     ProductName = projection.ProductName,
                     UnitPrice = projection.UnitPrice
                 }),
-            IsDeleted = cartDetails.IsDeleted,
-            PaymentMethods = cartDetails.PaymentMethods.Select<IPaymentMethodProjection, Models.IPaymentMethod>(method
+            IsDeleted = cart.IsDeleted,
+            PaymentMethods = cart.PaymentMethods.Select<IPaymentMethodProjection, Models.IPaymentMethod>(method
                 => method switch
                 {
                     CreditCardPaymentMethodProjection creditCard
@@ -83,6 +84,6 @@ public class GetShoppingCartDetailsConsumer :
                         },
                     _ => default
                 }),
-            CustomerId = cartDetails.CustomerId
+            CustomerId = cart.CustomerId
         };
 }
