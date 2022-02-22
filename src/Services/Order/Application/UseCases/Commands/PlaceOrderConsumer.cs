@@ -19,6 +19,6 @@ public class PlaceOrderConsumer : IConsumer<PlaceOrderCommand>
     {
         var order = new Order();
         order.Handle(context.Message);
-        await _eventStoreService.AppendEventsToStreamAsync(order, context.Message, context.CancellationToken);
+        await _eventStoreService.AppendEventsToStreamAsync(order, context.CancellationToken);
     }
 }

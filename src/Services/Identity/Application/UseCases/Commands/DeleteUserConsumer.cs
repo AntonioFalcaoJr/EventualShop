@@ -18,6 +18,6 @@ public class DeleteUserConsumer : IConsumer<DeleteUserCommand>
     {
         var user = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.UserId, context.CancellationToken);
         user.Delete(user.Id);
-        await _eventStoreService.AppendEventsToStreamAsync(user, context.Message, context.CancellationToken);
+        await _eventStoreService.AppendEventsToStreamAsync(user, context.CancellationToken);
     }
 }

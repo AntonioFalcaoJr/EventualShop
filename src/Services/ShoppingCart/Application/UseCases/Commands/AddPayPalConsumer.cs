@@ -18,6 +18,6 @@ public class AddPayPalConsumer : IConsumer<AddAddPayPalCommand>
     {
         var cart = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CartId, context.CancellationToken);
         cart.Handle(context.Message);
-        await _eventStoreService.AppendEventsToStreamAsync(cart, context.Message, context.CancellationToken);
+        await _eventStoreService.AppendEventsToStreamAsync(cart, context.CancellationToken);
     }
 }

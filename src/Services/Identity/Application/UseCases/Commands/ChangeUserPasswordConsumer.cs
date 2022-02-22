@@ -27,6 +27,6 @@ public class ChangeUserPasswordConsumer : IConsumer<ChangeUserPasswordCommand>
             context.Message.NewPassword,
             context.Message.NewPasswordConfirmation);
 
-        await _eventStoreService.AppendEventsToStreamAsync(user, context.Message, context.CancellationToken);
+        await _eventStoreService.AppendEventsToStreamAsync(user, context.CancellationToken);
     }
 }

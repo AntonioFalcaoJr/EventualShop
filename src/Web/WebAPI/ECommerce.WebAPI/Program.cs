@@ -6,7 +6,6 @@ using ECommerce.WebAPI.DataTransferObjects.ShoppingCarts;
 using ECommerce.WebAPI.DependencyInjection.Extensions;
 using ECommerce.WebAPI.DependencyInjection.Options;
 using ECommerce.WebAPI.DependencyInjection.ParameterTransformers;
-using ECommerce.WebAPI.MapperProfiles;
 using FluentValidation.AspNetCore;
 using MassTransit;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
@@ -81,10 +80,12 @@ builder.Services
     {
         options.SwaggerDoc("v1", new() { Title = "WebAPI", Version = "v1" });
         options.MapType<DateOnly>(() => new() { Format = "date", Example = new OpenApiString(DateOnly.MinValue.ToString()) });
+        options.CustomSchemaIds(type => type.ToString());
     });
 
 builder.Services.AddMassTransitWithRabbitMq();
-builder.Services.AddAutoMapper(typeof(ShoppingCartProfile));
+
+builder.Services.AddAutoMapper();
 
 builder.Services.ConfigureRabbitMqOptions(
     builder.Configuration.GetSection(nameof(RabbitMqOptions)));

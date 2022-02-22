@@ -26,6 +26,6 @@ public class CreateAccountWhenUserRegisteredConsumer : IConsumer<UserRegisteredE
                 context.Message.Email,
                 context.Message.FirstName));
 
-        await _eventStoreService.AppendEventsToStreamAsync(account, context.Message, context.CancellationToken);
+        await _eventStoreService.AppendEventsToStreamAsync(account, context.CancellationToken);
     }
 }

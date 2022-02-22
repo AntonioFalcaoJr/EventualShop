@@ -19,6 +19,6 @@ public class CreateCatalogConsumer : IConsumer<CreateCatalogCommand>
     {
         var catalog = new Catalog();
         catalog.Handle(context.Message);
-        await _eventStoreService.AppendEventsToStreamAsync(catalog, context.Message, context.CancellationToken);
+        await _eventStoreService.AppendEventsToStreamAsync(catalog, context.CancellationToken);
     }
 }
