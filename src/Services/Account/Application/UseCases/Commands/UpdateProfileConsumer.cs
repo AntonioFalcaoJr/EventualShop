@@ -17,12 +17,7 @@ public class UpdateProfileConsumer : IConsumer<UpdateProfileCommand>
     public async Task Consume(ConsumeContext<UpdateProfileCommand> context)
     {
         var account = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.AccountId, context.CancellationToken);
-
-        if (account is null)
-            // TODO - Notification
-            return;
-
         account.Handle(context.Message);
-        await _eventStoreService.AppendEventsToStreamAsync(account, context.Message, context.CancellationToken);
+        await _eventStoreService.AppendEventsToStreamAsync(account, context.CancellationToken);
     }
 }

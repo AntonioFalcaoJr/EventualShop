@@ -25,6 +25,6 @@ public class RegisterUserConsumer : IConsumer<RegisterUserCommand>
             context.Message.Password,
             context.Message.PasswordConfirmation);
 
-        await _eventStoreService.AppendEventsToStreamAsync(user, context.Message, context.CancellationToken);
+        await _eventStoreService.AppendEventsToStreamAsync(user, context.CancellationToken);
     }
 }

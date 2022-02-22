@@ -26,6 +26,6 @@ public class ReserveInventoryItemWhenCartItemAddedConsumer : IConsumer<CartItemA
                 inventoryItem.Sku,
                 context.Message.Quantity));
 
-        await _eventStoreService.AppendEventsToStreamAsync(inventoryItem, context.Message, context.CancellationToken);
+        await _eventStoreService.AppendEventsToStreamAsync(inventoryItem, context.CancellationToken);
     }
 }
