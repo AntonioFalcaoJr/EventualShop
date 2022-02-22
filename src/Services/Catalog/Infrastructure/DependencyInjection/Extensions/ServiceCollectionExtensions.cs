@@ -25,7 +25,6 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using Newtonsoft.Json;
 using Quartz;
-using Quartz.Spi;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 
