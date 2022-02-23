@@ -28,6 +28,6 @@ public class LoggingPublishObserver : IPublishObserver
     {
         await Task.Yield();
         var messageType = context.Message.GetType();
-        Log.Warning("Fault on publishing message {Message} from {Namespace}, Error: {Error}, CorrelationId: {CorrelationId}", messageType.Name, messageType.Namespace, exception.Message, context.CorrelationId);
+        Log.Error("Fault on publishing message {Message} from {Namespace}, Error: {Error}, CorrelationId: {CorrelationId}", messageType.Name, messageType.Namespace ?? string.Empty, exception.Message, context.CorrelationId ?? new());
     }
 }

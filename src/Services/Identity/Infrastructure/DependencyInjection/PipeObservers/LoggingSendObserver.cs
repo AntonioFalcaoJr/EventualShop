@@ -28,6 +28,6 @@ public class LoggingSendObserver : ISendObserver
     {
         await Task.Yield();
         var messageType = context.Message.GetType();
-        Log.Warning("Fault on sending message {Message} from {Namespace}, Error: {Error}, CorrelationId: {CorrelationId}", messageType.Name, messageType.Namespace, exception.Message, context.CorrelationId);
+        Log.Error("Fault on sending message {Message} from {Namespace}, Error: {Error}, CorrelationId: {CorrelationId}", messageType.Name, messageType.Namespace ?? string.Empty, exception.Message, context.CorrelationId ?? new());
     }
 }
