@@ -542,22 +542,53 @@ rabbitmq:3-management
 
 ## Event store
 
+### Store event
+
 ```sql
-CREATE TABLE [CustomerStoreEvents] (
-    [Id] int NOT NULL IDENTITY,
+CREATE TABLE [ShoppingCartStoreEvents] (
+    [Version] int NOT NULL IDENTITY,
     [AggregateId] uniqueidentifier NOT NULL,
     [AggregateName] varchar(30) NOT NULL,
     [EventName] varchar(50) NOT NULL,
-    [Event] varchar(1000) NOT NULL,
-    CONSTRAINT [PK_CustomerStoreEvents] PRIMARY KEY ([Id])
+    [Event] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_ShoppingCartStoreEvents] PRIMARY KEY ([Version])
 );
 ```
+![](./.assets/img/store-event.png)
 
 ```json
 {
-  "$type": "Domain.Entities.Customers.Events+NameChanged, Domain",
-  "Name": "string",
-  "Timestamp": "2021-07-12T14:22:23.2600385-03:00"
+  "$type": "ECommerce.Contracts.ShoppingCart.DomainEvents+CartCreated, ECommerce",
+  "CartId": "f1c2ff9b-d8a5-43ce-9c3e-684364398bf0",
+  "CustomerId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "Timestamp": "2022-02-23T15:49:22.2555835-03:00",
+  "CorrelationId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+}
+```
+### Snapshot
+
+```sql
+CREATE TABLE [ShoppingCartSnapshots] (
+    [AggregateVersion] int NOT NULL,
+    [AggregateId] uniqueidentifier NOT NULL,
+    [AggregateName] varchar(30) NOT NULL,
+    [AggregateState] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_ShoppingCartSnapshots] PRIMARY KEY ([AggregateVersion], [AggregateId])
+);
+```
+![](./.assets/img/store-snapshot.png)
+
+```json
+{
+  "CustomerId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "Status": 2,
+  "ShippingAddress": null,
+  "BillingAddress": null,
+  "Total": 0.0,
+  "Items": [],
+  "PaymentMethods": [],
+  "Id": "b7bc74a0-c5ad-4510-baaa-8b5cbfc1cea3",
+  "IsDeleted": false
 }
 ```
 
