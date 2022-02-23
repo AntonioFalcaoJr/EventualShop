@@ -26,7 +26,6 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using Newtonsoft.Json;
 using Quartz;
-using Quartz.Spi;
 
 namespace Infrastructure.DependencyInjection.Extensions;
 
@@ -92,6 +91,7 @@ public static class ServiceCollectionExtensions
                     bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
                     bus.UseConsumeFilter(typeof(ContractValidatorFilter<>), context);
                     bus.UseConsumeFilter(typeof(BusinessValidatorFilter<>), context);
+                    bus.ConnectReceiveObserver(new LoggingReceiveObserver());
                     bus.ConnectConsumeObserver(new LoggingConsumeObserver());
                     bus.ConnectPublishObserver(new LoggingPublishObserver());
                     bus.ConnectSendObserver(new LoggingSendObserver());
