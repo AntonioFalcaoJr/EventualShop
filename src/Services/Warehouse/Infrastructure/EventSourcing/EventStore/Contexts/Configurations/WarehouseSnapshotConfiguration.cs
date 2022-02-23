@@ -27,8 +27,6 @@ public class WarehouseSnapshotConfiguration : IEntityTypeConfiguration<Warehouse
         builder
             .Property(snapshot => snapshot.AggregateState)
             .HasConversion<InventoryItemConverter>()
-            .IsUnicode(false)
-            .HasMaxLength(2048)
             .IsRequired();
     }
 }

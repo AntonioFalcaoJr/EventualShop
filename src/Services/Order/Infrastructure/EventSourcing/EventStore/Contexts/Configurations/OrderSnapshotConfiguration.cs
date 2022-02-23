@@ -27,8 +27,6 @@ public class OrderSnapshotConfiguration : IEntityTypeConfiguration<OrderSnapshot
         builder
             .Property(snapshot => snapshot.AggregateState)
             .HasConversion<OrderConverter>()
-            .IsUnicode(false)
-            .HasMaxLength(2048)
             .IsRequired();
     }
 }

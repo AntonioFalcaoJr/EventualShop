@@ -27,8 +27,6 @@ public class AccountSnapshotConfiguration : IEntityTypeConfiguration<AccountSnap
         builder
             .Property(snapshot => snapshot.AggregateState)
             .HasConversion<AccountConverter>()
-            .IsUnicode(false)
-            .HasMaxLength(2048)
             .IsRequired();
     }
 }

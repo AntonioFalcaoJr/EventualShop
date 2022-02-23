@@ -27,8 +27,6 @@ public class CatalogSnapshotConfiguration : IEntityTypeConfiguration<CatalogSnap
         builder
             .Property(snapshot => snapshot.AggregateState)
             .HasConversion<CatalogConverter>()
-            .IsUnicode(false)
-            .HasMaxLength(2048)
             .IsRequired();
     }
 }

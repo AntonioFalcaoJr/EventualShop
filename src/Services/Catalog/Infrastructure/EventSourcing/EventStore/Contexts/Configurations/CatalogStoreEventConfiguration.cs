@@ -28,8 +28,6 @@ public class CatalogStoreEventConfiguration : IEntityTypeConfiguration<CatalogSt
         builder
             .Property(storeEvent => storeEvent.Event)
             .HasConversion<EventConverter>()
-            .IsUnicode(false)
-            .HasMaxLength(2048)
             .IsRequired();
     }
 }

@@ -27,8 +27,6 @@ public class ShoppingCartSnapshotConfiguration : IEntityTypeConfiguration<Shoppi
         builder
             .Property(snapshot => snapshot.AggregateState)
             .HasConversion<CartConverter>()
-            .IsUnicode(false)
-            .HasMaxLength(2048)
             .IsRequired();
     }
 }

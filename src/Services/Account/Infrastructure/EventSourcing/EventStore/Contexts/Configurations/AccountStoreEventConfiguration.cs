@@ -28,8 +28,6 @@ public class AccountStoreEventConfiguration : IEntityTypeConfiguration<AccountSt
         builder
             .Property(storeEvent => storeEvent.Event)
             .HasConversion<EventConverter>()
-            .IsUnicode(false)
-            .HasMaxLength(2048)
             .IsRequired();
     }
 }

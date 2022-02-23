@@ -27,8 +27,6 @@ public class UserSnapshotConfiguration : IEntityTypeConfiguration<UserSnapshot>
         builder
             .Property(snapshot => snapshot.AggregateState)
             .HasConversion<UserConverter>()
-            .IsUnicode(false)
-            .HasMaxLength(2048)
             .IsRequired();
     }
 }
