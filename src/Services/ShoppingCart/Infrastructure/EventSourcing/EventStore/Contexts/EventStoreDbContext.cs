@@ -10,19 +10,12 @@ namespace Infrastructure.EventSourcing.EventStore.Contexts;
 
 public class EventStoreDbContext : DbContext
 {
-    private const string SqlLatin1GeneralCp1CsAs = "SQL_Latin1_General_CP1_CS_AS";
     private readonly IConfiguration _configuration;
-    private readonly ILoggerFactory _loggerFactory;
     private readonly SqlServerRetryOptions _options;
 
-    public EventStoreDbContext(
-        DbContextOptions options,
-        ILoggerFactory loggerFactory,
-        IConfiguration configuration,
-        IOptionsSnapshot<SqlServerRetryOptions> optionsSnapshot)
+    public EventStoreDbContext(DbContextOptions options, IConfiguration configuration, IOptionsSnapshot<SqlServerRetryOptions> optionsSnapshot)
         : base(options)
     {
-        _loggerFactory = loggerFactory;
         _configuration = configuration;
         _options = optionsSnapshot.Value;
     }
@@ -31,10 +24,7 @@ public class EventStoreDbContext : DbContext
     public DbSet<ShoppingCartSnapshot> ShoppingCartSnapshots { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.UseCollation(SqlLatin1GeneralCp1CsAs);
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(EventStoreDbContext).Assembly);
-    }
+        => modelBuilder.ApplyConfigurationsFromAssembly(typeof(EventStoreDbContext).Assembly);
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -44,9 +34,8 @@ public class EventStoreDbContext : DbContext
             .EnableDetailedErrors()
             .EnableSensitiveDataLogging()
             .UseSqlServer(
-                connectionString: _configuration.GetConnectionString("EventStore"),
-                sqlServerOptionsAction: SqlServerOptionsAction)
-            .UseLoggerFactory(_loggerFactory);
+                connectionString: _configuration.GetConnectionString("EventStore") ?? string.Empty,
+                sqlServerOptionsAction: SqlServerOptionsAction);
     }
 
     private void SqlServerOptionsAction(SqlServerDbContextOptionsBuilder optionsBuilder)
