@@ -486,21 +486,56 @@ https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
 ## Running
 
-### Development (secrets)
+### Development 
+
+Projects may have different environments where the application runs: development, staging, production, etc. Usually, different environments should have different secrets.
+
+Secret Manager allows each developer to configure the desired infrastructure just once, avoiding changing every new branch besides avoiding storing passwords or other sensitive data in source code or local configuration files.
+
+#### User-secrets
+
+Define app secrets for **each project**. The secret is associated with the project's `UserSecretsId` value. The command must be run from the directory in which the project file exists: 
 
 ```bash
-dotnet user-secrets set "ConnectionStrings:EventStore" "Server=<IP_ADDRESS>,1433;Database=YourContextNameEventStore;User=sa;Password=<PASSWORD>"
-dotnet user-secrets set "ConnectionStrings:Projections" "mongodb://<USER_NAME>:<PASSWORD>@<IP_ADDRESS>:27017/YourContextNameProjections/?authSource=admin"
+dotnet user-secrets set "ConnectionStrings:EventStore" "Server=<IP_ADDRESS>,1433;Database=<YourContextName>EventStore;User=sa;Password=<PASSWORD>"
+dotnet user-secrets set "ConnectionStrings:Projections" "mongodb://<USER_NAME>:<PASSWORD>@<IP_ADDRESS>:27017/<YourContextName>Projections/?authSource=admin"
 dotnet user-secrets set "QuartzOptions:quartz.dataSource.default.connectionString" "Server=<IP_ADDRESS>,1433;Database=Quartz;User=sa;Password=<PASSWORD>"
 ```
 
-Expected
+Expected:
 
 ```bash
 dotnet user-secrets list
-ConnectionStrings:EventStore = Server=192.168.100.9,1433;Database=ShoppingCartEventStore;User=sa;Password=!MyStrongPassword
-ConnectionStrings:Projections = mongodb://mongoadmin:secret@192.168.100.9:27017/ShoppingCartProjections/?authSource=admin
-QuartzOptions:quartz.dataSource.default.connectionString = Server=192.168.100.9,1433;Database=Quartz;User=sa;Password=!MyStrongPassword
+ConnectionStrings:EventStore = Server=<IP_ADDRESS>,1433;Database=<YourContextName>EventStore;User=sa;Password=!MyStrongPassword
+ConnectionStrings:Projections = mongodb://<USER_NAME>:<PASSWORD>@<IP_ADDRESS>:27017/<YourContextName>Projections/?authSource=admin
+QuartzOptions:quartz.dataSource.default.connectionString = Server=<IP_ADDRESS>,1433;Database=Quartz;User=sa;Password=!MyStrongPassword
+```
+A batch of secrets can be set by piping JSON to the set command, as in the following example:
+
+```json
+{
+  "QuartzOptions:quartz.dataSource.default.connectionString": "Server=192.168.100.9,1433;Database=Quartz;User=sa;Password=!MyStrongPassword;trustServerCertificate=true",
+  "ConnectionStrings:Projections": "mongodb://mongoadmin:secret@192.168.100.9:27017/ShoppingCartProjections/?authSource=admin",
+  "ConnectionStrings:EventStore": "Server=192.168.100.9,1433;Database=ShoppingCartEventStore;User=sa;Password=!MyStrongPassword;trustServerCertificate=true"
+}
+```
+_Windows_
+```shell
+type .\input.json | dotnet user-secrets set
+```
+_Linux/Mac_
+```bash
+cat ./input.json | dotnet user-secrets set
+```
+The values are stored in a JSON file in the local machine's user profile folder:
+
+_Windows_
+```bash
+%APPDATA%\Microsoft\UserSecrets\<user_secrets_id>\secrets.json
+```
+_Linux/Mac_
+```bash
+~/.microsoft/usersecrets/<user_secrets_id>/secrets.json
 ```
 
 ### Docker
