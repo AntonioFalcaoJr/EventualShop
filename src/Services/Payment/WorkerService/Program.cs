@@ -22,7 +22,7 @@ builder.UseDefaultServiceProvider((context, options) =>
 builder.ConfigureAppConfiguration(configurationBuilder =>
 {
     configurationBuilder
-        .AddUserSecrets(Assembly.GetExecutingAssembly())
+        .AddUserSecrets<Program>()
         .AddEnvironmentVariables();
 });
 

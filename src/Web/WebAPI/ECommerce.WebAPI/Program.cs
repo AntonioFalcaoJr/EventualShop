@@ -127,4 +127,7 @@ finally
     await app.DisposeAsync();
 }
 
-public partial class Program { }
+namespace ECommerce.WebAPI
+{
+    public partial class Program { }
+}
