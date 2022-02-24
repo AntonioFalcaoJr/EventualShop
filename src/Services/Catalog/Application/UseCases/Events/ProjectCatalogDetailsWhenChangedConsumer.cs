@@ -16,7 +16,7 @@ using CatalogItemUpdatedEvent = ECommerce.Contracts.Catalog.DomainEvents.Catalog
 
 namespace Application.UseCases.Events;
 
-public class ProjectCatalogDetailsWhenCatalogChangedConsumer :
+public class ProjectCatalogDetailsWhenChangedConsumer :
     IConsumer<CatalogCreatedEvent>,
     IConsumer<CatalogActivatedEvent>,
     IConsumer<CatalogDeactivatedEvent>,
@@ -29,7 +29,9 @@ public class ProjectCatalogDetailsWhenCatalogChangedConsumer :
     private readonly ICatalogEventStoreService _eventStoreService;
     private readonly ICatalogProjectionsService _projectionsService;
 
-    public ProjectCatalogDetailsWhenCatalogChangedConsumer(ICatalogEventStoreService eventStoreService, ICatalogProjectionsService projectionsService)
+    public ProjectCatalogDetailsWhenChangedConsumer(
+        ICatalogEventStoreService eventStoreService, 
+        ICatalogProjectionsService projectionsService)
     {
         _eventStoreService = eventStoreService;
         _projectionsService = projectionsService;

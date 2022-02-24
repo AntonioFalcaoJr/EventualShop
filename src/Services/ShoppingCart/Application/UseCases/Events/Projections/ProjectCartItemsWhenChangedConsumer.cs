@@ -13,8 +13,7 @@ public class ProjectCartItemsWhenChangedConsumer :
     IConsumer<DomainEvents.CartItemAdded>,
     IConsumer<DomainEvents.CartItemRemoved>,
     IConsumer<DomainEvents.CartItemIncreased>,
-    IConsumer<DomainEvents.CartItemDecreased>,
-    IConsumer<DomainEvents.CartDiscarded>
+    IConsumer<DomainEvents.CartItemDecreased>
 {
     private readonly IShoppingCartEventStoreService _eventStoreService;
     private readonly IShoppingCartProjectionsService _projectionsService;
@@ -27,11 +26,25 @@ public class ProjectCartItemsWhenChangedConsumer :
         _projectionsService = projectionsService;
     }
 
-    public Task Consume(ConsumeContext<DomainEvents.CartItemAdded> context)
-        => ProjectAsync(context.Message.CartId, context.CancellationToken);
+    public async Task Consume(ConsumeContext<DomainEvents.CartItemAdded> context)
+    {
+        var shoppingCartItemProjection = new ShoppingCartItemProjection
+        {
+            Id = context.Message.ItemId,
+            CartId = context.Message.CartId,
+            Quantity = context.Message.Quantity,
+            PictureUrl = context.Message.PictureUrl,
+            ProductName = context.Message.ProductName,
+            UnitPrice = context.Message.UnitPrice,
+            ProductId = context.Message.ProductId,
+        };
 
-    public Task Consume(ConsumeContext<DomainEvents.CartItemRemoved> context)
-        => ProjectAsync(context.Message.CartId, context.CancellationToken);
+        await _projectionsService.ProjectAsync(shoppingCartItemProjection, context.CancellationToken);
+    }
+
+    public Task Consume(ConsumeContext<DomainEvents.CartItemRemoved> context) 
+        => _projectionsService.RemoveAsync<ShoppingCartItemProjection>(item 
+            => item.Id == context.Message.ItemId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvents.CartItemIncreased> context)
         => ProjectAsync(context.Message.CartId, context.CancellationToken);
@@ -39,31 +52,24 @@ public class ProjectCartItemsWhenChangedConsumer :
     public Task Consume(ConsumeContext<DomainEvents.CartItemDecreased> context)
         => ProjectAsync(context.Message.CartId, context.CancellationToken);
 
-    public Task Consume(ConsumeContext<DomainEvents.CartDiscarded> context)
-        => ProjectAsync(context.Message.CartId, context.CancellationToken);
-
     private async Task ProjectAsync(Guid cartId, CancellationToken cancellationToken)
     {
         var cart = await _eventStoreService.LoadAggregateFromStreamAsync(cartId, cancellationToken);
-        
-        var cartItemsProjection = new CartItemsProjection
-        {
-            Id = cart.Id,
-            Items = cart.Items.Any()
-                ? cart.Items.Select(item => new CartItemProjection
-                    {
-                        Id = item.Id,
-                        Quantity = item.Quantity,
-                        PictureUrl = item.PictureUrl,
-                        ProductName = item.ProductName,
-                        UnitPrice = item.UnitPrice,
-                        ProductId = item.ProductId
-                    }
-                )
-                : Enumerable.Empty<CartItemProjection>(),
-            IsDeleted = cart.IsDeleted
-        };
 
-        await _projectionsService.ProjectAsync(cartItemsProjection, cancellationToken);
+        var shoppingCartItemsProjection = cart.Items.Select(item
+            => new ShoppingCartItemProjection
+            {
+                Id = item.Id,
+                CartId = cart.Id,
+                Quantity = item.Quantity,
+                PictureUrl = item.PictureUrl,
+                ProductName = item.ProductName,
+                UnitPrice = item.UnitPrice,
+                ProductId = item.ProductId,
+                IsDeleted = item.IsDeleted
+            }
+        );
+
+        await _projectionsService.ProjectAsync(shoppingCartItemsProjection, cancellationToken);
     }
 }

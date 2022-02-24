@@ -6,7 +6,7 @@ namespace ECommerce.Contracts.ShoppingCart;
 
 public static class Commands
 {
-    public record AddCartItem(Guid CartId, Models.Item Item) : Command(CorrelationId: CartId);
+    public record AddCartItem(Guid CartId, Models.ShoppingCartItem Item) : Command(CorrelationId: CartId);
 
     public record AddCreditCard(Guid CartId, Models.CreditCard CreditCard) : Command(CorrelationId: CartId);
 

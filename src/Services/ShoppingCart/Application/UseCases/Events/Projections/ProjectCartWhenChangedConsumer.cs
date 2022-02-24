@@ -70,14 +70,14 @@ public class ProjectCartWhenChangedConsumer :
     {
         var cart = await _eventStoreService.LoadAggregateFromStreamAsync(cartId, cancellationToken);
 
-        var cartProjection = new CartProjection
+        var cartProjection = new ShoppingCartProjection
         {
             Id = cart.Id,
             IsDeleted = cart.IsDeleted,
             CustomerId = cart.CustomerId,
             Total = cart.Total,
             Items = cart.Items.Any()
-                ? cart.Items.Select(item => new CartItemProjection
+                ? cart.Items.Select(item => new ShoppingCartItemProjection
                     {
                         Id = item.Id,
                         Quantity = item.Quantity,
@@ -87,7 +87,7 @@ public class ProjectCartWhenChangedConsumer :
                         ProductId = item.ProductId
                     }
                 )
-                : Enumerable.Empty<CartItemProjection>(),
+                : Enumerable.Empty<ShoppingCartItemProjection>(),
             BillingAddressProjection = new()
             {
                 City = cart.BillingAddress?.City,

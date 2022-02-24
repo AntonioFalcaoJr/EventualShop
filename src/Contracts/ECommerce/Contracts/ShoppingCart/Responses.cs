@@ -7,9 +7,9 @@ namespace ECommerce.Contracts.ShoppingCart;
 
 public static class Responses
 {
-    public record Cart : Response
+    public record ShoppingCart : Response
     {
-        public IEnumerable<Models.Item> Items { get; init; }
+        public IEnumerable<Models.ShoppingCartItem> Items { get; init; }
         public IEnumerable<Models.IPaymentMethod> PaymentMethods { get; init; }
         public Guid CustomerId { get; init; }
         public decimal Total { get; init; }
@@ -17,7 +17,7 @@ public static class Responses
         public bool IsDeleted { get; init; }
     }
 
-    public record CartItem : Response
+    public record ShoppingCartItem : Response
     {
         public Guid Id { get; init; }
         public Guid ProductId { get; init; }
@@ -27,5 +27,5 @@ public static class Responses
         public string PictureUrl { get; init; }
     }
 
-    public record CartItemsPagedResult : ResponsePagedResult<Models.Item>;
+    public record ShoppingCartItems : ResponsePagedResult<Models.ShoppingCartItem>;
 }

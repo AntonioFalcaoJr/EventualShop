@@ -5,9 +5,9 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Application.EventSourcing.Projections;
 
-public record CartProjection : IProjection
+public record ShoppingCartProjection : IProjection
 {
-    public IEnumerable<CartItemProjection> Items { get; init; }
+    public IEnumerable<ShoppingCartItemProjection> Items { get; init; }
     public IEnumerable<IPaymentMethodProjection> PaymentMethods { get; init; }
     public Guid CustomerId { get; init; }
     public decimal Total { get; init; }
@@ -18,16 +18,17 @@ public record CartProjection : IProjection
     public bool IsDeleted { get; init; }
 }
 
-public record CartItemsProjection : IProjection
+public record ShoppingCartItemsProjection : IProjection
 {
     public Guid Id { get; init; }
-    public IEnumerable<CartItemProjection> Items { get; init; }
+    public IEnumerable<ShoppingCartItemProjection> Items { get; init; }
     public bool IsDeleted { get; init; }
 }
 
-public record CartItemProjection : IProjection
+public record ShoppingCartItemProjection : IProjection
 {
     public Guid Id { get; init; }
+    public Guid CartId { get; init; }
     public Guid ProductId { get; init; }
     public string ProductName { get; init; }
     public decimal UnitPrice { get; init; }

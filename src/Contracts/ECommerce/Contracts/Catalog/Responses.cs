@@ -5,9 +5,9 @@ namespace ECommerce.Contracts.Catalog;
 
 public static class Responses
 {
-    public record CatalogItemsDetailsPagedResult : ResponsePagedResult<CatalogItemsDetails>;
+    public record CatalogItemsDetailsPagedResult : ResponsePagedResult<CatalogItems>;
 
-    public record CatalogItemsDetails
+    public record CatalogItems
     {
         public Guid Id { get; init; }
         public string Name { get; init; }

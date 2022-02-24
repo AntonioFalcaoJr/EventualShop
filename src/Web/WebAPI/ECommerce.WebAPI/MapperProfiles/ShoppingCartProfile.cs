@@ -9,11 +9,12 @@ public class ShoppingCartProfile : Profile
 {
     public ShoppingCartProfile()
     {
-        CreateMap<Responses.Cart, Dtos.Cart>();
-        CreateMap<Responses.CartItemsPagedResult, Outputs.CartItemsPagedResult>();
-        
-        // TODO - solve this!
-        CreateMap<Dtos.Item, Models.Item>().ReverseMap();
-        CreateMap<Responses.CartItem, Dtos.Item>();
+        CreateMap<Requests.AddCartItem, Models.ShoppingCartItem>();
+
+        CreateMap<Models.ShoppingCartItem, Outputs.ShoppingCartItem>();
+
+        CreateMap<Responses.ShoppingCart, Outputs.ShoppingCart>();
+        CreateMap<Responses.ShoppingCartItem, Outputs.ShoppingCartItem>();
+        CreateMap<Responses.ShoppingCartItems, Outputs.ShoppingCartItems>();
     }
 }

@@ -23,8 +23,8 @@ public class GetShoppingCartDetailsConsumer :
 
     public async Task Consume(ConsumeContext<GetShoppingCartQuery> context)
     {
-        var cartDetails = await _projectionsService.GetCartAsync(context.Message.CartId, context.CancellationToken);
-        await RespondAsync(cartDetails, context);
+        var shoppingCartProjection = await _projectionsService.GetCartAsync(context.Message.CartId, context.CancellationToken);
+        await RespondAsync(shoppingCartProjection, context);
     }
 
     public async Task Consume(ConsumeContext<GetCustomerShoppingCartQuery> context)
@@ -33,18 +33,18 @@ public class GetShoppingCartDetailsConsumer :
         await RespondAsync(cartDetails, context);
     }
 
-    private static Task RespondAsync(CartProjection projection, ConsumeContext context)
+    private static Task RespondAsync(ShoppingCartProjection projection, ConsumeContext context)
         => projection is null
             ? context.RespondAsync<NotFound>(new())
             : context.RespondAsync(MapToCartDetailsResponse(projection));
 
-    private static Responses.Cart MapToCartDetailsResponse(CartProjection cart)
+    private static Responses.ShoppingCart MapToCartDetailsResponse(ShoppingCartProjection cart)
         => new()
         {
             Id = cart.Id,
             Total = cart.Total,
             Items = cart.Items.Select(projection
-                => new Models.Item
+                => new Models.ShoppingCartItem
                 {
                     Id = projection.Id,
                     ProductId = projection.ProductId,

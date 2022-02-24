@@ -22,6 +22,6 @@ public class GetShoppingCartItemConsumer : IConsumer<GetShoppingCartItemQuery>
 
         await (cartItemProjection is null
             ? context.RespondAsync<NotFound>(new())
-            : context.RespondAsync<Responses.CartItem>(cartItemProjection));
+            : context.RespondAsync<Responses.ShoppingCartItem>(cartItemProjection));
     }
 }

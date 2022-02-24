@@ -8,8 +8,8 @@ namespace Application.EventSourcing.Projections;
 
 public interface IShoppingCartProjectionsService : IProjectionsService
 {
-    Task<CartProjection> GetCartAsync(Guid cartId, CancellationToken cancellationToken);
-    Task<CartProjection> GetCartByCustomerIdAsync(Guid customerId, CancellationToken cancellationToken);
-    Task<IPagedResult<CartItemsProjection>> GetCartItemsAsync(Guid cartId, int limit, int offset, CancellationToken cancellationToken);
-    Task<CartItemsProjection> GetCartItemAsync(Guid cartId, Guid itemId, CancellationToken contextCancellationToken);
+    Task<ShoppingCartProjection> GetCartAsync(Guid cartId, CancellationToken cancellationToken);
+    Task<ShoppingCartProjection> GetCartByCustomerIdAsync(Guid customerId, CancellationToken cancellationToken);
+    Task<IPagedResult<ShoppingCartItemsProjection>> GetCartItemsAsync(Guid cartId, int limit, int offset, CancellationToken cancellationToken);
+    Task<ShoppingCartItemsProjection> GetCartItemAsync(Guid cartId, Guid itemId, CancellationToken contextCancellationToken);
 }

@@ -2,9 +2,9 @@
 
 namespace ECommerce.Contracts.Common.Validators;
 
-public class ItemValidator : AbstractValidator<Models.Item>
+public class ShoppingCartItemValidator : AbstractValidator<Models.ShoppingCartItem>
 {
-    public ItemValidator()
+    public ShoppingCartItemValidator()
     {
         RuleFor(item => item.Quantity)
             .GreaterThan(0);

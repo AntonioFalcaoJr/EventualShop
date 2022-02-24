@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using MassTransit;
 using Serilog;
 
-namespace Infrastructure.DependencyInjection.PipeObservers;
+namespace ECommerce.WebAPI.DependencyInjection.PipeObservers;
 
 public class LoggingReceiveObserver : IReceiveObserver
 {

@@ -2,7 +2,6 @@
 using ECommerce.JsonConverters;
 using ECommerce.WebAPI.DependencyInjection.Options;
 using ECommerce.WebAPI.DependencyInjection.PipeObservers;
-using Infrastructure.DependencyInjection.PipeObservers;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

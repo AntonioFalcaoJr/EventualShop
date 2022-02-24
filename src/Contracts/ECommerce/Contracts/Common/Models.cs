@@ -50,7 +50,7 @@ public static class Models
         public decimal Amount { get; init; }
     }
 
-    public record Item
+    public record ShoppingCartItem
     {
         public Guid Id { get; init; }
         public Guid ProductId { get; init; }

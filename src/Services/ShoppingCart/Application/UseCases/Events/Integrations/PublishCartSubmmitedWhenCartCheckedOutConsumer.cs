@@ -28,7 +28,7 @@ public class PublishCartSubmittedWhenCartCheckedOutConsumer : IConsumer<CartChec
         var cartSubmittedEvent = new CartSubmittedEvent(
             CartId: cart.Id,
             CustomerId: cart.CustomerId,
-            CartItems: cart.Items.Select(item => new Models.Item
+            CartItems: cart.Items.Select(item => new Models.ShoppingCartItem
             {
                 Id = item.Id,
                 ProductId = item.ProductId,
