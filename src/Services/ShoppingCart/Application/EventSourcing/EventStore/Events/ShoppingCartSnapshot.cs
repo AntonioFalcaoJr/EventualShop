@@ -4,4 +4,4 @@ using Domain.Aggregates;
 
 namespace Application.EventSourcing.EventStore.Events;
 
-public record ShoppingCartSnapshot : Snapshot<Cart, Guid>;
+public record ShoppingCartSnapshot : Snapshot<ShoppingCart, Guid>;

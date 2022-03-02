@@ -6,12 +6,12 @@ using Newtonsoft.Json;
 
 namespace Infrastructure.EventSourcing.EventStore.Contexts.Converters;
 
-public class CartConverter : ValueConverter<Cart, string> 
+public class CartConverter : ValueConverter<ShoppingCart, string> 
 {
     public CartConverter()
         : base(
-            @event => JsonConvert.SerializeObject(@event, typeof(Cart), SerializerSettings()),
-            jsonString => JsonConvert.DeserializeObject<Cart>(jsonString, DeserializerSettings())) { }
+            @event => JsonConvert.SerializeObject(@event, typeof(ShoppingCart), SerializerSettings()),
+            jsonString => JsonConvert.DeserializeObject<ShoppingCart>(jsonString, DeserializerSettings())) { }
 
     private static JsonSerializerSettings SerializerSettings()
     {

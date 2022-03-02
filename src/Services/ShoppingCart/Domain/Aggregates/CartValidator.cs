@@ -10,7 +10,7 @@ using FluentValidation;
 
 namespace Domain.Aggregates;
 
-public class CartValidator : EntityValidator<Cart, Guid>
+public class CartValidator : EntityValidator<ShoppingCart, Guid>
 {
     public CartValidator()
     {

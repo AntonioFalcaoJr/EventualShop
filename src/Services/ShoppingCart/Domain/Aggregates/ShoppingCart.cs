@@ -13,7 +13,7 @@ using ECommerce.Contracts.ShoppingCart;
 
 namespace Domain.Aggregates;
 
-public class Cart : AggregateRoot<Guid>
+public class ShoppingCart : AggregateRoot<Guid>
 {
     private readonly List<CartItem> _items = new();
     private readonly List<IPaymentMethod> _paymentMethods = new();
@@ -150,5 +150,5 @@ public class Cart : AggregateRoot<Guid>
     }
 
     protected sealed override bool Validate()
-        => OnValidate<CartValidator, Cart>();
+        => OnValidate<CartValidator, ShoppingCart>();
 }
