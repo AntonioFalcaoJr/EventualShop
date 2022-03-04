@@ -6,7 +6,7 @@ on:
     paths-ignore:
       - 'README.md'
 env:
-  DOTNET_VERSION: '7.0.x'
+  DOTNET_VERSION: '7.x'
 jobs:
   build-and-test:
     name: build-and-test-${{matrix.os}}
