@@ -9,8 +9,8 @@
     <projectFile profileName="IIS Express">src/Web/WebAPI/ECommerce.WebAPI/ECommerce.WebAPI.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb25cc7d-1d07-477e-b363-042934d3da2c" name="Changes" comment="fixing">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/build-and-test.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/build-and-test.yaml" afterDir="false" />
+    <list default="true" id="fb25cc7d-1d07-477e-b363-042934d3da2c" name="Changes" comment="Adding identity-build-and-test.yaml">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/identity-build-and-test.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/identity-build-and-test.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -118,7 +118,7 @@
       <workItem from="1640726493711" duration="1220000" />
       <workItem from="1646416755446" duration="639000" />
       <workItem from="1646418999161" duration="4906000" />
-      <workItem from="1646426502158" duration="1078000" />
+      <workItem from="1646426502158" duration="2017000" />
     </task>
     <task id="LOCAL-00001" summary="Adjusting Account context handlers namespace">
       <created>1633309876597</created>
@@ -204,7 +204,21 @@
       <option name="project" value="LOCAL" />
       <updated>1646427255578</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Adjusting test project workflow path">
+      <created>1646427666548</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1646427666548</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Adding identity-build-and-test.yaml">
+      <created>1646427881041</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1646427881041</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -236,6 +250,8 @@
     <MESSAGE value="Idea" />
     <MESSAGE value="Fixing" />
     <MESSAGE value="fixing" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixing" />
+    <MESSAGE value="Adjusting test project workflow path" />
+    <MESSAGE value="Adding identity-build-and-test.yaml" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding identity-build-and-test.yaml" />
   </component>
 </project>
