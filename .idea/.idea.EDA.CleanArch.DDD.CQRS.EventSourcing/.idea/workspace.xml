@@ -9,10 +9,9 @@
     <projectFile profileName="IIS Express">src/Web/WebAPI/ECommerce.WebAPI/ECommerce.WebAPI.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb25cc7d-1d07-477e-b363-042934d3da2c" name="Changes" comment="Idea">
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/EventSourcing/EventStore/IShoppingCartEventStoreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/EventSourcing/EventStore/IShoppingCartEventStoreRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/EventSourcing/EventStore/IShoppingCartEventStoreService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/EventSourcing/EventStore/IShoppingCartEventStoreService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/EventSourcing/EventStore/ShoppingCartEventStoreService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/EventSourcing/EventStore/ShoppingCartEventStoreService.cs" afterDir="false" />
+    <list default="true" id="fb25cc7d-1d07-477e-b363-042934d3da2c" name="Changes" comment="fixing">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/build-and-test.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/build-and-test.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +118,7 @@
       <workItem from="1640726493711" duration="1220000" />
       <workItem from="1646416755446" duration="639000" />
       <workItem from="1646418999161" duration="4906000" />
-      <workItem from="1646426502158" duration="464000" />
+      <workItem from="1646426502158" duration="1078000" />
     </task>
     <task id="LOCAL-00001" summary="Adjusting Account context handlers namespace">
       <created>1633309876597</created>
@@ -191,7 +190,21 @@
       <option name="project" value="LOCAL" />
       <updated>1646426613053</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Fixing">
+      <created>1646427073133</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1646427073133</updated>
+    </task>
+    <task id="LOCAL-00012" summary="fixing">
+      <created>1646427255578</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1646427255578</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -221,6 +234,8 @@
     <MESSAGE value="Adding context mapping integration strategy" />
     <MESSAGE value="Smells" />
     <MESSAGE value="Idea" />
-    <option name="LAST_COMMIT_MESSAGE" value="Idea" />
+    <MESSAGE value="Fixing" />
+    <MESSAGE value="fixing" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixing" />
   </component>
 </project>
