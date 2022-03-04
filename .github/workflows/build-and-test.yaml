@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-          path: ../../src/Services/Account
+          path: ./../../src/Services/Account
       - name: Install dependencies
         run:  dotnet restore
       - name: Build
