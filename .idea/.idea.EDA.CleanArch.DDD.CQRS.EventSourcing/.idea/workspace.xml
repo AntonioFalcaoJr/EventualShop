@@ -47,7 +47,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="SolutionBuilderGeneralOptionsPageId" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected=".NET Launch Settings Profile.ECommerce.WebAPI">
@@ -114,7 +114,7 @@
       <workItem from="1640719879273" duration="3224000" />
       <workItem from="1640726493711" duration="1220000" />
       <workItem from="1646416755446" duration="639000" />
-      <workItem from="1646418999161" duration="2933000" />
+      <workItem from="1646418999161" duration="4906000" />
     </task>
     <task id="LOCAL-00001" summary="Adjusting Account context handlers namespace">
       <created>1633309876597</created>
