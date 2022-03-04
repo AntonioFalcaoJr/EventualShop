@@ -9,7 +9,9 @@
     <projectFile profileName="IIS Express">src/Web/WebAPI/ECommerce.WebAPI/ECommerce.WebAPI.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb25cc7d-1d07-477e-b363-042934d3da2c" name="Changes" comment="testing simplifying" />
+    <list default="true" id="fb25cc7d-1d07-477e-b363-042934d3da2c" name="Changes" comment="Testing">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -115,7 +117,7 @@
       <workItem from="1640726493711" duration="1220000" />
       <workItem from="1646416755446" duration="639000" />
       <workItem from="1646418999161" duration="4906000" />
-      <workItem from="1646426502158" duration="2770000" />
+      <workItem from="1646426502158" duration="3910000" />
     </task>
     <task id="LOCAL-00001" summary="Adjusting Account context handlers namespace">
       <created>1633309876597</created>
@@ -243,7 +245,21 @@
       <option name="project" value="LOCAL" />
       <updated>1646429288886</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="fixing">
+      <created>1646429410941</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1646429410941</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Testing">
+      <created>1646429673929</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1646429673929</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -274,12 +290,13 @@
     <MESSAGE value="Smells" />
     <MESSAGE value="Idea" />
     <MESSAGE value="Fixing" />
-    <MESSAGE value="fixing" />
     <MESSAGE value="Adjusting test project workflow path" />
     <MESSAGE value="Adding identity-build-and-test.yaml" />
     <MESSAGE value="Testing segregation" />
     <MESSAGE value="Adjusting" />
     <MESSAGE value="testing simplifying" />
-    <option name="LAST_COMMIT_MESSAGE" value="testing simplifying" />
+    <MESSAGE value="fixing" />
+    <MESSAGE value="Testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Testing" />
   </component>
 </project>
