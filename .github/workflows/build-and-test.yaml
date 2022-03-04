@@ -21,8 +21,14 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
       - name: Install dependencies
-        run: dotnet restore
+        run: |
+          cd EDA.CleanArch.DDD.CQRS.EventSourcing\src\Services\Account
+          dotnet restore
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: |
+          cd EDA.CleanArch.DDD.CQRS.EventSourcing\src\Services\Account
+          dotnet build --configuration Release --no-restore
       - name: Test
-        run: dotnet test --no-restore --verbosity normal
+        run: |
+          cd EDA.CleanArch.DDD.CQRS.EventSourcing\src\Services\Account
+          dotnet test --no-restore --verbosity normal
