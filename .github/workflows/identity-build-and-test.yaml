@@ -31,6 +31,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
       - name: Test
         working-directory: ${{ env.TEST }}
         run: dotnet test --no-restore --verbosity normal
