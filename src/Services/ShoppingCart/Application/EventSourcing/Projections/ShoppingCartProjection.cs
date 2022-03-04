@@ -18,17 +18,10 @@ public record ShoppingCartProjection : IProjection
     public bool IsDeleted { get; init; }
 }
 
-public record ShoppingCartItemsProjection : IProjection
-{
-    public Guid Id { get; init; }
-    public IEnumerable<ShoppingCartItemProjection> Items { get; init; }
-    public bool IsDeleted { get; init; }
-}
-
 public record ShoppingCartItemProjection : IProjection
 {
     public Guid Id { get; init; }
-    public Guid CartId { get; init; }
+    public Guid ItemId { get; init; }
     public Guid ProductId { get; init; }
     public string ProductName { get; init; }
     public decimal UnitPrice { get; init; }

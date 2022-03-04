@@ -63,7 +63,7 @@ public class ProjectCartWhenChangedConsumer :
     public Task Consume(ConsumeContext<DomainEvents.CartItemIncreased> context)
         => ProjectAsync(context.Message.CartId, context.CancellationToken);
 
-    public Task Consume(ConsumeContext<DomainEvents.CartItemDecreased> context)
+    public Task Consume(ConsumeContext<DomainEvents.CartItemDecreased> context) 
         => ProjectAsync(context.Message.CartId, context.CancellationToken);
 
     private async Task ProjectAsync(Guid cartId, CancellationToken cancellationToken)
@@ -87,7 +87,7 @@ public class ProjectCartWhenChangedConsumer :
                         ProductId = item.ProductId
                     }
                 )
-                : Enumerable.Empty<ShoppingCartItemProjection>(),
+                : default,
             BillingAddressProjection = new()
             {
                 City = cart.BillingAddress?.City,

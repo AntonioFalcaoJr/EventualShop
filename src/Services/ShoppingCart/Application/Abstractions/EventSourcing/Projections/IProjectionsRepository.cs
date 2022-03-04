@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,13 +13,18 @@ public interface IProjectionsRepository
         where TProjection : IProjection;
 
     Task<TProjection> GetAsync<TProjection, TId>(TId id, CancellationToken cancellationToken)
-        where TProjection : IProjection;
+        where TProjection : IProjection
+        where TId : struct;
 
     Task<IPagedResult<TProjection>> GetAllAsync<TProjection>(IPaging paging, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
         where TProjection : IProjection;
 
     Task UpsertAsync<TProjection>(TProjection replacement, CancellationToken cancellationToken)
         where TProjection : IProjection;
+
+    Task UpsertManyAsync<TProjection, TId>(TId id, IEnumerable<TProjection> replacements, CancellationToken cancellationToken)
+        where TProjection : IProjection
+        where TId : struct;
 
     Task DeleteAsync<TProjection>(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken)
         where TProjection : IProjection;

@@ -43,7 +43,7 @@ public class GetShoppingCartDetailsConsumer :
         {
             Id = cart.Id,
             Total = cart.Total,
-            Items = cart.Items.Select(projection
+            Items = cart.Items?.Select(projection
                 => new Models.ShoppingCartItem
                 {
                     Id = projection.Id,
