@@ -3,10 +3,15 @@ on:
   push:
   pull_request:
     branches: [ main ]
+    paths:
+    - '**.cs'
+    - '**.csproj'
     paths-ignore:
       - 'README.md'
 env:
-  DOTNET_VERSION: '7.0.x'
+  DOTNET_VERSION: '7.0.100-preview.1.22110.4'
+  PROJECT: './src/Services/Account/WorkerService'
+  TEST: './test/Web/WebAPI'
 jobs:
   build-and-test:
     name: build-and-test-${{matrix.os}}
@@ -15,14 +20,17 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2 
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
       - name: Install dependencies
-        run: dotnet restore
+        working-directory: ${{ env.PROJECT }}
+        run:  dotnet restore
       - name: Build
+        working-directory: ${{ env.PROJECT }}
         run: dotnet build --configuration Release --no-restore
       - name: Test
+        working-directory: ${{ env.TEST }}
         run: dotnet test --no-restore --verbosity normal
