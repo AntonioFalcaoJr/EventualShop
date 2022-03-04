@@ -19,20 +19,20 @@ public class ShoppingCartProjectionsService : IShoppingCartProjectionsService
         _repository = repository;
     }
 
-    public Task<CartProjection> GetCartAsync(Guid cartId, CancellationToken cancellationToken)
-        => _repository.FindAsync<CartProjection>(cart => cart.Id == cartId, cancellationToken);
+    public Task<ShoppingCartProjection> GetCartAsync(Guid cartId, CancellationToken cancellationToken)
+        => _repository.FindAsync<ShoppingCartProjection>(cart => cart.Id == cartId, cancellationToken);
 
-    public Task<CartProjection> GetCartByCustomerIdAsync(Guid customerId, CancellationToken cancellationToken)
-        => _repository.FindAsync<CartProjection>(cart => cart.CustomerId == customerId, cancellationToken);
+    public Task<ShoppingCartProjection> GetCartByCustomerIdAsync(Guid customerId, CancellationToken cancellationToken)
+        => _repository.FindAsync<ShoppingCartProjection>(cart => cart.CustomerId == customerId, cancellationToken);
 
-    public Task<IPagedResult<CartItemsProjection>> GetCartItemsAsync(Guid cartId, int limit, int offset, CancellationToken cancellationToken)
-        => _repository.GetAllAsync<CartItemsProjection>(
+    public Task<IPagedResult<ShoppingCartItemsProjection>> GetCartItemsAsync(Guid cartId, int limit, int offset, CancellationToken cancellationToken)
+        => _repository.GetAllAsync<ShoppingCartItemsProjection>(
             paging: new Paging { Limit = limit, Offset = offset },
             predicate: cart => cart.Id == cartId,
             cancellationToken: cancellationToken);
 
-    public Task<CartItemsProjection> GetCartItemAsync(Guid cartId, Guid itemId, CancellationToken cancellationToken)
-        => _repository.FindAsync<CartItemsProjection>(
+    public Task<ShoppingCartItemsProjection> GetCartItemAsync(Guid cartId, Guid itemId, CancellationToken cancellationToken)
+        => _repository.FindAsync<ShoppingCartItemsProjection>(
             predicate: cart => cart.Id == cartId && cart.Items.Any(item => item.Id == itemId),
             cancellationToken: cancellationToken);
 
