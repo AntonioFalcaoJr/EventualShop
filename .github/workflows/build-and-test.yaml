@@ -7,6 +7,8 @@ on:
       - 'README.md'
 env:
   DOTNET_VERSION: '7.0.100-preview.1.22110.4'
+  PROJECT: './../../src/Services/Account'
+  TEST: '...'
 jobs:
   build-and-test:
     name: build-and-test-${{matrix.os}}
@@ -20,10 +22,12 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-          path: ./../../src/Services/Account
       - name: Install dependencies
+        working-directory: ${{ env.PROJECT }}
         run:  dotnet restore
       - name: Build
+        working-directory: ${{ env.PROJECT }}
         run: dotnet build --configuration Release --no-restore
       - name: Test
+        working-directory: ${{ env.TEST }}
         run: dotnet test --no-restore --verbosity normal
