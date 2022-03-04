@@ -7,7 +7,7 @@ on:
       - 'README.md'
 env:
   DOTNET_VERSION: '7.0.100-preview.1.22110.4'
-  PROJECT: './src/Services/Account'
+  PROJECT: './src/Services/Account/WorkerService'
   TEST: '...'
 jobs:
   build-and-test:
