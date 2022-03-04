@@ -8,8 +8,8 @@ on:
       - '**.csproj'
 env:
   DOTNET_VERSION: 7.0.100-preview.1.22110.4
-  PROJECT: ./src/Services/Identity/WorkerService
-  TEST: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
+  PROJECT: src/Services/Identity/WorkerService
+  TEST: test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
 jobs:
   build:
     name: build
