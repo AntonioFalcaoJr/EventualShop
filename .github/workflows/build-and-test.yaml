@@ -1,4 +1,5 @@
 name: build and test
+
 on:
   workflow_call:
     inputs:
@@ -6,7 +7,7 @@ on:
         description: 'The project name passed from the caller workflow'
         required: true
         type: string
-      sdk:
+      dotnet-version:
         description: 'The SKD version passed from the caller workflow'
         required: true
         type: string
@@ -18,6 +19,7 @@ on:
         description: 'The *csproj test path passed from the caller workflow'
         required: true
         type: string
+        
 jobs:
   build-and-test:
     name: build-and-test-${{ inputs.name }}-${{ matrix.os }}
@@ -26,11 +28,10 @@ jobs:
       matrix:
         os: [ ubuntu-latest, windows-latest, macOS-latest ]
     steps:
-      - uses: actions/checkout@v2
       - name: Setup .NET
-        uses: actions/setup-dotnet@v1
+        uses: ./github/workflows/setup-dotnet@v1
         with:
-          dotnet-version: ${{ inputs.sdk }}
+          dotnet-version: ${{ inputs.dotnet-version }}
       - name: Install dependencies
         working-directory: ${{ inputs.project }}
         run: dotnet restore

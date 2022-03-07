@@ -1,16 +1,16 @@
-name: build and test
+name: catalog build and test
 on:
   push:
 #  pull_request:
 #    branches: [ main ]
     paths:
-      - ./src/Services/Account/**.cs
-      - ./src/Services/Account/**.csproj
+      - ./src/Services/Catalog/**.cs
+      - ./src/Services/Catalog/**.csproj
 jobs:
   account-build-and-test:
     uses: ./.github/workflows/build-and-test.yaml
     with:
-      name: account
+      name: catalog
       dotnet-version: 7.0.100-preview.1.22110.4
-      project: ./src/Services/Account/WorkerService
+      project: ./src/Services/Catalog/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests

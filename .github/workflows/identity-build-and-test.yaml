@@ -1,4 +1,4 @@
-name: build and test
+name: identity build and test
 
 env:
   DOTNET_VERSION: 7.0.100-preview.1.22110.4
@@ -12,11 +12,6 @@ runs:
     - uses: actions/setup-dotnet@v1
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
-    - uses: docker/build-push-action@v2
-      with:
-        context: .
-        push: true
-        tags: user/app:latest
 on:
   push:
   pull_request:

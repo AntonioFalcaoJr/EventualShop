@@ -1,4 +1,4 @@
-name: build and test
+name: order build and test
 on:
   push:
 #  pull_request:
@@ -11,6 +11,6 @@ jobs:
     uses: ./.github/workflows/build-and-test.yaml
     with:
       name: order
-      sdk: 7.0.100-preview.1.22110.4
+      dotnet-version: 7.0.100-preview.1.22110.4
       project: ./src/Services/Order/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
