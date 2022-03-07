@@ -21,7 +21,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1487a275-5faf-4ec8-b00f-5be13c3ae8db" name="Changes" comment="Removing SSL/TLS configuration and unnecessary references">
+    <list default="true" id="1487a275-5faf-4ec8-b00f-5be13c3ae8db" name="Changes" comment="Adjusting badge">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
@@ -514,20 +514,6 @@
       <workItem from="1646418999161" duration="4906000" />
       <workItem from="1646426502158" duration="3910000" />
     </task>
-    <task id="LOCAL-00001" summary="Adjusting Account context handlers namespace">
-      <created>1633309876597</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1633309876597</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Cleanup">
-      <created>1633310756888</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1633310756888</updated>
-    </task>
     <task id="LOCAL-00003" summary="Cleanup">
       <created>1633311002504</created>
       <option name="number" value="00003" />
@@ -857,7 +843,21 @@
       <option name="project" value="LOCAL" />
       <updated>1646672569272</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Adding status budge">
+      <created>1646673627947</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1646673627947</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Adjusting badge">
+      <created>1646673936935</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1646673936935</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -879,8 +879,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="testing simplifying" />
-    <MESSAGE value="fixing" />
     <MESSAGE value="Using template" />
     <MESSAGE value="Adding Order CI" />
     <MESSAGE value="Specifying project path" />
@@ -904,6 +902,8 @@
     <MESSAGE value="Adding workflows" />
     <MESSAGE value="Renaming" />
     <MESSAGE value="Removing SSL/TLS configuration and unnecessary references" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removing SSL/TLS configuration and unnecessary references" />
+    <MESSAGE value="Adding status budge" />
+    <MESSAGE value="Adjusting badge" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adjusting badge" />
   </component>
 </project>
