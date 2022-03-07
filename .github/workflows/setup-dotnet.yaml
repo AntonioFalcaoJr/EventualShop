@@ -3,7 +3,7 @@ name: Setup .NET
 inputs:
   dotnet-version:
     required: true
-    
+
 runs:
   using: "composite"
   steps:
