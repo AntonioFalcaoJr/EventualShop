@@ -4,10 +4,10 @@ on:
   pull_request:
     branches: [ main ]
     paths:
-      - '**.cs'
-      - '**.csproj'
+      - ./src/Services/Order/**.cs
+      - ./src/Services/Order/**.csproj
 jobs:
-  call-build-and-test:
+  order-build-and-test:
     uses: ./.github/workflows/template-build-and-test.yaml
     with:
       sdk: 7.0.100-preview.1.22110.4
