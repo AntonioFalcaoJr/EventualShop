@@ -1,5 +1,4 @@
 name: build and test
-
 on:
   workflow_call:
     inputs:
@@ -15,23 +14,22 @@ on:
         description: 'The *csproj test path passed from the caller workflow'
         required: true
         type: string
-
 jobs:
   build-and-test:
     name: build-and-test-${{matrix.os}}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ ubuntu-latest, windows-latest, macOS-latest ]
     steps:
-      - uses: actions/checkout@v2 
+      - uses: actions/checkout@v2
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ inputs.sdk }}
       - name: Install dependencies
         working-directory: ${{ inputs.project }}
-        run:  dotnet restore
+        run: dotnet restore
       - name: Build
         working-directory: ${{ inputs.project }}
         run: dotnet build --configuration Release --no-restore
