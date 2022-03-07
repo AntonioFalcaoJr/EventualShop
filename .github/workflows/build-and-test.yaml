@@ -1,4 +1,5 @@
 name: build and test
+
 on:
   workflow_call:
     inputs:
@@ -14,6 +15,7 @@ on:
         description: 'The *csproj test path passed from the caller workflow'
         required: true
         type: string
+
 jobs:
   build-and-test:
     name: build-and-test-${{ matrix.os }}
@@ -24,28 +26,39 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ inputs.dotnet-version }}
-          
-      - name: Cache dependencies 
+
+      - name: Cache dependencies
         uses: actions/cache@v2
         with:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: |
             ${{ runner.os }}-nuget  
-            
+
       - name: Install dependencies
         working-directory: ${{ inputs.project }}
         run: dotnet restore
-        
+
       - name: Build
         working-directory: ${{ inputs.project }}
         run: dotnet build --configuration Release --no-restore
-        
+
       - name: Test
         working-directory: ${{ inputs.test }}
         run: dotnet test --no-restore --verbosity normal
+  
+  code-analysis:
+    name: code-analysis
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run .NET Code Analysis
+        uses: dotnet/code-analysis@v1
+        with:
+          projects: ${{ inputs.project }}
+          build-breaking: true
