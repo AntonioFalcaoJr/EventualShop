@@ -28,6 +28,7 @@ jobs:
       matrix:
         os: [ ubuntu-latest, windows-latest, macOS-latest ]
     steps:
+      - uses: actions/checkout@v2
       - name: Setup .NET
         uses: ./github/workflows/setup-dotnet@v1
         with:
