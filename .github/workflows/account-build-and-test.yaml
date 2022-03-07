@@ -8,8 +8,9 @@ on:
       - ./src/Services/Account/**.csproj
 jobs:
   account-build-and-test:
-    uses: ./.github/workflows/build-and-test.yaml
+    uses: ./.github/workflows/templates/build-and-test.yaml
     with:
+      name: Account
       sdk: 7.0.100-preview.1.22110.4
       project: ./src/Services/Account/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests

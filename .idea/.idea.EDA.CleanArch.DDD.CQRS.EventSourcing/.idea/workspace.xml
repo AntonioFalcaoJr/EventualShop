@@ -21,7 +21,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1487a275-5faf-4ec8-b00f-5be13c3ae8db" name="Changes" comment="Adjusting path" />
+    <list default="true" id="1487a275-5faf-4ec8-b00f-5be13c3ae8db" name="Changes" comment="Testing" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,6 +41,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/Services/Account/Application/UseCases/Commands/CreateAccountConsumer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Services/Account/Application/UseCases/Events/Integrations/CreateAccountWhenUserRegisteredConsumer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Infrastructure/EventSourcing/EventStore/AccountEventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Services/Identity/Infrastructure/EventSourcing/Projections/Contexts/ProjectionsDbContext.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/Infrastructure/EventSourcing/EventStore/OrderEventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Services/ShoppingCart/Application/Abstractions/EventSourcing/EventStore/Events/Snapshot.cs" root0="FORCE_HIGHLIGHTING" />
@@ -705,7 +706,28 @@
       <option name="project" value="LOCAL" />
       <updated>1646663955799</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Making parameter DbContext">
+      <created>1646664020749</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1646664020749</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Return path config">
+      <created>1646664241474</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1646664241474</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Testing">
+      <created>1646664319667</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1646664319667</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -741,15 +763,16 @@
     <MESSAGE value="Testing segregation" />
     <MESSAGE value="testing simplifying" />
     <MESSAGE value="fixing" />
-    <MESSAGE value="Testing" />
     <MESSAGE value="Using template" />
     <MESSAGE value="Adjusting" />
     <MESSAGE value="Adding Order CI" />
     <MESSAGE value="Specifying project path" />
     <MESSAGE value="Adjusting name" />
-    <MESSAGE value="Making parameter DbContext" />
     <MESSAGE value="Moving to template path" />
     <MESSAGE value="Adjusting path" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adjusting path" />
+    <MESSAGE value="Making parameter DbContext" />
+    <MESSAGE value="Return path config" />
+    <MESSAGE value="Testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Testing" />
   </component>
 </project>
