@@ -7,9 +7,9 @@ on:
       - '**.cs'
       - '**.csproj'
 env:
-  DOTNET_VERSION: 7.0.100-preview.1.22110.4
-  PROJECT: ./src/Services/Account/WorkerService
-  TEST: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
+  DOTNET_VERSION: "7.0.100-preview.1.22110.4"
+  PROJECT: "./src/Services/Account/WorkerService"
+  TEST: "./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests"
 jobs:
   call-build-and-test:
     uses: ./.github/workflows/template-build-and-test.yaml
