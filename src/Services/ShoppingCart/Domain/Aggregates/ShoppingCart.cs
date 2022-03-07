@@ -150,5 +150,5 @@ public class ShoppingCart : AggregateRoot<Guid>
     }
 
     protected sealed override bool Validate()
-        => OnValidate<CartValidator, ShoppingCart>();
+        => OnValidate<ShoppingCartValidator, ShoppingCart>();
 }

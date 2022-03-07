@@ -10,9 +10,9 @@ using FluentValidation;
 
 namespace Domain.Aggregates;
 
-public class CartValidator : EntityValidator<ShoppingCart, Guid>
+public class ShoppingCartValidator : EntityValidator<ShoppingCart, Guid>
 {
-    public CartValidator()
+    public ShoppingCartValidator()
     {
         RuleFor(cart => cart.CustomerId)
             .NotEqual(Guid.Empty);
