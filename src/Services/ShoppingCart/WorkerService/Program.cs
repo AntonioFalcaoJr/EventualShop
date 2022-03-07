@@ -62,7 +62,7 @@ builder.ConfigureServices((context, services) =>
 
     services.ConfigureQuartzOptions(
         context.Configuration.GetSection(nameof(QuartzOptions)));
-    
+
     services.ConfigureMassTransitHostOptions(
         context.Configuration.GetSection(nameof(MassTransitHostOptions)));
 });
