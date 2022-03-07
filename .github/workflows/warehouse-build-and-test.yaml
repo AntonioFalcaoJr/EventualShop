@@ -7,7 +7,7 @@ on:
       - src/Services/Warehouse/**.csproj
 
 jobs:
-  account-build-and-test:
+  warehouse-build-and-test:
     uses: ./.github/workflows/build-and-test.yaml
     with:
       dotnet-version: 7.0.100-preview.1.22110.4

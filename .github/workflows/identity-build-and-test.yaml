@@ -7,7 +7,7 @@ on:
       - src/Services/Identity/**.csproj
 
 jobs:
-  account-build-and-test:
+  identity-build-and-test:
     uses: ./.github/workflows/build-and-test.yaml
     with:
       dotnet-version: 7.0.100-preview.1.22110.4
