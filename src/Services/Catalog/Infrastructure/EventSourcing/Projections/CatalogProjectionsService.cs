@@ -25,10 +25,9 @@ public class CatalogProjectionsService : ICatalogProjectionsService
             cancellationToken: cancellationToken);
 
     public Task<IPagedResult<CatalogItemProjection>> GetCatalogItemsAsync(Guid catalogId, int limit, int offset, CancellationToken cancellationToken)
-        => _repository.GetAllNestedAsync<CatalogProjection, CatalogItemProjection>(
+        => _repository.GetAllAsync<CatalogItemProjection>(
             paging: new Paging { Limit = limit, Offset = offset },
-            predicate: catalog => catalog.Id == catalogId && catalog.IsActive && catalog.IsDeleted == false,
-            selector: catalog => catalog.Items,
+            predicate: projection => projection.IsDeleted == false,
             cancellationToken: cancellationToken);
 
     public Task<CatalogProjection> GetCatalogDetailsAsync(Guid catalogId, CancellationToken cancellationToken)

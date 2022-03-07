@@ -12,6 +12,6 @@ namespace Infrastructure.EventSourcing.EventStore;
 
 public class ShoppingCartEventStoreService : EventStoreService<ShoppingCart, ShoppingCartStoreEvent, ShoppingCartSnapshot, Guid>, IShoppingCartEventStoreService
 {
-    public ShoppingCartEventStoreService(IBus bus, IShoppingCartEventStoreRepository repository, INotificationContext notificationContext, IOptionsMonitor<EventStoreOptions> optionsMonitor)
-        : base(bus, repository, notificationContext, optionsMonitor) { }
+    public ShoppingCartEventStoreService(IPublishEndpoint publishEndpoint, IShoppingCartEventStoreRepository repository, INotificationContext notificationContext, IOptionsMonitor<EventStoreOptions> optionsMonitor)
+        : base(publishEndpoint, repository, notificationContext, optionsMonitor) { }
 }
