@@ -4,8 +4,8 @@ on:
   pull_request:
     branches: [ main ]
     paths:
-      - ./src/Services/Account/**.cs
-      - ./src/Services/Account/**.csproj
+      - ./src/Services/Account/*.cs
+      - ./src/Services/Account/*.csproj
 jobs:
   account-build-and-test:
     uses: ./.github/workflows/templates/build-and-test.yaml

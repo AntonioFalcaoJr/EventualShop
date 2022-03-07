@@ -4,8 +4,8 @@ on:
   pull_request:
     branches: [ main ]
     paths:
-      - ./src/Services/Order/**.cs
-      - ./src/Services/Order/**.csproj
+      - ./src/Services/Order/*.cs
+      - ./src/Services/Order/*.csproj
 jobs:
   order-build-and-test:
     uses: ./.github/workflows/templates/build-and-test.yaml
