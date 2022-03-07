@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="Projections@localhost">
+  <database-model serializer="dbm" dbms="MONGO" family-id="MONGO" format-version="4.23">
+    <root id="1">
+      <ServerVersion>5.0.2</ServerVersion>
+    </root>
+    <schema id="2" parent="1" name="Projections">
+      <Current>1</Current>
+    </schema>
+    <schema id="3" parent="1" name="admin"/>
+    <schema id="4" parent="1" name="config"/>
+    <schema id="5" parent="1" name="local"/>
+    <table id="6" parent="2" name="CustomerDetailsProjection"/>
+    <column id="7" parent="6" name="_id">
+      <Position>1</Position>
+      <DataType>BinData|12s</DataType>
+    </column>
+    <column id="8" parent="6" name="Age">
+      <Position>2</Position>
+      <DataType>Int32|4s</DataType>
+    </column>
+    <column id="9" parent="6" name="Name">
+      <Position>3</Position>
+      <DataType>String|12s</DataType>
+    </column>
+  </database-model>
+</dataSource>

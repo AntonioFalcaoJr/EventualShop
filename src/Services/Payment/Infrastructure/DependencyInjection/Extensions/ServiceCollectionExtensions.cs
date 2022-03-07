@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using System.Security.Authentication;
 using Application.Abstractions.Notifications;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
@@ -61,7 +60,6 @@ public static class ServiceCollectionExtensions
                         {
                             host.Username(options.Username);
                             host.Password(options.Password);
-                            host.UseSsl(ssl => ssl.Protocol = SslProtocols.Tls12);
 
                             options.Cluster?.ForEach(node
                                 => host.UseCluster(cluster => cluster.Node(node)));
