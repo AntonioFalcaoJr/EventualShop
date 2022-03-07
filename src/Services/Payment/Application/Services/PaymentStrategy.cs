@@ -11,18 +11,18 @@ namespace Application.Services;
 
 public class PaymentStrategy : IPaymentStrategy
 {
-    private readonly IPaymentService _paymentService;
+    private readonly IPaymentService _service;
 
     public PaymentStrategy(
-        ICreditCardPaymentService creditCardPaymentService,
+        ICreditCardPaymentService creditCardService,
         IDebitCardPaymentService debitCardPaymentService,
         IPayPalPaymentService payPalPaymentService)
     {
-        creditCardPaymentService
+        creditCardService
             .SetNext(debitCardPaymentService)
             .SetNext(payPalPaymentService);
 
-        _paymentService = creditCardPaymentService;
+        _service = creditCardService;
     }
 
     public async Task AuthorizePaymentAsync(Payment payment, CancellationToken cancellationToken)
@@ -31,7 +31,7 @@ public class PaymentStrategy : IPaymentStrategy
         {
             if (payment.AmountDue <= 0) break;
 
-            var paymentResult = await _paymentService.HandleAsync((srv, mtd, ct) => srv.AuthorizeAsync(mtd, ct), method, cancellationToken);
+            var paymentResult = await _service.HandleAsync((srv, mtd, ct) => srv.AuthorizeAsync(mtd, ct), method, cancellationToken);
 
             payment.Handle(new Commands.UpdatePaymentMethod(
                 payment.Id,
@@ -47,7 +47,7 @@ public class PaymentStrategy : IPaymentStrategy
         {
             if (payment.AmountDue <= 0) break;
 
-            var paymentResult = await _paymentService.HandleAsync((srv, mtd, ct) => srv.CancelAsync(mtd, ct), method, cancellationToken);
+            var paymentResult = await _service.HandleAsync((srv, mtd, ct) => srv.CancelAsync(mtd, ct), method, cancellationToken);
 
             payment.Handle(new Commands.UpdatePaymentMethod(
                 payment.Id,
@@ -63,7 +63,7 @@ public class PaymentStrategy : IPaymentStrategy
         {
             if (payment.AmountDue <= 0) break;
 
-            var paymentResult = await _paymentService.HandleAsync((srv, mtd, ct) => srv.RefundAsync(mtd, ct), method, cancellationToken);
+            var paymentResult = await _service.HandleAsync((srv, mtd, ct) => srv.RefundAsync(mtd, ct), method, cancellationToken);
 
             payment.Handle(new Commands.UpdatePaymentMethod(
                 payment.Id,
