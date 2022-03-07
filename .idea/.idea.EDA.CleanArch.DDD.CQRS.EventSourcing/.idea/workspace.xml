@@ -21,9 +21,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1487a275-5faf-4ec8-b00f-5be13c3ae8db" name="Changes" comment="Making parameter DbContext">
-      <change afterPath="$PROJECT_DIR$/.github/workflows/shoppingcart-build-and-test.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.github/workflows/warehouse-build-and-test.yaml" afterDir="false" />
+    <list default="true" id="1487a275-5faf-4ec8-b00f-5be13c3ae8db" name="Changes" comment="Removing SSL/TLS configuration and unnecessary references">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,12 +45,20 @@
     <setting file="file://$PROJECT_DIR$/src/Services/Account/Application/UseCases/Commands/CreateAccountConsumer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Services/Account/Application/UseCases/Events/Integrations/CreateAccountWhenUserRegisteredConsumer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Infrastructure/EventSourcing/EventStore/AccountEventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Services/Identity/Infrastructure/EventSourcing/Projections/Contexts/ProjectionsDbContext.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Identity/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/Infrastructure/EventSourcing/EventStore/OrderEventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Application/Services/PaymentStrategy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Application/Services/PaymentStrategy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Services/ShoppingCart/Application/Abstractions/EventSourcing/EventStore/Events/Snapshot.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Aggregates/CartValidator.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Warehouse/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../TestConnectionRabbitMQ/TestConnectionRabbitMQ/Producers/PortfolioRiskProducers/PortfolioRiskProducer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/03717637beb04bbfaf11ef5951d1a6c9c9000/0f/3df118c1/IMongoCollection`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/03717637beb04bbfaf11ef5951d1a6c9c9000/3d/6abfef0c/InsertOneOptions.cs" root0="SKIP_HIGHLIGHTING" />
@@ -427,6 +435,11 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "node.js.selected.package.tslint": "(autodetect)"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlserver"
+    ]
   }
 }]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.ECommerce.WebAPI">
@@ -823,7 +836,28 @@
       <option name="project" value="LOCAL" />
       <updated>1646668491962</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Adding workflows">
+      <created>1646672193233</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1646672193233</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Renaming">
+      <created>1646672372412</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1646672372412</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Removing SSL/TLS configuration and unnecessary references">
+      <created>1646672569272</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1646672569272</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -845,9 +879,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Adjusting test project workflow path" />
-    <MESSAGE value="Adding identity-build-and-test.yaml" />
-    <MESSAGE value="Testing segregation" />
     <MESSAGE value="testing simplifying" />
     <MESSAGE value="fixing" />
     <MESSAGE value="Using template" />
@@ -870,6 +901,9 @@
     <MESSAGE value="returning for testing" />
     <MESSAGE value="Improving CI actions" />
     <MESSAGE value="Making parameter DbContext" />
-    <option name="LAST_COMMIT_MESSAGE" value="Making parameter DbContext" />
+    <MESSAGE value="Adding workflows" />
+    <MESSAGE value="Renaming" />
+    <MESSAGE value="Removing SSL/TLS configuration and unnecessary references" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removing SSL/TLS configuration and unnecessary references" />
   </component>
 </project>
