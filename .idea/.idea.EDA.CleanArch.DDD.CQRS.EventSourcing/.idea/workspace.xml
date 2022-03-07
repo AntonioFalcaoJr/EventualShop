@@ -21,7 +21,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1487a275-5faf-4ec8-b00f-5be13c3ae8db" name="Changes" comment="Adding Order CI" />
+    <list default="true" id="1487a275-5faf-4ec8-b00f-5be13c3ae8db" name="Changes" comment="Specifying project path" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -669,7 +669,14 @@
       <option name="project" value="LOCAL" />
       <updated>1646660608954</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Specifying project path">
+      <created>1646660923663</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1646660923663</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -709,6 +716,7 @@
     <MESSAGE value="Using template" />
     <MESSAGE value="Adjusting" />
     <MESSAGE value="Adding Order CI" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding Order CI" />
+    <MESSAGE value="Specifying project path" />
+    <option name="LAST_COMMIT_MESSAGE" value="Specifying project path" />
   </component>
 </project>

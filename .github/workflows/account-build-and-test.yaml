@@ -7,7 +7,7 @@ on:
       - ./src/Services/Account/**.cs
       - ./src/Services/Account/**.csproj
 jobs:
-  call-build-and-test:
+  account-build-and-test:
     uses: ./.github/workflows/template-build-and-test.yaml
     with:
       sdk: 7.0.100-preview.1.22110.4
