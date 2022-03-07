@@ -1,8 +1,7 @@
 name: payment build and test
+
 on:
   push:
-#  pull_request:
-#    branches: [ main ]
     paths:
       - src/Services/Payment/**.cs
       - src/Services/Payment/**.csproj
@@ -10,7 +9,6 @@ jobs:
   account-build-and-test:
     uses: ./.github/workflows/build-and-test.yaml
     with:
-      name: payment
       dotnet-version: 7.0.100-preview.1.22110.4
       project: ./src/Services/Payment/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests

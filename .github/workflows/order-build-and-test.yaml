@@ -1,16 +1,15 @@
-name: order build and test
+name: Order build and test
+
 on:
   push:
-#  pull_request:
-#    branches: [ main ]
     paths:
-      - ./src/Services/Order/**.cs
-      - ./src/Services/Order/**.csproj
+      - src/Services/Order/**.cs
+      - src/Services/Order/**.csproj
+
 jobs:
   order-build-and-test:
     uses: ./.github/workflows/build-and-test.yaml
     with:
-      name: order
       dotnet-version: 7.0.100-preview.1.22110.4
       project: ./src/Services/Order/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests

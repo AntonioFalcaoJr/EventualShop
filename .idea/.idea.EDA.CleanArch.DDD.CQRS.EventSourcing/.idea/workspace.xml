@@ -21,7 +21,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1487a275-5faf-4ec8-b00f-5be13c3ae8db" name="Changes" comment="test" />
+    <list default="true" id="1487a275-5faf-4ec8-b00f-5be13c3ae8db" name="Changes" comment="returning for testing">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,6 +46,8 @@
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Infrastructure/EventSourcing/EventStore/AccountEventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Services/Identity/Infrastructure/EventSourcing/Projections/Contexts/ProjectionsDbContext.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/Infrastructure/EventSourcing/EventStore/OrderEventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Application/Services/PaymentStrategy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Application/Services/PaymentStrategy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Services/ShoppingCart/Application/Abstractions/EventSourcing/EventStore/Events/Snapshot.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Aggregates/CartValidator.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../TestConnectionRabbitMQ/TestConnectionRabbitMQ/Producers/PortfolioRiskProducers/PortfolioRiskProducer.cs" root0="SKIP_HIGHLIGHTING" />
@@ -776,7 +780,35 @@
       <option name="project" value="LOCAL" />
       <updated>1646667474617</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Removing composite">
+      <created>1646667571818</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1646667571818</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Making parameter DbContext">
+      <created>1646667856520</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1646667856520</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Just payment">
+      <created>1646668156902</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1646668156902</updated>
+    </task>
+    <task id="LOCAL-00044" summary="returning for testing">
+      <created>1646668219697</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1646668219697</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -798,9 +830,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Adding context mapping integration strategy" />
-    <MESSAGE value="Smells" />
-    <MESSAGE value="Idea" />
     <MESSAGE value="Fixing" />
     <MESSAGE value="Adjusting test project workflow path" />
     <MESSAGE value="Adding identity-build-and-test.yaml" />
@@ -813,7 +842,6 @@
     <MESSAGE value="Adjusting name" />
     <MESSAGE value="Moving to template path" />
     <MESSAGE value="Adjusting path" />
-    <MESSAGE value="Making parameter DbContext" />
     <MESSAGE value="Return path config" />
     <MESSAGE value="Testing" />
     <MESSAGE value="Adding name" />
@@ -823,6 +851,10 @@
     <MESSAGE value="Using composite" />
     <MESSAGE value="Adjusting" />
     <MESSAGE value="test" />
-    <option name="LAST_COMMIT_MESSAGE" value="test" />
+    <MESSAGE value="Removing composite" />
+    <MESSAGE value="Making parameter DbContext" />
+    <MESSAGE value="Just payment" />
+    <MESSAGE value="returning for testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="returning for testing" />
   </component>
 </project>
