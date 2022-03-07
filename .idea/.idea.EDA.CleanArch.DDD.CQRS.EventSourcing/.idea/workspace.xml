@@ -21,8 +21,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1487a275-5faf-4ec8-b00f-5be13c3ae8db" name="Changes" comment="returning for testing">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="1487a275-5faf-4ec8-b00f-5be13c3ae8db" name="Changes" comment="Making parameter DbContext">
+      <change afterPath="$PROJECT_DIR$/.github/workflows/shoppingcart-build-and-test.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.github/workflows/warehouse-build-and-test.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -808,7 +809,21 @@
       <option name="project" value="LOCAL" />
       <updated>1646668219697</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="Improving CI actions">
+      <created>1646668402751</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1646668402751</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Making parameter DbContext">
+      <created>1646668491962</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1646668491962</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -830,7 +845,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Fixing" />
     <MESSAGE value="Adjusting test project workflow path" />
     <MESSAGE value="Adding identity-build-and-test.yaml" />
     <MESSAGE value="Testing segregation" />
@@ -852,9 +866,10 @@
     <MESSAGE value="Adjusting" />
     <MESSAGE value="test" />
     <MESSAGE value="Removing composite" />
-    <MESSAGE value="Making parameter DbContext" />
     <MESSAGE value="Just payment" />
     <MESSAGE value="returning for testing" />
-    <option name="LAST_COMMIT_MESSAGE" value="returning for testing" />
+    <MESSAGE value="Improving CI actions" />
+    <MESSAGE value="Making parameter DbContext" />
+    <option name="LAST_COMMIT_MESSAGE" value="Making parameter DbContext" />
   </component>
 </project>
