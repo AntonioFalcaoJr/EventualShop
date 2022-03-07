@@ -21,7 +21,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1487a275-5faf-4ec8-b00f-5be13c3ae8db" name="Changes" comment="Using composite" />
+    <list default="true" id="1487a275-5faf-4ec8-b00f-5be13c3ae8db" name="Changes" comment="test" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -762,7 +762,21 @@
       <option name="project" value="LOCAL" />
       <updated>1646666924400</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Adjusting">
+      <created>1646667067973</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1646667067973</updated>
+    </task>
+    <task id="LOCAL-00040" summary="test">
+      <created>1646667474617</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1646667474617</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -784,7 +798,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Adding warehouse context service" />
     <MESSAGE value="Adding context mapping integration strategy" />
     <MESSAGE value="Smells" />
     <MESSAGE value="Idea" />
@@ -795,7 +808,6 @@
     <MESSAGE value="testing simplifying" />
     <MESSAGE value="fixing" />
     <MESSAGE value="Using template" />
-    <MESSAGE value="Adjusting" />
     <MESSAGE value="Adding Order CI" />
     <MESSAGE value="Specifying project path" />
     <MESSAGE value="Adjusting name" />
@@ -809,6 +821,8 @@
     <MESSAGE value="Testing composite" />
     <MESSAGE value="Adjusting paths" />
     <MESSAGE value="Using composite" />
-    <option name="LAST_COMMIT_MESSAGE" value="Using composite" />
+    <MESSAGE value="Adjusting" />
+    <MESSAGE value="test" />
+    <option name="LAST_COMMIT_MESSAGE" value="test" />
   </component>
 </project>
