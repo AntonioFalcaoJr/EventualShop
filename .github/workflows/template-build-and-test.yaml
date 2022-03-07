@@ -3,11 +3,17 @@ on:
   workflow_call:
     inputs:
       sdk:
+        description: 'The SKD version passed from the caller workflow'
         required: true
+        type: string
       project:
+        description: 'The *csproj project path passed from the caller workflow'
         required: true
+        type: string
       test:
+        description: 'The *csproj test path passed from the caller workflow'
         required: true
+        type: string
 jobs:
   build-and-test:
     name: build-and-test-${{matrix.os}}

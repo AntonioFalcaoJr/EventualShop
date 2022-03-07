@@ -11,5 +11,5 @@ jobs:
     uses: ./.github/workflows/template-build-and-test.yaml
     with:
       sdk: 7.0.100-preview.1.22110.4
-      project: ./src/Services/Account/WorkerService
+      project: ./src/Services/Order/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
