@@ -14,6 +14,6 @@ jobs:
   call-build-and-test:
     uses: ./.github/workflows/template-build-and-test.yaml
     with:
-      sdk: "7.0.100-preview.1.22110.4"
-      project: "./src/Services/Account/WorkerService"
-      test: "./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests"
+      sdk: ${{ env.DOTNET_VERSION }}
+      project: ${{ env.PROJECT }}
+      test: ${{ env.TEST }}

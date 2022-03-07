@@ -21,7 +21,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1487a275-5faf-4ec8-b00f-5be13c3ae8db" name="Changes" comment="Using template" />
+    <list default="true" id="1487a275-5faf-4ec8-b00f-5be13c3ae8db" name="Changes" comment="Adjusting" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -641,7 +641,21 @@
       <option name="project" value="LOCAL" />
       <updated>1646659565020</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Adjusting">
+      <created>1646659699985</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1646659699985</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Adjusting">
+      <created>1646659903628</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1646659903628</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -675,11 +689,11 @@
     <MESSAGE value="Adjusting test project workflow path" />
     <MESSAGE value="Adding identity-build-and-test.yaml" />
     <MESSAGE value="Testing segregation" />
-    <MESSAGE value="Adjusting" />
     <MESSAGE value="testing simplifying" />
     <MESSAGE value="fixing" />
     <MESSAGE value="Testing" />
     <MESSAGE value="Using template" />
-    <option name="LAST_COMMIT_MESSAGE" value="Using template" />
+    <MESSAGE value="Adjusting" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adjusting" />
   </component>
 </project>
