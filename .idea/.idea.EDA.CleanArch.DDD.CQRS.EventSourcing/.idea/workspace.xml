@@ -21,7 +21,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1487a275-5faf-4ec8-b00f-5be13c3ae8db" name="Changes" comment="Testing" />
+    <list default="true" id="1487a275-5faf-4ec8-b00f-5be13c3ae8db" name="Changes" comment="Testing composite" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -727,7 +727,28 @@
       <option name="project" value="LOCAL" />
       <updated>1646664319667</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Adding name">
+      <created>1646664397167</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1646664397167</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Moving template to root">
+      <created>1646664516461</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1646664516461</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Testing composite">
+      <created>1646664731424</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1646664731424</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -749,8 +770,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Adjusting Account context handlers namespace" />
-    <MESSAGE value="Cleanup" />
     <MESSAGE value="Adjusting Catalog context handlers namespace" />
     <MESSAGE value="CleanUp" />
     <MESSAGE value="Adding warehouse context service" />
@@ -773,6 +792,9 @@
     <MESSAGE value="Making parameter DbContext" />
     <MESSAGE value="Return path config" />
     <MESSAGE value="Testing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Testing" />
+    <MESSAGE value="Adding name" />
+    <MESSAGE value="Moving template to root" />
+    <MESSAGE value="Testing composite" />
+    <option name="LAST_COMMIT_MESSAGE" value="Testing composite" />
   </component>
 </project>
