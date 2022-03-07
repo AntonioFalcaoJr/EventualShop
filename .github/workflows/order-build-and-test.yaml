@@ -10,7 +10,7 @@ jobs:
   order-build-and-test:
     uses: ./.github/workflows/build-and-test.yaml
     with:
-      name: Order
+      name: order
       sdk: 7.0.100-preview.1.22110.4
       project: ./src/Services/Order/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
