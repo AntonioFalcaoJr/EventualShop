@@ -5,6 +5,7 @@ on:
     paths:
       - src/Services/Payment/**.cs
       - src/Services/Payment/**.csproj
+
 jobs:
   payment-build-and-test:
     uses: ./.github/workflows/build-and-test.yaml
