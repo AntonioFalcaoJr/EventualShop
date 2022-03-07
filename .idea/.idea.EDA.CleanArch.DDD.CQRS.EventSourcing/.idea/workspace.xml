@@ -21,7 +21,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1487a275-5faf-4ec8-b00f-5be13c3ae8db" name="Changes" comment="Specifying project path" />
+    <list default="true" id="1487a275-5faf-4ec8-b00f-5be13c3ae8db" name="Changes" comment="Making parameter DbContext">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/template-build-and-test.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/templates/build-and-test.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,6 +45,7 @@
     <setting file="file://$PROJECT_DIR$/src/Services/Account/Application/UseCases/Commands/CreateAccountConsumer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Services/Account/Application/UseCases/Events/Integrations/CreateAccountWhenUserRegisteredConsumer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Services/Identity/Infrastructure/EventSourcing/Projections/Contexts/ProjectionsDbContext.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/Infrastructure/EventSourcing/EventStore/OrderEventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Services/ShoppingCart/Application/Abstractions/EventSourcing/EventStore/Events/Snapshot.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Aggregates/CartValidator.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../TestConnectionRabbitMQ/TestConnectionRabbitMQ/Producers/PortfolioRiskProducers/PortfolioRiskProducer.cs" root0="SKIP_HIGHLIGHTING" />
@@ -676,7 +680,21 @@
       <option name="project" value="LOCAL" />
       <updated>1646660923663</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Adjusting name">
+      <created>1646661014394</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1646661014394</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Making parameter DbContext">
+      <created>1646661137848</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1646661137848</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -717,6 +735,8 @@
     <MESSAGE value="Adjusting" />
     <MESSAGE value="Adding Order CI" />
     <MESSAGE value="Specifying project path" />
-    <option name="LAST_COMMIT_MESSAGE" value="Specifying project path" />
+    <MESSAGE value="Adjusting name" />
+    <MESSAGE value="Making parameter DbContext" />
+    <option name="LAST_COMMIT_MESSAGE" value="Making parameter DbContext" />
   </component>
 </project>

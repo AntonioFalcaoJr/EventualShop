@@ -8,7 +8,7 @@ on:
       - ./src/Services/Order/**.csproj
 jobs:
   order-build-and-test:
-    uses: ./.github/workflows/template-build-and-test.yaml
+    uses: ./.github/workflows/templates/build-and-test.yaml
     with:
       sdk: 7.0.100-preview.1.22110.4
       project: ./src/Services/Order/WorkerService
