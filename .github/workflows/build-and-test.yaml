@@ -52,13 +52,31 @@ jobs:
         working-directory: ${{ inputs.test }}
         run: dotnet test --no-restore --verbosity normal
   
-  code-analysis:
-    name: code-analysis
-    needs: build-and-test
+  analyze:
+    name: analyze
     runs-on: ubuntu-latest
+    needs: build-and-test
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ['csharp']
     steps:
-      - name: Run .NET Code Analysis
-        uses: dotnet/code-analysis@v1
+      - name: Checkout repository
+        uses: actions/checkout@v2
         with:
-          projects: ${{ inputs.project }}
-          build-breaking: true
+          fetch-depth: 2
+
+#      - run: git checkout HEAD^2
+#        if: ${{ github.event_name == 'pull_request' }}
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v1
+        with:
+          languages: ${{ matrix.language }}
+          config-file: ./.github/workflows/codeql/codeql-config.yaml
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v1
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v1
