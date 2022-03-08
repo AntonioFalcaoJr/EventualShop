@@ -60,10 +60,8 @@ public record CreditCardPaymentMethodProjection : IPaymentMethodProjection
 public record DebitCardPaymentMethodProjection : IPaymentMethodProjection
 {
     public decimal Amount { get; init; }
-
     [BsonSerializer(typeof(ExpirationDateOnlyBsonSerializer))]
     public DateOnly Expiration { get; init; }
-
     public string HolderName { get; init; }
     public string Number { get; init; }
     public string SecurityNumber { get; init; }
