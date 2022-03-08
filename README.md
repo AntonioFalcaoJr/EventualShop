@@ -13,6 +13,8 @@ architecture** (EDA), through the **event-sourcing** design supported by the **C
 
 If this project helped you in some way, please **give it a star**. Thanks!
 
+---
+
 | Service      |                                                                                                                             Build & Test                                                                                                                              | 
 |--------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 | Account      |       [![](https://github.com/AntonioFalcao/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-build-and-test.yaml/badge.svg)](https://github.com/AntonioFalcao/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-build-and-test.yaml)       |  
