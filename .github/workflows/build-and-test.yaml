@@ -52,31 +52,31 @@ jobs:
         working-directory: ${{ inputs.test }}
         run: dotnet test --no-restore --verbosity normal
   
-  analyze:
-    name: analyze
-    runs-on: ubuntu-latest
-    needs: build-and-test
-    strategy:
-      fail-fast: false
-      matrix:
-        language: ['csharp']
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 2
-
-#      - run: git checkout HEAD^2
-#        if: ${{ github.event_name == 'pull_request' }}
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v1
-        with:
-          languages: ${{ matrix.language }}
-#          config-file: ./.github/workflows/codeql/codeql-config.yaml
-
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v1
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v1
+#  analyze:
+#    name: analyze
+#    runs-on: ubuntu-latest
+#    needs: build-and-test
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        language: ['csharp']
+#    steps:
+#      - name: Checkout repository
+#        uses: actions/checkout@v2
+#        with:
+#          fetch-depth: 2
+#
+##      - run: git checkout HEAD^2
+##        if: ${{ github.event_name == 'pull_request' }}
+#
+#      - name: Initialize CodeQL
+#        uses: github/codeql-action/init@v1
+#        with:
+#          languages: ${{ matrix.language }}
+##          config-file: ./.github/workflows/codeql/codeql-config.yaml
+#
+#      - name: Autobuild
+#        uses: github/codeql-action/autobuild@v1
+#
+#      - name: Perform CodeQL Analysis
+#        uses: github/codeql-action/analyze@v1
