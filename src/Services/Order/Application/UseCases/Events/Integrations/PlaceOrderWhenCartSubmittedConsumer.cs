@@ -21,11 +21,9 @@ public class PlaceOrderWhenCartSubmittedConsumer : IConsumer<CartSubmittedEvent>
         var order = new Order();
 
         order.Handle(new PlaceOrderCommand(
-            context.Message.CustomerId,
-            context.Message.CartItems,
+            context.Message.Customer,
+            context.Message.ShoppingCartItems,
             context.Message.Total,
-            context.Message.BillingAddress,
-            context.Message.ShippingAddress,
             context.Message.PaymentMethods));
 
         await _eventStoreService.AppendEventsToStreamAsync(order, context.CancellationToken);

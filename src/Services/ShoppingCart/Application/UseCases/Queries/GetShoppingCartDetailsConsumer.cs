@@ -38,12 +38,34 @@ public class GetShoppingCartDetailsConsumer :
             ? context.RespondAsync<NotFound>(new())
             : context.RespondAsync(MapToCartDetailsResponse(projection));
 
-    private static Responses.ShoppingCart MapToCartDetailsResponse(ShoppingCartProjection cart)
+    private static Responses.ShoppingCart MapToCartDetailsResponse(ShoppingCartProjection shoppingCartProjection)
         => new()
         {
-            Id = cart.Id,
-            Total = cart.Total,
-            Items = cart.Items?.Select(projection
+            Id = shoppingCartProjection.Id,
+            Total = shoppingCartProjection.Total,
+            Customer = new()
+            {
+                Id = shoppingCartProjection.Customer.Id,
+                BillingAddress = new()
+                {
+                    City = shoppingCartProjection.Customer.BillingAddress.City,
+                    Country = shoppingCartProjection.Customer.BillingAddress.Country,
+                    Number = shoppingCartProjection.Customer.BillingAddress.Number,
+                    State = shoppingCartProjection.Customer.BillingAddress.State,
+                    Street = shoppingCartProjection.Customer.BillingAddress.Street,
+                    ZipCode = shoppingCartProjection.Customer.BillingAddress.ZipCode
+                },
+                ShippingAddress = new()
+                {
+                    City = shoppingCartProjection.Customer.ShippingAddress.City,
+                    Country = shoppingCartProjection.Customer.ShippingAddress.Country,
+                    Number = shoppingCartProjection.Customer.ShippingAddress.Number,
+                    State = shoppingCartProjection.Customer.ShippingAddress.State,
+                    Street = shoppingCartProjection.Customer.ShippingAddress.Street,
+                    ZipCode = shoppingCartProjection.Customer.ShippingAddress.ZipCode
+                }
+            },
+            Items = shoppingCartProjection.Items?.Select(projection
                 => new Models.ShoppingCartItem
                 {
                     Id = projection.Id,
@@ -53,37 +75,37 @@ public class GetShoppingCartDetailsConsumer :
                     ProductName = projection.ProductName,
                     UnitPrice = projection.UnitPrice
                 }),
-            IsDeleted = cart.IsDeleted,
-            PaymentMethods = cart.PaymentMethods.Select<IPaymentMethodProjection, Models.IPaymentMethod>(method
-                => method switch
-                {
-                    CreditCardPaymentMethodProjection creditCard
-                        => new Models.CreditCard
-                        {
-                            Amount = creditCard.Amount,
-                            Expiration = creditCard.Expiration,
-                            Number = creditCard.Number,
-                            HolderName = creditCard.HolderName,
-                            SecurityNumber = creditCard.SecurityNumber
-                        },
-                    DebitCardPaymentMethodProjection debitCard
-                        => new Models.DebitCard
-                        {
-                            Amount = debitCard.Amount,
-                            Expiration = debitCard.Expiration,
-                            Number = debitCard.Number,
-                            HolderName = debitCard.HolderName,
-                            SecurityNumber = debitCard.SecurityNumber
-                        },
-                    PayPalPaymentMethodProjection payPal
-                        => new Models.PayPal
-                        {
-                            Amount = payPal.Amount,
-                            Password = payPal.Password,
-                            UserName = payPal.UserName
-                        },
-                    _ => default
-                }),
-            CustomerId = cart.CustomerId
+            IsDeleted = shoppingCartProjection.IsDeleted,
+            PaymentMethods = shoppingCartProjection.PaymentMethods
+                .Select<IPaymentMethodProjection, Models.IPaymentMethod>(method
+                    => method switch
+                    {
+                        CreditCardPaymentMethodProjection creditCard
+                            => new Models.CreditCard
+                            {
+                                Amount = creditCard.Amount,
+                                Expiration = creditCard.Expiration,
+                                Number = creditCard.Number,
+                                HolderName = creditCard.HolderName,
+                                SecurityNumber = creditCard.SecurityNumber
+                            },
+                        DebitCardPaymentMethodProjection debitCard
+                            => new Models.DebitCard
+                            {
+                                Amount = debitCard.Amount,
+                                Expiration = debitCard.Expiration,
+                                Number = debitCard.Number,
+                                HolderName = debitCard.HolderName,
+                                SecurityNumber = debitCard.SecurityNumber
+                            },
+                        PayPalPaymentMethodProjection payPal
+                            => new Models.PayPal
+                            {
+                                Amount = payPal.Amount,
+                                Password = payPal.Password,
+                                UserName = payPal.UserName
+                            },
+                        _ => default
+                    })
         };
 }

@@ -9,9 +9,9 @@ public static class Responses
 {
     public record ShoppingCart : Response
     {
+        public Models.Customer Customer { get; init; }
         public IEnumerable<Models.ShoppingCartItem> Items { get; init; }
         public IEnumerable<Models.IPaymentMethod> PaymentMethods { get; init; }
-        public Guid CustomerId { get; init; }
         public decimal Total { get; init; }
         public Guid Id { get; init; }
         public bool IsDeleted { get; init; }

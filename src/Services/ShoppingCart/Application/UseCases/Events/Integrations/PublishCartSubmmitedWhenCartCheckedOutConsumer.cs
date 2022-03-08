@@ -23,12 +23,33 @@ public class PublishCartSubmittedWhenCartCheckedOutConsumer : IConsumer<CartChec
 
     public async Task Consume(ConsumeContext<CartCheckedOutEvent> context)
     {
-        var cart = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CartId, context.CancellationToken);
+        var shoppingCart = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CartId, context.CancellationToken);
 
         var cartSubmittedEvent = new CartSubmittedEvent(
-            CartId: cart.Id,
-            CustomerId: cart.CustomerId,
-            CartItems: cart.Items.Select(item => new Models.ShoppingCartItem
+            ShoppingCartId: shoppingCart.Id,
+            Customer: new()
+            {
+                Id = shoppingCart.Customer.Id,
+                BillingAddress = new()
+                {
+                    City = shoppingCart.Customer.BillingAddress.City,
+                    Country = shoppingCart.Customer.BillingAddress.Country,
+                    Number = shoppingCart.Customer.BillingAddress.Number,
+                    State = shoppingCart.Customer.BillingAddress.State,
+                    Street = shoppingCart.Customer.BillingAddress.Street,
+                    ZipCode = shoppingCart.Customer.BillingAddress.ZipCode
+                },
+                ShippingAddress = new()
+                {
+                    City = shoppingCart.Customer.ShippingAddress.City,
+                    Country = shoppingCart.Customer.ShippingAddress.Country,
+                    Number = shoppingCart.Customer.ShippingAddress.Number,
+                    State = shoppingCart.Customer.ShippingAddress.State,
+                    Street = shoppingCart.Customer.ShippingAddress.Street,
+                    ZipCode = shoppingCart.Customer.ShippingAddress.ZipCode
+                }
+            },
+            ShoppingCartItems: shoppingCart.Items.Select(item => new Models.ShoppingCartItem
             {
                 Id = item.Id,
                 ProductId = item.ProductId,
@@ -37,26 +58,8 @@ public class PublishCartSubmittedWhenCartCheckedOutConsumer : IConsumer<CartChec
                 ProductName = item.ProductName,
                 UnitPrice = item.UnitPrice
             }),
-            BillingAddress: new()
-            {
-                City = cart.BillingAddress.City,
-                Country = cart.BillingAddress.Country,
-                Number = cart.BillingAddress.Number,
-                State = cart.BillingAddress.State,
-                Street = cart.BillingAddress.Street,
-                ZipCode = cart.BillingAddress.ZipCode
-            },
-            ShippingAddress: new()
-            {
-                City = cart.ShippingAddress.City,
-                Country = cart.ShippingAddress.Country,
-                Number = cart.ShippingAddress.Number,
-                State = cart.ShippingAddress.State,
-                Street = cart.ShippingAddress.Street,
-                ZipCode = cart.ShippingAddress.ZipCode
-            },
-            Total: cart.Total,
-            PaymentMethods: cart.PaymentMethods.Select<IPaymentMethod, Models.IPaymentMethod>(method
+            Total: shoppingCart.Total,
+            PaymentMethods: shoppingCart.PaymentMethods.Select<IPaymentMethod, Models.IPaymentMethod>(method
                 => method switch
                 {
                     CreditCardPaymentMethod creditCard

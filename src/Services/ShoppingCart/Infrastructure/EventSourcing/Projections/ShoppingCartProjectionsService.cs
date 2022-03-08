@@ -19,21 +19,21 @@ public class ShoppingCartProjectionsService : IShoppingCartProjectionsService
         _repository = repository;
     }
 
-    public Task<ShoppingCartProjection> GetShoppingCartAsync(Guid cartId, CancellationToken cancellationToken)
-        => _repository.FindAsync<ShoppingCartProjection>(cart => cart.Id == cartId, cancellationToken);
+    public Task<ShoppingCartProjection> GetShoppingCartAsync(Guid shoppingCartId, CancellationToken cancellationToken)
+        => _repository.FindAsync<ShoppingCartProjection>(shoppingCart => shoppingCart.Id == shoppingCartId, cancellationToken);
 
     public Task<ShoppingCartProjection> GetShoppingCartByCustomerIdAsync(Guid customerId, CancellationToken cancellationToken)
-        => _repository.FindAsync<ShoppingCartProjection>(cart => cart.CustomerId == customerId, cancellationToken);
+        => _repository.FindAsync<ShoppingCartProjection>(shoppingCart => shoppingCart.Customer.Id == customerId, cancellationToken);
 
-    public Task<IPagedResult<ShoppingCartItemProjection>> GetShoppingCartItemsAsync(Guid cartId, int limit, int offset, CancellationToken cancellationToken)
+    public Task<IPagedResult<ShoppingCartItemProjection>> GetShoppingCartItemsAsync(Guid shoppingCartId, int limit, int offset, CancellationToken cancellationToken)
         => _repository.GetAllAsync<ShoppingCartItemProjection>(
             paging: new Paging { Limit = limit, Offset = offset },
-            predicate: item => item.CartId == cartId,
+            predicate: item => item.ShoppingCartId == shoppingCartId,
             cancellationToken: cancellationToken);
 
-    public Task<ShoppingCartItemProjection> GetShoppingCartItemAsync(Guid cartId, Guid itemId, CancellationToken cancellationToken)
+    public Task<ShoppingCartItemProjection> GetShoppingCartItemAsync(Guid shoppingCartId, Guid itemId, CancellationToken cancellationToken)
         => _repository.FindAsync<ShoppingCartItemProjection>(
-            predicate: item => item.CartId == cartId && item.Id == itemId,
+            predicate: item => item.ShoppingCartId == shoppingCartId && item.Id == itemId,
             cancellationToken: cancellationToken);
 
     public Task ProjectAsync<TProjection>(TProjection projection, CancellationToken cancellationToken)

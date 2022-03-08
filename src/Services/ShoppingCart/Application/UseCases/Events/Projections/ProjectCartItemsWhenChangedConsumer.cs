@@ -36,18 +36,18 @@ public class ProjectCartItemsWhenChangedConsumer :
         => ProjectAsync(context.Message.CartId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvents.CartItemRemoved> context)
-        => _projectionsService.RemoveAsync<ShoppingCartItemProjection>(item 
+        => _projectionsService.RemoveAsync<ShoppingCartItemProjection>(item
             => item.Id == context.Message.ItemId, context.CancellationToken);
 
     private async Task ProjectAsync(Guid cartId, CancellationToken cancellationToken)
     {
-        var cart = await _eventStoreService.LoadAggregateFromStreamAsync(cartId, cancellationToken);
+        var shoppingCart = await _eventStoreService.LoadAggregateFromStreamAsync(cartId, cancellationToken);
 
-        var shoppingCartItemProjections = cart.Items.Select(item
+        var shoppingCartItemProjections = shoppingCart.Items.Select(item
             => new ShoppingCartItemProjection
             {
                 Id = item.Id,
-                CartId = cart.Id,
+                ShoppingCartId = shoppingCart.Id,
                 Quantity = item.Quantity,
                 PictureUrl = item.PictureUrl,
                 ProductName = item.ProductName,

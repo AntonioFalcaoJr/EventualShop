@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
+using Domain.Entities.ShoppingCartItems;
 using Domain.ValueObjects.PaymentMethods;
 using Domain.ValueObjects.PaymentMethods.CreditCards;
 using Domain.ValueObjects.PaymentMethods.DebitCards;
@@ -63,80 +64,86 @@ public class ProjectCartWhenChangedConsumer :
     public Task Consume(ConsumeContext<DomainEvents.CartItemIncreased> context)
         => ProjectAsync(context.Message.CartId, context.CancellationToken);
 
-    public Task Consume(ConsumeContext<DomainEvents.CartItemDecreased> context) 
+    public Task Consume(ConsumeContext<DomainEvents.CartItemDecreased> context)
         => ProjectAsync(context.Message.CartId, context.CancellationToken);
 
     private async Task ProjectAsync(Guid cartId, CancellationToken cancellationToken)
     {
-        var cart = await _eventStoreService.LoadAggregateFromStreamAsync(cartId, cancellationToken);
+        var shoppingCart = await _eventStoreService.LoadAggregateFromStreamAsync(cartId, cancellationToken);
 
         var cartProjection = new ShoppingCartProjection
         {
-            Id = cart.Id,
-            IsDeleted = cart.IsDeleted,
-            CustomerId = cart.CustomerId,
-            Total = cart.Total,
-            Items = cart.Items.Any()
-                ? cart.Items.Select(item => new ShoppingCartItemProjection
-                    {
-                        Id = item.Id,
-                        Quantity = item.Quantity,
-                        PictureUrl = item.PictureUrl,
-                        ProductName = item.ProductName,
-                        UnitPrice = item.UnitPrice,
-                        ProductId = item.ProductId
-                    }
-                )
-                : default,
-            BillingAddressProjection = new()
+            Id = shoppingCart.Id,
+            IsDeleted = shoppingCart.IsDeleted,
+            Customer = new()
             {
-                City = cart.BillingAddress?.City,
-                Country = cart.BillingAddress?.Country,
-                Number = cart.BillingAddress?.Number,
-                State = cart.BillingAddress?.State,
-                Street = cart.BillingAddress?.Street,
-                ZipCode = cart.BillingAddress?.ZipCode
-            },
-            ShippingAddressProjection = new()
-            {
-                City = cart.ShippingAddress?.City,
-                Country = cart.ShippingAddress?.Country,
-                Number = cart.ShippingAddress?.Number,
-                State = cart.ShippingAddress?.State,
-                Street = cart.ShippingAddress?.Street,
-                ZipCode = cart.ShippingAddress?.ZipCode
-            },
-            PaymentMethods = cart.PaymentMethods.Select<IPaymentMethod, IPaymentMethodProjection>(method
-                => method switch
+                Id = shoppingCart.Customer.Id,
+                BillingAddress = new()
                 {
-                    CreditCardPaymentMethod creditCard
-                        => new CreditCardPaymentMethodProjection
+                    City = shoppingCart.Customer.BillingAddress?.City,
+                    Country = shoppingCart.Customer.BillingAddress?.Country,
+                    Number = shoppingCart.Customer.BillingAddress?.Number,
+                    State = shoppingCart.Customer.BillingAddress?.State,
+                    Street = shoppingCart.Customer.BillingAddress?.Street,
+                    ZipCode = shoppingCart.Customer.BillingAddress?.ZipCode
+                },
+                ShippingAddress = new()
+                {
+                    City = shoppingCart.Customer.ShippingAddress?.City,
+                    Country = shoppingCart.Customer.ShippingAddress?.Country,
+                    Number = shoppingCart.Customer.ShippingAddress?.Number,
+                    State = shoppingCart.Customer.ShippingAddress?.State,
+                    Street = shoppingCart.Customer.ShippingAddress?.Street,
+                    ZipCode = shoppingCart.Customer.ShippingAddress?.ZipCode
+                }
+            },
+            Total = shoppingCart.Total,
+            Items = shoppingCart.Items.Any()
+                ? shoppingCart.Items
+                    .Select<ShoppingCartItem, ShoppingCartItemProjection>(item
+                        => new()
                         {
-                            Amount = creditCard.Amount,
-                            Expiration = creditCard.Expiration,
-                            Number = creditCard.Number,
-                            HolderName = creditCard.HolderName,
-                            SecurityNumber = creditCard.SecurityNumber
-                        },
-                    DebitCardPaymentMethod debitCard
-                        => new DebitCardPaymentMethodProjection
-                        {
-                            Amount = debitCard.Amount,
-                            Expiration = debitCard.Expiration,
-                            Number = debitCard.Number,
-                            HolderName = debitCard.HolderName,
-                            SecurityNumber = debitCard.SecurityNumber
-                        },
-                    PayPalPaymentMethod payPal
-                        => new PayPalPaymentMethodProjection
-                        {
-                            Amount = payPal.Amount,
-                            Password = payPal.Password,
-                            UserName = payPal.UserName
-                        },
-                    _ => default
-                }),
-            Status = cart.Status.ToString()
+                            Id = item.Id,
+                            Quantity = item.Quantity,
+                            PictureUrl = item.PictureUrl,
+                            ProductName = item.ProductName,
+                            UnitPrice = item.UnitPrice,
+                            ProductId = item.ProductId
+                        }
+                    )
+                : default,
+            PaymentMethods = shoppingCart.PaymentMethods
+                .Select<IPaymentMethod, IPaymentMethodProjection>(method
+                    => method switch
+                    {
+                        CreditCardPaymentMethod creditCard
+                            => new CreditCardPaymentMethodProjection
+                            {
+                                Amount = creditCard.Amount,
+                                Expiration = creditCard.Expiration,
+                                Number = creditCard.Number,
+                                HolderName = creditCard.HolderName,
+                                SecurityNumber = creditCard.SecurityNumber
+                            },
+                        DebitCardPaymentMethod debitCard
+                            => new DebitCardPaymentMethodProjection
+                            {
+                                Amount = debitCard.Amount,
+                                Expiration = debitCard.Expiration,
+                                Number = debitCard.Number,
+                                HolderName = debitCard.HolderName,
+                                SecurityNumber = debitCard.SecurityNumber
+                            },
+                        PayPalPaymentMethod payPal
+                            => new PayPalPaymentMethodProjection
+                            {
+                                Amount = payPal.Amount,
+                                Password = payPal.Password,
+                                UserName = payPal.UserName
+                            },
+                        _ => default
+                    }),
+            Status = shoppingCart.Status.ToString()
         };
 
         await _projectionsService.ProjectAsync(cartProjection, cancellationToken);

@@ -64,42 +64,54 @@ public class ShoppingCartsController : ApplicationController
     [HttpPost("{cartId:guid}/items")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> AddCartItemAsync(Guid cartId, [FromBody] Requests.AddCartItem request, CancellationToken cancellationToken)
+    public Task<IActionResult> AddCartItemAsync([NotEmpty] Guid cartId, [FromBody] Requests.AddCartItem request, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.AddCartItem>(new(cartId, _mapper.Map<Models.ShoppingCartItem>(request)), cancellationToken);
 
-    //
     [HttpGet("{cartId:guid}/items/{itemId:guid}")]
     [ProducesResponseType(typeof(Outputs.ShoppingCartItem), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> GetShoppingCartItemAsync(Guid cartId, Guid itemId, CancellationToken cancellationToken)
+    public Task<IActionResult> GetShoppingCartItemAsync([NotEmpty] Guid cartId, [NotEmpty] Guid itemId, CancellationToken cancellationToken)
         => GetResponseAsync<Queries.GetShoppingCartItem, Responses.ShoppingCartItem, Outputs.ShoppingCartItem>(new(cartId, itemId), cancellationToken);
-    //
 
     [HttpDelete("{cartId:guid}/items/{itemId:guid}")]
-    public Task<IActionResult> RemoveCartItemAsync(Guid cartId, Guid productId, CancellationToken cancellationToken)
-        => SendCommandAsync<Commands.RemoveCartItem>(new(cartId, productId), cancellationToken);
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> RemoveCartItemAsync([NotEmpty] Guid cartId, [NotEmpty] Guid itemId, CancellationToken cancellationToken)
+        => SendCommandAsync<Commands.RemoveCartItem>(new(cartId, itemId), cancellationToken);
 
     [HttpPut("{cartId:guid}/items/{itemId:guid}/[action]")]
-    public Task<IActionResult> IncreaseQuantityAsync(Guid cartId, Guid itemId, CancellationToken cancellationToken)
-        => SendCommandAsync<Commands.IncreaseCartItemQuantity>(new(cartId, itemId), cancellationToken);
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> IncreaseAsync([NotEmpty] Guid cartId, [NotEmpty] Guid itemId, CancellationToken cancellationToken)
+        => SendCommandAsync<Commands.IncreaseShoppingCartItem>(new(cartId, itemId), cancellationToken);
 
     [HttpPut("{cartId:guid}/items/{itemId:guid}/[action]")]
-    public Task<IActionResult> DecreaseQuantityAsync(Guid cartId, Guid itemId, CancellationToken cancellationToken)
-        => SendCommandAsync<Commands.DecreaseCartItemQuantity>(new(cartId, itemId), cancellationToken);
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> DecreaseAsync([NotEmpty] Guid cartId, [NotEmpty] Guid itemId, CancellationToken cancellationToken)
+        => SendCommandAsync<Commands.DecreaseShoppingCartItem>(new(cartId, itemId), cancellationToken);
 
     [HttpPost("{cartId:guid}/customers/shipping-address")]
-    public Task<IActionResult> AddShippingAddressAsync(Guid cartId, Models.Address address, CancellationToken cancellationToken)
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> AddShippingAddressAsync([NotEmpty] Guid cartId, Models.Address address, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.AddShippingAddress>(new(cartId, address), cancellationToken);
 
     [HttpPut("{cartId:guid}/customers/billing-address")]
-    public Task<IActionResult> ChangeBillingAddressAsync(Guid cartId, Models.Address address, CancellationToken cancellationToken)
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> ChangeBillingAddressAsync([NotEmpty] Guid cartId, Models.Address address, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.ChangeBillingAddress>(new(cartId, address), cancellationToken);
 
     [HttpPost("{cartId:guid}/payment-methods/credit-card")]
-    public Task<IActionResult> AddCreditCardAsync(Guid cartId, Models.CreditCard creditCard, CancellationToken cancellationToken)
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> AddCreditCardAsync([NotEmpty] Guid cartId, Models.CreditCard creditCard, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.AddCreditCard>(new(cartId, creditCard), cancellationToken);
 
     [HttpPost("{cartId:guid}/payment-methods/pay-pal")]
-    public Task<IActionResult> AddPayPalAsync(Guid cartId, Models.PayPal payPal, CancellationToken cancellationToken)
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> AddPayPalAsync([NotEmpty] Guid cartId, Models.PayPal payPal, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.AddPayPal>(new(cartId, payPal), cancellationToken);
 }

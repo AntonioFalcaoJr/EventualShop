@@ -7,13 +7,12 @@ namespace Application.EventSourcing.Projections;
 
 public record ShoppingCartProjection : IProjection
 {
+    
+    public Customer Customer { get; init; }
     public IEnumerable<ShoppingCartItemProjection> Items { get; init; }
     public IEnumerable<IPaymentMethodProjection> PaymentMethods { get; init; }
-    public Guid CustomerId { get; init; }
     public decimal Total { get; init; }
     public string Status { get; init; }
-    public AddressProjection ShippingAddressProjection { get; init; }
-    public AddressProjection BillingAddressProjection { get; init; }
     public Guid Id { get; init; }
     public bool IsDeleted { get; init; }
 }
@@ -21,7 +20,7 @@ public record ShoppingCartProjection : IProjection
 public record ShoppingCartItemProjection : IProjection
 {
     public Guid Id { get; init; }
-    public Guid CartId { get; init; }
+    public Guid ShoppingCartId { get; init; }
     public Guid ProductId { get; init; }
     public string ProductName { get; init; }
     public decimal UnitPrice { get; init; }
@@ -38,6 +37,13 @@ public record AddressProjection
     public string State { get; init; }
     public string Street { get; init; }
     public string ZipCode { get; init; }
+}
+
+public record Customer
+{
+    public Guid Id { get; init; }
+    public AddressProjection ShippingAddress { get; init; }
+    public AddressProjection BillingAddress { get; init; }
 }
 
 public interface IPaymentMethodProjection

@@ -22,9 +22,9 @@ public static class Commands
 
     public record RemoveCartItem(Guid CartId, Guid ItemId) : Command(CorrelationId: CartId);
 
-    public record IncreaseCartItemQuantity(Guid CartId, Guid ItemId) : Command(CorrelationId: CartId);
+    public record IncreaseShoppingCartItem(Guid CartId, Guid ItemId) : Command(CorrelationId: CartId);
 
-    public record DecreaseCartItemQuantity(Guid CartId, Guid ItemId) : Command(CorrelationId: CartId);
+    public record DecreaseShoppingCartItem(Guid CartId, Guid ItemId) : Command(CorrelationId: CartId);
 
     public record DiscardCart(Guid CartId) : Command(CorrelationId: CartId);
 }
