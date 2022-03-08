@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,7 +10,6 @@ using Infrastructure.Abstractions.EventSourcing.Projections.Contexts;
 using Infrastructure.Abstractions.EventSourcing.Projections.Pagination;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using Serilog;
 
 namespace Infrastructure.Abstractions.EventSourcing.Projections;
 
@@ -39,13 +38,9 @@ public abstract class ProjectionsRepository : IProjectionsRepository
         return PagedResult<TProjection>.CreateAsync(paging, queryable, cancellationToken);
     }
 
-    public async Task UpsertAsync<TProjection>(TProjection replacement, CancellationToken cancellationToken)
+    public Task UpsertAsync<TProjection>(TProjection replacement, CancellationToken cancellationToken)
         where TProjection : IProjection
-    {
-        var stpw = new Stopwatch();
-        stpw.Start();
-
-        await _context
+        => _context
             .GetCollection<TProjection>()
             .ReplaceOneAsync(
                 filter: projection => projection.Id.Equals(replacement.Id),
@@ -53,28 +48,19 @@ public abstract class ProjectionsRepository : IProjectionsRepository
                 options: new ReplaceOptions { IsUpsert = true },
                 cancellationToken: cancellationToken);
 
-        Log.Warning("{Duration}s", stpw.Elapsed.TotalSeconds);
-    }
-
-    public async Task UpsertManyAsync<TProjection, TId>(TId id, IEnumerable<TProjection> replacements, CancellationToken cancellationToken)
+    public Task UpsertManyAsync<TProjection>(IEnumerable<TProjection> replacements, CancellationToken cancellationToken)
         where TProjection : IProjection
-        where TId : struct
     {
-        var stpw = new Stopwatch();
-        stpw.Start();
-        //
-        // await _context
-        //     .GetCollection<TProjection>().
-        
-        await _context
-            .GetCollection<TProjection>()
-            .UpdateManyAsync(
-                filter: projection => projection.Id.Equals(id),
-                update: new ObjectUpdateDefinition<TProjection>(replacements),
-                options: new UpdateOptions { IsUpsert = true },
-                cancellationToken: cancellationToken);
+        var requests = replacements.Select(replacement => new ReplaceOneModel<TProjection>(
+            filter: new ExpressionFilterDefinition<TProjection>(projection => projection.Id == replacement.Id),
+            replacement: replacement) { IsUpsert = true });
 
-        Log.Warning("{Duration}s", stpw.Elapsed.TotalSeconds);
+        return _context
+            .GetCollection<TProjection>()
+            .BulkWriteAsync(
+                requests: requests,
+                options: new BulkWriteOptions { IsOrdered = false },
+                cancellationToken: cancellationToken);
     }
 
     public Task DeleteAsync<TProjection>(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken)

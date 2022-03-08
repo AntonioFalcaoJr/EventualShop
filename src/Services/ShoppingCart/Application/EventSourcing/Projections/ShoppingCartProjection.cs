@@ -21,7 +21,7 @@ public record ShoppingCartProjection : IProjection
 public record ShoppingCartItemProjection : IProjection
 {
     public Guid Id { get; init; }
-    public Guid ItemId { get; init; }
+    public Guid CartId { get; init; }
     public Guid ProductId { get; init; }
     public string ProductName { get; init; }
     public decimal UnitPrice { get; init; }

@@ -22,9 +22,8 @@ public interface IProjectionsRepository
     Task UpsertAsync<TProjection>(TProjection replacement, CancellationToken cancellationToken)
         where TProjection : IProjection;
 
-    Task UpsertManyAsync<TProjection, TId>(TId id, IEnumerable<TProjection> replacements, CancellationToken cancellationToken)
-        where TProjection : IProjection
-        where TId : struct;
+    Task UpsertManyAsync<TProjection>(IEnumerable<TProjection> replacements, CancellationToken cancellationToken)
+        where TProjection : IProjection;
 
     Task DeleteAsync<TProjection>(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken)
         where TProjection : IProjection;

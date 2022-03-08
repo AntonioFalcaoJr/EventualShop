@@ -23,14 +23,14 @@ public class GetShoppingCartDetailsConsumer :
 
     public async Task Consume(ConsumeContext<GetShoppingCartQuery> context)
     {
-        var shoppingCartProjection = await _projectionsService.GetCartAsync(context.Message.CartId, context.CancellationToken);
+        var shoppingCartProjection = await _projectionsService.GetShoppingCartAsync(context.Message.CartId, context.CancellationToken);
         await RespondAsync(shoppingCartProjection, context);
     }
 
     public async Task Consume(ConsumeContext<GetCustomerShoppingCartQuery> context)
     {
-        var cartDetails = await _projectionsService.GetCartByCustomerIdAsync(context.Message.CustomerId, context.CancellationToken);
-        await RespondAsync(cartDetails, context);
+        var shoppingCartProjection = await _projectionsService.GetShoppingCartByCustomerIdAsync(context.Message.CustomerId, context.CancellationToken);
+        await RespondAsync(shoppingCartProjection, context);
     }
 
     private static Task RespondAsync(ShoppingCartProjection projection, ConsumeContext context)
