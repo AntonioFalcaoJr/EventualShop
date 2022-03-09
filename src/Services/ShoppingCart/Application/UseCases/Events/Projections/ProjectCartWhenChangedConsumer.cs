@@ -24,7 +24,8 @@ public class ProjectCartWhenChangedConsumer :
     IConsumer<DomainEvents.CartCheckedOut>,
     IConsumer<DomainEvents.ShippingAddressAdded>,
     IConsumer<DomainEvents.CartItemIncreased>,
-    IConsumer<DomainEvents.CartItemDecreased>
+    IConsumer<DomainEvents.CartItemDecreased>,
+    IConsumer<DomainEvents.CartDiscarded>
 {
     private readonly IShoppingCartEventStoreService _eventStoreService;
     private readonly IShoppingCartProjectionsService _projectionsService;
@@ -65,6 +66,9 @@ public class ProjectCartWhenChangedConsumer :
         => ProjectAsync(context.Message.CartId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvents.CartItemDecreased> context)
+        => ProjectAsync(context.Message.CartId, context.CancellationToken);
+    
+    public Task Consume(ConsumeContext<DomainEvents.CartDiscarded> context)
         => ProjectAsync(context.Message.CartId, context.CancellationToken);
 
     private async Task ProjectAsync(Guid cartId, CancellationToken cancellationToken)
