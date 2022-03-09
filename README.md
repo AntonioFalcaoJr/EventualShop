@@ -497,9 +497,9 @@ Secret Manager allows each developer to configure the desired infrastructure jus
 Define app secrets for **each project**. The secret is associated with the project's `UserSecretsId` value. The command must be run from the directory in which the project file exists: 
 
 ```bash
-dotnet user-secrets set "ConnectionStrings:EventStore" "Server=<IP_ADDRESS>,1433;Database=<YourContextName>EventStore;User=sa;Password=<PASSWORD>"
+dotnet user-secrets set "ConnectionStrings:EventStore" "Server=<IP_ADDRESS>,1433;Database=<YourContextName>EventStore;User=sa;Password=<PASSWORD>;trustServerCertificate=true"
 dotnet user-secrets set "ConnectionStrings:Projections" "mongodb://<USER_NAME>:<PASSWORD>@<IP_ADDRESS>:27017/<YourContextName>Projections/?authSource=admin"
-dotnet user-secrets set "QuartzOptions:quartz.dataSource.default.connectionString" "Server=<IP_ADDRESS>,1433;Database=Quartz;User=sa;Password=<PASSWORD>"
+dotnet user-secrets set "QuartzOptions:quartz.dataSource.default.connectionString" "Server=<IP_ADDRESS>,1433;Database=Quartz;User=sa;Password=<PASSWORD>;trustServerCertificate=true"
 ```
 
 Expected:
