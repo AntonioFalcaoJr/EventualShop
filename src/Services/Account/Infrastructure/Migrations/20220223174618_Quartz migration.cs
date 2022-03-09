@@ -399,7 +399,7 @@ namespace Infrastructure.Migrations
           CREATE INDEX [IDX_QRTZ_FT_G_T]                ON [dbo].[QRTZ_FIRED_TRIGGERS](SCHED_NAME, TRIGGER_GROUP, TRIGGER_NAME);
           GO
 
-          USE [AccountCartEventStore];
+          USE [AccountEventStore];
           GO", true);
         }
 
