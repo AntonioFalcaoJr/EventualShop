@@ -1,10 +1,12 @@
 # EDA.CleanArch.DDD.CQRS.EventSourcing
 
-Note. _Greg Young takes the next steps beyond the DDD principles and best practices introduced by Eric Evans in **Domain-Driven Design: Tackling Complexity in the Heart of Software**, using DDD with **Command-Query Responsibility Segregation** (CQRS) and **event sourcing** to simplify construction,
-decentralize decision-making, and make system development more flexible and responsive._ Adapted from "Event Centric: Finding Simplicity in Complex Systems" by Y. Greg, 2012.
+Note. _Greg Young takes the next steps beyond the DDD principles and best practices introduced by Eric Evans in **Domain-Driven Design: Tackling Complexity in the Heart of Software**, using DDD
+with **Command-Query Responsibility Segregation** (CQRS) and **event sourcing** to simplify construction, decentralize decision-making, and make system development more flexible and responsive._
+Adapted from "Event Centric: Finding Simplicity in Complex Systems" by Y. Greg, 2012.
 
-This project applies the **EventStorming** workshop to explore the business capabilities and identify the respective **Bounded Contexts** of a simple e-commerce, as well as the **Domain Events** that provide integration between them. In addition to demonstrating the implementation under an **Event-driven
-architecture** (EDA), through the **event-sourcing** design supported by the **CQRS** pattern in a **Clean Architecture**.
+This project applies the **EventStorming** workshop to explore the business capabilities and identify the respective **Bounded Contexts** of a simple e-commerce, as well as the **Domain Events** that
+provide integration between them. In addition to demonstrating the implementation under an **Event-driven architecture** (EDA), through the **event-sourcing** design supported by the **CQRS** pattern
+in a **Clean Architecture**.
 
 > State transitions are an important part of our problem space and should be modelled within our domain.    
 > -- <cite> Greg Young </cite>
@@ -41,6 +43,13 @@ Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed
 >
 > Vernon, V. (2016) Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional, pp65-67.
 
+## Microservices
+
+> The term "Microservice Architecture" has sprung up over the last few years to describe a particular way of designing software applications as suites of independently deployable services. While there is no precise definition of this architectural style, there are certain common characteristics around organization around business capability, automated deployment, intelligence in the endpoints, and decentralized control of languages and data.
+>
+> Fowler, Martin. "Microservices", *martinfowler.com*, last edited on 25 Mar 2014.     
+> https://martinfowler.com/articles/microservices.html
+
 ## Event-driven architecture (EDA)
 
 > Event-driven architecture (EDA) is a software architecture paradigm promoting the production, detection, consumption of, and reaction to events. An event can be defined as "a significant change in state".
@@ -73,8 +82,7 @@ The following table shows how EDA and Microservices architectural styles complim
 | Availability of sophisticated event brokers reduce code complexity                                        | Set of standard reusable technical services often referred as `MicroServices Chassis`                                  |
 | A rich palate of proven [Enterprise Integration Patterns](https://www.enterpriseintegrationpatterns.com/) | Provides a rich repository of reusable [implementation patterns](https://microservices.io/patterns/microservices.html) |
 
-Table 1: Ambre, Tanmay. *Architectural styles compliment*, Architectural considerations for event-driven
-microservices-based systems.    
+Table 1: Ambre, Tanmay. *Architectural styles compliment*, Architectural considerations for event-driven microservices-based systems.    
 https://developer.ibm.com/articles/eda-and-microservices-architecture-best-practices/
 
 ### EDA vs SOA
@@ -84,8 +92,7 @@ https://developer.ibm.com/articles/eda-and-microservices-architecture-best-pract
 > Mathew, Jerry. "SOA vs. EDA: Is Not Life Simply a Series of Events?." *Confluent.io*, last edited on 19 Mar 2019.  
 > https://www.confluent.io/blog/soa-vs-eda-is-not-life-simply-a-series-of-events/
 
-According to Mathew, here are some reasons why the EDA patterns can alleviate some of the challenges traditional SOA
-patterns bring:
+According to Mathew, here are some reasons why the EDA patterns can alleviate some of the challenges traditional SOA patterns bring:
 
 |                                                                          | SOA                                                                                                                                                                                                                                                                                                                                                                         | EDA                                                                                                                                                                                                                                                                                                                                                                              |
 |--------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -122,8 +129,7 @@ https://www.oreilly.com/library/view/software-architecture-patterns/978149197143
 > [https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html](https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html#:%7E:text=In%20a%20choreography%2Dbased%20saga,and%20publishes%20a%20domain%20event.&text=The%20step%20of%20the%20saga,data%20and%20emits%20an%20event)
 
 ![](./.assets/img/Saga.png)    
-Fig. 5: Richardson, Chris. "Implementing a choreography-based saga." *Managing data consistency in a microservice
-architecture using Sagas*, chrisrichardson.net.  
+Fig. 5: Richardson, Chris. "Implementing a choreography-based saga." *Managing data consistency in a microservice architecture using Sagas*, chrisrichardson.net.  
 [https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html](https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html#:%7E:text=In%20a%20choreography%2Dbased%20saga,and%20publishes%20a%20domain%20event.&text=The%20step%20of%20the%20saga,data%20and%20emits%20an%20event)
 
 #### Orchestration vs Choreography
@@ -171,7 +177,7 @@ Benefits & drawbacks of Choreography
 >
 > Event Sourcing ensures that all changes to application state are stored as a sequence of events. Not just can we query these events, we can also use the event log to reconstruct past states, and as a foundation to automatically adjust the state to cope with retroactive changes.
 >
-> Fowler, Martin. "Eventsourcing," *martinfowler.com*, last edited on 12 Dec 2005.     
+> Fowler, Martin. "Eventsourcing", *martinfowler.com*, last edited on 12 Dec 2005.     
 > https://martinfowler.com/eaaDev/EventSourcing.html
 
 <br>
@@ -180,17 +186,17 @@ Benefits & drawbacks of Choreography
 Fig. 8: MSDN. *Event Sourcing pattern*.    
 https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing#solution
 
-### Updating entities 
+### Updating entities
 
 > To update an entity’s state we use commands from the outside and events on the inside:
 >
 > - Commands: The state of the entity can be changed only by sending commands to it. The commands are the "external" API of an entity. Commands request state changes. The current state may reject the command, or it may accept it producing zero, one or many events (depending on the command and the current state).
 >
-> 
+>
 > - Events: The events represent changes of the entity’s state and are the only way to change it. The entity creates events from commands. Events are an internal mechanism for the entity to mutate the state, other parties can’t send events. Other parts of the application may listen to the created events. Summing up, events are facts new tab.
 >
 >The events are persisted to the datastore, while the entity state is kept in memory. In case of a restart the latest state gets rebuilt by replaying the events from the Event Journal.
-> 
+>
 > "Event Sourcing" *Akka platform*, developer.lightbend.com.  
 > https://developer.lightbend.com/docs/akka-platform-guide/concepts/event-sourcing.html
 
@@ -444,7 +450,7 @@ https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
 
 > Domain-Driven Design is an approach to software development that centers the development on programming a domain model that has a rich understanding of the processes and rules of a domain. The name comes from a 2003 book by Eric Evans that describes the approach through a catalog of patterns. Since then a community of practitioners have further developed the ideas, spawning various other books and training courses. The approach is particularly suited to complex domains, where a lot of often-messy logic needs to be organized.
 >
-> Fowler, Martin. "DomainDrivenDesign," *martinfowler.com*, last edited on 22 April 2020.  
+> Fowler, Martin. "DomainDrivenDesign", *martinfowler.com*, last edited on 22 April 2020.  
 > https://martinfowler.com/bliki/DomainDrivenDesign.html
 
 ### Aggregate
@@ -458,14 +464,14 @@ Fig. 22: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st 
 
 > Aggregate is a pattern in Domain-Driven Design. A DDD aggregate is a cluster of domain objects that can be treated as a single unit. An example may be an order and its line-items, these will be separate objects, but it's useful to treat the order (together with its line items) as a single aggregate.
 >
-> Fowler, Martin. "DDD_Aggregate," *martinfowler.com*, last edited on 08 Jun 2015.  
+> Fowler, Martin. "DDD_Aggregate", *martinfowler.com*, last edited on 08 Jun 2015.  
 > https://martinfowler.com/bliki/DomainDrivenDesign.html
 
 ### Bounded Context
 
 > Bounded Context is a central pattern in Domain-Driven Design. It is the focus of DDD's strategic design section which is all about dealing with large models and teams. DDD deals with large models by dividing them into different Bounded Contexts and being explicit about their interrelationships.
 >
-> Fowler, Martin. "BoundedContext," *martinfowler.com*, last edited on 15 Jan 2014.  
+> Fowler, Martin. "BoundedContext", *martinfowler.com*, last edited on 15 Jan 2014.  
 > https://martinfowler.com/bliki/BoundedContext.html
 
 ![](./.assets/img/BoundedContext.jpg)  
@@ -498,15 +504,16 @@ https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
 ## Running
 
-### Development 
+### Development
 
 Projects may have different environments where the application runs: development, staging, production, etc. Usually, different environments should have different secrets.
 
-Secret Manager allows each developer to configure the desired infrastructure just once, avoiding changing every new branch besides avoiding storing passwords or other sensitive data in source code or local configuration files.
+Secret Manager allows each developer to configure the desired infrastructure just once, avoiding changing every new branch besides avoiding storing passwords or other sensitive data in source code or
+local configuration files.
 
 #### User-secrets
 
-Define app secrets for **each project**. The secret is associated with the project's `UserSecretsId` value. The command must be run from the directory in which the project file exists: 
+Define app secrets for **each project**. The secret is associated with the project's `UserSecretsId` value. The command must be run from the directory in which the project file exists:
 
 ```bash
 dotnet user-secrets set "ConnectionStrings:EventStore" "Server=<IP_ADDRESS>,1433;Database=<YourContextName>EventStore;User=sa;Password=<PASSWORD>;trustServerCertificate=true"
@@ -522,6 +529,7 @@ ConnectionStrings:EventStore = Server=<IP_ADDRESS>,1433;Database=<YourContextNam
 ConnectionStrings:Projections = mongodb://<USER_NAME>:<PASSWORD>@<IP_ADDRESS>:27017/<YourContextName>Projections/?authSource=admin
 QuartzOptions:quartz.dataSource.default.connectionString = Server=<IP_ADDRESS>,1433;Database=Quartz;User=sa;Password=!MyStrongPassword
 ```
+
 A batch of secrets can be set by piping JSON to the set command, as in the following example:
 
 ```json
@@ -531,21 +539,29 @@ A batch of secrets can be set by piping JSON to the set command, as in the follo
   "ConnectionStrings:EventStore": "Server=192.168.100.9,1433;Database=ShoppingCartEventStore;User=sa;Password=!MyStrongPassword;trustServerCertificate=true"
 }
 ```
+
 _Windows_
+
 ```shell
 type .\input.json | dotnet user-secrets set
 ```
+
 _Linux/Mac_
+
 ```bash
 cat ./input.json | dotnet user-secrets set
 ```
+
 The values are stored in a JSON file in the local machine's user profile folder:
 
 _Windows_
+
 ```bash
 %APPDATA%\Microsoft\UserSecrets\<user_secrets_id>\secrets.json
 ```
+
 _Linux/Mac_
+
 ```bash
 ~/.microsoft/usersecrets/<user_secrets_id>/secrets.json
 ```
@@ -601,6 +617,7 @@ CREATE TABLE [ShoppingCartStoreEvents] (
     CONSTRAINT [PK_ShoppingCartStoreEvents] PRIMARY KEY ([Version])
 );
 ```
+
 ![](./.assets/img/store-event.png)
 
 ```json
@@ -612,6 +629,7 @@ CREATE TABLE [ShoppingCartStoreEvents] (
   "CorrelationId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
 }
 ```
+
 ### Snapshot
 
 ```sql
@@ -623,6 +641,7 @@ CREATE TABLE [ShoppingCartSnapshots] (
     CONSTRAINT [PK_ShoppingCartSnapshots] PRIMARY KEY ([AggregateVersion], [AggregateId])
 );
 ```
+
 ![](./.assets/img/store-snapshot.png)
 
 ```json
