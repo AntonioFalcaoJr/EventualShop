@@ -16,6 +16,13 @@ public static class Models
         public string ZipCode { get; init; }
     }
 
+    public record Customer
+    {
+        public Guid Id { get; init; }
+        public Address ShippingAddress { get; init; }
+        public Address BillingAddress { get; init; }
+    }
+
     public record CreditCard : IPaymentMethod
     {
         public Guid Id { get; } = Guid.NewGuid();

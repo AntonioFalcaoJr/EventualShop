@@ -1,0 +1,15 @@
+name: Account build and test
+
+on:
+  push:
+    paths:
+      - src/Services/Account/**.cs
+      - src/Services/Account/**.csproj
+
+jobs:
+  account-build-and-test:
+    uses: ./.github/workflows/build-and-test.yaml
+    with:
+      dotnet-version: 7.0.100-preview.1.22110.4
+      project: ./src/Services/Account/WorkerService
+      test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests

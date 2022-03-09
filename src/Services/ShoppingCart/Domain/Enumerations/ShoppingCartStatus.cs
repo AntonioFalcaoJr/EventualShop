@@ -1,6 +1,6 @@
 ﻿namespace Domain.Enumerations;
 
-public enum CartStatus
+public enum ShoppingCartStatus
 {
     Abandoned,
     CheckedOut,

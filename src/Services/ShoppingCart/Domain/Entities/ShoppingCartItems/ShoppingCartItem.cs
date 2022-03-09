@@ -1,11 +1,11 @@
 ﻿using System;
 using Domain.Abstractions.Entities;
 
-namespace Domain.Entities.CartItems;
+namespace Domain.Entities.ShoppingCartItems;
 
-public class CartItem : Entity<Guid>
+public class ShoppingCartItem : Entity<Guid>
 {
-    public CartItem(Guid id, Guid productId, string productName, decimal unitPrice, int quantity, string pictureUrl)
+    public ShoppingCartItem(Guid id, Guid productId, string productName, decimal unitPrice, int quantity, string pictureUrl)
     {
         Id = id;
         ProductId = productId;
@@ -28,5 +28,5 @@ public class CartItem : Entity<Guid>
         => Quantity -= 1;
 
     protected override bool Validate()
-        => OnValidate<CartItemValidator, CartItem>();
+        => OnValidate<ShoppingCartItemValidator, ShoppingCartItem>();
 }

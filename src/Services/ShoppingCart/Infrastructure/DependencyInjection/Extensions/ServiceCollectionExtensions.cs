@@ -49,7 +49,6 @@ public static class ServiceCollectionExtensions
                         {
                             host.Username(options.Username);
                             host.Password(options.Password);
-                            //host.UseSsl(ssl => ssl.Protocol = SslProtocols.Tls12);
 
                             options.Cluster?.ForEach(node
                                 => host.UseCluster(cluster => cluster.Node(node)));

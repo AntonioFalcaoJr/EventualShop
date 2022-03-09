@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using Infrastructure.DependencyInjection.Extensions;
 using Infrastructure.DependencyInjection.Options;
 using MassTransit;
@@ -63,7 +62,7 @@ builder.ConfigureServices((context, services) =>
 
     services.ConfigureQuartzOptions(
         context.Configuration.GetSection(nameof(QuartzOptions)));
-    
+
     services.ConfigureMassTransitHostOptions(
         context.Configuration.GetSection(nameof(MassTransitHostOptions)));
 });

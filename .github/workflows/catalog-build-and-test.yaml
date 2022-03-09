@@ -1,0 +1,15 @@
+name: Catalog build and test
+
+on:
+  push:
+    paths:
+      - src/Services/Catalog/**.cs
+      - src/Services/Catalog/**.csproj
+
+jobs:
+  catalog-build-and-test:
+    uses: ./.github/workflows/build-and-test.yaml
+    with:
+      dotnet-version: 7.0.100-preview.1.22110.4
+      project: ./src/Services/Catalog/WorkerService
+      test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests

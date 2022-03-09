@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Abstractions.Aggregates;
+using Domain.Entities.Customers;
 using Domain.Entities.OrderItems;
 using Domain.Entities.PaymentMethods;
 using Domain.Entities.PaymentMethods.CreditCards;
 using Domain.Entities.PaymentMethods.DebitCards;
 using Domain.Entities.PaymentMethods.PayPal;
 using Domain.Enumerations;
-using Domain.ValueObjects.Addresses;
 using ECommerce.Abstractions.Messages.Events;
 using ECommerce.Contracts.Common;
 using ECommerce.Contracts.Order;
@@ -19,10 +19,8 @@ public class Order : AggregateRoot<Guid>
 {
     private readonly List<OrderItem> _items = new();
     private readonly List<IPaymentMethod> _paymentMethods = new();
-    public Address ShippingAddress { get; private set; }
-    public Address BillingAddress { get; private set; }
     public OrderStatus Status { get; private set; } = OrderStatus.PendingPayment;
-    public Guid UserId { get; private set; }
+    public Customer Customer { get; private set; }
 
     public decimal Total
         => Items.Sum(item
@@ -37,11 +35,9 @@ public class Order : AggregateRoot<Guid>
     public void Handle(Commands.PlaceOrder cmd)
         => RaiseEvent(new DomainEvents.OrderPlaced(
             Guid.NewGuid(),
-            cmd.CustomerId,
-            cmd.Total,
+            cmd.Customer,
             cmd.Items,
-            cmd.BillingAddress,
-            cmd.ShippingAddress,
+            cmd.Total,
             cmd.PaymentMethods));
 
     public void Handle(Commands.ConfirmOrder cmd)
@@ -53,28 +49,26 @@ public class Order : AggregateRoot<Guid>
     private void When(DomainEvents.OrderPlaced @event)
     {
         Id = @event.OrderId;
-        UserId = @event.CustomerId;
-
-        BillingAddress = new()
-        {
-            City = @event.BillingAddress.City,
-            Country = @event.BillingAddress.Country,
-            Number = @event.BillingAddress.Number,
-            State = @event.BillingAddress.State,
-            Street = @event.BillingAddress.Street,
-            ZipCode = @event.BillingAddress.ZipCode
-        };
-
-        ShippingAddress = new()
-        {
-            City = @event.ShippingAddress.City,
-            Country = @event.ShippingAddress.Country,
-            Number = @event.ShippingAddress.Number,
-            State = @event.ShippingAddress.State,
-            Street = @event.ShippingAddress.Street,
-            ZipCode = @event.ShippingAddress.ZipCode
-        };
-
+        Customer = new(
+            @event.Customer.Id,
+            new()
+            {
+                City = @event.Customer.BillingAddress.City,
+                Country = @event.Customer.BillingAddress.Country,
+                Number = @event.Customer.BillingAddress.Number,
+                State = @event.Customer.BillingAddress.State,
+                Street = @event.Customer.BillingAddress.Street,
+                ZipCode = @event.Customer.BillingAddress.ZipCode
+            },
+            new()
+            {
+                City = @event.Customer.ShippingAddress.City,
+                Country = @event.Customer.ShippingAddress.Country,
+                Number = @event.Customer.ShippingAddress.Number,
+                State = @event.Customer.ShippingAddress.State,
+                Street = @event.Customer.ShippingAddress.Street,
+                ZipCode = @event.Customer.ShippingAddress.ZipCode
+            });
         _items.AddRange(@event.Items.Select(item
             => new OrderItem(
                 item.ProductId,
@@ -118,7 +112,7 @@ public class Order : AggregateRoot<Guid>
             }));
     }
 
-    private void When(DomainEvents.OrderConfirmed _) 
+    private void When(DomainEvents.OrderConfirmed _)
         => Status = OrderStatus.Confirmed;
 
     protected sealed override bool Validate()

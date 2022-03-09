@@ -7,7 +7,7 @@ namespace ECommerce.Contracts.Order;
 
 public static class Commands
 {
-    public record PlaceOrder(Guid CustomerId, IEnumerable<Models.ShoppingCartItem> Items, decimal Total, Models.Address BillingAddress, Models.Address ShippingAddress, IEnumerable<Models.IPaymentMethod> PaymentMethods) : Command(CorrelationId: CustomerId);
+    public record PlaceOrder(Models.Customer Customer, IEnumerable<Models.ShoppingCartItem> Items, decimal Total, IEnumerable<Models.IPaymentMethod> PaymentMethods) : Command(CorrelationId: Customer.Id);
 
     public record ConfirmOrder(Guid OrderId) : Command(CorrelationId: OrderId);
 }

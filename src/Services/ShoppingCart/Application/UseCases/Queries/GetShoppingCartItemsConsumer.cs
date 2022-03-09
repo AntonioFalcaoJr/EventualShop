@@ -18,10 +18,11 @@ public class GetShoppingCartItemsConsumer : IConsumer<GetShoppingCartItemsQuery>
 
     public async Task Consume(ConsumeContext<GetShoppingCartItemsQuery> context)
     {
-        var cartItemsProjection = await _projectionsService.GetCartItemsAsync(context.Message.CartId, context.Message.Limit, context.Message.Offset, context.CancellationToken);
+        var shoppingCartItemsProjection = await _projectionsService
+            .GetShoppingCartItemsAsync(context.Message.CartId, context.Message.Limit, context.Message.Offset, context.CancellationToken);
 
-        await (cartItemsProjection is null
+        await (shoppingCartItemsProjection is null
             ? context.RespondAsync<NotFound>(new())
-            : context.RespondAsync<Responses.ShoppingCartItems>(cartItemsProjection));
+            : context.RespondAsync<Responses.ShoppingCartItems>(shoppingCartItemsProjection));
     }
 }

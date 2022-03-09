@@ -1,0 +1,12 @@
+name: CodeQL config
+
+on:
+  workflow_call:
+    inputs:
+      project:
+        description: 'The *csproj project path passed from the caller workflow'
+        required: true
+        type: string
+        
+paths:
+  - ${{inputs.project}}
