@@ -525,18 +525,18 @@ Expected:
 
 ```bash
 dotnet user-secrets list
-ConnectionStrings:EventStore = Server=<IP_ADDRESS>,1433;Database=<YourContextName>EventStore;User=sa;Password=!MyStrongPassword
+ConnectionStrings:EventStore = Server=<IP_ADDRESS>,1433;Database=<YourContextName>EventStore;User=sa;Password=!MyStrongPassword;trustServerCertificate=true
 ConnectionStrings:Projections = mongodb://<USER_NAME>:<PASSWORD>@<IP_ADDRESS>:27017/<YourContextName>Projections/?authSource=admin
-QuartzOptions:quartz.dataSource.default.connectionString = Server=<IP_ADDRESS>,1433;Database=Quartz;User=sa;Password=!MyStrongPassword
+QuartzOptions:quartz.dataSource.default.connectionString = Server=<IP_ADDRESS>,1433;Database=Quartz;User=sa;Password=!MyStrongPassword;trustServerCertificate=true
 ```
 
 A batch of secrets can be set by piping JSON to the set command, as in the following example:
 
 ```json
 {
-  "QuartzOptions:quartz.dataSource.default.connectionString": "Server=192.168.100.9,1433;Database=Quartz;User=sa;Password=!MyStrongPassword;trustServerCertificate=true",
-  "ConnectionStrings:Projections": "mongodb://mongoadmin:secret@192.168.100.9:27017/ShoppingCartProjections/?authSource=admin",
-  "ConnectionStrings:EventStore": "Server=192.168.100.9,1433;Database=ShoppingCartEventStore;User=sa;Password=!MyStrongPassword;trustServerCertificate=true"
+  "QuartzOptions:quartz.dataSource.default.connectionString": "Server=127.0.0.1,1433;Database=Quartz;User=sa;Password=!MyStrongPassword;trustServerCertificate=true",
+  "ConnectionStrings:Projections": "mongodb://mongoadmin:secret@127.0.0.1:27017/ShoppingCartProjections/?authSource=admin",
+  "ConnectionStrings:EventStore": "Server=127.0.0.1,1433;Database=ShoppingCartEventStore;User=sa;Password=!MyStrongPassword;trustServerCertificate=true"
 }
 ```
 
