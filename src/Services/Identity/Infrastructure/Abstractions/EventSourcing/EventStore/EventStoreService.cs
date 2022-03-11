@@ -21,17 +21,17 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
     where TId : struct
 {
     private readonly EventStoreOptions _options;
-    private readonly IBus _bus;
+    private readonly IPublishEndpoint _publishEndpoint;
     private readonly IEventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId> _repository;
     private readonly INotificationContext _notificationContext;
 
     protected EventStoreService(
-        IBus bus,
+        IPublishEndpoint publishEndpoint,
         IEventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId> repository,
         INotificationContext notificationContext,
         IOptionsMonitor<EventStoreOptions> optionsMonitor)
     {
-        _bus = bus;
+        _publishEndpoint = publishEndpoint;
         _notificationContext = notificationContext;
         _options = optionsMonitor.CurrentValue;
         _repository = repository;
@@ -84,7 +84,7 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
     }
 
     private Task PublishEventsAsync(IEnumerable<IEvent> events, CancellationToken cancellationToken)
-        => Task.WhenAll(events.Select(@event => _bus.Publish(@event, @event.GetType(), cancellationToken)));
+        => Task.WhenAll(events.Select(@event => _publishEndpoint.Publish(@event, @event.GetType(), cancellationToken)));
 
     private static IEnumerable<TStoreEvent> GetEventsToStore(TAggregate aggregateState)
         => aggregateState.Events.Select(@event

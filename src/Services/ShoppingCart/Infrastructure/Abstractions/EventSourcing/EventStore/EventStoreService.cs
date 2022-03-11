@@ -37,19 +37,6 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
         _repository = repository;
     }
 
-    public async Task AppendEventsToStreamAsync(IPublishEndpoint publishEndpoint, TAggregate aggregateState, CancellationToken cancellationToken)
-    {
-        if (aggregateState.IsValid is false)
-        {
-            _notificationContext.AddErrors(aggregateState.Errors);
-            return;
-        }
-
-        var eventsToStore = GetEventsToStore(aggregateState);
-        await AppendEventsToStreamWithSnapshotControlAsync(aggregateState, eventsToStore, cancellationToken);
-        await PublishEventsAsync(publishEndpoint, aggregateState.Events, cancellationToken);
-    }
-
     public async Task AppendEventsToStreamAsync(TAggregate aggregateState, CancellationToken cancellationToken)
     {
         if (aggregateState.IsValid is false)
@@ -60,7 +47,7 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
 
         var eventsToStore = GetEventsToStore(aggregateState);
         await AppendEventsToStreamWithSnapshotControlAsync(aggregateState, eventsToStore, cancellationToken);
-        await PublishEventsAsync(_publishEndpoint, aggregateState.Events, cancellationToken);
+        await PublishEventsAsync(aggregateState.Events, cancellationToken);
     }
 
     public async Task<TAggregate> LoadAggregateFromStreamAsync(TId aggregateId, CancellationToken cancellationToken)
@@ -96,8 +83,8 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
         await _repository.AppendSnapshotToStreamAsync(snapshot, cancellationToken);
     }
 
-    private Task PublishEventsAsync(IPublishEndpoint publishEndpoint, IEnumerable<IEvent> events, CancellationToken cancellationToken)
-        => Task.WhenAll(events.Select(@event => publishEndpoint.Publish(@event, @event.GetType(), cancellationToken)));
+    private Task PublishEventsAsync(IEnumerable<IEvent> events, CancellationToken cancellationToken)
+        => Task.WhenAll(events.Select(@event => _publishEndpoint.Publish(@event, @event.GetType(), cancellationToken)));
 
     private static IEnumerable<TStoreEvent> GetEventsToStore(TAggregate aggregateState)
         => aggregateState.Events.Select(@event
