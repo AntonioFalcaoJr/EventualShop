@@ -8,17 +8,105 @@
     <projectFile profileName="WorkerService">src/Services/Identity/WorkerService/WorkerService.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6dd793d5-803a-4cee-b674-f6d523a4ece4" name="Changes" comment="Removing tag">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="6dd793d5-803a-4cee-b674-f6d523a4ece4" name="Changes" comment="Specifying EventStoreDbContext">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Identity/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Identity/Infrastructure/EventSourcing/EventStore/UserEventStoreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure/EventSourcing/EventStore/UserEventStoreRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Order/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Order/WorkerService/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/WorkerService/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/Abstractions/EventSourcing/Projections/ProjectionsRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/Abstractions/EventSourcing/Projections/ProjectionsRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/WorkerService/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/WorkerService/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Identity/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Infrastructure/EventSourcing/EventStore/CatalogEventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Infrastructure/EventSourcing/EventStore/AccountEventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Infrastructure/EventSourcing/EventStore/Contexts/EventStoreDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Infrastructure/EventSourcing/EventStore/Contexts/EventStoreDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5d0bef3d2d37dcd4829bfaab38998303286529d87edc8ba65ac1f3bc3fc7ac9/IHostApplicationLifetime.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Warehouse/Infrastructure/EventSourcing/EventStore/Contexts/EventStoreDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Infrastructure/EventSourcing/EventStore/Contexts/EventStoreDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Warehouse/Infrastructure/EventSourcing/EventStore/WarehouseEventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Identity/Infrastructure/EventSourcing/EventStore/Contexts/EventStoreDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/b7c1ae7fa9e757fa1193fa40d0fdbf6d86cae133a55b68cf967dd5f74f3a5/TaskUtil.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/64f87996ae49479baa37d19778ef6e428260b1609640a14c913c77e05b5cdf66/IBusControl.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Infrastructure/EventSourcing/EventStore/Contexts/EventStoreDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Identity/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Infrastructure/EventSourcing/EventStore/CatalogEventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Identity/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Application/Abstractions/EventSourcing/EventStore/IEventStoreService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0452bfafdf814137a09276e5c2c2e00bf2800/1b/2cb3453f/WriteConcern.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/Infrastructure/EventSourcing/EventStore/OrderEventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Warehouse/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/Infrastructure/EventSourcing/EventStore/Contexts/EventStoreDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Infrastructure/EventSourcing/EventStore/Contexts/EventStoreDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Warehouse/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/357e9b6a7bd5a55ed843be0e865739b711915f3c95f61eb335e68b3e48547/SqlServerRetryingExecutionStrategy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Warehouse/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Identity/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/dbda6df4182b8146adc17735d8a3be2030c6cb65c894b2bdf920bf95a1677b/SqlServerDbContextOptionsBuilderExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Warehouse/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Infrastructure/Migrations/20220223174618_Quartz migration.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c269bd4a989dea031277e5b6c4c53a6d2c1889fcf9883a7a5a1754033a57/EntityFrameworkServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Infrastructure/EventSourcing/EventStore/Contexts/EventStoreDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7ee2ff3c71283d527b9da6a01465c35a2108e44943f459e51cb57121df35/DbContextPool.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Warehouse/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Infrastructure/EventSourcing/EventStore/Contexts/EventStoreDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Identity/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Identity/Infrastructure/EventSourcing/EventStore/Contexts/EventStoreDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Warehouse/Infrastructure/EventSourcing/EventStore/Contexts/EventStoreDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Infrastructure/EventSourcing/EventStore/ShoppingCartEventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/Infrastructure/EventSourcing/EventStore/Contexts/EventStoreDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Identity/Infrastructure/EventSourcing/EventStore/UserEventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Infrastructure/EventSourcing/EventStore/Contexts/EventStoreDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Infrastructure/EventSourcing/EventStore/PaymentEventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Infrastructure/EventSourcing/EventStore/Contexts/EventStoreDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Infrastructure/Abstractions/EventSourcing/Projections/ProjectionsRepository.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -33,10 +121,11 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.C#" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager" selected=".NET Launch Settings Profile.Warehouse.WorkerService">
+  <component name="RunManager" selected=".NET Launch Settings Profile.Order.WorkerService">
     <configuration name="Account.WorkerService" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/src/Services/Account/WorkerService/WorkerService.csproj" />
       <option name="LAUNCH_PROFILE_TFM" value="net7.0" />
@@ -179,7 +268,8 @@
       <workItem from="1646233646099" duration="1074000" />
       <workItem from="1646240225367" duration="2726000" />
       <workItem from="1646253656061" duration="2662000" />
-      <workItem from="1646837162897" duration="1241000" />
+      <workItem from="1646837162897" duration="7392000" />
+      <workItem from="1646949670207" duration="26392000" />
     </task>
     <task id="LOCAL-00001" summary="Remving">
       <created>1646253749196</created>
@@ -223,7 +313,63 @@
       <option name="project" value="LOCAL" />
       <updated>1646838059108</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Adding microservices topic and cleanup the readme">
+      <created>1646838826491</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1646838826491</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Reducing Start/Stop bus timeout">
+      <created>1647033364879</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1647033364879</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Fixing MaxRetryDelay">
+      <created>1647033396675</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1647033396675</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Adjusting DbContext configuration to support parameterless constructor">
+      <created>1647033514243</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1647033514243</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Specifying DbContext parameter">
+      <created>1647033562145</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1647033562145</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Changing IBus dependency to IPublishEndpoint">
+      <created>1647033801951</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1647033801951</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Specifying DbContext parameter">
+      <created>1647033827737</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1647033827737</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Specifying EventStoreDbContext">
+      <created>1647034036690</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1647034036690</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -251,6 +397,13 @@
     <MESSAGE value="Adding workspace" />
     <MESSAGE value="Adding launch profiles" />
     <MESSAGE value="Removing tag" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removing tag" />
+    <MESSAGE value="Adding microservices topic and cleanup the readme" />
+    <MESSAGE value="Reducing Start/Stop bus timeout" />
+    <MESSAGE value="Fixing MaxRetryDelay" />
+    <MESSAGE value="Adjusting DbContext configuration to support parameterless constructor" />
+    <MESSAGE value="Changing IBus dependency to IPublishEndpoint" />
+    <MESSAGE value="Specifying DbContext parameter" />
+    <MESSAGE value="Specifying EventStoreDbContext" />
+    <option name="LAST_COMMIT_MESSAGE" value="Specifying EventStoreDbContext" />
   </component>
 </project>
