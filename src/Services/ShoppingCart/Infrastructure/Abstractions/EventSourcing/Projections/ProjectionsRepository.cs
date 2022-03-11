@@ -57,6 +57,7 @@ public abstract class ProjectionsRepository : IProjectionsRepository
 
         return _context
             .GetCollection<TProjection>()
+            .WithWriteConcern(WriteConcern.Unacknowledged)
             .BulkWriteAsync(
                 requests: requests,
                 options: new BulkWriteOptions { IsOrdered = false },
