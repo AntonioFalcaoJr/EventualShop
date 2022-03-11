@@ -6,6 +6,7 @@ using Application.Abstractions.EventSourcing.EventStore;
 using Application.Abstractions.EventSourcing.EventStore.Events;
 using Domain.Abstractions.Aggregates;
 using ECommerce.Abstractions.Messages.Events;
+using Infrastructure.EventSourcing.EventStore.Contexts;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Abstractions.EventSourcing.EventStore;
@@ -16,11 +17,11 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
     where TSnapshot : Snapshot<TAggregate, TId>
     where TId : struct
 {
-    private readonly DbContext _dbContext;
+    private readonly EventStoreDbContext _dbContext;
     private readonly DbSet<TSnapshot> _snapshots;
     private readonly DbSet<TStoreEvent> _storeEvents;
 
-    protected EventStoreRepository(DbContext dbContext)
+    protected EventStoreRepository(EventStoreDbContext dbContext)
     {
         _dbContext = dbContext;
         _storeEvents = dbContext.Set<TStoreEvent>();
