@@ -105,9 +105,25 @@ public static class ServiceCollectionExtensions
             .AddScoped<ICatalogProjectionsService, CatalogProjectionsService>();
 
     public static IServiceCollection AddEventStoreDbContext(this IServiceCollection services)
-        => services
-            .AddScoped<DbContext, EventStoreDbContext>()
-            .AddDbContext<EventStoreDbContext>();
+        => services.AddDbContextPool<EventStoreDbContext>((provider, builder) =>
+        {
+            var configuration = provider.GetRequiredService<IConfiguration>();
+            var options = provider.GetRequiredService<IOptionsMonitor<SqlServerRetryOptions>>();
+
+            builder
+                .EnableDetailedErrors()
+                .EnableSensitiveDataLogging()
+                .UseSqlServer(
+                    connectionString: configuration.GetConnectionString("EventStore")!,
+                    sqlServerOptionsAction: optionsBuilder
+                        => optionsBuilder.ExecutionStrategy(
+                                dependencies => new SqlServerRetryingExecutionStrategy(
+                                    dependencies: dependencies,
+                                    maxRetryCount: options.CurrentValue.MaxRetryCount,
+                                    maxRetryDelay: options.CurrentValue.MaxRetryDelay,
+                                    errorNumbersToAdd: options.CurrentValue.ErrorNumbersToAdd))
+                            .MigrationsAssembly(typeof(EventStoreDbContext).Assembly.GetName().Name));
+        });
 
     public static IServiceCollection AddProjectionsDbContext(this IServiceCollection services)
     {
