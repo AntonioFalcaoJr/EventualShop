@@ -33,7 +33,7 @@
         <Serilog_Extensions_Version>5.0.0-dev-00093</Serilog_Extensions_Version>
 
         <!--FluentValidation-->
-        <FluentValidation_Version>10.3.6</FluentValidation_Version>
+        <FluentValidation_Version>10.4.0</FluentValidation_Version>
 
         <!--Polly-->
         <Polly_Version>7.0.0-preview.1.22109.13</Polly_Version>
