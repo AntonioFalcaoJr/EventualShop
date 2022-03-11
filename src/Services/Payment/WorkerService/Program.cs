@@ -1,6 +1,7 @@
 ﻿using System;
 using Infrastructure.DependencyInjection.Extensions;
 using Infrastructure.DependencyInjection.Options;
+using Infrastructure.EventSourcing.EventStore.Contexts;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -89,7 +90,7 @@ try
     if (environment.IsDevelopment())
     {
         await using var scope = host.Services.CreateAsyncScope();
-        await using var dbContext = scope.ServiceProvider.GetRequiredService<DbContext>();
+        await using var dbContext = scope.ServiceProvider.GetRequiredService<EventStoreDbContext>();
         await dbContext.Database.MigrateAsync();
         await dbContext.Database.EnsureCreatedAsync();
     }
