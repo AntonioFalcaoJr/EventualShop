@@ -502,6 +502,52 @@ https://martinfowler.com/bliki/BoundedContext.html
 Fig. 24: C. Martin, Robert. *The Clean Architecture*.    
 https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
+## Performance
+
+### Minimize exceptions 
+
+> Exceptions should be rare. Throwing and catching exceptions is slow relative to other code flow patterns. Because of this, exceptions shouldn't be used to control normal program flow.
+>
+> Recommendations:
+>
+> - Do not use throwing or catching exceptions as a means of normal program flow, especially in hot code paths.
+> - Do include logic in the app to detect and handle conditions that would cause an exception.
+> - Do throw or catch exceptions for unusual or unexpected conditions.
+> - App diagnostic tools, such as Application Insights, can help to identify common exceptions in an app that may affect performance.
+>
+> "ASP.NET Core Performance Best Practices" *MSDN*, Microsoft Docs, last edited on 18 Fev 2022.  
+> https://docs.microsoft.com/en-us/aspnet/core/performance/performance-best-practices?view=aspnetcore-6.0#minimize-exceptions
+
+### Pool HTTP connections with HttpClientFactory
+
+> Closed `HttpClient` instances leave sockets open in the `TIME_WAIT` state for a short period of time. If a code path that creates and disposes of `HttpClient` objects is frequently used, the app may exhaust available sockets.
+>
+> Recommendations:
+>
+> - Do not create and dispose of HttpClient instances directly.
+> - Do use HttpClientFactory to retrieve HttpClient instances. 
+>
+> "ASP.NET Core Performance Best Practices" *MSDN*, Microsoft Docs, last edited on 18 Fev 2022.  
+> https://docs.microsoft.com/en-us/aspnet/core/performance/performance-best-practices?view=aspnetcore-6.0#pool-http-connections-with-httpclientfactory
+
+### DbContext pooling
+
+> The basic pattern for using EF Core in an ASP.NET Core application usually involves registering a custom DbContext type into the dependency injection system and later obtaining instances of that type through constructor parameters in controllers. This means a new instance of the DbContext is created for each request.
+>
+> In version 2.0 we are introducing a new way to register custom DbContext types in dependency injection which transparently introduces a pool of reusable DbContext instances. This is conceptually similar to how connection pooling operates in ADO.NET providers and has the advantage of saving some of the cost of initialization of DbContext instance.
+>
+> "New features in EF Core 2.0" *MSDN*, Microsoft Docs, last edited on 11 Oct 2020.  
+> https://docs.microsoft.com/en-us/ef/core/what-is-new/ef-core-2.0/#dbcontext-pooling
+
+### Snapshotting
+
+> Snapshotting is an optimisation that reduces time spent on reading event from an event store.
+>
+> Gunia, Kacper. "Event Sourcing: Snapshotting", *domaincentric.net*, last edited on 5 Jun 2020.   
+> https://domaincentric.net/blog/event-sourcing-snapshotting
+
+More details in [snapshot](#snapshot) section.
+
 ## Running
 
 ### Development
