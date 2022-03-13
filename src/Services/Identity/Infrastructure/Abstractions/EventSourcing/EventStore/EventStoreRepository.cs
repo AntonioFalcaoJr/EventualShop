@@ -30,9 +30,9 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
 
     public async Task<int> AppendEventToStreamAsync(TStoreEvent storeEvent, CancellationToken cancellationToken)
     {
-        var entry = await _storeEvents.AddAsync(storeEvent, cancellationToken);
+        await _storeEvents.AddAsync(storeEvent, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
-        return entry.Entity.Version;
+        return storeEvent.Version;
     }
 
     public async Task AppendSnapshotToStreamAsync(TSnapshot snapshot, CancellationToken cancellationToken)
@@ -43,6 +43,7 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
 
     public async Task<IEnumerable<IEvent>> GetStreamAsync(TId aggregateId, int snapshotVersion, CancellationToken cancellationToken)
         => await _storeEvents
+            .AsNoTracking()
             .Where(storeEvent => Equals(storeEvent.AggregateId, aggregateId))
             .Where(storeEvent => storeEvent.Version > snapshotVersion)
             .Select(storeEvent => storeEvent.Event)
@@ -50,7 +51,8 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
 
     public async Task<TSnapshot> GetSnapshotAsync(TId aggregateId, CancellationToken cancellationToken)
         => await _snapshots
+            .AsNoTracking()
             .Where(snapshot => Equals(snapshot.AggregateId, aggregateId))
-            .OrderBy(snapshot => snapshot.AggregateVersion)
-            .LastOrDefaultAsync(cancellationToken);
+            .OrderByDescending(snapshot => snapshot.AggregateVersion)
+            .FirstOrDefaultAsync(cancellationToken);
 }
