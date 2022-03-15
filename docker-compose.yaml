@@ -1,0 +1,95 @@
+version: "3.9"
+services:
+  
+  mssql:
+    image: mcr.microsoft.com/mssql/server
+    container_name: mssql
+    ports:
+      - "1433"
+    environment:
+      - SA_PASSWORD=!MyStrongPassword
+      - ACCEPT_EULA=Y
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$$SA_PASSWORD" -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+    networks:
+      - ecommerce
+  
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672"
+      - "15672:15672"
+    networks:
+      - ecommerce
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017"
+    volumes:
+      - ~/apps/mongo:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongoadmin
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+    networks:
+      - ecommerce
+  
+  shoppingcart:
+    image: shoppingcart
+    build:
+      context: .
+      dockerfile: ./src/Services/ShoppingCart/WorkerService/Dockerfile
+    depends_on:
+      mssql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
+      mongodb:
+        condition: service_started
+    networks:
+      - ecommerce
+    deploy:
+      replicas: 4
+      restart_policy:
+        condition: on-failure
+  
+  webapi:
+    image: webapi
+    build:
+      context: .
+      dockerfile: ./src/Web/WebAPI/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://*:5000
+    ports:
+      - "5000"
+    depends_on:
+      - rabbitmq
+    networks:
+      - ecommerce
+    deploy:
+      replicas: 4
+      restart_policy:
+        condition: on-failure
+
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - webapi
+    ports:
+      - "4000:4000"
+    networks:
+      - ecommerce
+
+networks:
+  ecommerce:
+    name: ecommerce
+    driver: bridge
