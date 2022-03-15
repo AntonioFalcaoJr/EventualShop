@@ -11,7 +11,7 @@
     <PropertyGroup Label="Packages dependency versions">
 
         <!--Microsoft-->
-        <Microsoft_Extensions_Version>7.0.0-preview.1.22076.8</Microsoft_Extensions_Version>
+        <Microsoft_Extensions_Version>7.0.0-preview.2.22152.2</Microsoft_Extensions_Version>
 
         <!--EF Core-->
         <EntityFrameworkCore_Version>7.0.0-preview.1.22076.6</EntityFrameworkCore_Version>
