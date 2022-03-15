@@ -649,6 +649,14 @@ docker run -d \
 rabbitmq:3-management
 ```
 
+### Test
+
+K6
+
+```bash
+docker run --network=ecommerce --name k6 --rm -i grafana/k6 run - <test.js
+```
+
 ## Event store
 
 ### Store event
