@@ -1,38 +1,41 @@
-﻿ARG ASPNET_VERSION="6.0.1-alpine3.14"
-ARG SDK_VERSION="6.0.101-alpine3.14"
+﻿ARG ASPNET_VERSION="7.0.0-preview.1-alpine3.15"
+ARG SDK_VERSION="7.0.100-preview.1-alpine3.15"
 ARG BASE_ADRESS="mcr.microsoft.com/dotnet"
 
 FROM $BASE_ADRESS/aspnet:$ASPNET_VERSION AS base
 WORKDIR /app
 
-#RUN apk add --no-cache icu-libs
+RUN apk add --no-cache icu-libs
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 
 FROM $BASE_ADRESS/sdk:$SDK_VERSION AS build
-WORKDIR /src
 
-COPY ./src/Services/ShoppingCart/Application/*.csproj ./Application/
-COPY ./src/Services/ShoppingCart/Domain/*.csproj ./Domain/
-COPY ./src/Services/ShoppingCart/Infrastructure/*.csproj ./Infrastructure/
-COPY ./src/Services/ShoppingCart/WorkerService/*.csproj ./WorkerService/
-COPY ./src/Contracts/ECommerce/*.csproj ./Contracts/ECommerce/
-
+COPY ./global.json ./
 COPY ./nuget.config ./
 COPY ./Directory.Build.props ./
 
-RUN dotnet restore ./WorkerService
+WORKDIR /src
 
-COPY ./src/Services/ShoppingCart/Application/. ./Application/
-COPY ./src/Services/ShoppingCart/Domain/. ./Domain/
-COPY ./src/Services/ShoppingCart/Infrastructure/. ./Infrastructure/
-COPY ./src/Services/ShoppingCart/WorkerService/. ./WorkerService/
+COPY ./src/Services/ShoppingCart/Application/*.csproj ./Services/ShoppingCart/Application/
+COPY ./src/Services/ShoppingCart/Domain/*.csproj ./Services/ShoppingCart/Domain/
+COPY ./src/Services/ShoppingCart/Infrastructure/*.csproj ./Services/ShoppingCart/Infrastructure/
+COPY ./src/Services/ShoppingCart/WorkerService/*.csproj ./Services/ShoppingCart/WorkerService/
+COPY ./src/Contracts/ECommerce/*.csproj ./Contracts/ECommerce/
+
+RUN dotnet restore -v m ./Services/ShoppingCart/WorkerService
+
+COPY ./src/Services/ShoppingCart/Application/. ./Services/ShoppingCart/Application/
+COPY ./src/Services/ShoppingCart/Domain/. ./Services/ShoppingCart/Domain/
+COPY ./src/Services/ShoppingCart/Infrastructure/. ./Services/ShoppingCart/Infrastructure/
+COPY ./src/Services/ShoppingCart/WorkerService/. ./Services/ShoppingCart/WorkerService/
 COPY ./src/Contracts/ECommerce/. ./Contracts/ECommerce/
 
-WORKDIR /src/WorkerService
-RUN dotnet build -c Release --no-restore -o /app/build 
+WORKDIR /src/Services/ShoppingCart/WorkerService
+
+RUN dotnet build -c Release --no-restore -v m -o /app/build 
 
 FROM build AS publish
-RUN dotnet publish -c Release --no-restore -o /app/publish
+RUN dotnet publish -c Release --no-restore -v m -o /app/publish
 
 FROM base AS final
 WORKDIR /app
