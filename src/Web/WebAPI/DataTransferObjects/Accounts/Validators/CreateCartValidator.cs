@@ -1,4 +1,4 @@
-﻿namespace ECommerce.WebAPI.DataTransferObjects.Accounts.Validators;
+﻿namespace WebAPI.DataTransferObjects.Accounts.Validators;
 
 // public class CreateCartValidator : AbstractValidator<Requests.CreateCart>
 // {

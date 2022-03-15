@@ -72,15 +72,15 @@ using var host = builder.Build();
 
 try
 {
-    var environment = host.Services.GetRequiredService<IHostEnvironment>();
+    // var environment = host.Services.GetRequiredService<IHostEnvironment>();
 
-    if (environment.IsDevelopment())
-    {
+    // if (environment.IsDevelopment())
+    // {
         await using var scope = host.Services.CreateAsyncScope();
         await using var dbContext = scope.ServiceProvider.GetRequiredService<EventStoreDbContext>();
         await dbContext.Database.MigrateAsync();
         await dbContext.Database.EnsureCreatedAsync();
-    }
+    // }
 
     await host.RunAsync();
     Log.Information("Stopped cleanly");
