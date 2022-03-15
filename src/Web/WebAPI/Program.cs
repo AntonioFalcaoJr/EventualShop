@@ -2,10 +2,6 @@ using System;
 using System.Reflection;
 using ECommerce.Abstractions.Messages;
 using ECommerce.JsonConverters;
-using ECommerce.WebAPI.DataTransferObjects.ShoppingCarts;
-using ECommerce.WebAPI.DependencyInjection.Extensions;
-using ECommerce.WebAPI.DependencyInjection.Options;
-using ECommerce.WebAPI.DependencyInjection.ParameterTransformers;
 using FluentValidation.AspNetCore;
 using MassTransit;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
@@ -17,6 +13,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Any;
 using Serilog;
+using WebAPI.DataTransferObjects.ShoppingCarts;
+using WebAPI.DependencyInjection.Extensions;
+using WebAPI.DependencyInjection.Options;
+using WebAPI.DependencyInjection.ParameterTransformers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -78,7 +78,7 @@ builder.Services
     .AddFluentValidationRulesToSwagger()
     .AddSwaggerGen(options =>
     {
-        options.SwaggerDoc("v1", new() { Title = "WebAPI", Version = "v1" });
+        options.SwaggerDoc("v1", new() { Title = builder.Environment.ApplicationName, Version = "v1" });
         options.MapType<DateOnly>(() => new() { Format = "date", Example = new OpenApiString(DateOnly.MinValue.ToString()) });
         options.CustomSchemaIds(type => type.ToString());
     });
@@ -95,12 +95,11 @@ builder.Services.ConfigureMassTransitHostOptions(
 
 var app = builder.Build();
 
-if (builder.Environment.IsDevelopment())
-{
+if (builder.Environment.IsDevelopment()) 
     app.UseDeveloperExceptionPage();
-    app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ECommerce.WebAPI v1"));
-}
+
+app.UseSwagger();
+app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
 
 app.UseCors("cors");
 
@@ -127,7 +126,7 @@ finally
     await app.DisposeAsync();
 }
 
-namespace ECommerce.WebAPI
+namespace WebAPI
 {
     public partial class Program { }
 }
