@@ -25,7 +25,7 @@ public class BusinessValidatorFilter<T> : IFilter<ConsumeContext<T>>
             Log.Error("Business validation errors: {Errors}", _notificationContext.Errors);
 
             await context.Send(
-                destinationAddress: new($"exchange:order.{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}.business-error"),
+                destinationAddress: new($"queue:order.{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}.business-error"),
                 message: new BusinessValidationResult<T>(context.Message, _notificationContext.Errors));
         }
     }
