@@ -71,11 +71,146 @@ services:
     networks:
       - ecommerce
   
+  account:
+    image: account
+    build:
+      context: .
+      dockerfile: ./src/Services/Account/WorkerService/Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: Staging
+    depends_on:
+      mssql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    networks:
+      - ecommerce
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.70'
+          memory: 90M
+        reservations:
+          memory: 60M
+      restart_policy:
+        condition: on-failure
+  
+  identity:
+    image: identity
+    build:
+      context: .
+      dockerfile: ./src/Services/Identity/WorkerService/Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: Staging
+    depends_on:
+      mssql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    networks:
+      - ecommerce
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.70'
+          memory: 90M
+        reservations:
+          memory: 60M
+      restart_policy:
+        condition: on-failure
+  
+  order:
+    image: order
+    build:
+      context: .
+      dockerfile: ./src/Services/Order/WorkerService/Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: Staging
+    depends_on:
+      mssql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    networks:
+      - ecommerce
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.70'
+          memory: 90M
+        reservations:
+          memory: 60M
+      restart_policy:
+        condition: on-failure
+  
+  payment:
+    image: payment
+    build:
+      context: .
+      dockerfile: ./src/Services/Payment/WorkerService/Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: Staging
+    depends_on:
+      mssql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    networks:
+      - ecommerce
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.70'
+          memory: 90M
+        reservations:
+          memory: 60M
+      restart_policy:
+        condition: on-failure
+  
   shoppingcart:
     image: shoppingcart
     build:
       context: .
       dockerfile: ./src/Services/ShoppingCart/WorkerService/Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: Staging
+    depends_on:
+      mssql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    networks:
+      - ecommerce
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.70'
+          memory: 90M
+        reservations:
+          memory: 60M
+      restart_policy:
+        condition: on-failure
+        
+  warehouse:
+    image: warehouse
+    build:
+      context: .
+      dockerfile: ./src/Services/Warehouse/WorkerService/Dockerfile
     environment:
       DOTNET_ENVIRONMENT: Staging
     depends_on:
