@@ -1,23 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
-        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="$(FluentValidation_Version)" />
-        <PackageReference Include="JsonNet.ContractResolvers" Version="$(ContractResolvers_Version)" />
-        <PackageReference Include="MassTransit.Newtonsoft" Version="$(MassTransit_Version)" />
-        <PackageReference Include="MassTransit.RabbitMQ" Version="$(MassTransit_Version)" />
-        <PackageReference Include="MassTransit.Quartz" Version="$(MassTransit_Version)" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EntityFrameworkCore_Version)" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EntityFrameworkCore_Version)" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="$(EntityFrameworkCore_Version)" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EntityFrameworkCore_Version)" />
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="$(Microsoft_Extensions_Version)" />
-        <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="$(Microsoft_Extensions_Version)" />
-        <PackageReference Include="MongoDB.Driver" Version="$(MongoDb_Version)" />
-        <PackageReference Include="Quartz.Extensions.Hosting" Version="$(Quartz_Version)" />
-        <PackageReference Include="Quartz.Serialization.Json" Version="$(Quartz_Version)" />
-        <PackageReference Include="Serilog" Version="$(Serilog_Version)" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="$(FluentValidation_Version)"/>
+        <PackageReference Include="JsonNet.ContractResolvers" Version="$(ContractResolvers_Version)"/>
+        <PackageReference Include="MassTransit.Newtonsoft" Version="$(MassTransit_Version)"/>
+        <PackageReference Include="MassTransit.RabbitMQ" Version="$(MassTransit_Version)"/>
+        <PackageReference Include="MassTransit.Quartz" Version="$(MassTransit_Version)"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EntityFrameworkCore_Version)"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EntityFrameworkCore_Version)"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="$(EntityFrameworkCore_Version)"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EntityFrameworkCore_Version)"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="$(Microsoft_Extensions_Hosting_Version)"/>
+        <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="$(Microsoft_Extensions_Version)"/>
+        <PackageReference Include="MongoDB.Driver" Version="$(MongoDb_Version)"/>
+        <PackageReference Include="Quartz.Extensions.Hosting" Version="$(Quartz_Version)"/>
+        <PackageReference Include="Quartz.Serialization.Json" Version="$(Quartz_Version)"/>
+        <PackageReference Include="Serilog" Version="$(Serilog_Version)"/>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Application\Application.csproj" />
+        <ProjectReference Include="..\Application\Application.csproj"/>
     </ItemGroup>
 </Project>
 
