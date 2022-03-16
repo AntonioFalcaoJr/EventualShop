@@ -8,17 +8,14 @@
     <projectFile profileName="WorkerService">src/Services/Identity/WorkerService/WorkerService.csproj</projectFile>
     <projectFile profileName="IIS Express">src/Web/WebAPI/WebAPI/WebAPI.csproj</projectFile>
     <projectFile profileName="ECommerce.WebAPI">src/Web/WebAPI/WebAPI.csproj</projectFile>
+    <projectFile profileName="IIS Express">src/Web/WebAPI/WebAPI.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6dd793d5-803a-4cee-b674-f6d523a4ece4" name="Changes" comment="Adjusting settings to support multiple environment">
-      <change afterPath="$PROJECT_DIR$/src/Web/WebAPI/Properties/launchSettings.json" afterDir="false" />
+    <list default="true" id="6dd793d5-803a-4cee-b674-f6d523a4ece4" name="Changes" comment="renaming path">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/Order/WorkerService/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/WorkerService/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Events/Integrations/PublishCartSubmmitedWhenCartCheckedOutConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Events/Integrations/PublishCartSubmmitedWhenCartCheckedOutConsumer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/WorkerService/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/WorkerService/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPI/ECommerce.WebAPI/DataTransferObjects/Accounts/Validators/CreateCartValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPI/DataTransferObjects/Accounts/Validators/CreateCartValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPI/ECommerce.WebAPI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPI/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPI/ECommerce.WebAPI/Properties/launchSettings.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +32,9 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/Infrastructure/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Application/UseCases/Events/Integrations/PublishCartSubmmitedWhenCartCheckedOutConsumer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/357e9b6a7bd5a55ed843be0e865739b711915f3c95f61eb335e68b3e48547/SqlServerRetryingExecutionStrategy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/17a224df08854f56940ef3ec602e730aa74898/0c/9fb3f1f5/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Warehouse/Infrastructure/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" root0="SKIP_HIGHLIGHTING" />
@@ -59,10 +58,15 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d0f68071d34f43da81e85fc457a7f7ed83898/9b/f8d43498/Enumerable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c959afad4015ed7c4476c54f47790ceedd2f93f9aa213da94df405c4a78f6/CreatedResult.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Infrastructure/DependencyInjection/PipeFilters/BusinessValidatorFilter.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/64f87996ae49479baa37d19778ef6e428260b1609640a14c913c77e05b5cdf66/IBusControl.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Application/UseCases/Events/Integrations/PublishCartSubmmitedWhenCartCheckedOutConsumer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Infrastructure/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Infrastructure/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Infrastructure/DependencyInjection/PipeFilters/BusinessValidatorFilter.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Web/WebAPI/Abstractions/ApplicationController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0452bfafdf814137a09276e5c2c2e00bf2800/1b/2cb3453f/WriteConcern.cs" root0="SKIP_HIGHLIGHTING" />
@@ -225,6 +229,21 @@
         <option name="Build" />
       </method>
     </configuration>
+    <configuration name="WebAPI: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
+      <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/src/Web/WebAPI/WebAPI.csproj" />
+      <option name="LAUNCH_PROFILE_TFM" value="net7.0" />
+      <option name="LAUNCH_PROFILE_NAME" value="IIS Express" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
+      <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
+      <option name="SEND_DEBUG_REQUEST" value="1" />
+      <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
+      <method v="2">
+        <option name="Build" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue=".NET Launch Settings Profile.Catalog.WorkerService" />
       <item itemvalue=".NET Launch Settings Profile.WebAPI" />
@@ -235,6 +254,7 @@
       <item itemvalue=".NET Launch Settings Profile.ShoppingCart.WorkerService" />
       <item itemvalue=".NET Launch Settings Profile.Warehouse.WorkerService" />
       <item itemvalue=".NET Launch Settings Profile.WebAPI: ECommerce.WebAPI" />
+      <item itemvalue=".NET Launch Settings Profile.WebAPI: IIS Express" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -255,7 +275,7 @@
       <workItem from="1647125695134" duration="13875000" />
       <workItem from="1647270271883" duration="2049000" />
       <workItem from="1647274799040" duration="3865000" />
-      <workItem from="1647282487182" duration="32846000" />
+      <workItem from="1647282487182" duration="34126000" />
     </task>
     <task id="LOCAL-00001" summary="Remving">
       <created>1646253749196</created>
@@ -495,7 +515,42 @@
       <option name="project" value="LOCAL" />
       <updated>1647384307270</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Adding test topic">
+      <created>1647384858801</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1647384858801</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Updating workspace.xml">
+      <created>1647384877973</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1647384877973</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Moving to the right path">
+      <created>1647384981638</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1647384981638</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Moving swagger for all environments">
+      <created>1647385466721</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1647385466721</updated>
+    </task>
+    <task id="LOCAL-00039" summary="renaming path">
+      <created>1647385513515</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1647385513515</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -545,11 +600,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Removing tag" />
-    <MESSAGE value="Adding microservices topic and cleanup the readme" />
-    <MESSAGE value="Reducing Start/Stop bus timeout" />
-    <MESSAGE value="Fixing MaxRetryDelay" />
-    <MESSAGE value="Adjusting DbContext configuration to support parameterless constructor" />
     <MESSAGE value="Changing IBus dependency to IPublishEndpoint" />
     <MESSAGE value="Specifying EventStoreDbContext" />
     <MESSAGE value="Moving DbContext configuration to external, to support polling" />
@@ -570,6 +620,11 @@
     <MESSAGE value="Defining queue to auto bind" />
     <MESSAGE value="Adding test" />
     <MESSAGE value="Adjusting settings to support multiple environment" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adjusting settings to support multiple environment" />
+    <MESSAGE value="Adding test topic" />
+    <MESSAGE value="Updating workspace.xml" />
+    <MESSAGE value="Moving to the right path" />
+    <MESSAGE value="Moving swagger for all environments" />
+    <MESSAGE value="renaming path" />
+    <option name="LAST_COMMIT_MESSAGE" value="renaming path" />
   </component>
 </project>
