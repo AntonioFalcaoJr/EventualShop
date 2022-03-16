@@ -92,7 +92,6 @@ services:
           cpus: '0.25'
           memory: 90M
         reservations:
-          cpus: '0.15'
           memory: 60M
       restart_policy:
         condition: on-failure
@@ -118,7 +117,6 @@ services:
           cpus: '0.50'
           memory: 260M
         reservations:
-          cpus: '0.35'
           memory: 200M
       restart_policy:
         condition: on-failure
@@ -133,6 +131,13 @@ services:
         condition: service_started
     ports:
       - "4000:4000"
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          memory: 180M
+        reservations:
+          memory: 120M
     networks:
       - ecommerce
 
