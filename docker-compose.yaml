@@ -76,6 +76,8 @@ services:
     build:
       context: .
       dockerfile: ./src/Services/ShoppingCart/WorkerService/Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: Staging
     depends_on:
       mssql:
         condition: service_healthy
@@ -89,7 +91,7 @@ services:
       replicas: 2
       resources:
         limits:
-          cpus: '0.25'
+          cpus: '0.70'
           memory: 90M
         reservations:
           memory: 60M
@@ -102,7 +104,8 @@ services:
       context: .
       dockerfile: ./src/Web/WebAPI/Dockerfile
     environment:
-      ASPNETCORE_URLS: "http://*:5000"
+      ASPNETCORE_URLS: http://*:5000
+      ASPNETCORE_ENVIRONMENT: Staging
     ports:
       - "5000"
     depends_on:
