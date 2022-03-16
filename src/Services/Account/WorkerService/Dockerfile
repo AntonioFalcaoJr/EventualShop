@@ -1,16 +1,41 @@
-FROM mcr.microsoft.com/dotnet/runtime:6.0 AS base
+ARG ASPNET_VERSION="7.0.0-preview.1-alpine3.15"
+ARG SDK_VERSION="7.0.100-preview.1-alpine3.15"
+ARG BASE_ADRESS="mcr.microsoft.com/dotnet"
+
+FROM $BASE_ADRESS/aspnet:$ASPNET_VERSION AS base
 WORKDIR /app
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+RUN apk add --no-cache icu-libs
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+
+FROM $BASE_ADRESS/sdk:$SDK_VERSION AS build
+
+COPY ./global.json ./
+COPY ./nuget.config ./
+COPY ./Directory.Build.props ./
+
 WORKDIR /src
-COPY ["src/WorkerService/WorkerService.csproj", "WorkerService/"]
-RUN dotnet restore "src/WorkerService/WorkerService.csproj"
-COPY . .
-WORKDIR "/src/WorkerService"
-RUN dotnet build "WorkerService.csproj" -c Release -o /app/build
+
+COPY ./src/Services/Account/Application/*.csproj ./Services/Account/Application/
+COPY ./src/Services/Account/Domain/*.csproj ./Services/Account/Domain/
+COPY ./src/Services/Account/Infrastructure/*.csproj ./Services/Account/Infrastructure/
+COPY ./src/Services/Account/WorkerService/*.csproj ./Services/Account/WorkerService/
+COPY ./src/Contracts/ECommerce/*.csproj ./Contracts/ECommerce/
+
+RUN dotnet restore -v m ./Services/Account/WorkerService
+
+COPY ./src/Services/Account/Application/. ./Services/Account/Application/
+COPY ./src/Services/Account/Domain/. ./Services/Account/Domain/
+COPY ./src/Services/Account/Infrastructure/. ./Services/Account/Infrastructure/
+COPY ./src/Services/Account/WorkerService/. ./Services/Account/WorkerService/
+COPY ./src/Contracts/ECommerce/. ./Contracts/ECommerce/
+
+WORKDIR /src/Services/Account/WorkerService
+
+RUN dotnet build -c Release --no-restore -v m -o /app/build 
 
 FROM build AS publish
-RUN dotnet publish "WorkerService.csproj" -c Release -o /app/publish
+RUN dotnet publish -c Release --no-restore -v m -o /app/publish
 
 FROM base AS final
 WORKDIR /app
