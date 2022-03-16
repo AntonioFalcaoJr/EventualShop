@@ -74,7 +74,7 @@ try
 {
     var environment = host.Services.GetRequiredService<IHostEnvironment>();
 
-    if (environment.IsDevelopment())
+    if (environment.IsDevelopment() || environment.IsStaging())
     {
         await using var scope = host.Services.CreateAsyncScope();
         await using var dbContext = scope.ServiceProvider.GetRequiredService<EventStoreDbContext>();

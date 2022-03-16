@@ -78,8 +78,8 @@ builder.Services
     .AddFluentValidationRulesToSwagger()
     .AddSwaggerGen(options =>
     {
-        options.SwaggerDoc("v1", new() { Title = builder.Environment.ApplicationName, Version = "v1" });
-        options.MapType<DateOnly>(() => new() { Format = "date", Example = new OpenApiString(DateOnly.MinValue.ToString()) });
+        options.SwaggerDoc("v1", new() {Title = builder.Environment.ApplicationName, Version = "v1"});
+        options.MapType<DateOnly>(() => new() {Format = "date", Example = new OpenApiString(DateOnly.MinValue.ToString())});
         options.CustomSchemaIds(type => type.ToString());
     });
 
@@ -95,11 +95,14 @@ builder.Services.ConfigureMassTransitHostOptions(
 
 var app = builder.Build();
 
-if (builder.Environment.IsDevelopment()) 
+if (builder.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 
-app.UseSwagger();
-app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
+if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
+}
 
 app.UseCors("cors");
 
