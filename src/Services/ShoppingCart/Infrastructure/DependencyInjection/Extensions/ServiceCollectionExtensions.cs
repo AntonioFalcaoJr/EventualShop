@@ -60,7 +60,6 @@ public static class ServiceCollectionExtensions
                     {
                         schedulerCfg.QueueName = options.SchedulerQueueName;
                         schedulerCfg.SchedulerFactory = context.GetRequiredService<ISchedulerFactory>();
-                        schedulerCfg.StartScheduler = true;
                     });
 
                     bus.UseMessageRetry(retry
