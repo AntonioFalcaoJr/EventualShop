@@ -11,10 +11,17 @@ services:
       ACCEPT_EULA: "Y"
     healthcheck:
       test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$$SA_PASSWORD" -Q "SELECT 1" || exit 1
-      interval: 10s
-      timeout: 3s
-      retries: 10
+      interval: 5s
+      timeout: 5s
+      retries: 5
       start_period: 10s
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 1G
     networks:
       - ecommerce
   
@@ -24,6 +31,19 @@ services:
     ports:
       - "5672"
       - "15672:15672"
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 500M
     networks:
       - ecommerce
 
@@ -35,6 +55,19 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: "mongoadmin"
       MONGO_INITDB_ROOT_PASSWORD: "secret"
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo mongodb:27017/test --quiet
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 500M
     networks:
       - ecommerce
   
@@ -47,13 +80,20 @@ services:
       mssql:
         condition: service_healthy
       rabbitmq:
-        condition: service_started
+        condition: service_healthy
       mongodb:
-        condition: service_started
+        condition: service_healthy
     networks:
       - ecommerce
     deploy:
-      replicas: 1
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 90M
+        reservations:
+          cpus: '0.15'
+          memory: 60M
       restart_policy:
         condition: on-failure
   
@@ -68,11 +108,18 @@ services:
       - "5000"
     depends_on:
       rabbitmq:
-        condition: service_started
+        condition: service_healthy
     networks:
       - ecommerce
     deploy:
-      replicas: 1
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 260M
+        reservations:
+          cpus: '0.35'
+          memory: 200M
       restart_policy:
         condition: on-failure
 
