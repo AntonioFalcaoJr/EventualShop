@@ -90,6 +90,6 @@ public class PublishCartSubmittedWhenCartCheckedOutConsumer : IConsumer<CartChec
                     _ => default
                 }));
 
-        await context.Publish(cartSubmittedEvent);
+        await context.Publish(cartSubmittedEvent, context.CancellationToken);
     }
 }
