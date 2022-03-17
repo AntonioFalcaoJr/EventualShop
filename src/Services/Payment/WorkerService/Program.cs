@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Infrastructure.DependencyInjection.Extensions;
 using Infrastructure.DependencyInjection.Options;
 using Infrastructure.EventSourcing.EventStore.Contexts;
@@ -82,6 +83,20 @@ builder.ConfigureServices((context, services) =>
 });
 
 using var host = builder.Build();
+
+var applicationLifetime = host.Services.GetRequiredService<IHostApplicationLifetime>();
+
+applicationLifetime.ApplicationStopping.Register(() =>
+{
+    Log.Information("Waiting for 15s for a graceful termination...");
+    Thread.Sleep(15000);
+});
+
+applicationLifetime.ApplicationStopped.Register(() =>
+{
+    Log.Information("Application completely stopped");
+    System.Diagnostics.Process.GetCurrentProcess().Kill();
+});
 
 try
 {
