@@ -5,6 +5,7 @@ on:
     paths:
       - src/Services/Identity/**.cs
       - src/Services/Identity/**.csproj
+      - Directory.Build.props
 
 jobs:
   identity-build-and-test:
