@@ -5,7 +5,7 @@ services:
     container_name: mssql
     image: mcr.microsoft.com/mssql/server
     ports:
-      - "1433:1433"
+      - "1433"
     environment:
       SA_PASSWORD: "!MyStrongPassword"
       ACCEPT_EULA: "Y"
@@ -29,7 +29,7 @@ services:
     container_name: rabbitmq
     image: rabbitmq:3-management
     ports:
-      - "5672:5672"
+      - "5672"
       - "15672:15672"
     healthcheck:
       test: rabbitmq-diagnostics -q ping
@@ -68,6 +68,214 @@ services:
           memory: 1G
         reservations:
           memory: 500M
+    networks:
+      - ecommerce
+  
+  account:
+    image: account
+    build:
+      context: .
+      dockerfile: ./src/Services/Account/WorkerService/Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: Staging
+    depends_on:
+      mssql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    networks:
+      - ecommerce
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.70'
+          memory: 90M
+        reservations:
+          memory: 60M
+      restart_policy:
+        condition: on-failure
+  
+  identity:
+    image: identity
+    build:
+      context: .
+      dockerfile: ./src/Services/Identity/WorkerService/Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: Staging
+    depends_on:
+      mssql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    networks:
+      - ecommerce
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.70'
+          memory: 90M
+        reservations:
+          memory: 60M
+      restart_policy:
+        condition: on-failure
+  
+  order:
+    image: order
+    build:
+      context: .
+      dockerfile: ./src/Services/Order/WorkerService/Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: Staging
+    depends_on:
+      mssql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    networks:
+      - ecommerce
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.70'
+          memory: 90M
+        reservations:
+          memory: 60M
+      restart_policy:
+        condition: on-failure
+  
+  payment:
+    image: payment
+    build:
+      context: .
+      dockerfile: ./src/Services/Payment/WorkerService/Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: Staging
+    depends_on:
+      mssql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    networks:
+      - ecommerce
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.70'
+          memory: 90M
+        reservations:
+          memory: 60M
+      restart_policy:
+        condition: on-failure
+  
+  shoppingcart:
+    image: shoppingcart
+    build:
+      context: .
+      dockerfile: ./src/Services/ShoppingCart/WorkerService/Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: Staging
+    depends_on:
+      mssql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    networks:
+      - ecommerce
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.70'
+          memory: 90M
+        reservations:
+          memory: 60M
+      restart_policy:
+        condition: on-failure
+        
+  warehouse:
+    image: warehouse
+    build:
+      context: .
+      dockerfile: ./src/Services/Warehouse/WorkerService/Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: Staging
+    depends_on:
+      mssql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    networks:
+      - ecommerce
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.70'
+          memory: 90M
+        reservations:
+          memory: 60M
+      restart_policy:
+        condition: on-failure
+  
+  webapi:
+    image: webapi
+    build:
+      context: .
+      dockerfile: ./src/Web/WebAPI/Dockerfile
+    environment:
+      ASPNETCORE_URLS: http://*:5000
+      ASPNETCORE_ENVIRONMENT: Staging
+    ports:
+      - "5000"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - ecommerce
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 260M
+        reservations:
+          memory: 200M
+      restart_policy:
+        condition: on-failure
+
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      webapi:
+        condition: service_started
+    ports:
+      - "4000:4000"
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          memory: 180M
+        reservations:
+          memory: 120M
     networks:
       - ecommerce
 
