@@ -16,51 +16,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6dd793d5-803a-4cee-b674-f6d523a4ece4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/Abstractions/EventStoreService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/CatalogEventStoreRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/CatalogEventStoreService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/Contexts/Configurations/CatalogSnapshotConfiguration.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/Contexts/Configurations/CatalogStoreEventConfiguration.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/Contexts/Converters/CatalogConverter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/Contexts/Converters/EventConverter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/Contexts/EventStoreDbContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/DependencyInjection/Options/EventStoreOptions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/DependencyInjection/Options/SqlServerRetryingOptions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/Infrastructure.EventStore.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.MessageBus/DependencyInjection/Extensions/NameFormatterExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.MessageBus/DependencyInjection/Extensions/RabbitMqBusFactoryConfiguratorExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.MessageBus/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.MessageBus/DependencyInjection/Options/RabbitMQOptions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.MessageBus/DependencyInjection/PipeFilters/BusinessValidatorFilter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.MessageBus/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingConsumeObserver.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingPublishObserver.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingReceiveObserver.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingSendObserver.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.MessageBus/Infrastructure.MessageBus.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.MessageBus/Notifications/NotificationContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.Projections/Abstractions/Contexts/IMongoDbContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.Projections/Abstractions/Contexts/MongoDbContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.Projections/Abstractions/Pagination/PagedResult.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.Projections/Abstractions/Pagination/Paging.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.Projections/Abstractions/ProjectionsRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.Projections/CatalogProjectionsRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.Projections/CatalogProjectionsService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.Projections/Contexts/ProjectionsDbContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.Projections/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.Projections/Infrastructure.Projections.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EDA.CleanArch.DDD.CQRS.EventSourcing.sln" beforeDir="false" afterPath="$PROJECT_DIR$/EDA.CleanArch.DDD.CQRS.EventSourcing.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/WorkerService/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/WorkerService/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/WorkerService/WorkerService.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/WorkerService/WorkerService.csproj" afterDir="false" />
-    </list>
+    <list default="true" id="6dd793d5-803a-4cee-b674-f6d523a4ece4" name="Changes" comment="Removing master infrastructure" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -113,6 +78,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c75fbd1540f941fa93c2fb9048be1c45b070/f8/757307c6/ServiceProviderServiceExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d9d9faea5e6ed6438a777ef8c6eed41261f81d8e86488ed923ad92564f54e/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/b61bdb830c1925ea5cdbbee15abbf54fa1d55633e14127b8caa28fc3be848/Environments.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -306,34 +272,6 @@
       <workItem from="1647525790787" duration="3516000" />
       <workItem from="1647543520690" duration="7937000" />
       <workItem from="1647617167107" duration="654000" />
-    </task>
-    <task id="LOCAL-00028" summary="Adding nginx.conf">
-      <created>1647378606595</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1647378606595</updated>
-    </task>
-    <task id="LOCAL-00029" summary="Moving .dockerignore to the root context path">
-      <created>1647378683047</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1647378683047</updated>
-    </task>
-    <task id="LOCAL-00030" summary="Adjusting details">
-      <created>1647384198129</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1647384198129</updated>
-    </task>
-    <task id="LOCAL-00031" summary="Defining queue to auto bind">
-      <created>1647384224866</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1647384224866</updated>
     </task>
     <task id="LOCAL-00032" summary="Defining queue to auto bind">
       <created>1647384235736</created>
@@ -650,7 +588,35 @@
       <option name="project" value="LOCAL" />
       <updated>1647629530409</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="Moving capabilities to EventStore project">
+      <created>1647634520370</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1647634520370</updated>
+    </task>
+    <task id="LOCAL-00078" summary="Moving capabilities to MessageBus project">
+      <created>1647634529466</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1647634529466</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Moving capabilities to Projections project">
+      <created>1647634544632</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1647634544632</updated>
+    </task>
+    <task id="LOCAL-00080" summary="Removing master infrastructure">
+      <created>1647634560435</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1647634560435</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -722,8 +688,8 @@
     <MESSAGE value="Segregating infrastructure" />
     <MESSAGE value="Getting project settings from Directory props" />
     <MESSAGE value="Moving capabilities to EventStore project" />
-    <MESSAGE value="Moving capabilities to Projections project" />
     <MESSAGE value="Moving capabilities to MessageBus project" />
+    <MESSAGE value="Moving capabilities to Projections project" />
     <MESSAGE value="Removing master infrastructure" />
     <option name="LAST_COMMIT_MESSAGE" value="Removing master infrastructure" />
   </component>
