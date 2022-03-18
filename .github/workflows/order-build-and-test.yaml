@@ -5,6 +5,7 @@ on:
     paths:
       - src/Services/Order/**.cs
       - src/Services/Order/**.csproj
+      - Directory.Build.props
 
 jobs:
   order-build-and-test:

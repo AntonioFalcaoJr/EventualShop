@@ -6,8 +6,8 @@
 
     <ItemGroup>
         <PackageReference Include="MassTransit" Version="$(MassTransit_Version)" />
-       <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0-preview.2.22152.2" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.0-preview.2.22153.2" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="$(Microsoft_Extensions_Hosting_Version)"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(Microsoft_Mvc_Testing_Version)" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EntityFrameworkCore_Version)" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0-preview-20220131-20" />
         <PackageReference Include="xunit" Version="2.4.2-pre.12" />
