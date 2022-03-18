@@ -5,6 +5,7 @@ on:
     paths:
       - src/Services/Payment/**.cs
       - src/Services/Payment/**.csproj
+      - Directory.Build.props
 
 jobs:
   payment-build-and-test:
