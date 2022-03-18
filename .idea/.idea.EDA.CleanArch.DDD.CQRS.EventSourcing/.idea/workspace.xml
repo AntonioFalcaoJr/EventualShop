@@ -15,9 +15,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6dd793d5-803a-4cee-b674-f6d523a4ece4" name="Changes" comment="Passing cancellation token">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="6dd793d5-803a-4cee-b674-f6d523a4ece4" name="Changes" comment="Clean up just to force CI execution" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,7 +24,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="fix/fixing-test-dependencies" />
+        <entry key="$PROJECT_DIR$" value="release" />
       </map>
     </option>
   </component>
@@ -79,6 +77,7 @@
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Identity/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6e34b43491504239ae591e1694cc9756e3e00/92/94fd1890/StdSchedulerFactory.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6e34b43491504239ae591e1694cc9756e3e00/cf/cb59a1e1/ISchedulerFactory.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Web/WebAPI/MapperProfiles/ShoppingCartProfile.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8e5b7644894f734dd23287cdf3d2582b7c0ecb0f789da6c33ce7b7e05d53b/QuartzOptions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0452bfafdf814137a09276e5c2c2e00bf2800/1b/2cb3453f/WriteConcern.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/fc577a47a9ae4d289ea4e815bea8e7528800/34/d54e8f78/QuartzOptions.cs" root0="SKIP_HIGHLIGHTING" />
@@ -263,20 +262,6 @@
       <workItem from="1647520268770" duration="5066000" />
       <workItem from="1647525790787" duration="3516000" />
       <workItem from="1647543520690" duration="7937000" />
-    </task>
-    <task id="LOCAL-00019" summary="Upgrading version">
-      <created>1647034931615</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1647034931615</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Adjusting connection strings">
-      <created>1647035141001</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1647035141001</updated>
     </task>
     <task id="LOCAL-00021" summary="Downgrade version based on bug">
       <created>1647038623306</created>
@@ -607,7 +592,21 @@
       <option name="project" value="LOCAL" />
       <updated>1647614156331</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="Updating workspace">
+      <created>1647616049993</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1647616049993</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Clean up just to force CI execution">
+      <created>1647616128909</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1647616128909</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -657,8 +656,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="renaming path" />
-    <MESSAGE value="Adding deployment healthchecks and resource limits" />
     <MESSAGE value="Removing reservation and adding limits to NginX" />
     <MESSAGE value="  Adding staging environment to migration and swagger conditions" />
     <MESSAGE value="Adding environment" />
@@ -682,6 +679,8 @@
     <MESSAGE value="Adding Directory build props in CI trigger" />
     <MESSAGE value="Removing sdk version parameter to test global.json using" />
     <MESSAGE value="Removing version specification" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removing version specification" />
+    <MESSAGE value="Updating workspace" />
+    <MESSAGE value="Clean up just to force CI execution" />
+    <option name="LAST_COMMIT_MESSAGE" value="Clean up just to force CI execution" />
   </component>
 </project>

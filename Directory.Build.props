@@ -36,7 +36,7 @@
 
         <!--FluentValidation-->
         <FluentValidation_Version>10.4.0</FluentValidation_Version>
-        
+
         <!--Auto Mapper-->
         <AutoMapper_Version>11.0.1</AutoMapper_Version>
         <AutoMapper_Extensions_Version>11.0.0</AutoMapper_Extensions_Version>
