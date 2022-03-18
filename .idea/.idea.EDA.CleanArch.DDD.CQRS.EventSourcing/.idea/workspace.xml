@@ -16,22 +16,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6dd793d5-803a-4cee-b674-f6d523a4ece4" name="Changes" comment="Moving capabilities to Projections project">
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/Extensions/NameFormatterExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/Extensions/RabbitMqBusFactoryConfiguratorExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/Options/RabbitMQOptions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/PipeFilters/BusinessValidatorFilter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingConsumeObserver.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingPublishObserver.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingReceiveObserver.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingSendObserver.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/Notifications/NotificationContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/Class1.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/Infrastructure.MessageBus.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/Infrastructure.MessageBus.csproj" afterDir="false" />
-    </list>
+    <list default="true" id="6dd793d5-803a-4cee-b674-f6d523a4ece4" name="Changes" comment="Removing master infrastructure" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -288,20 +273,6 @@
       <workItem from="1647525790787" duration="3516000" />
       <workItem from="1647543520690" duration="7937000" />
       <workItem from="1647617167107" duration="654000" />
-    </task>
-    <task id="LOCAL-00026" summary="Finalizing Dockerfile">
-      <created>1647378441377</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1647378441377</updated>
-    </task>
-    <task id="LOCAL-00027" summary="Finalizing Dockerfile">
-      <created>1647378588856</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1647378588856</updated>
     </task>
     <task id="LOCAL-00028" summary="Adding nginx.conf">
       <created>1647378606595</created>
@@ -632,7 +603,21 @@
       <option name="project" value="LOCAL" />
       <updated>1647628991648</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="Moving capabilities to MessageBus project">
+      <created>1647629509965</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1647629509965</updated>
+    </task>
+    <task id="LOCAL-00076" summary="Removing master infrastructure">
+      <created>1647629530409</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1647629530409</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -682,8 +667,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Fixing Hosting version" />
-    <MESSAGE value="Reducing VUs" />
     <MESSAGE value="Completing services in compose" />
     <MESSAGE value="Finalizing Dockerfiles" />
     <MESSAGE value="Moving details to production environment" />
@@ -707,6 +690,8 @@
     <MESSAGE value="Getting project settings from Directory props" />
     <MESSAGE value="Moving capabilities to EventStore project" />
     <MESSAGE value="Moving capabilities to Projections project" />
-    <option name="LAST_COMMIT_MESSAGE" value="Moving capabilities to Projections project" />
+    <MESSAGE value="Moving capabilities to MessageBus project" />
+    <MESSAGE value="Removing master infrastructure" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removing master infrastructure" />
   </component>
 </project>

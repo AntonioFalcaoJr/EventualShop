@@ -10,15 +10,11 @@ namespace Infrastructure.Projections.DependencyInjection.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddApplicationServices(this IServiceCollection services)
-        => services.AddScoped<IAccountProjectionsService, AccountProjectionsService>();
-
-    public static IServiceCollection AddProjectionsDbContext(this IServiceCollection services)
+    public static void AddProjections(this IServiceCollection services)
     {
+        services.AddScoped<IAccountProjectionsService, AccountProjectionsService>();
+        services.AddScoped<IAccountProjectionsRepository, AccountProjectionsRepository>();
+        services.AddScoped<IMongoDbContext, ProjectionsDbContext>();
         BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.CSharpLegacy));
-        return services.AddScoped<IMongoDbContext, ProjectionsDbContext>();
     }
-
-    public static IServiceCollection AddProjectionsRepository(this IServiceCollection services)
-        => services.AddScoped<IAccountProjectionsRepository, AccountProjectionsRepository>();
 }

@@ -1,8 +1,6 @@
 using System;
 using System.Reflection;
 using Application.Abstractions.Notifications;
-using Application.EventSourcing.EventStore;
-using Application.EventSourcing.Projections;
 using ECommerce.Abstractions.Messages;
 using ECommerce.JsonConverters;
 using FluentValidation;
@@ -21,7 +19,7 @@ namespace Infrastructure.MessageBus.DependencyInjection.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddMassTransitWithRabbitMqAndQuartz(this IServiceCollection services)
+    public static IServiceCollection AddMessageBus(this IServiceCollection services)
         => services.AddMassTransit(cfg =>
             {
                 cfg.SetKebabCaseEndpointNameFormatter();
@@ -89,7 +87,7 @@ public static class ServiceCollectionExtensions
             })
             .AddQuartz();
 
-    public static IServiceCollection AddMessagesFluentValidation(this IServiceCollection services)
+    public static IServiceCollection AddMessageValidators(this IServiceCollection services)
         => services.AddValidatorsFromAssemblyContaining(typeof(IMessage));
 
     public static IServiceCollection AddNotificationContext(this IServiceCollection services)
