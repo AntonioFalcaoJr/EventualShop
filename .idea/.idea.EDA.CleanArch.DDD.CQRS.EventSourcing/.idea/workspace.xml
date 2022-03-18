@@ -15,7 +15,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6dd793d5-803a-4cee-b674-f6d523a4ece4" name="Changes" comment="Adjusting test project dependencies" />
+    <list default="true" id="6dd793d5-803a-4cee-b674-f6d523a4ece4" name="Changes" comment="Removing version specification">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/account-build-and-test.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/account-build-and-test.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/build-and-test.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/build-and-test.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/catalog-build-and-test.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/catalog-build-and-test.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/identity-build-and-test.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/identity-build-and-test.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/order-build-and-test.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/order-build-and-test.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/payment-build-and-test.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/payment-build-and-test.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/shoppingcart-build-and-test.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/shoppingcart-build-and-test.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/warehouse-build-and-test.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/warehouse-build-and-test.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -253,21 +263,7 @@
       <workItem from="1647282487182" duration="59113000" />
       <workItem from="1647520268770" duration="5066000" />
       <workItem from="1647525790787" duration="3516000" />
-      <workItem from="1647543520690" duration="6663000" />
-    </task>
-    <task id="LOCAL-00017" summary="Specifying DbContext parameter">
-      <created>1647034262260</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1647034262260</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Updating workspace">
-      <created>1647034298921</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1647034298921</updated>
+      <workItem from="1647543520690" duration="7937000" />
     </task>
     <task id="LOCAL-00019" summary="Upgrading version">
       <created>1647034931615</created>
@@ -598,7 +594,21 @@
       <option name="project" value="LOCAL" />
       <updated>1647613108682</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="Adding Directory build props in CI trigger">
+      <created>1647613463450</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1647613463450</updated>
+    </task>
+    <task id="LOCAL-00067" summary="Removing sdk version parameter to test global.json using">
+      <created>1647614156331</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1647614156331</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -648,9 +658,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Adding test topic" />
-    <MESSAGE value="Moving to the right path" />
-    <MESSAGE value="Moving swagger for all environments" />
     <MESSAGE value="renaming path" />
     <MESSAGE value="Adding deployment healthchecks and resource limits" />
     <MESSAGE value="Removing reservation and adding limits to NginX" />
@@ -673,6 +680,9 @@
     <MESSAGE value="Adding graceful termination" />
     <MESSAGE value="Passing cancellation token" />
     <MESSAGE value="Adjusting test project dependencies" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adjusting test project dependencies" />
+    <MESSAGE value="Adding Directory build props in CI trigger" />
+    <MESSAGE value="Removing sdk version parameter to test global.json using" />
+    <MESSAGE value="Removing version specification" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removing version specification" />
   </component>
 </project>

@@ -3,10 +3,6 @@ name: build and test
 on:
   workflow_call:
     inputs:
-      dotnet-version:
-        description: 'The SKD version passed from the caller workflow'
-        required: true
-        type: string
       project:
         description: 'The *csproj project path passed from the caller workflow'
         required: true
@@ -29,8 +25,6 @@ jobs:
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: ${{ inputs.dotnet-version }}
 
       - name: Cache dependencies
         uses: actions/cache@v2
