@@ -29,8 +29,8 @@ jobs:
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: ${{ inputs.dotnet-version }}
+#        with:
+#          dotnet-version: ${{ inputs.dotnet-version }}
 
       - name: Cache dependencies
         uses: actions/cache@v2
