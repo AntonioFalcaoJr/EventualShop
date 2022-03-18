@@ -15,21 +15,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6dd793d5-803a-4cee-b674-f6d523a4ece4" name="Changes" comment="Removing version specification">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/account-build-and-test.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/account-build-and-test.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/build-and-test.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/build-and-test.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/catalog-build-and-test.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/catalog-build-and-test.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/identity-build-and-test.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/identity-build-and-test.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/order-build-and-test.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/order-build-and-test.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/payment-build-and-test.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/payment-build-and-test.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/shoppingcart-build-and-test.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/shoppingcart-build-and-test.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/warehouse-build-and-test.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/warehouse-build-and-test.yaml" afterDir="false" />
+    <list default="true" id="6dd793d5-803a-4cee-b674-f6d523a4ece4" name="Changes" comment="Passing cancellation token">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="fix/fixing-test-dependencies" />
+      </map>
+    </option>
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
