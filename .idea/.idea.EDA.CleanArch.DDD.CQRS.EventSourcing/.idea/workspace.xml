@@ -16,9 +16,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6dd793d5-803a-4cee-b674-f6d523a4ece4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPI/WebAPI.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPI/WebAPI.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests/ECommerce.WebAPI.IntegrationTests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests/ECommerce.WebAPI.IntegrationTests.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.Development.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.Development.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,7 +26,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="release" />
+        <entry key="$PROJECT_DIR$" value="fix/fixing-warning" />
       </map>
     </option>
   </component>
@@ -54,6 +52,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/264cdbfbdb7c6a9ddc794d948824e97d8f7c0ce1a275b6ed78cde41f286ff8/HostEnvironmentEnvExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/17a224df08854f56940ef3ec602e730aa74898/0c/9fb3f1f5/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/575c31ecc35a636b6f962cb71d53992552941a18982aae1c8e6c16305cc3761b/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9a151d5b1d7741bda9bb7f018a295dcda6a470/b9/0811afac/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/67e2fd2529e04718497b98a227cdf24720b67df590f48ce53195712af48b999/HostOptions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/dbda6df4182b8146adc17735d8a3be2030c6cb65c894b2bdf920bf95a1677b/SqlServerDbContextOptionsBuilderExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/fc9b77914cd437cf8b4bd7e43ab2284b39cb3f25756672ed98a63eefc30c650/ServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
@@ -62,6 +61,8 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5d0bef3d2d37dcd4829bfaab38998303286529d87edc8ba65ac1f3bc3fc7ac9/IHostApplicationLifetime.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c269bd4a989dea031277e5b6c4c53a6d2c1889fcf9883a7a5a1754033a57/EntityFrameworkServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ebfa1ddd46e274e54849ec08fe868f34b2af4fea9987b78aea8d94095e58de2/ControllerBase.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b48ee26e677f427e81711182f5c9d87421880/96/77f92743/ChannelWriter`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5b27dd391e5079bf331b2c22b382b49426ca548f1979dcacce5a1c9994a3041/CreatedResult.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7ee2ff3c71283d527b9da6a01465c35a2108e44943f459e51cb57121df35/DbContextPool.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/427df6bfeb4b422ed95f8c24ccad19837ea57673215cb5a5579afd3817e/Results.cs" root0="SKIP_HIGHLIGHTING" />
@@ -70,9 +71,10 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d0f68071d34f43da81e85fc457a7f7ed83898/9b/f8d43498/Enumerable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c959afad4015ed7c4476c54f47790ceedd2f93f9aa213da94df405c4a78f6/CreatedResult.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/64f87996ae49479baa37d19778ef6e428260b1609640a14c913c77e05b5cdf66/IBusControl.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f5545b2656401abe1a371ad2756d7d2328a38293f7ee8b163801bbf55cee8/TestInvoker.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6e34b43491504239ae591e1694cc9756e3e00/92/94fd1890/StdSchedulerFactory.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6e34b43491504239ae591e1694cc9756e3e00/cf/cb59a1e1/ISchedulerFactory.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Web/WebAPI/MapperProfiles/ShoppingCartProfile.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8e5b7644894f734dd23287cdf3d2582b7c0ecb0f789da6c33ce7b7e05d53b/QuartzOptions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0452bfafdf814137a09276e5c2c2e00bf2800/1b/2cb3453f/WriteConcern.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/fc577a47a9ae4d289ea4e815bea8e7528800/34/d54e8f78/QuartzOptions.cs" root0="SKIP_HIGHLIGHTING" />
