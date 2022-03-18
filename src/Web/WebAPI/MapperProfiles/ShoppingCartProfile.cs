@@ -5,23 +5,34 @@ using WebAPI.DataTransferObjects.ShoppingCarts;
 
 namespace WebAPI.MapperProfiles;
 
-public class ShoppingCartProfile : Profile
+public static class ShoppingCartProfile 
 {
-    public ShoppingCartProfile()
+    public class ShoppingCartRequestsToModelsProfile : Profile
     {
-        #region Requests --> Models
+        public ShoppingCartRequestsToModelsProfile()
+        {
             CreateMap<Requests.AddCartItem, Models.ShoppingCartItem>();
             CreateMap<Requests.PaymentWithPayPal, Models.PayPal>();
             CreateMap<Requests.PaymentWithCreditCard, Models.CreditCard>();
             CreateMap<Requests.AddAddress, Models.Address>();
-        #endregion
-
-        #region Responses --> Outputs
+        }
+    }
+    
+    public class ShoppingCartResponsesToOutputProfile : Profile
+    {
+        public ShoppingCartResponsesToOutputProfile()
+        {
             CreateMap<Responses.ShoppingCart, Outputs.ShoppingCart>();
             CreateMap<Responses.ShoppingCartItem, Outputs.ShoppingCartItem>();
             CreateMap<Responses.ShoppingCartItems, Outputs.ShoppingCartItems>();
-        #endregion
+        }
+    }
 
-        CreateMap<Models.ShoppingCartItem, Outputs.ShoppingCartItem>();
+    public class ShoppingCartModelsToOutputProfile : Profile
+    {
+        public ShoppingCartModelsToOutputProfile()
+        {
+            CreateMap<Models.ShoppingCartItem, Outputs.ShoppingCartItem>();
+        }
     }
 }
