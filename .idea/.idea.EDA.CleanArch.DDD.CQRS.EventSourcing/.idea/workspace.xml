@@ -15,9 +15,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6dd793d5-803a-4cee-b674-f6d523a4ece4" name="Changes" comment="Passing cancellation token">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="6dd793d5-803a-4cee-b674-f6d523a4ece4" name="Changes" comment="Adjusting test project dependencies" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -255,14 +253,7 @@
       <workItem from="1647282487182" duration="59113000" />
       <workItem from="1647520268770" duration="5066000" />
       <workItem from="1647525790787" duration="3516000" />
-      <workItem from="1647543520690" duration="6337000" />
-    </task>
-    <task id="LOCAL-00016" summary="Adding WriteConcern.Unacknowledged to improve performance">
-      <created>1647034249885</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1647034249885</updated>
+      <workItem from="1647543520690" duration="6663000" />
     </task>
     <task id="LOCAL-00017" summary="Specifying DbContext parameter">
       <created>1647034262260</created>
@@ -600,7 +591,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647544755719</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="Adjusting test project dependencies">
+      <created>1647613108682</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1647613108682</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -650,7 +648,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Adjusting settings to support multiple environment" />
     <MESSAGE value="Adding test topic" />
     <MESSAGE value="Moving to the right path" />
     <MESSAGE value="Moving swagger for all environments" />
@@ -675,6 +672,7 @@
     <MESSAGE value="Updating workspace.xml" />
     <MESSAGE value="Adding graceful termination" />
     <MESSAGE value="Passing cancellation token" />
-    <option name="LAST_COMMIT_MESSAGE" value="Passing cancellation token" />
+    <MESSAGE value="Adjusting test project dependencies" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adjusting test project dependencies" />
   </component>
 </project>

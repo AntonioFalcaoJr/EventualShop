@@ -5,6 +5,7 @@ on:
     paths:
       - src/Services/Account/**.cs
       - src/Services/Account/**.csproj
+      - Directory.Build.props
 
 jobs:
   account-build-and-test:

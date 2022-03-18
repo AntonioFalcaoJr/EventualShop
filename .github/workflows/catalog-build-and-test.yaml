@@ -5,6 +5,7 @@ on:
     paths:
       - src/Services/Catalog/**.cs
       - src/Services/Catalog/**.csproj
+      - Directory.Build.props
 
 jobs:
   catalog-build-and-test:

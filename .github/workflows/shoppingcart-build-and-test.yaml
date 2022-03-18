@@ -5,6 +5,7 @@ on:
     paths:
       - src/Services/ShoppingCart/**.cs
       - src/Services/ShoppingCart/**.csproj
+      - Directory.Build.props
 
 jobs:
   shoppingcart-build-and-test:
