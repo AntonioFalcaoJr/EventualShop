@@ -16,24 +16,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6dd793d5-803a-4cee-b674-f6d523a4ece4" name="Changes" comment="Getting project settings from Directory props">
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Abstractions/EventStoreService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/AccountEventStoreRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/AccountEventStoreService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Contexts/Configurations/AccountSnapshotConfiguration.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Contexts/Configurations/AccountStoreEventConfiguration.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Contexts/Converters/AccountConverter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Contexts/Converters/EventConverter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Contexts/EventStoreDbContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/DependencyInjection/Options/EventStoreOptions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/DependencyInjection/Options/SqlServerRetryingOptions.cs" afterDir="false" />
+    <list default="true" id="6dd793d5-803a-4cee-b674-f6d523a4ece4" name="Changes" comment="Moving capabilities to Projections project">
+      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/Extensions/NameFormatterExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/Extensions/RabbitMqBusFactoryConfiguratorExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/Options/RabbitMQOptions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/PipeFilters/BusinessValidatorFilter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingConsumeObserver.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingPublishObserver.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingReceiveObserver.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingSendObserver.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/Notifications/NotificationContext.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Class1.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Infrastructure.EventStore.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Infrastructure.EventStore.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/Class1.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/Infrastructure.MessageBus.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/Infrastructure.MessageBus.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/Infrastructure.Projections.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/Infrastructure.Projections.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -291,20 +288,6 @@
       <workItem from="1647525790787" duration="3516000" />
       <workItem from="1647543520690" duration="7937000" />
       <workItem from="1647617167107" duration="654000" />
-    </task>
-    <task id="LOCAL-00024" summary="Fixing BFF WebAPI path">
-      <created>1647263999346</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1647263999346</updated>
-    </task>
-    <task id="LOCAL-00025" summary="Adding docker-compose.yaml">
-      <created>1647378368895</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1647378368895</updated>
     </task>
     <task id="LOCAL-00026" summary="Finalizing Dockerfile">
       <created>1647378441377</created>
@@ -635,7 +618,21 @@
       <option name="project" value="LOCAL" />
       <updated>1647627687191</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="Moving capabilities to EventStore project">
+      <created>1647628433669</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1647628433669</updated>
+    </task>
+    <task id="LOCAL-00074" summary="Moving capabilities to Projections project">
+      <created>1647628991648</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1647628991648</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -685,8 +682,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Removing unnecessary reference" />
-    <MESSAGE value="Removing default definition" />
     <MESSAGE value="Fixing Hosting version" />
     <MESSAGE value="Reducing VUs" />
     <MESSAGE value="Completing services in compose" />
@@ -710,6 +705,8 @@
     <MESSAGE value="Adding Infrastructure.Projections" />
     <MESSAGE value="Segregating infrastructure" />
     <MESSAGE value="Getting project settings from Directory props" />
-    <option name="LAST_COMMIT_MESSAGE" value="Getting project settings from Directory props" />
+    <MESSAGE value="Moving capabilities to EventStore project" />
+    <MESSAGE value="Moving capabilities to Projections project" />
+    <option name="LAST_COMMIT_MESSAGE" value="Moving capabilities to Projections project" />
   </component>
 </project>
