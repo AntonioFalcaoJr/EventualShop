@@ -58,10 +58,10 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5d0bef3d2d37dcd4829bfaab38998303286529d87edc8ba65ac1f3bc3fc7ac9/IHostApplicationLifetime.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c269bd4a989dea031277e5b6c4c53a6d2c1889fcf9883a7a5a1754033a57/EntityFrameworkServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ebfa1ddd46e274e54849ec08fe868f34b2af4fea9987b78aea8d94095e58de2/ControllerBase.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b48ee26e677f427e81711182f5c9d87421880/96/77f92743/ChannelWriter`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/5b27dd391e5079bf331b2c22b382b49426ca548f1979dcacce5a1c9994a3041/CreatedResult.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7ee2ff3c71283d527b9da6a01465c35a2108e44943f459e51cb57121df35/DbContextPool.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/aeb4a8dc9f155d2e7edd1ce8a1fbff63c9ff8e289a95aaf53034e0271d3f/MassTransitHostOptions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/427df6bfeb4b422ed95f8c24ccad19837ea57673215cb5a5579afd3817e/Results.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7012baa9535f4b289d64ea140a7afec26a00/73/87e7c92e/ServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/b7c1ae7fa9e757fa1193fa40d0fdbf6d86cae133a55b68cf967dd5f74f3a5/TaskUtil.cs" root0="SKIP_HIGHLIGHTING" />
@@ -70,9 +70,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/64f87996ae49479baa37d19778ef6e428260b1609640a14c913c77e05b5cdf66/IBusControl.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f5545b2656401abe1a371ad2756d7d2328a38293f7ee8b163801bbf55cee8/TestInvoker.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6e34b43491504239ae591e1694cc9756e3e00/92/94fd1890/StdSchedulerFactory.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Web/WebAPI/DataTransferObjects/ShoppingCarts/Requests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6e34b43491504239ae591e1694cc9756e3e00/cf/cb59a1e1/ISchedulerFactory.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8e5b7644894f734dd23287cdf3d2582b7c0ecb0f789da6c33ce7b7e05d53b/QuartzOptions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0452bfafdf814137a09276e5c2c2e00bf2800/1b/2cb3453f/WriteConcern.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/fc577a47a9ae4d289ea4e815bea8e7528800/34/d54e8f78/QuartzOptions.cs" root0="SKIP_HIGHLIGHTING" />
@@ -80,6 +78,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c75fbd1540f941fa93c2fb9048be1c45b070/f8/757307c6/ServiceProviderServiceExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d9d9faea5e6ed6438a777ef8c6eed41261f81d8e86488ed923ad92564f54e/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/b61bdb830c1925ea5cdbbee15abbf54fa1d55633e14127b8caa28fc3be848/Environments.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -273,34 +272,6 @@
       <workItem from="1647525790787" duration="3516000" />
       <workItem from="1647543520690" duration="7937000" />
       <workItem from="1647617167107" duration="654000" />
-    </task>
-    <task id="LOCAL-00028" summary="Adding nginx.conf">
-      <created>1647378606595</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1647378606595</updated>
-    </task>
-    <task id="LOCAL-00029" summary="Moving .dockerignore to the root context path">
-      <created>1647378683047</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1647378683047</updated>
-    </task>
-    <task id="LOCAL-00030" summary="Adjusting details">
-      <created>1647384198129</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1647384198129</updated>
-    </task>
-    <task id="LOCAL-00031" summary="Defining queue to auto bind">
-      <created>1647384224866</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1647384224866</updated>
     </task>
     <task id="LOCAL-00032" summary="Defining queue to auto bind">
       <created>1647384235736</created>
@@ -617,7 +588,35 @@
       <option name="project" value="LOCAL" />
       <updated>1647629530409</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="Moving capabilities to EventStore project">
+      <created>1647634520370</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1647634520370</updated>
+    </task>
+    <task id="LOCAL-00078" summary="Moving capabilities to MessageBus project">
+      <created>1647634529466</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1647634529466</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Moving capabilities to Projections project">
+      <created>1647634544632</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1647634544632</updated>
+    </task>
+    <task id="LOCAL-00080" summary="Removing master infrastructure">
+      <created>1647634560435</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1647634560435</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -689,8 +688,8 @@
     <MESSAGE value="Segregating infrastructure" />
     <MESSAGE value="Getting project settings from Directory props" />
     <MESSAGE value="Moving capabilities to EventStore project" />
-    <MESSAGE value="Moving capabilities to Projections project" />
     <MESSAGE value="Moving capabilities to MessageBus project" />
+    <MESSAGE value="Moving capabilities to Projections project" />
     <MESSAGE value="Removing master infrastructure" />
     <option name="LAST_COMMIT_MESSAGE" value="Removing master infrastructure" />
   </component>
