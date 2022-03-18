@@ -1,8 +1,11 @@
 using System;
 using System.Threading;
-using Infrastructure.DependencyInjection.Extensions;
-using Infrastructure.DependencyInjection.Options;
-using Infrastructure.EventSourcing.EventStore.Contexts;
+using Infrastructure.EventStore.Contexts;
+using Infrastructure.EventStore.DependencyInjection.Extensions;
+using Infrastructure.EventStore.DependencyInjection.Options;
+using Infrastructure.MessageBus.DependencyInjection.Extensions;
+using Infrastructure.MessageBus.DependencyInjection.Options;
+using Infrastructure.Projections.DependencyInjection.Extensions;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -39,18 +42,10 @@ builder.ConfigureLogging((context, loggingBuilder) =>
 
 builder.ConfigureServices((context, services) =>
 {
-    services.AddApplicationServices();
-
-    services.AddEventStoreRepository();
-    services.AddProjectionsRepository();
-
-    services.AddEventStoreDbContext();
-    services.AddProjectionsDbContext();
-
-    services.AddMassTransitWithRabbitMqAndQuartz();
-
-    services.AddMessagesFluentValidation();
-
+    services.AddEventStore();
+    services.AddProjections();
+    services.AddMessageBus();
+    services.AddMessageValidators();
     services.AddNotificationContext();
 
     services.ConfigureEventStoreOptions(
