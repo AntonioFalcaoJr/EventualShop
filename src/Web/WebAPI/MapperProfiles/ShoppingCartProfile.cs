@@ -23,7 +23,5 @@ public class ShoppingCartProfile : Profile
         #endregion
 
         CreateMap<Models.ShoppingCartItem, Outputs.ShoppingCartItem>();
-
-
     }
 }
