@@ -3,10 +3,12 @@
         <UserSecretsId>cd5ae577-e15f-4bde-ad9c-65a9b974bb05</UserSecretsId>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Serilog.Extensions.Hosting" Version="$(Serilog_Extensions_Version)" />
-        <PackageReference Include="Serilog.AspNetCore" Version="$(Serilog_AspNetCore_Version)" />
+        <PackageReference Include="Serilog.Extensions.Hosting" Version="$(Serilog_Extensions_Version)"/>
+        <PackageReference Include="Serilog.AspNetCore" Version="$(Serilog_AspNetCore_Version)"/>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+        <ProjectReference Include="..\Infrastructure.EventStore\Infrastructure.EventStore.csproj"/>
+        <ProjectReference Include="..\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj"/>
+        <ProjectReference Include="..\Infrastructure.Projections\Infrastructure.Projections.csproj"/>
     </ItemGroup>
 </Project>
