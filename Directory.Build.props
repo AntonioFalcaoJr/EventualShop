@@ -6,6 +6,7 @@
         <Authors>Antônio Falcão Jr.</Authors>
         <TargetFramework>net7.0</TargetFramework>
         <LangVersion>preview</LangVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
     <PropertyGroup Label="Packages dependency versions">
