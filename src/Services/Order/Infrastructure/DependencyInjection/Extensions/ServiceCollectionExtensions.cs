@@ -1,5 +1,4 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using Application.Abstractions.Notifications;
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;

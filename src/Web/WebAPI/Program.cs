@@ -1,16 +1,10 @@
-using System;
 using System.Reflection;
 using ECommerce.Abstractions.Messages;
 using ECommerce.JsonConverters;
 using FluentValidation.AspNetCore;
 using MassTransit;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Any;
 using Serilog;
 using WebAPI.DataTransferObjects.ShoppingCarts;

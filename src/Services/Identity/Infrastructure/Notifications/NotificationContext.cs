@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Application.Abstractions.Notifications;
+﻿using Application.Abstractions.Notifications;
 using FluentValidation.Results;
 
 namespace Infrastructure.Notifications;

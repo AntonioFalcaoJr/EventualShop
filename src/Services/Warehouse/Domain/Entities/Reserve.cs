@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Domain.Entities;
+﻿namespace Domain.Entities;
 
 public class Reserve
 {

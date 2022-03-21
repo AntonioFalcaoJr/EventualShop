@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Application.Abstractions.EventSourcing.Projections;
 
 namespace Application.EventSourcing.Projections;

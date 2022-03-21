@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using ECommerce.Abstractions.Messages.Queries.Paging;
+﻿using ECommerce.Abstractions.Messages.Queries.Paging;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 

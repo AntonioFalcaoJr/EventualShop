@@ -1,7 +1,4 @@
-using System;
 using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
 using Application.Abstractions.EventSourcing.Projections;
 using ECommerce.Abstractions.Messages.Queries.Paging;
 using Infrastructure.Projections.Abstractions.Contexts;

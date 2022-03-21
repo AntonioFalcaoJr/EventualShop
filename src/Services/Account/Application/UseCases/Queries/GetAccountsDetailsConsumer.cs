@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Application.EventSourcing.Projections;
 using ECommerce.Contracts.Account;
 using MassTransit;

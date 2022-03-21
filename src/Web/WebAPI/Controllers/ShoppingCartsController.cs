@@ -1,12 +1,8 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using ECommerce.Contracts.Common;
 using ECommerce.Contracts.ShoppingCart;
 using MassTransit;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;
 using WebAPI.DataTransferObjects.ShoppingCarts;

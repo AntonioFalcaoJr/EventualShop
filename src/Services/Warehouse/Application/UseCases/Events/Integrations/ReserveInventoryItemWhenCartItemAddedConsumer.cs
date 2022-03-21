@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Application.EventSourcing.EventStore;
+﻿using Application.EventSourcing.EventStore;
 using MassTransit;
 using CartItemAddedEvent = ECommerce.Contracts.ShoppingCart.DomainEvents.CartItemAdded;
 using ReserveInventoryCommand = ECommerce.Contracts.Warehouse.Commands.ReserveInventory;

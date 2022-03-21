@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using ECommerce.Contracts.Account;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;

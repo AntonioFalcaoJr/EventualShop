@@ -1,8 +1,6 @@
 ﻿using System.Reflection;
 using ECommerce.JsonConverters;
 using MassTransit;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using WebAPI.DependencyInjection.Options;

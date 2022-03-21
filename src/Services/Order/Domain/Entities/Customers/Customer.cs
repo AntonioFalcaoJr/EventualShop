@@ -1,5 +1,4 @@
-﻿using System;
-using Domain.Abstractions.Entities;
+﻿using Domain.Abstractions.Entities;
 using Domain.ValueObjects.Addresses;
 
 namespace Domain.Entities.Customers;

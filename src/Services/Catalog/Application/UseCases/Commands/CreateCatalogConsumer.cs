@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Application.EventSourcing.EventStore;
+﻿using Application.EventSourcing.EventStore;
 using Domain.Aggregates;
 using MassTransit;
 using CreateCatalogCommand = ECommerce.Contracts.Catalog.Commands.CreateCatalog;
