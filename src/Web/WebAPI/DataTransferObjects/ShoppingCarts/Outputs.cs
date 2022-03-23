@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using ECommerce.Abstractions.Messages.Queries.Paging;
+﻿using ECommerce.Abstractions.Messages.Queries.Paging;
 
 namespace WebAPI.DataTransferObjects.ShoppingCarts;
 

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WebAPI.DataTransferObjects.ShoppingCarts;
+﻿namespace WebAPI.DataTransferObjects.ShoppingCarts;
 
 public static class Requests
 {

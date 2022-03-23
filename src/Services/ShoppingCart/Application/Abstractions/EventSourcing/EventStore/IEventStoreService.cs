@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Domain.Abstractions.Aggregates;
+﻿using Domain.Abstractions.Aggregates;
 
 namespace Application.Abstractions.EventSourcing.EventStore;
 

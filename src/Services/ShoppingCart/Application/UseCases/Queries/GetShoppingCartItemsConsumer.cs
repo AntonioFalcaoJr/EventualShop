@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Application.EventSourcing.Projections;
+﻿using Application.EventSourcing.Projections;
 using ECommerce.Abstractions.Messages.Queries.Responses;
 using ECommerce.Contracts.ShoppingCart;
 using MassTransit;

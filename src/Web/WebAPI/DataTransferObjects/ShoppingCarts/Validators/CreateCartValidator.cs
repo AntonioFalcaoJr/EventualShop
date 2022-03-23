@@ -1,5 +1,4 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace WebAPI.DataTransferObjects.ShoppingCarts.Validators;
 

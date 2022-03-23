@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Application.EventSourcing.EventStore;
+﻿using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using ECommerce.Contracts.Payment;
 using MassTransit;

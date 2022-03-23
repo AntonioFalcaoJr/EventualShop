@@ -1,4 +1,3 @@
-using System;
 using ECommerce.Abstractions.Messages.Events;
 
 namespace ECommerce.Contracts.Account;
