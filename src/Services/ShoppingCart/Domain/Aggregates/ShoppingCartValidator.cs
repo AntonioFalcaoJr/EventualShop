@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Domain.Abstractions.Validators;
+﻿using Domain.Abstractions.Validators;
 using Domain.Entities.Customers;
 using Domain.Entities.ShoppingCartItems;
 using Domain.ValueObjects.PaymentMethods.CreditCards;

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using MassTransit;
+﻿using MassTransit;
 
 namespace ECommerce.Abstractions.Validations;
 

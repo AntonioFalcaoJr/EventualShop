@@ -1,5 +1,4 @@
-﻿using System;
-using MassTransit;
+﻿using MassTransit;
 
 namespace ECommerce.Abstractions.Messages.Events;
 

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using ECommerce.Abstractions.Messages.Queries.Responses;
+﻿using ECommerce.Abstractions.Messages.Queries.Responses;
 using ECommerce.Contracts.Common;
 
 namespace ECommerce.Contracts.ShoppingCart;

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using MassTransit;
+﻿using MassTransit;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using WebAPI;

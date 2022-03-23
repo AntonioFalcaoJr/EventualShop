@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Runtime.CompilerServices;
 using Application.Abstractions.EventSourcing.EventStore;
 using Application.Abstractions.EventSourcing.EventStore.Events;
 using Application.Abstractions.Notifications;

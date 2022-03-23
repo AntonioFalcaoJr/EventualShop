@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Application.Abstractions.Services;
+﻿using Application.Abstractions.Services;
 using Application.Services.CreditCards;
 using Application.Services.CreditCards.Http;
 using Domain.Entities.PaymentMethods;

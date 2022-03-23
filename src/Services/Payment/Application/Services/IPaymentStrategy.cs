@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Domain.Aggregates;
+﻿using Domain.Aggregates;
 
 namespace Application.Services;
 

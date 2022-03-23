@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Application.Abstractions.Notifications;
+﻿using Application.Abstractions.Notifications;
 using ECommerce.Abstractions.Validations;
 using MassTransit;
 using Serilog;

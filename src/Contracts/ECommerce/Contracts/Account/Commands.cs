@@ -1,5 +1,4 @@
-﻿using System;
-using ECommerce.Abstractions.Messages.Commands;
+﻿using ECommerce.Abstractions.Messages.Commands;
 
 namespace ECommerce.Contracts.Account;
 
