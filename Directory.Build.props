@@ -12,7 +12,7 @@
 
         <!--Microsoft-->
         <Microsoft_Extensions_Version>7.0.0-preview.2.22152.2</Microsoft_Extensions_Version>
-        <Microsoft_Extensions_Hosting_Version>6.0.0</Microsoft_Extensions_Hosting_Version>
+        <Microsoft_Extensions_Hosting_Version>6.0.1</Microsoft_Extensions_Hosting_Version>
         <Microsoft_Mvc_Testing_Version>6.0.0</Microsoft_Mvc_Testing_Version>
 
         <!--EF Core-->
@@ -22,7 +22,7 @@
         <MongoDb_Version>2.15.0</MongoDb_Version>
 
         <!--MassTransit-->
-        <MassTransit_Version>8.0.0-develop.395</MassTransit_Version>
+        <MassTransit_Version>8.0.0</MassTransit_Version>
         <Quartz_Version>3.3.3</Quartz_Version>
 
         <!--Newtonsoft-->
