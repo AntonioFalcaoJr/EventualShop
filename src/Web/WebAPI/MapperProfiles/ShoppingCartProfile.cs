@@ -7,20 +7,20 @@ namespace WebAPI.MapperProfiles;
 
 public static class ShoppingCartProfile 
 {
-    public class ShoppingCartRequestsToModelsProfile : Profile
+    public class ShoppingCartRequestToModelProfile : Profile
     {
-        public ShoppingCartRequestsToModelsProfile()
+        public ShoppingCartRequestToModelProfile()
         {
-            CreateMap<Requests.AddCartItem, Models.ShoppingCartItem>();
-            CreateMap<Requests.PaymentWithPayPal, Models.PayPal>();
-            CreateMap<Requests.PaymentWithCreditCard, Models.CreditCard>();
+            CreateMap<Requests.AddShoppingCartItem, Models.ShoppingCartItem>();
+            CreateMap<Requests.AddPayPal, Models.PayPal>();
+            CreateMap<Requests.AddCreditCard, Models.CreditCard>();
             CreateMap<Requests.AddAddress, Models.Address>();
         }
     }
     
-    public class ShoppingCartResponsesToOutputProfile : Profile
+    public class ShoppingCartResponseToOutputProfile : Profile
     {
-        public ShoppingCartResponsesToOutputProfile()
+        public ShoppingCartResponseToOutputProfile()
         {
             CreateMap<Responses.ShoppingCart, Outputs.ShoppingCart>();
             CreateMap<Responses.ShoppingCartItem, Outputs.ShoppingCartItem>();
@@ -28,9 +28,9 @@ public static class ShoppingCartProfile
         }
     }
 
-    public class ShoppingCartModelsToOutputProfile : Profile
+    public class ShoppingCartModelToOutputProfile : Profile
     {
-        public ShoppingCartModelsToOutputProfile()
+        public ShoppingCartModelToOutputProfile()
         {
             CreateMap<Models.ShoppingCartItem, Outputs.ShoppingCartItem>();
         }
