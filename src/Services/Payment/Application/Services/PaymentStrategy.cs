@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Application.Abstractions.Services;
+﻿using Application.Abstractions.Services;
 using Application.Services.CreditCards;
 using Application.Services.DebitCards;
 using Application.Services.PayPal;

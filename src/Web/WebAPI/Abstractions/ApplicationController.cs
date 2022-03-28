@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using AutoMapper;
 using ECommerce.Abstractions.Messages.Commands;
 using ECommerce.Abstractions.Messages.Queries;

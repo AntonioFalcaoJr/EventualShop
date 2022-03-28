@@ -1,5 +1,4 @@
-﻿using System;
-using Domain.Abstractions.Validators;
+﻿using Domain.Abstractions.Validators;
 using Domain.ValueObjects.Addresses;
 
 namespace Domain.Entities.Customers;

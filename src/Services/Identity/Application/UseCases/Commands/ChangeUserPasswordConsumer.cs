@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Application.EventSourcing.EventStore;
+﻿using Application.EventSourcing.EventStore;
 using MassTransit;
 using ChangeUserPasswordCommand = ECommerce.Contracts.Identity.Commands.ChangeUserPassword;
 
@@ -17,10 +16,6 @@ public class ChangeUserPasswordConsumer : IConsumer<ChangeUserPasswordCommand>
     public async Task Consume(ConsumeContext<ChangeUserPasswordCommand> context)
     {
         var user = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.UserId, context.CancellationToken);
-
-        if (user is null)
-            // TODO - Notification
-            return;
 
         user.ChangePassword(
             user.Id,
