@@ -59,7 +59,7 @@ public class ShoppingCartsController : ApplicationController
     [HttpPost("{cartId:guid}/items")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> AddCartItemAsync([NotEmpty] Guid cartId, [FromBody] Requests.AddCartItem request, [FromServices] IMapper mapper, CancellationToken cancellationToken)
+    public Task<IActionResult> AddCartItemAsync([NotEmpty] Guid cartId, [FromBody] Requests.AddShoppingCartItem request, [FromServices] IMapper mapper, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.AddCartItem>(new(cartId, mapper.Map<Models.ShoppingCartItem>(request)), cancellationToken);
 
     [HttpGet("{cartId:guid}/items/{itemId:guid}")]
