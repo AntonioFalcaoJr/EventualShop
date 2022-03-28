@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Domain.Entities.PaymentMethods.DebitCards;
+﻿namespace Domain.Entities.PaymentMethods.DebitCards;
 
 public class DebitCardPaymentMethod : PaymentMethod
 {

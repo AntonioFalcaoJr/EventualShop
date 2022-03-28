@@ -6,6 +6,7 @@
         <Authors>Antônio Falcão Jr.</Authors>
         <TargetFramework>net7.0</TargetFramework>
         <LangVersion>preview</LangVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
     <PropertyGroup Label="Packages dependency versions">
@@ -22,8 +23,8 @@
         <MongoDb_Version>2.15.0</MongoDb_Version>
 
         <!--MassTransit-->
-        <MassTransit_Version>8.0.0</MassTransit_Version>
-        <Quartz_Version>3.3.3</Quartz_Version>
+        <MassTransit_Version>8.0.0-develop.395</MassTransit_Version>
+        <Quartz_Version>3.4.0-preview-20220321-1751</Quartz_Version>
 
         <!--Newtonsoft-->
         <Newtonsoft_Version>13.0.1</Newtonsoft_Version>
@@ -32,11 +33,11 @@
         <!--Serilog-->
         <Serilog_Version>2.11.0-dev-01380</Serilog_Version>
         <Serilog_AspNetCore_Version>6.0.0-dev-00265</Serilog_AspNetCore_Version>
-        <Serilog_Extensions_Version>5.0.0-dev-00093</Serilog_Extensions_Version>
+        <Serilog_Extensions_Version>5.0.0-dev-00095</Serilog_Extensions_Version>
 
         <!--FluentValidation-->
         <FluentValidation_Version>10.4.0</FluentValidation_Version>
-        
+
         <!--Auto Mapper-->
         <AutoMapper_Version>11.0.1</AutoMapper_Version>
         <AutoMapper_Extensions_Version>11.0.0</AutoMapper_Extensions_Version>

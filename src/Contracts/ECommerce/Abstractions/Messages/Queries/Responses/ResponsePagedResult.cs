@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using ECommerce.Abstractions.Messages.Queries.Paging;
+﻿using ECommerce.Abstractions.Messages.Queries.Paging;
 using MassTransit;
 
 namespace ECommerce.Abstractions.Messages.Queries.Responses;

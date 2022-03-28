@@ -19,8 +19,15 @@
     <list default="true" id="6dd793d5-803a-4cee-b674-f6d523a4ece4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Directory.Build.props" beforeDir="false" afterPath="$PROJECT_DIR$/Directory.Build.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Infrastructure.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/Infrastructure.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nuget.config" beforeDir="false" afterPath="$PROJECT_DIR$/nuget.config" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/WorkerService/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/WorkerService/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/WorkerService/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/WorkerService/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Identity/WorkerService/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Identity/WorkerService/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Order/WorkerService/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/WorkerService/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/WorkerService/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/WorkerService/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/WorkerService/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/WorkerService/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/WorkerService/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/WorkerService/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,13 +37,6 @@
   <component name="ChangesViewManager">
     <option name="groupingKeys">
       <option value="directory" />
-    </option>
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="feature/segregate-account-infra-layers" />
-      </map>
     </option>
   </component>
   <component name="GitSEFilterConfiguration">
@@ -88,8 +88,9 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/fc577a47a9ae4d289ea4e815bea8e7528800/34/d54e8f78/QuartzOptions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/a148b69b23decbabddf4bcf2533ebc2183c6687ad6734bf8e5d667b3ea2961/IHostEnvironment.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c75fbd1540f941fa93c2fb9048be1c45b070/f8/757307c6/ServiceProviderServiceExtensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/b61bdb830c1925ea5cdbbee15abbf54fa1d55633e14127b8caa28fc3be848/Environments.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d9d9faea5e6ed6438a777ef8c6eed41261f81d8e86488ed923ad92564f54e/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/b61bdb830c1925ea5cdbbee15abbf54fa1d55633e14127b8caa28fc3be848/Environments.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/WorkerService/Program.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -283,13 +284,7 @@
       <workItem from="1647525790787" duration="3516000" />
       <workItem from="1647543520690" duration="7937000" />
       <workItem from="1647617167107" duration="654000" />
-    </task>
-    <task id="LOCAL-00032" summary="Defining queue to auto bind">
-      <created>1647384235736</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1647384235736</updated>
+      <workItem from="1648061816477" duration="1410000" />
     </task>
     <task id="LOCAL-00033" summary="Adding test">
       <created>1647384257512</created>
@@ -627,7 +622,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647634560435</updated>
     </task>
-    <option name="localTasksCounter" value="81" />
+    <task id="LOCAL-00081" summary="Upgrading version">
+      <created>1647995073391</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1647995073392</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -702,6 +704,7 @@
     <MESSAGE value="Moving capabilities to MessageBus project" />
     <MESSAGE value="Moving capabilities to Projections project" />
     <MESSAGE value="Removing master infrastructure" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removing master infrastructure" />
+    <MESSAGE value="Upgrading version" />
+    <option name="LAST_COMMIT_MESSAGE" value="Upgrading version" />
   </component>
 </project>

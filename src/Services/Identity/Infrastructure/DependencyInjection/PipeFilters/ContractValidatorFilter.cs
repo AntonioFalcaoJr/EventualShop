@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using ECommerce.Abstractions.Validations;
+﻿using ECommerce.Abstractions.Validations;
 using FluentValidation;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;

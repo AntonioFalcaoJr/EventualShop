@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Domain.Abstractions.Entities;
+﻿using Domain.Abstractions.Entities;
 using ECommerce.Abstractions.Messages.Events;
 using Newtonsoft.Json;
 

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Polly;
+﻿using Polly;
 using Polly.CircuitBreaker;
 using Polly.Extensions.Http;
 using Polly.Timeout;

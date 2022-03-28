@@ -1,5 +1,4 @@
-﻿using System;
-using ECommerce.Abstractions.Messages.Queries.Responses;
+﻿using ECommerce.Abstractions.Messages.Queries.Responses;
 
 namespace ECommerce.Contracts.Catalog;
 

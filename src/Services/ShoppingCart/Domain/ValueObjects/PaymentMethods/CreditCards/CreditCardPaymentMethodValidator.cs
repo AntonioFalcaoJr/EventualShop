@@ -1,5 +1,4 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Domain.ValueObjects.PaymentMethods.CreditCards;
 
