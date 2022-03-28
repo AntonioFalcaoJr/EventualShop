@@ -6,17 +6,61 @@
     <projectFile profileName="IIS Express">src/Web/WebAPI/WebAPI.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Adding workspace" />
+    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Adding new layers">
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Abstractions/EventStoreService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Contexts/Configurations/UserSnapshotConfiguration.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Contexts/Configurations/UserStoreEventConfiguration.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Contexts/Converters/EventConverter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Contexts/Converters/UserConverter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Contexts/EventStoreDbContext.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/DependencyInjection/Options/EventStoreOptions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/DependencyInjection/Options/SqlServerRetryingOptions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/UserEventStoreRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/UserEventStoreService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.MessageBus/DependencyInjection/Extensions/NameFormatterExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.MessageBus/DependencyInjection/Extensions/RabbitMqBusFactoryConfiguratorExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.MessageBus/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.MessageBus/DependencyInjection/Options/RabbitMQOptions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.MessageBus/DependencyInjection/PipeFilters/BusinessValidatorFilter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.MessageBus/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingConsumeObserver.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingPublishObserver.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingReceiveObserver.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingSendObserver.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.MessageBus/Notifications/NotificationContext.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.Projections/Abstractions/Contexts/IMongoDbContext.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.Projections/Abstractions/Contexts/MongoDbContext.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.Projections/Abstractions/Pagination/PagedResult.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.Projections/Abstractions/Pagination/Paging.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.Projections/Abstractions/ProjectionsRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.Projections/Contexts/ProjectionsDbContext.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.Projections/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.Projections/UserProjectionsRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.Projections/UserProjectionsService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Infrastructure.EventStore.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Infrastructure.EventStore.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.MessageBus/Infrastructure.MessageBus.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.MessageBus/Infrastructure.MessageBus.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.Projections/Infrastructure.Projections.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.Projections/Infrastructure.Projections.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests/Factories/TestingWebApplicationFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests/Factories/TestingWebApplicationFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests/ShoppingCartIntegrationTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests/ShoppingCartIntegrationTests.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="272AlzSpFbwqE2CsySenvlmLsgY" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="autoscrollToSource" value="true" />
@@ -24,6 +68,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -171,7 +216,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1648507964961</updated>
-      <workItem from="1648507978719" duration="1022000" />
+      <workItem from="1648507978719" duration="2512000" />
     </task>
     <task id="LOCAL-00001" summary="Adding .idea base files">
       <created>1648508169322</created>
@@ -187,7 +232,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648508289242</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Adding new layers">
+      <created>1648510292640</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1648510292640</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -208,9 +260,11 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Adding .idea base files" />
     <MESSAGE value="Adding workspace" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding workspace" />
+    <MESSAGE value="Adding new layers" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding new layers" />
   </component>
 </project>

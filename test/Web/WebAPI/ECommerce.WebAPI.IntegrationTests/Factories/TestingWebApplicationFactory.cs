@@ -1,7 +1,6 @@
 ﻿using MassTransit;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using WebAPI;
 
 namespace ECommerce.WebAPI.IntegrationTests.Factories;
 

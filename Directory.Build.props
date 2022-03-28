@@ -49,7 +49,7 @@
         
         <!--Test-->
         <Microsoft_Mvc_Testing_Version>7.0.0-preview.2.22153.2</Microsoft_Mvc_Testing_Version>
-        <Microsoft_Test_SDK_Version>7.0.0-preview.2.22153.2</Microsoft_Test_SDK_Version>
+        <Microsoft_Test_SDK_Version>17.1.0</Microsoft_Test_SDK_Version>
         
     </PropertyGroup>
 
