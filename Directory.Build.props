@@ -13,7 +13,7 @@
 
         <!--Microsoft-->
         <Microsoft_Extensions_Version>7.0.0-preview.2.22152.2</Microsoft_Extensions_Version>
-        <Microsoft_Extensions_Hosting_Version>6.0.0</Microsoft_Extensions_Hosting_Version>
+        <Microsoft_Extensions_Hosting_Version>6.0.1</Microsoft_Extensions_Hosting_Version>
         <Microsoft_Mvc_Testing_Version>7.0.0-preview.2.22153.2</Microsoft_Mvc_Testing_Version>
 
         <!--EF Core-->
