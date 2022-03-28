@@ -17,10 +17,6 @@ public class ChangeUserPasswordConsumer : IConsumer<ChangeUserPasswordCommand>
     {
         var user = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.UserId, context.CancellationToken);
 
-        if (user is null)
-            // TODO - Notification
-            return;
-
         user.ChangePassword(
             user.Id,
             context.Message.NewPassword,
