@@ -1,5 +1,5 @@
-ARG ASPNET_VERSION="7.0.0-preview.1-alpine3.15"
-ARG SDK_VERSION="7.0.100-preview.1-alpine3.15"
+ARG ASPNET_VERSION="7.0.0-preview.2-alpine3.15"
+ARG SDK_VERSION="7.0.100-preview.2-alpine3.15"
 ARG BASE_ADRESS="mcr.microsoft.com/dotnet"
 
 FROM $BASE_ADRESS/aspnet:$ASPNET_VERSION AS base
@@ -18,7 +18,9 @@ WORKDIR /src
 
 COPY ./src/Services/Account/Application/*.csproj ./Services/Account/Application/
 COPY ./src/Services/Account/Domain/*.csproj ./Services/Account/Domain/
-COPY ./src/Services/Account/Infrastructure/*.csproj ./Services/Account/Infrastructure/
+COPY ./src/Services/Account/Infrastructure.EventStore/*.csproj ./Services/Account/Infrastructure.EventStore/
+COPY ./src/Services/Account/Infrastructure.MessageBus/*.csproj ./Services/Account/Infrastructure.MessageBus/
+COPY ./src/Services/Account/Infrastructure.Projections/*.csproj ./Services/Account/Infrastructure.Projections/
 COPY ./src/Services/Account/WorkerService/*.csproj ./Services/Account/WorkerService/
 COPY ./src/Contracts/ECommerce/*.csproj ./Contracts/ECommerce/
 
@@ -26,7 +28,9 @@ RUN dotnet restore -v m ./Services/Account/WorkerService
 
 COPY ./src/Services/Account/Application/. ./Services/Account/Application/
 COPY ./src/Services/Account/Domain/. ./Services/Account/Domain/
-COPY ./src/Services/Account/Infrastructure/. ./Services/Account/Infrastructure/
+COPY ./src/Services/Account/Infrastructure.EventStore/. ./Services/Account/Infrastructure.EventStore/
+COPY ./src/Services/Account/Infrastructure.MessageBus/. ./Services/Account/Infrastructure.MessageBus/
+COPY ./src/Services/Account/Infrastructure.Projections/. ./Services/Account/Infrastructure.Projections/
 COPY ./src/Services/Account/WorkerService/. ./Services/Account/WorkerService/
 COPY ./src/Contracts/ECommerce/. ./Contracts/ECommerce/
 
