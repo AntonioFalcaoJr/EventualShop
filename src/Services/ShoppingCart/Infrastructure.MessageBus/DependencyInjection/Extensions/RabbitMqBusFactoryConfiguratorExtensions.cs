@@ -4,7 +4,7 @@ using ECommerce.Abstractions.Messages.Events;
 using ECommerce.Contracts.ShoppingCart;
 using MassTransit;
 
-namespace Infrastructure.DependencyInjection.Extensions;
+namespace Infrastructure.MessageBus.DependencyInjection.Extensions;
 
 internal static class RabbitMqBusFactoryConfiguratorExtensions
 {

@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using ValidationResult = FluentValidation.Results.ValidationResult;
 
-namespace Infrastructure.DependencyInjection.PipeFilters;
+namespace Infrastructure.MessageBus.DependencyInjection.PipeFilters;
 
 public class ContractValidatorFilter<T> : IFilter<ConsumeContext<T>>
     where T : class

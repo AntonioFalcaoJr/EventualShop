@@ -1,8 +1,8 @@
-﻿using Infrastructure.DependencyInjection.Options;
-using Infrastructure.EventStore.Contexts;
+﻿using Infrastructure.EventStore.Contexts;
 using Infrastructure.EventStore.DependencyInjection.Extensions;
 using Infrastructure.EventStore.DependencyInjection.Options;
 using Infrastructure.MessageBus.DependencyInjection.Extensions;
+using Infrastructure.MessageBus.DependencyInjection.Options;
 using Infrastructure.Projections.DependencyInjection.Extensions;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;

@@ -6,48 +6,116 @@
     <projectFile profileName="IIS Express">src/Web/WebAPI/WebAPI.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Segregating Shopping Cart infrastructure layers">
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.EventStore/Abstractions/EventStoreService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.EventStore/Contexts/Configurations/WarehouseSnapshotConfiguration.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.EventStore/Contexts/Configurations/WarehouseStoreEventConfiguration.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.EventStore/Contexts/Converters/EventConverter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.EventStore/Contexts/Converters/InventoryItemConverter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.EventStore/Contexts/EventStoreDbContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.EventStore/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.EventStore/DependencyInjection/Options/EventStoreOptions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.EventStore/DependencyInjection/Options/SqlServerRetryingOptions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.EventStore/Infrastructure.EventStore.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.EventStore/WarehouseEventStoreRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.EventStore/WarehouseEventStoreService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.MessageBus/DependencyInjection/Extensions/NameFormatterExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.MessageBus/DependencyInjection/Extensions/RabbitMqBusFactoryConfiguratorExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.MessageBus/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.MessageBus/DependencyInjection/Options/RabbitMQOptions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.MessageBus/DependencyInjection/PipeFilters/BusinessValidatorFilter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.MessageBus/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingConsumeObserver.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingPublishObserver.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingReceiveObserver.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingSendObserver.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.MessageBus/Infrastructure.MessageBus.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.MessageBus/Notifications/NotificationContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.Projections/Abstractions/Contexts/IMongoDbContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.Projections/Abstractions/Contexts/MongoDbContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.Projections/Abstractions/Pagination/PagedResult.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.Projections/Abstractions/Pagination/Paging.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.Projections/Abstractions/ProjectionsRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.Projections/Contexts/ProjectionsDbContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.Projections/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.Projections/Infrastructure.Projections.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.Projections/WarehouseProjectionsRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.Projections/WarehouseProjectionsService.cs" afterDir="false" />
+    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.EventStore/Abstractions/EventStoreService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.EventStore/Contexts/Configurations/PaymentSnapshotConfiguration.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.EventStore/Contexts/Configurations/PaymentStoreEventConfiguration.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.EventStore/Contexts/Converters/EventConverter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.EventStore/Contexts/Converters/PaymentConverter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.EventStore/Contexts/EventStoreDbContext.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.EventStore/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.EventStore/DependencyInjection/Options/EventStoreOptions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.EventStore/DependencyInjection/Options/SqlServerRetryingOptions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.EventStore/Infrastructure.EventStore.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.EventStore/PaymentEventStoreRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.EventStore/PaymentEventStoreService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/CreditCards/CreditCardHttpClient.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/CreditCards/CreditCardPaymentService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/DebitCards/DebitCardHttpClient.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/DebitCards/DebitCardPaymentService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/DependencyInjection/HttpPolicies/HttpPolicy.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/DependencyInjection/Options/CreditCardHttpClientOptions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/DependencyInjection/Options/DebitCardHttpClientOptions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/DependencyInjection/Options/PayPalHttpClientOptions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/Infrastructure.HttpClients.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/PayPal/PayPalHttpClient.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/PayPal/PayPalPaymentService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.MessageBus/DependencyInjection/Extensions/NameFormatterExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.MessageBus/DependencyInjection/Extensions/RabbitMqBusFactoryConfiguratorExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.MessageBus/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.MessageBus/DependencyInjection/Options/RabbitMQOptions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.MessageBus/DependencyInjection/PipeFilters/BusinessValidatorFilter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.MessageBus/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingConsumeObserver.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingPublishObserver.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingReceiveObserver.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingSendObserver.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.MessageBus/Infrastructure.MessageBus.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.MessageBus/Notifications/NotificationContext.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.Projections/Abstractions/Contexts/IMongoDbContext.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.Projections/Abstractions/Contexts/MongoDbContext.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.Projections/Abstractions/Pagination/PagedResult.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.Projections/Abstractions/Pagination/Paging.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.Projections/Abstractions/ProjectionsRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.Projections/Contexts/ProjectionsDbContext.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.Projections/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.Projections/Infrastructure.Projections.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.Projections/PaymentProjectionsRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.Projections/PaymentProjectionsService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EDA.CleanArch.DDD.CQRS.EventSourcing.sln" beforeDir="false" afterPath="$PROJECT_DIR$/EDA.CleanArch.DDD.CQRS.EventSourcing.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/EventSourcing/EventStore/PaymentEventStoreService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/EventSourcing/EventStore/PaymentEventStoreService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.EventStore/Infrastructure.EventStore.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.EventStore/Infrastructure.EventStore.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure/EventSourcing/EventStore/WarehouseEventStoreService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure/EventSourcing/EventStore/WarehouseEventStoreService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/WorkerService/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/WorkerService/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/WorkerService/WorkerService.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/WorkerService/WorkerService.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Abstractions/EventSourcing/Projections/Contexts/IMongoDbContext.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Abstractions/EventSourcing/Projections/Contexts/MongoDbContext.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Abstractions/EventSourcing/Projections/Pagination/PagedResult.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Abstractions/EventSourcing/Projections/Pagination/Paging.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Abstractions/EventSourcing/Projections/ProjectionsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/DependencyInjection/Extensions/NameFormatterExtensions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/DependencyInjection/Extensions/RabbitMqBusFactoryConfiguratorExtensions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/DependencyInjection/HttpPolicies/HttpPolicy.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/DependencyInjection/Options/CreditCardHttpClientOptions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/DependencyInjection/Options/DebitCardHttpClientOptions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/DependencyInjection/Options/EventStoreOptions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/DependencyInjection/Options/PayPalHttpClientOptions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/DependencyInjection/Options/RabbitMQOptions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/DependencyInjection/Options/SqlServerRetryingOptions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/DependencyInjection/PipeFilters/BusinessValidatorFilter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/DependencyInjection/PipeObservers/LoggingConsumeObserver.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/DependencyInjection/PipeObservers/LoggingPublishObserver.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/DependencyInjection/PipeObservers/LoggingReceiveObserver.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/DependencyInjection/PipeObservers/LoggingSendObserver.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/EventSourcing/EventStore/Contexts/Configurations/PaymentSnapshotConfiguration.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/EventSourcing/EventStore/Contexts/Configurations/PaymentStoreEventConfiguration.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/EventSourcing/EventStore/Contexts/Converters/EventConverter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/EventSourcing/EventStore/Contexts/Converters/PaymentConverter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/EventSourcing/EventStore/Contexts/EventStoreDbContext.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/EventSourcing/EventStore/PaymentEventStoreRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/EventSourcing/EventStore/PaymentEventStoreService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/EventSourcing/Projections/Contexts/ProjectionsDbContext.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/EventSourcing/Projections/PaymentProjectionsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/EventSourcing/Projections/PaymentProjectionsService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Infrastructure.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Migrations/20220223174934_First migration.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Migrations/20220223174934_First migration.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Migrations/20220223174935_Quartz migration.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Migrations/20220223174935_Quartz migration.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Migrations/EventStoreDbContextModelSnapshot.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Notifications/NotificationContext.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Services/CreditCards/CreditCardHttpClient.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Services/CreditCards/CreditCardPaymentService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Services/DebitCards/DebitCardHttpClient.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Services/DebitCards/DebitCardPaymentService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Services/PayPal/PayPalHttpClient.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Services/PayPal/PayPalPaymentService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/WorkerService/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/WorkerService/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/WorkerService/WorkerService.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/WorkerService/WorkerService.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/Extensions/NameFormatterExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/Extensions/NameFormatterExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/Extensions/RabbitMqBusFactoryConfiguratorExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/Extensions/RabbitMqBusFactoryConfiguratorExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/Options/RabbitMQOptions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/Options/RabbitMQOptions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/PipeFilters/BusinessValidatorFilter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/PipeFilters/BusinessValidatorFilter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingConsumeObserver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingConsumeObserver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingPublishObserver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingPublishObserver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingReceiveObserver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingReceiveObserver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingSendObserver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingSendObserver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/Notifications/NotificationContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/Notifications/NotificationContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/WorkerService/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/WorkerService/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,82 +131,10 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Entities/CatalogItems/CatalogItem.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Application/Abstractions/EventSourcing/EventStore/IEventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Infrastructure.MessageBus/Notifications/NotificationContext.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Entities/CatalogBrands/CatalogBrand.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Abstractions/Validators/EntityValidator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Domain/Abstractions/Aggregates/AggregateRoot.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Abstractions/Entities/Entity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests/Factories/TestingWebApplicationFactory.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Warehouse/Domain/Abstractions/Entities/Entity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Abstractions/Aggregates/AggregateRoot.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Application/Abstractions/EventSourcing/EventStore/Events/StoreEvent.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Abstractions/Aggregates/AggregateRoot.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Abstractions/Entities/Entity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Abstractions/Entities/Entity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Entities/CatalogBrands/CatalogBrandValidator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Domain/Abstractions/Entities/Entity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Warehouse/Application/Abstractions/EventSourcing/EventStore/Events/Snapshot.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/aeb4a8dc9f155d2e7edd1ce8a1fbff63c9ff8e289a95aaf53034e0271d3f/MassTransitHostOptions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Abstractions/Aggregates/AggregateRoot.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Warehouse/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Identity/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/73ffe226ca516698d1e28a7fe1cac5a27b5b81ccdcdc89f189e51b14c9d4c/AbstractValidator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/Application/Abstractions/EventSourcing/EventStore/Events/StoreEvent.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Abstractions/Entities/IEntity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Domain/Aggregates/ShoppingCart.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Warehouse/Application/Abstractions/EventSourcing/EventStore/IEventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Entities/CatalogItems/CatalogItem.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests/Factories/TestingWebApplicationFactory.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Entities/CatalogBrands/CatalogBrand.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Application/Abstractions/Notifications/INotificationContext.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Identity/Application/Abstractions/EventSourcing/EventStore/Events/Snapshot.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Application/Abstractions/EventSourcing/EventStore/Events/Snapshot.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/Abstractions/EventSourcing/EventStore/Events/Snapshot.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Abstractions/Entities/IEntity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Abstractions/Entities/IEntity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/Application/Abstractions/EventSourcing/EventStore/Events/Snapshot.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Domain/Aggregates/Account.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/Domain/Abstractions/Entities/IEntity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Identity/Domain/Abstractions/Entities/IEntity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Abstractions/Entities/Entity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/Domain/Abstractions/Entities/Entity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Abstractions/Entities/IEntity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Application/Abstractions/EventSourcing/EventStore/Events/Snapshot.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Entities/CatalogBrands/CatalogBrandValidator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Identity/Domain/Abstractions/Entities/Entity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Aggregates/Catalog.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Domain/Abstractions/Entities/IEntity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Entities/CatalogBrands/CatalogBrand.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Application/Abstractions/EventSourcing/EventStore/Events/StoreEvent.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Aggregates/CatalogValidator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/Abstractions/EventSourcing/EventStore/IEventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Abstractions/Entities/Entity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Aggregates/Catalog.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Abstractions/Entities/IEntity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Domain/Abstractions/Entities/Entity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Infrastructure.EventStore/Abstractions/EventStoreService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Aggregates/Catalog.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/Domain/Aggregates/Order.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Warehouse/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Identity/Application/Abstractions/EventSourcing/EventStore/IEventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests/ShoppingCartIntegrationTests.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Domain/Abstractions/Entities/IEntity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Entities/CatalogItems/CatalogItem.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Entities/CatalogBrands/CatalogBrandValidator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests/ShoppingCartIntegrationTests.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreRepository.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Domain/Abstractions/Entities/Entity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Domain/Abstractions/Entities/IEntity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Warehouse/Domain/Abstractions/Entities/IEntity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Domain/Abstractions/Entities/IEntity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Identity/Domain/Aggregates/User.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/a0c3c808555d45e68123d418eaecb1a97da8/a7/efa9e2ec/Program.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreService.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -303,7 +299,8 @@
       <option name="presentableId" value="Default" />
       <updated>1648507964961</updated>
       <workItem from="1648507978719" duration="10813000" />
-      <workItem from="1648651934407" duration="15240000" />
+      <workItem from="1648651934407" duration="17301000" />
+      <workItem from="1648679746230" duration="293000" />
     </task>
     <task id="LOCAL-00001" summary="Adding .idea base files">
       <created>1648508169322</created>
@@ -375,7 +372,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648676899669</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Segregating Warehouse infrastructure layers">
+      <created>1648677749040</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1648677749040</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -408,7 +412,8 @@
     <MESSAGE value="Changing aggregate version to long and Segregating Order infrastructure layers" />
     <MESSAGE value="Fixing" />
     <MESSAGE value="Segregating Shopping Cart infrastructure layers" />
-    <option name="LAST_COMMIT_MESSAGE" value="Segregating Shopping Cart infrastructure layers" />
+    <MESSAGE value="Segregating Warehouse infrastructure layers" />
+    <option name="LAST_COMMIT_MESSAGE" value="Segregating Warehouse infrastructure layers" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

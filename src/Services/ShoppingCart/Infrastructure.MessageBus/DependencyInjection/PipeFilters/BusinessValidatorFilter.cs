@@ -3,7 +3,7 @@ using ECommerce.Abstractions.Validations;
 using MassTransit;
 using Serilog;
 
-namespace Infrastructure.DependencyInjection.PipeFilters;
+namespace Infrastructure.MessageBus.DependencyInjection.PipeFilters;
 
 public class BusinessValidatorFilter<T> : IFilter<ConsumeContext<T>>
     where T : class
