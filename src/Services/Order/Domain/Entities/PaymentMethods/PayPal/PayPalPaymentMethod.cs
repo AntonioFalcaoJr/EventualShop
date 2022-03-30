@@ -1,6 +1,4 @@
-﻿using Domain.Entities.PaymentMethods.DebitCards;
-
-namespace Domain.Entities.PaymentMethods.PayPal;
+﻿namespace Domain.Entities.PaymentMethods.PayPal;
 
 public class PayPalPaymentMethod : PaymentMethod<PayPalPaymentMethodValidator>
 {
