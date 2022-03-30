@@ -6,100 +6,7 @@
     <projectFile profileName="IIS Express">src/Web/WebAPI/WebAPI.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Simplifying entity validation">
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Migrations/20220330185140_First Migration.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Migrations/20220330185157_Quartz Migration.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Migrations/20220330185157_Quartz Migration.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Migrations/EventStoreDbContextModelSnapshot.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/Migrations/20220330200937_First Migration.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/Migrations/20220330200937_First Migration.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/Migrations/20220330200946_Quartz Migration.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/Migrations/20220330200946_Quartz Migration.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/Migrations/EventStoreDbContextModelSnapshot.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Migrations/20220330201351_Quartz Migration.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Migrations/20220330201351_Quartz Migration.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.EventStore/Abstractions/EventStoreService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.EventStore/Contexts/Configurations/OrderSnapshotConfiguration.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.EventStore/Contexts/Configurations/OrderStoreEventConfiguration.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.EventStore/Contexts/Converters/EventConverter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.EventStore/Contexts/Converters/OrderConverter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.EventStore/Contexts/EventStoreDbContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.EventStore/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.EventStore/DependencyInjection/Options/EventStoreOptions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.EventStore/DependencyInjection/Options/SqlServerRetryingOptions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.EventStore/Infrastructure.EventStore.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.EventStore/OrderEventStoreRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.EventStore/OrderEventStoreService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.MessageBus/DependencyInjection/Extensions/NameFormatterExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.MessageBus/DependencyInjection/Extensions/RabbitMqBusFactoryConfiguratorExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.MessageBus/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.MessageBus/DependencyInjection/Options/RabbitMQOptions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.MessageBus/DependencyInjection/PipeFilters/BusinessValidatorFilter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.MessageBus/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingConsumeObserver.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingPublishObserver.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingReceiveObserver.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingSendObserver.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.MessageBus/Infrastructure.MessageBus.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.MessageBus/Notifications/NotificationContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.Projections/Abstractions/Contexts/IMongoDbContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.Projections/Abstractions/Contexts/MongoDbContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.Projections/Abstractions/Pagination/PagedResult.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.Projections/Abstractions/Pagination/Paging.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.Projections/Abstractions/ProjectionsRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.Projections/Contexts/ProjectionsDbContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.Projections/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.Projections/Infrastructure.Projections.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.Projections/OrderProjectionsRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.Projections/OrderProjectionsService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EDA.CleanArch.DDD.CQRS.EventSourcing.sln" beforeDir="false" afterPath="$PROJECT_DIR$/EDA.CleanArch.DDD.CQRS.EventSourcing.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/Abstractions/EventSourcing/EventStore/Events/Snapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Application/Abstractions/EventSourcing/EventStore/Events/Snapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/Abstractions/EventSourcing/EventStore/Events/StoreEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Application/Abstractions/EventSourcing/EventStore/Events/StoreEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/Abstractions/EventSourcing/EventStore/IEventStoreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Application/Abstractions/EventSourcing/EventStore/IEventStoreRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Abstractions/EventStoreService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Abstractions/EventStoreService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Infrastructure.EventStore.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Infrastructure.EventStore.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Application/Abstractions/EventSourcing/EventStore/Events/Snapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Application/Abstractions/EventSourcing/EventStore/Events/Snapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Application/Abstractions/EventSourcing/EventStore/Events/StoreEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Application/Abstractions/EventSourcing/EventStore/Events/StoreEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Application/Abstractions/EventSourcing/EventStore/IEventStoreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Application/Abstractions/EventSourcing/EventStore/IEventStoreRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/Abstractions/EventStoreService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/Abstractions/EventStoreService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Identity/Application/Abstractions/EventSourcing/EventStore/Events/Snapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Identity/Application/Abstractions/EventSourcing/EventStore/Events/Snapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Identity/Application/Abstractions/EventSourcing/EventStore/Events/StoreEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Identity/Application/Abstractions/EventSourcing/EventStore/Events/StoreEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Identity/Application/Abstractions/EventSourcing/EventStore/IEventStoreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Identity/Application/Abstractions/EventSourcing/EventStore/IEventStoreRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Abstractions/EventStoreService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Abstractions/EventStoreService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Order/Application/Abstractions/EventSourcing/EventStore/Events/Snapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Application/Abstractions/EventSourcing/EventStore/Events/Snapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Order/Application/Abstractions/EventSourcing/EventStore/Events/StoreEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Application/Abstractions/EventSourcing/EventStore/Events/StoreEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Order/Application/Abstractions/EventSourcing/EventStore/IEventStoreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Application/Abstractions/EventSourcing/EventStore/IEventStoreRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Order/Domain/Entities/PaymentMethods/PayPal/PayPalPaymentMethod.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Domain/Entities/PaymentMethods/PayPal/PayPalPaymentMethod.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Order/Domain/Entities/PaymentMethods/PayPal/PayPalPaymentMethodValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Domain/Entities/PaymentMethods/PayPal/PayPalPaymentMethodValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Order/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Order/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Order/Infrastructure/Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure/Infrastructure.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Order/Infrastructure/Migrations/20220223174858_First migration.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Migrations/20220330201342_First Migration.Designer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Order/Infrastructure/Migrations/20220223174858_First migration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Migrations/20220330201342_First Migration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Order/Infrastructure/Migrations/20220223174859_Quartz migration.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Migrations/20220330185140_First Migration.Designer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Order/Infrastructure/Migrations/20220223174859_Quartz migration.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Order/Infrastructure/Migrations/EventStoreDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Migrations/EventStoreDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Application/Abstractions/EventSourcing/EventStore/Events/Snapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Application/Abstractions/EventSourcing/EventStore/Events/Snapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Application/Abstractions/EventSourcing/EventStore/Events/StoreEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Application/Abstractions/EventSourcing/EventStore/Events/StoreEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Application/Abstractions/EventSourcing/EventStore/IEventStoreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Application/Abstractions/EventSourcing/EventStore/IEventStoreRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/Abstractions/EventSourcing/EventStore/Events/Snapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/Abstractions/EventSourcing/EventStore/Events/Snapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/Abstractions/EventSourcing/EventStore/Events/StoreEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/Abstractions/EventSourcing/EventStore/Events/StoreEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/Abstractions/EventSourcing/EventStore/IEventStoreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/Abstractions/EventSourcing/EventStore/IEventStoreRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/Application/Abstractions/EventSourcing/EventStore/Events/Snapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/Application/Abstractions/EventSourcing/EventStore/Events/Snapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/Application/Abstractions/EventSourcing/EventStore/Events/StoreEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/Application/Abstractions/EventSourcing/EventStore/Events/StoreEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/Application/Abstractions/EventSourcing/EventStore/IEventStoreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/Application/Abstractions/EventSourcing/EventStore/IEventStoreRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreService.cs" afterDir="false" />
-    </list>
+    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Changing aggregate version to long and Segregating Order infrastructure layers" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -354,7 +261,7 @@
       <option name="presentableId" value="Default" />
       <updated>1648507964961</updated>
       <workItem from="1648507978719" duration="10813000" />
-      <workItem from="1648651934407" duration="12239000" />
+      <workItem from="1648651934407" duration="12570000" />
     </task>
     <task id="LOCAL-00001" summary="Adding .idea base files">
       <created>1648508169322</created>
@@ -405,7 +312,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648665105969</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Changing aggregate version to long and Segregating Order infrastructure layers">
+      <created>1648672584052</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1648672584052</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -435,7 +349,8 @@
     <MESSAGE value="Adjusting test project" />
     <MESSAGE value="Removing validate explicit resource" />
     <MESSAGE value="Simplifying entity validation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Simplifying entity validation" />
+    <MESSAGE value="Changing aggregate version to long and Segregating Order infrastructure layers" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changing aggregate version to long and Segregating Order infrastructure layers" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
