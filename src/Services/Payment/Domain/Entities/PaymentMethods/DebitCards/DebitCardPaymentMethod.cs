@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities.PaymentMethods.DebitCards;
 
-public class DebitCardPaymentMethod : PaymentMethod
+public class DebitCardPaymentMethod : PaymentMethod<DebitCardPaymentMethodValidator>
 {
     public DebitCardPaymentMethod(Guid id, decimal amount, DateOnly expiration, string holderName, string number, string securityNumber)
         : base(id, amount)
@@ -15,7 +15,4 @@ public class DebitCardPaymentMethod : PaymentMethod
     public string HolderName { get; }
     public string Number { get; }
     public string SecurityNumber { get; }
-
-    protected override bool Validate()
-        => OnValidate<DebitCardPaymentMethodValidator, DebitCardPaymentMethod>();
 }

@@ -3,7 +3,7 @@ using Domain.ValueObjects.Addresses;
 
 namespace Domain.Entities.Customers;
 
-public class Customer : Entity<Guid>
+public class Customer : Entity<Guid, CustomerValidator>
 {
     public Customer(Guid id, Address billingAddress, Address shippingAddress)
     {
@@ -14,7 +14,4 @@ public class Customer : Entity<Guid>
 
     public Address ShippingAddress { get; }
     public Address BillingAddress { get; }
-
-    protected override bool Validate()
-        => OnValidate<CustomerValidator, Customer>();
 }

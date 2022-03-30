@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities.PaymentMethods.CreditCards;
 
-public class CreditCardPaymentMethod : PaymentMethod
+public class CreditCardPaymentMethod : PaymentMethod<CreditCardPaymentMethodValidator>
 {
     public CreditCardPaymentMethod(Guid id, decimal amount, DateOnly expiration, string holderName, string number, string securityNumber)
         : base(id, amount)
@@ -15,7 +15,4 @@ public class CreditCardPaymentMethod : PaymentMethod
     public string HolderName { get; }
     public string Number { get; }
     public string SecurityNumber { get; }
-
-    protected override bool Validate()
-        => OnValidate<CreditCardPaymentMethodValidator, CreditCardPaymentMethod>();
 }

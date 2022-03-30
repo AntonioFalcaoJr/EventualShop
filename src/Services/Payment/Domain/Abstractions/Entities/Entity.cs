@@ -4,11 +4,19 @@ using Newtonsoft.Json;
 
 namespace Domain.Abstractions.Entities;
 
-public abstract class Entity<TId> : IEntity<TId>
+public abstract class Entity<TId, TValidator> : IEntity<TId>
     where TId : struct
+    where TValidator : IValidator, new()
 {
     [JsonIgnore]
+    private readonly TValidator _validator = new();
+
+    [JsonIgnore]
     private ValidationResult _validationResult = new();
+
+    [JsonIgnore]
+    private ValidationContext<IEntity<TId>> ValidationContext
+        => new(this);
 
     [JsonIgnore]
     public IEnumerable<ValidationFailure> Errors
@@ -18,16 +26,22 @@ public abstract class Entity<TId> : IEntity<TId>
     public bool IsValid
         => Validate();
 
+    [JsonIgnore]
+    public Task<bool> IsValidAsync
+        => ValidateAsync();
+
     public TId Id { get; protected set; }
     public bool IsDeleted { get; protected set; }
 
-    protected bool OnValidate<TValidator, TEntity>()
-        where TValidator : AbstractValidator<TEntity>, new()
-        where TEntity : Entity<TId>
+    private bool Validate()
     {
-        _validationResult = new TValidator().Validate(this as TEntity);
+        _validationResult = _validator.Validate(ValidationContext);
         return _validationResult.IsValid;
     }
 
-    protected abstract bool Validate();
+    private async Task<bool> ValidateAsync()
+    {
+        _validationResult = await _validator.ValidateAsync(ValidationContext);
+        return _validationResult.IsValid;
+    }
 }

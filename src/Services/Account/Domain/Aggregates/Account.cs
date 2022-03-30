@@ -6,7 +6,7 @@ using ECommerce.Contracts.Account;
 
 namespace Domain.Aggregates;
 
-public class Account : AggregateRoot<Guid>
+public class Account : AggregateRoot<Guid, AccountValidator>
 {
     public Guid UserId { get; private set; }
     public Profile Profile { get; private set; }
@@ -72,7 +72,4 @@ public class Account : AggregateRoot<Guid>
 
         Profile.SetProfessionalAddress(address);
     }
-
-    protected sealed override bool Validate()
-        => OnValidate<AccountValidator, Account>();
 }

@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities.PaymentMethods.PayPal;
 
-public class PayPalPaymentMethod : PaymentMethod
+public class PayPalPaymentMethod : PaymentMethod<PayPalPaymentMethodValidator>
 {
     public PayPalPaymentMethod(Guid id, decimal amount, string userName, string password)
         : base(id, amount)
@@ -11,7 +11,4 @@ public class PayPalPaymentMethod : PaymentMethod
 
     public string UserName { get; }
     public string Password { get; }
-
-    protected override bool Validate()
-        => throw new NotImplementedException();
 }

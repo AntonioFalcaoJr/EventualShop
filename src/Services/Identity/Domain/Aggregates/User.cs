@@ -4,7 +4,7 @@ using ECommerce.Contracts.Identity;
 
 namespace Domain.Aggregates;
 
-public class User : AggregateRoot<Guid>
+public class User : AggregateRoot<Guid, UserValidator>
 {
     public string Email { get; private set; }
     public string FirstName { get; private set; }
@@ -31,7 +31,4 @@ public class User : AggregateRoot<Guid>
 
     private void When(DomainEvents.UserDeleted _)
         => IsDeleted = true;
-
-    protected sealed override bool Validate()
-        => OnValidate<UserValidator, User>();
 }
