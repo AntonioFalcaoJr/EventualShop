@@ -1,4 +1,5 @@
 ﻿using ECommerce.WebAPI.IntegrationTests.Factories;
+using WebAPI;
 using Xunit;
 
 namespace ECommerce.WebAPI.IntegrationTests;
