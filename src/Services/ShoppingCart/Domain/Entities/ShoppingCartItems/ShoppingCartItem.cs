@@ -2,7 +2,7 @@
 
 namespace Domain.Entities.ShoppingCartItems;
 
-public class ShoppingCartItem : Entity<Guid>
+public class ShoppingCartItem : Entity<Guid, ShoppingCartItemValidator>
 {
     public ShoppingCartItem(Guid id, Guid productId, string productName, decimal unitPrice, int quantity, string pictureUrl)
     {
@@ -25,7 +25,4 @@ public class ShoppingCartItem : Entity<Guid>
 
     public void Decrease()
         => Quantity -= 1;
-
-    protected override bool Validate()
-        => OnValidate<ShoppingCartItemValidator, ShoppingCartItem>();
 }

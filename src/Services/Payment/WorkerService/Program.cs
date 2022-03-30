@@ -1,10 +1,15 @@
-﻿using Infrastructure.DependencyInjection.Extensions;
-using Infrastructure.DependencyInjection.Options;
-using Infrastructure.EventSourcing.EventStore.Contexts;
+﻿using Infrastructure.EventStore.Contexts;
+using Infrastructure.EventStore.DependencyInjection.Extensions;
+using Infrastructure.EventStore.DependencyInjection.Options;
+using Infrastructure.HttpClients.DependencyInjection.Options;
+using Infrastructure.MessageBus.DependencyInjection.Extensions;
+using Infrastructure.MessageBus.DependencyInjection.Options;
+using Infrastructure.Projections.DependencyInjection.Extensions;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Quartz;
 using Serilog;
+using Infrastructure.HttpClients.DependencyInjection.Extensions;
 
 var builder = Host.CreateDefaultBuilder(args);
 
@@ -33,23 +38,17 @@ builder.ConfigureLogging((context, loggingBuilder) =>
 
 builder.ConfigureServices((context, services) =>
 {
-    services.AddApplicationServices();
-
-    services.AddPayPalHttpClient();
+    services.AddEventStore();
+    services.AddProjections();
+    services.AddMessageBus();
+    services.AddMessageValidators();
+    services.AddNotificationContext();
+    
     services.AddCreditCardHttpClient();
     services.AddDebitCardHttpClient();
-
-    services.AddEventStoreRepository();
-    services.AddProjectionsRepository();
-
-    services.AddEventStoreDbContext();
-    services.AddProjectionsDbContext();
-
-    services.AddMassTransitWithRabbitMqAndQuartz();
-
-    services.AddMessagesFluentValidation();
-
-    services.AddNotificationContext();
+    services.AddPayPalHttpClient();
+    
+    services.AddPaymentStrategy();
 
     services.ConfigureEventStoreOptions(
         context.Configuration.GetSection(nameof(EventStoreOptions)));
@@ -60,6 +59,12 @@ builder.ConfigureServices((context, services) =>
     services.ConfigureRabbitMqOptions(
         context.Configuration.GetSection(nameof(RabbitMqOptions)));
 
+    services.ConfigureQuartzOptions(
+        context.Configuration.GetSection(nameof(QuartzOptions)));
+    
+    services.ConfigureMassTransitHostOptions(
+        context.Configuration.GetSection(nameof(MassTransitHostOptions)));
+    
     services.ConfigureCreditCardHttpClientOptions(
         context.Configuration.GetSection(nameof(CreditCardHttpClientOptions)));
 
@@ -68,12 +73,6 @@ builder.ConfigureServices((context, services) =>
 
     services.ConfigurePayPalHttpClientOptions(
         context.Configuration.GetSection(nameof(PayPalHttpClientOptions)));
-    
-    services.ConfigureQuartzOptions(
-        context.Configuration.GetSection(nameof(QuartzOptions)));
-    
-    services.ConfigureMassTransitHostOptions(
-        context.Configuration.GetSection(nameof(MassTransitHostOptions)));
 });
 
 using var host = builder.Build();

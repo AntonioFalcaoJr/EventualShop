@@ -11,7 +11,7 @@ using ECommerce.Contracts.Payment;
 
 namespace Domain.Aggregates;
 
-public class Payment : AggregateRoot<Guid>
+public class Payment : AggregateRoot<Guid, PaymentValidator>
 {
     private readonly List<IPaymentMethod> _methods = new();
 
@@ -106,7 +106,4 @@ public class Payment : AggregateRoot<Guid>
 
     private void When(DomainEvents.PaymentNotCompleted _)
         => Status = PaymentStatus.Pending;
-
-    protected override bool Validate()
-        => true;
 }

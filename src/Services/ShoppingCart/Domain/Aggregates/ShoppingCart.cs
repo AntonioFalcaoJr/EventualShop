@@ -10,7 +10,7 @@ using ECommerce.Contracts.ShoppingCart;
 
 namespace Domain.Aggregates;
 
-public class ShoppingCart : AggregateRoot<Guid>
+public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
 {
     private readonly List<ShoppingCartItem> _items = new();
     private readonly List<IPaymentMethod> _paymentMethods = new();
@@ -145,7 +145,4 @@ public class ShoppingCart : AggregateRoot<Guid>
             Street = @event.Address.Street,
             ZipCode = @event.Address.ZipCode
         });
-
-    protected sealed override bool Validate()
-        => OnValidate<ShoppingCartValidator, ShoppingCart>();
 }

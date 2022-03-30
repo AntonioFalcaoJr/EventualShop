@@ -13,8 +13,7 @@
 
         <!--Microsoft-->
         <Microsoft_Extensions_Version>7.0.0-preview.2.22152.2</Microsoft_Extensions_Version>
-        <Microsoft_Extensions_Hosting_Version>6.0.1</Microsoft_Extensions_Hosting_Version>
-        <Microsoft_Mvc_Testing_Version>7.0.0-preview.2.22153.2</Microsoft_Mvc_Testing_Version>
+        <Microsoft_Extensions_Hosting_Version>7.0.0-preview.2.22152.2</Microsoft_Extensions_Hosting_Version>
 
         <!--EF Core-->
         <EntityFrameworkCore_Version>7.0.0-preview.2.22153.1</EntityFrameworkCore_Version>
@@ -24,7 +23,7 @@
 
         <!--MassTransit-->
         <MassTransit_Version>8.0.1-develop.410</MassTransit_Version>
-        <Quartz_Version>3.4.0-preview-20220321-1751</Quartz_Version>
+        <Quartz_Version>3.4.1-preview-20220327-0826</Quartz_Version>
 
         <!--Newtonsoft-->
         <Newtonsoft_Version>13.0.1</Newtonsoft_Version>
@@ -47,7 +46,11 @@
 
         <!--Polly-->
         <Polly_Version>7.0.0-preview.1.22109.13</Polly_Version>
-
+        
+        <!--Test-->
+        <Microsoft_Mvc_Testing_Version>7.0.0-preview.2.22153.2</Microsoft_Mvc_Testing_Version>
+        <Microsoft_Test_SDK_Version>17.1.0</Microsoft_Test_SDK_Version>
+        
     </PropertyGroup>
 
 </Project>

@@ -5,7 +5,7 @@ using ECommerce.Contracts.Warehouse;
 
 namespace Domain.Aggregates;
 
-public class InventoryItem : AggregateRoot<Guid>
+public class InventoryItem : AggregateRoot<Guid, InventoryItemValidator>
 {
     private readonly List<Reserve> _reserves = new();
 
@@ -64,7 +64,4 @@ public class InventoryItem : AggregateRoot<Guid>
         });
 
     private void When(DomainEvents.InventoryNotReserved _) { }
-
-    protected sealed override bool Validate()
-        => OnValidate<InventoryItemValidator, InventoryItem>();
 }

@@ -2,4 +2,4 @@
 
 namespace Domain.Entities.CatalogBrands;
 
-public class Validator : EntityValidator<CatalogBrand, Guid> { }
+public class CatalogBrandValidator : EntityValidator<CatalogBrand, Guid> { }

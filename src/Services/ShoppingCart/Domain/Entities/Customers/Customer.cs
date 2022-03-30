@@ -3,7 +3,7 @@ using Domain.ValueObjects.Addresses;
 
 namespace Domain.Entities.Customers;
 
-public class Customer : Entity<Guid>
+public class Customer : Entity<Guid, CustomerValidator>
 {
     public Customer(Guid id)
     {
@@ -27,7 +27,4 @@ public class Customer : Entity<Guid>
         BillingAddress = address;
         ShippingAndBillingAddressesAreSame = false;
     }
-
-    protected override bool Validate()
-        => OnValidate<CustomerValidator, Customer>();
 }

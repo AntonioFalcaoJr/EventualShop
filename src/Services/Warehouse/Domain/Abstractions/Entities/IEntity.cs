@@ -8,5 +8,6 @@ public interface IEntity<out TId>
     TId Id { get; }
     bool IsDeleted { get; }
     bool IsValid { get; }
+    Task<bool> IsValidAsync { get; }
     public IEnumerable<ValidationFailure> Errors { get; }
 }
