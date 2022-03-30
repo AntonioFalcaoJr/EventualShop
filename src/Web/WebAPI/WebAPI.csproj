@@ -12,7 +12,7 @@
         <PackageReference Include="Serilog.AspNetCore" Version="$(Serilog_AspNetCore_Version)"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="$(Swashbuckle_Version)"/>
         <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="$(Swashbuckle_Version)"/>
-        <PackageReference Include="MicroElements.Swashbuckle.FluentValidation" Version="5.4.0"/>
+        <PackageReference Include="MicroElements.Swashbuckle.FluentValidation" Version="5.5.0"/>
         <PackageReference Include="Newtonsoft.Json" Version="$(Newtonsoft_Version)"/>
     </ItemGroup>
     <ItemGroup>
