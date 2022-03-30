@@ -2,7 +2,7 @@
 
 namespace Domain.Entities.OrderItems;
 
-public class OrderItem : Entity<Guid>
+public class OrderItem : Entity<Guid, OrderItemValidator>
 {
     public OrderItem(Guid productId, string productName, string sku, string category, string brand, decimal price, int quantity, string pictureUrl)
     {
@@ -25,7 +25,4 @@ public class OrderItem : Entity<Guid>
     public decimal Price { get; }
     public int Quantity { get; }
     public string PictureUrl { get; }
-
-    protected override bool Validate()
-        => OnValidate<OrderItemValidator, OrderItem>();
 }

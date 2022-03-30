@@ -1,10 +1,9 @@
-﻿namespace Domain.Entities.PaymentMethods.PayPal;
+﻿using Domain.Entities.PaymentMethods.DebitCards;
 
-public class PayPalPaymentMethod : PaymentMethod
+namespace Domain.Entities.PaymentMethods.PayPal;
+
+public class PayPalPaymentMethod : PaymentMethod<PayPalPaymentMethodValidator>
 {
     public string UserName { get; init; }
     public string Password { get; init; }
-    
-    protected override bool Validate() 
-        => throw new NotImplementedException();
 }

@@ -1,9 +1,11 @@
 ﻿using Domain.Abstractions.Entities;
 using Domain.Enumerations;
+using FluentValidation;
 
 namespace Domain.Entities.PaymentMethods;
 
-public abstract class PaymentMethod : Entity<Guid>, IPaymentMethod
+public abstract class PaymentMethod<TValidator> : Entity<Guid, TValidator>, IPaymentMethod 
+    where TValidator : IValidator, new()
 {
     protected PaymentMethod(Guid id, decimal amount)
     {
