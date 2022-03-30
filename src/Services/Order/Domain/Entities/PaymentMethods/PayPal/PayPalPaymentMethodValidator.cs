@@ -1,5 +1,4 @@
-﻿using Domain.Entities.PaymentMethods.DebitCards;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Domain.Entities.PaymentMethods.PayPal;
 

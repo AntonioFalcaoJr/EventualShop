@@ -61,13 +61,13 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
                 await AppendSnapshotToStreamAsync(aggregateState, version, cancellationToken);
     }
 
-    private async IAsyncEnumerable<int> AppendEventToStreamAsync(IEnumerable<TStoreEvent> storeEvents, [EnumeratorCancellation] CancellationToken cancellationToken)
+    private async IAsyncEnumerable<long> AppendEventToStreamAsync(IEnumerable<TStoreEvent> storeEvents, [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         foreach (var storeEvent in storeEvents)
             yield return await _repository.AppendEventToStreamAsync(storeEvent, cancellationToken);
     }
 
-    private async Task AppendSnapshotToStreamAsync(TAggregate aggregateState, int aggregateVersion, CancellationToken cancellationToken)
+    private async Task AppendSnapshotToStreamAsync(TAggregate aggregateState, long aggregateVersion, CancellationToken cancellationToken)
     {
         var snapshot = new TSnapshot
         {
