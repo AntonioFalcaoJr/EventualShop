@@ -2,7 +2,7 @@
 
 namespace Domain.Entities.CatalogItems;
 
-public class CatalogItem : Entity<Guid>
+public class CatalogItem : Entity<Guid, CatalogItemValidator>
 {
     public CatalogItem(string name, string description, decimal price, string pictureUri)
     {
@@ -32,7 +32,4 @@ public class CatalogItem : Entity<Guid>
 
     public void SetPictureUri(string pictureUri)
         => PictureUri = pictureUri;
-
-    protected override bool Validate()
-        => OnValidate<CatalogItemValidator, CatalogItem>();
 }

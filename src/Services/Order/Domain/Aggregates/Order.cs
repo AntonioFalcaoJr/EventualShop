@@ -12,7 +12,7 @@ using ECommerce.Contracts.Order;
 
 namespace Domain.Aggregates;
 
-public class Order : AggregateRoot<Guid>
+public class Order : AggregateRoot<Guid, OrderValidator>
 {
     private readonly List<OrderItem> _items = new();
     private readonly List<IPaymentMethod> _paymentMethods = new();
@@ -111,7 +111,4 @@ public class Order : AggregateRoot<Guid>
 
     private void When(DomainEvents.OrderConfirmed _)
         => Status = OrderStatus.Confirmed;
-
-    protected sealed override bool Validate()
-        => OnValidate<OrderValidator, Order>();
 }

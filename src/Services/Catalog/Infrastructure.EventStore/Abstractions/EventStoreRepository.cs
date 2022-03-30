@@ -24,7 +24,7 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
         _snapshots = dbContext.Set<TSnapshot>();
     }
 
-    public async Task<int> AppendEventToStreamAsync(TStoreEvent storeEvent, CancellationToken cancellationToken)
+    public async Task<long> AppendEventToStreamAsync(TStoreEvent storeEvent, CancellationToken cancellationToken)
     {
         await _storeEvents.AddAsync(storeEvent, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
@@ -37,7 +37,7 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<IEnumerable<IEvent>> GetStreamAsync(TId aggregateId, int snapshotVersion, CancellationToken cancellationToken)
+    public async Task<IEnumerable<IEvent>> GetStreamAsync(TId aggregateId, long snapshotVersion, CancellationToken cancellationToken)
         => await _storeEvents
             .AsNoTracking()
             .Where(storeEvent => Equals(storeEvent.AggregateId, aggregateId))

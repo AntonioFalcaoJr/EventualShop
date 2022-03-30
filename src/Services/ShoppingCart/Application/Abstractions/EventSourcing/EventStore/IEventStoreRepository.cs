@@ -10,8 +10,8 @@ public interface IEventStoreRepository<TAggregate, in TStoreEvent, TSnapshot, in
     where TSnapshot : Snapshot<TAggregate, TId>
     where TId : struct
 {
-    Task<int> AppendEventToStreamAsync(TStoreEvent storeEvent, CancellationToken cancellationToken);
-    Task<IEnumerable<IEvent>> GetStreamAsync(TId aggregateId, int snapshotVersion, CancellationToken cancellationToken);
+    Task<long> AppendEventToStreamAsync(TStoreEvent storeEvent, CancellationToken cancellationToken);
+    Task<IEnumerable<IEvent>> GetStreamAsync(TId aggregateId, long snapshotVersion, CancellationToken cancellationToken);
     Task AppendSnapshotToStreamAsync(TSnapshot snapshot, CancellationToken cancellationToken);
     Task<TSnapshot> GetSnapshotAsync(TId aggregateId, CancellationToken cancellationToken);
 }

@@ -1,11 +1,13 @@
 ﻿using Domain.Abstractions.Entities;
 using ECommerce.Abstractions.Messages.Events;
+using FluentValidation;
 using Newtonsoft.Json;
 
 namespace Domain.Abstractions.Aggregates;
 
-public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot<TId>
+public abstract class AggregateRoot<TId, TValidator> : Entity<TId, TValidator>, IAggregateRoot<TId>
     where TId : struct
+    where TValidator : IValidator, new()
 {
     [JsonIgnore]
     private readonly List<IEvent> _events = new();

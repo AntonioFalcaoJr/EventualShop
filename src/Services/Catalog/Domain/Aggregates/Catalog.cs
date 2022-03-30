@@ -5,7 +5,7 @@ using ECommerce.Contracts.Catalog;
 
 namespace Domain.Aggregates;
 
-public class Catalog : AggregateRoot<Guid>
+public class Catalog : AggregateRoot<Guid, CatalogValidator>
 {
     private readonly List<CatalogItem> _items = new();
     public bool IsActive { get; private set; }
@@ -81,7 +81,4 @@ public class Catalog : AggregateRoot<Guid>
                 catalogItem.SetPrice(@event.Price);
                 catalogItem.SetPictureUri(@event.PictureUri);
             });
-
-    protected sealed override bool Validate()
-        => OnValidate<CatalogValidator, Catalog>();
 }

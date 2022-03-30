@@ -1,12 +1,11 @@
 ﻿using MassTransit;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using WebAPI;
 
 namespace ECommerce.WebAPI.IntegrationTests.Factories;
 
-public class TestingWebApplicationFactory<TEntryPoint> : WebApplicationFactory<TEntryPoint>
-    where TEntryPoint : Program
+public class TestingWebApplicationFactory<TEntryPoint> : WebApplicationFactory<TEntryPoint> 
+    where TEntryPoint : class
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
