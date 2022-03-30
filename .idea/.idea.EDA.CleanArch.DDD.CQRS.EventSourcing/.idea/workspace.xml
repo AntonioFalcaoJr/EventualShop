@@ -6,7 +6,85 @@
     <projectFile profileName="IIS Express">src/Web/WebAPI/WebAPI.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Changing aggregate version to long and Segregating Order infrastructure layers" />
+    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Fixing">
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.EventStore/Abstractions/EventStoreService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.EventStore/Contexts/Configurations/ShoppingCartSnapshotConfiguration.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.EventStore/Contexts/Configurations/ShoppingCartStoreEventConfiguration.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.EventStore/Contexts/Converters/CartConverter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.EventStore/Contexts/Converters/EventConverter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.EventStore/Contexts/EventStoreDbContext.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.EventStore/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.EventStore/DependencyInjection/Options/EventStoreOptions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.EventStore/DependencyInjection/Options/SqlServerRetryOptions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.EventStore/Infrastructure.EventStore.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.EventStore/ShoppingCartEventStoreRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.EventStore/ShoppingCartEventStoreService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/Extensions/NameFormatterExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/Extensions/RabbitMqBusFactoryConfiguratorExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/Options/RabbitMQOptions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/PipeFilters/BusinessValidatorFilter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingConsumeObserver.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingPublishObserver.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingReceiveObserver.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/PipeObservers/LoggingSendObserver.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/Infrastructure.MessageBus.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/Notifications/NotificationContext.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.Projections/Abstractions/Contexts/BsonSerializers/DateOnlyBsonSerializer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.Projections/Abstractions/Contexts/IMongoDbContext.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.Projections/Abstractions/Contexts/MongoDbContext.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.Projections/Abstractions/Pagination/PagedResult.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.Projections/Abstractions/Pagination/Paging.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.Projections/Abstractions/ProjectionsRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.Projections/Contexts/ProjectionsDbContext.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.Projections/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.Projections/Infrastructure.Projections.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.Projections/ShoppingCartProjectionsRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.Projections/ShoppingCartProjectionsService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EDA.CleanArch.DDD.CQRS.EventSourcing.sln" beforeDir="false" afterPath="$PROJECT_DIR$/EDA.CleanArch.DDD.CQRS.EventSourcing.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/Abstractions/EventSourcing/EventStore/EventStoreService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/Abstractions/EventSourcing/Projections/Contexts/BsonSerializers/DateOnlyBsonSerializer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/Abstractions/EventSourcing/Projections/Contexts/IMongoDbContext.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/Abstractions/EventSourcing/Projections/Contexts/MongoDbContext.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/Abstractions/EventSourcing/Projections/Pagination/PagedResult.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/Abstractions/EventSourcing/Projections/Pagination/Paging.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/Abstractions/EventSourcing/Projections/ProjectionsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/DependencyInjection/Extensions/NameFormatterExtensions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/DependencyInjection/Extensions/RabbitMqBusFactoryConfiguratorExtensions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/DependencyInjection/Options/EventStoreOptions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/DependencyInjection/Options/RabbitMQOptions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/DependencyInjection/Options/SqlServerRetryOptions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/DependencyInjection/PipeFilters/BusinessValidatorFilter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/DependencyInjection/PipeObservers/LoggingConsumeObserver.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/DependencyInjection/PipeObservers/LoggingPublishObserver.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/DependencyInjection/PipeObservers/LoggingReceiveObserver.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/DependencyInjection/PipeObservers/LoggingSendObserver.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/EventSourcing/EventStore/Contexts/Configurations/ShoppingCartSnapshotConfiguration.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/EventSourcing/EventStore/Contexts/Configurations/ShoppingCartStoreEventConfiguration.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/EventSourcing/EventStore/Contexts/Converters/CartConverter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/EventSourcing/EventStore/Contexts/Converters/EventConverter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/EventSourcing/EventStore/Contexts/EventStoreDbContext.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/EventSourcing/EventStore/ShoppingCartEventStoreRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/EventSourcing/EventStore/ShoppingCartEventStoreService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/EventSourcing/Projections/Contexts/ProjectionsDbContext.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/EventSourcing/Projections/ShoppingCartProjectionsRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/EventSourcing/Projections/ShoppingCartProjectionsService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/Infrastructure.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/Migrations/20220223173438_First migration.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/Migrations/20220223173438_First migration.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/Migrations/20220223173439_Quartz migration.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/Migrations/20220223173439_Quartz migration.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/Migrations/EventStoreDbContextModelSnapshot.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure/Notifications/NotificationContext.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/WorkerService/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/WorkerService/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/WorkerService/WorkerService.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/WorkerService/WorkerService.csproj" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -261,7 +339,7 @@
       <option name="presentableId" value="Default" />
       <updated>1648507964961</updated>
       <workItem from="1648507978719" duration="10813000" />
-      <workItem from="1648651934407" duration="12570000" />
+      <workItem from="1648651934407" duration="14434000" />
     </task>
     <task id="LOCAL-00001" summary="Adding .idea base files">
       <created>1648508169322</created>
@@ -319,7 +397,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648672584052</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Fixing">
+      <created>1648672878691</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1648672878691</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -350,7 +435,8 @@
     <MESSAGE value="Removing validate explicit resource" />
     <MESSAGE value="Simplifying entity validation" />
     <MESSAGE value="Changing aggregate version to long and Segregating Order infrastructure layers" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changing aggregate version to long and Segregating Order infrastructure layers" />
+    <MESSAGE value="Fixing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
