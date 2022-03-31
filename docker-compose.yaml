@@ -96,7 +96,7 @@ services:
         reservations:
           memory: 60M
       restart_policy:
-        condition: on-failure
+        condition: any
   
   identity:
     image: identity
@@ -123,7 +123,7 @@ services:
         reservations:
           memory: 60M
       restart_policy:
-        condition: on-failure
+        condition: any
   
   order:
     image: order
@@ -150,7 +150,7 @@ services:
         reservations:
           memory: 60M
       restart_policy:
-        condition: on-failure
+        condition: any
   
   payment:
     image: payment
@@ -177,7 +177,7 @@ services:
         reservations:
           memory: 60M
       restart_policy:
-        condition: on-failure
+        condition: any
   
   shoppingcart:
     image: shoppingcart
@@ -204,7 +204,7 @@ services:
         reservations:
           memory: 60M
       restart_policy:
-        condition: on-failure
+        condition: any
         
   warehouse:
     image: warehouse
@@ -231,7 +231,7 @@ services:
         reservations:
           memory: 60M
       restart_policy:
-        condition: on-failure
+        condition: any
   
   webapi:
     image: webapi
@@ -257,7 +257,7 @@ services:
         reservations:
           memory: 200M
       restart_policy:
-        condition: on-failure
+        condition: any
 
   nginx:
     container_name: nginx
