@@ -19,9 +19,7 @@ services:
       replicas: 1
       resources:
         limits:
-          memory: 2G
-        reservations:
-          memory: 1G
+          memory: 1500M
     networks:
       - ecommerce
   
@@ -41,8 +39,6 @@ services:
       replicas: 1
       resources:
         limits:
-          memory: 1G
-        reservations:
           memory: 500M
     networks:
       - ecommerce
@@ -65,8 +61,6 @@ services:
       replicas: 1
       resources:
         limits:
-          memory: 1G
-        reservations:
           memory: 500M
     networks:
       - ecommerce
@@ -91,10 +85,8 @@ services:
       replicas: 2
       resources:
         limits:
-          cpus: '0.70'
-          memory: 90M
-        reservations:
-          memory: 60M
+          cpus: '0.25'
+          memory: 120M
       restart_policy:
         condition: any
   
@@ -118,10 +110,8 @@ services:
       replicas: 2
       resources:
         limits:
-          cpus: '0.70'
-          memory: 90M
-        reservations:
-          memory: 60M
+          cpus: '0.25'
+          memory: 120M
       restart_policy:
         condition: any
   
@@ -145,10 +135,8 @@ services:
       replicas: 2
       resources:
         limits:
-          cpus: '0.70'
-          memory: 90M
-        reservations:
-          memory: 60M
+          cpus: '0.25'
+          memory: 120M
       restart_policy:
         condition: any
   
@@ -172,10 +160,8 @@ services:
       replicas: 2
       resources:
         limits:
-          cpus: '0.70'
-          memory: 90M
-        reservations:
-          memory: 60M
+          cpus: '0.25'
+          memory: 120M
       restart_policy:
         condition: any
   
@@ -196,13 +182,11 @@ services:
     networks:
       - ecommerce
     deploy:
-      replicas: 2
+      replicas: 3
       resources:
         limits:
-          cpus: '0.70'
-          memory: 90M
-        reservations:
-          memory: 60M
+          cpus: '0.50'
+          memory: 120M
       restart_policy:
         condition: any
         
@@ -226,10 +210,10 @@ services:
       replicas: 2
       resources:
         limits:
-          cpus: '0.70'
-          memory: 90M
+          cpus: '0.25'
+          memory: 120M
         reservations:
-          memory: 60M
+          memory: 80M
       restart_policy:
         condition: any
   
@@ -254,8 +238,6 @@ services:
         limits:
           cpus: '0.50'
           memory: 260M
-        reservations:
-          memory: 200M
       restart_policy:
         condition: any
 
@@ -274,8 +256,6 @@ services:
       resources:
         limits:
           memory: 180M
-        reservations:
-          memory: 120M
     networks:
       - ecommerce
 
