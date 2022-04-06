@@ -1,4 +1,4 @@
-namespace Application.Abstractions.EventSourcing.Projections;
+﻿namespace ECommerce.Abstractions.Projections;
 
 public interface IProjection
 {

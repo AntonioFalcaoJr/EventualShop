@@ -1,10 +1,10 @@
 using ECommerce.Abstractions.Messages.Events;
 
-namespace ECommerce.Contracts.Catalog;
+namespace ECommerce.Contracts.Catalogs;
 
 public static class DomainEvents
 {
-    public record CatalogCreated(Guid CatalogId, string Title) : Event;
+    public record CatalogCreated(Guid CatalogId, string Title, string Description) : Event;
 
     public record CatalogDeleted(Guid CatalogId) : Event;
 

@@ -1,10 +1,10 @@
 ﻿using ECommerce.Abstractions.Messages.Commands;
 
-namespace ECommerce.Contracts.Catalog;
+namespace ECommerce.Contracts.Catalogs;
 
 public static class Commands
 {
-    public record CreateCatalog(string Title) : Command;
+    public record CreateCatalog(string Title, string Description) : Command;
 
     public record DeleteCatalog(Guid CatalogId) : Command(CatalogId);
 
