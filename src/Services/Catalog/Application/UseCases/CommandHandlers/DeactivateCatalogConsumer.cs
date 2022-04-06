@@ -1,19 +1,19 @@
 ﻿using Application.EventSourcing.EventStore;
 using MassTransit;
-using ActivateCatalogCommand = ECommerce.Contracts.Catalogs.Commands.ActivateCatalog;
+using ECommerce.Contracts.Catalogs;
 
-namespace Application.UseCases.Commands;
+namespace Application.UseCases.CommandHandlers;
 
-public class ActivateCatalogConsumer : IConsumer<ActivateCatalogCommand>
+public class DeactivateCatalogConsumer : IConsumer<Commands.DeactivateCatalog>
 {
     private readonly ICatalogEventStoreService _eventStoreService;
 
-    public ActivateCatalogConsumer(ICatalogEventStoreService eventStoreService)
+    public DeactivateCatalogConsumer(ICatalogEventStoreService eventStoreService)
     {
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<ActivateCatalogCommand> context)
+    public async Task Consume(ConsumeContext<Commands.DeactivateCatalog> context)
     {
         var catalog = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CatalogId, context.CancellationToken);
         catalog.Handle(context.Message);

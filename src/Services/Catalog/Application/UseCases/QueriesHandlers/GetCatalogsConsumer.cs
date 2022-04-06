@@ -3,7 +3,7 @@ using ECommerce.Abstractions.Messages.Queries.Responses;
 using ECommerce.Contracts.Catalogs;
 using MassTransit;
 
-namespace Application.UseCases.Queries;
+namespace Application.UseCases.QueriesHandlers;
 
 public class GetCatalogsConsumer : IConsumer<ECommerce.Contracts.Catalogs.Queries.GetCatalogs>
 {

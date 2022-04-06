@@ -3,22 +3,14 @@ using Application.EventSourcing.Projections;
 using Domain.Entities.CatalogItems;
 using ECommerce.Contracts.Catalogs;
 using MassTransit;
-using CatalogCreatedEvent = ECommerce.Contracts.Catalogs.DomainEvents.CatalogCreated;
-using CatalogActivatedEvent = ECommerce.Contracts.Catalogs.DomainEvents.CatalogActivated;
-using CatalogDeactivatedEvent = ECommerce.Contracts.Catalogs.DomainEvents.CatalogDeactivated;
-using CatalogUpdatedEvent = ECommerce.Contracts.Catalogs.DomainEvents.CatalogUpdated;
-using CatalogDeletedEvent = ECommerce.Contracts.Catalogs.DomainEvents.CatalogDeleted;
-using CatalogItemAddedEvent = ECommerce.Contracts.Catalogs.DomainEvents.CatalogItemAdded;
-using CatalogItemRemovedEvent = ECommerce.Contracts.Catalogs.DomainEvents.CatalogItemRemoved;
-using CatalogItemUpdatedEvent = ECommerce.Contracts.Catalogs.DomainEvents.CatalogItemUpdated;
 
-namespace Application.UseCases.Events;
+namespace Application.UseCases.EventsHandlers;
 
 public class ProjectCatalogItemsWhenChangedConsumer :
-    IConsumer<CatalogDeletedEvent>,
-    IConsumer<CatalogItemAddedEvent>,
-    IConsumer<CatalogItemRemovedEvent>,
-    IConsumer<CatalogItemUpdatedEvent>
+    IConsumer<DomainEvents.CatalogDeleted>,
+    IConsumer<DomainEvents.CatalogItemAdded>,
+    IConsumer<DomainEvents.CatalogItemRemoved>,
+    IConsumer<DomainEvents.CatalogItemUpdated>
 {
     private readonly ICatalogEventStoreService _eventStoreService;
     private readonly ICatalogProjectionsService _projectionsService;
@@ -31,13 +23,13 @@ public class ProjectCatalogItemsWhenChangedConsumer :
         _projectionsService = projectionsService;
     }
 
-    public Task Consume(ConsumeContext<CatalogItemAddedEvent> context)
+    public Task Consume(ConsumeContext<DomainEvents.CatalogItemAdded> context)
         => ProjectAsync(context.Message.CatalogId, context.CancellationToken);
 
-    public Task Consume(ConsumeContext<CatalogItemRemovedEvent> context)
+    public Task Consume(ConsumeContext<DomainEvents.CatalogItemRemoved> context)
         => ProjectAsync(context.Message.CatalogId, context.CancellationToken);
 
-    public Task Consume(ConsumeContext<CatalogItemUpdatedEvent> context)
+    public Task Consume(ConsumeContext<DomainEvents.CatalogItemUpdated> context)
         => ProjectAsync(context.Message.CatalogId, context.CancellationToken);
 
     private async Task ProjectAsync(Guid catalogId, CancellationToken cancellationToken)
@@ -51,6 +43,6 @@ public class ProjectCatalogItemsWhenChangedConsumer :
     }
 
     public Task Consume(ConsumeContext<DomainEvents.CatalogDeleted> context)
-        => _projectionsService.RemoveAsync<Projections.CatalogItem>(item 
+        => _projectionsService.RemoveAsync<Projections.CatalogItem>(item
             => item.CatalogId == context.Message.CatalogId, context.CancellationToken);
 }
