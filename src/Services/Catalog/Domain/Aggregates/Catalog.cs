@@ -1,7 +1,7 @@
 ﻿using Domain.Abstractions.Aggregates;
 using Domain.Entities.CatalogItems;
 using ECommerce.Abstractions.Messages.Events;
-using ECommerce.Contracts.Catalog;
+using ECommerce.Contracts.Catalogs;
 
 namespace Domain.Aggregates;
 
@@ -10,12 +10,13 @@ public class Catalog : AggregateRoot<Guid, CatalogValidator>
     private readonly List<CatalogItem> _items = new();
     public bool IsActive { get; private set; }
     public string Title { get; private set; }
+    public string Description { get; private set; }
 
     public IEnumerable<CatalogItem> Items
         => _items;
 
     public void Handle(Commands.CreateCatalog cmd)
-        => RaiseEvent(new DomainEvents.CatalogCreated(Guid.NewGuid(), cmd.Title));
+        => RaiseEvent(new DomainEvents.CatalogCreated(Guid.NewGuid(), cmd.Title, cmd.Description));
 
     public void Handle(Commands.DeleteCatalog cmd)
         => RaiseEvent(new DomainEvents.CatalogDeleted(cmd.CatalogId));
@@ -42,7 +43,7 @@ public class Catalog : AggregateRoot<Guid, CatalogValidator>
         => When(@event as dynamic);
 
     private void When(DomainEvents.CatalogCreated @event)
-        => (Id, Title) = @event;
+        => (Id, Title, Description) = @event;
 
     private void When(DomainEvents.CatalogUpdated @event)
         => Title = @event.Title;

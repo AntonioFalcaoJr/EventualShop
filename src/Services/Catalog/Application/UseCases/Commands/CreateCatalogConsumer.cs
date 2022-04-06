@@ -1,7 +1,7 @@
 ﻿using Application.EventSourcing.EventStore;
 using Domain.Aggregates;
 using MassTransit;
-using CreateCatalogCommand = ECommerce.Contracts.Catalog.Commands.CreateCatalog;
+using CreateCatalogCommand = ECommerce.Contracts.Catalogs.Commands.CreateCatalog;
 
 namespace Application.UseCases.Commands;
 

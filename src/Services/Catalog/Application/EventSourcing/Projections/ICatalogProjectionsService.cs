@@ -5,7 +5,7 @@ namespace Application.EventSourcing.Projections;
 
 public interface ICatalogProjectionsService : IProjectionsService
 {
-    Task<IPagedResult<CatalogProjection>> GetCatalogsAsync(int limit, int offset, CancellationToken cancellationToken);
-    Task<IPagedResult<CatalogItemProjection>> GetCatalogItemsAsync(Guid catalogId, int limit, int offset, CancellationToken cancellationToken);
-    Task<CatalogProjection> GetCatalogDetailsAsync(Guid catalogId, CancellationToken cancellationToken);
+    Task<IPagedResult<ECommerce.Contracts.Catalogs.Projections.Catalog>> GetCatalogsAsync(int limit, int offset, CancellationToken cancellationToken);
+    Task<IPagedResult<ECommerce.Contracts.Catalogs.Projections.CatalogItem>> GetCatalogItemsAsync(Guid catalogId, int limit, int offset, CancellationToken cancellationToken);
+    Task<ECommerce.Contracts.Catalogs.Projections.Catalog> GetCatalogAsync(Guid catalogId, CancellationToken cancellationToken);
 }

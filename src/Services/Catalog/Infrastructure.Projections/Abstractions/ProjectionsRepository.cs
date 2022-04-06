@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using Application.Abstractions.EventSourcing.Projections;
 using ECommerce.Abstractions.Messages.Queries.Paging;
+using ECommerce.Abstractions.Projections;
 using Infrastructure.Projections.Abstractions.Contexts;
 using Infrastructure.Projections.Abstractions.Pagination;
 using MongoDB.Driver;
@@ -19,6 +20,7 @@ public abstract class ProjectionsRepository : IProjectionsRepository
 
     public Task<TProjection> GetAsync<TProjection, TId>(TId id, CancellationToken cancellationToken)
         where TProjection : IProjection
+        where TId : struct
         => FindAsync<TProjection>(projection => projection.Id.Equals(id), cancellationToken);
 
     public Task<TProjection> FindAsync<TProjection>(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
@@ -41,6 +43,22 @@ public abstract class ProjectionsRepository : IProjectionsRepository
                 replacement: replacement,
                 options: new ReplaceOptions { IsUpsert = true },
                 cancellationToken: cancellationToken);
+
+    public Task UpsertManyAsync<TProjection>(IEnumerable<TProjection> replacements, CancellationToken cancellationToken)
+        where TProjection : IProjection
+    {
+        var requests = replacements.Select(replacement => new ReplaceOneModel<TProjection>(
+            filter: new ExpressionFilterDefinition<TProjection>(projection => projection.Id == replacement.Id),
+            replacement: replacement) { IsUpsert = true });
+
+        return _context
+            .GetCollection<TProjection>()
+            .WithWriteConcern(WriteConcern.Unacknowledged)
+            .BulkWriteAsync(
+                requests: requests,
+                options: new BulkWriteOptions { IsOrdered = false },
+                cancellationToken: cancellationToken);
+    }
 
     public Task DeleteAsync<TProjection>(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken)
         where TProjection : IProjection

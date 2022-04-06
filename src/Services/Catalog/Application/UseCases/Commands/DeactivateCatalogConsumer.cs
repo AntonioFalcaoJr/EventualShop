@@ -1,6 +1,6 @@
 ﻿using Application.EventSourcing.EventStore;
 using MassTransit;
-using DeactivateCatalogCommand = ECommerce.Contracts.Catalog.Commands.DeactivateCatalog;
+using DeactivateCatalogCommand = ECommerce.Contracts.Catalogs.Commands.DeactivateCatalog;
 
 namespace Application.UseCases.Commands;
 

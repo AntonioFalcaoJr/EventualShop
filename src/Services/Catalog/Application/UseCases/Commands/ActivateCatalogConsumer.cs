@@ -1,6 +1,6 @@
 ﻿using Application.EventSourcing.EventStore;
 using MassTransit;
-using ActivateCatalogCommand = ECommerce.Contracts.Catalog.Commands.ActivateCatalog;
+using ActivateCatalogCommand = ECommerce.Contracts.Catalogs.Commands.ActivateCatalog;
 
 namespace Application.UseCases.Commands;
 
