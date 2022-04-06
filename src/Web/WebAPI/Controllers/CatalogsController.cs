@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
-using ECommerce.Contracts.Catalog;
+using ECommerce.Contracts.Catalogs;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;
+using WebAPI.DataTransferObjects.Catalogs;
+using WebAPI.ValidationAttributes;
 
 namespace WebAPI.Controllers;
 
@@ -13,12 +15,22 @@ public class CatalogsController : ApplicationController
         : base(bus, mapper) { }
 
     [HttpGet]
-    public Task<IActionResult> GetCatalogItemsWithPagination([FromQuery] Queries.GetCatalogItems query, CancellationToken cancellationToken)
-        => GetResponseAsync<Queries.GetCatalogItems, Responses.CatalogItemsDetailsPagedResult>(query, cancellationToken);
+    [ProducesResponseType(typeof(Outputs.Catalogs), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> GetCatalogs(int limit, int offset, CancellationToken cancellationToken)
+        => GetResponseAsync<Queries.GetCatalogs, Responses.Catalogs, Outputs.Catalogs>(new(limit, offset), cancellationToken);
 
     [HttpPost]
-    public Task<IActionResult> CreateCatalog(Commands.CreateCatalog command, CancellationToken cancellationToken)
-        => SendCommandAsync(command, cancellationToken);
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> CreateCatalogAsync([FromBody] Requests.CreateCatalog request, CancellationToken cancellationToken)
+        => SendCommandAsync<Commands.CreateCatalog>(new(request.Title, request.Description), cancellationToken);
+
+    [HttpGet("{catalogId:guid}/items")]
+    [ProducesResponseType(typeof(Outputs.CatalogItems), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> GetCatalogItemsAsync([NotEmpty] Guid catalogId, int limit, int offset, CancellationToken cancellationToken)
+        => GetResponseAsync<Queries.GetCatalogItems, Responses.CatalogItems, Outputs.CatalogItems>(new(catalogId, limit, offset), cancellationToken);
 
     [HttpPost]
     public Task<IActionResult> AddCatalogItem(Commands.AddCatalogItem command, CancellationToken cancellationToken)
@@ -44,7 +56,9 @@ public class CatalogsController : ApplicationController
     public Task<IActionResult> UpdateCatalogItem(Commands.UpdateCatalogItem command, CancellationToken cancellationToken)
         => SendCommandAsync(command, cancellationToken);
 
-    [HttpDelete]
-    public Task<IActionResult> DeleteCatalog(Commands.DeleteCatalog command, CancellationToken cancellationToken)
-        => SendCommandAsync(command, cancellationToken);
+    [HttpDelete("{catalogId:guid}")]
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> DeleteCatalog([NotEmpty] Guid catalogId, CancellationToken cancellationToken)
+        => SendCommandAsync<Commands.DeleteCatalog>(new(catalogId), cancellationToken);
 }
