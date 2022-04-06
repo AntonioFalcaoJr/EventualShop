@@ -4,7 +4,7 @@ using Domain.Entities.CatalogItems;
 using ECommerce.Contracts.Catalogs;
 using MassTransit;
 
-namespace Application.UseCases.EventsHandlers;
+namespace Application.UseCases.EventHandlers;
 
 public class ProjectCatalogItemsWhenChangedConsumer :
     IConsumer<DomainEvents.CatalogDeleted>,

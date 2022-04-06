@@ -3,7 +3,7 @@ using Application.EventSourcing.Projections;
 using ECommerce.Contracts.Catalogs;
 using MassTransit;
 
-namespace Application.UseCases.EventsHandlers;
+namespace Application.UseCases.EventHandlers;
 
 public class ProjectCatalogWhenChangedConsumer :
     IConsumer<DomainEvents.CatalogCreated>,
