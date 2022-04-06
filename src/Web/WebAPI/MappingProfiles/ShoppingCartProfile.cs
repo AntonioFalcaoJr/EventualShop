@@ -3,7 +3,7 @@ using ECommerce.Contracts.Common;
 using ECommerce.Contracts.ShoppingCart;
 using WebAPI.DataTransferObjects.ShoppingCarts;
 
-namespace WebAPI.MapperProfiles;
+namespace WebAPI.MappingProfiles;
 
 public static class ShoppingCartProfile 
 {

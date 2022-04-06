@@ -3,22 +3,22 @@
         <UserSecretsId>d5597016-71d1-4499-8543-c547fb02f336</UserSecretsId>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="AutoMapper" Version="$(AutoMapper_Version)"/>
-        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="$(AutoMapper_Extensions_Version)"/>
-        <PackageReference Include="FluentValidation.AspNetCore" Version="$(FluentValidation_Version)"/>
-        <PackageReference Include="MassTransit.Newtonsoft" Version="$(MassTransit_Version)"/>
-        <PackageReference Include="MassTransit.RabbitMQ" Version="$(MassTransit_Version)"/>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.0-preview.2.22153.2"/>
-        <PackageReference Include="Serilog.AspNetCore" Version="$(Serilog_AspNetCore_Version)"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="$(Swashbuckle_Version)"/>
-        <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="$(Swashbuckle_Version)"/>
-        <PackageReference Include="MicroElements.Swashbuckle.FluentValidation" Version="5.5.0"/>
-        <PackageReference Include="Newtonsoft.Json" Version="$(Newtonsoft_Version)"/>
+        <PackageReference Include="AutoMapper" Version="$(AutoMapper_Version)" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="$(AutoMapper_Extensions_Version)" />
+        <PackageReference Include="FluentValidation.AspNetCore" Version="$(FluentValidation_Version)" />
+        <PackageReference Include="MassTransit.Newtonsoft" Version="$(MassTransit_Version)" />
+        <PackageReference Include="MassTransit.RabbitMQ" Version="$(MassTransit_Version)" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.0-preview.2.22153.2" />
+        <PackageReference Include="Serilog.AspNetCore" Version="$(Serilog_AspNetCore_Version)" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="$(Swashbuckle_Version)" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="$(Swashbuckle_Version)" />
+        <PackageReference Include="MicroElements.Swashbuckle.FluentValidation" Version="5.5.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="$(Newtonsoft_Version)" />
     </ItemGroup>
     <ItemGroup>
         <InternalsVisibleTo Include="$(AssemblyName).IntegrationTests" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\Contracts\ECommerce\ECommerce.csproj"/>
+        <ProjectReference Include="..\..\Contracts\ECommerce\ECommerce.csproj" />
     </ItemGroup>
 </Project>
