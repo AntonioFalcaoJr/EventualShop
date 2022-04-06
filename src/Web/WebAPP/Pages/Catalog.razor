@@ -20,16 +20,14 @@
 
 <BSOffCanvas @ref="_offCanvas" Placement="Placement.Right">
     <Header>Create Catalog</Header>
-    <Content>
-        <BSRow>
+    <Content >
+        <div class="d-grid gap-2">
             <BSLabel>Title</BSLabel>
             <BSInput InputType="InputType.Text" placeholder="Title" @bind-Value="_title"/>
-        </BSRow>
-        <BSRow>
             <BSLabel>Description</BSLabel>
             <BSInput InputType="InputType.TextArea" placeholder="Description" @bind-Value="_description"/>
-        </BSRow>
-        <BSButton Color="BSColor.Primary" Margin="Margins.Medium" OnClick="CreateAsync">Create</BSButton>
+            <BSButton Size="Size.Medium" Color="BSColor.Dark" OnClick="CreateAsync">Create</BSButton>
+        </div>
     </Content>
 </BSOffCanvas>
 
@@ -148,7 +146,7 @@
     {
         try
         {
-            var response = await _http.DeleteAsync($"/api/catalogs/remove-cart-item/{catalogId}");
+            var response = await _http.DeleteAsync($"/api/catalogs/delete-catalog/{catalogId}");
 
             if (response.IsSuccessStatusCode)
             {
