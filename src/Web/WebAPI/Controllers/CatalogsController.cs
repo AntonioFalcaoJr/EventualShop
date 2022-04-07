@@ -23,7 +23,7 @@ public class CatalogsController : ApplicationController
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> CreateCatalogAsync([FromBody] Requests.CreateCatalog request, CancellationToken cancellationToken)
+    public Task<IActionResult> CreateCatalogAsync(Requests.CreateCatalog request, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.CreateCatalog>(new(request.Title, request.Description), cancellationToken);
 
     [HttpGet("{catalogId:guid}/items")]
