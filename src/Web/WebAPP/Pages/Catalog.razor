@@ -26,7 +26,7 @@
             <BSInput InputType="InputType.Text" placeholder="Title" @bind-Value="_title"/>
             <BSLabel>Description</BSLabel>
             <BSInput InputType="InputType.TextArea" placeholder="Description" @bind-Value="_description"/>
-            <BSButton Size="Size.Medium" Color="BSColor.Dark" OnClick="CreateAsync">Create</BSButton>
+            <BSButton MarginTop="Margins.Large" Size="Size.Medium" Color="BSColor.Dark" OnClick="CreateAsync">Create</BSButton>
         </div>
     </Content>
 </BSOffCanvas>
@@ -51,7 +51,8 @@
         <BSRow>
             @foreach (var catalog in _catalogs.Items)
             {
-                <BSCard CardType="CardType.Card" MarginTopAndBottom="Margins.Small" MarginLeftAndRight="Margins.ExtraSmall" style="width: 20.1rem;">
+                <BSCard CardType="CardType.Card" Margin="Margins.ExtraSmall" Padding="Padding.None" style="width: 20.11rem;">
+                    <BSCard CardType="CardType.Header">@catalog.Title</BSCard>
                     <BSCard CardType="CardType.Body">
                         <BSCard CardType="CardType.Title">@catalog.Title</BSCard>
                         <BSCard CardType="CardType.Subtitle">@catalog.Description</BSCard>
