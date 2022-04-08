@@ -25,73 +25,62 @@
                 </BSNav>
                 <BSNavbarBrand Url="/" Margin="Margins.Auto">ECommerce</BSNavbarBrand>
                 <BSNav Margin="Margins.Auto" Class="align-items-center">
-
                     <BSNavItem IsDropdown="true">
                         <BSDropdown @ref="_dropdownCountry">
                             <Toggler>
-                                <BSToggle IsNavLink="true" @onmouseover="_dropdownCountry.ShowAsync">@_country</BSToggle>
+                                <BSToggle IsNavLink="true">@_country</BSToggle>
                             </Toggler>
                             <Content>
                                 @foreach (var country in _countries)
                                 {
-                                    <BSDropdownItem
-                                        IsActive="false"
-                                        Url="catalog"
-                                        OnClick="() => _country = country">
-                                        @country
-                                    </BSDropdownItem>
+                                    <BSDropdownItem IsActive="false" OnClick="() => _country = country">@country</BSDropdownItem>
                                 }
                                 <BSDropdownItem IsDivider="true"/>
                                 <BSDropdownItem OnClick="@(() => _country = "All")">All</BSDropdownItem>
                             </Content>
                         </BSDropdown>
                     </BSNavItem>
-
                     <BSNavItem IsDropdown="true">
                         <BSDropdown @ref="_dropdownCurrency">
                             <Toggler>
-                                <BSToggle IsNavLink="true" @onmouseover="_dropdownCurrency.ShowAsync">@_currency</BSToggle>
+                                <BSToggle IsNavLink="true">@_currency</BSToggle>
                             </Toggler>
                             <Content >
                                 @foreach (var (key, value) in _currencies)
                                 {
-                                    <BSDropdownItem
-                                        IsActive="false"
-                                        Url="catalog"
-                                        OnClick="() => _currency = key">
-                                        @value
-                                    </BSDropdownItem>
+                                    <BSDropdownItem IsActive="false" OnClick="() => _currency = key">@value</BSDropdownItem>
                                 }
                             </Content>
                         </BSDropdown>
                     </BSNavItem>
-
                     <BSNavItem IsDropdown="true">
                         <BSDropdown @ref="_dropdownLanguage">
                             <Toggler>
-                                <BSToggle IsNavLink="true" @onmouseover="_dropdownLanguage.ShowAsync">@_language</BSToggle>
+                                <BSToggle IsNavLink="true">@_language</BSToggle>
                             </Toggler>
                             <Content >
                                 @foreach (var (key, value) in _languages)
                                 {
-                                    <BSDropdownItem
-                                        IsActive="false"
-                                        Url="catalog"
-                                        OnClick="() => _language = key">
-                                        @value
-                                    </BSDropdownItem>
+                                    <BSDropdownItem IsActive="false" OnClick="() => _language = key">@value</BSDropdownItem>
                                 }
                             </Content>
                         </BSDropdown>
                     </BSNavItem>
-
                     <BSNavItem Class="bi bi-cart2" style="font-size: 1.5rem;" IsActive="true" Url="catalog"/>
-
                 </BSNav>
             </Content>
         </BSCollapse>
     </BSContainer>
 </BSNavbar>
+
+<style>
+    .dropdown:hover .dropdown-menu{
+        display: block;
+    }
+    .dropdown-menu{
+        margin-top: 0;
+    }
+</style>
 
 @code
 {

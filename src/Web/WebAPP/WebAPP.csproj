@@ -9,8 +9,4 @@
     <ItemGroup>
         <ProjectReference Include="..\..\Contracts\ECommerce\ECommerce.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="Components\NavBar.razor" />
-    </ItemGroup>
 </Project>
