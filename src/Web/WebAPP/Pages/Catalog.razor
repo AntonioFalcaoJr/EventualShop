@@ -76,7 +76,7 @@
 
 @code {
 
-    private Responses.Catalogs _catalogs;
+    private Responses.Catalogs _catalogs = new() {Items = Enumerable.Empty<Projections.Catalog>(), PageInfo = new()};
     private BSOffCanvas _offCanvas;
 
     private string _title;
@@ -108,12 +108,21 @@
             if (response.IsSuccessStatusCode)
             {
                 await _offCanvas.HideAsync();
+
+                var catalogs = _catalogs.Items.ToList();
+
+                catalogs.Add(new(default, _title, _description, default, default));
+
+                _catalogs = new Responses.Catalogs
+                {
+                    Items = catalogs,
+                    PageInfo = _catalogs.PageInfo
+                };
+
                 Success();
 
                 _title = string.Empty;
                 _description = string.Empty;
-
-                await GetCatalogsAsync();
             }
             else Failed(response.ReasonPhrase);
         }
@@ -151,8 +160,17 @@
 
             if (response.IsSuccessStatusCode)
             {
+                var catalogs = _catalogs.Items.ToList();
+
+                catalogs.RemoveAll(catalog => catalog.Id == catalogId);
+
+                _catalogs = new Responses.Catalogs
+                {
+                    Items = catalogs,
+                    PageInfo = _catalogs.PageInfo
+                };
+
                 Success();
-                await GetCatalogsAsync();
             }
             else Failed(response.ReasonPhrase);
         }

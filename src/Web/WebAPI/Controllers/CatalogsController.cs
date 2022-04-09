@@ -19,6 +19,12 @@ public class CatalogsController : ApplicationController
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> GetCatalogs(int limit, int offset, CancellationToken cancellationToken)
         => GetResponseAsync<Queries.GetCatalogs, Responses.Catalogs, Outputs.Catalogs>(new(limit, offset), cancellationToken);
+    
+    [HttpGet("{catalogId:guid}")]
+    [ProducesResponseType(typeof(Outputs.Catalogs), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> GetCatalog(Guid catalogId, CancellationToken cancellationToken)
+        => GetResponseAsync<Queries.GetCatalog, Responses.Catalog, Outputs.Catalog>(new(catalogId), cancellationToken);
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
