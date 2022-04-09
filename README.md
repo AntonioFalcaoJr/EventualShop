@@ -155,6 +155,7 @@ Fig. 7: Falcão, Antônio. "Order orchestration-based saga".
 Benefits & drawbacks of Orchestration
 
 * Centralized logic: this can be good and bad;
+* High coupling: Need to know about the capability of other services;
 * Easier to understand the workflow since its defined in a central location;
 * Full control over the workflow steps via commands;
 * Point of failure;
@@ -168,6 +169,8 @@ Fig. 8: Falcão, Antônio. "Order choreography-based saga".
 Benefits & drawbacks of Choreography
 
 * No centralized logic: this can be good and bad;
+* Low coupling: Clear separation of concerns;
+* Better performance: Fewer messages to handle;
 * Useful for small/simple workflows;
 * Difficult to conceptualize if a lot of services are involved;
 * Harder to debug & test if a lot of services are involved.
