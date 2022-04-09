@@ -510,7 +510,7 @@ https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
 ## Performance
 
-### Minimize exceptions 
+### Minimize exceptions
 
 > Exceptions should be rare. Throwing and catching exceptions is slow relative to other code flow patterns. Because of this, exceptions shouldn't be used to control normal program flow.
 >
@@ -531,7 +531,7 @@ https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 > Recommendations:
 >
 > - Do not create and dispose of HttpClient instances directly.
-> - Do use HttpClientFactory to retrieve HttpClient instances. 
+> - Do use HttpClientFactory to retrieve HttpClient instances.
 >
 > "ASP.NET Core Performance Best Practices" *MSDN*, Microsoft Docs, last edited on 18 Fev 2022.  
 > https://docs.microsoft.com/en-us/aspnet/core/performance/performance-best-practices?view=aspnetcore-6.0#pool-http-connections-with-httpclientfactory
@@ -618,9 +618,16 @@ _Linux/Mac_
 ~/.microsoft/usersecrets/<user_secrets_id>/secrets.json
 ```
 
-### Docker
+#### Docker
 
-Docker commands
+The respective [./docker-compose.Development.yaml](./docker-compose.Development.yaml) will provide all the necessary resources (with proper exposure of the connection ports) for a development
+environment:
+
+```bash
+docker-compose -f ./docker-compose.Development.yaml up -d
+```
+
+If prefer, is possible to use individual Docker commands:
 
 MSSQL
 
@@ -655,7 +662,43 @@ docker run -d \
 rabbitmq:3-management
 ```
 
-### Test
+### Staging
+
+An environment for testing that exactly resembles the production environment. In other words, it's a complete but independent copy of the production environment, including the database.
+
+To preserve this concept, and considering a containerized deployment strategy (immutable environment), the staging environment is provided via [./docker-compose.yaml](./docker-compose.yaml)
+accordingly with each `appsettings.Staging.json`, considering Docker has a network interface with an IP address, a gateway, a routing table, DNS services, and other networking details.
+
+#### Docker
+
+The respective [./docker-compose.yaml](./docker-compose.Development.yaml) will provision all system dependencies, with minimal resources needed, and expose only the **WebAPP** connection port (as in
+Production environment):
+
+```bash
+docker-compose up -d
+```
+
+Worker Services
+
+```dockerfile
+deploy:
+  replicas: 2
+  resources:
+    limits:
+      cpus: '0.25'
+      memory: 120M
+```
+
+Web API
+```dockerfile
+deploy:
+  replicas: 2
+  resources:
+    limits:
+      cpus: '0.50'
+      memory: 260M
+```
+## Test
 
 K6
 
@@ -721,7 +764,7 @@ CREATE TABLE [ShoppingCartSnapshots] (
 ### Migrations
 
 ```bash
-dotnet ef migrations add "First migration" -s .\WorkerService\ -p .\Infrastructure\
+dotnet ef migrations add "First Migration" -s .\WorkerService\ -p .\Infrastructure.EventStore\
 ```
 
 ## Main references:
@@ -756,3 +799,45 @@ dotnet ef migrations add "First migration" -s .\WorkerService\ -p .\Infrastructu
 * [Event Sourcing: Aggregates Vs Projections - Kacper Gunia](https://domaincentric.net/blog/event-sourcing-aggregates-vs-projections)
 * [Event Sourcing: Projections - Kacper Gunia](https://domaincentric.net/blog/event-sourcing-projections)
 * [Advantages of the event-driven architecture pattern - Grace Jansen & Johanna Saladas](https://developer.ibm.com/articles/advantages-of-an-event-driven-architecture/)
+
+## Built With
+
+### Worker Services
+
+* [.NET 7 preview](https://dotnet.microsoft.com/en-us/) - A free, multi/cross-platform and open-source framework;
+* [EF Core 7 preview](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-7-preview-1/) - An open source object–relational mapping framework for ADO.NET;
+* [MSSQL](https://hub.docker.com/_/microsoft-mssql-server) - A relational database management system (Event Store Database);
+* [MongoDB](https://www.mongodb.com/docs/drivers/csharp/) - A source-available cross-platform document-oriented database (Projections Database);
+* [MassTransit](https://masstransit-project.com/) - Message Bus;
+* [FluentValidation](https://fluentvalidation.net/) - A popular .NET library for building strongly-typed validation rules;
+* [Serilog](https://serilog.net/) - A diagnostic logging to files, console and elsewhere.
+
+### Web API
+
+* [ASP.NET Core 7](https://devblogs.microsoft.com/dotnet/asp-net-core-updates-in-net-7-preview-1/) - A free, cross-platform and open-source web-development framework;
+* [MassTransit](https://masstransit-project.com/) - Message Bus;
+* [FluentValidation](https://fluentvalidation.net/) - A popular .NET library for building strongly-typed validation rules;
+* [AutoMapper](https://automapper.org/) - A convention-based object-object mapper;
+* [Serilog](https://serilog.net/) - A diagnostic logging to files, console and elsewhere.
+
+### Web APP
+
+* [Blazor WASM](https://docs.microsoft.com/en-us/aspnet/core/blazor/?WT.mc_id=dotnet-35129-website&view=aspnetcore-6.0#blazor-webassembly) - Is a single-page app (SPA) framework for building
+  interactive client-side web apps with .NET;
+* [BlazorStrap](https://blazorstrap.io/V5/) - Bootstrap 5 Components for Blazor Framework;
+
+## Contributing
+
+All contributions are welcome. Please take a look at [contributing](./CONTRIBUTING.md) guide.
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/AntonioFalcao/EDA.CleanArch.DDD.CQRS.EventSourcing/tags).
+
+## Authors
+
+> See the list of [contributors](https://github.com/AntonioFalcao/EDA.CleanArch.DDD.CQRS.EventSourcing/graphs/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details

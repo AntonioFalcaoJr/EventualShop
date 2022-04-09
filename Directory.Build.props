@@ -2,7 +2,7 @@
 
     <PropertyGroup Label="Common properties">
         <Product>EDA.CleanArch.DDD.CQRS.EventSourcing</Product>
-        <Copyright>Copyright 2021-2022 Antônio Falcão Jr.</Copyright>
+        <Copyright>Copyright (c) 2021-2022 Antonio Falcão Jr.</Copyright>
         <Authors>Antônio Falcão Jr.</Authors>
         <TargetFramework>net7.0</TargetFramework>
         <LangVersion>preview</LangVersion>
