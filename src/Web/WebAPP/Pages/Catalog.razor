@@ -51,7 +51,7 @@
         <BSRow>
             @foreach (var catalog in _catalogs.Items)
             {
-                <BSCard CardType="CardType.Card" Margin="Margins.ExtraSmall" Padding="Padding.None" style="width: 20.11rem;">
+                <BSCard Class="w-25" Alignment="Alignment.Center" CardType="CardType.Card" Padding="Padding.None">
                     <BSCard CardType="CardType.Header">@catalog.Title</BSCard>
                     <BSCard CardType="CardType.Body">
                         <BSCard CardType="CardType.Title">@catalog.Title</BSCard>
