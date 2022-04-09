@@ -12,11 +12,11 @@ public static class DomainEvents
 
     public record CatalogDeactivated(Guid CatalogId) : Event;
 
-    public record CatalogUpdated(Guid CatalogId, string Title) : Event;
+    public record CatalogUpdated(Guid CatalogId, string Title, string Description) : Event;
 
-    public record CatalogItemAdded(Guid CatalogId, string Name, string Description, decimal Price, string PictureUri) : Event;
+    public record CatalogItemAdded(Guid CatalogId, Guid ItemId, string Name, string Description, decimal Price, string PictureUri) : Event;
 
-    public record CatalogItemRemoved(Guid CatalogId, Guid CatalogItemId) : Event;
+    public record CatalogItemRemoved(Guid CatalogId, Guid ItemId) : Event;
 
-    public record CatalogItemUpdated(Guid CatalogId, Guid CatalogItemId, string Name, string Description, decimal Price, string PictureUri) : Event;
+    public record CatalogItemUpdated(Guid CatalogId, Guid ItemId, string Name, string Description, decimal Price, string PictureUri) : Event;
 }

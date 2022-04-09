@@ -8,7 +8,7 @@ public static class Commands
 
     public record DeleteCatalog(Guid CatalogId) : Command(CatalogId);
 
-    public record UpdateCatalog(Guid CatalogId, string Title) : Command(CatalogId);
+    public record UpdateCatalog(Guid CatalogId, string Title, string Description) : Command(CatalogId);
 
     public record ActivateCatalog(Guid CatalogId) : Command(CatalogId);
 
