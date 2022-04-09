@@ -28,10 +28,10 @@ public class Catalog : AggregateRoot<Guid, CatalogValidator>
         => RaiseEvent(new DomainEvents.CatalogDeactivated(cmd.CatalogId));
 
     public void Handle(Commands.UpdateCatalog cmd)
-        => RaiseEvent(new DomainEvents.CatalogUpdated(cmd.CatalogId, cmd.Title));
+        => RaiseEvent(new DomainEvents.CatalogUpdated(cmd.CatalogId, cmd.Title, cmd.Description));
 
     public void Handle(Commands.AddCatalogItem cmd)
-        => RaiseEvent(new DomainEvents.CatalogItemAdded(cmd.CatalogId, cmd.Name, cmd.Description, cmd.Price, cmd.PictureUri));
+        => RaiseEvent(new DomainEvents.CatalogItemAdded(cmd.CatalogId, Guid.NewGuid(), cmd.Name, cmd.Description, cmd.Price, cmd.PictureUri));
 
     public void Handle(Commands.RemoveCatalogItem cmd)
         => RaiseEvent(new DomainEvents.CatalogItemRemoved(cmd.CatalogId, cmd.CatalogItemId));
@@ -52,7 +52,7 @@ public class Catalog : AggregateRoot<Guid, CatalogValidator>
         => IsDeleted = true;
 
     private void When(DomainEvents.CatalogItemRemoved @event)
-        => _items.RemoveAll(item => item.Id == @event.CatalogItemId);
+        => _items.RemoveAll(item => item.Id == @event.ItemId);
 
     private void When(DomainEvents.CatalogActivated _)
         => IsActive = true;
@@ -63,6 +63,7 @@ public class Catalog : AggregateRoot<Guid, CatalogValidator>
     private void When(DomainEvents.CatalogItemAdded @event)
     {
         var catalogItem = new CatalogItem(
+            @event.ItemId,
             @event.Name,
             @event.Description,
             @event.Price,
@@ -73,7 +74,7 @@ public class Catalog : AggregateRoot<Guid, CatalogValidator>
 
     private void When(DomainEvents.CatalogItemUpdated @event)
         => _items
-            .Where(item => item.Id == @event.CatalogItemId)
+            .Where(item => item.Id == @event.ItemId)
             .ToList()
             .ForEach(catalogItem =>
             {
