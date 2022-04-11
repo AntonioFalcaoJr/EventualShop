@@ -1,0 +1,147 @@
+﻿@page "/catalogs"
+
+@using WebAPP.ViewModels
+
+@inject HttpClient _http
+@inject IBlazorStrap _blazorStrap
+@inject CatalogsViewModel _viewModel
+
+<NavBar/>
+<SearchBar/>
+<BSToaster/>
+
+@if (_viewModel.Catalogs == null)
+{
+    <div style="display:flex; gap:10px; justify-content:center; align-items:center">
+        <div class="spinner-border" role="status"></div>
+    </div>
+
+    return;
+}
+
+<BSOffCanvas @ref="_offCanvas" Placement="Placement.Right">
+    <Header>Create Catalog</Header>
+    <Content >
+        <div class="d-grid gap-2">
+            <BSLabel>Title</BSLabel>
+            <BSInput InputType="InputType.Text" placeholder="Title" @bind-Value="_viewModel.Title"/>
+            <BSLabel>Description</BSLabel>
+            <BSInput InputType="InputType.TextArea" placeholder="Description" @bind-Value="_viewModel.Description"/>
+            <BSButton MarginTop="Margins.Large" Size="Size.Medium" Color="BSColor.Dark" OnClick="CreateAsync">Create</BSButton>
+        </div>
+    </Content>
+</BSOffCanvas>
+
+<BSContainer>
+    <BSRow Align="Align.Center" Justify="Justify.Around">
+        <BSCol Margin="Margins.Large">
+            <h5 class="m-0">Catalogs</h5>
+        </BSCol>
+        <BSCol Column="1">
+            <BSButton Class="bi bi-plus-lg" Color="BSColor.Light" style="font-size: 2.000rem;" OnClick="_offCanvas.ShowAsync"/>
+        </BSCol>
+    </BSRow>
+    @if (_viewModel.Catalogs.Any() is false)
+    {
+        <p>
+            No Catalog, try to add one :)
+        </p>
+    }
+    else
+    {
+        <BSRow>
+            @foreach (var catalog in _viewModel.Catalogs)
+            {
+                <BSCard Class="w-25" Alignment="Alignment.Center" CardType="CardType.Card" Padding="Padding.None">
+                    <BSCard CardType="CardType.Header">@catalog.Title</BSCard>
+                    <BSCard CardType="CardType.Body">
+                        <BSCard CardType="CardType.Title">@catalog.Title</BSCard>
+                        <BSCard CardType="CardType.Subtitle">@catalog.Description</BSCard>
+                        <BSButton Color="BSColor.Warning" OnClick=@(() => EditAsync(catalog.Id))>Edit</BSButton>
+                        <BSButton Color="BSColor.Danger" OnClick=@(() => DeleteAsync(catalog.Id))>Delete</BSButton>
+                    </BSCard>
+                </BSCard>
+            }
+        </BSRow>
+        <BSPagination Align="Align.Center">
+            <BSPaginationItem IsDisabled=@(_viewModel.PageInfo.HasPrevious is false) @onclick="MoveToPreview">Previous</BSPaginationItem>
+            @for (var paging = 1; paging <= _viewModel.PageInfo.Current; paging++)
+            {
+                var current = paging;
+                <BSPaginationItem @onclick="() => MoveToPage(current)">@current</BSPaginationItem>
+            }
+            <BSPaginationItem IsDisabled=@(_viewModel.PageInfo.HasNext is false) @onclick="MoveToNext">Next</BSPaginationItem>
+        </BSPagination>
+    }
+</BSContainer >
+
+@code {
+
+    private BSOffCanvas _offCanvas;
+
+    protected override Task OnInitializedAsync()
+        => _viewModel.FetchDataAsync(CancellationToken.None);
+
+    private async Task CreateAsync()
+    {
+        try
+        {
+            await _viewModel.CreateAsync();
+            await _offCanvas.HideAsync();
+        }
+        catch (Exception e)
+        {
+            Failed(e.Message);
+        }
+    }
+
+    private async Task EditAsync(Guid catalogId)
+    {
+        try
+        {
+            await _viewModel.EditAsync(catalogId);
+        }
+        catch (Exception e)
+        {
+            Failed(e.Message);
+        }
+    }
+
+    private async Task DeleteAsync(Guid catalogId)
+    {
+        try
+        {
+            await _viewModel.DeleteAsync(catalogId);
+        }
+        catch (Exception e)
+        {
+            Failed(e.Message);
+        }
+    }
+
+    private void Failed(string error = default)
+    {
+        _blazorStrap.Toaster.Add("Error", error ?? "It was not possible to create a new Catalog", o =>
+        {
+            o.Color = BSColor.Danger;
+            o.CloseAfter = 2000;
+            o.Toast = Toast.BottomRight;
+        });
+    }
+
+    private Task MoveToPage(int current)
+        => _viewModel.FetchDataAsync(new CancellationTokenSource(100).Token, offset: current - 1);
+
+    private async Task MoveToNext()
+    {
+        if (_viewModel.PageInfo.HasNext)
+            await _viewModel.FetchDataAsync(new CancellationTokenSource(100).Token, offset: _viewModel.PageInfo.Current);
+    }
+
+    private async Task MoveToPreview()
+    {
+        if (_viewModel.PageInfo.HasPrevious)
+            await _viewModel.FetchDataAsync(new CancellationTokenSource(100).Token, offset: _viewModel.PageInfo.Current - 2);
+    }
+
+}
