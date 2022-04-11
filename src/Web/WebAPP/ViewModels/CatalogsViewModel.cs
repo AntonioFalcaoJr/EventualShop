@@ -1,12 +1,11 @@
 ﻿using BlazorStrap;
 using ECommerce.Abstractions.Messages.Queries.Paging;
 using ECommerce.Contracts.Catalogs;
-using WebAPP.Abstractions;
 using WebAPP.HttpClients;
 
 namespace WebAPP.ViewModels;
 
-public class CatalogsViewModel : ViewModel
+public class CatalogsViewModel
 {
     private readonly IECommerceHttpClient _httpClient;
     private readonly IBlazorStrap _blazorStrap;
