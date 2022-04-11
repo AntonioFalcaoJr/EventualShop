@@ -4,6 +4,13 @@
         <PackageReference Include="BlazorStrap" Version="5.0.105-Preview1" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.0-preview.2.22153.2" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.0-preview.2.22153.2" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="$(Microsoft_Extensions_Hosting_Version)" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="$(Microsoft_Extensions_Version)" />
+        <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="7.0.0-preview.2.22153.2" />
+        <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="$(Microsoft_Extensions_Version)" />
+        <PackageReference Include="Serilog" Version="2.11.0-dev-01380" />
+        <PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
+        <PackageReference Include="Serilog.Extensions.Hosting" Version="$(Serilog_Extensions_Version)" />
     </ItemGroup>
 
     <ItemGroup>
