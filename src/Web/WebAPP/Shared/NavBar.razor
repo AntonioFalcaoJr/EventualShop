@@ -6,7 +6,7 @@
             </Toggler>
             <Content>
                 <BSNav Margin="Margins.Auto">
-                    <BSNavItem IsActive="true" Url="catalog">Catalog</BSNavItem>
+                    <BSNavItem IsActive="true" Url="catalogs">Catalog</BSNavItem>
                     <BSNavItem Url="javascript:void(0);">Link</BSNavItem>
                     <BSNavItem IsDropdown="true">
                         <BSDropdown>
@@ -26,7 +26,7 @@
                 <BSNavbarBrand Url="/" Margin="Margins.Auto">ECommerce</BSNavbarBrand>
                 <BSNav Margin="Margins.Auto" Class="align-items-center">
                     <BSNavItem IsDropdown="true">
-                        <BSDropdown @ref="_dropdownCountry">
+                        <BSDropdown>
                             <Toggler>
                                 <BSToggle IsNavLink="true">@_country</BSToggle>
                             </Toggler>
@@ -41,7 +41,7 @@
                         </BSDropdown>
                     </BSNavItem>
                     <BSNavItem IsDropdown="true">
-                        <BSDropdown @ref="_dropdownCurrency">
+                        <BSDropdown >
                             <Toggler>
                                 <BSToggle IsNavLink="true">@_currency</BSToggle>
                             </Toggler>
@@ -54,7 +54,7 @@
                         </BSDropdown>
                     </BSNavItem>
                     <BSNavItem IsDropdown="true">
-                        <BSDropdown @ref="_dropdownLanguage">
+                        <BSDropdown>
                             <Toggler>
                                 <BSToggle IsNavLink="true">@_language</BSToggle>
                             </Toggler>
@@ -66,7 +66,7 @@
                             </Content>
                         </BSDropdown>
                     </BSNavItem>
-                    <BSNavItem Class="bi bi-cart2" style="font-size: 1.5rem;" IsActive="true" Url="catalog"/>
+                    <BSNavItem Class="bi bi-cart2" style="font-size: 1.5rem;" IsActive="true" Url="catalogs"/>
                 </BSNav>
             </Content>
         </BSCollapse>
@@ -91,8 +91,4 @@
     private string _country = _countries.First();
     private string _currency = _currencies.First().Key;
     private string _language = _languages.First().Key;
-
-    private BSDropdown _dropdownCountry;
-    private BSDropdown _dropdownCurrency;
-    private BSDropdown _dropdownLanguage;
 }
