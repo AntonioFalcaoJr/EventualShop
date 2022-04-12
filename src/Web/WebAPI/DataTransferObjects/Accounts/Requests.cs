@@ -1,5 +1,3 @@
 ﻿namespace WebAPI.DataTransferObjects.Accounts;
 
-public static class Requests
-{
-}
+public static class Requests { }

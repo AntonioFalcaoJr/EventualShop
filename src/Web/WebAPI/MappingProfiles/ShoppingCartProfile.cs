@@ -5,7 +5,7 @@ using WebAPI.DataTransferObjects.ShoppingCarts;
 
 namespace WebAPI.MappingProfiles;
 
-public static class ShoppingCartProfile 
+public static class ShoppingCartProfile
 {
     public class ShoppingCartRequestToModelProfile : Profile
     {
@@ -17,7 +17,7 @@ public static class ShoppingCartProfile
             CreateMap<Requests.AddAddress, Models.Address>();
         }
     }
-    
+
     public class ShoppingCartResponseToOutputProfile : Profile
     {
         public ShoppingCartResponseToOutputProfile()
