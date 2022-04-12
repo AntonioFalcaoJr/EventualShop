@@ -17,9 +17,9 @@ public class AccountProjectionsService : IAccountProjectionsService
 
     public Task<IPagedResult<AccountDetailsProjection>> GetAccountsAsync(int limit, int offset, CancellationToken cancellationToken)
         => _repository.GetAllAsync<AccountDetailsProjection>(
-            new Paging {Limit = limit, Offset = offset},
-            projection => projection.IsDeleted == false,
-            cancellationToken);
+            paging: new Paging {Limit = limit, Offset = offset},
+            predicate: projection => projection.IsDeleted == false,
+            cancellationToken: cancellationToken);
 
     public Task<AccountDetailsProjection> GetAccountDetailsAsync(Guid accountId, CancellationToken cancellationToken)
         => _repository.GetAsync<AccountDetailsProjection, Guid>(accountId, cancellationToken);
