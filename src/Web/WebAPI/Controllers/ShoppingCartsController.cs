@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using ECommerce.Contracts.Common;
-using ECommerce.Contracts.ShoppingCart;
+using ECommerce.Contracts.ShoppingCarts;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;

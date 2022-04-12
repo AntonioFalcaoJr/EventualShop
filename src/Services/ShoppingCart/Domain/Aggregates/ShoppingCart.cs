@@ -6,7 +6,7 @@ using Domain.ValueObjects.PaymentMethods;
 using Domain.ValueObjects.PaymentMethods.CreditCards;
 using Domain.ValueObjects.PaymentMethods.PayPal;
 using ECommerce.Abstractions.Messages.Events;
-using ECommerce.Contracts.ShoppingCart;
+using ECommerce.Contracts.ShoppingCarts;
 
 namespace Domain.Aggregates;
 

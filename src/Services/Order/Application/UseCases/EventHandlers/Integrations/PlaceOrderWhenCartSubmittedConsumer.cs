@@ -1,6 +1,6 @@
 ﻿using Application.EventSourcing.EventStore;
 using Domain.Aggregates;
-using ECommerce.Contracts.ShoppingCart;
+using ECommerce.Contracts.ShoppingCarts;
 using MassTransit;
 using Commands = ECommerce.Contracts.Orders.Commands;
 

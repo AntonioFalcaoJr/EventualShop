@@ -1,7 +1,7 @@
 ﻿using Application.UseCases.EventHandlers.Integrations;
 using Application.UseCases.EventHandlers.Projections;
 using ECommerce.Abstractions.Messages.Events;
-using ECommerce.Contracts.ShoppingCart;
+using ECommerce.Contracts.ShoppingCarts;
 using MassTransit;
 using DomainEvents = ECommerce.Contracts.Orders.DomainEvents;
 

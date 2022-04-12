@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using ECommerce.Contracts.Common;
-using ECommerce.Contracts.ShoppingCart;
+using ECommerce.Contracts.ShoppingCarts;
 using WebAPI.DataTransferObjects.ShoppingCarts;
 
 namespace WebAPI.MappingProfiles;

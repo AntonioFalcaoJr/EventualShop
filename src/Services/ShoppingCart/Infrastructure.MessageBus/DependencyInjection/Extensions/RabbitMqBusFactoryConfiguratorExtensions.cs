@@ -1,7 +1,7 @@
-﻿using Application.UseCases.Events.Integrations;
-using Application.UseCases.Events.Projections;
+﻿using Application.UseCases.EventHandlers.Integrations;
+using Application.UseCases.EventHandlers.Projections;
 using ECommerce.Abstractions.Messages.Events;
-using ECommerce.Contracts.ShoppingCart;
+using ECommerce.Contracts.ShoppingCarts;
 using MassTransit;
 
 namespace Infrastructure.MessageBus.DependencyInjection.Extensions;
@@ -28,7 +28,7 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
         cfg.ConfigureEventReceiveEndpoint<ProjectCartItemsWhenChangedConsumer, DomainEvents.CartItemRemoved>(registration);
         cfg.ConfigureEventReceiveEndpoint<ProjectCartItemsWhenChangedConsumer, DomainEvents.CartDiscarded>(registration);
         
-        cfg.ConfigureEventReceiveEndpoint<PublishCartSubmittedWhenCartCheckedOutConsumer, DomainEvents.CartCheckedOut>(registration);
+        cfg.ConfigureEventReceiveEndpoint<PublishCartSubmittedWhenCheckedOutConsumer, DomainEvents.CartCheckedOut>(registration);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistrationContext registration)
