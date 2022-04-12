@@ -35,7 +35,7 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
 
     public async Task AppendEventsToStreamAsync(TAggregate aggregateState, CancellationToken cancellationToken)
     {
-        if (aggregateState.IsValid is false)
+        if (await aggregateState.IsValidAsync is false)
         {
             _notificationContext.AddErrors(aggregateState.Errors);
             return;
