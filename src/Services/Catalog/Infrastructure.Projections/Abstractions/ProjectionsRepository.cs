@@ -41,7 +41,7 @@ public abstract class ProjectionsRepository : IProjectionsRepository
             .ReplaceOneAsync(
                 filter: projection => projection.Id.Equals(replacement.Id),
                 replacement: replacement,
-                options: new ReplaceOptions { IsUpsert = true },
+                options: new ReplaceOptions {IsUpsert = true},
                 cancellationToken: cancellationToken);
 
     public Task UpsertManyAsync<TProjection>(IEnumerable<TProjection> replacements, CancellationToken cancellationToken)
@@ -49,14 +49,14 @@ public abstract class ProjectionsRepository : IProjectionsRepository
     {
         var requests = replacements.Select(replacement => new ReplaceOneModel<TProjection>(
             filter: new ExpressionFilterDefinition<TProjection>(projection => projection.Id == replacement.Id),
-            replacement: replacement) { IsUpsert = true });
+            replacement: replacement) {IsUpsert = true});
 
         return _context
             .GetCollection<TProjection>()
             .WithWriteConcern(WriteConcern.Unacknowledged)
             .BulkWriteAsync(
                 requests: requests,
-                options: new BulkWriteOptions { IsOrdered = false },
+                options: new BulkWriteOptions {IsOrdered = false},
                 cancellationToken: cancellationToken);
     }
 

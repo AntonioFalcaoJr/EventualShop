@@ -1,6 +1,6 @@
 ﻿using Application.EventSourcing.EventStore;
-using MassTransit;
 using ECommerce.Contracts.Catalogs;
+using MassTransit;
 
 namespace Application.UseCases.CommandHandlers;
 

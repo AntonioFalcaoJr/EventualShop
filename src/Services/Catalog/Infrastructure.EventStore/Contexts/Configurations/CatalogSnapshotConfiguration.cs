@@ -9,7 +9,7 @@ public class CatalogSnapshotConfiguration : IEntityTypeConfiguration<CatalogSnap
 {
     public void Configure(EntityTypeBuilder<CatalogSnapshot> builder)
     {
-        builder.HasKey(snapshot => new { snapshot.AggregateVersion, snapshot.AggregateId });
+        builder.HasKey(snapshot => new {snapshot.AggregateVersion, snapshot.AggregateId});
 
         builder
             .Property(snapshot => snapshot.AggregateVersion)

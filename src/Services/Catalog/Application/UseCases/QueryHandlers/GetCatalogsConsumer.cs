@@ -5,7 +5,7 @@ using MassTransit;
 
 namespace Application.UseCases.QueryHandlers;
 
-public class GetCatalogsConsumer : IConsumer<ECommerce.Contracts.Catalogs.Queries.GetCatalogs>
+public class GetCatalogsConsumer : IConsumer<Queries.GetCatalogs>
 {
     private readonly ICatalogProjectionsService _projectionsService;
 
@@ -14,7 +14,7 @@ public class GetCatalogsConsumer : IConsumer<ECommerce.Contracts.Catalogs.Querie
         _projectionsService = projectionsService;
     }
 
-    public async Task Consume(ConsumeContext<ECommerce.Contracts.Catalogs.Queries.GetCatalogs> context)
+    public async Task Consume(ConsumeContext<Queries.GetCatalogs> context)
     {
         var catalogs = await _projectionsService.GetCatalogsAsync(context.Message.Limit, context.Message.Offset, context.CancellationToken);
 

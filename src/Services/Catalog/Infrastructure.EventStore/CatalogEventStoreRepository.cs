@@ -8,6 +8,6 @@ namespace Infrastructure.EventStore;
 
 public class CatalogEventStoreRepository : EventStoreRepository<Catalog, CatalogStoreEvent, CatalogSnapshot, Guid>, ICatalogEventStoreRepository
 {
-    public CatalogEventStoreRepository(EventStoreDbContext dbContext) 
+    public CatalogEventStoreRepository(EventStoreDbContext dbContext)
         : base(dbContext) { }
 }
