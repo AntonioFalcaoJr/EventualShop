@@ -5,7 +5,6 @@ using ECommerce.Contracts.ShoppingCarts;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;
-using WebAPI.DataTransferObjects.ShoppingCarts;
 using WebAPI.ValidationAttributes;
 
 namespace WebAPI.Controllers;
@@ -13,14 +12,14 @@ namespace WebAPI.Controllers;
 [Route("api/v1/[controller]")]
 public class ShoppingCartsController : ApplicationController
 {
-    public ShoppingCartsController(IBus bus, IMapper mapper)
-        : base(bus, mapper) { }
+    public ShoppingCartsController(IBus bus)
+        : base(bus) { }
 
     [HttpGet("{cartId:guid}")]
-    [ProducesResponseType(typeof(Outputs.ShoppingCart), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Responses.ShoppingCart), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> GetShoppingCartAsync([NotEmpty] Guid cartId, CancellationToken cancellationToken)
-        => GetResponseAsync<Queries.GetShoppingCart, Responses.ShoppingCart, Outputs.ShoppingCart>(new(cartId), cancellationToken);
+        => GetResponseAsync<Queries.GetShoppingCart, Responses.ShoppingCart>(new(cartId), cancellationToken);
 
     [HttpDelete("{cartId:guid}")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
@@ -29,10 +28,10 @@ public class ShoppingCartsController : ApplicationController
         => SendCommandAsync<Commands.DiscardCart>(new(cartId), cancellationToken);
 
     [HttpGet]
-    [ProducesResponseType(typeof(Outputs.ShoppingCart), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Responses.ShoppingCart), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> GetCustomerShoppingCartAsync([Required, NotEmpty] Guid customerId, CancellationToken cancellationToken)
-        => GetResponseAsync<Queries.GetCustomerShoppingCart, Responses.ShoppingCart, Outputs.ShoppingCart>(new(customerId), cancellationToken);
+        => GetResponseAsync<Queries.GetCustomerShoppingCart, Responses.ShoppingCart>(new(customerId), cancellationToken);
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
@@ -47,10 +46,10 @@ public class ShoppingCartsController : ApplicationController
         => SendCommandAsync<Commands.CheckOutCart>(new(cartId), cancellationToken);
 
     [HttpGet("{cartId:guid}/items")]
-    [ProducesResponseType(typeof(Outputs.ShoppingCartItems), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Responses.ShoppingCartItems), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> GetShoppingCartItemsAsync([NotEmpty] Guid cartId, int limit, int offset, CancellationToken cancellationToken)
-        => GetResponseAsync<Queries.GetShoppingCartItems, Responses.ShoppingCartItems, Outputs.ShoppingCartItems>(new(cartId, limit, offset), cancellationToken);
+        => GetResponseAsync<Queries.GetShoppingCartItems, Responses.ShoppingCartItems>(new(cartId, limit, offset), cancellationToken);
 
     [HttpPost("{cartId:guid}/items")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
@@ -59,10 +58,10 @@ public class ShoppingCartsController : ApplicationController
         => SendCommandAsync<Commands.AddCartItem>(new(cartId, mapper.Map<Models.ShoppingCartItem>(request)), cancellationToken);
 
     [HttpGet("{cartId:guid}/items/{itemId:guid}")]
-    [ProducesResponseType(typeof(Outputs.ShoppingCartItem), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Responses.ShoppingCartItem), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> GetShoppingCartItemAsync([NotEmpty] Guid cartId, [NotEmpty] Guid itemId, CancellationToken cancellationToken)
-        => GetResponseAsync<Queries.GetShoppingCartItem, Responses.ShoppingCartItem, Outputs.ShoppingCartItem>(new(cartId, itemId), cancellationToken);
+        => GetResponseAsync<Queries.GetShoppingCartItem, Responses.ShoppingCartItem>(new(cartId, itemId), cancellationToken);
 
     [HttpDelete("{cartId:guid}/items/{itemId:guid}")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using ECommerce.Contracts.Payments;
+﻿using ECommerce.Contracts.Payments;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;
@@ -9,8 +8,8 @@ namespace WebAPI.Controllers;
 [Route("api/[controller]/[action]")]
 public class PaymentsController : ApplicationController
 {
-    public PaymentsController(IBus bus, IMapper mapper)
-        : base(bus, mapper) { }
+    public PaymentsController(IBus bus)
+        : base(bus) { }
  
     [HttpGet]
     public Task<IActionResult> GetPaymentDetails([FromQuery] Queries.GetPaymentDetails query, CancellationToken cancellationToken)

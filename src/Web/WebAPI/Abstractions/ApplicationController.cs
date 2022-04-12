@@ -1,4 +1,3 @@
-using AutoMapper;
 using ECommerce.Abstractions.Messages.Commands;
 using ECommerce.Abstractions.Messages.Queries;
 using ECommerce.Abstractions.Messages.Queries.Responses;
@@ -11,12 +10,10 @@ namespace WebAPI.Abstractions;
 public abstract class ApplicationController : ControllerBase
 {
     private readonly IBus _bus;
-    private readonly IMapper _mapper;
 
-    protected ApplicationController(IBus bus, IMapper mapper)
+    protected ApplicationController(IBus bus)
     {
         _bus = bus;
-        _mapper = mapper;
     }
 
     protected async Task<IActionResult> SendCommandAsync<TCommand>(TCommand command, CancellationToken cancellationToken)
@@ -27,7 +24,6 @@ public abstract class ApplicationController : ControllerBase
         return Accepted();
     }
 
-    // TODO - Remove after migration
     protected async Task<IActionResult> GetResponseAsync<TQuery, TResponse>(TQuery query, CancellationToken cancellationToken)
         where TQuery : class, IQuery
         where TResponse : class, IResponse
@@ -39,22 +35,6 @@ public abstract class ApplicationController : ControllerBase
         return clientResponse.Message switch
         {
             TResponse response => Ok(response),
-            NotFound _ => NotFound(),
-            _ => Problem()
-        };
-    }
-
-    protected async Task<IActionResult> GetResponseAsync<TQuery, TResponse, TOutput>(TQuery query, CancellationToken cancellationToken)
-        where TQuery : class, IQuery
-        where TResponse : class, IResponse
-    {
-        var clientResponse = await _bus
-            .CreateRequestClient<TQuery>(Address<TQuery>())
-            .GetResponse<TResponse, NotFound>(query, cancellationToken);
-
-        return clientResponse.Message switch
-        {
-            TResponse response => Ok(_mapper.Map<TOutput>(response)),
             NotFound _ => NotFound(),
             _ => Problem()
         };

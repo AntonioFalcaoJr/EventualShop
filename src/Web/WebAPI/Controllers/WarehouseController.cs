@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using ECommerce.Contracts.Warehouses;
+﻿using ECommerce.Contracts.Warehouses;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;
@@ -9,8 +8,8 @@ namespace WebAPI.Controllers;
 [Route("api/v1/[controller]")]
 public class WarehousesController : ApplicationController
 {
-    public WarehousesController(IBus bus, IMapper mapper)
-        : base(bus, mapper) { }
+    public WarehousesController(IBus bus)
+        : base(bus) { }
 
     [HttpGet("{productId:guid}")]
     public Task<IActionResult> GetInventoryItemDetailsAsync(Guid productId, CancellationToken cancellationToken)

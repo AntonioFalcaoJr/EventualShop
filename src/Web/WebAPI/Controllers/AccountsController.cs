@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using ECommerce.Contracts.Accounts;
+﻿using ECommerce.Contracts.Accounts;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;
@@ -9,8 +8,8 @@ namespace WebAPI.Controllers;
 [Route("api/[controller]/[action]")]
 public class AccountsController : ApplicationController
 {
-    public AccountsController(IBus bus, IMapper mapper)
-        : base(bus, mapper) { }
+    public AccountsController(IBus bus)
+        : base(bus) { }
 
     [HttpGet]
     public Task<IActionResult> GetAccountsWithPagination([FromQuery] Queries.GetAccounts query, CancellationToken cancellationToken)

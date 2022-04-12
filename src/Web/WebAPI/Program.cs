@@ -1,5 +1,6 @@
 using System.Reflection;
 using ECommerce.Abstractions.Messages;
+using ECommerce.Contracts.ShoppingCarts;
 using ECommerce.JsonConverters;
 using FluentValidation.AspNetCore;
 using MassTransit;
@@ -7,7 +8,6 @@ using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.OpenApi.Any;
 using Serilog;
-using WebAPI.DataTransferObjects.ShoppingCarts;
 using WebAPI.DependencyInjection.Extensions;
 using WebAPI.DependencyInjection.Options;
 using WebAPI.DependencyInjection.ParameterTransformers;

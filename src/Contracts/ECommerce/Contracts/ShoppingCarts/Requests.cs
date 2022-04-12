@@ -1,7 +1,7 @@
 using ECommerce.JsonConverters;
 using Newtonsoft.Json;
 
-namespace WebAPI.DataTransferObjects.ShoppingCarts;
+namespace ECommerce.Contracts.ShoppingCarts;
 
 public static class Requests
 {

@@ -1,9 +1,7 @@
-﻿using AutoMapper;
-using ECommerce.Contracts.Catalogs;
+﻿using ECommerce.Contracts.Catalogs;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;
-using WebAPI.DataTransferObjects.Catalogs;
 using WebAPI.ValidationAttributes;
 
 namespace WebAPI.Controllers;
@@ -11,20 +9,20 @@ namespace WebAPI.Controllers;
 [Route("api/[controller]/[action]")]
 public class CatalogsController : ApplicationController
 {
-    public CatalogsController(IBus bus, IMapper mapper)
-        : base(bus, mapper) { }
+    public CatalogsController(IBus bus)
+        : base(bus) { }
 
     [HttpGet]
-    [ProducesResponseType(typeof(Outputs.Catalogs), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Responses.Catalogs), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> GetCatalogs(int limit, int offset, CancellationToken cancellationToken)
-        => GetResponseAsync<Queries.GetCatalogs, Responses.Catalogs, Outputs.Catalogs>(new(limit, offset), cancellationToken);
+        => GetResponseAsync<Queries.GetCatalogs, Responses.Catalogs>(new(limit, offset), cancellationToken);
     
     [HttpGet("{catalogId:guid}")]
-    [ProducesResponseType(typeof(Outputs.Catalogs), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Responses.Catalogs), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> GetCatalog(Guid catalogId, CancellationToken cancellationToken)
-        => GetResponseAsync<Queries.GetCatalog, Responses.Catalog, Outputs.Catalog>(new(catalogId), cancellationToken);
+        => GetResponseAsync<Queries.GetCatalog, Responses.Catalog>(new(catalogId), cancellationToken);
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
@@ -33,10 +31,10 @@ public class CatalogsController : ApplicationController
         => SendCommandAsync<Commands.CreateCatalog>(new(request.Title, request.Description), cancellationToken);
 
     [HttpGet("{catalogId:guid}/items")]
-    [ProducesResponseType(typeof(Outputs.CatalogItems), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Responses.CatalogItems), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> GetCatalogItemsAsync([NotEmpty] Guid catalogId, int limit, int offset, CancellationToken cancellationToken)
-        => GetResponseAsync<Queries.GetCatalogItems, Responses.CatalogItems, Outputs.CatalogItems>(new(catalogId, limit, offset), cancellationToken);
+        => GetResponseAsync<Queries.GetCatalogItems, Responses.CatalogItems>(new(catalogId, limit, offset), cancellationToken);
 
     [HttpPost]
     public Task<IActionResult> AddCatalogItem(Commands.AddCatalogItem command, CancellationToken cancellationToken)
