@@ -39,7 +39,7 @@ public abstract class ProjectionsRepository : IProjectionsRepository
             .ReplaceOneAsync(
                 filter: projection => projection.Id.Equals(replacement.Id),
                 replacement: replacement,
-                options: new ReplaceOptions { IsUpsert = true },
+                options: new ReplaceOptions {IsUpsert = true},
                 cancellationToken: cancellationToken);
 
     public Task DeleteAsync<TProjection>(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken)

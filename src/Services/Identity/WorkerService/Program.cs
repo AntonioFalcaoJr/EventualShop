@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Infrastructure.EventStore.Contexts;
 using Infrastructure.EventStore.DependencyInjection.Extensions;
 using Infrastructure.EventStore.DependencyInjection.Options;
@@ -53,7 +54,7 @@ builder.ConfigureServices((context, services) =>
 
     services.ConfigureQuartzOptions(
         context.Configuration.GetSection(nameof(QuartzOptions)));
-    
+
     services.ConfigureMassTransitHostOptions(
         context.Configuration.GetSection(nameof(MassTransitHostOptions)));
 });
@@ -71,7 +72,7 @@ applicationLifetime.ApplicationStopping.Register(() =>
 applicationLifetime.ApplicationStopped.Register(() =>
 {
     Log.Information("Application completely stopped");
-    System.Diagnostics.Process.GetCurrentProcess().Kill();
+    Process.GetCurrentProcess().Kill();
 });
 
 try

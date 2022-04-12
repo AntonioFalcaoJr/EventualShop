@@ -1,7 +1,7 @@
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
+using ECommerce.Contracts.Identities;
 using MassTransit;
-using  ECommerce.Contracts.Identities;
 
 namespace Application.UseCases.EventHandlers.Projections;
 

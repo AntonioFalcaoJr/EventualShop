@@ -9,7 +9,7 @@ public class UserSnapshotConfiguration : IEntityTypeConfiguration<UserSnapshot>
 {
     public void Configure(EntityTypeBuilder<UserSnapshot> builder)
     {
-        builder.HasKey(snapshot => new { snapshot.AggregateVersion, snapshot.AggregateId });
+        builder.HasKey(snapshot => new {snapshot.AggregateVersion, snapshot.AggregateId});
 
         builder
             .Property(snapshot => snapshot.AggregateVersion)
