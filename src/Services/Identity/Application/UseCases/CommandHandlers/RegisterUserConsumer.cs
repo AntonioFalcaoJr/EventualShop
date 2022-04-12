@@ -1,11 +1,11 @@
 ﻿using Application.EventSourcing.EventStore;
 using Domain.Aggregates;
+using ECommerce.Contracts.Identities;
 using MassTransit;
-using RegisterUserCommand = ECommerce.Contracts.Identity.Commands.RegisterUser;
 
-namespace Application.UseCases.Commands;
+namespace Application.UseCases.CommandHandlers;
 
-public class RegisterUserConsumer : IConsumer<RegisterUserCommand>
+public class RegisterUserConsumer : IConsumer<Commands.RegisterUser>
 {
     private readonly IUserEventStoreService _eventStoreService;
 
@@ -14,7 +14,7 @@ public class RegisterUserConsumer : IConsumer<RegisterUserCommand>
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<RegisterUserCommand> context)
+    public async Task Consume(ConsumeContext<Commands.RegisterUser> context)
     {
         var user = new User();
 

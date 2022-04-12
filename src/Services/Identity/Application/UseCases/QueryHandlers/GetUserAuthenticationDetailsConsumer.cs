@@ -1,11 +1,10 @@
 using Application.EventSourcing.Projections;
-using ECommerce.Contracts.Identity;
+using ECommerce.Contracts.Identities;
 using MassTransit;
-using GetUserAuthenticationDetailsQuery = ECommerce.Contracts.Identity.Queries.GetUserAuthenticationDetails;
 
-namespace Application.UseCases.Queries;
+namespace Application.UseCases.QueryHandlers;
 
-public class GetUserAuthenticationDetailsConsumer : IConsumer<GetUserAuthenticationDetailsQuery>
+public class GetUserAuthenticationDetailsConsumer : IConsumer<Queries.GetUserAuthenticationDetails>
 {
     private readonly IUserProjectionsService _projectionsService;
 
@@ -14,7 +13,7 @@ public class GetUserAuthenticationDetailsConsumer : IConsumer<GetUserAuthenticat
         _projectionsService = projectionsService;
     }
 
-    public async Task Consume(ConsumeContext<GetUserAuthenticationDetailsQuery> context)
+    public async Task Consume(ConsumeContext<Queries.GetUserAuthenticationDetails> context)
     {
         // TODO - Multiple responses
         var userAuthenticationDetails = await _projectionsService.GetUserAuthenticationDetailsAsync(context.Message.UserId, context.CancellationToken);

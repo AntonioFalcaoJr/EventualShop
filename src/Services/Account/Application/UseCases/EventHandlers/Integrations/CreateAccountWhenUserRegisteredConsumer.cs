@@ -2,7 +2,7 @@
 using Domain.Aggregates;
 using ECommerce.Contracts.Accounts;
 using MassTransit;
-using DomainEvents = ECommerce.Contracts.Identity.DomainEvents;
+using DomainEvents = ECommerce.Contracts.Identities.DomainEvents;
 
 namespace Application.UseCases.EventHandlers.Integrations;
 

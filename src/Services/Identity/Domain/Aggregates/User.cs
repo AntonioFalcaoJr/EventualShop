@@ -1,6 +1,6 @@
 ﻿using Domain.Abstractions.Aggregates;
 using ECommerce.Abstractions.Messages.Events;
-using ECommerce.Contracts.Identity;
+using ECommerce.Contracts.Identities;
 
 namespace Domain.Aggregates;
 

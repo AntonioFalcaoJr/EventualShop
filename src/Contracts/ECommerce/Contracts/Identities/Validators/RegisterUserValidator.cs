@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace ECommerce.Contracts.Identity.Validators;
+namespace ECommerce.Contracts.Identities.Validators;
 
 public class RegisterUserValidator : AbstractValidator<Commands.RegisterUser>
 {

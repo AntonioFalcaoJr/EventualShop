@@ -1,16 +1,14 @@
 using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using MassTransit;
-using UserRegisteredEvent = ECommerce.Contracts.Identity.DomainEvents.UserRegistered;
-using UserPasswordChangedEvent = ECommerce.Contracts.Identity.DomainEvents.UserPasswordChanged;
-using UserDeletedEvent = ECommerce.Contracts.Identity.DomainEvents.UserDeleted;
+using  ECommerce.Contracts.Identities;
 
-namespace Application.UseCases.Events.Projections;
+namespace Application.UseCases.EventHandlers.Projections;
 
 public class ProjectUserDetailsWhenUserChangedConsumer :
-    IConsumer<UserRegisteredEvent>,
-    IConsumer<UserPasswordChangedEvent>,
-    IConsumer<UserDeletedEvent>
+    IConsumer<DomainEvents.UserRegistered>,
+    IConsumer<DomainEvents.UserPasswordChanged>,
+    IConsumer<DomainEvents.UserDeleted>
 {
     private readonly IUserEventStoreService _eventStoreService;
     private readonly IUserProjectionsService _projectionsService;
@@ -21,13 +19,13 @@ public class ProjectUserDetailsWhenUserChangedConsumer :
         _projectionsService = projectionsService;
     }
 
-    public Task Consume(ConsumeContext<UserDeletedEvent> context)
+    public Task Consume(ConsumeContext<DomainEvents.UserDeleted> context)
         => ProjectAsync(context.Message.UserId, context.CancellationToken);
 
-    public Task Consume(ConsumeContext<UserPasswordChangedEvent> context)
+    public Task Consume(ConsumeContext<DomainEvents.UserPasswordChanged> context)
         => ProjectAsync(context.Message.UserId, context.CancellationToken);
 
-    public Task Consume(ConsumeContext<UserRegisteredEvent> context)
+    public Task Consume(ConsumeContext<DomainEvents.UserRegistered> context)
         => ProjectAsync(context.Message.UserId, context.CancellationToken);
 
     private async Task ProjectAsync(Guid userId, CancellationToken cancellationToken)
