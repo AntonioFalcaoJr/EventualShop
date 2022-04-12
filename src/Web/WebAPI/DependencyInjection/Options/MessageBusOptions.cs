@@ -1,13 +1,10 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Infrastructure.MessageBus.DependencyInjection.Options;
+namespace WebAPI.DependencyInjection.Options;
 
 public record MessageBusOptions
 {
     public List<string> Cluster { get; init; }
-
-    [Required, MinLength(5)]
-    public string SchedulerQueueName { get; init; }
 
     [Required, Range(1, 10)]
     public int RetryLimit { get; init; }

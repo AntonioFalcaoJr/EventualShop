@@ -2,8 +2,6 @@
 using Infrastructure.EventStore.Contexts;
 using Infrastructure.EventStore.DependencyInjection.Extensions;
 using Infrastructure.EventStore.DependencyInjection.Options;
-using Infrastructure.HttpClients.DependencyInjection.Extensions;
-using Infrastructure.HttpClients.DependencyInjection.Options;
 using Infrastructure.MessageBus.DependencyInjection.Extensions;
 using Infrastructure.MessageBus.DependencyInjection.Options;
 using Infrastructure.Projections.DependencyInjection.Extensions;
@@ -45,20 +43,14 @@ builder.ConfigureServices((context, services) =>
     services.AddMessageValidators();
     services.AddNotificationContext();
 
-    services.AddCreditCardHttpClient();
-    services.AddDebitCardHttpClient();
-    services.AddPayPalHttpClient();
-
-    services.AddPaymentStrategy();
-
     services.ConfigureEventStoreOptions(
         context.Configuration.GetSection(nameof(EventStoreOptions)));
 
     services.ConfigureSqlServerRetryOptions(
         context.Configuration.GetSection(nameof(SqlServerRetryOptions)));
 
-    services.ConfigureRabbitMqOptions(
-        context.Configuration.GetSection(nameof(RabbitMqOptions)));
+    services.ConfigureMessageBusOptions(
+        context.Configuration.GetSection(nameof(MessageBusOptions)));
 
     services.ConfigureQuartzOptions(
         context.Configuration.GetSection(nameof(QuartzOptions)));
@@ -66,14 +58,8 @@ builder.ConfigureServices((context, services) =>
     services.ConfigureMassTransitHostOptions(
         context.Configuration.GetSection(nameof(MassTransitHostOptions)));
 
-    services.ConfigureCreditCardHttpClientOptions(
-        context.Configuration.GetSection(nameof(CreditCardHttpClientOptions)));
-
-    services.ConfigureDebitCardHttpClientOptions(
-        context.Configuration.GetSection(nameof(DebitCardHttpClientOptions)));
-
-    services.ConfigurePayPalHttpClientOptions(
-        context.Configuration.GetSection(nameof(PayPalHttpClientOptions)));
+    services.ConfigureRabbitMqTransportOptions(
+        context.Configuration.GetSection(nameof(RabbitMqTransportOptions)));
 });
 
 using var host = builder.Build();

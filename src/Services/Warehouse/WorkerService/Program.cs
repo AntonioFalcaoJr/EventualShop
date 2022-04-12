@@ -49,14 +49,17 @@ builder.ConfigureServices((context, services) =>
     services.ConfigureSqlServerRetryOptions(
         context.Configuration.GetSection(nameof(SqlServerRetryOptions)));
 
-    services.ConfigureRabbitMqOptions(
-        context.Configuration.GetSection(nameof(RabbitMqOptions)));
+    services.ConfigureMessageBusOptions(
+        context.Configuration.GetSection(nameof(MessageBusOptions)));
 
     services.ConfigureQuartzOptions(
         context.Configuration.GetSection(nameof(QuartzOptions)));
 
     services.ConfigureMassTransitHostOptions(
         context.Configuration.GetSection(nameof(MassTransitHostOptions)));
+
+    services.ConfigureRabbitMqTransportOptions(
+        context.Configuration.GetSection(nameof(RabbitMqTransportOptions)));
 });
 
 using var host = builder.Build();

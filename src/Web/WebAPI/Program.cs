@@ -77,15 +77,18 @@ builder.Services
         options.CustomSchemaIds(type => type.ToString());
     });
 
-builder.Services.AddMassTransitWithRabbitMq();
+builder.Services.AddMessageBus();
 
 builder.Services.AddAutoMapper();
 
-builder.Services.ConfigureRabbitMqOptions(
-    builder.Configuration.GetSection(nameof(RabbitMqOptions)));
+builder.Services.ConfigureMessageBusOptions(
+    builder.Configuration.GetSection(nameof(MessageBusOptions)));
 
 builder.Services.ConfigureMassTransitHostOptions(
     builder.Configuration.GetSection(nameof(MassTransitHostOptions)));
+
+builder.Services.ConfigureRabbitMqTransportOptions(
+    builder.Configuration.GetSection(nameof(RabbitMqTransportOptions)));
 
 var app = builder.Build();
 
