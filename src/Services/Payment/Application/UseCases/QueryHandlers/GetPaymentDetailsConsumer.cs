@@ -1,11 +1,10 @@
 ﻿using Application.EventSourcing.Projections;
-using ECommerce.Contracts.Payment;
+using ECommerce.Contracts.Payments;
 using MassTransit;
-using GetPaymentDetailsQuery =  ECommerce.Contracts.Payment.Queries.GetPaymentDetails;
 
-namespace Application.UseCases.Queries;
+namespace Application.UseCases.QueryHandlers;
 
-public class GetPaymentDetailsConsumer : IConsumer<GetPaymentDetailsQuery>
+public class GetPaymentDetailsConsumer : IConsumer<Queries.GetPaymentDetails>
 {
     private readonly IPaymentProjectionsService _projectionsService;
 
@@ -14,7 +13,7 @@ public class GetPaymentDetailsConsumer : IConsumer<GetPaymentDetailsQuery>
         _projectionsService = projectionsService;
     }
 
-    public async Task Consume(ConsumeContext<GetPaymentDetailsQuery> context)
+    public async Task Consume(ConsumeContext<Queries.GetPaymentDetails> context)
     {
         var paymentDetails = await _projectionsService.GetPaymentDetailsAsync(context.Message.PaymentId, context.CancellationToken);
         await context.RespondAsync<Responses.PaymentDetails>(paymentDetails);

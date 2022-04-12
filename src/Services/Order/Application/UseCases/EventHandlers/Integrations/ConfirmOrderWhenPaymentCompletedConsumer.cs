@@ -1,5 +1,5 @@
 ﻿using Application.EventSourcing.EventStore;
-using ECommerce.Contracts.Payment;
+using ECommerce.Contracts.Payments;
 using MassTransit;
 using Commands = ECommerce.Contracts.Orders.Commands;
 

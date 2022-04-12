@@ -7,7 +7,7 @@ using Domain.Enumerations;
 using Domain.ValueObjects.Addresses;
 using ECommerce.Abstractions.Messages.Events;
 using ECommerce.Contracts.Common;
-using ECommerce.Contracts.Payment;
+using ECommerce.Contracts.Payments;
 
 namespace Domain.Aggregates;
 

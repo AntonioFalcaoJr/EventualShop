@@ -1,6 +1,6 @@
 ﻿using ECommerce.Abstractions.Messages.Queries.Responses;
 
-namespace ECommerce.Contracts.Payment;
+namespace ECommerce.Contracts.Payments;
 
 public static class Responses
 {

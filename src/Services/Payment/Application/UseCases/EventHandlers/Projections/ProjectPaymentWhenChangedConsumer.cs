@@ -1,18 +1,18 @@
 ﻿using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
-using ECommerce.Contracts.Payment;
+using ECommerce.Contracts.Payments;
 using MassTransit;
 
-namespace Application.UseCases.Events.Projections;
+namespace Application.UseCases.EventHandlers.Projections;
 
-public class ProjectPaymentDetailsWhenPaymentChangedConsumer :
+public class ProjectPaymentWhenChangedConsumer :
     IConsumer<DomainEvents.PaymentCanceled>,
     IConsumer<DomainEvents.PaymentRequested>
 {
     private readonly IPaymentEventStoreService _eventStoreService;
     private readonly IPaymentProjectionsService _projectionsService;
 
-    public ProjectPaymentDetailsWhenPaymentChangedConsumer(
+    public ProjectPaymentWhenChangedConsumer(
         IPaymentEventStoreService eventStoreService, 
         IPaymentProjectionsService projectionsService)
     {

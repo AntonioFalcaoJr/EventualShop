@@ -1,12 +1,12 @@
 ﻿using Application.EventSourcing.EventStore;
 using Domain.Aggregates;
+using ECommerce.Contracts.Orders;
 using MassTransit;
-using OrderPlacedEvent = ECommerce.Contracts.Order.DomainEvents.OrderPlaced;
-using RequestPaymentCommand = ECommerce.Contracts.Payment.Commands.RequestPayment;
+using Commands = ECommerce.Contracts.Payments.Commands;
 
-namespace Application.UseCases.Events.Integrations;
+namespace Application.UseCases.EventHandlers.Integrations;
 
-public class RequestPaymentWhenOrderPlacedConsumer : IConsumer<OrderPlacedEvent>
+public class RequestPaymentWhenOrderPlacedConsumer : IConsumer<DomainEvents.OrderPlaced>
 {
     private readonly IPaymentEventStoreService _eventStoreService;
 
@@ -15,11 +15,11 @@ public class RequestPaymentWhenOrderPlacedConsumer : IConsumer<OrderPlacedEvent>
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<OrderPlacedEvent> context)
+    public async Task Consume(ConsumeContext<DomainEvents.OrderPlaced> context)
     {
         var payment = new Payment();
 
-        payment.Handle(new RequestPaymentCommand(
+        payment.Handle(new Commands.RequestPayment(
             context.Message.OrderId,
             context.Message.Total,
             context.Message.Customer.BillingAddress,
