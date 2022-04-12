@@ -1,19 +1,19 @@
 ﻿using Application.EventSourcing.EventStore;
+using ECommerce.Contracts.Accounts;
 using MassTransit;
-using DefineResidenceAddressCommand = ECommerce.Contracts.Account.Commands.DefineResidenceAddress;
 
-namespace Application.UseCases.Commands;
+namespace Application.UseCases.CommandHandlers;
 
-public class DefineResidenceAddressConsumer : IConsumer<DefineResidenceAddressCommand>
+public class DefineProfessionalAddressConsumer : IConsumer<Commands.DefineProfessionalAddress>
 {
     private readonly IAccountEventStoreService _eventStoreService;
 
-    public DefineResidenceAddressConsumer(IAccountEventStoreService eventStoreService)
+    public DefineProfessionalAddressConsumer(IAccountEventStoreService eventStoreService)
     {
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<DefineResidenceAddressCommand> context)
+    public async Task Consume(ConsumeContext<Commands.DefineProfessionalAddress> context)
     {
         var account = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.AccountId, context.CancellationToken);
         account.Handle(context.Message);

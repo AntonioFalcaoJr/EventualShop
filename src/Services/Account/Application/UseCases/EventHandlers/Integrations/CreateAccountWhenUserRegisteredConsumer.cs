@@ -1,12 +1,12 @@
 ﻿using Application.EventSourcing.EventStore;
 using Domain.Aggregates;
+using ECommerce.Contracts.Accounts;
 using MassTransit;
-using UserRegisteredEvent = ECommerce.Contracts.Identity.DomainEvents.UserRegistered;
-using CreateAccountCommand = ECommerce.Contracts.Account.Commands.CreateAccount;
+using DomainEvents = ECommerce.Contracts.Identity.DomainEvents;
 
-namespace Application.UseCases.Events.Integrations;
+namespace Application.UseCases.EventHandlers.Integrations;
 
-public class CreateAccountWhenUserRegisteredConsumer : IConsumer<UserRegisteredEvent>
+public class CreateAccountWhenUserRegisteredConsumer : IConsumer<DomainEvents.UserRegistered>
 {
     private readonly IAccountEventStoreService _eventStoreService;
 
@@ -15,12 +15,12 @@ public class CreateAccountWhenUserRegisteredConsumer : IConsumer<UserRegisteredE
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<UserRegisteredEvent> context)
+    public async Task Consume(ConsumeContext<DomainEvents.UserRegistered> context)
     {
         var account = new Account();
 
         account.Handle(
-            new CreateAccountCommand(
+            new Commands.CreateAccount(
                 context.Message.UserId,
                 context.Message.Email,
                 context.Message.FirstName));

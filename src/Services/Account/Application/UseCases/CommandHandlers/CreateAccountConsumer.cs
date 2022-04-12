@@ -1,11 +1,11 @@
 ﻿using Application.EventSourcing.EventStore;
 using Domain.Aggregates;
+using ECommerce.Contracts.Accounts;
 using MassTransit;
-using CreateAccountCommand = ECommerce.Contracts.Account.Commands.CreateAccount;
 
-namespace Application.UseCases.Commands;
+namespace Application.UseCases.CommandHandlers;
 
-public class CreateAccountConsumer : IConsumer<CreateAccountCommand>
+public class CreateAccountConsumer : IConsumer<Commands.CreateAccount>
 {
     private readonly IAccountEventStoreService _eventStoreService;
 
@@ -14,7 +14,7 @@ public class CreateAccountConsumer : IConsumer<CreateAccountCommand>
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<CreateAccountCommand> context)
+    public async Task Consume(ConsumeContext<Commands.CreateAccount> context)
     {
         var account = new Account();
         account.Handle(context.Message);

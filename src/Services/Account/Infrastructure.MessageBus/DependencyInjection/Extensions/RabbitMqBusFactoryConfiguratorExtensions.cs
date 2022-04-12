@@ -1,7 +1,7 @@
-﻿using Application.UseCases.Events.Integrations;
-using Application.UseCases.Events.Projections;
+﻿using Application.UseCases.EventHandlers.Integrations;
+using Application.UseCases.EventHandlers.Projections;
 using ECommerce.Abstractions.Messages.Events;
-using ECommerce.Contracts.Account;
+using ECommerce.Contracts.Accounts;
 using MassTransit;
 
 namespace Infrastructure.MessageBus.DependencyInjection.Extensions;
@@ -11,11 +11,11 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistrationContext registration)
     {
         cfg.ConfigureEventReceiveEndpoint<CreateAccountWhenUserRegisteredConsumer, ECommerce.Contracts.Identity.DomainEvents.UserRegistered>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectAccountDetailsWhenAccountChangedConsumer, DomainEvents.ProfessionalAddressDefined>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectAccountDetailsWhenAccountChangedConsumer, DomainEvents.ProfileUpdated>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectAccountDetailsWhenAccountChangedConsumer, DomainEvents.ResidenceAddressDefined>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectAccountDetailsWhenAccountChangedConsumer, DomainEvents.AccountCreated>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectAccountDetailsWhenAccountChangedConsumer, DomainEvents.AccountDeleted>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectAccountDetailsWhenChangedConsumer, DomainEvents.ProfessionalAddressDefined>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectAccountDetailsWhenChangedConsumer, DomainEvents.ProfileUpdated>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectAccountDetailsWhenChangedConsumer, DomainEvents.ResidenceAddressDefined>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectAccountDetailsWhenChangedConsumer, DomainEvents.AccountCreated>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectAccountDetailsWhenChangedConsumer, DomainEvents.AccountDeleted>(registration);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistrationContext registration)

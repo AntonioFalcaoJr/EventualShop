@@ -1,25 +1,21 @@
 ﻿using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
+using ECommerce.Contracts.Accounts;
 using MassTransit;
-using AccountCreatedEvent = ECommerce.Contracts.Account.DomainEvents.AccountCreated;
-using AccountDeletedEvent = ECommerce.Contracts.Account.DomainEvents.AccountDeleted;
-using ProfessionalAddressDefinedEvent = ECommerce.Contracts.Account.DomainEvents.ProfessionalAddressDefined;
-using ProfileUpdatedEvent = ECommerce.Contracts.Account.DomainEvents.ProfileUpdated;
-using ResidenceAddressDefinedEvent = ECommerce.Contracts.Account.DomainEvents.ResidenceAddressDefined;
 
-namespace Application.UseCases.Events.Projections;
+namespace Application.UseCases.EventHandlers.Projections;
 
-public class ProjectAccountDetailsWhenAccountChangedConsumer :
-    IConsumer<AccountCreatedEvent>,
-    IConsumer<AccountDeletedEvent>,
-    IConsumer<ProfessionalAddressDefinedEvent>,
-    IConsumer<ProfileUpdatedEvent>,
-    IConsumer<ResidenceAddressDefinedEvent>
+public class ProjectAccountDetailsWhenChangedConsumer :
+    IConsumer<DomainEvents.AccountCreated>,
+    IConsumer<DomainEvents.AccountDeleted>,
+    IConsumer<DomainEvents.ProfessionalAddressDefined>,
+    IConsumer<DomainEvents.ProfileUpdated>,
+    IConsumer<DomainEvents.ResidenceAddressDefined>
 {
     private readonly IAccountEventStoreService _eventStoreService;
     private readonly IAccountProjectionsService _projectionsService;
 
-    public ProjectAccountDetailsWhenAccountChangedConsumer(
+    public ProjectAccountDetailsWhenChangedConsumer(
         IAccountEventStoreService eventStoreService,
         IAccountProjectionsService projectionsService)
     {
@@ -27,19 +23,19 @@ public class ProjectAccountDetailsWhenAccountChangedConsumer :
         _projectionsService = projectionsService;
     }
 
-    public Task Consume(ConsumeContext<AccountCreatedEvent> context)
+    public Task Consume(ConsumeContext<DomainEvents.AccountCreated> context)
         => ProjectAsync(context.Message.AccountId, context.CancellationToken);
 
-    public Task Consume(ConsumeContext<AccountDeletedEvent> context)
+    public Task Consume(ConsumeContext<DomainEvents.AccountDeleted> context)
         => ProjectAsync(context.Message.AccountId, context.CancellationToken);
 
-    public Task Consume(ConsumeContext<ProfessionalAddressDefinedEvent> context)
+    public Task Consume(ConsumeContext<DomainEvents.ProfessionalAddressDefined> context)
         => ProjectAsync(context.Message.AccountId, context.CancellationToken);
 
-    public Task Consume(ConsumeContext<ProfileUpdatedEvent> context)
+    public Task Consume(ConsumeContext<DomainEvents.ProfileUpdated> context)
         => ProjectAsync(context.Message.AccountId, context.CancellationToken);
 
-    public Task Consume(ConsumeContext<ResidenceAddressDefinedEvent> context)
+    public Task Consume(ConsumeContext<DomainEvents.ResidenceAddressDefined> context)
         => ProjectAsync(context.Message.AccountId, context.CancellationToken);
 
     private async Task ProjectAsync(Guid accountId, CancellationToken cancellationToken)

@@ -1,19 +1,19 @@
 ﻿using Application.EventSourcing.EventStore;
+using ECommerce.Contracts.Accounts;
 using MassTransit;
-using DeleteAccountCommand = ECommerce.Contracts.Account.Commands.DeleteAccount;
 
-namespace Application.UseCases.Commands;
+namespace Application.UseCases.CommandHandlers;
 
-public class DeleteAccountConsumer : IConsumer<DeleteAccountCommand>
+public class UpdateProfileConsumer : IConsumer<Commands.UpdateProfile>
 {
     private readonly IAccountEventStoreService _eventStoreService;
 
-    public DeleteAccountConsumer(IAccountEventStoreService eventStoreService)
+    public UpdateProfileConsumer(IAccountEventStoreService eventStoreService)
     {
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<DeleteAccountCommand> context)
+    public async Task Consume(ConsumeContext<Commands.UpdateProfile> context)
     {
         var account = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.AccountId, context.CancellationToken);
         account.Handle(context.Message);
