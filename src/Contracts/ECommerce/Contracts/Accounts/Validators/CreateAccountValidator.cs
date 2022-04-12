@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace ECommerce.Contracts.Account.Validators;
+namespace ECommerce.Contracts.Accounts.Validators;
 
 public class CreateAccountValidator : AbstractValidator<Commands.CreateAccount>
 {

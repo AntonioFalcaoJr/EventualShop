@@ -1,6 +1,6 @@
 using ECommerce.Abstractions.Messages.Events;
 
-namespace ECommerce.Contracts.Account;
+namespace ECommerce.Contracts.Accounts;
 
 public static class DomainEvents
 {

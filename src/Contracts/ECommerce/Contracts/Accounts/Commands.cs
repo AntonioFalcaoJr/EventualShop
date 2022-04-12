@@ -1,6 +1,6 @@
 ﻿using ECommerce.Abstractions.Messages.Commands;
 
-namespace ECommerce.Contracts.Account;
+namespace ECommerce.Contracts.Accounts;
 
 public static class Commands
 {
