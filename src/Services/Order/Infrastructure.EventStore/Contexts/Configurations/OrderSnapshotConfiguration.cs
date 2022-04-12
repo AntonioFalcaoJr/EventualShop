@@ -9,7 +9,7 @@ public class OrderSnapshotConfiguration : IEntityTypeConfiguration<OrderSnapshot
 {
     public void Configure(EntityTypeBuilder<OrderSnapshot> builder)
     {
-        builder.HasKey(snapshot => new { snapshot.AggregateVersion, snapshot.AggregateId });
+        builder.HasKey(snapshot => new {snapshot.AggregateVersion, snapshot.AggregateId});
 
         builder
             .Property(snapshot => snapshot.AggregateVersion)

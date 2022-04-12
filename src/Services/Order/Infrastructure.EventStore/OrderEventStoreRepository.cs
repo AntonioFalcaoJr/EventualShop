@@ -8,6 +8,6 @@ namespace Infrastructure.EventStore;
 
 public class OrderEventStoreRepository : EventStoreRepository<Order, OrderStoreEvent, OrderSnapshot, Guid>, IOrderEventStoreRepository
 {
-    public OrderEventStoreRepository(EventStoreDbContext dbContext) 
+    public OrderEventStoreRepository(EventStoreDbContext dbContext)
         : base(dbContext) { }
 }
