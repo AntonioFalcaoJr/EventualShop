@@ -7,14 +7,14 @@ namespace WebAPP.ViewModels;
 
 public class CatalogsViewModel
 {
-    private readonly IECommerceHttpClient _httpClient;
     private readonly IBlazorStrap _blazorStrap;
-
-    public string Title;
-    public string Description;
+    private readonly IECommerceHttpClient _httpClient;
 
     public List<Projections.Catalog> Catalogs = new();
+    public string Description;
     public PageInfo PageInfo = new();
+
+    public string Title;
 
     public CatalogsViewModel(IECommerceHttpClient httpClient, IBlazorStrap blazorStrap)
     {
@@ -45,9 +45,9 @@ public class CatalogsViewModel
             {
                 Title = string.Empty;
                 Description = string.Empty;
-                
+
                 Catalogs.Add(new(request.CatalogId, request.Title, request.Description, default, default));
-                
+
                 Success();
             }
             else Failed(response.Message);

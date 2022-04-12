@@ -1,6 +1,4 @@
-﻿@using ECommerce.Abstractions.Messages.Queries.Paging
-@using ECommerce.Contracts.Catalogs
-
+﻿@using ECommerce.Contracts.Catalogs
 @inject HttpClient _http
 @inject IBlazorStrap _blazorStrap
 
@@ -84,5 +82,4 @@
         if (_cards.PageInfo.HasPrevious)
             await LoadAsync(offset: _cards.PageInfo.Current - 2);
     }
-
 }

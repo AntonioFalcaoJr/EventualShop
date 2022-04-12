@@ -16,4 +16,9 @@
     <ItemGroup>
         <ProjectReference Include="..\..\Contracts\ECommerce\ECommerce.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.svg" />
+      <Content Remove="wwwroot\css\open-iconic\README.md" />
+    </ItemGroup>
 </Project>
