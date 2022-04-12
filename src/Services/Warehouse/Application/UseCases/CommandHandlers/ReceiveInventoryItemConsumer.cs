@@ -1,11 +1,11 @@
 ﻿using Application.EventSourcing.EventStore;
 using Domain.Aggregates;
+using ECommerce.Contracts.Warehouses;
 using MassTransit;
-using ReceiveInventoryItemCommand = ECommerce.Contracts.Warehouse.Commands.ReceiveInventoryItem;
 
-namespace Application.UseCases.Commands;
+namespace Application.UseCases.CommandHandlers;
 
-public class ReceiveInventoryItemConsumer : IConsumer<ReceiveInventoryItemCommand>
+public class ReceiveInventoryItemConsumer : IConsumer<Commands.ReceiveInventoryItem>
 {
     private readonly IWarehouseEventStoreService _eventStoreService;
 
@@ -14,7 +14,7 @@ public class ReceiveInventoryItemConsumer : IConsumer<ReceiveInventoryItemComman
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<ReceiveInventoryItemCommand> context)
+    public async Task Consume(ConsumeContext<Commands.ReceiveInventoryItem> context)
     {
         var inventoryItem = new InventoryItem();
         inventoryItem.Handle(context.Message);

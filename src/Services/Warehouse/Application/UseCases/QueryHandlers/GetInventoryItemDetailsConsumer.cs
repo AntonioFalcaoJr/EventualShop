@@ -1,11 +1,10 @@
 ﻿using Application.EventSourcing.Projections;
-using ECommerce.Contracts.Warehouse;
+using ECommerce.Contracts.Warehouses;
 using MassTransit;
-using GetInventoryItemDetailsQuery = ECommerce.Contracts.Warehouse.Queries.GetInventoryItemDetails;
 
-namespace Application.UseCases.Queries;
+namespace Application.UseCases.QueryHandlers;
 
-public class GetInventoryItemDetailsConsumer : IConsumer<GetInventoryItemDetailsQuery>
+public class GetInventoryItemDetailsConsumer : IConsumer<Queries.GetInventoryItemDetails>
 {
     private readonly IWarehouseProjectionsService _projectionsService;
 
@@ -14,7 +13,7 @@ public class GetInventoryItemDetailsConsumer : IConsumer<GetInventoryItemDetails
         _projectionsService = projectionsService;
     }
 
-    public async Task Consume(ConsumeContext<GetInventoryItemDetailsQuery> context)
+    public async Task Consume(ConsumeContext<Queries.GetInventoryItemDetails> context)
     {
         var inventoryItemDetails = await _projectionsService.GetProductDetailsAsync(context.Message.ProductId, context.CancellationToken);
         await context.RespondAsync<Responses.InventoryItemDetails>(inventoryItemDetails);

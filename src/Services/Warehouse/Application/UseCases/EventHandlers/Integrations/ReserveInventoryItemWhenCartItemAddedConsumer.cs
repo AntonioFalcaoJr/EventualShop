@@ -1,11 +1,11 @@
 ﻿using Application.EventSourcing.EventStore;
+using ECommerce.Contracts.ShoppingCarts;
 using MassTransit;
-using CartItemAddedEvent = ECommerce.Contracts.ShoppingCart.DomainEvents.CartItemAdded;
-using ReserveInventoryCommand = ECommerce.Contracts.Warehouse.Commands.ReserveInventory;
+using Commands = ECommerce.Contracts.Warehouses.Commands;
 
-namespace Application.UseCases.Events.Integrations;
+namespace Application.UseCases.EventHandlers.Integrations;
 
-public class ReserveInventoryItemWhenCartItemAddedConsumer : IConsumer<CartItemAddedEvent>
+public class ReserveInventoryItemWhenCartItemAddedConsumer : IConsumer<DomainEvents.CartItemAdded>
 {
     private readonly IWarehouseEventStoreService _eventStoreService;
 
@@ -14,12 +14,12 @@ public class ReserveInventoryItemWhenCartItemAddedConsumer : IConsumer<CartItemA
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<CartItemAddedEvent> context)
+    public async Task Consume(ConsumeContext<DomainEvents.CartItemAdded> context)
     {
         var inventoryItem = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.ProductId, context.CancellationToken);
 
         inventoryItem.Handle(
-            new ReserveInventoryCommand(
+            new Commands.ReserveInventory(
                 context.Message.ProductId,
                 context.Message.CartId,
                 inventoryItem.Sku,

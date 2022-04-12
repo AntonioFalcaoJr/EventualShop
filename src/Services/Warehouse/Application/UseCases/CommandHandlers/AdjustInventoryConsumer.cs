@@ -1,10 +1,10 @@
 ﻿using Application.EventSourcing.EventStore;
+using ECommerce.Contracts.Warehouses;
 using MassTransit;
-using AdjustInventoryCommand = ECommerce.Contracts.Warehouse.Commands.AdjustInventory;
 
-namespace Application.UseCases.Commands;
+namespace Application.UseCases.CommandHandlers;
 
-public class AdjustInventoryConsumer : IConsumer<AdjustInventoryCommand>
+public class AdjustInventoryConsumer : IConsumer<Commands.AdjustInventory>
 {
     private readonly IWarehouseEventStoreService _eventStoreService;
 
@@ -13,7 +13,7 @@ public class AdjustInventoryConsumer : IConsumer<AdjustInventoryCommand>
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<AdjustInventoryCommand> context)
+    public async Task Consume(ConsumeContext<Commands.AdjustInventory> context)
     {
         var inventoryItem = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.ProductId, context.CancellationToken);
         inventoryItem.Handle(context.Message);

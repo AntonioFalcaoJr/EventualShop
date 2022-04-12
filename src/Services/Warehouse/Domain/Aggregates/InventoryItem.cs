@@ -1,7 +1,7 @@
 ﻿using Domain.Abstractions.Aggregates;
 using Domain.Entities;
 using ECommerce.Abstractions.Messages.Events;
-using ECommerce.Contracts.Warehouse;
+using ECommerce.Contracts.Warehouses;
 
 namespace Domain.Aggregates;
 

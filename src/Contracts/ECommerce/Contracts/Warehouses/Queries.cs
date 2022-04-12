@@ -1,6 +1,6 @@
 ﻿using ECommerce.Abstractions.Messages.Queries;
 
-namespace ECommerce.Contracts.Warehouse;
+namespace ECommerce.Contracts.Warehouses;
 
 public static class Queries
 {

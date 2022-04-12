@@ -1,19 +1,17 @@
 ﻿using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
-using ECommerce.Contracts.Warehouse;
+using ECommerce.Contracts.Warehouses;
 using MassTransit;
-using InventoryAdjustedEvent = ECommerce.Contracts.Warehouse.DomainEvents.InventoryAdjusted;
+namespace Application.UseCases.EventHandlers.Projections;
 
-namespace Application.UseCases.Events.Projections;
-
-public class ProjectInventoryItemDetailsWhenChangedConsumer :
-    IConsumer<InventoryAdjustedEvent>,
+public class ProjectInventoryItemWhenChangedConsumer :
+    IConsumer<DomainEvents.InventoryAdjusted>,
     IConsumer<DomainEvents.InventoryItemReceived>
 {
     private readonly IWarehouseEventStoreService _eventStoreService;
     private readonly IWarehouseProjectionsService _projectionsService;
 
-    public ProjectInventoryItemDetailsWhenChangedConsumer(
+    public ProjectInventoryItemWhenChangedConsumer(
         IWarehouseEventStoreService eventStoreService,
         IWarehouseProjectionsService projectionsService)
     {
@@ -21,7 +19,7 @@ public class ProjectInventoryItemDetailsWhenChangedConsumer :
         _projectionsService = projectionsService;
     }
 
-    public Task Consume(ConsumeContext<InventoryAdjustedEvent> context)
+    public Task Consume(ConsumeContext<DomainEvents.InventoryAdjusted> context)
         => ProjectAsync(context.Message.ProductId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvents.InventoryItemReceived> context)
