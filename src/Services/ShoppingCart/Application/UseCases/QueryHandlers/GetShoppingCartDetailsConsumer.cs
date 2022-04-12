@@ -17,15 +17,15 @@ public class GetShoppingCartDetailsConsumer :
         _projectionsService = projectionsService;
     }
 
-    public async Task Consume(ConsumeContext<Queries.GetShoppingCart> context)
-    {
-        var shoppingCartProjection = await _projectionsService.GetShoppingCartAsync(context.Message.CartId, context.CancellationToken);
-        await RespondAsync(shoppingCartProjection, context);
-    }
-
     public async Task Consume(ConsumeContext<Queries.GetCustomerShoppingCart> context)
     {
         var shoppingCartProjection = await _projectionsService.GetShoppingCartByCustomerIdAsync(context.Message.CustomerId, context.CancellationToken);
+        await RespondAsync(shoppingCartProjection, context);
+    }
+
+    public async Task Consume(ConsumeContext<Queries.GetShoppingCart> context)
+    {
+        var shoppingCartProjection = await _projectionsService.GetShoppingCartAsync(context.Message.CartId, context.CancellationToken);
         await RespondAsync(shoppingCartProjection, context);
     }
 

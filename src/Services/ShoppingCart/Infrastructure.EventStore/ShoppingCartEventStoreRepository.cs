@@ -8,6 +8,6 @@ namespace Infrastructure.EventStore;
 
 public class ShoppingCartEventStoreRepository : EventStoreRepository<ShoppingCart, ShoppingCartStoreEvent, ShoppingCartSnapshot, Guid>, IShoppingCartEventStoreRepository
 {
-    public ShoppingCartEventStoreRepository(EventStoreDbContext dbContext) 
+    public ShoppingCartEventStoreRepository(EventStoreDbContext dbContext)
         : base(dbContext) { }
 }

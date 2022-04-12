@@ -21,13 +21,13 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
         cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvents.CartItemIncreased>(registration);
         cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvents.CartItemDecreased>(registration);
         cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvents.CartDiscarded>(registration);
-        
+
         cfg.ConfigureEventReceiveEndpoint<ProjectCartItemsWhenChangedConsumer, DomainEvents.CartItemAdded>(registration);
         cfg.ConfigureEventReceiveEndpoint<ProjectCartItemsWhenChangedConsumer, DomainEvents.CartItemDecreased>(registration);
         cfg.ConfigureEventReceiveEndpoint<ProjectCartItemsWhenChangedConsumer, DomainEvents.CartItemIncreased>(registration);
         cfg.ConfigureEventReceiveEndpoint<ProjectCartItemsWhenChangedConsumer, DomainEvents.CartItemRemoved>(registration);
         cfg.ConfigureEventReceiveEndpoint<ProjectCartItemsWhenChangedConsumer, DomainEvents.CartDiscarded>(registration);
-        
+
         cfg.ConfigureEventReceiveEndpoint<PublishCartSubmittedWhenCheckedOutConsumer, DomainEvents.CartCheckedOut>(registration);
     }
 

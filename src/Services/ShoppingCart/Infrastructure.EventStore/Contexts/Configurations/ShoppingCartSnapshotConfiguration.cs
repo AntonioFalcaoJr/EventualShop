@@ -9,7 +9,7 @@ public class ShoppingCartSnapshotConfiguration : IEntityTypeConfiguration<Shoppi
 {
     public void Configure(EntityTypeBuilder<ShoppingCartSnapshot> builder)
     {
-        builder.HasKey(snapshot => new { snapshot.AggregateVersion, snapshot.AggregateId });
+        builder.HasKey(snapshot => new {snapshot.AggregateVersion, snapshot.AggregateId});
 
         builder
             .Property(snapshot => snapshot.AggregateVersion)

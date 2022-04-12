@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Infrastructure.EventStore.Contexts.Converters;
 
-public class CartConverter : ValueConverter<ShoppingCart, string> 
+public class CartConverter : ValueConverter<ShoppingCart, string>
 {
     public CartConverter()
         : base(

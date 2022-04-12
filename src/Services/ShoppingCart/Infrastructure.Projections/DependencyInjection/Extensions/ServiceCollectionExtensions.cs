@@ -15,9 +15,9 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<IShoppingCartProjectionsService, ShoppingCartProjectionsService>();
         services.AddScoped<IShoppingCartProjectionsRepository, ShoppingCartProjectionsRepository>();
-        
+
         services.AddScoped<IMongoDbContext, ProjectionsDbContext>();
-        
+
         BsonSerializer.RegisterSerializer(new DateOnlyBsonSerializer());
         BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.CSharpLegacy));
 
