@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ECommerce.Contracts.Order;
+using ECommerce.Contracts.Orders;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;

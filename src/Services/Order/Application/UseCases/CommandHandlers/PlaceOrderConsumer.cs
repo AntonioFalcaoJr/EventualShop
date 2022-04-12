@@ -1,11 +1,11 @@
 ﻿using Application.EventSourcing.EventStore;
 using Domain.Aggregates;
+using ECommerce.Contracts.Orders;
 using MassTransit;
-using PlaceOrderCommand = ECommerce.Contracts.Order.Commands.PlaceOrder;
 
-namespace Application.UseCases.Commands;
+namespace Application.UseCases.CommandHandlers;
 
-public class PlaceOrderConsumer : IConsumer<PlaceOrderCommand>
+public class PlaceOrderConsumer : IConsumer<Commands.PlaceOrder>
 {
     private readonly IOrderEventStoreService _eventStoreService;
 
@@ -14,7 +14,7 @@ public class PlaceOrderConsumer : IConsumer<PlaceOrderCommand>
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<PlaceOrderCommand> context)
+    public async Task Consume(ConsumeContext<Commands.PlaceOrder> context)
     {
         var order = new Order();
         order.Handle(context.Message);

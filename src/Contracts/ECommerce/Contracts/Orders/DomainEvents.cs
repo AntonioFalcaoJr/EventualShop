@@ -1,7 +1,7 @@
 ﻿using ECommerce.Abstractions.Messages.Events;
 using ECommerce.Contracts.Common;
 
-namespace ECommerce.Contracts.Order;
+namespace ECommerce.Contracts.Orders;
 
 public static class DomainEvents
 {

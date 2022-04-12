@@ -1,12 +1,12 @@
 ﻿using Application.EventSourcing.EventStore;
 using Domain.Aggregates;
+using ECommerce.Contracts.ShoppingCart;
 using MassTransit;
-using CartSubmittedEvent = ECommerce.Contracts.ShoppingCart.IntegrationEvents.CartSubmitted;
-using PlaceOrderCommand = ECommerce.Contracts.Order.Commands.PlaceOrder;
+using Commands = ECommerce.Contracts.Orders.Commands;
 
-namespace Application.UseCases.Events.Integrations;
+namespace Application.UseCases.EventHandlers.Integrations;
 
-public class PlaceOrderWhenCartSubmittedConsumer : IConsumer<CartSubmittedEvent>
+public class PlaceOrderWhenCartSubmittedConsumer : IConsumer<IntegrationEvents.CartSubmitted>
 {
     private readonly IOrderEventStoreService _eventStoreService;
 
@@ -15,11 +15,11 @@ public class PlaceOrderWhenCartSubmittedConsumer : IConsumer<CartSubmittedEvent>
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<CartSubmittedEvent> context)
+    public async Task Consume(ConsumeContext<IntegrationEvents.CartSubmitted> context)
     {
         var order = new Order();
 
-        order.Handle(new PlaceOrderCommand(
+        order.Handle(new Commands.PlaceOrder(
             context.Message.Customer,
             context.Message.ShoppingCartItems,
             context.Message.Total,
