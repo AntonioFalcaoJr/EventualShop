@@ -16,10 +16,10 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
     where TSnapshot : Snapshot<TAggregate, TId>, new()
     where TId : struct
 {
+    private readonly INotificationContext _notificationContext;
     private readonly EventStoreOptions _options;
     private readonly IPublishEndpoint _publishEndpoint;
     private readonly IEventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId> _repository;
-    private readonly INotificationContext _notificationContext;
 
     protected EventStoreService(
         IPublishEndpoint publishEndpoint,
