@@ -52,13 +52,14 @@
         <BSRow>
             @foreach (var catalog in _viewModel.Catalogs)
             {
+                var catalogId = catalog.Id;
                 <BSCard Class="w-25" Alignment="Alignment.Center" CardType="CardType.Card" Padding="Padding.None">
                     <BSCard CardType="CardType.Header">@catalog.Title</BSCard>
                     <BSCard CardType="CardType.Body">
                         <BSCard CardType="CardType.Title">@catalog.Title</BSCard>
                         <BSCard CardType="CardType.Subtitle">@catalog.Description</BSCard>
-                        <BSButton Color="BSColor.Warning" OnClick=@(() => EditAsync(catalog.Id))>Edit</BSButton>
-                        <BSButton Color="BSColor.Danger" OnClick=@(() => DeleteAsync(catalog.Id))>Delete</BSButton>
+                        <BSButton Color="BSColor.Warning" OnClick=@(() => EditAsync(catalogId))>Edit</BSButton>
+                        <BSButton Color="BSColor.Danger" OnClick=@(() => DeleteAsync(catalogId))>Delete</BSButton>
                     </BSCard>
                 </BSCard>
             }
