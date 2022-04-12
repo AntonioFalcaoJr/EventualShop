@@ -9,7 +9,7 @@ public class WarehouseSnapshotConfiguration : IEntityTypeConfiguration<Warehouse
 {
     public void Configure(EntityTypeBuilder<WarehouseSnapshot> builder)
     {
-        builder.HasKey(snapshot => new { snapshot.AggregateVersion, snapshot.AggregateId });
+        builder.HasKey(snapshot => new {snapshot.AggregateVersion, snapshot.AggregateId});
 
         builder
             .Property(snapshot => snapshot.AggregateVersion)

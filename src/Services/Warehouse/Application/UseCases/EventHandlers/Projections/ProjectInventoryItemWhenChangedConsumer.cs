@@ -2,6 +2,7 @@
 using Application.EventSourcing.Projections;
 using ECommerce.Contracts.Warehouses;
 using MassTransit;
+
 namespace Application.UseCases.EventHandlers.Projections;
 
 public class ProjectInventoryItemWhenChangedConsumer :

@@ -2,9 +2,4 @@
 
 namespace Domain.Aggregates;
 
-public class InventoryItemValidator : EntityValidator<InventoryItem, Guid>
-{
-    public InventoryItemValidator()
-    {
-    }
-}
+public class InventoryItemValidator : EntityValidator<InventoryItem, Guid> { }

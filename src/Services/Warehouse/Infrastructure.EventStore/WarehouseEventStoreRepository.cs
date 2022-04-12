@@ -8,6 +8,6 @@ namespace Infrastructure.EventStore;
 
 public class WarehouseEventStoreRepository : EventStoreRepository<InventoryItem, WarehouseStoreEvent, WarehouseSnapshot, Guid>, IWarehouseEventStoreRepository
 {
-    public WarehouseEventStoreRepository(EventStoreDbContext dbContext) 
+    public WarehouseEventStoreRepository(EventStoreDbContext dbContext)
         : base(dbContext) { }
 }
