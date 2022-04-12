@@ -322,10 +322,16 @@ https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-
 
 > CQRS stands for Command and Query Responsibility Segregation, a pattern that separates read and update operations for a data store. Implementing CQRS in your application can maximize its performance, scalability, and security. The flexibility created by migrating to CQRS allows a system to better evolve over time and prevents update commands from causing merge conflicts at the domain level.
 >
+> Benefits of CQRS include:
+>
+> * **Independent scaling**. CQRS allows the read and write workloads to scale independently, and may result in fewer lock contentions.
+> * **Optimized data schemas**. The read side can use a schema that is optimized for queries, while the write side uses a schema that is optimized for updates.
+> * **Security**. It's easier to ensure that only the right domain entities are performing writes on the data.
+> * **Separation of concerns**. Segregating the read and write sides can result in models that are more maintainable and flexible. Most of the complex business logic goes into the write model. The read model can be relatively simple.
+> * **Simpler queries**. By storing a materialized view in the read database, the application can avoid complex joins when querying.
+>
 > "What is the CQRS pattern?" *MSDN*, Microsoft Docs, last edited on 2 Nov 2020.  
 > https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs
-
-<br>
 
 ![](.assets/img/cqrs.png)   
 Fig. 18: Bürckel, Marco. *Some thoughts on using CQRS without Event Sourcing*.    
