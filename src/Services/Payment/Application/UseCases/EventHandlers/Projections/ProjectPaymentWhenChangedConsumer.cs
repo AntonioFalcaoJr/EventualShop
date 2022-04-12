@@ -13,7 +13,7 @@ public class ProjectPaymentWhenChangedConsumer :
     private readonly IPaymentProjectionsService _projectionsService;
 
     public ProjectPaymentWhenChangedConsumer(
-        IPaymentEventStoreService eventStoreService, 
+        IPaymentEventStoreService eventStoreService,
         IPaymentProjectionsService projectionsService)
     {
         _eventStoreService = eventStoreService;
@@ -47,7 +47,7 @@ public class ProjectPaymentWhenChangedConsumer :
                     State = payment.BillingAddress.State,
                     Street = payment.BillingAddress.Street,
                     ZipCode = payment.BillingAddress.ZipCode
-                },
+                }
             // CreditCardProjection = payment.CreditCardPaymentMethod is null
             //     ? default
             //     : new()

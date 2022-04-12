@@ -8,6 +8,6 @@ namespace Infrastructure.EventStore;
 
 public class PaymentEventStoreRepository : EventStoreRepository<Payment, PaymentStoreEvent, PaymentSnapshot, Guid>, IPaymentEventStoreRepository
 {
-    public PaymentEventStoreRepository(EventStoreDbContext dbContext) 
+    public PaymentEventStoreRepository(EventStoreDbContext dbContext)
         : base(dbContext) { }
 }

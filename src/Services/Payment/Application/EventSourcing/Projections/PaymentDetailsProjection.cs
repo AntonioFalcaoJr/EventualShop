@@ -5,13 +5,13 @@ namespace Application.EventSourcing.Projections;
 
 public record PaymentDetailsProjection : IProjection
 {
-    public Guid Id { get; init; }
     public Guid OrderId { get; init; }
     public decimal Amount { get; init; }
     public AddressProjection BillingAddressProjection { get; init; }
     public CreditCardProjection CreditCardProjection { get; init; }
-    public bool IsDeleted { get; init; }
     public string Status { get; init; }
+    public Guid Id { get; init; }
+    public bool IsDeleted { get; init; }
 }
 
 public record AddressProjection
