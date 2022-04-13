@@ -90,6 +90,31 @@ services:
       restart_policy:
         condition: any
   
+  catalog:
+    image: catalog
+    build:
+      context: .
+      dockerfile: ./src/Services/Catalog/WorkerService/Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: Staging
+    depends_on:
+      mssql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    networks:
+      - ecommerce
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 120M
+      restart_policy:
+        condition: any
+  
   identity:
     image: identity
     build:
@@ -189,7 +214,7 @@ services:
           memory: 120M
       restart_policy:
         condition: any
-        
+  
   warehouse:
     image: warehouse
     build:
@@ -241,23 +266,28 @@ services:
       restart_policy:
         condition: any
 
-  nginx:
-    container_name: nginx
-    image: nginx:latest
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+  webapp:
+    image: webapp
+    build:
+      context: .
+      dockerfile: ./src/Web/WebAPP/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Staging
+    ports:
+      - "8080:8080"
     depends_on:
       webapi:
         condition: service_started
-    ports:
-      - "4000:4000"
+    networks:
+      - ecommerce
     deploy:
       replicas: 1
       resources:
         limits:
-          memory: 180M
-    networks:
-      - ecommerce
+          cpus: '0.50'
+          memory: 260M
+      restart_policy:
+        condition: any
 
 networks:
   ecommerce:

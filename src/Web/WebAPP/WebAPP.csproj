@@ -12,13 +12,7 @@
         <PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
         <PackageReference Include="Serilog.Extensions.Hosting" Version="$(Serilog_Extensions_Version)" />
     </ItemGroup>
-
     <ItemGroup>
         <ProjectReference Include="..\..\Contracts\ECommerce\ECommerce.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Remove="wwwroot\css\open-iconic\font\fonts\open-iconic.svg" />
-      <Content Remove="wwwroot\css\open-iconic\README.md" />
     </ItemGroup>
 </Project>

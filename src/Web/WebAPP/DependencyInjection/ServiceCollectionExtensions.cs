@@ -27,7 +27,7 @@ public static class ServiceCollectionExtensions
                     HttpPolicy.GetCircuitBreakerPolicyAsync(options.CircuitBreaking, options.DurationOfBreak));
             });
     }
-    
+
     public static OptionsBuilder<ECommerceHttpClientOptions> ConfigureECommerceHttpClientOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<ECommerceHttpClientOptions>()
