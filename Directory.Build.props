@@ -16,7 +16,7 @@
         <Microsoft_Extensions_Hosting_Version>7.0.0-preview.2.22152.2</Microsoft_Extensions_Hosting_Version>
 
         <!--EF Core-->
-        <EntityFrameworkCore_Version>7.0.0-preview.2.22153.1</EntityFrameworkCore_Version>
+        <EntityFrameworkCore_Version>7.0.0-preview.3.22175.1</EntityFrameworkCore_Version>
 
         <!--MongoDb-->
         <MongoDb_Version>2.15.0</MongoDb_Version>
