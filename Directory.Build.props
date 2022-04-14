@@ -48,7 +48,7 @@
         <Polly_Version>7.0.0-preview.1.22109.13</Polly_Version>
         
         <!--Test-->
-        <Microsoft_Mvc_Testing_Version>7.0.0-preview.2.22153.2</Microsoft_Mvc_Testing_Version>
+        <Microsoft_Mvc_Testing_Version>7.0.0-preview.3.22178.4</Microsoft_Mvc_Testing_Version>
         <Microsoft_Test_SDK_Version>17.1.0</Microsoft_Test_SDK_Version>
         
     </PropertyGroup>
