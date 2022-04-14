@@ -12,7 +12,7 @@
     <PropertyGroup Label="Packages dependency versions">
 
         <!--Microsoft-->
-        <Microsoft_Extensions_Version>7.0.0-preview.2.22152.2</Microsoft_Extensions_Version>
+        <Microsoft_Extensions_Version>7.0.0-preview.3.22175.4</Microsoft_Extensions_Version>
         <Microsoft_Extensions_Hosting_Version>7.0.0-preview.2.22152.2</Microsoft_Extensions_Hosting_Version>
 
         <!--EF Core-->
