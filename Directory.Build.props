@@ -23,7 +23,7 @@
 
         <!--MassTransit-->
         <MassTransit_Version>8.0.1</MassTransit_Version>
-        <Quartz_Version>3.4.1-preview-20220327-0826</Quartz_Version>
+        <Quartz_Version>3.4.1-preview-20220415-0304</Quartz_Version>
 
         <!--Newtonsoft-->
         <Newtonsoft_Version>13.0.1</Newtonsoft_Version>
