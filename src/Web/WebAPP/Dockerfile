@@ -1,4 +1,4 @@
-﻿ARG SDK_VERSION="7.0.100-preview.2-alpine3.15"
+﻿ARG SDK_VERSION="7.0.100-preview.3-alpine3.15"
 ARG BASE_ADRESS="mcr.microsoft.com/dotnet"
 
 FROM $BASE_ADRESS/sdk:$SDK_VERSION AS build
@@ -25,4 +25,4 @@ RUN dotnet publish -c Release --no-restore -v m -o /app/publish
 
 FROM nginx:alpine AS final
 COPY --from=publish /app/publish/wwwroot ./usr/share/nginx/html
-COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY ./webapp-nginx.conf /etc/nginx/nginx.conf
