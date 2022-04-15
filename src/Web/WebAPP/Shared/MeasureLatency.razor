@@ -1,4 +1,4 @@
-﻿@inject IJSRuntime _js
+﻿@inject IJSRuntime Js
 
 <BSNavbar Color="BSColor.Light" IsFixedBottom="true">
     <BSContainer Container="Container.Fluid">
@@ -15,10 +15,9 @@
         if (firstRender)
         {
             _startTime = DateTime.UtcNow;
-            var _ = await _js.InvokeAsync<string>("toString");
+            var _ = await Js.InvokeAsync<string>("toString");
             _latency = DateTime.UtcNow - _startTime;
             StateHasChanged();
         }
     }
-
 }

@@ -2,15 +2,14 @@
 
 @using WebAPP.ViewModels
 
-@inject HttpClient _http
-@inject IBlazorStrap _blazorStrap
-@inject CatalogsViewModel _viewModel
+@inject IBlazorStrap BlazorStrap
+@inject CatalogsViewModel ViewModel
 
 <NavBar/>
 <SearchBar/>
 <BSToaster/>
 
-@if (_viewModel.Catalogs == null)
+@if (ViewModel.Catalogs == null)
 {
     <div style="display:flex; gap:10px; justify-content:center; align-items:center">
         <div class="spinner-border" role="status"></div>
@@ -24,9 +23,9 @@
     <Content >
         <div class="d-grid gap-2">
             <BSLabel>Title</BSLabel>
-            <BSInput InputType="InputType.Text" placeholder="Title" @bind-Value="_viewModel.Title"/>
+            <BSInput InputType="InputType.Text" placeholder="Title" @bind-Value="ViewModel.Title"/>
             <BSLabel>Description</BSLabel>
-            <BSInput InputType="InputType.TextArea" placeholder="Description" @bind-Value="_viewModel.Description"/>
+            <BSInput InputType="InputType.TextArea" placeholder="Description" @bind-Value="ViewModel.Description"/>
             <BSButton MarginTop="Margins.Large" Size="Size.Medium" Color="BSColor.Dark" OnClick="CreateAsync">Create</BSButton>
         </div>
     </Content>
@@ -41,7 +40,7 @@
             <BSButton Class="bi bi-plus-lg" Color="BSColor.Light" style="font-size: 2.000rem;" OnClick="_offCanvas.ShowAsync"/>
         </BSCol>
     </BSRow>
-    @if (_viewModel.Catalogs.Any() is false)
+    @if (ViewModel.Catalogs.Any() is false)
     {
         <p>
             No Catalog, try to add one :)
@@ -50,14 +49,13 @@
     else
     {
         <BSRow>
-            @foreach (var catalog in _viewModel.Catalogs)
+            @foreach (var (catalogId, title, description, _, _) in ViewModel.Catalogs)
             {
-                var catalogId = catalog.Id;
                 <BSCard Class="w-25" Alignment="Alignment.Center" CardType="CardType.Card" Padding="Padding.None">
-                    <BSCard CardType="CardType.Header">@catalog.Title</BSCard>
+                    <BSCard CardType="CardType.Header">@title</BSCard>
                     <BSCard CardType="CardType.Body">
-                        <BSCard CardType="CardType.Title">@catalog.Title</BSCard>
-                        <BSCard CardType="CardType.Subtitle">@catalog.Description</BSCard>
+                        <BSCard CardType="CardType.Title">@title</BSCard>
+                        <BSCard CardType="CardType.Subtitle">@description</BSCard>
                         <BSButton Color="BSColor.Warning" OnClick=@(() => EditAsync(catalogId))>Edit</BSButton>
                         <BSButton Color="BSColor.Danger" OnClick=@(() => DeleteAsync(catalogId))>Delete</BSButton>
                     </BSCard>
@@ -65,13 +63,13 @@
             }
         </BSRow>
         <BSPagination Align="Align.Center">
-            <BSPaginationItem IsDisabled=@(_viewModel.PageInfo.HasPrevious is false) @onclick="MoveToPreview">Previous</BSPaginationItem>
-            @for (var paging = 1; paging <= _viewModel.PageInfo.Current; paging++)
+            <BSPaginationItem IsDisabled=@(ViewModel.PageInfo.HasPrevious is false) @onclick="MoveToPreview">Previous</BSPaginationItem>
+            @for (var paging = 1; paging <= ViewModel.PageInfo.Current; paging++)
             {
                 var current = paging;
                 <BSPaginationItem @onclick="() => MoveToPage(current)">@current</BSPaginationItem>
             }
-            <BSPaginationItem IsDisabled=@(_viewModel.PageInfo.HasNext is false) @onclick="MoveToNext">Next</BSPaginationItem>
+            <BSPaginationItem IsDisabled=@(ViewModel.PageInfo.HasNext is false) @onclick="MoveToNext">Next</BSPaginationItem>
         </BSPagination>
     }
 </BSContainer >
@@ -81,13 +79,13 @@
     private BSOffCanvas _offCanvas;
 
     protected override Task OnInitializedAsync()
-        => _viewModel.FetchDataAsync(CancellationToken.None);
+        => ViewModel.FetchDataAsync();
 
     private async Task CreateAsync()
     {
         try
         {
-            await _viewModel.CreateAsync();
+            await ViewModel.CreateAsync();
             await _offCanvas.HideAsync();
         }
         catch (Exception e)
@@ -100,7 +98,7 @@
     {
         try
         {
-            await _viewModel.EditAsync(catalogId);
+            await ViewModel.EditAsync(catalogId);
         }
         catch (Exception e)
         {
@@ -112,7 +110,7 @@
     {
         try
         {
-            await _viewModel.DeleteAsync(catalogId);
+            await ViewModel.DeleteAsync(catalogId);
         }
         catch (Exception e)
         {
@@ -122,7 +120,7 @@
 
     private void Failed(string error = default)
     {
-        _blazorStrap.Toaster.Add("Error", error ?? "It was not possible to create a new Catalog", o =>
+        BlazorStrap.Toaster.Add("Error", error ?? "It was not possible to create a new Catalog", o =>
         {
             o.Color = BSColor.Danger;
             o.CloseAfter = 2000;
@@ -131,18 +129,18 @@
     }
 
     private Task MoveToPage(int current)
-        => _viewModel.FetchDataAsync(new CancellationTokenSource(100).Token, offset: current - 1);
+        => ViewModel.FetchDataAsync(offset: current - 1);
 
     private async Task MoveToNext()
     {
-        if (_viewModel.PageInfo.HasNext)
-            await _viewModel.FetchDataAsync(new CancellationTokenSource(100).Token, offset: _viewModel.PageInfo.Current);
+        if (ViewModel.PageInfo.HasNext)
+            await ViewModel.FetchDataAsync(offset: ViewModel.PageInfo.Current);
     }
 
     private async Task MoveToPreview()
     {
-        if (_viewModel.PageInfo.HasPrevious)
-            await _viewModel.FetchDataAsync(new CancellationTokenSource(100).Token, offset: _viewModel.PageInfo.Current - 2);
+        if (ViewModel.PageInfo.HasPrevious)
+            await ViewModel.FetchDataAsync(offset: ViewModel.PageInfo.Current - 2);
     }
 
 }

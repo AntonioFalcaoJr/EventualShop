@@ -22,7 +22,7 @@ public class CatalogsViewModel
         _blazorStrap = blazorStrap;
     }
 
-    public async Task FetchDataAsync(CancellationToken cancellationToken, int limit = 8, int offset = 0)
+    public async Task FetchDataAsync(int limit = 8, int offset = 0)
     {
         var response = await _httpClient.GetCatalogsAsync(limit, offset, CancellationToken.None);
 

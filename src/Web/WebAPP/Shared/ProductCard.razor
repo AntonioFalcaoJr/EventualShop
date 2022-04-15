@@ -1,6 +1,6 @@
 ﻿@using ECommerce.Contracts.Catalogs
-@inject HttpClient _http
-@inject IBlazorStrap _blazorStrap
+@inject HttpClient Http
+@inject IBlazorStrap BlazorStrap
 
 <BSContainer>
     @if (_cards.Items.Any() is false)
@@ -30,7 +30,7 @@
             @for (var paging = 1; paging <= _cards.PageInfo.Current; paging++)
             {
                 var current = paging;
-                <BSPaginationItem @onclick="() => MoveToPage(current)">@current</BSPaginationItem>
+                <BSPaginationItem @onclick=@(() => MoveToPage(current))>@current</BSPaginationItem>
             }
             <BSPaginationItem IsDisabled=@(_cards.PageInfo.HasNext is false) @onclick="MoveToNext">Next</BSPaginationItem>
         </BSPagination>
@@ -50,7 +50,7 @@
 
         try
         {
-            _cards = await _http.GetFromJsonAsync<Responses.CatalogItems>($"/api/catalogs/get-catalog-items/{catalogId}/items?limit={limit}&offset={offset}");
+            _cards = await Http.GetFromJsonAsync<Responses.CatalogItems>($"/api/catalogs/get-catalog-items/{catalogId}/items?limit={limit}&offset={offset}");
         }
         catch (Exception e)
         {
@@ -60,7 +60,7 @@
 
     private void Failed(string error = default)
     {
-        _blazorStrap.Toaster.Add("Error", error ?? "It was not possible to create a new Catalog", o =>
+        BlazorStrap.Toaster.Add("Error", error ?? "It was not possible to create a new Catalog", o =>
         {
             o.Color = BSColor.Danger;
             o.CloseAfter = 2000;
