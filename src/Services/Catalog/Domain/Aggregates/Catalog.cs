@@ -27,13 +27,16 @@ public class Catalog : AggregateRoot<Guid, CatalogValidator>
     public void Handle(Commands.DeactivateCatalog cmd)
         => RaiseEvent(new DomainEvents.CatalogDeactivated(cmd.CatalogId));
 
-    public void Handle(Commands.UpdateCatalog cmd)
-        => RaiseEvent(new DomainEvents.CatalogUpdated(cmd.CatalogId, cmd.Title, cmd.Description));
+    public void Handle(Commands.ChangeCatalogDescription cmd)
+        => RaiseEvent(new DomainEvents.CatalogDescriptionChanged(cmd.CatalogId, cmd.Description));
+
+    public void Handle(Commands.ChangeCatalogTitle cmd)
+        => RaiseEvent(new DomainEvents.CatalogTitleChanged(cmd.CatalogId, cmd.Title));
 
     public void Handle(Commands.AddCatalogItem cmd)
         => RaiseEvent(new DomainEvents.CatalogItemAdded(cmd.CatalogId, Guid.NewGuid(), cmd.Name, cmd.Description, cmd.Price, cmd.PictureUri));
 
-    public void Handle(Commands.RemoveCatalogItem cmd)
+    public void Handle(Commands.DeleteCatalogItem cmd)
         => RaiseEvent(new DomainEvents.CatalogItemRemoved(cmd.CatalogId, cmd.CatalogItemId));
 
     public void Handle(Commands.UpdateCatalogItem cmd)
@@ -45,7 +48,10 @@ public class Catalog : AggregateRoot<Guid, CatalogValidator>
     private void When(DomainEvents.CatalogCreated @event)
         => (Id, Title, Description) = @event;
 
-    private void When(DomainEvents.CatalogUpdated @event)
+    private void When(DomainEvents.CatalogDescriptionChanged @event)
+        => Description = @event.Description;
+    
+    private void When(DomainEvents.CatalogTitleChanged @event)
         => Title = @event.Title;
 
     private void When(DomainEvents.CatalogDeleted _)

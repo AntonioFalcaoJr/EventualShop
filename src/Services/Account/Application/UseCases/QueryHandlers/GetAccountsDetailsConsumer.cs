@@ -16,6 +16,6 @@ public class GetAccountsDetailsConsumer : IConsumer<Queries.GetAccounts>
     public async Task Consume(ConsumeContext<Queries.GetAccounts> context)
     {
         var paginatedResult = await _projectionsService.GetAccountsAsync(context.Message.Limit, context.Message.Offset, context.CancellationToken);
-        await context.RespondAsync<Responses.AccountsDetailsPagedResult>(paginatedResult);
+        await context.RespondAsync<Responses.Accounts>(paginatedResult);
     }
 }

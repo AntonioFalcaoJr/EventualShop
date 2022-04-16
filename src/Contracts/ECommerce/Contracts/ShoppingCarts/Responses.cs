@@ -25,5 +25,5 @@ public static class Responses
         public string PictureUrl { get; init; }
     }
 
-    public record ShoppingCartItems : ResponsePagedResult<Models.ShoppingCartItem>;
+    public record ShoppingCartItems : ResponsePaged<Models.ShoppingCartItem>;
 }

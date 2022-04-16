@@ -6,7 +6,7 @@ public static class Responses
 {
     public record Catalog : Response<Projections.Catalog>;
 
-    public record Catalogs : ResponsePagedResult<Projections.Catalog>;
+    public record Catalogs : ResponsePaged<Projections.Catalog>;
 
-    public record CatalogItems : ResponsePagedResult<Projections.CatalogItem>;
+    public record CatalogItems : ResponsePaged<Projections.CatalogItem>;
 }

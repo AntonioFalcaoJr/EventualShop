@@ -4,7 +4,7 @@ using MassTransit;
 namespace ECommerce.Abstractions.Messages.Queries.Responses;
 
 [ExcludeFromTopology]
-public abstract record ResponsePagedResult<T> : Message, IResponse, IPagedResult<T>
+public abstract record ResponsePaged<T> : Message, IResponse, IPagedResult<T>
 {
     public IEnumerable<T> Items { get; init; }
     public PageInfo PageInfo { get; init; }

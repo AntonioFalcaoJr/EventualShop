@@ -4,7 +4,7 @@ namespace ECommerce.Contracts.Accounts;
 
 public static class Responses
 {
-    public record AccountDetails(Guid Id, string Password, string UserName) : Response;
+    public record Account(Guid Id, string Password, string UserName) : Response;
 
-    public record AccountsDetailsPagedResult : ResponsePagedResult<AccountDetails>;
+    public record Accounts  : ResponsePaged<Account>;
 }
