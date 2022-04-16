@@ -24,7 +24,7 @@ public class CatalogsViewModel
 
     public async Task FetchDataAsync(int limit = 8, int offset = 0)
     {
-        var response = await _httpClient.GetCatalogsAsync(limit, offset, CancellationToken.None);
+        var response = await _httpClient.GetAsync(limit, offset, CancellationToken.None);
 
         if (response.Success)
         {
@@ -39,7 +39,7 @@ public class CatalogsViewModel
         try
         {
             Requests.CreateCatalog request = new(Guid.NewGuid(), Title, Description);
-            var response = await _httpClient.CreateCatalogAsync(request, CancellationToken.None);
+            var response = await _httpClient.CreateAsync(request, CancellationToken.None);
 
             if (response.Success)
             {
@@ -62,7 +62,7 @@ public class CatalogsViewModel
     {
         try
         {
-            var response = await _httpClient.DeleteCatalogAsync(catalogId, CancellationToken.None);
+            var response = await _httpClient.DeleteAsync(catalogId, CancellationToken.None);
 
             if (response.Success)
             {
@@ -77,19 +77,40 @@ public class CatalogsViewModel
         }
     }
 
-    public async Task EditAsync(Guid catalogId)
+    public async Task ChangeTitleAsync(Guid catalogId)
     {
         try
         {
-            Requests.CreateCatalog request = new(catalogId, Title, Description);
-            var response = await _httpClient.EditCatalogAsync(request, CancellationToken.None);
+            Requests.ChangeCatalogTitle request = new(Title);
+            var response = await _httpClient.ChangeTitleAsync(catalogId, request, CancellationToken.None);
 
             if (response.Success)
             {
                 var catalog = Catalogs.First(catalog => catalog.Id == catalogId);
                 var index = Catalogs.IndexOf(catalog);
-                Catalogs[index] = new Projections.Catalog(catalogId, Title, Description, catalog.IsActive, catalog.IsDeleted);
+                Catalogs[index] = catalog with {Id = catalogId, Title = Title};
+                Success();
+            }
+            else Failed(response.Message);
+        }
+        catch (Exception e)
+        {
+            Failed(e.Message);
+        }
+    }
 
+    public async Task ChangeDescriptionAsync(Guid catalogId)
+    {
+        try
+        {
+            Requests.ChangeCatalogDescription request = new(Description);
+            var response = await _httpClient.ChangeDescriptionAsync(catalogId, request, CancellationToken.None);
+
+            if (response.Success)
+            {
+                var catalog = Catalogs.First(catalog => catalog.Id == catalogId);
+                var index = Catalogs.IndexOf(catalog);
+                Catalogs[index] = catalog with {Id = catalogId, Description = Description};
                 Success();
             }
             else Failed(response.Message);

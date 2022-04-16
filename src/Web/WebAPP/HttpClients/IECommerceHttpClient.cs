@@ -5,8 +5,11 @@ namespace WebAPP.HttpClients;
 
 public interface IECommerceHttpClient
 {
-    Task<HttpResponse<Responses.Catalogs>> GetCatalogsAsync(int limit, int offset, CancellationToken cancellationToken);
-    Task<HttpResponse> CreateCatalogAsync(Requests.CreateCatalog request, CancellationToken cancellationToken);
-    Task<HttpResponse> DeleteCatalogAsync(Guid catalogId, CancellationToken cancellationToken);
-    Task<HttpResponse> EditCatalogAsync(Requests.CreateCatalog request, CancellationToken cancellationToken);
+    Task<HttpResponse<Responses.Catalogs>> GetAsync(int limit, int offset, CancellationToken cancellationToken);
+    Task<HttpResponse> CreateAsync(Requests.CreateCatalog request, CancellationToken cancellationToken);
+    Task<HttpResponse> DeleteAsync(Guid catalogId, CancellationToken cancellationToken);
+    Task<HttpResponse> ActivateAsync(Guid catalogId, Requests.ChangeCatalogDescription request, CancellationToken cancellationToken);
+    Task<HttpResponse> DeactivateAsync(Guid catalogId, Requests.ChangeCatalogTitle request, CancellationToken cancellationToken);
+    Task<HttpResponse> ChangeDescriptionAsync(Guid catalogId, Requests.ChangeCatalogDescription request, CancellationToken cancellationToken);
+    Task<HttpResponse> ChangeTitleAsync(Guid catalogId, Requests.ChangeCatalogTitle request, CancellationToken cancellationToken);
 }

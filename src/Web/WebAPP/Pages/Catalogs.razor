@@ -56,7 +56,8 @@
                     <BSCard CardType="CardType.Body">
                         <BSCard CardType="CardType.Title">@title</BSCard>
                         <BSCard CardType="CardType.Subtitle">@description</BSCard>
-                        <BSButton Color="BSColor.Warning" OnClick=@(() => EditAsync(catalogId))>Edit</BSButton>
+                        <BSButton Color="BSColor.Warning" OnClick=@(() => ChangeDescriptionAsync(catalogId))>Change Description</BSButton>
+                        <BSButton Color="BSColor.Warning" OnClick=@(() => ChangeTitleAsync(catalogId))>Change Title</BSButton>
                         <BSButton Color="BSColor.Danger" OnClick=@(() => DeleteAsync(catalogId))>Delete</BSButton>
                     </BSCard>
                 </BSCard>
@@ -94,11 +95,23 @@
         }
     }
 
-    private async Task EditAsync(Guid catalogId)
+    private async Task ChangeDescriptionAsync(Guid catalogId)
     {
         try
         {
-            await ViewModel.EditAsync(catalogId);
+            await ViewModel.ChangeDescriptionAsync(catalogId);
+        }
+        catch (Exception e)
+        {
+            Failed(e.Message);
+        }
+    }
+    
+    private async Task ChangeTitleAsync(Guid catalogId)
+    {
+        try
+        {
+            await ViewModel.ChangeTitleAsync(catalogId);
         }
         catch (Exception e)
         {
@@ -142,5 +155,4 @@
         if (ViewModel.PageInfo.HasPrevious)
             await ViewModel.FetchDataAsync(offset: ViewModel.PageInfo.Current - 2);
     }
-
 }
