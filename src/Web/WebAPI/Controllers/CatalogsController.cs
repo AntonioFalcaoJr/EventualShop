@@ -42,13 +42,13 @@ public class CatalogsController : ApplicationController
     public Task<IActionResult> DeactivateAsync([NotEmpty] Guid catalogId, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.DeactivateCatalog>(new(catalogId), cancellationToken);
 
-    [HttpPut("{catalogId:guid}/[action]")]
+    [HttpPut("{catalogId:guid}/title")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> ChangeTitleAsync([NotEmpty] Guid catalogId, Requests.ChangeCatalogTitle request, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.ChangeCatalogTitle>(new(catalogId, request.Title), cancellationToken);
 
-    [HttpPut("{catalogId:guid}/[action]")]
+    [HttpPut("{catalogId:guid}/description")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> ChangeDescriptionAsync([NotEmpty] Guid catalogId, Requests.ChangeCatalogDescription request, CancellationToken cancellationToken)

@@ -25,14 +25,14 @@ public class ECommerceHttpClient : ApplicationHttpClient, IECommerceHttpClient
         => DeleteAsync($"{_options.CatalogEndpoint}/{catalogId}", cancellationToken);
 
     public Task<HttpResponse> ActivateAsync(Guid catalogId, Requests.ChangeCatalogDescription request, CancellationToken cancellationToken)
-        => PutAsync($"{_options.CatalogEndpoint}/{catalogId}", request, cancellationToken);
+        => PutAsync($"{_options.CatalogEndpoint}/{catalogId}/activate", request, cancellationToken);
 
     public Task<HttpResponse> DeactivateAsync(Guid catalogId, Requests.ChangeCatalogTitle request, CancellationToken cancellationToken)
-        => PutAsync($"{_options.CatalogEndpoint}/{catalogId}", request, cancellationToken);
+        => PutAsync($"{_options.CatalogEndpoint}/{catalogId}/deactivate", request, cancellationToken);
 
     public Task<HttpResponse> ChangeDescriptionAsync(Guid catalogId, Requests.ChangeCatalogDescription request, CancellationToken cancellationToken)
-        => PutAsync($"{_options.CatalogEndpoint}/{catalogId}", request, cancellationToken);
+        => PutAsync($"{_options.CatalogEndpoint}/{catalogId}/description", request, cancellationToken);
 
     public Task<HttpResponse> ChangeTitleAsync(Guid catalogId, Requests.ChangeCatalogTitle request, CancellationToken cancellationToken)
-        => PutAsync($"{_options.CatalogEndpoint}/{catalogId}", request, cancellationToken);
+        => PutAsync($"{_options.CatalogEndpoint}/{catalogId}/title", request, cancellationToken);
 }
