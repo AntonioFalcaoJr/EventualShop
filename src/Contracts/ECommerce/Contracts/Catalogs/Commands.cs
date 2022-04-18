@@ -4,7 +4,7 @@ namespace ECommerce.Contracts.Catalogs;
 
 public static class Commands
 {
-    public record CreateCatalog(string Title, string Description) : Command;
+    public record CreateCatalog(Guid CatalogId, string Title, string Description) : Command(CorrelationId: CatalogId);
 
     public record DeleteCatalog(Guid CatalogId) : Command(CorrelationId: CatalogId);
 

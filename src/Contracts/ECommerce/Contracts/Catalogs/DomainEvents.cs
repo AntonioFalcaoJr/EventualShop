@@ -4,7 +4,7 @@ namespace ECommerce.Contracts.Catalogs;
 
 public static class DomainEvents
 {
-    public record CatalogCreated(Guid CatalogId, string Title, string Description) : Event(CorrelationId: CatalogId);
+    public record CatalogCreated(Guid CatalogId, string Title, string Description, bool IsActive, bool IsDeleted) : Event(CorrelationId: CatalogId);
 
     public record CatalogDeleted(Guid CatalogId) : Event(CorrelationId: CatalogId);
 
