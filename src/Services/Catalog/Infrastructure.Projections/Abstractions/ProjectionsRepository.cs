@@ -63,4 +63,13 @@ public abstract class ProjectionsRepository : IProjectionsRepository
     public Task DeleteAsync<TProjection>(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken)
         where TProjection : IProjection
         => _context.GetCollection<TProjection>().DeleteOneAsync(filter, cancellationToken);
+
+    public Task UpdateFieldAsync<TProjection, TField, TId>(TId id, Expression<Func<TProjection, TField>> field, TField value, CancellationToken cancellationToken)
+        where TProjection : IProjection
+        where TId : struct
+        => _context.GetCollection<TProjection>()
+            .UpdateOneAsync(
+                filter: projection => projection.Id.Equals(id),
+                update: new ObjectUpdateDefinition<TProjection>(new()).Set(field, value),
+                cancellationToken: cancellationToken);
 }

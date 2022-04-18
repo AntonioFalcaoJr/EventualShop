@@ -11,6 +11,7 @@ public interface IProjectionsService
     Task ProjectManyAsync<TProjection>(IEnumerable<TProjection> projections, CancellationToken cancellationToken)
         where TProjection : IProjection;
 
-    Task RemoveAsync<TProjection>(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken)
-        where TProjection : IProjection;
+    Task UpdateFieldAsync<TProjection, TField, TId>(TId id, Expression<Func<TProjection, TField>> field, TField value, CancellationToken cancellationToken)
+        where TProjection : IProjection
+        where TId : struct;
 }

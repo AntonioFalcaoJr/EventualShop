@@ -24,4 +24,8 @@ public interface IProjectionsRepository
 
     Task DeleteAsync<TProjection>(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken)
         where TProjection : IProjection;
+    
+    Task UpdateFieldAsync<TProjection, TField, TId>(TId id, Expression<Func<TProjection, TField>> field, TField value, CancellationToken cancellationToken)
+        where TProjection : IProjection
+        where TId : struct;
 }

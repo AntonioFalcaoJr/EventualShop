@@ -20,6 +20,6 @@ public class GetCatalogItemsConsumer : IConsumer<Queries.GetCatalogItems>
 
         await (catalogItems is null
             ? context.RespondAsync<NotFound>(new())
-            : context.RespondAsync<Responses.CatalogItems>(catalogItems));
+            : context.RespondAsync(catalogItems));
     }
 }

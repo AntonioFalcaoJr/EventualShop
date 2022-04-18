@@ -1,4 +1,3 @@
-using Application.EventSourcing.EventStore;
 using Application.EventSourcing.Projections;
 using ECommerce.Contracts.Catalogs;
 using MassTransit;
@@ -9,39 +8,57 @@ public class ProjectCatalogWhenChangedConsumer :
     IConsumer<DomainEvents.CatalogCreated>,
     IConsumer<DomainEvents.CatalogActivated>,
     IConsumer<DomainEvents.CatalogDeactivated>,
-    IConsumer<DomainEvents.CatalogUpdated>,
+    IConsumer<DomainEvents.CatalogDescriptionChanged>,
+    IConsumer<DomainEvents.CatalogTitleChanged>,
     IConsumer<DomainEvents.CatalogDeleted>
 {
-    private readonly ICatalogEventStoreService _eventStoreService;
     private readonly ICatalogProjectionsService _projectionsService;
 
-    public ProjectCatalogWhenChangedConsumer(
-        ICatalogEventStoreService eventStoreService,
-        ICatalogProjectionsService projectionsService)
+    public ProjectCatalogWhenChangedConsumer(ICatalogProjectionsService projectionsService)
     {
-        _eventStoreService = eventStoreService;
         _projectionsService = projectionsService;
     }
 
-    public Task Consume(ConsumeContext<DomainEvents.CatalogCreated> context)
-        => ProjectAsync(context.Message.CatalogId, context.CancellationToken);
+    public async Task Consume(ConsumeContext<DomainEvents.CatalogCreated> context)
+    {
+        var catalog = new Projections.Catalog(
+            context.Message.CatalogId,
+            context.Message.Title,
+            context.Message.Description,
+            context.Message.IsActive,
+            context.Message.IsDeleted);
 
-    public Task Consume(ConsumeContext<DomainEvents.CatalogActivated> context)
-        => ProjectAsync(context.Message.CatalogId, context.CancellationToken);
-
-    public Task Consume(ConsumeContext<DomainEvents.CatalogDeactivated> context)
-        => ProjectAsync(context.Message.CatalogId, context.CancellationToken);
+        await _projectionsService.ProjectAsync(catalog, context.CancellationToken);
+    }
 
     public Task Consume(ConsumeContext<DomainEvents.CatalogDeleted> context)
-        => ProjectAsync(context.Message.CatalogId, context.CancellationToken);
+        => _projectionsService.RemoveCatalogAsync(context.Message.CatalogId, context.CancellationToken);
 
-    public Task Consume(ConsumeContext<DomainEvents.CatalogUpdated> context)
-        => ProjectAsync(context.Message.CatalogId, context.CancellationToken);
+    public Task Consume(ConsumeContext<DomainEvents.CatalogActivated> context)
+        => _projectionsService.UpdateFieldAsync<Projections.Catalog, bool, Guid>(
+            id: context.Message.CatalogId,
+            field: catalog => catalog.IsActive,
+            value: true,
+            cancellationToken: context.CancellationToken);
 
-    private async Task ProjectAsync(Guid catalogId, CancellationToken cancellationToken)
-    {
-        var catalog = await _eventStoreService.LoadAggregateFromStreamAsync(catalogId, cancellationToken);
-        var projection = new Projections.Catalog(catalog.Id, catalog.Title, catalog.Description, catalog.IsActive, catalog.IsDeleted);
-        await _projectionsService.ProjectAsync(projection, cancellationToken);
-    }
+    public Task Consume(ConsumeContext<DomainEvents.CatalogDeactivated> context)
+        => _projectionsService.UpdateFieldAsync<Projections.Catalog, bool, Guid>(
+            id: context.Message.CatalogId,
+            field: catalog => catalog.IsActive,
+            value: false,
+            cancellationToken: context.CancellationToken);
+
+    public async Task Consume(ConsumeContext<DomainEvents.CatalogDescriptionChanged> context)
+        => await _projectionsService.UpdateFieldAsync<Projections.Catalog, string, Guid>(
+            id: context.Message.CatalogId,
+            field: catalog => catalog.Description,
+            value: context.Message.Description,
+            cancellationToken: context.CancellationToken);
+
+    public async Task Consume(ConsumeContext<DomainEvents.CatalogTitleChanged> context)
+        => await _projectionsService.UpdateFieldAsync<Projections.Catalog, string, Guid>(
+            id: context.Message.CatalogId,
+            field: catalog => catalog.Title,
+            value: context.Message.Title,
+            cancellationToken: context.CancellationToken);
 }

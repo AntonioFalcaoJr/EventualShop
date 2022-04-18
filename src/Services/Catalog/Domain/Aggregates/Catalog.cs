@@ -16,7 +16,7 @@ public class Catalog : AggregateRoot<Guid, CatalogValidator>
         => _items;
 
     public void Handle(Commands.CreateCatalog cmd)
-        => RaiseEvent(new DomainEvents.CatalogCreated(Guid.NewGuid(), cmd.Title, cmd.Description));
+        => RaiseEvent(new DomainEvents.CatalogCreated(cmd.CatalogId, cmd.Title, cmd.Description, false, false));
 
     public void Handle(Commands.DeleteCatalog cmd)
         => RaiseEvent(new DomainEvents.CatalogDeleted(cmd.CatalogId));
@@ -46,11 +46,11 @@ public class Catalog : AggregateRoot<Guid, CatalogValidator>
         => When(@event as dynamic);
 
     private void When(DomainEvents.CatalogCreated @event)
-        => (Id, Title, Description) = @event;
+        => (Id, Title, Description, IsActive, IsDeleted) = @event;
 
     private void When(DomainEvents.CatalogDescriptionChanged @event)
         => Description = @event.Description;
-    
+
     private void When(DomainEvents.CatalogTitleChanged @event)
         => Title = @event.Title;
 
@@ -67,26 +67,19 @@ public class Catalog : AggregateRoot<Guid, CatalogValidator>
         => IsActive = false;
 
     private void When(DomainEvents.CatalogItemAdded @event)
-    {
-        var catalogItem = new CatalogItem(
+        => _items.Add(new(
             @event.ItemId,
             @event.Name,
             @event.Description,
             @event.Price,
-            @event.PictureUri);
-
-        _items.Add(catalogItem);
-    }
+            @event.PictureUri));
 
     private void When(DomainEvents.CatalogItemUpdated @event)
-        => _items
-            .Where(item => item.Id == @event.ItemId)
-            .ToList()
-            .ForEach(catalogItem =>
-            {
-                catalogItem.SetDescription(@event.Description);
-                catalogItem.SetName(@event.Name);
-                catalogItem.SetPrice(@event.Price);
-                catalogItem.SetPictureUri(@event.PictureUri);
-            });
+    {
+        var item = _items.Single(item => item.Id == @event.ItemId);
+        item.SetDescription(@event.Description);
+        item.SetName(@event.Name);
+        item.SetPrice(@event.Price);
+        item.SetPictureUri(@event.PictureUri);
+    }
 }
