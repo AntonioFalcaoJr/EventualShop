@@ -1,4 +1,4 @@
-using Application.EventSourcing.Projections;
+using Application.Abstractions.EventSourcing.Projections;
 using ECommerce.Contracts.Catalogs;
 using MassTransit;
 
@@ -12,11 +12,11 @@ public class ProjectCatalogWhenChangedConsumer :
     IConsumer<DomainEvents.CatalogTitleChanged>,
     IConsumer<DomainEvents.CatalogDeleted>
 {
-    private readonly ICatalogProjectionsService _projectionsService;
+    private readonly IProjectionsRepository<Projections.Catalog> _projectionsRepository;
 
-    public ProjectCatalogWhenChangedConsumer(ICatalogProjectionsService projectionsService)
+    public ProjectCatalogWhenChangedConsumer(IProjectionsRepository<Projections.Catalog> projectionsRepository)
     {
-        _projectionsService = projectionsService;
+        _projectionsRepository = projectionsRepository;
     }
 
     public async Task Consume(ConsumeContext<DomainEvents.CatalogCreated> context)
@@ -28,35 +28,35 @@ public class ProjectCatalogWhenChangedConsumer :
             context.Message.IsActive,
             context.Message.IsDeleted);
 
-        await _projectionsService.ProjectAsync(catalog, context.CancellationToken);
+        await _projectionsRepository.InsertAsync(catalog, context.CancellationToken);
     }
 
     public Task Consume(ConsumeContext<DomainEvents.CatalogDeleted> context)
-        => _projectionsService.RemoveCatalogAsync(context.Message.CatalogId, context.CancellationToken);
+        => _projectionsRepository.DeleteAsync(context.Message.CatalogId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvents.CatalogActivated> context)
-        => _projectionsService.UpdateFieldAsync<Projections.Catalog, bool, Guid>(
+        => _projectionsRepository.UpdateFieldAsync(
             id: context.Message.CatalogId,
             field: catalog => catalog.IsActive,
             value: true,
             cancellationToken: context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvents.CatalogDeactivated> context)
-        => _projectionsService.UpdateFieldAsync<Projections.Catalog, bool, Guid>(
+        => _projectionsRepository.UpdateFieldAsync(
             id: context.Message.CatalogId,
             field: catalog => catalog.IsActive,
             value: false,
             cancellationToken: context.CancellationToken);
 
     public async Task Consume(ConsumeContext<DomainEvents.CatalogDescriptionChanged> context)
-        => await _projectionsService.UpdateFieldAsync<Projections.Catalog, string, Guid>(
+        => await _projectionsRepository.UpdateFieldAsync(
             id: context.Message.CatalogId,
             field: catalog => catalog.Description,
             value: context.Message.Description,
             cancellationToken: context.CancellationToken);
 
     public async Task Consume(ConsumeContext<DomainEvents.CatalogTitleChanged> context)
-        => await _projectionsService.UpdateFieldAsync<Projections.Catalog, string, Guid>(
+        => await _projectionsRepository.UpdateFieldAsync(
             id: context.Message.CatalogId,
             field: catalog => catalog.Title,
             value: context.Message.Title,

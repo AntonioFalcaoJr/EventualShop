@@ -1,4 +1,4 @@
-using Application.EventSourcing.Projections;
+using Application.Abstractions.EventSourcing.Projections;
 using ECommerce.Abstractions.Messages.Queries.Responses;
 using ECommerce.Contracts.Catalogs;
 using MassTransit;
@@ -7,16 +7,20 @@ namespace Application.UseCases.QueryHandlers;
 
 public class GetCatalogItemsConsumer : IConsumer<Queries.GetCatalogItems>
 {
-    private readonly ICatalogProjectionsService _projectionsService;
+    private readonly IProjectionsRepository<Projections.CatalogItem> _projectionsRepository;
 
-    public GetCatalogItemsConsumer(ICatalogProjectionsService projectionsService)
+    public GetCatalogItemsConsumer(IProjectionsRepository<Projections.CatalogItem> projectionsRepository)
     {
-        _projectionsService = projectionsService;
+        _projectionsRepository = projectionsRepository;
     }
 
     public async Task Consume(ConsumeContext<Queries.GetCatalogItems> context)
     {
-        var catalogItems = await _projectionsService.GetCatalogItemsAsync(context.Message.CatalogId, context.Message.Limit, context.Message.Offset, context.CancellationToken);
+        var catalogItems = await _projectionsRepository.GetAsync(
+            limit: context.Message.Limit,
+            offset: context.Message.Offset,
+            predicate: item => item.CatalogId == context.Message.CatalogId,
+            cancellationToken: context.CancellationToken);
 
         await (catalogItems is null
             ? context.RespondAsync<NotFound>(new())
