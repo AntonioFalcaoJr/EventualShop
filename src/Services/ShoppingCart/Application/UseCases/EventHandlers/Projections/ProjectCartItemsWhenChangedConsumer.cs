@@ -1,5 +1,4 @@
-﻿using Application.EventSourcing.EventStore;
-using Application.EventSourcing.Projections;
+﻿using Application.Abstractions.EventSourcing.Projections;
 using ECommerce.Contracts.ShoppingCarts;
 using MassTransit;
 
@@ -9,50 +8,50 @@ public class ProjectCartItemsWhenChangedConsumer :
     IConsumer<DomainEvents.CartItemAdded>,
     IConsumer<DomainEvents.CartItemRemoved>,
     IConsumer<DomainEvents.CartItemIncreased>,
+    IConsumer<DomainEvents.CartDiscarded>,
     IConsumer<DomainEvents.CartItemDecreased>
 {
-    private readonly IShoppingCartEventStoreService _eventStoreService;
-    private readonly IShoppingCartProjectionsService _projectionsService;
+    private readonly IProjectionsRepository<ECommerce.Contracts.ShoppingCarts.Projections.ShoppingCartItem> _projectionsRepository;
 
-    public ProjectCartItemsWhenChangedConsumer(
-        IShoppingCartEventStoreService eventStoreService,
-        IShoppingCartProjectionsService projectionsService)
+    public ProjectCartItemsWhenChangedConsumer(IProjectionsRepository<ECommerce.Contracts.ShoppingCarts.Projections.ShoppingCartItem> projectionsRepository)
     {
-        _eventStoreService = eventStoreService;
-        _projectionsService = projectionsService;
+        _projectionsRepository = projectionsRepository;
     }
 
     public Task Consume(ConsumeContext<DomainEvents.CartItemAdded> context)
-        => ProjectAsync(context.Message.CartId, context.CancellationToken);
+    {
+        var shoppingCartItem = new ECommerce.Contracts.ShoppingCarts.Projections.ShoppingCartItem(
+            context.Message.CartId,
+            context.Message.ProductId,
+            context.Message.ProductName,
+            context.Message.UnitPrice,
+            context.Message.Quantity,
+            context.Message.PictureUrl,
+            context.Message.ItemId,
+            false);
+
+        return _projectionsRepository.InsertAsync(shoppingCartItem, context.CancellationToken);
+    }
 
     public Task Consume(ConsumeContext<DomainEvents.CartItemIncreased> context)
-        => ProjectAsync(context.Message.CartId, context.CancellationToken);
+        => _projectionsRepository.IncreaseFieldAsync(
+            id: context.Message.ItemId,
+            field: item => item.Quantity,
+            value: 1,
+            cancellationToken: context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvents.CartItemDecreased> context)
-        => ProjectAsync(context.Message.CartId, context.CancellationToken);
+        => _projectionsRepository.IncreaseFieldAsync(
+            id: context.Message.ItemId,
+            field: item => item.Quantity,
+            value: -1,
+            cancellationToken: context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvents.CartItemRemoved> context)
-        => _projectionsService.RemoveAsync<ShoppingCartItemProjection>(item
-            => item.Id == context.Message.ItemId, context.CancellationToken);
+        => _projectionsRepository.DeleteAsync(context.Message.ItemId, context.CancellationToken);
 
-    private async Task ProjectAsync(Guid cartId, CancellationToken cancellationToken)
-    {
-        var shoppingCart = await _eventStoreService.LoadAggregateFromStreamAsync(cartId, cancellationToken);
-
-        var shoppingCartItemProjections = shoppingCart.Items.Select(item
-            => new ShoppingCartItemProjection
-            {
-                Id = item.Id,
-                ShoppingCartId = shoppingCart.Id,
-                Quantity = item.Quantity,
-                PictureUrl = item.PictureUrl,
-                ProductName = item.ProductName,
-                UnitPrice = item.UnitPrice,
-                ProductId = item.ProductId,
-                IsDeleted = item.IsDeleted
-            }
-        );
-
-        await _projectionsService.ProjectManyAsync(shoppingCartItemProjections, cancellationToken);
-    }
+    public Task Consume(ConsumeContext<DomainEvents.CartDiscarded> context)
+        => _projectionsRepository.DeleteAsync(
+            filter: item => item.ShoppingCartId == context.Message.CartId,
+            cancellationToken: context.CancellationToken);
 }

@@ -1,25 +1,41 @@
-﻿using Application.EventSourcing.Projections;
+﻿using Application.Abstractions.EventSourcing.Projections;
 using ECommerce.Abstractions.Messages.Queries.Responses;
 using ECommerce.Contracts.ShoppingCarts;
 using MassTransit;
 
 namespace Application.UseCases.QueryHandlers;
 
-public class GetShoppingCartItemConsumer : IConsumer<Queries.GetShoppingCartItem>
+public class GetShoppingCartItemConsumer :
+    IConsumer<Queries.GetShoppingCartItem>,
+    IConsumer<Queries.GetShoppingCartItems>
 {
-    private readonly IShoppingCartProjectionsService _projectionsService;
+    private readonly IProjectionsRepository<Projections.ShoppingCartItem> _projectionsRepository;
 
-    public GetShoppingCartItemConsumer(IShoppingCartProjectionsService projectionsService)
+    public GetShoppingCartItemConsumer(IProjectionsRepository<Projections.ShoppingCartItem> projectionsRepository)
     {
-        _projectionsService = projectionsService;
+        _projectionsRepository = projectionsRepository;
     }
 
     public async Task Consume(ConsumeContext<Queries.GetShoppingCartItem> context)
     {
-        var shoppingCartItemProjection = await _projectionsService.GetShoppingCartItemAsync(context.Message.CartId, context.Message.ItemId, context.CancellationToken);
+        var shoppingCartItem = await _projectionsRepository.FindAsync(
+            item => item.ShoppingCartId == context.Message.CartId && item.Id == context.Message.ItemId, context.CancellationToken);
 
-        await (shoppingCartItemProjection is null
+        await (shoppingCartItem is null
             ? context.RespondAsync<NotFound>(new())
-            : context.RespondAsync<Responses.ShoppingCartItem>(shoppingCartItemProjection));
+            : context.RespondAsync(shoppingCartItem));
+    }
+
+    public async Task Consume(ConsumeContext<Queries.GetShoppingCartItems> context)
+    {
+        var shoppingCartItems = await _projectionsRepository.GetAllAsync(
+            context.Message.Limit,
+            context.Message.Offset,
+            item => item.ShoppingCartId == context.Message.CartId,
+            context.CancellationToken);
+
+        await (shoppingCartItems is null
+            ? context.RespondAsync<NotFound>(new())
+            : context.RespondAsync(shoppingCartItems));
     }
 }

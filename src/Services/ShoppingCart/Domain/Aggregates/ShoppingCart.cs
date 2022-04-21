@@ -15,7 +15,7 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     private readonly List<ShoppingCartItem> _items = new();
     private readonly List<IPaymentMethod> _paymentMethods = new();
 
-    public ShoppingCartStatus Status { get; private set; } = ShoppingCartStatus.Confirmed;
+    public ShoppingCartStatus Status { get; private set; }
     public Customer Customer { get; private set; }
 
     public decimal Total
@@ -28,7 +28,7 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
         => _paymentMethods;
 
     public void Handle(Commands.CreateCart cmd)
-        => RaiseEvent(new DomainEvents.CartCreated(Guid.NewGuid(), cmd.CustomerId));
+        => RaiseEvent(new DomainEvents.CartCreated(Guid.NewGuid(), cmd.CustomerId, ShoppingCartStatus.Confirmed.ToString()));
 
     public void Handle(Commands.AddCartItem cmd)
     {
@@ -36,19 +36,19 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
 
         RaiseEvent(item is null
             ? new DomainEvents.CartItemAdded(cmd.CartId, Guid.NewGuid(), cmd.Item.ProductId, cmd.Item.ProductName, cmd.Item.UnitPrice, cmd.Item.Quantity, cmd.Item.PictureUrl)
-            : new DomainEvents.CartItemIncreased(cmd.CartId, item.Id));
+            : new DomainEvents.CartItemIncreased(cmd.CartId, item.Id, item.UnitPrice));
     }
 
     public void Handle(Commands.IncreaseShoppingCartItem cmd)
     {
-        if (_items.Exists(item => item.Id == cmd.ItemId))
-            RaiseEvent(new DomainEvents.CartItemIncreased(cmd.CartId, cmd.ItemId));
+        if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is {IsDeleted: false} item)
+            RaiseEvent(new DomainEvents.CartItemIncreased(cmd.CartId, cmd.ItemId, item.UnitPrice));
     }
 
     public void Handle(Commands.DecreaseShoppingCartItem cmd)
     {
-        if (_items.Exists(item => item.Id == cmd.ItemId))
-            RaiseEvent(new DomainEvents.CartItemDecreased(cmd.CartId, cmd.ItemId));
+        if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is {IsDeleted: false} item)
+            RaiseEvent(new DomainEvents.CartItemDecreased(cmd.CartId, cmd.ItemId, item.UnitPrice));
     }
 
     public void Handle(Commands.RemoveCartItem cmd)
@@ -82,6 +82,7 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     {
         Id = @event.CartId;
         Customer = new(@event.CustomerId);
+        Status = ShoppingCartStatus.FromName(@event.Status);
     }
 
     private void When(DomainEvents.CartCheckedOut _)

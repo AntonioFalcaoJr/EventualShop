@@ -1,10 +1,5 @@
-﻿using Application.EventSourcing.EventStore;
-using Application.EventSourcing.Projections;
-using Domain.Entities.ShoppingCartItems;
-using Domain.ValueObjects.PaymentMethods;
-using Domain.ValueObjects.PaymentMethods.CreditCards;
-using Domain.ValueObjects.PaymentMethods.DebitCards;
-using Domain.ValueObjects.PaymentMethods.PayPal;
+﻿using Application.Abstractions.EventSourcing.Projections;
+using Domain.Enumerations;
 using ECommerce.Contracts.ShoppingCarts;
 using MassTransit;
 
@@ -23,129 +18,73 @@ public class ProjectCartWhenChangedConsumer :
     IConsumer<DomainEvents.CartItemDecreased>,
     IConsumer<DomainEvents.CartDiscarded>
 {
-    private readonly IShoppingCartEventStoreService _eventStoreService;
-    private readonly IShoppingCartProjectionsService _projectionsService;
+    private readonly IProjectionsRepository<ECommerce.Contracts.ShoppingCarts.Projections.ShoppingCart> _projectionsRepository;
 
-    public ProjectCartWhenChangedConsumer(
-        IShoppingCartEventStoreService eventStoreService,
-        IShoppingCartProjectionsService projectionsService)
+    public ProjectCartWhenChangedConsumer(IProjectionsRepository<ECommerce.Contracts.ShoppingCarts.Projections.ShoppingCart> projectionsRepository)
     {
-        _eventStoreService = eventStoreService;
-        _projectionsService = projectionsService;
+        _projectionsRepository = projectionsRepository;
     }
 
     public Task Consume(ConsumeContext<DomainEvents.BillingAddressChanged> context)
-        => ProjectAsync(context.Message.CartId, context.CancellationToken);
-
-    public Task Consume(ConsumeContext<DomainEvents.CartCreated> context)
-        => ProjectAsync(context.Message.CartId, context.CancellationToken);
-
-    public Task Consume(ConsumeContext<DomainEvents.CartItemAdded> context)
-        => ProjectAsync(context.Message.CartId, context.CancellationToken);
-
-    public Task Consume(ConsumeContext<DomainEvents.CreditCardAdded> context)
-        => ProjectAsync(context.Message.CartId, context.CancellationToken);
-
-    public Task Consume(ConsumeContext<DomainEvents.PayPalAdded> context)
-        => ProjectAsync(context.Message.CartId, context.CancellationToken);
-
-    public Task Consume(ConsumeContext<DomainEvents.CartItemRemoved> context)
-        => ProjectAsync(context.Message.CartId, context.CancellationToken);
+        => _projectionsRepository.UpdateFieldAsync(
+            id: context.Message.CartId,
+            field: cart => cart.Customer.BillingAddress,
+            value: context.Message.Address,
+            cancellationToken: context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvents.CartCheckedOut> context)
-        => ProjectAsync(context.Message.CartId, context.CancellationToken);
+        => _projectionsRepository.UpdateFieldAsync(
+            id: context.Message.CartId,
+            field: cart => cart.Status,
+            value: ShoppingCartStatus.CheckedOut.ToString(),
+            cancellationToken: context.CancellationToken);
 
-    public Task Consume(ConsumeContext<DomainEvents.ShippingAddressAdded> context)
-        => ProjectAsync(context.Message.CartId, context.CancellationToken);
+    public async Task Consume(ConsumeContext<DomainEvents.CartCreated> context)
+    {
+        var customer = new ECommerce.Contracts.ShoppingCarts.Projections.Customer(context.Message.CustomerId);
+        var shoppingCart = new ECommerce.Contracts.ShoppingCarts.Projections.ShoppingCart(context.Message.CartId, customer, context.Message.Status);
+        await _projectionsRepository.InsertAsync(shoppingCart, context.CancellationToken);
+    }
 
-    public Task Consume(ConsumeContext<DomainEvents.CartItemIncreased> context)
-        => ProjectAsync(context.Message.CartId, context.CancellationToken);
+    public Task Consume(ConsumeContext<DomainEvents.CartDiscarded> context)
+        => _projectionsRepository.DeleteAsync(context.Message.CartId, context.CancellationToken);
+
+    public Task Consume(ConsumeContext<DomainEvents.CartItemAdded> context)
+        => _projectionsRepository.IncreaseFieldAsync(
+            id: context.Message.CartId,
+            field: cart => cart.Total,
+            value: context.Message.Quantity * context.Message.UnitPrice,
+            cancellationToken: context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvents.CartItemDecreased> context)
-        => ProjectAsync(context.Message.CartId, context.CancellationToken);
+        => _projectionsRepository.IncreaseFieldAsync(
+            id: context.Message.CartId,
+            field: cart => cart.Total,
+            value: context.Message.UnitPrice * -1,
+            cancellationToken: context.CancellationToken);
+
+    public Task Consume(ConsumeContext<DomainEvents.CartItemIncreased> context)
+        => _projectionsRepository.IncreaseFieldAsync(
+            id: context.Message.CartId,
+            field: cart => cart.Total,
+            value: context.Message.UnitPrice,
+            cancellationToken: context.CancellationToken);
+
+    // TODO
+    public Task Consume(ConsumeContext<DomainEvents.CartItemRemoved> context)
+        => Task.CompletedTask;
+
+    // TODO Segregate Payment Methods projections
+    public Task Consume(ConsumeContext<DomainEvents.CreditCardAdded> context)
+        => Task.CompletedTask;
     
-    public Task Consume(ConsumeContext<DomainEvents.CartDiscarded> context)
-        => ProjectAsync(context.Message.CartId, context.CancellationToken);
+    public Task Consume(ConsumeContext<DomainEvents.PayPalAdded> context)
+        => Task.CompletedTask;
 
-    private async Task ProjectAsync(Guid cartId, CancellationToken cancellationToken)
-    {
-        var shoppingCart = await _eventStoreService.LoadAggregateFromStreamAsync(cartId, cancellationToken);
-
-        var cartProjection = new ShoppingCartProjection
-        {
-            Id = shoppingCart.Id,
-            IsDeleted = shoppingCart.IsDeleted,
-            Customer = new()
-            {
-                Id = shoppingCart.Customer.Id,
-                BillingAddress = new()
-                {
-                    City = shoppingCart.Customer.BillingAddress?.City,
-                    Country = shoppingCart.Customer.BillingAddress?.Country,
-                    Number = shoppingCart.Customer.BillingAddress?.Number,
-                    State = shoppingCart.Customer.BillingAddress?.State,
-                    Street = shoppingCart.Customer.BillingAddress?.Street,
-                    ZipCode = shoppingCart.Customer.BillingAddress?.ZipCode
-                },
-                ShippingAddress = new()
-                {
-                    City = shoppingCart.Customer.ShippingAddress?.City,
-                    Country = shoppingCart.Customer.ShippingAddress?.Country,
-                    Number = shoppingCart.Customer.ShippingAddress?.Number,
-                    State = shoppingCart.Customer.ShippingAddress?.State,
-                    Street = shoppingCart.Customer.ShippingAddress?.Street,
-                    ZipCode = shoppingCart.Customer.ShippingAddress?.ZipCode
-                }
-            },
-            Total = shoppingCart.Total,
-            Items = shoppingCart.Items.Any()
-                ? shoppingCart.Items
-                    .Select<ShoppingCartItem, ShoppingCartItemProjection>(item
-                        => new()
-                        {
-                            Id = item.Id,
-                            Quantity = item.Quantity,
-                            PictureUrl = item.PictureUrl,
-                            ProductName = item.ProductName,
-                            UnitPrice = item.UnitPrice,
-                            ProductId = item.ProductId
-                        }
-                    )
-                : default,
-            PaymentMethods = shoppingCart.PaymentMethods
-                .Select<IPaymentMethod, IPaymentMethodProjection>(method
-                    => method switch
-                    {
-                        CreditCardPaymentMethod creditCard
-                            => new CreditCardPaymentMethodProjection
-                            {
-                                Amount = creditCard.Amount,
-                                Expiration = creditCard.Expiration,
-                                Number = creditCard.Number,
-                                HolderName = creditCard.HolderName,
-                                SecurityNumber = creditCard.SecurityNumber
-                            },
-                        DebitCardPaymentMethod debitCard
-                            => new DebitCardPaymentMethodProjection
-                            {
-                                Amount = debitCard.Amount,
-                                Expiration = debitCard.Expiration,
-                                Number = debitCard.Number,
-                                HolderName = debitCard.HolderName,
-                                SecurityNumber = debitCard.SecurityNumber
-                            },
-                        PayPalPaymentMethod payPal
-                            => new PayPalPaymentMethodProjection
-                            {
-                                Amount = payPal.Amount,
-                                Password = payPal.Password,
-                                UserName = payPal.UserName
-                            },
-                        _ => default
-                    }),
-            Status = shoppingCart.Status.ToString()
-        };
-
-        await _projectionsService.ProjectAsync(cartProjection, cancellationToken);
-    }
+    public Task Consume(ConsumeContext<DomainEvents.ShippingAddressAdded> context)
+        => _projectionsRepository.UpdateFieldAsync(
+            id: context.Message.CartId,
+            field: cart => cart.Customer.ShippingAddress,
+            value: context.Message.Address,
+            cancellationToken: context.CancellationToken);
 }
