@@ -1,7 +1,5 @@
 using Application.Abstractions.EventSourcing.Projections;
-using Infrastructure.Projections.Abstractions;
 using Infrastructure.Projections.Abstractions.Contexts;
-using Infrastructure.Projections.Contexts;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;

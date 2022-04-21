@@ -7,7 +7,7 @@ using Infrastructure.Projections.Abstractions.Pagination;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
-namespace Infrastructure.Projections.Abstractions;
+namespace Infrastructure.Projections;
 
 public class ProjectionsRepository<TProjection> : IProjectionsRepository<TProjection>
     where TProjection : IProjection
