@@ -1,4 +1,4 @@
-﻿using Application.Abstractions.EventSourcing.Projections;
+﻿using Application.Abstractions.Projections;
 using Domain.Enumerations;
 using ECommerce.Contracts.ShoppingCarts;
 using MassTransit;

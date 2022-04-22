@@ -1,4 +1,4 @@
-﻿using Application.Abstractions.EventSourcing.Projections;
+﻿using Application.Abstractions.Projections;
 using Infrastructure.Projections.Abstractions.Contexts;
 using Infrastructure.Projections.Abstractions.Contexts.BsonSerializers;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,4 +1,4 @@
-using Application.Abstractions.EventSourcing.Projections;
+using Application.Abstractions.Projections;
 using Infrastructure.Projections.Abstractions.Contexts;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson;

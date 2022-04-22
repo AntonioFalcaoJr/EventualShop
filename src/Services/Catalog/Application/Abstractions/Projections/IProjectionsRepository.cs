@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 using ECommerce.Abstractions.Messages.Queries.Paging;
 using ECommerce.Abstractions.Projections;
 
-namespace Application.Abstractions.EventSourcing.Projections;
+namespace Application.Abstractions.Projections;
 
 public interface IProjectionsRepository<TProjection>
     where TProjection : IProjection

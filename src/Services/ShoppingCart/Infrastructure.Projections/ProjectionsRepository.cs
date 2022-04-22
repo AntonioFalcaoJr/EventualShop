@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using Application.Abstractions.EventSourcing.Projections;
+using Application.Abstractions.Projections;
 using ECommerce.Abstractions.Messages.Queries.Paging;
 using ECommerce.Abstractions.Projections;
 using Infrastructure.Projections.Abstractions.Contexts;

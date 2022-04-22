@@ -1,7 +1,7 @@
 ﻿using Domain.Abstractions.Aggregates;
 using ECommerce.Abstractions.Messages.Events;
 
-namespace Application.Abstractions.EventSourcing.EventStore.Events;
+namespace Application.Abstractions.EventStore.Events;
 
 public abstract record StoreEvent<TAggregate, TId>
     where TAggregate : IAggregateRoot<TId>
