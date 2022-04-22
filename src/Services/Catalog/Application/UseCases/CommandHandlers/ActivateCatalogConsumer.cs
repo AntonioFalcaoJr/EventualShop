@@ -1,4 +1,4 @@
-﻿using Application.EventSourcing.EventStore;
+﻿using Application.EventStore;
 using ECommerce.Contracts.Catalogs;
 using MassTransit;
 

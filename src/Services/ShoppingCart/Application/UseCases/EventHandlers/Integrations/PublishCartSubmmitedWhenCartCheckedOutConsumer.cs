@@ -1,4 +1,4 @@
-﻿using Application.EventSourcing.EventStore;
+﻿using Application.EventStore;
 using Domain.ValueObjects.PaymentMethods;
 using Domain.ValueObjects.PaymentMethods.CreditCards;
 using Domain.ValueObjects.PaymentMethods.DebitCards;

@@ -1,7 +1,7 @@
 using Application.Abstractions.EventStore;
-using Application.EventSourcing.EventStore.Events;
+using Application.EventStore.Events;
 using Domain.Aggregates;
 
-namespace Application.EventSourcing.EventStore;
+namespace Application.EventStore;
 
 public interface ICatalogEventStoreRepository : IEventStoreRepository<Catalog, CatalogStoreEvent, CatalogSnapshot, Guid> { }
