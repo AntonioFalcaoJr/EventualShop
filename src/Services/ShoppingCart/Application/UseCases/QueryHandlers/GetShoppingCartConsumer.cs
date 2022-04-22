@@ -5,13 +5,13 @@ using MassTransit;
 
 namespace Application.UseCases.QueryHandlers;
 
-public class GetShoppingCartDetailsConsumer :
+public class GetShoppingCartConsumer :
     IConsumer<Queries.GetShoppingCart>,
     IConsumer<Queries.GetCustomerShoppingCart>
 {
     private readonly IProjectionsRepository<Projections.ShoppingCart> _projectionsRepository;
 
-    public GetShoppingCartDetailsConsumer(IProjectionsRepository<Projections.ShoppingCart> projectionsRepository)
+    public GetShoppingCartConsumer(IProjectionsRepository<Projections.ShoppingCart> projectionsRepository)
     {
         _projectionsRepository = projectionsRepository;
     }
