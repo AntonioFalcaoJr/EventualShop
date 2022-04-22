@@ -24,6 +24,22 @@ public abstract class ApplicationController : ControllerBase
         return Accepted();
     }
 
+    protected async Task<IActionResult> GetProjectionAsync<TQuery, TProjection>(TQuery query, CancellationToken cancellationToken)
+        where TQuery : class, IQuery
+        where TProjection : class
+    {
+        var response = await _bus
+            .CreateRequestClient<TQuery>(Address<TQuery>())
+            .GetResponse<TProjection, NotFound>(query, cancellationToken);
+
+        return response.Message switch
+        {
+            TProjection projection => Ok(projection),
+            NotFound _ => NotFound(),
+            _ => Problem()
+        };
+    }
+    
     protected async Task<IActionResult> GetResponseAsync<TQuery, TResponse>(TQuery query, CancellationToken cancellationToken)
         where TQuery : class, IQuery
         where TResponse : class, IResponse
