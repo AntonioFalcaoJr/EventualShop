@@ -70,14 +70,17 @@ public class ProjectCartWhenChangedConsumer :
             value: context.Message.UnitPrice,
             cancellationToken: context.CancellationToken);
 
-    // TODO
     public Task Consume(ConsumeContext<DomainEvents.CartItemRemoved> context)
-        => Task.CompletedTask;
+        => _projectionsRepository.IncreaseFieldAsync(
+            id: context.Message.CartId,
+            field: cart => cart.Total,
+            value: context.Message.UnitPrice * context.Message.Quantity * -1,
+            cancellationToken: context.CancellationToken);
 
     // TODO Segregate Payment Methods projections
     public Task Consume(ConsumeContext<DomainEvents.CreditCardAdded> context)
         => Task.CompletedTask;
-    
+
     public Task Consume(ConsumeContext<DomainEvents.PayPalAdded> context)
         => Task.CompletedTask;
 

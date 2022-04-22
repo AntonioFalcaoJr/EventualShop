@@ -69,7 +69,7 @@ public class ProjectionsRepository<TProjection> : IProjectionsRepository<TProjec
             update: new ObjectUpdateDefinition<TProjection>(new()).Set(field, value),
             cancellationToken: cancellationToken);
 
-    public Task IncreaseFieldAsync<TField, TId>(TId id, Expression<Func<TProjection, TField>> field, TField value, CancellationToken cancellationToken)
+    public Task IncreaseFieldAsync<TId, TField>(TId id, Expression<Func<TProjection, TField>> field, TField value, CancellationToken cancellationToken)
         where TId : struct
         => _collection.UpdateOneAsync(
             filter: projection => projection.Id.Equals(id),

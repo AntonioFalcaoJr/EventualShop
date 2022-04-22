@@ -53,8 +53,8 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
 
     public void Handle(Commands.RemoveCartItem cmd)
     {
-        if (_items.Exists(item => item.Id == cmd.ItemId))
-            RaiseEvent(new DomainEvents.CartItemRemoved(cmd.CartId, cmd.ItemId));
+        if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is {IsDeleted: false} item)
+            RaiseEvent(new DomainEvents.CartItemRemoved(cmd.CartId, cmd.ItemId, item.UnitPrice, item.Quantity));
     }
 
     public void Handle(Commands.AddCreditCard cmd)

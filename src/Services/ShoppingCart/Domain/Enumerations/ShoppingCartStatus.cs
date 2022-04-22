@@ -1,9 +1,11 @@
 ﻿using Ardalis.SmartEnum;
+using Newtonsoft.Json;
 
 namespace Domain.Enumerations;
 
 public sealed class ShoppingCartStatus : SmartEnum<ShoppingCartStatus>
 {
+    [JsonConstructor]
     private ShoppingCartStatus(string name, int value)
         : base(name, value) { }
 
