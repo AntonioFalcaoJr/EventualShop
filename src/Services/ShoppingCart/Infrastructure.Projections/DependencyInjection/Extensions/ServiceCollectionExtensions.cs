@@ -20,8 +20,8 @@ public static class ServiceCollectionExtensions
         BsonSerializer.RegisterSerializer(typeof(decimal), new DecimalSerializer(BsonType.Decimal128));
         BsonSerializer.RegisterSerializer(typeof(decimal?), new NullableSerializer<decimal>(new DecimalSerializer(BsonType.Decimal128)));
 
-        BsonClassMap.RegisterClassMap<ECommerce.Contracts.ShoppingCarts.Projections.CreditCardPaymentMethodProjection>();
-        BsonClassMap.RegisterClassMap<ECommerce.Contracts.ShoppingCarts.Projections.DebitCardPaymentMethodProjection>();
-        BsonClassMap.RegisterClassMap<ECommerce.Contracts.ShoppingCarts.Projections.PayPalPaymentMethodProjection>();
+        BsonClassMap.RegisterClassMap<ECommerce.Contracts.ShoppingCarts.Projections.CreditCardPaymentMethod>();
+        BsonClassMap.RegisterClassMap<ECommerce.Contracts.ShoppingCarts.Projections.DebitCardPaymentMethod>();
+        BsonClassMap.RegisterClassMap<ECommerce.Contracts.ShoppingCarts.Projections.PayPalPaymentMethod>();
     }
 }

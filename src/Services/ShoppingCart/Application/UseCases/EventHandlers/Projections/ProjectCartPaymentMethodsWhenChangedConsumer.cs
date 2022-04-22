@@ -9,9 +9,9 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
     IConsumer<DomainEvents.PayPalAdded>,
     IConsumer<DomainEvents.CartDiscarded>
 {
-    private readonly IProjectionsRepository<ECommerce.Contracts.ShoppingCarts.Projections.IPaymentMethodProjection> _projectionsRepository;
+    private readonly IProjectionsRepository<ECommerce.Contracts.ShoppingCarts.Projections.IPaymentMethod> _projectionsRepository;
 
-    public ProjectCartPaymentMethodsWhenChangedConsumer(IProjectionsRepository<ECommerce.Contracts.ShoppingCarts.Projections.IPaymentMethodProjection> projectionsRepository)
+    public ProjectCartPaymentMethodsWhenChangedConsumer(IProjectionsRepository<ECommerce.Contracts.ShoppingCarts.Projections.IPaymentMethod> projectionsRepository)
     {
         _projectionsRepository = projectionsRepository;
     }
@@ -23,7 +23,7 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
 
     public Task Consume(ConsumeContext<DomainEvents.CreditCardAdded> context)
     {
-        var creditCard = new ECommerce.Contracts.ShoppingCarts.Projections.CreditCardPaymentMethodProjection
+        var creditCard = new ECommerce.Contracts.ShoppingCarts.Projections.CreditCardPaymentMethod
         {
             Amount = context.Message.CreditCard.Amount,
             Expiration = context.Message.CreditCard.Expiration,
@@ -40,7 +40,7 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
 
     public Task Consume(ConsumeContext<DomainEvents.PayPalAdded> context)
     {
-        var paypal = new ECommerce.Contracts.ShoppingCarts.Projections.PayPalPaymentMethodProjection()
+        var paypal = new ECommerce.Contracts.ShoppingCarts.Projections.PayPalPaymentMethod()
         {
             Amount = context.Message.PayPal.Amount,
             Id = context.Message.PayPal.Id,

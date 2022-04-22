@@ -27,7 +27,7 @@ public class ShoppingCartsController : ApplicationController
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> CreateAsync(Requests.CreateCart request, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.CreateCart>(new(request.CustomerId), cancellationToken);
-    
+
     [HttpGet("{cartId:guid}")]
     [ProducesResponseType(typeof(Projections.ShoppingCart), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
@@ -93,6 +93,18 @@ public class ShoppingCartsController : ApplicationController
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> ChangeAsync([NotEmpty] Guid cartId, Requests.AddAddress address, IMapper mapper, CancellationToken cancellationToken)
         => SendCommandAsync<Commands.ChangeBillingAddress>(new(cartId, mapper.Map<Models.Address>(address)), cancellationToken);
+
+    [HttpGet("{cartId:guid}/payment-methods")]
+    [ProducesResponseType(typeof(IPagedResult<Projections.IPaymentMethod>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> GetPaymentMethodsAsync([NotEmpty] Guid cartId, int limit, int offset, CancellationToken cancellationToken)
+        => GetProjectionAsync<Queries.GetShoppingCartPaymentMethods, IPagedResult<Projections.IPaymentMethod>>(new(cartId, limit, offset), cancellationToken);
+
+    [HttpGet("{cartId:guid}/payment-methods/{paymentMethodId:guid}")]
+    [ProducesResponseType(typeof(Projections.IPaymentMethod), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> GetPaymentMethodAsync([NotEmpty] Guid cartId, [NotEmpty] Guid paymentMethodId, CancellationToken cancellationToken)
+        => GetProjectionAsync<Queries.GetShoppingCartPaymentMethod, Projections.IPaymentMethod>(new(cartId, paymentMethodId), cancellationToken);
 
     [HttpPost("{cartId:guid}/payment-methods/credit-card")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
