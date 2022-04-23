@@ -1,5 +1,4 @@
-﻿using Application.EventSourcing.EventStore;
-using Application.EventSourcing.Projections;
+﻿using Application.Abstractions.Projections;
 using ECommerce.Contracts.Orders;
 using MassTransit;
 
@@ -7,25 +6,21 @@ namespace Application.UseCases.EventHandlers.Projections;
 
 public class ProjectOrderDetailsWhenOrderChangedConsumer : IConsumer<DomainEvents.OrderPlaced>
 {
-    private readonly IOrderEventStoreService _eventStoreService;
-    private readonly IOrderProjectionsService _projectionsService;
+    private readonly IProjectionRepository<ECommerce.Contracts.Orders.Projections.Order> _repository;
 
-    public ProjectOrderDetailsWhenOrderChangedConsumer(IOrderEventStoreService eventStoreService, IOrderProjectionsService projectionsService)
+    public ProjectOrderDetailsWhenOrderChangedConsumer(IProjectionRepository<ECommerce.Contracts.Orders.Projections.Order> repository)
     {
-        _eventStoreService = eventStoreService;
-        _projectionsService = projectionsService;
+        _repository = repository;
     }
 
     public async Task Consume(ConsumeContext<DomainEvents.OrderPlaced> context)
     {
-        var order = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.OrderId, context.CancellationToken);
-
-        var orderDetailsProjection = new OrderDetailsProjection
+        var order = new ECommerce.Contracts.Orders.Projections.Order
         {
-            Id = order.Id,
-            IsDeleted = order.IsDeleted
+            Id = context.Message.OrderId,
+            IsDeleted = false
         };
 
-        await _projectionsService.ProjectAsync(orderDetailsProjection, context.CancellationToken);
+        await _repository.InsertAsync(order, context.CancellationToken);
     }
 }
