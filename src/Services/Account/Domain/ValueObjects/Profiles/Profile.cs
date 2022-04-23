@@ -3,7 +3,7 @@ using Domain.ValueObjects.Addresses;
 
 namespace Domain.ValueObjects.Profiles;
 
-public record Profile : ValueObject
+public record Profile : ValueObject<ProfileValidator>
 {
     public Profile(string email, string firstName)
     {
@@ -35,7 +35,4 @@ public record Profile : ValueObject
 
     public void SetProfessionalAddress(Address professionalAddress)
         => ProfessionalAddress = professionalAddress;
-
-    protected override bool Validate()
-        => OnValidate<ProfileValidator, Profile>();
 }

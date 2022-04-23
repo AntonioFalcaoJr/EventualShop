@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
-using Application.Abstractions.EventSourcing.EventStore;
-using Application.Abstractions.EventSourcing.EventStore.Events;
+using Application.Abstractions.EventStore;
+using Application.Abstractions.EventStore.Events;
 using Application.Abstractions.Notifications;
 using Domain.Abstractions.Aggregates;
 using ECommerce.Abstractions.Messages.Events;
@@ -16,10 +16,10 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
     where TSnapshot : Snapshot<TAggregate, TId>, new()
     where TId : struct
 {
+    private readonly INotificationContext _notificationContext;
     private readonly EventStoreOptions _options;
     private readonly IPublishEndpoint _publishEndpoint;
     private readonly IEventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId> _repository;
-    private readonly INotificationContext _notificationContext;
 
     protected EventStoreService(
         IPublishEndpoint publishEndpoint,
@@ -35,7 +35,7 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
 
     public async Task AppendEventsToStreamAsync(TAggregate aggregateState, CancellationToken cancellationToken)
     {
-        if (aggregateState.IsValid is false)
+        if (await aggregateState.IsValidAsync is false)
         {
             _notificationContext.AddErrors(aggregateState.Errors);
             return;

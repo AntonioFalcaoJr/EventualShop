@@ -6,7 +6,7 @@ using Domain.ValueObjects.PaymentMethods;
 using Domain.ValueObjects.PaymentMethods.CreditCards;
 using Domain.ValueObjects.PaymentMethods.PayPal;
 using ECommerce.Abstractions.Messages.Events;
-using ECommerce.Contracts.ShoppingCart;
+using ECommerce.Contracts.ShoppingCarts;
 
 namespace Domain.Aggregates;
 
@@ -15,7 +15,7 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     private readonly List<ShoppingCartItem> _items = new();
     private readonly List<IPaymentMethod> _paymentMethods = new();
 
-    public ShoppingCartStatus Status { get; private set; } = ShoppingCartStatus.Confirmed;
+    public ShoppingCartStatus Status { get; private set; }
     public Customer Customer { get; private set; }
 
     public decimal Total
@@ -28,33 +28,33 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
         => _paymentMethods;
 
     public void Handle(Commands.CreateCart cmd)
-        => RaiseEvent(new DomainEvents.CartCreated(Guid.NewGuid(), cmd.CustomerId));
+        => RaiseEvent(new DomainEvents.CartCreated(Guid.NewGuid(), cmd.CustomerId, ShoppingCartStatus.Confirmed.ToString()));
 
     public void Handle(Commands.AddCartItem cmd)
     {
         var item = _items.SingleOrDefault(item => item.ProductId == cmd.Item.ProductId);
 
         RaiseEvent(item is null
-            ? new DomainEvents.CartItemAdded(cmd.CartId, Guid.NewGuid(), cmd.Item.ProductId, cmd.Item.ProductName, cmd.Item.UnitPrice, cmd.Item.Quantity, cmd.Item.PictureUrl)
-            : new DomainEvents.CartItemIncreased(cmd.CartId, item.Id));
+            ? new DomainEvents.CartItemAdded(cmd.CartId, Guid.NewGuid(), cmd.Item)
+            : new DomainEvents.CartItemIncreased(cmd.CartId, item.Id, item.UnitPrice));
     }
 
     public void Handle(Commands.IncreaseShoppingCartItem cmd)
     {
-        if (_items.Exists(item => item.Id == cmd.ItemId))
-            RaiseEvent(new DomainEvents.CartItemIncreased(cmd.CartId, cmd.ItemId));
+        if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is {IsDeleted: false} item)
+            RaiseEvent(new DomainEvents.CartItemIncreased(cmd.CartId, cmd.ItemId, item.UnitPrice));
     }
 
     public void Handle(Commands.DecreaseShoppingCartItem cmd)
     {
-        if (_items.Exists(item => item.Id == cmd.ItemId))
-            RaiseEvent(new DomainEvents.CartItemDecreased(cmd.CartId, cmd.ItemId));
+        if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is {IsDeleted: false} item)
+            RaiseEvent(new DomainEvents.CartItemDecreased(cmd.CartId, cmd.ItemId, item.UnitPrice));
     }
 
     public void Handle(Commands.RemoveCartItem cmd)
     {
-        if (_items.Exists(item => item.Id == cmd.ItemId))
-            RaiseEvent(new DomainEvents.CartItemRemoved(cmd.CartId, cmd.ItemId));
+        if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is {IsDeleted: false} item)
+            RaiseEvent(new DomainEvents.CartItemRemoved(cmd.CartId, cmd.ItemId, item.UnitPrice, item.Quantity));
     }
 
     public void Handle(Commands.AddCreditCard cmd)
@@ -82,6 +82,7 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     {
         Id = @event.CartId;
         Customer = new(@event.CustomerId);
+        Status = ShoppingCartStatus.FromName(@event.Status);
     }
 
     private void When(DomainEvents.CartCheckedOut _)
@@ -102,11 +103,12 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     private void When(DomainEvents.CartItemAdded @event)
         => _items.Add(new(
             @event.ItemId,
-            @event.ProductId,
-            @event.ProductName,
-            @event.UnitPrice,
-            @event.Quantity,
-            @event.PictureUrl));
+            @event.Item.ProductId,
+            @event.Item.ProductName,
+            @event.Item.UnitPrice,
+            @event.Item.Quantity,
+            @event.Item.PictureUrl,
+            @event.Item.Sku));
 
     private void When(DomainEvents.CreditCardAdded @event)
         => _paymentMethods.Add(

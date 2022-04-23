@@ -4,7 +4,7 @@ namespace Domain.Entities.ShoppingCartItems;
 
 public class ShoppingCartItem : Entity<Guid, ShoppingCartItemValidator>
 {
-    public ShoppingCartItem(Guid id, Guid productId, string productName, decimal unitPrice, int quantity, string pictureUrl)
+    public ShoppingCartItem(Guid id, Guid productId, string productName, decimal unitPrice, int quantity, string pictureUrl, string sku)
     {
         Id = id;
         ProductId = productId;
@@ -12,6 +12,7 @@ public class ShoppingCartItem : Entity<Guid, ShoppingCartItemValidator>
         UnitPrice = unitPrice;
         Quantity = quantity;
         PictureUrl = pictureUrl;
+        Sku = sku;
     }
 
     public Guid ProductId { get; }
@@ -19,6 +20,7 @@ public class ShoppingCartItem : Entity<Guid, ShoppingCartItemValidator>
     public decimal UnitPrice { get; }
     public int Quantity { get; private set; }
     public string PictureUrl { get; }
+    public string Sku { get; }
 
     public void Increase()
         => Quantity += 1;

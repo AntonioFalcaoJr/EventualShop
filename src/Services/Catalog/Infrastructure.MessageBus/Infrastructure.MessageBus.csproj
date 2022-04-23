@@ -1,16 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="$(Microsoft_Extensions_Hosting_Version)" />
-        <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="$(Microsoft_Extensions_Version)" />
-        <PackageReference Include="MassTransit.Newtonsoft" Version="$(MassTransit_Version)" />
-        <PackageReference Include="MassTransit.RabbitMQ" Version="$(MassTransit_Version)" />
-        <PackageReference Include="MassTransit.Quartz" Version="$(MassTransit_Version)" />
-        <PackageReference Include="Quartz.Extensions.Hosting" Version="$(Quartz_Version)" />
-        <PackageReference Include="Quartz.Serialization.Json" Version="$(Quartz_Version)" />
-        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="$(FluentValidation_Version)" />
-        <PackageReference Include="Serilog" Version="$(Serilog_Version)" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="$(Microsoft_Extensions_Hosting_Version)"/>
+        <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="$(Microsoft_Extensions_Version)"/>
+        <PackageReference Include="MassTransit.Newtonsoft" Version="$(MassTransit_Version)"/>
+        <PackageReference Include="MassTransit.RabbitMQ" Version="$(MassTransit_Version)"/>
+        <PackageReference Include="MassTransit.Quartz" Version="$(MassTransit_Version)"/>
+        <PackageReference Include="Quartz.Extensions.Hosting" Version="$(Quartz_Version)"/>
+        <PackageReference Include="Quartz.Serialization.Json" Version="$(Quartz_Version)"/>
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="$(FluentValidation_Version)"/>
+        <PackageReference Include="Serilog" Version="$(Serilog_Version)"/>
+
+        <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.0.0-rc9"/>
+        <PackageReference Include="OpenTelemetry.Exporter.Jaeger" Version="1.2.0-rc3"/>
+        <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.0.0-rc9"/>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Application\Application.csproj" />
+        <ProjectReference Include="..\Application\Application.csproj"/>
     </ItemGroup>
 </Project>

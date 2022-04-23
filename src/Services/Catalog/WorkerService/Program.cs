@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Infrastructure.EventStore.Contexts;
 using Infrastructure.EventStore.DependencyInjection.Extensions;
 using Infrastructure.EventStore.DependencyInjection.Options;
@@ -41,6 +42,7 @@ builder.ConfigureServices((context, services) =>
     services.AddMessageBus();
     services.AddMessageValidators();
     services.AddNotificationContext();
+    services.AddOpenTelemetry();
 
     services.ConfigureEventStoreOptions(
         context.Configuration.GetSection(nameof(EventStoreOptions)));
@@ -48,14 +50,17 @@ builder.ConfigureServices((context, services) =>
     services.ConfigureSqlServerRetryOptions(
         context.Configuration.GetSection(nameof(SqlServerRetryOptions)));
 
-    services.ConfigureRabbitMqOptions(
-        context.Configuration.GetSection(nameof(RabbitMqOptions)));
+    services.ConfigureMessageBusOptions(
+        context.Configuration.GetSection(nameof(MessageBusOptions)));
 
     services.ConfigureQuartzOptions(
         context.Configuration.GetSection(nameof(QuartzOptions)));
-    
+
     services.ConfigureMassTransitHostOptions(
         context.Configuration.GetSection(nameof(MassTransitHostOptions)));
+
+    services.ConfigureRabbitMqTransportOptions(
+        context.Configuration.GetSection(nameof(RabbitMqTransportOptions)));
 });
 
 using var host = builder.Build();
@@ -71,7 +76,7 @@ applicationLifetime.ApplicationStopping.Register(() =>
 applicationLifetime.ApplicationStopped.Register(() =>
 {
     Log.Information("Application completely stopped");
-    System.Diagnostics.Process.GetCurrentProcess().Kill();
+    Process.GetCurrentProcess().Kill();
 });
 
 try

@@ -1,13 +1,14 @@
 using System.Reflection;
 using ECommerce.Abstractions.Messages;
+using ECommerce.Contracts.ShoppingCarts;
 using ECommerce.JsonConverters;
 using FluentValidation.AspNetCore;
 using MassTransit;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.OpenApi.Any;
 using Serilog;
-using WebAPI.DataTransferObjects.ShoppingCarts;
 using WebAPI.DependencyInjection.Extensions;
 using WebAPI.DependencyInjection.Options;
 using WebAPI.DependencyInjection.ParameterTransformers;
@@ -35,6 +36,7 @@ builder.Host.ConfigureLogging((context, loggingBuilder) =>
 
     loggingBuilder.ClearProviders();
     loggingBuilder.AddSerilog();
+    builder.Host.UseSerilog();
 });
 
 builder.Services
@@ -77,15 +79,20 @@ builder.Services
         options.CustomSchemaIds(type => type.ToString());
     });
 
-builder.Services.AddMassTransitWithRabbitMq();
+builder.Services.AddMessageBus();
 
 builder.Services.AddAutoMapper();
 
-builder.Services.ConfigureRabbitMqOptions(
-    builder.Configuration.GetSection(nameof(RabbitMqOptions)));
+builder.Services.ConfigureMessageBusOptions(
+    builder.Configuration.GetSection(nameof(MessageBusOptions)));
 
 builder.Services.ConfigureMassTransitHostOptions(
     builder.Configuration.GetSection(nameof(MassTransitHostOptions)));
+
+builder.Services.ConfigureRabbitMqTransportOptions(
+    builder.Configuration.GetSection(nameof(RabbitMqTransportOptions)));
+
+builder.Services.AddHttpLogging(options => options.LoggingFields = HttpLoggingFields.All);
 
 var app = builder.Build();
 
@@ -99,8 +106,8 @@ if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
 }
 
 app.UseCors("cors");
-
 app.UseRouting();
+app.UseSerilogRequestLogging();
 
 app.UseEndpoints(endpoints
     => endpoints.MapControllerRoute(

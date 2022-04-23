@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using ECommerce.Contracts.Identity;
+﻿using ECommerce.Contracts.Identities;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;
@@ -9,12 +8,12 @@ namespace WebAPI.Controllers;
 [Route("api/[controller]/[action]")]
 public class IdentitiesController : ApplicationController
 {
-    public IdentitiesController(IBus bus, IMapper mapper)
-        : base(bus, mapper) { }
+    public IdentitiesController(IBus bus)
+        : base(bus) { }
 
     [HttpGet]
     public Task<IActionResult> GetUserAuthenticationDetails([FromQuery] Queries.GetUserAuthenticationDetails query, CancellationToken cancellationToken)
-        => GetResponseAsync<Queries.GetUserAuthenticationDetails, Responses.UserAuthenticationDetails>(query, cancellationToken);
+        => GetProjectionAsync<Queries.GetUserAuthenticationDetails, Projections.UserAuthentication>(query, cancellationToken);
 
     [HttpPost]
     public Task<IActionResult> RegisterUser(Commands.RegisterUser command, CancellationToken cancellationToken)

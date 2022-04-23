@@ -10,13 +10,13 @@ public class LoggingReceiveObserver : IReceiveObserver
     public async Task PreReceive(ReceiveContext context)
     {
         await Task.Yield();
-        Log.Information("Receiving message from exchange {Exchange}, Redelivered: {Redelivered}, CorrelationId: {CorrelationId}", context.TransportHeaders.Get<string>(ExchangeKey), context.Redelivered, context.GetCorrelationId());
+        Log.Debug("Receiving message from exchange {Exchange}, Redelivered: {Redelivered}, CorrelationId: {CorrelationId}", context.TransportHeaders.Get<string>(ExchangeKey), context.Redelivered, context.GetCorrelationId());
     }
 
     public async Task PostReceive(ReceiveContext context)
     {
         await Task.Yield();
-        Log.Information("Message was received from exchange {Exchange}, Redelivered: {Redelivered}, CorrelationId: {CorrelationId}", context.TransportHeaders.Get<string>(ExchangeKey), context.Redelivered, context.GetCorrelationId());
+        Log.Debug("Message was received from exchange {Exchange}, Redelivered: {Redelivered}, CorrelationId: {CorrelationId}", context.TransportHeaders.Get<string>(ExchangeKey), context.Redelivered, context.GetCorrelationId());
     }
 
     public async Task PostConsume<T>(ConsumeContext<T> context, TimeSpan duration, string consumerType)
@@ -24,7 +24,7 @@ public class LoggingReceiveObserver : IReceiveObserver
     {
         await Task.Yield();
         var messageType = context.Message.GetType();
-        Log.Information("{Message} message from {Namespace} was consumed by {ConsumerType}, Duration: {Duration}s, CorrelationId: {CorrelationId}", messageType.Name, messageType.Namespace ?? string.Empty, consumerType, duration.TotalSeconds, context.CorrelationId ?? new());
+        Log.Debug("{Message} message from {Namespace} was consumed by {ConsumerType}, Duration: {Duration}s, CorrelationId: {CorrelationId}", messageType.Name, messageType.Namespace ?? string.Empty, consumerType, duration.TotalSeconds, context.CorrelationId ?? new());
     }
 
     public async Task ConsumeFault<T>(ConsumeContext<T> context, TimeSpan duration, string consumerType, Exception exception)

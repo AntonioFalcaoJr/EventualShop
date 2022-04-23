@@ -1,4 +1,4 @@
-﻿using Application.EventSourcing.EventStore.Events;
+﻿using Application.EventStore.Events;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.EventStore.Contexts;

@@ -1,7 +1,6 @@
-﻿using Application.EventSourcing.Projections;
+﻿using Application.Abstractions.Projections;
 using Infrastructure.Projections.Abstractions.Contexts;
 using Infrastructure.Projections.Abstractions.Contexts.BsonSerializers;
-using Infrastructure.Projections.Contexts;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
@@ -13,16 +12,16 @@ public static class ServiceCollectionExtensions
 {
     public static void AddProjections(this IServiceCollection services)
     {
-        services.AddScoped<IShoppingCartProjectionsService, ShoppingCartProjectionsService>();
-        services.AddScoped<IShoppingCartProjectionsRepository, ShoppingCartProjectionsRepository>();
-        
-        services.AddScoped<IMongoDbContext, ProjectionsDbContext>();
-        
+        services.AddScoped(typeof(IProjectionRepository<>), typeof(ProjectionRepository<>));
+        services.AddScoped<IMongoDbContext, ProjectionDbContext>();
+
         BsonSerializer.RegisterSerializer(new DateOnlyBsonSerializer());
         BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.CSharpLegacy));
+        BsonSerializer.RegisterSerializer(typeof(decimal), new DecimalSerializer(BsonType.Decimal128));
+        BsonSerializer.RegisterSerializer(typeof(decimal?), new NullableSerializer<decimal>(new DecimalSerializer(BsonType.Decimal128)));
 
-        BsonClassMap.RegisterClassMap<CreditCardPaymentMethodProjection>();
-        BsonClassMap.RegisterClassMap<DebitCardPaymentMethodProjection>();
-        BsonClassMap.RegisterClassMap<PayPalPaymentMethodProjection>();
+        BsonClassMap.RegisterClassMap<ECommerce.Contracts.ShoppingCarts.Projections.CreditCardPaymentMethod>();
+        BsonClassMap.RegisterClassMap<ECommerce.Contracts.ShoppingCarts.Projections.DebitCardPaymentMethod>();
+        BsonClassMap.RegisterClassMap<ECommerce.Contracts.ShoppingCarts.Projections.PayPalPaymentMethod>();
     }
 }

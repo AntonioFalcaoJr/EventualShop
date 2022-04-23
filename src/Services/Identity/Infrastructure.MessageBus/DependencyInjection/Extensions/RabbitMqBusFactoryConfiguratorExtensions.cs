@@ -1,6 +1,6 @@
-﻿using Application.UseCases.Events.Projections;
+﻿using Application.UseCases.EventHandlers.Projections;
 using ECommerce.Abstractions.Messages.Events;
-using ECommerce.Contracts.Identity;
+using ECommerce.Contracts.Identities;
 using MassTransit;
 
 namespace Infrastructure.MessageBus.DependencyInjection.Extensions;

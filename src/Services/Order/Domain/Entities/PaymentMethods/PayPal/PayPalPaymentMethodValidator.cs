@@ -2,10 +2,4 @@
 
 namespace Domain.Entities.PaymentMethods.PayPal;
 
-public class PayPalPaymentMethodValidator : AbstractValidator<PayPalPaymentMethod>
-{
-    public PayPalPaymentMethodValidator()
-    {
-
-    }
-}
+public class PayPalPaymentMethodValidator : AbstractValidator<PayPalPaymentMethod> { }

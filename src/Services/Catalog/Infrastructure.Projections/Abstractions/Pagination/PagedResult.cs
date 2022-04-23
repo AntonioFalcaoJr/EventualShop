@@ -7,35 +7,33 @@ namespace Infrastructure.Projections.Abstractions.Pagination;
 public class PagedResult<T> : IPagedResult<T>
 {
     private readonly IEnumerable<T> _items;
-    private readonly int _limit;
-    private readonly int _offset;
+    private readonly Paging _paging;
 
-    private PagedResult(IEnumerable<T> items, int limit, int offset)
+    private PagedResult(IEnumerable<T> items, Paging paging)
     {
         _items = items;
-        _limit = limit;
-        _offset = offset;
+        _paging = paging;
     }
 
     public IEnumerable<T> Items
-        => _items.Take(_limit);
+        => _items.Take(_paging.Limit);
 
     public PageInfo PageInfo
         => new()
         {
-            Current = _offset + 1,
+            Current = _paging.Offset + 1,
             Size = Items.Count(),
-            HasNext = _limit < _items.Count(),
-            HasPrevious = _offset > 0
+            HasNext = _items.Count() > _paging.Limit,
+            HasPrevious = _paging.Offset > 0
         };
 
-    public static async Task<IPagedResult<T>> CreateAsync(IPaging paging, IQueryable<T> source, CancellationToken cancellationToken)
+    public static async Task<IPagedResult<T>> CreateAsync(int limit, int offset, IQueryable<T> source, CancellationToken cancellationToken)
     {
-        paging ??= new Paging();
+        Paging paging = new() {Limit = limit, Offset = offset};
         var items = await ApplyPagination(paging, source).ToListAsync(cancellationToken);
-        return new PagedResult<T>(items, paging.Limit, paging.Offset);
+        return new PagedResult<T>(items, paging);
     }
 
-    private static IMongoQueryable<T> ApplyPagination(IPaging paging, IQueryable<T> source)
+    private static IMongoQueryable<T> ApplyPagination(Paging paging, IQueryable<T> source)
         => source.Skip(paging.Limit * paging.Offset).Take(paging.Limit + 1) as IMongoQueryable<T>;
 }

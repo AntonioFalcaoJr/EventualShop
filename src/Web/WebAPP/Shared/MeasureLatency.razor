@@ -1,0 +1,23 @@
+﻿@inject IJSRuntime Js
+
+<BSNavbar Color="BSColor.Light" IsFixedBottom="true">
+    <BSContainer Container="Container.Fluid">
+        <span>@(_latency.TotalMilliseconds)ms</span>
+    </BSContainer>
+</BSNavbar>
+
+@code {
+    private DateTime _startTime;
+    private TimeSpan _latency;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _startTime = DateTime.UtcNow;
+            var _ = await Js.InvokeAsync<string>("toString");
+            _latency = DateTime.UtcNow - _startTime;
+            StateHasChanged();
+        }
+    }
+}
