@@ -17,7 +17,7 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
 
     public Guid OrderId { get; private set; }
     public decimal Amount { get; private set; }
-    public PaymentStatus Status { get; private set; } = PaymentStatus.Ready;
+    public PaymentStatus Status { get; private set; }
     public Address BillingAddress { get; private set; }
 
     public decimal AmountDue
@@ -29,7 +29,7 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
         => _methods;
 
     public void Handle(Commands.RequestPayment cmd)
-        => RaiseEvent(new DomainEvents.PaymentRequested(Guid.NewGuid(), cmd.OrderId, cmd.AmountDue, cmd.BillingAddress, cmd.PaymentMethods));
+        => RaiseEvent(new DomainEvents.PaymentRequested(Guid.NewGuid(), cmd.OrderId, cmd.AmountDue, cmd.BillingAddress, cmd.PaymentMethods, PaymentStatus.Ready.ToString()));
 
     public void Handle(Commands.ProceedWithPayment cmd)
         => RaiseEvent(AmountDue is 0
@@ -92,7 +92,7 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
                     _ => default
                 }));
 
-        Status = PaymentStatus.Ready;
+        Status = PaymentStatus.FromName(@event.Status);
     }
 
     private void When(DomainEvents.PaymentMethodAuthorized @event)

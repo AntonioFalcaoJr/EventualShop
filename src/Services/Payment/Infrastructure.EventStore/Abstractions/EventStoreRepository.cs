@@ -1,5 +1,5 @@
-﻿using Application.Abstractions.EventSourcing.EventStore;
-using Application.Abstractions.EventSourcing.EventStore.Events;
+﻿using Application.Abstractions.EventStore;
+using Application.Abstractions.EventStore.Events;
 using Domain.Abstractions.Aggregates;
 using ECommerce.Abstractions.Messages.Events;
 using Infrastructure.EventStore.Contexts;

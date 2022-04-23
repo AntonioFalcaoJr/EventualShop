@@ -11,16 +11,16 @@ public class ProjectAccountDetailsWhenChangedConsumer :
     IConsumer<DomainEvents.ProfileUpdated>,
     IConsumer<DomainEvents.ResidenceAddressDefined>
 {
-    private readonly IProjectionRepository<ECommerce.Contracts.Accounts.Projections.AccountProjection> _projectionRepository;
+    private readonly IProjectionRepository<ECommerce.Contracts.Accounts.Projections.Account> _projectionRepository;
 
-    public ProjectAccountDetailsWhenChangedConsumer(IProjectionRepository<ECommerce.Contracts.Accounts.Projections.AccountProjection> projectionRepository)
+    public ProjectAccountDetailsWhenChangedConsumer(IProjectionRepository<ECommerce.Contracts.Accounts.Projections.Account> projectionRepository)
     {
         _projectionRepository = projectionRepository;
     }
 
     public async Task Consume(ConsumeContext<DomainEvents.AccountCreated> context)
     {
-        var account = new ECommerce.Contracts.Accounts.Projections.AccountProjection
+        var account = new ECommerce.Contracts.Accounts.Projections.Account
         {
             Id = context.Message.AccountId,
             UserId = context.Message.UserId,

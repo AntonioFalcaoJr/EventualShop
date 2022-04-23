@@ -9,9 +9,9 @@ public class GetAccountDetailsConsumer :
     IConsumer<Queries.GetAccountDetails>,
     IConsumer<Queries.GetAccounts>
 {
-    private readonly IProjectionRepository<Projections.AccountProjection> _projectionRepository;
+    private readonly IProjectionRepository<Projections.Account> _projectionRepository;
 
-    public GetAccountDetailsConsumer(IProjectionRepository<Projections.AccountProjection> projectionRepository)
+    public GetAccountDetailsConsumer(IProjectionRepository<Projections.Account> projectionRepository)
     {
         _projectionRepository = projectionRepository;
     }

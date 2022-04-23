@@ -8,9 +8,9 @@ public class ProjectInventoryItemWhenChangedConsumer :
     IConsumer<DomainEvents.InventoryAdjusted>,
     IConsumer<DomainEvents.InventoryReceived>
 {
-    private readonly IProjectionRepository<ECommerce.Contracts.Warehouses.Projections.InventoryProjection> _projectionRepository;
+    private readonly IProjectionRepository<ECommerce.Contracts.Warehouses.Projections.Inventory> _projectionRepository;
 
-    public ProjectInventoryItemWhenChangedConsumer(IProjectionRepository<ECommerce.Contracts.Warehouses.Projections.InventoryProjection> projectionRepository)
+    public ProjectInventoryItemWhenChangedConsumer(IProjectionRepository<ECommerce.Contracts.Warehouses.Projections.Inventory> projectionRepository)
     {
         _projectionRepository = projectionRepository;
     }
@@ -25,7 +25,7 @@ public class ProjectInventoryItemWhenChangedConsumer :
 
     public async Task Consume(ConsumeContext<DomainEvents.InventoryReceived> context)
     {
-        var inventory = new ECommerce.Contracts.Warehouses.Projections.InventoryProjection
+        var inventory = new ECommerce.Contracts.Warehouses.Projections.Inventory
         {
             Id = context.Message.ProductId,
             Description = context.Message.Description,

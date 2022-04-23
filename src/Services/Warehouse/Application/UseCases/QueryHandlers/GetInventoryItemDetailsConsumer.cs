@@ -6,9 +6,9 @@ namespace Application.UseCases.QueryHandlers;
 
 public class GetInventoryItemDetailsConsumer : IConsumer<Queries.GetInventoryItemDetails>
 {
-    private readonly IProjectionRepository<Projections.InventoryProjection> _projectionRepository;
+    private readonly IProjectionRepository<Projections.Inventory> _projectionRepository;
 
-    public GetInventoryItemDetailsConsumer(IProjectionRepository<Projections.InventoryProjection> projectionRepository)
+    public GetInventoryItemDetailsConsumer(IProjectionRepository<Projections.Inventory> projectionRepository)
     {
         _projectionRepository = projectionRepository;
     }
