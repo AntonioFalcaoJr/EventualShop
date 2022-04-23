@@ -1,5 +1,4 @@
 ﻿using Domain.Abstractions.Aggregates;
-using Domain.ValueObjects.Addresses;
 using Domain.ValueObjects.Profiles;
 using ECommerce.Abstractions.Messages.Events;
 using ECommerce.Contracts.Accounts;
