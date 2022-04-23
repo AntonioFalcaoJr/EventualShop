@@ -51,7 +51,7 @@
 
         try
         {
-            _cards = await Http.GetFromJsonAsync<IPagedResult<Projections.CatalogItem>>($"/api/catalogs/get-catalog-items/{catalogId}/items?limit={limit}&offset={offset}");
+            _cards = await Http.GetFromJsonAsync<IPagedResult<Projections.CatalogItem>>($"/api/v1/catalogs/{catalogId}/items?limit={limit}&offset={offset}");
         }
         catch (Exception e)
         {
@@ -83,4 +83,5 @@
         if (_cards.PageInfo.HasPrevious)
             await LoadAsync(offset: _cards.PageInfo.Current - 2);
     }
+
 }
