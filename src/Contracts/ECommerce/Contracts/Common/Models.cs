@@ -55,12 +55,12 @@ public static class Models
 
     public record ShoppingCartItem
     {
-        public Guid Id { get; init; }
         public Guid ProductId { get; init; }
         public string ProductName { get; init; }
         public decimal UnitPrice { get; init; }
         public int Quantity { get; init; }
         public string PictureUrl { get; init; }
+        public string Sku { get; init; }
     }
 
     public record Product

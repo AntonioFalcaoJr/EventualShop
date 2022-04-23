@@ -11,4 +11,8 @@ public static class Queries
     public record GetShoppingCartItem(Guid CartId, Guid ItemId) : Query(CorrelationId: CartId);
 
     public record GetShoppingCartItems(Guid CartId, int Limit, int Offset) : QueryPaging(Limit, Offset, CorrelationId: CartId);
+
+    public record GetShoppingCartPaymentMethods(Guid CartId, int Limit, int Offset) : Query(CorrelationId: CartId);
+
+    public record GetShoppingCartPaymentMethod(Guid CartId, Guid PaymentMethodId) : Query(CorrelationId: CartId);
 }

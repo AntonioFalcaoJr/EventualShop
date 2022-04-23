@@ -1,4 +1,5 @@
 using ECommerce.Abstractions.Messages.Events;
+using ECommerce.Contracts.Common;
 
 namespace ECommerce.Contracts.Accounts;
 
@@ -10,7 +11,7 @@ public static class DomainEvents
 
     public record ProfileUpdated(Guid AccountId, DateOnly Birthdate, string Email, string FirstName, string LastName) : Event;
 
-    public record ResidenceAddressDefined(Guid AccountId, string City, string Country, int? Number, string State, string Street, string ZipCode) : Event;
+    public record ResidenceAddressDefined(Guid AccountId, Models.Address Address) : Event;
 
-    public record ProfessionalAddressDefined(Guid AccountId, string City, string Country, int? Number, string State, string Street, string ZipCode) : Event;
+    public record ProfessionalAddressDefined(Guid AccountId, Models.Address Address) : Event;
 }

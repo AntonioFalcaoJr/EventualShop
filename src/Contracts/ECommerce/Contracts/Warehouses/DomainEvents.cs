@@ -4,7 +4,7 @@ namespace ECommerce.Contracts.Warehouses;
 
 public static class DomainEvents
 {
-    public record InventoryItemReceived(Guid ProductId, string Sku, string Name, string Description, int Quantity) : Event(CorrelationId: ProductId);
+    public record InventoryReceived(Guid ProductId, string Sku, string Name, string Description, int Quantity) : Event(CorrelationId: ProductId);
 
     public record InventoryAdjusted(Guid ProductId, string Reason, int Quantity) : Event(CorrelationId: ProductId);
 

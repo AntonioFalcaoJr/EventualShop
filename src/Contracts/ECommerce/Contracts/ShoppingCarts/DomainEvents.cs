@@ -5,15 +5,16 @@ namespace ECommerce.Contracts.ShoppingCarts;
 
 public static class DomainEvents
 {
-    public record CartCreated(Guid CartId, Guid CustomerId) : Event(CorrelationId: CustomerId);
+    public record CartCreated(Guid CartId, Guid CustomerId, string Status) : Event(CorrelationId: CustomerId);
 
-    public record CartItemAdded(Guid CartId, Guid ItemId, Guid ProductId, string ProductName, decimal UnitPrice, int Quantity, string PictureUrl) : Event(CorrelationId: CartId);
+    // TODO - ShoppingCartItem should be Product
+    public record CartItemAdded(Guid CartId, Guid ItemId, Models.ShoppingCartItem Item) : Event(CorrelationId: CartId);
 
-    public record CartItemIncreased(Guid CartId, Guid ItemId) : Event(CorrelationId: CartId);
+    public record CartItemIncreased(Guid CartId, Guid ItemId, decimal UnitPrice) : Event(CorrelationId: CartId);
 
-    public record CartItemDecreased(Guid CartId, Guid ItemId) : Event(CorrelationId: CartId);
+    public record CartItemDecreased(Guid CartId, Guid ItemId, decimal UnitPrice) : Event(CorrelationId: CartId);
 
-    public record CartItemRemoved(Guid CartId, Guid ItemId) : Event(CorrelationId: CartId);
+    public record CartItemRemoved(Guid CartId, Guid ItemId, decimal UnitPrice, int Quantity) : Event(CorrelationId: CartId);
 
     public record CartCheckedOut(Guid CartId) : Event(CorrelationId: CartId);
 
