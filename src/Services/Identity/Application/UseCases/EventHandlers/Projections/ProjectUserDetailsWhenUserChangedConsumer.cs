@@ -1,5 +1,4 @@
-using Application.EventSourcing.EventStore;
-using Application.EventSourcing.Projections;
+using Application.Abstractions.Projections;
 using ECommerce.Contracts.Identities;
 using MassTransit;
 
@@ -10,36 +9,33 @@ public class ProjectUserDetailsWhenUserChangedConsumer :
     IConsumer<DomainEvents.UserPasswordChanged>,
     IConsumer<DomainEvents.UserDeleted>
 {
-    private readonly IUserEventStoreService _eventStoreService;
-    private readonly IUserProjectionsService _projectionsService;
+    private readonly IProjectionRepository<ECommerce.Contracts.Identities.Projections.UserAuthentication> _repository;
 
-    public ProjectUserDetailsWhenUserChangedConsumer(IUserEventStoreService eventStoreService, IUserProjectionsService projectionsService)
+    public ProjectUserDetailsWhenUserChangedConsumer(IProjectionRepository<ECommerce.Contracts.Identities.Projections.UserAuthentication> repository)
     {
-        _eventStoreService = eventStoreService;
-        _projectionsService = projectionsService;
+        _repository = repository;
     }
 
-    public Task Consume(ConsumeContext<DomainEvents.UserDeleted> context)
-        => ProjectAsync(context.Message.UserId, context.CancellationToken);
+    public async Task Consume(ConsumeContext<DomainEvents.UserDeleted> context)
+        => await _repository.DeleteAsync(context.Message.UserId, context.CancellationToken);
 
-    public Task Consume(ConsumeContext<DomainEvents.UserPasswordChanged> context)
-        => ProjectAsync(context.Message.UserId, context.CancellationToken);
+    public async Task Consume(ConsumeContext<DomainEvents.UserPasswordChanged> context)
+        => await _repository.UpdateFieldAsync(
+            id: context.Message.UserId,
+            field: user => user.Password,
+            value: context.Message.NewPassword,
+            cancellationToken: context.CancellationToken);
 
-    public Task Consume(ConsumeContext<DomainEvents.UserRegistered> context)
-        => ProjectAsync(context.Message.UserId, context.CancellationToken);
-
-    private async Task ProjectAsync(Guid userId, CancellationToken cancellationToken)
+    public async Task Consume(ConsumeContext<DomainEvents.UserRegistered> context)
     {
-        var user = await _eventStoreService.LoadAggregateFromStreamAsync(userId, cancellationToken);
-
-        var userAuthenticationDetails = new UserAuthenticationDetailsProjection
+        var userAuthentication = new ECommerce.Contracts.Identities.Projections.UserAuthentication
         {
-            Id = user.Id,
-            Email = user.Email,
-            Password = user.Password,
-            IsDeleted = user.IsDeleted
+            Id = context.Message.UserId,
+            Email = context.Message.Email,
+            Password = context.Message.Password,
+            IsDeleted = false
         };
 
-        await _projectionsService.ProjectAsync(userAuthenticationDetails, cancellationToken);
+        await _repository.InsertAsync(userAuthentication, context.CancellationToken);
     }
 }
