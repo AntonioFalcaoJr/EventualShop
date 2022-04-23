@@ -2,7 +2,4 @@
 
 namespace Domain.Aggregates;
 
-public class PaymentValidator : EntityValidator<Payment, Guid>
-{
-    
-}
+public class PaymentValidator : EntityValidator<Payment, Guid> { }

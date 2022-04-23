@@ -18,7 +18,7 @@ public class LoggingPublishObserver : IPublishObserver
     {
         await Task.Yield();
         var messageType = context.Message.GetType();
-        Log.Information("{MessageType} event, from {Namespace} was published, CorrelationId: {CorrelationId}", messageType.Name, messageType.Namespace, context.CorrelationId);
+        Log.Debug("{MessageType} event, from {Namespace} was published, CorrelationId: {CorrelationId}", messageType.Name, messageType.Namespace, context.CorrelationId);
     }
 
     public async Task PublishFault<T>(PublishContext<T> context, Exception exception)

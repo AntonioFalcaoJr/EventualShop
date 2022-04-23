@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Infrastructure.EventStore.Contexts.Converters;
 
-public class AccountConverter : ValueConverter<Account, string> 
+public class AccountConverter : ValueConverter<Account, string>
 {
     public AccountConverter()
         : base(

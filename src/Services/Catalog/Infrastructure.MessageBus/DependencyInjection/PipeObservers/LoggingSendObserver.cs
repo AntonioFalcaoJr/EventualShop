@@ -18,7 +18,7 @@ public class LoggingSendObserver : ISendObserver
     {
         await Task.Yield();
         var messageType = context.Message.GetType();
-        Log.Information("{MessageType} message from {Namespace} was sent, CorrelationId: {CorrelationId}", messageType.Name, messageType.Namespace, context.CorrelationId);
+        Log.Debug("{MessageType} message from {Namespace} was sent, CorrelationId: {CorrelationId}", messageType.Name, messageType.Namespace, context.CorrelationId);
     }
 
     public async Task SendFault<T>(SendContext<T> context, Exception exception)

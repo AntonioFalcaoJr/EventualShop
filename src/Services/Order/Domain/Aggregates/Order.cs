@@ -8,7 +8,7 @@ using Domain.Entities.PaymentMethods.PayPal;
 using Domain.Enumerations;
 using ECommerce.Abstractions.Messages.Events;
 using ECommerce.Contracts.Common;
-using ECommerce.Contracts.Order;
+using ECommerce.Contracts.Orders;
 
 namespace Domain.Aggregates;
 

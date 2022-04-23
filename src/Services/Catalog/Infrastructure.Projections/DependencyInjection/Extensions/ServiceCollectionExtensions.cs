@@ -1,6 +1,5 @@
-using Application.EventSourcing.Projections;
+using Application.Abstractions.Projections;
 using Infrastructure.Projections.Abstractions.Contexts;
-using Infrastructure.Projections.Contexts;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
@@ -12,9 +11,8 @@ public static class ServiceCollectionExtensions
 {
     public static void AddProjections(this IServiceCollection services)
     {
-        services.AddScoped<ICatalogProjectionsService, CatalogProjectionsService>();
-        services.AddScoped<ICatalogProjectionsRepository, CatalogProjectionsRepository>();
-        services.AddScoped<IMongoDbContext, ProjectionsDbContext>();
+        services.AddScoped(typeof(IProjectionRepository<>), typeof(ProjectionRepository<>));
+        services.AddScoped<IMongoDbContext, ProjectionDbContext>();
         BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.CSharpLegacy));
     }
 }

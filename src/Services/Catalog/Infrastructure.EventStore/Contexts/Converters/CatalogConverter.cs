@@ -1,16 +1,17 @@
-﻿using ECommerce.JsonConverters;
+﻿using Domain.Aggregates;
+using ECommerce.JsonConverters;
 using JsonNet.ContractResolvers;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Newtonsoft.Json;
 
 namespace Infrastructure.EventStore.Contexts.Converters;
 
-public class CatalogConverter : ValueConverter<Domain.Aggregates.Catalog, string> 
+public class CatalogConverter : ValueConverter<Catalog, string>
 {
     public CatalogConverter()
         : base(
-            @event => JsonConvert.SerializeObject(@event, typeof(Domain.Aggregates.Catalog), SerializerSettings()),
-            jsonString => JsonConvert.DeserializeObject<Domain.Aggregates.Catalog>(jsonString, DeserializerSettings())) { }
+            @event => JsonConvert.SerializeObject(@event, typeof(Catalog), SerializerSettings()),
+            jsonString => JsonConvert.DeserializeObject<Catalog>(jsonString, DeserializerSettings())) { }
 
     private static JsonSerializerSettings SerializerSettings()
     {

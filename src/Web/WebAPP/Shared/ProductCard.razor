@@ -1,0 +1,87 @@
+﻿@using ECommerce.Contracts.Catalogs
+@using ECommerce.Abstractions.Messages.Queries.Paging
+@inject HttpClient Http
+@inject IBlazorStrap BlazorStrap
+
+<BSContainer>
+    @if (_cards.Items.Any() is false)
+    {
+        <p>
+            Nothing to show.
+        </p>
+    }
+    else
+    {
+        <BSRow MarginTop="Margins.Large">
+            @foreach (var catalogItem in _cards.Items)
+            {
+                <BSCard Class="w-25 border-0" Alignment="Alignment.Center" CardType="CardType.Card">
+                    <BSCard Class="rounded-1" CardType="CardType.Image" src="placeholder:286x180"/>
+                    <BSCard CardType="CardType.Body">
+                        <BSCard CardType="CardType.Title">@catalogItem.Name</BSCard>
+                        <BSCard CardType="CardType.Subtitle">@catalogItem.Description</BSCard>
+                        @* <BSButton Color="BSColor.Warning" OnClick=@(() => EditAsync("New Title", catalog.ItemId))>Edit</BSButton> *@
+                        @* <BSButton Color="BSColor.Danger" OnClick="() => DeleteAsync(catalog.ItemId)">Delete</BSButton> *@
+                    </BSCard>
+                </BSCard>
+            }
+        </BSRow>
+        <BSPagination Align="Align.Center">
+            <BSPaginationItem IsDisabled=@(_cards.PageInfo.HasPrevious is false) @onclick="MoveToPreview">Previous</BSPaginationItem>
+            @for (var paging = 1; paging <= _cards.PageInfo.Current; paging++)
+            {
+                var current = paging;
+                <BSPaginationItem @onclick=@(() => MoveToPage(current))>@current</BSPaginationItem>
+            }
+            <BSPaginationItem IsDisabled=@(_cards.PageInfo.HasNext is false) @onclick="MoveToNext">Next</BSPaginationItem>
+        </BSPagination>
+    }
+</BSContainer >
+
+@code {
+
+    private IPagedResult<Projections.CatalogItem> _cards;
+
+    protected override async Task OnInitializedAsync()
+        => await LoadAsync();
+
+    private async Task LoadAsync(int limit = 8, int offset = 0)
+    {
+        var catalogId = "f4367788-6e91-48ff-8c58-6f111c12f6e3";
+
+        try
+        {
+            _cards = await Http.GetFromJsonAsync<IPagedResult<Projections.CatalogItem>>($"/api/v1/catalogs/{catalogId}/items?limit={limit}&offset={offset}");
+        }
+        catch (Exception e)
+        {
+            Failed(e.Message);
+        }
+    }
+
+    private void Failed(string error = default)
+    {
+        BlazorStrap.Toaster.Add("Error", error ?? "It was not possible to create a new Catalog", o =>
+        {
+            o.Color = BSColor.Danger;
+            o.CloseAfter = 2000;
+            o.Toast = Toast.BottomRight;
+        });
+    }
+
+    private Task MoveToPage(int current)
+        => LoadAsync(offset: current - 1);
+
+    private async Task MoveToNext()
+    {
+        if (_cards.PageInfo.HasNext)
+            await LoadAsync(offset: _cards.PageInfo.Current);
+    }
+
+    private async Task MoveToPreview()
+    {
+        if (_cards.PageInfo.HasPrevious)
+            await LoadAsync(offset: _cards.PageInfo.Current - 2);
+    }
+
+}

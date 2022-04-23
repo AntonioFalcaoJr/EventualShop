@@ -4,26 +4,40 @@ using Newtonsoft.Json;
 
 namespace Domain.Abstractions.ValueObjects;
 
-public abstract record ValueObject
+public abstract record ValueObject<TValidator>
+    where TValidator : IValidator, new()
 {
     [JsonIgnore]
-    private ValidationResult ValidationResult { get; set; } = new();
+    private readonly TValidator _validator = new();
+
+    [JsonIgnore]
+    private ValidationResult _validationResult = new();
+
+    [JsonIgnore]
+    private ValidationContext<ValueObject<TValidator>> ValidationContext
+        => new(this);
+
+    [JsonIgnore]
+    public IEnumerable<ValidationFailure> Errors
+        => _validationResult.Errors;
 
     [JsonIgnore]
     public bool IsValid
         => Validate();
 
     [JsonIgnore]
-    public IEnumerable<ValidationFailure> Errors
-        => ValidationResult.Errors;
+    public Task<bool> IsValidAsync
+        => ValidateAsync();
 
-    protected bool OnValidate<TValidator, TValueObject>()
-        where TValidator : AbstractValidator<TValueObject>, new()
-        where TValueObject : ValueObject
+    private bool Validate()
     {
-        ValidationResult = new TValidator().Validate(this as TValueObject);
-        return ValidationResult.IsValid;
+        _validationResult = _validator.Validate(ValidationContext);
+        return _validationResult.IsValid;
     }
 
-    protected abstract bool Validate();
+    private async Task<bool> ValidateAsync()
+    {
+        _validationResult = await _validator.ValidateAsync(ValidationContext);
+        return _validationResult.IsValid;
+    }
 }

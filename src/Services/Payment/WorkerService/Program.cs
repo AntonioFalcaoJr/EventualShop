@@ -1,7 +1,7 @@
-﻿using Infrastructure.EventStore.Contexts;
+﻿using System.Diagnostics;
+using Infrastructure.EventStore.Contexts;
 using Infrastructure.EventStore.DependencyInjection.Extensions;
 using Infrastructure.EventStore.DependencyInjection.Options;
-using Infrastructure.HttpClients.DependencyInjection.Options;
 using Infrastructure.MessageBus.DependencyInjection.Extensions;
 using Infrastructure.MessageBus.DependencyInjection.Options;
 using Infrastructure.Projections.DependencyInjection.Extensions;
@@ -9,7 +9,6 @@ using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Quartz;
 using Serilog;
-using Infrastructure.HttpClients.DependencyInjection.Extensions;
 
 var builder = Host.CreateDefaultBuilder(args);
 
@@ -43,12 +42,6 @@ builder.ConfigureServices((context, services) =>
     services.AddMessageBus();
     services.AddMessageValidators();
     services.AddNotificationContext();
-    
-    services.AddCreditCardHttpClient();
-    services.AddDebitCardHttpClient();
-    services.AddPayPalHttpClient();
-    
-    services.AddPaymentStrategy();
 
     services.ConfigureEventStoreOptions(
         context.Configuration.GetSection(nameof(EventStoreOptions)));
@@ -56,23 +49,17 @@ builder.ConfigureServices((context, services) =>
     services.ConfigureSqlServerRetryOptions(
         context.Configuration.GetSection(nameof(SqlServerRetryOptions)));
 
-    services.ConfigureRabbitMqOptions(
-        context.Configuration.GetSection(nameof(RabbitMqOptions)));
+    services.ConfigureMessageBusOptions(
+        context.Configuration.GetSection(nameof(MessageBusOptions)));
 
     services.ConfigureQuartzOptions(
         context.Configuration.GetSection(nameof(QuartzOptions)));
-    
+
     services.ConfigureMassTransitHostOptions(
         context.Configuration.GetSection(nameof(MassTransitHostOptions)));
-    
-    services.ConfigureCreditCardHttpClientOptions(
-        context.Configuration.GetSection(nameof(CreditCardHttpClientOptions)));
 
-    services.ConfigureDebitCardHttpClientOptions(
-        context.Configuration.GetSection(nameof(DebitCardHttpClientOptions)));
-
-    services.ConfigurePayPalHttpClientOptions(
-        context.Configuration.GetSection(nameof(PayPalHttpClientOptions)));
+    services.ConfigureRabbitMqTransportOptions(
+        context.Configuration.GetSection(nameof(RabbitMqTransportOptions)));
 });
 
 using var host = builder.Build();
@@ -88,7 +75,7 @@ applicationLifetime.ApplicationStopping.Register(() =>
 applicationLifetime.ApplicationStopped.Register(() =>
 {
     Log.Information("Application completely stopped");
-    System.Diagnostics.Process.GetCurrentProcess().Kill();
+    Process.GetCurrentProcess().Kill();
 });
 
 try

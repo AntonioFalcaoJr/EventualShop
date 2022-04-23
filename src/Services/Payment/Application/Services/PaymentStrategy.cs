@@ -3,7 +3,7 @@ using Application.Services.CreditCards;
 using Application.Services.DebitCards;
 using Application.Services.PayPal;
 using Domain.Aggregates;
-using ECommerce.Contracts.Payment;
+using ECommerce.Contracts.Payments;
 
 namespace Application.Services;
 

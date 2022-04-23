@@ -22,48 +22,45 @@ public static class Models
         public Address BillingAddress { get; init; }
     }
 
+    // TODO - Remove Id creation from here and move to Domain.
     public record CreditCard : IPaymentMethod
     {
-        public Guid Id { get; } = Guid.NewGuid();
-
         [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
         public DateOnly Expiration { get; init; }
-
         public string HolderName { get; init; }
         public string Number { get; init; }
         public string SecurityNumber { get; init; }
+        public Guid Id { get; } = Guid.NewGuid();
         public decimal Amount { get; init; }
     }
 
     public record DebitCard : IPaymentMethod
     {
-        public Guid Id { get; } = Guid.NewGuid();
-
         [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
         public DateOnly Expiration { get; init; }
-
         public string HolderName { get; init; }
         public string Number { get; init; }
         public string SecurityNumber { get; init; }
+        public Guid Id { get; } = Guid.NewGuid();
         public decimal Amount { get; init; }
     }
 
     public record PayPal : IPaymentMethod
     {
-        public Guid Id { get; } = Guid.NewGuid();
         public string UserName { get; init; }
         public string Password { get; init; }
+        public Guid Id { get; } = Guid.NewGuid();
         public decimal Amount { get; init; }
     }
 
     public record ShoppingCartItem
     {
-        public Guid Id { get; init; }
         public Guid ProductId { get; init; }
         public string ProductName { get; init; }
         public decimal UnitPrice { get; init; }
         public int Quantity { get; init; }
         public string PictureUrl { get; init; }
+        public string Sku { get; init; }
     }
 
     public record Product

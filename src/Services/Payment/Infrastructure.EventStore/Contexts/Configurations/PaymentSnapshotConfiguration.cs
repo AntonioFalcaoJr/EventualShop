@@ -1,4 +1,4 @@
-﻿using Application.EventSourcing.EventStore.Events;
+﻿using Application.EventStore.Events;
 using Infrastructure.EventStore.Contexts.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -9,7 +9,7 @@ public class PaymentSnapshotConfiguration : IEntityTypeConfiguration<PaymentSnap
 {
     public void Configure(EntityTypeBuilder<PaymentSnapshot> builder)
     {
-        builder.HasKey(snapshot => new { snapshot.AggregateVersion, snapshot.AggregateId });
+        builder.HasKey(snapshot => new {snapshot.AggregateVersion, snapshot.AggregateId});
 
         builder
             .Property(snapshot => snapshot.AggregateVersion)

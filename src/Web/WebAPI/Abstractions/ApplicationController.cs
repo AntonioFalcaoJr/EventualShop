@@ -1,7 +1,7 @@
-using AutoMapper;
 using ECommerce.Abstractions.Messages.Commands;
 using ECommerce.Abstractions.Messages.Queries;
 using ECommerce.Abstractions.Messages.Queries.Responses;
+using ECommerce.Abstractions.Projections;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,12 +11,10 @@ namespace WebAPI.Abstractions;
 public abstract class ApplicationController : ControllerBase
 {
     private readonly IBus _bus;
-    private readonly IMapper _mapper;
 
-    protected ApplicationController(IBus bus, IMapper mapper)
+    protected ApplicationController(IBus bus)
     {
         _bus = bus;
-        _mapper = mapper;
     }
 
     protected async Task<IActionResult> SendCommandAsync<TCommand>(TCommand command, CancellationToken cancellationToken)
@@ -27,39 +25,22 @@ public abstract class ApplicationController : ControllerBase
         return Accepted();
     }
 
-    // TODO - Remove after migration
-    protected async Task<IActionResult> GetResponseAsync<TQuery, TResponse>(TQuery query, CancellationToken cancellationToken)
+    protected async Task<IActionResult> GetProjectionAsync<TQuery, TProjection>(TQuery query, CancellationToken cancellationToken)
         where TQuery : class, IQuery
-        where TResponse : class, IResponse
+        where TProjection : class
     {
-        var clientResponse = await _bus
+        var response = await _bus
             .CreateRequestClient<TQuery>(Address<TQuery>())
-            .GetResponse<TResponse, NotFound>(query, cancellationToken);
+            .GetResponse<TProjection, NotFound>(query, cancellationToken);
 
-        return clientResponse.Message switch
+        return response.Message switch
         {
-            TResponse response => Ok(response),
+            TProjection projection => Ok(projection),
             NotFound _ => NotFound(),
             _ => Problem()
         };
     }
-
-    protected async Task<IActionResult> GetResponseAsync<TQuery, TResponse, TOutput>(TQuery query, CancellationToken cancellationToken)
-        where TQuery : class, IQuery
-        where TResponse : class, IResponse
-    {
-        var clientResponse = await _bus
-            .CreateRequestClient<TQuery>(Address<TQuery>())
-            .GetResponse<TResponse, NotFound>(query, cancellationToken);
-
-        return clientResponse.Message switch
-        {
-            TResponse response => Ok(_mapper.Map<TOutput>(response)),
-            NotFound _ => NotFound(),
-            _ => Problem()
-        };
-    }
-
+    
     private static Uri Address<T>()
         => new($"exchange:{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}");
 }

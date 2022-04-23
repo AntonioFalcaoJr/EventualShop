@@ -4,13 +4,13 @@ namespace Domain.Entities.CatalogItems;
 
 public class CatalogItem : Entity<Guid, CatalogItemValidator>
 {
-    public CatalogItem(string name, string description, decimal price, string pictureUri)
+    public CatalogItem(Guid id, string name, string description, decimal price, string pictureUri)
     {
-        Id = Guid.NewGuid();
-        SetDescription(description);
-        SetName(name);
-        SetPrice(price);
-        SetPictureUri(pictureUri);
+        Id = id;
+        Name = name;
+        Description = description;
+        Price = price;
+        PictureUri = pictureUri;
     }
 
     public string Name { get; private set; }

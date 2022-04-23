@@ -1,4 +1,4 @@
-using Application.EventSourcing.EventStore.Events;
+using Application.EventStore.Events;
 using Infrastructure.EventStore.Contexts.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -9,7 +9,7 @@ public class CatalogSnapshotConfiguration : IEntityTypeConfiguration<CatalogSnap
 {
     public void Configure(EntityTypeBuilder<CatalogSnapshot> builder)
     {
-        builder.HasKey(snapshot => new { snapshot.AggregateVersion, snapshot.AggregateId });
+        builder.HasKey(snapshot => new {snapshot.AggregateVersion, snapshot.AggregateId});
 
         builder
             .Property(snapshot => snapshot.AggregateVersion)

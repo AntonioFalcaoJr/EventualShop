@@ -16,12 +16,11 @@ services:
       retries: 5
       start_period: 10s
     deploy:
-      replicas: 1
       resources:
         limits:
           memory: 1500M
     networks:
-      - ecommerce
+      - internal
   
   rabbitmq:
     container_name: rabbitmq
@@ -36,12 +35,11 @@ services:
       retries: 5
       start_period: 10s
     deploy:
-      replicas: 1
       resources:
         limits:
           memory: 500M
     networks:
-      - ecommerce
+      - internal
 
   mongodb:
     container_name: mongodb
@@ -58,12 +56,11 @@ services:
       retries: 5
       start_period: 10s
     deploy:
-      replicas: 1
       resources:
         limits:
           memory: 500M
     networks:
-      - ecommerce
+      - internal
   
   account:
     image: account
@@ -80,13 +77,38 @@ services:
       mongodb:
         condition: service_healthy
     networks:
-      - ecommerce
+      - internal
     deploy:
       replicas: 2
       resources:
         limits:
           cpus: '0.25'
-          memory: 120M
+          memory: 256M
+      restart_policy:
+        condition: any
+  
+  catalog:
+    image: catalog
+    build:
+      context: .
+      dockerfile: ./src/Services/Catalog/WorkerService/Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: Staging
+    depends_on:
+      mssql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    networks:
+      - internal
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 256M
       restart_policy:
         condition: any
   
@@ -105,13 +127,13 @@ services:
       mongodb:
         condition: service_healthy
     networks:
-      - ecommerce
+      - internal
     deploy:
       replicas: 2
       resources:
         limits:
           cpus: '0.25'
-          memory: 120M
+          memory: 256M
       restart_policy:
         condition: any
   
@@ -130,13 +152,13 @@ services:
       mongodb:
         condition: service_healthy
     networks:
-      - ecommerce
+      - internal
     deploy:
       replicas: 2
       resources:
         limits:
           cpus: '0.25'
-          memory: 120M
+          memory: 256M
       restart_policy:
         condition: any
   
@@ -155,13 +177,13 @@ services:
       mongodb:
         condition: service_healthy
     networks:
-      - ecommerce
+      - internal
     deploy:
       replicas: 2
       resources:
         limits:
           cpus: '0.25'
-          memory: 120M
+          memory: 256M
       restart_policy:
         condition: any
   
@@ -180,16 +202,16 @@ services:
       mongodb:
         condition: service_healthy
     networks:
-      - ecommerce
+      - internal
     deploy:
-      replicas: 3
+      replicas: 2
       resources:
         limits:
-          cpus: '0.50'
-          memory: 120M
+          cpus: '0.25'
+          memory: 256M
       restart_policy:
         condition: any
-        
+  
   warehouse:
     image: warehouse
     build:
@@ -205,15 +227,13 @@ services:
       mongodb:
         condition: service_healthy
     networks:
-      - ecommerce
+      - internal
     deploy:
       replicas: 2
       resources:
         limits:
           cpus: '0.25'
-          memory: 120M
-        reservations:
-          memory: 80M
+          memory: 256M
       restart_policy:
         condition: any
   
@@ -231,13 +251,40 @@ services:
       rabbitmq:
         condition: service_healthy
     networks:
-      - ecommerce
+      internal:
+        aliases:
+          - webapi
     deploy:
       replicas: 2
       resources:
         limits:
-          cpus: '0.50'
-          memory: 260M
+          cpus: '0.25'
+          memory: 256M
+      restart_policy:
+        condition: any
+  
+  webapp:
+    image: webapp
+    build:
+      context: .
+      dockerfile: ./src/Web/WebAPP/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Staging
+    ports:
+      - "80"
+    depends_on:
+      webapi:
+        condition: service_started
+    networks:
+      internal:
+        aliases:
+          - webapp
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 256M
       restart_policy:
         condition: any
 
@@ -249,17 +296,15 @@ services:
     depends_on:
       webapi:
         condition: service_started
+      webapp:
+        condition: service_started
     ports:
-      - "4000:4000"
-    deploy:
-      replicas: 1
-      resources:
-        limits:
-          memory: 180M
+      - "8080:80"
+      - "5000:5000"
     networks:
-      - ecommerce
+      - internal
 
 networks:
-  ecommerce:
-    name: ecommerce
+  internal:
+    name: internal
     driver: bridge

@@ -1,8 +1,6 @@
-using ECommerce.Abstractions.Messages.Queries.Paging;
-
 namespace Infrastructure.Projections.Abstractions.Pagination;
 
-public record Paging : IPaging
+public record Paging 
 {
     private const int DefaultLimit = 10;
     private readonly int _limit;

@@ -2,7 +2,7 @@
 
 namespace Domain.ValueObjects.Addresses;
 
-public record Address : ValueObject
+public record Address : ValueObject<AddressValidator>
 {
     public string City { get; init; }
     public string Country { get; init; }
@@ -10,7 +10,4 @@ public record Address : ValueObject
     public string State { get; init; }
     public string Street { get; init; }
     public string ZipCode { get; init; }
-
-    protected override bool Validate()
-        => OnValidate<AddressValidator, Address>();
 }

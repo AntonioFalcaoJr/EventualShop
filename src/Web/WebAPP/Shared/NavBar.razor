@@ -1,0 +1,94 @@
+<BSNavbar Color="BSColor.Light">
+    <BSContainer Container="Container.Fluid">
+        <BSCollapse IsInNavbar="true">
+            <Toggler>
+                <BSNavbarToggle/>
+            </Toggler>
+            <Content>
+                <BSNav Margin="Margins.Auto">
+                    <BSNavItem IsActive="true" Url="catalogs">Catalog</BSNavItem>
+                    <BSNavItem Url="javascript:void(0);">Link</BSNavItem>
+                    <BSNavItem IsDropdown="true">
+                        <BSDropdown>
+                            <Toggler>
+                                <BSToggle IsNavLink="true">Dropdown</BSToggle>
+                            </Toggler>
+                            <Content>
+                                <BSDropdownItem Url="javascript:void(0);">Action</BSDropdownItem>
+                                <BSDropdownItem Url="javascript:void(0);">Another action</BSDropdownItem>
+                                <BSDropdownItem IsDivider="true"/>
+                                <BSDropdownItem Url="javascript:void(0);">Something else here</BSDropdownItem>
+                            </Content>
+                        </BSDropdown>
+                    </BSNavItem>
+                    <BSNavItem Url="javascript:void(0);" IsDisabled="true">Disabled</BSNavItem>
+                </BSNav>
+                <BSNavbarBrand Url="/" Margin="Margins.Auto">ECommerce</BSNavbarBrand>
+                <BSNav Margin="Margins.Auto" Class="align-items-center">
+                    <BSNavItem IsDropdown="true">
+                        <BSDropdown>
+                            <Toggler>
+                                <BSToggle IsNavLink="true">@_country</BSToggle>
+                            </Toggler>
+                            <Content>
+                                @foreach (var country in _countries)
+                                {
+                                    <BSDropdownItem IsActive="false" OnClick="() => _country = country">@country</BSDropdownItem>
+                                }
+                                <BSDropdownItem IsDivider="true"/>
+                                <BSDropdownItem OnClick="@(() => _country = "All")">All</BSDropdownItem>
+                            </Content>
+                        </BSDropdown>
+                    </BSNavItem>
+                    <BSNavItem IsDropdown="true">
+                        <BSDropdown >
+                            <Toggler>
+                                <BSToggle IsNavLink="true">@_currency</BSToggle>
+                            </Toggler>
+                            <Content >
+                                @foreach (var (key, value) in _currencies)
+                                {
+                                    <BSDropdownItem IsActive="false" OnClick="() => _currency = key">@value</BSDropdownItem>
+                                }
+                            </Content>
+                        </BSDropdown>
+                    </BSNavItem>
+                    <BSNavItem IsDropdown="true">
+                        <BSDropdown>
+                            <Toggler>
+                                <BSToggle IsNavLink="true">@_language</BSToggle>
+                            </Toggler>
+                            <Content >
+                                @foreach (var (key, value) in _languages)
+                                {
+                                    <BSDropdownItem IsActive="false" OnClick="() => _language = key">@value</BSDropdownItem>
+                                }
+                            </Content>
+                        </BSDropdown>
+                    </BSNavItem>
+                    <BSNavItem Class="bi bi-cart2" style="font-size: 1.5rem;" IsActive="true" Url="catalogs"/>
+                </BSNav>
+            </Content>
+        </BSCollapse>
+    </BSContainer>
+</BSNavbar>
+
+<style>
+    .dropdown:hover .dropdown-menu{
+        display: block;
+    }
+    .dropdown-menu{
+        margin-top: 0;
+    }
+</style>
+
+@code
+{
+    private static string[] _countries = {"United States", "Canada", "Germany"};
+    private static Dictionary<string, string> _currencies = new() {{"USD", "Dollar"}, {"EUR", "Euro"}};
+    private static Dictionary<string, string> _languages = new() {{"EN", "English"}, {"FR", "French"}, {"GER", "German"}};
+
+    private string _country = _countries.First();
+    private string _currency = _currencies.First().Key;
+    private string _language = _languages.First().Key;
+}
