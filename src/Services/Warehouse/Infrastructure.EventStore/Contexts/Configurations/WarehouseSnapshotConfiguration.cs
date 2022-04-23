@@ -1,4 +1,4 @@
-﻿using Application.EventSourcing.EventStore.Events;
+﻿using Application.EventStore.Events;
 using Infrastructure.EventStore.Contexts.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

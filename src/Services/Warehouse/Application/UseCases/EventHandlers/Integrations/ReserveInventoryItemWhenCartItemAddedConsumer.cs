@@ -1,4 +1,4 @@
-﻿using Application.EventSourcing.EventStore;
+﻿using Application.EventStore;
 using ECommerce.Contracts.ShoppingCarts;
 using MassTransit;
 using Commands = ECommerce.Contracts.Warehouses.Commands;
@@ -22,7 +22,7 @@ public class ReserveInventoryItemWhenCartItemAddedConsumer : IConsumer<DomainEve
             new Commands.ReserveInventory(
                 context.Message.ProductId,
                 context.Message.CartId,
-                inventoryItem.Sku,
+                context.Message.Sku,
                 context.Message.Quantity));
 
         await _eventStoreService.AppendEventsToStreamAsync(inventoryItem, context.CancellationToken);

@@ -24,7 +24,7 @@ public class InventoryItem : AggregateRoot<Guid, InventoryItemValidator>
         => _reserves;
 
     public void Handle(Commands.ReceiveInventoryItem cmd)
-        => RaiseEvent(new DomainEvents.InventoryItemReceived(Guid.NewGuid(), cmd.Sku, cmd.Name, cmd.Description, cmd.Quantity));
+        => RaiseEvent(new DomainEvents.InventoryReceived(Guid.NewGuid(), cmd.Sku, cmd.Name, cmd.Description, cmd.Quantity));
 
     public void Handle(Commands.AdjustInventory cmd)
         => RaiseEvent(new DomainEvents.InventoryAdjusted(cmd.ProductId, cmd.Reason, cmd.Quantity));
@@ -44,7 +44,7 @@ public class InventoryItem : AggregateRoot<Guid, InventoryItemValidator>
     protected override void ApplyEvent(IEvent @event)
         => When(@event as dynamic);
 
-    private void When(DomainEvents.InventoryItemReceived @event)
+    private void When(DomainEvents.InventoryReceived @event)
         => (Id, Sku, Name, Description, Quantity) = @event;
 
     private void When(DomainEvents.InventoryAdjusted @event)

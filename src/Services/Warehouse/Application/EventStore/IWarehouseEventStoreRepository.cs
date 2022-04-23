@@ -1,7 +1,7 @@
-﻿using Application.Abstractions.EventSourcing.EventStore;
-using Application.EventSourcing.EventStore.Events;
+﻿using Application.Abstractions.EventStore;
+using Application.EventStore.Events;
 using Domain.Aggregates;
 
-namespace Application.EventSourcing.EventStore;
+namespace Application.EventStore;
 
 public interface IWarehouseEventStoreRepository : IEventStoreRepository<InventoryItem, WarehouseStoreEvent, WarehouseSnapshot, Guid> { }

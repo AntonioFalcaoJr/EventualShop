@@ -1,4 +1,4 @@
-﻿using Application.EventSourcing.Projections;
+﻿using Application.Abstractions.Projections;
 using ECommerce.Contracts.Warehouses;
 using MassTransit;
 
@@ -6,16 +6,16 @@ namespace Application.UseCases.QueryHandlers;
 
 public class GetInventoryItemDetailsConsumer : IConsumer<Queries.GetInventoryItemDetails>
 {
-    private readonly IWarehouseProjectionsService _projectionsService;
+    private readonly IProjectionsRepository<Projections.InventoryProjection> _projectionsRepository;
 
-    public GetInventoryItemDetailsConsumer(IWarehouseProjectionsService projectionsService)
+    public GetInventoryItemDetailsConsumer(IProjectionsRepository<Projections.InventoryProjection> projectionsRepository)
     {
-        _projectionsService = projectionsService;
+        _projectionsRepository = projectionsRepository;
     }
 
     public async Task Consume(ConsumeContext<Queries.GetInventoryItemDetails> context)
     {
-        var inventoryItemDetails = await _projectionsService.GetProductDetailsAsync(context.Message.ProductId, context.CancellationToken);
-        await context.RespondAsync<Responses.InventoryItemDetails>(inventoryItemDetails);
+        var inventory = await _projectionsRepository.GetAsync(context.Message.ProductId, context.CancellationToken);
+        await context.RespondAsync(inventory);
     }
 }

@@ -1,5 +1,4 @@
-﻿using Application.EventSourcing.EventStore;
-using Application.EventSourcing.Projections;
+﻿using Application.Abstractions.Projections;
 using ECommerce.Contracts.Warehouses;
 using MassTransit;
 
@@ -7,39 +6,35 @@ namespace Application.UseCases.EventHandlers.Projections;
 
 public class ProjectInventoryItemWhenChangedConsumer :
     IConsumer<DomainEvents.InventoryAdjusted>,
-    IConsumer<DomainEvents.InventoryItemReceived>
+    IConsumer<DomainEvents.InventoryReceived>
 {
-    private readonly IWarehouseEventStoreService _eventStoreService;
-    private readonly IWarehouseProjectionsService _projectionsService;
+    private readonly IProjectionsRepository<ECommerce.Contracts.Warehouses.Projections.InventoryProjection> _projectionsRepository;
 
-    public ProjectInventoryItemWhenChangedConsumer(
-        IWarehouseEventStoreService eventStoreService,
-        IWarehouseProjectionsService projectionsService)
+    public ProjectInventoryItemWhenChangedConsumer(IProjectionsRepository<ECommerce.Contracts.Warehouses.Projections.InventoryProjection> projectionsRepository)
     {
-        _eventStoreService = eventStoreService;
-        _projectionsService = projectionsService;
+        _projectionsRepository = projectionsRepository;
     }
 
-    public Task Consume(ConsumeContext<DomainEvents.InventoryAdjusted> context)
-        => ProjectAsync(context.Message.ProductId, context.CancellationToken);
+    // TODO - It should be some think like (InventoryAdjustmentIncreased and InventoryAdjustmentDecreased)
+    public async Task Consume(ConsumeContext<DomainEvents.InventoryAdjusted> context)
+        => await _projectionsRepository.UpdateFieldAsync(
+            id: context.Message.ProductId,
+            field: item => item.Quantity,
+            value: context.Message.Quantity,
+            cancellationToken: context.CancellationToken);
 
-    public Task Consume(ConsumeContext<DomainEvents.InventoryItemReceived> context)
-        => ProjectAsync(context.Message.ProductId, context.CancellationToken);
-
-    private async Task ProjectAsync(Guid productId, CancellationToken cancellationToken)
+    public async Task Consume(ConsumeContext<DomainEvents.InventoryReceived> context)
     {
-        var inventoryItem = await _eventStoreService.LoadAggregateFromStreamAsync(productId, cancellationToken);
-
-        var inventoryItemDetails = new InventoryItemDetailsProjection
+        var inventory = new ECommerce.Contracts.Warehouses.Projections.InventoryProjection
         {
-            Id = inventoryItem.Id,
-            Description = inventoryItem.Description,
-            Name = inventoryItem.Name,
-            Quantity = inventoryItem.Quantity,
-            Sku = inventoryItem.Sku,
-            IsDeleted = inventoryItem.IsDeleted
+            Id = context.Message.ProductId,
+            Description = context.Message.Description,
+            Name = context.Message.Name,
+            Quantity = context.Message.Quantity,
+            Sku = context.Message.Sku,
+            IsDeleted = false
         };
 
-        await _projectionsService.ProjectAsync(inventoryItemDetails, cancellationToken);
+        await _projectionsRepository.InsertAsync(inventory, context.CancellationToken);
     }
 }

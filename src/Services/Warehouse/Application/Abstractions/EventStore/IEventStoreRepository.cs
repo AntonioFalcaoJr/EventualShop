@@ -1,8 +1,8 @@
-﻿using Application.Abstractions.EventSourcing.EventStore.Events;
+﻿using Application.Abstractions.EventStore.Events;
 using Domain.Abstractions.Aggregates;
 using ECommerce.Abstractions.Messages.Events;
 
-namespace Application.Abstractions.EventSourcing.EventStore;
+namespace Application.Abstractions.EventStore;
 
 public interface IEventStoreRepository<TAggregate, in TStoreEvent, TSnapshot, in TId>
     where TAggregate : IAggregateRoot<TId>, new()
