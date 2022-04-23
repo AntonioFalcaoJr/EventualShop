@@ -1,4 +1,5 @@
-﻿using ECommerce.Contracts.Accounts;
+﻿using ECommerce.Abstractions.Messages.Queries.Paging;
+using ECommerce.Contracts.Accounts;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;
@@ -13,11 +14,11 @@ public class AccountsController : ApplicationController
 
     [HttpGet]
     public Task<IActionResult> GetAccountsWithPagination([FromQuery] Queries.GetAccounts query, CancellationToken cancellationToken)
-        => GetResponseAsync<Queries.GetAccounts, Responses.Accounts>(query, cancellationToken);
+        => GetProjectionAsync<Queries.GetAccounts, IPagedResult<Projections.Account>>(query, cancellationToken);
 
     [HttpGet]
     public Task<IActionResult> GetAccountDetails([FromQuery] Queries.GetAccountDetails query, CancellationToken cancellationToken)
-        => GetResponseAsync<Queries.GetAccountDetails, Responses.Account>(query, cancellationToken);
+        => GetProjectionAsync<Queries.GetAccountDetails, Projections.Account>(query, cancellationToken);
 
     [HttpPost]
     public Task<IActionResult> CreateAccount(Commands.CreateAccount command, CancellationToken cancellationToken)

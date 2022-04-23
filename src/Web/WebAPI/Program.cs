@@ -5,6 +5,7 @@ using ECommerce.JsonConverters;
 using FluentValidation.AspNetCore;
 using MassTransit;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.OpenApi.Any;
 using Serilog;
@@ -35,6 +36,7 @@ builder.Host.ConfigureLogging((context, loggingBuilder) =>
 
     loggingBuilder.ClearProviders();
     loggingBuilder.AddSerilog();
+    builder.Host.UseSerilog();
 });
 
 builder.Services
@@ -90,6 +92,8 @@ builder.Services.ConfigureMassTransitHostOptions(
 builder.Services.ConfigureRabbitMqTransportOptions(
     builder.Configuration.GetSection(nameof(RabbitMqTransportOptions)));
 
+builder.Services.AddHttpLogging(options => options.LoggingFields = HttpLoggingFields.All);
+
 var app = builder.Build();
 
 if (builder.Environment.IsDevelopment())
@@ -102,8 +106,8 @@ if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
 }
 
 app.UseCors("cors");
-
 app.UseRouting();
+app.UseSerilogRequestLogging();
 
 app.UseEndpoints(endpoints
     => endpoints.MapControllerRoute(

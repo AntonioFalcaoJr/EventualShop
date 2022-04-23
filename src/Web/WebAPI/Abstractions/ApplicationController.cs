@@ -1,6 +1,7 @@
 using ECommerce.Abstractions.Messages.Commands;
 using ECommerce.Abstractions.Messages.Queries;
 using ECommerce.Abstractions.Messages.Queries.Responses;
+using ECommerce.Abstractions.Projections;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,22 +41,6 @@ public abstract class ApplicationController : ControllerBase
         };
     }
     
-    protected async Task<IActionResult> GetResponseAsync<TQuery, TResponse>(TQuery query, CancellationToken cancellationToken)
-        where TQuery : class, IQuery
-        where TResponse : class, IResponse
-    {
-        var clientResponse = await _bus
-            .CreateRequestClient<TQuery>(Address<TQuery>())
-            .GetResponse<TResponse, NotFound>(query, cancellationToken);
-
-        return clientResponse.Message switch
-        {
-            TResponse response => Ok(response),
-            NotFound _ => NotFound(),
-            _ => Problem()
-        };
-    }
-
     private static Uri Address<T>()
         => new($"exchange:{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}");
 }
