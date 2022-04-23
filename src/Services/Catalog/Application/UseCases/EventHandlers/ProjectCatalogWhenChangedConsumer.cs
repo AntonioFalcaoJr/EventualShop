@@ -31,18 +31,18 @@ public class ProjectCatalogWhenChangedConsumer :
         await _projectionsRepository.InsertAsync(catalog, context.CancellationToken);
     }
 
-    public Task Consume(ConsumeContext<DomainEvents.CatalogDeleted> context)
-        => _projectionsRepository.DeleteAsync(context.Message.CatalogId, context.CancellationToken);
+    public async Task Consume(ConsumeContext<DomainEvents.CatalogDeleted> context)
+        => await _projectionsRepository.DeleteAsync(context.Message.CatalogId, context.CancellationToken);
 
-    public Task Consume(ConsumeContext<DomainEvents.CatalogActivated> context)
-        => _projectionsRepository.UpdateFieldAsync(
+    public async Task Consume(ConsumeContext<DomainEvents.CatalogActivated> context)
+        => await _projectionsRepository.UpdateFieldAsync(
             id: context.Message.CatalogId,
             field: catalog => catalog.IsActive,
             value: true,
             cancellationToken: context.CancellationToken);
 
-    public Task Consume(ConsumeContext<DomainEvents.CatalogDeactivated> context)
-        => _projectionsRepository.UpdateFieldAsync(
+    public async Task Consume(ConsumeContext<DomainEvents.CatalogDeactivated> context)
+        => await _projectionsRepository.UpdateFieldAsync(
             id: context.Message.CatalogId,
             field: catalog => catalog.IsActive,
             value: false,

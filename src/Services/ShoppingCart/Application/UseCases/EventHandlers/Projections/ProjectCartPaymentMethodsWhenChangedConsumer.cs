@@ -21,7 +21,7 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
             filter: item => item.ShoppingCartId == context.Message.CartId,
             cancellationToken: context.CancellationToken);
 
-    public Task Consume(ConsumeContext<DomainEvents.CreditCardAdded> context)
+    public async Task Consume(ConsumeContext<DomainEvents.CreditCardAdded> context)
     {
         var creditCard = new ECommerce.Contracts.ShoppingCarts.Projections.CreditCardPaymentMethod
         {
@@ -35,10 +35,10 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
             ShoppingCartId = context.Message.CartId
         };
 
-        return _projectionsRepository.InsertAsync(creditCard, context.CancellationToken);
+        await _projectionsRepository.InsertAsync(creditCard, context.CancellationToken);
     }
 
-    public Task Consume(ConsumeContext<DomainEvents.PayPalAdded> context)
+    public async Task Consume(ConsumeContext<DomainEvents.PayPalAdded> context)
     {
         var paypal = new ECommerce.Contracts.ShoppingCarts.Projections.PayPalPaymentMethod()
         {
@@ -50,6 +50,6 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
             ShoppingCartId = context.Message.CartId,
         };
 
-        return _projectionsRepository.InsertAsync(paypal, context.CancellationToken);
+        await _projectionsRepository.InsertAsync(paypal, context.CancellationToken);
     }
 }
