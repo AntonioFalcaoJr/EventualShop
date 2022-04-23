@@ -25,4 +25,3 @@ RUN dotnet publish -c Release --no-restore -v m -o /app/publish
 
 FROM nginx:alpine AS final
 COPY --from=publish /app/publish/wwwroot ./usr/share/nginx/html
-COPY ./webapp-nginx.conf /etc/nginx/nginx.conf

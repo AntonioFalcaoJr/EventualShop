@@ -5,7 +5,7 @@ namespace WebAPP.HttpClients;
 
 public interface IECommerceHttpClient
 {
-    Task<HttpResponse<Responses.Catalogs>> GetAsync(int limit, int offset, CancellationToken cancellationToken);
+    Task<HttpResponse<PagedResult<Projections.Catalog>>> GetAsync(int limit, int offset, CancellationToken cancellationToken);
     Task<HttpResponse> CreateAsync(Requests.CreateCatalog request, CancellationToken cancellationToken);
     Task<HttpResponse> DeleteAsync(Guid catalogId, CancellationToken cancellationToken);
     Task<HttpResponse> ActivateAsync(Guid catalogId, Requests.ChangeCatalogDescription request, CancellationToken cancellationToken);

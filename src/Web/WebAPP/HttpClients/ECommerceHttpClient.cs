@@ -15,8 +15,8 @@ public class ECommerceHttpClient : ApplicationHttpClient, IECommerceHttpClient
         _options = optionsSnapshot.Value;
     }
 
-    public Task<HttpResponse<Responses.Catalogs>> GetAsync(int limit, int offset, CancellationToken cancellationToken)
-        => GetAsync<Responses.Catalogs>($"{_options.CatalogEndpoint}?limit={limit}&offset={offset}", cancellationToken);
+    public Task<HttpResponse<PagedResult<Projections.Catalog>>> GetAsync(int limit, int offset, CancellationToken cancellationToken)
+        => GetAsync<PagedResult<Projections.Catalog>>($"{_options.CatalogEndpoint}?limit={limit}&offset={offset}", cancellationToken);
 
     public Task<HttpResponse> CreateAsync(Requests.CreateCatalog request, CancellationToken cancellationToken)
         => PostAsync($"{_options.CatalogEndpoint}", request, cancellationToken);

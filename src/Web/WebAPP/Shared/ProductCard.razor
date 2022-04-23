@@ -1,4 +1,5 @@
 ﻿@using ECommerce.Contracts.Catalogs
+@using ECommerce.Abstractions.Messages.Queries.Paging
 @inject HttpClient Http
 @inject IBlazorStrap BlazorStrap
 
@@ -39,7 +40,7 @@
 
 @code {
 
-    private Responses.CatalogItems _cards = new() {Items = Enumerable.Empty<Projections.CatalogItem>(), PageInfo = new()};
+    private IPagedResult<Projections.CatalogItem> _cards;
 
     protected override async Task OnInitializedAsync()
         => await LoadAsync();
@@ -50,7 +51,7 @@
 
         try
         {
-            _cards = await Http.GetFromJsonAsync<Responses.CatalogItems>($"/api/catalogs/get-catalog-items/{catalogId}/items?limit={limit}&offset={offset}");
+            _cards = await Http.GetFromJsonAsync<IPagedResult<Projections.CatalogItem>>($"/api/catalogs/get-catalog-items/{catalogId}/items?limit={limit}&offset={offset}");
         }
         catch (Exception e)
         {

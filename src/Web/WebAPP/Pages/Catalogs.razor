@@ -48,21 +48,29 @@
     }
     else
     {
-        <BSRow>
+        <div class="row row-cols-md-4">
             @foreach (var (catalogId, title, description, _, _) in ViewModel.Catalogs)
             {
-                <BSCard Class="w-25" Alignment="Alignment.Center" CardType="CardType.Card" Padding="Padding.None">
-                    <BSCard CardType="CardType.Header">@title</BSCard>
-                    <BSCard CardType="CardType.Body">
-                        <BSCard CardType="CardType.Title">@title</BSCard>
-                        <BSCard CardType="CardType.Subtitle">@description</BSCard>
-                        <BSButton Color="BSColor.Warning" OnClick=@(() => ChangeDescriptionAsync(catalogId))>Change Description</BSButton>
-                        <BSButton Color="BSColor.Warning" OnClick=@(() => ChangeTitleAsync(catalogId))>Change Title</BSButton>
-                        <BSButton Color="BSColor.Danger" OnClick=@(() => DeleteAsync(catalogId))>Delete</BSButton>
+                <BSCol  MarginTopAndBottom="Margins.ExtraSmall" Padding="Padding.None">
+                    <BSCard CardType="CardType.Card" Padding="Padding.None">
+                        <BSCard CardType="CardType.Header">
+                            @title
+                            <BSButton Class="bi bi-pencil-square" Color="BSColor.Warning" OnClick=@(() => ChangeTitleAsync(catalogId))></BSButton>
+                        </BSCard>
+                        <BSCard CardType="CardType.Image" src="https://img.webnots.com/2017/04/Bootstrap-Card-Image.png"></BSCard>
+                        <BSCard CardType="CardType.Body">
+                            <BSCard CardType="CardType.Title">@title</BSCard>
+                            <BSCard CardType="CardType.Subtitle">
+                                @description
+                                <BSButton Class="bi bi-pencil-square" Color="BSColor.Warning" OnClick=@(() => ChangeDescriptionAsync(catalogId))></BSButton>
+                            </BSCard>
+                            <BSButton Class="bi bi-trash3" Color="BSColor.Danger" OnClick=@(() => DeleteAsync(catalogId))></BSButton>
+                        </BSCard>
+                        <BSCard CardType="CardType.Footer">Last updated 3 mins ago</BSCard>
                     </BSCard>
-                </BSCard>
+                </BSCol>
             }
-        </BSRow>
+        </div>
         <BSPagination Align="Align.Center">
             <BSPaginationItem IsDisabled=@(ViewModel.PageInfo.HasPrevious is false) @onclick="MoveToPreview">Previous</BSPaginationItem>
             @for (var paging = 1; paging <= ViewModel.PageInfo.Current; paging++)
@@ -106,7 +114,7 @@
             Failed(e.Message);
         }
     }
-    
+
     private async Task ChangeTitleAsync(Guid catalogId)
     {
         try
@@ -155,4 +163,5 @@
         if (ViewModel.PageInfo.HasPrevious)
             await ViewModel.FetchDataAsync(offset: ViewModel.PageInfo.Current - 2);
     }
+
 }
