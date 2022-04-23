@@ -7,16 +7,16 @@ namespace Application.UseCases.QueryHandlers;
 
 public class GetCatalogsConsumer : IConsumer<Queries.GetCatalogs>
 {
-    private readonly IProjectionsRepository<Projections.Catalog> _projectionsRepository;
+    private readonly IProjectionRepository<Projections.Catalog> _projectionRepository;
 
-    public GetCatalogsConsumer(IProjectionsRepository<Projections.Catalog> projectionsRepository)
+    public GetCatalogsConsumer(IProjectionRepository<Projections.Catalog> projectionRepository)
     {
-        _projectionsRepository = projectionsRepository;
+        _projectionRepository = projectionRepository;
     }
 
     public async Task Consume(ConsumeContext<Queries.GetCatalogs> context)
     {
-        var catalogs = await _projectionsRepository.GetAsync(context.Message.Limit, context.Message.Offset, context.CancellationToken);
+        var catalogs = await _projectionRepository.GetAsync(context.Message.Limit, context.Message.Offset, context.CancellationToken);
 
         await (catalogs is null
             ? context.RespondAsync<NotFound>(new())

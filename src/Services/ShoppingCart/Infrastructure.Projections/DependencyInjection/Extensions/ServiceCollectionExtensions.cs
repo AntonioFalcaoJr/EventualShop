@@ -12,8 +12,8 @@ public static class ServiceCollectionExtensions
 {
     public static void AddProjections(this IServiceCollection services)
     {
-        services.AddScoped(typeof(IProjectionsRepository<>), typeof(ProjectionsRepository<>));
-        services.AddScoped<IMongoDbContext, ProjectionsDbContext>();
+        services.AddScoped(typeof(IProjectionRepository<>), typeof(ProjectionRepository<>));
+        services.AddScoped<IMongoDbContext, ProjectionDbContext>();
 
         BsonSerializer.RegisterSerializer(new DateOnlyBsonSerializer());
         BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.CSharpLegacy));

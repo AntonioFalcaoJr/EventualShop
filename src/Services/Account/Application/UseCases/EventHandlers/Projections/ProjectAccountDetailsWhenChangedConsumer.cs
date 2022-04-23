@@ -1,5 +1,4 @@
-﻿using Application.EventSourcing.EventStore;
-using Application.EventSourcing.Projections;
+﻿using Application.Abstractions.Projections;
 using ECommerce.Contracts.Accounts;
 using MassTransit;
 
@@ -12,68 +11,58 @@ public class ProjectAccountDetailsWhenChangedConsumer :
     IConsumer<DomainEvents.ProfileUpdated>,
     IConsumer<DomainEvents.ResidenceAddressDefined>
 {
-    private readonly IAccountEventStoreService _eventStoreService;
-    private readonly IAccountProjectionsService _projectionsService;
+    private readonly IProjectionRepository<ECommerce.Contracts.Accounts.Projections.AccountProjection> _projectionRepository;
 
-    public ProjectAccountDetailsWhenChangedConsumer(
-        IAccountEventStoreService eventStoreService,
-        IAccountProjectionsService projectionsService)
+    public ProjectAccountDetailsWhenChangedConsumer(IProjectionRepository<ECommerce.Contracts.Accounts.Projections.AccountProjection> projectionRepository)
     {
-        _eventStoreService = eventStoreService;
-        _projectionsService = projectionsService;
+        _projectionRepository = projectionRepository;
     }
 
-    public Task Consume(ConsumeContext<DomainEvents.AccountCreated> context)
-        => ProjectAsync(context.Message.AccountId, context.CancellationToken);
-
-    public Task Consume(ConsumeContext<DomainEvents.AccountDeleted> context)
-        => ProjectAsync(context.Message.AccountId, context.CancellationToken);
-
-    public Task Consume(ConsumeContext<DomainEvents.ProfessionalAddressDefined> context)
-        => ProjectAsync(context.Message.AccountId, context.CancellationToken);
-
-    public Task Consume(ConsumeContext<DomainEvents.ProfileUpdated> context)
-        => ProjectAsync(context.Message.AccountId, context.CancellationToken);
-
-    public Task Consume(ConsumeContext<DomainEvents.ResidenceAddressDefined> context)
-        => ProjectAsync(context.Message.AccountId, context.CancellationToken);
-
-    private async Task ProjectAsync(Guid accountId, CancellationToken cancellationToken)
+    public async Task Consume(ConsumeContext<DomainEvents.AccountCreated> context)
     {
-        var account = await _eventStoreService.LoadAggregateFromStreamAsync(accountId, cancellationToken);
-
-        var accountDetails = new AccountDetailsProjection
+        var account = new ECommerce.Contracts.Accounts.Projections.AccountProjection
         {
-            Id = account.Id,
-            UserId = account.UserId,
+            Id = context.Message.AccountId,
+            UserId = context.Message.UserId,
             Profile = new()
             {
-                Birthdate = account.Profile.Birthdate,
-                Email = account.Profile.Email,
-                FirstName = account.Profile.FirstName,
-                LastName = account.Profile.LastName,
-                ProfessionalAddress = new()
-                {
-                    City = account.Profile.ProfessionalAddress.City,
-                    Country = account.Profile.ProfessionalAddress.Country,
-                    Number = account.Profile.ProfessionalAddress.Number,
-                    State = account.Profile.ProfessionalAddress.State,
-                    Street = account.Profile.ProfessionalAddress.Street,
-                    ZipCode = account.Profile.ProfessionalAddress.ZipCode
-                },
-                ResidenceAddress = new()
-                {
-                    City = account.Profile.ResidenceAddress.City,
-                    Country = account.Profile.ResidenceAddress.Country,
-                    Number = account.Profile.ResidenceAddress.Number,
-                    State = account.Profile.ResidenceAddress.State,
-                    Street = account.Profile.ResidenceAddress.Street,
-                    ZipCode = account.Profile.ResidenceAddress.ZipCode
-                }
+                Email = context.Message.Email,
+                FirstName = context.Message.FirstName,
             },
-            IsDeleted = account.IsDeleted
+            IsDeleted = false
         };
 
-        await _projectionsService.ProjectAsync(accountDetails, cancellationToken);
+        await _projectionRepository.InsertAsync(account, context.CancellationToken);
     }
+
+    public async Task Consume(ConsumeContext<DomainEvents.AccountDeleted> context)
+        => await _projectionRepository.DeleteAsync(context.Message.AccountId, context.CancellationToken);
+
+    public async Task Consume(ConsumeContext<DomainEvents.ProfessionalAddressDefined> context)
+        => await _projectionRepository.UpdateFieldAsync(
+            id: context.Message.AccountId,
+            field: account => account.Profile.ProfessionalAddress,
+            value: context.Message.Address,
+            cancellationToken: context.CancellationToken);
+
+    // TODO - Improve this, update all profile dont like the right approach
+    public async Task Consume(ConsumeContext<DomainEvents.ProfileUpdated> context)
+        => await _projectionRepository.UpdateFieldAsync(
+            id: context.Message.AccountId,
+            field: account => account.Profile,
+            value: new()
+            {
+                Birthdate = context.Message.Birthdate,
+                Email = context.Message.Email,
+                FirstName = context.Message.FirstName,
+                LastName = context.Message.LastName
+            },
+            cancellationToken: context.CancellationToken);
+
+    public async Task Consume(ConsumeContext<DomainEvents.ResidenceAddressDefined> context)
+        => await _projectionRepository.UpdateFieldAsync(
+            id: context.Message.AccountId,
+            field: account => account.Profile.ResidenceAddress,
+            value: context.Message.Address,
+            cancellationToken: context.CancellationToken);
 }

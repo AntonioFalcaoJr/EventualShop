@@ -9,16 +9,16 @@ public class GetShoppingCartPaymentMethodConsumer :
     IConsumer<Queries.GetShoppingCartPaymentMethod>,
     IConsumer<Queries.GetShoppingCartPaymentMethods>
 {
-    private readonly IProjectionsRepository<Projections.IPaymentMethod> _projectionsRepository;
+    private readonly IProjectionRepository<Projections.IPaymentMethod> _projectionRepository;
 
-    public GetShoppingCartPaymentMethodConsumer(IProjectionsRepository<Projections.IPaymentMethod> projectionsRepository)
+    public GetShoppingCartPaymentMethodConsumer(IProjectionRepository<Projections.IPaymentMethod> projectionRepository)
     {
-        _projectionsRepository = projectionsRepository;
+        _projectionRepository = projectionRepository;
     }
 
     public async Task Consume(ConsumeContext<Queries.GetShoppingCartPaymentMethod> context)
     {
-        var paymentMethod = await _projectionsRepository.FindAsync(
+        var paymentMethod = await _projectionRepository.FindAsync(
             predicate: paymentMethod => paymentMethod.ShoppingCartId == context.Message.CartId &&
                                         paymentMethod.Id == context.Message.PaymentMethodId,
             cancellationToken: context.CancellationToken);
@@ -30,7 +30,7 @@ public class GetShoppingCartPaymentMethodConsumer :
 
     public async Task Consume(ConsumeContext<Queries.GetShoppingCartPaymentMethods> context)
     {
-        var paymentMethods = await _projectionsRepository.GetAllAsync(
+        var paymentMethods = await _projectionRepository.GetAllAsync(
             context.Message.Limit,
             context.Message.Offset,
             item => item.ShoppingCartId == context.Message.CartId,

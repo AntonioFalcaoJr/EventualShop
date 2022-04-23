@@ -8,16 +8,16 @@ public class ProjectInventoryItemWhenChangedConsumer :
     IConsumer<DomainEvents.InventoryAdjusted>,
     IConsumer<DomainEvents.InventoryReceived>
 {
-    private readonly IProjectionsRepository<ECommerce.Contracts.Warehouses.Projections.InventoryProjection> _projectionsRepository;
+    private readonly IProjectionRepository<ECommerce.Contracts.Warehouses.Projections.InventoryProjection> _projectionRepository;
 
-    public ProjectInventoryItemWhenChangedConsumer(IProjectionsRepository<ECommerce.Contracts.Warehouses.Projections.InventoryProjection> projectionsRepository)
+    public ProjectInventoryItemWhenChangedConsumer(IProjectionRepository<ECommerce.Contracts.Warehouses.Projections.InventoryProjection> projectionRepository)
     {
-        _projectionsRepository = projectionsRepository;
+        _projectionRepository = projectionRepository;
     }
 
     // TODO - It should be some think like (InventoryAdjustmentIncreased and InventoryAdjustmentDecreased)
     public async Task Consume(ConsumeContext<DomainEvents.InventoryAdjusted> context)
-        => await _projectionsRepository.UpdateFieldAsync(
+        => await _projectionRepository.UpdateFieldAsync(
             id: context.Message.ProductId,
             field: item => item.Quantity,
             value: context.Message.Quantity,
@@ -35,6 +35,6 @@ public class ProjectInventoryItemWhenChangedConsumer :
             IsDeleted = false
         };
 
-        await _projectionsRepository.InsertAsync(inventory, context.CancellationToken);
+        await _projectionRepository.InsertAsync(inventory, context.CancellationToken);
     }
 }

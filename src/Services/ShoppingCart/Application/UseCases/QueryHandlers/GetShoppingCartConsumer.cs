@@ -9,22 +9,22 @@ public class GetShoppingCartConsumer :
     IConsumer<Queries.GetShoppingCart>,
     IConsumer<Queries.GetCustomerShoppingCart>
 {
-    private readonly IProjectionsRepository<Projections.ShoppingCart> _projectionsRepository;
+    private readonly IProjectionRepository<Projections.ShoppingCart> _projectionRepository;
 
-    public GetShoppingCartConsumer(IProjectionsRepository<Projections.ShoppingCart> projectionsRepository)
+    public GetShoppingCartConsumer(IProjectionRepository<Projections.ShoppingCart> projectionRepository)
     {
-        _projectionsRepository = projectionsRepository;
+        _projectionRepository = projectionRepository;
     }
 
     public async Task Consume(ConsumeContext<Queries.GetCustomerShoppingCart> context)
     {
-        var shoppingCartProjection = await _projectionsRepository.FindAsync(cart => cart.Customer.Id == context.Message.CustomerId, context.CancellationToken);
+        var shoppingCartProjection = await _projectionRepository.FindAsync(cart => cart.Customer.Id == context.Message.CustomerId, context.CancellationToken);
         await RespondAsync(shoppingCartProjection, context);
     }
 
     public async Task Consume(ConsumeContext<Queries.GetShoppingCart> context)
     {
-        var shoppingCartProjection = await _projectionsRepository.GetAsync(context.Message.CartId, context.CancellationToken);
+        var shoppingCartProjection = await _projectionRepository.GetAsync(context.Message.CartId, context.CancellationToken);
         await RespondAsync(shoppingCartProjection, context);
     }
 

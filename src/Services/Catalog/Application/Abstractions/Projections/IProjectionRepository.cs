@@ -1,10 +1,10 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 using ECommerce.Abstractions.Messages.Queries.Paging;
 using ECommerce.Abstractions.Projections;
 
 namespace Application.Abstractions.Projections;
 
-public interface IProjectionsRepository<TProjection>
+public interface IProjectionRepository<TProjection>
     where TProjection : IProjection
 {
     Task<TProjection> FindAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken);

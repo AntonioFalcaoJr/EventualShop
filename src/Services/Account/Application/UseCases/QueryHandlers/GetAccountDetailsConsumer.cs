@@ -1,21 +1,36 @@
-using Application.EventSourcing.Projections;
+using Application.Abstractions.Projections;
+using ECommerce.Abstractions.Messages.Queries.Responses;
 using ECommerce.Contracts.Accounts;
 using MassTransit;
 
 namespace Application.UseCases.QueryHandlers;
 
-public class GetAccountDetailsConsumer : IConsumer<Queries.GetAccountDetails>
+public class GetAccountDetailsConsumer :
+    IConsumer<Queries.GetAccountDetails>,
+    IConsumer<Queries.GetAccounts>
 {
-    private readonly IAccountProjectionsService _projectionsService;
+    private readonly IProjectionRepository<Projections.AccountProjection> _projectionRepository;
 
-    public GetAccountDetailsConsumer(IAccountProjectionsService projectionsService)
+    public GetAccountDetailsConsumer(IProjectionRepository<Projections.AccountProjection> projectionRepository)
     {
-        _projectionsService = projectionsService;
+        _projectionRepository = projectionRepository;
     }
 
     public async Task Consume(ConsumeContext<Queries.GetAccountDetails> context)
     {
-        var accountDetails = await _projectionsService.GetAccountDetailsAsync(context.Message.AccountId, context.CancellationToken);
-        await context.RespondAsync<Responses.Account>(accountDetails);
+        var account = await _projectionRepository.GetAsync(context.Message.AccountId, context.CancellationToken);
+
+        await (account is null
+            ? context.RespondAsync<NotFound>(new())
+            : context.RespondAsync(account));
+    }
+
+    public async Task Consume(ConsumeContext<Queries.GetAccounts> context)
+    {
+        var accounts = await _projectionRepository.GetAsync(context.Message.Limit, context.Message.Offset, context.CancellationToken);
+
+        await (accounts is null
+            ? context.RespondAsync<NotFound>(new())
+            : context.RespondAsync(accounts));
     }
 }

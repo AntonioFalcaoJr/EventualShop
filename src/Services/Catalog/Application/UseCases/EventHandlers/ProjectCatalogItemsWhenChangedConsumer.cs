@@ -10,18 +10,18 @@ public class ProjectCatalogItemsWhenChangedConsumer :
     IConsumer<DomainEvents.CatalogItemRemoved>,
     IConsumer<DomainEvents.CatalogItemUpdated>
 {
-    private readonly IProjectionsRepository<Projections.CatalogItem> _projectionsRepository;
+    private readonly IProjectionRepository<Projections.CatalogItem> _projectionRepository;
 
-    public ProjectCatalogItemsWhenChangedConsumer(IProjectionsRepository<Projections.CatalogItem> projectionsRepository)
+    public ProjectCatalogItemsWhenChangedConsumer(IProjectionRepository<Projections.CatalogItem> projectionRepository)
     {
-        _projectionsRepository = projectionsRepository;
+        _projectionRepository = projectionRepository;
     }
 
     public async Task Consume(ConsumeContext<DomainEvents.CatalogDeleted> context)
-        => await _projectionsRepository.DeleteAsync(item => item.CatalogId == context.Message.CatalogId, context.CancellationToken);
+        => await _projectionRepository.DeleteAsync(item => item.CatalogId == context.Message.CatalogId, context.CancellationToken);
 
     public async Task Consume(ConsumeContext<DomainEvents.CatalogItemRemoved> context)
-        => await _projectionsRepository.DeleteAsync(context.Message.ItemId, context.CancellationToken);
+        => await _projectionRepository.DeleteAsync(context.Message.ItemId, context.CancellationToken);
 
     public async Task Consume(ConsumeContext<DomainEvents.CatalogItemAdded> context)
     {
@@ -34,7 +34,7 @@ public class ProjectCatalogItemsWhenChangedConsumer :
             context.Message.PictureUri,
             false);
 
-        await _projectionsRepository.InsertAsync(catalogItem, context.CancellationToken);
+        await _projectionRepository.InsertAsync(catalogItem, context.CancellationToken);
     }
 
     public async Task Consume(ConsumeContext<DomainEvents.CatalogItemUpdated> context)
@@ -48,6 +48,6 @@ public class ProjectCatalogItemsWhenChangedConsumer :
             context.Message.PictureUri,
             false);
 
-        await _projectionsRepository.UpsertAsync(catalogItem, context.CancellationToken);
+        await _projectionRepository.UpsertAsync(catalogItem, context.CancellationToken);
     }
 }

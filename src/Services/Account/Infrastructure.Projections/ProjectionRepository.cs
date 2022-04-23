@@ -1,4 +1,4 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 using Application.Abstractions.Projections;
 using ECommerce.Abstractions.Messages.Queries.Paging;
 using ECommerce.Abstractions.Projections;
@@ -9,12 +9,12 @@ using MongoDB.Driver.Linq;
 
 namespace Infrastructure.Projections;
 
-public class ProjectionsRepository<TProjection> : IProjectionsRepository<TProjection>
+public class ProjectionRepository<TProjection> : IProjectionRepository<TProjection>
     where TProjection : IProjection
 {
     private readonly IMongoCollection<TProjection> _collection;
 
-    public ProjectionsRepository(IMongoDbContext context)
+    public ProjectionRepository(IMongoDbContext context)
     {
         _collection = context.GetCollection<TProjection>();
     }
@@ -26,10 +26,10 @@ public class ProjectionsRepository<TProjection> : IProjectionsRepository<TProjec
     public Task<TProjection> FindAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
         => _collection.AsQueryable().Where(predicate).FirstOrDefaultAsync(cancellationToken);
 
-    public Task<IPagedResult<TProjection>> GetAllAsync(int limit, int offset, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
+    public Task<IPagedResult<TProjection>> GetAsync(int limit, int offset, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
         => PagedResult<TProjection>.CreateAsync(limit, offset, _collection.AsQueryable().Where(predicate), cancellationToken);
 
-    public Task<IPagedResult<TProjection>> GetAllAsync(int limit, int offset, CancellationToken cancellationToken)
+    public Task<IPagedResult<TProjection>> GetAsync(int limit, int offset, CancellationToken cancellationToken)
         => PagedResult<TProjection>.CreateAsync(limit, offset, _collection.AsQueryable(), cancellationToken);
 
     public Task InsertAsync(TProjection projection, CancellationToken cancellationToken)
@@ -67,12 +67,5 @@ public class ProjectionsRepository<TProjection> : IProjectionsRepository<TProjec
         => _collection.UpdateOneAsync(
             filter: projection => projection.Id.Equals(id),
             update: new ObjectUpdateDefinition<TProjection>(new()).Set(field, value),
-            cancellationToken: cancellationToken);
-
-    public Task IncreaseFieldAsync<TId, TField>(TId id, Expression<Func<TProjection, TField>> field, TField value, CancellationToken cancellationToken)
-        where TId : struct
-        => _collection.UpdateOneAsync(
-            filter: projection => projection.Id.Equals(id),
-            update: new ObjectUpdateDefinition<TProjection>(new()).Inc(field, value),
             cancellationToken: cancellationToken);
 }

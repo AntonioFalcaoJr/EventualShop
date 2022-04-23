@@ -21,10 +21,10 @@ public class Account : AggregateRoot<Guid, AccountValidator>
         => RaiseEvent(new DomainEvents.ProfileUpdated(cmd.AccountId, cmd.Birthdate, cmd.Email, cmd.FirstName, cmd.LastName));
 
     public void Handle(Commands.DefineResidenceAddress cmd)
-        => RaiseEvent(new DomainEvents.ResidenceAddressDefined(cmd.AccountId, cmd.City, cmd.Country, cmd.Number, cmd.State, cmd.Street, cmd.ZipCode));
+        => RaiseEvent(new DomainEvents.ResidenceAddressDefined(cmd.AccountId, cmd.Address));
 
     public void Handle(Commands.DefineProfessionalAddress cmd)
-        => RaiseEvent(new DomainEvents.ProfessionalAddressDefined(cmd.AccountId, cmd.City, cmd.Country, cmd.Number, cmd.State, cmd.Street, cmd.ZipCode));
+        => RaiseEvent(new DomainEvents.ProfessionalAddressDefined(cmd.AccountId, cmd.Address));
 
     protected override void ApplyEvent(IEvent domainEvent)
         => When(domainEvent as dynamic);
@@ -48,28 +48,20 @@ public class Account : AggregateRoot<Guid, AccountValidator>
     }
 
     private void When(DomainEvents.ResidenceAddressDefined @event)
-    {
-        var address = new Address(
-            @event.City,
-            @event.Country,
-            @event.Number,
-            @event.State,
-            @event.Street,
-            @event.ZipCode);
-
-        Profile.SetResidenceAddress(address);
-    }
+        => Profile.SetResidenceAddress(new(
+            @event.Address.City,
+            @event.Address.Country,
+            @event.Address.Number,
+            @event.Address.State,
+            @event.Address.Street,
+            @event.Address.ZipCode));
 
     private void When(DomainEvents.ProfessionalAddressDefined @event)
-    {
-        var address = new Address(
-            @event.City,
-            @event.Country,
-            @event.Number,
-            @event.State,
-            @event.Street,
-            @event.ZipCode);
-
-        Profile.SetProfessionalAddress(address);
-    }
+        => Profile.SetProfessionalAddress(new(
+            @event.Address.City,
+            @event.Address.Country,
+            @event.Address.Number,
+            @event.Address.State,
+            @event.Address.Street,
+            @event.Address.ZipCode));
 }

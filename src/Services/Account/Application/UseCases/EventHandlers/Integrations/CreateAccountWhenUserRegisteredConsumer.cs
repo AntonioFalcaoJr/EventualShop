@@ -1,4 +1,4 @@
-﻿using Application.EventSourcing.EventStore;
+﻿using Application.EventStore;
 using Domain.Aggregates;
 using ECommerce.Contracts.Identities;
 using MassTransit;

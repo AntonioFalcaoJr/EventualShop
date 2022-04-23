@@ -3,8 +3,8 @@ using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Projections;
 
-public class ProjectionsDbContext : MongoDbContext
+public class ProjectionDbContext : MongoDbContext
 {
-    public ProjectionsDbContext(IConfiguration configuration)
+    public ProjectionDbContext(IConfiguration configuration)
         : base(configuration) { }
 }

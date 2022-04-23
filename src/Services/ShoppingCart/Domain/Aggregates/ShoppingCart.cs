@@ -35,7 +35,7 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
         var item = _items.SingleOrDefault(item => item.ProductId == cmd.Item.ProductId);
 
         RaiseEvent(item is null
-            ? new DomainEvents.CartItemAdded(cmd.CartId, Guid.NewGuid(), cmd.Item.ProductId, cmd.Item.ProductName, cmd.Item.UnitPrice, cmd.Item.Quantity, cmd.Item.PictureUrl)
+            ? new DomainEvents.CartItemAdded(cmd.CartId, Guid.NewGuid(), cmd.Item)
             : new DomainEvents.CartItemIncreased(cmd.CartId, item.Id, item.UnitPrice));
     }
 
@@ -103,11 +103,12 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     private void When(DomainEvents.CartItemAdded @event)
         => _items.Add(new(
             @event.ItemId,
-            @event.ProductId,
-            @event.ProductName,
-            @event.UnitPrice,
-            @event.Quantity,
-            @event.PictureUrl));
+            @event.Item.ProductId,
+            @event.Item.ProductName,
+            @event.Item.UnitPrice,
+            @event.Item.Quantity,
+            @event.Item.PictureUrl,
+            @event.Item.Sku));
 
     private void When(DomainEvents.CreditCardAdded @event)
         => _paymentMethods.Add(

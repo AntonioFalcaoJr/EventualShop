@@ -48,12 +48,12 @@ public class PublishCartSubmittedWhenCheckedOutConsumer : IConsumer<DomainEvents
             },
             ShoppingCartItems: shoppingCart.Items.Select(item => new Models.ShoppingCartItem
             {
-                Id = item.Id,
                 ProductId = item.ProductId,
                 Quantity = item.Quantity,
                 PictureUrl = item.PictureUrl,
                 ProductName = item.ProductName,
-                UnitPrice = item.UnitPrice
+                UnitPrice = item.UnitPrice,
+                Sku = item.Sku
             }),
             Total: shoppingCart.Total,
             PaymentMethods: shoppingCart.PaymentMethods.Select<IPaymentMethod, Models.IPaymentMethod>(method

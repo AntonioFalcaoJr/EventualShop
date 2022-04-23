@@ -9,15 +9,15 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
     IConsumer<DomainEvents.PayPalAdded>,
     IConsumer<DomainEvents.CartDiscarded>
 {
-    private readonly IProjectionsRepository<ECommerce.Contracts.ShoppingCarts.Projections.IPaymentMethod> _projectionsRepository;
+    private readonly IProjectionRepository<ECommerce.Contracts.ShoppingCarts.Projections.IPaymentMethod> _projectionRepository;
 
-    public ProjectCartPaymentMethodsWhenChangedConsumer(IProjectionsRepository<ECommerce.Contracts.ShoppingCarts.Projections.IPaymentMethod> projectionsRepository)
+    public ProjectCartPaymentMethodsWhenChangedConsumer(IProjectionRepository<ECommerce.Contracts.ShoppingCarts.Projections.IPaymentMethod> projectionRepository)
     {
-        _projectionsRepository = projectionsRepository;
+        _projectionRepository = projectionRepository;
     }
 
     public Task Consume(ConsumeContext<DomainEvents.CartDiscarded> context)
-        => _projectionsRepository.DeleteAsync(
+        => _projectionRepository.DeleteAsync(
             filter: item => item.ShoppingCartId == context.Message.CartId,
             cancellationToken: context.CancellationToken);
 
@@ -35,12 +35,12 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
             ShoppingCartId = context.Message.CartId
         };
 
-        await _projectionsRepository.InsertAsync(creditCard, context.CancellationToken);
+        await _projectionRepository.InsertAsync(creditCard, context.CancellationToken);
     }
 
     public async Task Consume(ConsumeContext<DomainEvents.PayPalAdded> context)
     {
-        var paypal = new ECommerce.Contracts.ShoppingCarts.Projections.PayPalPaymentMethod()
+        var paypal = new ECommerce.Contracts.ShoppingCarts.Projections.PayPalPaymentMethod
         {
             Amount = context.Message.PayPal.Amount,
             Id = context.Message.PayPal.Id,
@@ -50,6 +50,6 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
             ShoppingCartId = context.Message.CartId,
         };
 
-        await _projectionsRepository.InsertAsync(paypal, context.CancellationToken);
+        await _projectionRepository.InsertAsync(paypal, context.CancellationToken);
     }
 }
