@@ -2,6 +2,8 @@
 using Infrastructure.EventStore.Contexts;
 using Infrastructure.EventStore.DependencyInjection.Extensions;
 using Infrastructure.EventStore.DependencyInjection.Options;
+using Infrastructure.HttpClients.DependencyInjection.Extensions;
+using Infrastructure.HttpClients.DependencyInjection.Options;
 using Infrastructure.MessageBus.DependencyInjection.Extensions;
 using Infrastructure.MessageBus.DependencyInjection.Options;
 using Infrastructure.Projections.DependencyInjection.Extensions;
@@ -42,6 +44,11 @@ builder.ConfigureServices((context, services) =>
     services.AddMessageBus();
     services.AddMessageValidators();
     services.AddNotificationContext();
+    
+    services.AddPaymentGateway();
+    services.AddCreditCardHttpClient();
+    services.AddDebitCardHttpClient();
+    services.AddPayPalHttpClient();
 
     services.ConfigureEventStoreOptions(
         context.Configuration.GetSection(nameof(EventStoreOptions)));
@@ -60,6 +67,15 @@ builder.ConfigureServices((context, services) =>
 
     services.ConfigureRabbitMqTransportOptions(
         context.Configuration.GetSection(nameof(RabbitMqTransportOptions)));
+
+    services.ConfigurePayPalHttpClientOptions(
+        context.Configuration.GetSection(nameof(PayPalHttpClientOptions)));
+
+    services.ConfigureCreditCardHttpClientOptions(
+        context.Configuration.GetSection(nameof(CreditCardHttpClientOptions)));
+
+    services.ConfigureDebitCardHttpClientOptions(
+        context.Configuration.GetSection(nameof(DebitCardHttpClientOptions)));
 });
 
 using var host = builder.Build();

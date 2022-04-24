@@ -8,11 +8,11 @@ namespace Application.UseCases.Events.Integrations;
 
 public class PlaceOrderWhenCartSubmittedConsumer : IConsumer<IntegrationEvent.CartSubmitted>
 {
-    private readonly IOrderEventStoreService _eventStoreService;
+    private readonly IOrderEventStoreService _eventStore;
 
-    public PlaceOrderWhenCartSubmittedConsumer(IOrderEventStoreService eventStoreService)
+    public PlaceOrderWhenCartSubmittedConsumer(IOrderEventStoreService eventStore)
     {
-        _eventStoreService = eventStoreService;
+        _eventStore = eventStore;
     }
 
     public async Task Consume(ConsumeContext<IntegrationEvent.CartSubmitted> context)
@@ -25,6 +25,6 @@ public class PlaceOrderWhenCartSubmittedConsumer : IConsumer<IntegrationEvent.Ca
             context.Message.Total,
             context.Message.PaymentMethods));
 
-        await _eventStoreService.AppendEventsToStreamAsync(order, context.CancellationToken);
+        await _eventStore.AppendEventsAsync(order, context.CancellationToken);
     }
 }

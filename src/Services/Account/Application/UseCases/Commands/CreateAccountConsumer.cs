@@ -7,17 +7,17 @@ namespace Application.UseCases.Commands;
 
 public class CreateAccountConsumer : IConsumer<Command.CreateAccount>
 {
-    private readonly IAccountEventStoreService _eventStoreService;
+    private readonly IAccountEventStoreService _eventStore;
 
-    public CreateAccountConsumer(IAccountEventStoreService eventStoreService)
+    public CreateAccountConsumer(IAccountEventStoreService eventStore)
     {
-        _eventStoreService = eventStoreService;
+        _eventStore = eventStore;
     }
 
     public async Task Consume(ConsumeContext<Command.CreateAccount> context)
     {
         var account = new Account();
         account.Handle(context.Message);
-        await _eventStoreService.AppendEventsToStreamAsync(account, context.CancellationToken);
+        await _eventStore.AppendEventsAsync(account, context.CancellationToken);
     }
 }

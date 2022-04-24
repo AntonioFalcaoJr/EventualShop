@@ -7,16 +7,16 @@ namespace Application.UseCases.Events.Integrations;
 
 public class ReserveInventoryItemWhenCartItemAddedConsumer : IConsumer<DomainEvent.CartItemAdded>
 {
-    private readonly IWarehouseEventStoreService _eventStoreService;
+    private readonly IWarehouseEventStoreService _eventStore;
 
-    public ReserveInventoryItemWhenCartItemAddedConsumer(IWarehouseEventStoreService eventStoreService)
+    public ReserveInventoryItemWhenCartItemAddedConsumer(IWarehouseEventStoreService eventStore)
     {
-        _eventStoreService = eventStoreService;
+        _eventStore = eventStore;
     }
 
     public async Task Consume(ConsumeContext<DomainEvent.CartItemAdded> context)
     {
-        var inventoryItem = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.Item.ProductId, context.CancellationToken);
+        var inventoryItem = await _eventStore.LoadAggregateAsync(context.Message.Item.ProductId, context.CancellationToken);
 
         inventoryItem.Handle(
             new Command.ReserveInventory(
@@ -25,6 +25,6 @@ public class ReserveInventoryItemWhenCartItemAddedConsumer : IConsumer<DomainEve
                 context.Message.Item.Sku,
                 context.Message.Item.Quantity));
 
-        await _eventStoreService.AppendEventsToStreamAsync(inventoryItem, context.CancellationToken);
+        await _eventStore.AppendEventsAsync(inventoryItem, context.CancellationToken);
     }
 }
