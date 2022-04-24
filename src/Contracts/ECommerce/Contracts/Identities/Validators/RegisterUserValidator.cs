@@ -2,7 +2,7 @@
 
 namespace ECommerce.Contracts.Identities.Validators;
 
-public class RegisterUserValidator : AbstractValidator<Commands.RegisterUser>
+public class RegisterUserValidator : AbstractValidator<Command.RegisterUser>
 {
     public RegisterUserValidator()
     {

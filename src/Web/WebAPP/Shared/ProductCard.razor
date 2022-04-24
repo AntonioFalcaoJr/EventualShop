@@ -40,7 +40,7 @@
 
 @code {
 
-    private IPagedResult<Projections.CatalogItem> _cards;
+    private IPagedResult<Projection.CatalogItem> _cards;
 
     protected override async Task OnInitializedAsync()
         => await LoadAsync();
@@ -51,7 +51,7 @@
 
         try
         {
-            _cards = await Http.GetFromJsonAsync<IPagedResult<Projections.CatalogItem>>($"/api/v1/catalogs/{catalogId}/items?limit={limit}&offset={offset}");
+            _cards = await Http.GetFromJsonAsync<IPagedResult<Projection.CatalogItem>>($"/api/v1/catalogs/{catalogId}/items?limit={limit}&offset={offset}");
         }
         catch (Exception e)
         {

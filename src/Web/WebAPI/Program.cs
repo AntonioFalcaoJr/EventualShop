@@ -66,7 +66,7 @@ builder.Services
     .AddFluentValidation(cfg =>
     {
         cfg.RegisterValidatorsFromAssemblyContaining(typeof(IMessage));
-        cfg.RegisterValidatorsFromAssemblyContaining(typeof(Requests));
+        cfg.RegisterValidatorsFromAssemblyContaining(typeof(Request));
     });
 
 builder.Services

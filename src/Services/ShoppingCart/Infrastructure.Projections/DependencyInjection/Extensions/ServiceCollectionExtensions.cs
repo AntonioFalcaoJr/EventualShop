@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
+using ECommerce.Contracts.ShoppingCarts;
 
 namespace Infrastructure.Projections.DependencyInjection.Extensions;
 
@@ -20,8 +21,8 @@ public static class ServiceCollectionExtensions
         BsonSerializer.RegisterSerializer(typeof(decimal), new DecimalSerializer(BsonType.Decimal128));
         BsonSerializer.RegisterSerializer(typeof(decimal?), new NullableSerializer<decimal>(new DecimalSerializer(BsonType.Decimal128)));
 
-        BsonClassMap.RegisterClassMap<ECommerce.Contracts.ShoppingCarts.Projections.CreditCardPaymentMethod>();
-        BsonClassMap.RegisterClassMap<ECommerce.Contracts.ShoppingCarts.Projections.DebitCardPaymentMethod>();
-        BsonClassMap.RegisterClassMap<ECommerce.Contracts.ShoppingCarts.Projections.PayPalPaymentMethod>();
+        BsonClassMap.RegisterClassMap<Projection.CreditCardPaymentMethod>();
+        BsonClassMap.RegisterClassMap<Projection.DebitCardPaymentMethod>();
+        BsonClassMap.RegisterClassMap<Projection.PayPalPaymentMethod>();
     }
 }
