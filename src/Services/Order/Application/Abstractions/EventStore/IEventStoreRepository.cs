@@ -1,6 +1,6 @@
 ﻿using Application.Abstractions.EventStore.Events;
 using Domain.Abstractions.Aggregates;
-using ECommerce.Abstractions.Messages.Events;
+using ECommerce.Abstractions;
 
 namespace Application.Abstractions.EventStore;
 

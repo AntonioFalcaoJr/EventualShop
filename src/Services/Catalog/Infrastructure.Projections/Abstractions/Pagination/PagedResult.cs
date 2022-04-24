@@ -1,4 +1,4 @@
-using ECommerce.Abstractions.Messages.Queries.Paging;
+using ECommerce.Abstractions.Paging;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 

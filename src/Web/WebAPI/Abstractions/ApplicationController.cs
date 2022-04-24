@@ -1,6 +1,4 @@
 using ECommerce.Abstractions;
-using ECommerce.Abstractions.Messages.Commands;
-using ECommerce.Abstractions.Messages.Queries;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 

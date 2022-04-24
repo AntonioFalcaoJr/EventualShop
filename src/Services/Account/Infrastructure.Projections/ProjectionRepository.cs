@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using Application.Abstractions.Projections;
-using ECommerce.Abstractions.Messages.Queries.Paging;
-using ECommerce.Abstractions.Projections;
+using ECommerce.Abstractions;
+using ECommerce.Abstractions.Paging;
 using Infrastructure.Projections.Abstractions.Contexts;
 using Infrastructure.Projections.Abstractions.Pagination;
 using MongoDB.Driver;

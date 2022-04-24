@@ -1,4 +1,4 @@
-﻿using ECommerce.Abstractions.Messages.Queries.Paging;
+﻿using ECommerce.Abstractions.Paging;
 
 namespace WebAPP.Abstractions.Http;
 

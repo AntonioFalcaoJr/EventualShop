@@ -16,52 +16,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Improving naming qualifying">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/UseCases/Commands/CreateAccountConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Application/UseCases/Commands/CreateAccountConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/UseCases/Commands/DefineProfessionalAddressConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Application/UseCases/Commands/DefineProfessionalAddressConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/UseCases/Commands/DefineResidenceAddressConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Application/UseCases/Commands/DefineResidenceAddressConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/UseCases/Commands/DeleteAccountConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Application/UseCases/Commands/DeleteAccountConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/UseCases/Commands/UpdateProfileConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Application/UseCases/Commands/UpdateProfileConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/UseCases/Events/Integrations/CreateAccountWhenUserRegisteredConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Application/UseCases/Events/Integrations/CreateAccountWhenUserRegisteredConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Application/UseCases/Commands/ActivateCatalogConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Application/UseCases/Commands/ActivateCatalogConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Application/UseCases/Commands/AddCatalogItemConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Application/UseCases/Commands/AddCatalogItemConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Application/UseCases/Commands/ChangeCatalogDescriptionConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Application/UseCases/Commands/ChangeCatalogDescriptionConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Application/UseCases/Commands/ChangeCatalogTitleConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Application/UseCases/Commands/ChangeCatalogTitleConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Application/UseCases/Commands/CreateCatalogConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Application/UseCases/Commands/CreateCatalogConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Application/UseCases/Commands/DeactivateCatalogConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Application/UseCases/Commands/DeactivateCatalogConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Application/UseCases/Commands/DeleteCatalogConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Application/UseCases/Commands/DeleteCatalogConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Application/UseCases/Commands/DeleteCatalogItemConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Application/UseCases/Commands/DeleteCatalogItemConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Application/UseCases/Commands/UpdateCatalogItemConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Application/UseCases/Commands/UpdateCatalogItemConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Identity/Application/UseCases/Commands/ChangeUserPasswordConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Identity/Application/UseCases/Commands/ChangeUserPasswordConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Identity/Application/UseCases/Commands/DeleteUserConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Identity/Application/UseCases/Commands/DeleteUserConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Identity/Application/UseCases/Commands/RegisterUserConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Identity/Application/UseCases/Commands/RegisterUserConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Order/Application/UseCases/Commands/PlaceOrderConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Application/UseCases/Commands/PlaceOrderConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Order/Application/UseCases/Events/Integrations/ConfirmOrderWhenPaymentCompletedConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Application/UseCases/Events/Integrations/ConfirmOrderWhenPaymentCompletedConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Order/Application/UseCases/Events/Integrations/PlaceOrderWhenCartSubmittedConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Application/UseCases/Events/Integrations/PlaceOrderWhenCartSubmittedConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Application/Services/IPaymentStrategy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Application/Services/IPaymentGateway.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Application/Services/PaymentStrategy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Application/Services/PaymentGateway.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Application/UseCases/Commands/CancelPaymentConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Application/UseCases/Commands/CancelPaymentConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Application/UseCases/Events/Behaviors/ProceedWithPaymentWhenRequestedConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Application/UseCases/Events/Behaviors/ProceedWithPaymentWhenRequestedConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Application/UseCases/Events/Integrations/RequestPaymentWhenOrderPlacedConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Application/UseCases/Events/Integrations/RequestPaymentWhenOrderPlacedConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Payment/WorkerService/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/WorkerService/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Commands/AddCartItemConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Commands/AddCartItemConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Commands/AddCreditCardConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Commands/AddCreditCardConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Commands/AddPayPalConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Commands/AddPayPalConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Commands/AddShippingAddressConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Commands/AddShippingAddressConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Commands/ChangeBillingAddressConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Commands/ChangeBillingAddressConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Commands/CheckOutCartConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Commands/CheckOutCartConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Commands/CreateCartConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Commands/CreateCartConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Commands/DecreaseShoppingCartItemConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Commands/DecreaseShoppingCartItemConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Commands/DiscardCartConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Commands/DiscardCartConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Commands/IncreaseShoppingCartItemConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Commands/IncreaseShoppingCartItemConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Commands/RemoveCartItemConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Commands/RemoveCartItemConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Events/Integrations/PublishCartSubmmitedWhenCartCheckedOutConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Events/Integrations/PublishCartSubmmitedWhenCartCheckedOutConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/Application/UseCases/Commands/AdjustInventoryConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/Application/UseCases/Commands/AdjustInventoryConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/Application/UseCases/Commands/ReceiveInventoryItemConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/Application/UseCases/Commands/ReceiveInventoryItemConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/Application/UseCases/Events/Integrations/ReserveInventoryItemWhenCartItemAddedConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/Application/UseCases/Events/Integrations/ReserveInventoryItemWhenCartItemAddedConsumer.cs" afterDir="false" />
-    </list>
+    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Adjusting description from event store service and resources" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -120,6 +75,7 @@
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/ECommerce/Contracts/ShoppingCarts/Validators/CreditCardAddedValidator.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/ECommerce/Contracts/ShoppingCarts/Validators/RemoveCartItemValidator.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/ECommerce/Contracts/ShoppingCarts/Validators/ShippingAddressAddedValidator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/Abstractions/EventStore/IEventStoreService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/CommandHandlers/CreateAccountConsumer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/CommandHandlers/CreateAccountConsumer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/CommandHandlers/DefineProfessionalAddressConsumer.cs" root0="SKIP_HIGHLIGHTING" />
@@ -128,8 +84,12 @@
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/CommandHandlers/DeleteAccountConsumer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/Commands/CreateAccountConsumer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/Commands/DefineProfessionalAddressConsumer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/Commands/DefineProfessionalAddressConsumer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/Commands/DefineResidenceAddressConsumer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/Commands/DefineResidenceAddressConsumer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/Commands/DeleteAccountConsumer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/Commands/DeleteAccountConsumer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/Commands/UpdateProfileConsumer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/Commands/UpdateProfileConsumer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/EventHandlers/Integrations/CreateAccountWhenUserRegisteredConsumer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/EventHandlers/Projections/ProjectAccountDetailsWhenChangedConsumer.cs" root0="SKIP_HIGHLIGHTING" />
@@ -186,6 +146,7 @@
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Infrastructure.HttpClients/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Infrastructure.MessageBus/DependencyInjection/Extensions/RabbitMqBusFactoryConfiguratorExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Infrastructure.MessageBus/DependencyInjection/Extensions/RabbitMqBusFactoryConfiguratorExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Application/UseCases/Commands/AddCartItemConsumer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Application/UseCases/EventHandlers/Integrations/PublishCartSubmmitedWhenCartCheckedOutConsumer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Application/UseCases/EventHandlers/Projections/ProjectCartItemsWhenChangedConsumer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Application/UseCases/EventHandlers/Projections/ProjectCartItemsWhenChangedConsumer.cs" root0="SKIP_HIGHLIGHTING" />
@@ -203,6 +164,7 @@
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/Extensions/RabbitMqBusFactoryConfiguratorExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/Extensions/RabbitMqBusFactoryConfiguratorExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Infrastructure.Projections/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Warehouse/Application/UseCases/Commands/AdjustInventoryConsumer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Warehouse/Application/UseCases/EventHandlers/Integrations/ReserveInventoryItemWhenCartItemAddedConsumer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Warehouse/Application/UseCases/EventHandlers/Projections/ProjectInventoryItemWhenChangedConsumer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Warehouse/Application/UseCases/EventHandlers/Projections/ProjectInventoryItemWhenChangedConsumer.cs" root0="SKIP_HIGHLIGHTING" />
@@ -504,14 +466,7 @@
       <workItem from="1650716823007" duration="12056000" />
       <workItem from="1650737043919" duration="2480000" />
       <workItem from="1650823334236" duration="371000" />
-      <workItem from="1650824147497" duration="4485000" />
-    </task>
-    <task id="LOCAL-00064" summary="Cleanup">
-      <created>1649775970785</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
-      <option name="project" value="LOCAL" />
-      <updated>1649775970785</updated>
+      <workItem from="1650824147497" duration="4808000" />
     </task>
     <task id="LOCAL-00065" summary="Cleanup">
       <created>1649776295798</created>
@@ -849,7 +804,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650827566800</updated>
     </task>
-    <option name="localTasksCounter" value="113" />
+    <task id="LOCAL-00113" summary="Adjusting description from event store service and resources">
+      <created>1650828977569</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1650828977569</updated>
+    </task>
+    <option name="localTasksCounter" value="114" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -875,7 +837,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Improving Task-Based resources" />
     <MESSAGE value="Improving REST" />
     <MESSAGE value="Great improvements" />
     <MESSAGE value="Removing Responses.cs" />
@@ -900,7 +861,8 @@
     <MESSAGE value="Improving staging" />
     <MESSAGE value="Renaming projection" />
     <MESSAGE value="Improving naming qualifying" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improving naming qualifying" />
+    <MESSAGE value="Adjusting description from event store service and resources" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adjusting description from event store service and resources" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

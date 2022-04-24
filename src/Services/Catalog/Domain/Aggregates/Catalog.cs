@@ -1,6 +1,6 @@
 ﻿using Domain.Abstractions.Aggregates;
 using Domain.Entities.CatalogItems;
-using ECommerce.Abstractions.Messages.Events;
+using ECommerce.Abstractions;
 using ECommerce.Contracts.Catalogs;
 
 namespace Domain.Aggregates;
