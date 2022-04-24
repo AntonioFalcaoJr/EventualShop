@@ -9,9 +9,9 @@ public class ProjectPaymentWhenChangedConsumer :
     IConsumer<DomainEvent.PaymentCanceled>,
     IConsumer<DomainEvent.PaymentRequested>
 {
-    private readonly IProjectionRepository<ECommerce.Contracts.Payments.Projection.Payment> _repository;
+    private readonly IProjectionRepository<Projection.Payment> _repository;
 
-    public ProjectPaymentWhenChangedConsumer(IProjectionRepository<ECommerce.Contracts.Payments.Projection.Payment> repository)
+    public ProjectPaymentWhenChangedConsumer(IProjectionRepository<Projection.Payment> repository)
     {
         _repository = repository;
     }
@@ -25,7 +25,7 @@ public class ProjectPaymentWhenChangedConsumer :
 
     public async Task Consume(ConsumeContext<DomainEvent.PaymentRequested> context)
     {
-        var payment = new ECommerce.Contracts.Payments.Projection.Payment
+        var payment = new Projection.Payment
         {
             Amount = context.Message.Amount,
             Id = context.Message.PaymentId,

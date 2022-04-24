@@ -6,16 +6,16 @@ namespace Application.UseCases.EventHandlers.Projections;
 
 public class ProjectOrderDetailsWhenOrderChangedConsumer : IConsumer<DomainEvent.OrderPlaced>
 {
-    private readonly IProjectionRepository<ECommerce.Contracts.Orders.Projection.Order> _repository;
+    private readonly IProjectionRepository<Projection.Order> _repository;
 
-    public ProjectOrderDetailsWhenOrderChangedConsumer(IProjectionRepository<ECommerce.Contracts.Orders.Projection.Order> repository)
+    public ProjectOrderDetailsWhenOrderChangedConsumer(IProjectionRepository<Projection.Order> repository)
     {
         _repository = repository;
     }
 
     public async Task Consume(ConsumeContext<DomainEvent.OrderPlaced> context)
     {
-        var order = new ECommerce.Contracts.Orders.Projection.Order
+        var order = new Projection.Order
         {
             Id = context.Message.OrderId,
             IsDeleted = false
