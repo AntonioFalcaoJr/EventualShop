@@ -1,5 +1,5 @@
 ﻿using Domain.Abstractions.Entities;
-using ECommerce.Abstractions.Messages.Events;
+using ECommerce.Abstractions;
 using FluentValidation;
 using Newtonsoft.Json;
 

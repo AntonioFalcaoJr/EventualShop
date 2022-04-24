@@ -1,4 +1,4 @@
-﻿using ECommerce.Abstractions.Projections;
+﻿using ECommerce.Abstractions;
 using ECommerce.Contracts.Common;
 
 namespace ECommerce.Contracts.Accounts;

@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions.Notifications;
-using ECommerce.Abstractions.Validations;
+using ECommerce.Abstractions;
 using MassTransit;
 using Serilog;
 

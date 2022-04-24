@@ -1,4 +1,4 @@
-namespace ECommerce.Abstractions.Messages.Queries.Paging;
+namespace ECommerce.Abstractions.Paging;
 
 public record PageInfo
 {

@@ -1,6 +1,6 @@
 using MassTransit;
 
-namespace ECommerce.Abstractions.Messages.Queries.Paging;
+namespace ECommerce.Abstractions.Paging;
 
 [ExcludeFromTopology]
 public interface IPagedResult<out T>

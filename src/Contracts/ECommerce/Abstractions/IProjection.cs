@@ -1,4 +1,4 @@
-﻿namespace ECommerce.Abstractions.Projections;
+﻿namespace ECommerce.Abstractions;
 
 public interface IProjection
 {

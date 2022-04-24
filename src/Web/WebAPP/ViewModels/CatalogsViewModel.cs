@@ -1,5 +1,5 @@
 ﻿using BlazorStrap;
-using ECommerce.Abstractions.Messages.Queries.Paging;
+using ECommerce.Abstractions.Paging;
 using ECommerce.Contracts.Catalogs;
 using WebAPP.HttpClients;
 

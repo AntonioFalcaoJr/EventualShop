@@ -1,4 +1,4 @@
-﻿using ECommerce.Abstractions.Messages.Queries.Paging;
+﻿using ECommerce.Abstractions.Paging;
 using ECommerce.Contracts.Accounts;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;

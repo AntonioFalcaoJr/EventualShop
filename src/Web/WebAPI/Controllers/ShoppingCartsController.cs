@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using AutoMapper;
-using ECommerce.Abstractions.Messages.Queries.Paging;
+using ECommerce.Abstractions.Paging;
 using ECommerce.Contracts.Common;
 using ECommerce.Contracts.ShoppingCarts;
 using MassTransit;
