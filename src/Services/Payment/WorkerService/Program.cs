@@ -68,14 +68,14 @@ builder.ConfigureServices((context, services) =>
     services.ConfigureRabbitMqTransportOptions(
         context.Configuration.GetSection(nameof(RabbitMqTransportOptions)));
 
-    services.ConfigurePayPalHttpClientOptions(
-        context.Configuration.GetSection(nameof(PayPalHttpClientOptions)));
-
     services.ConfigureCreditCardHttpClientOptions(
         context.Configuration.GetSection(nameof(CreditCardHttpClientOptions)));
 
     services.ConfigureDebitCardHttpClientOptions(
         context.Configuration.GetSection(nameof(DebitCardHttpClientOptions)));
+    
+    services.ConfigurePayPalHttpClientOptions(
+        context.Configuration.GetSection(nameof(PayPalHttpClientOptions)));
 });
 
 using var host = builder.Build();
