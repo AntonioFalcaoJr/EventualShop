@@ -11,16 +11,16 @@ namespace Application.UseCases.Events.Integrations;
 
 public class PublishCartSubmittedWhenCheckedOutConsumer : IConsumer<DomainEvent.CartCheckedOut>
 {
-    private readonly IShoppingCartEventStoreService _eventStoreService;
+    private readonly IShoppingCartEventStoreService _eventStore;
 
-    public PublishCartSubmittedWhenCheckedOutConsumer(IShoppingCartEventStoreService eventStoreService)
+    public PublishCartSubmittedWhenCheckedOutConsumer(IShoppingCartEventStoreService eventStore)
     {
-        _eventStoreService = eventStoreService;
+        _eventStore = eventStore;
     }
 
     public async Task Consume(ConsumeContext<DomainEvent.CartCheckedOut> context)
     {
-        var shoppingCart = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CartId, context.CancellationToken);
+        var shoppingCart = await _eventStore.LoadAggregateAsync(context.Message.CartId, context.CancellationToken);
 
         var cartSubmittedEvent = new IntegrationEvent.CartSubmitted(
             ShoppingCartId: shoppingCart.Id,

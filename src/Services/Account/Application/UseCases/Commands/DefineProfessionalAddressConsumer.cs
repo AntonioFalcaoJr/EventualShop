@@ -6,17 +6,17 @@ namespace Application.UseCases.Commands;
 
 public class DefineProfessionalAddressConsumer : IConsumer<Command.DefineProfessionalAddress>
 {
-    private readonly IAccountEventStoreService _eventStoreService;
+    private readonly IAccountEventStoreService _eventStore;
 
-    public DefineProfessionalAddressConsumer(IAccountEventStoreService eventStoreService)
+    public DefineProfessionalAddressConsumer(IAccountEventStoreService eventStore)
     {
-        _eventStoreService = eventStoreService;
+        _eventStore = eventStore;
     }
 
     public async Task Consume(ConsumeContext<Command.DefineProfessionalAddress> context)
     {
-        var account = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.AccountId, context.CancellationToken);
+        var account = await _eventStore.LoadAggregateAsync(context.Message.AccountId, context.CancellationToken);
         account.Handle(context.Message);
-        await _eventStoreService.AppendEventsToStreamAsync(account, context.CancellationToken);
+        await _eventStore.AppendEventsAsync(account, context.CancellationToken);
     }
 }

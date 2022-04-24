@@ -8,11 +8,11 @@ namespace Application.UseCases.Events.Integrations;
 
 public class RequestPaymentWhenOrderPlacedConsumer : IConsumer<DomainEvent.OrderPlaced>
 {
-    private readonly IPaymentEventStoreService _eventStoreService;
+    private readonly IPaymentEventStoreService _eventStore;
 
-    public RequestPaymentWhenOrderPlacedConsumer(IPaymentEventStoreService eventStoreService)
+    public RequestPaymentWhenOrderPlacedConsumer(IPaymentEventStoreService eventStore)
     {
-        _eventStoreService = eventStoreService;
+        _eventStore = eventStore;
     }
 
     public async Task Consume(ConsumeContext<DomainEvent.OrderPlaced> context)
@@ -25,6 +25,6 @@ public class RequestPaymentWhenOrderPlacedConsumer : IConsumer<DomainEvent.Order
             context.Message.Customer.BillingAddress,
             context.Message.PaymentMethods));
 
-        await _eventStoreService.AppendEventsToStreamAsync(payment, context.CancellationToken);
+        await _eventStore.AppendEventsAsync(payment, context.CancellationToken);
     }
 }

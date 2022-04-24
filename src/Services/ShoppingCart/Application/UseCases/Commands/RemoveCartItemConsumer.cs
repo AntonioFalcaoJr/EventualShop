@@ -6,17 +6,17 @@ namespace Application.UseCases.Commands;
 
 public class RemoveCartItemConsumer : IConsumer<Command.RemoveCartItem>
 {
-    private readonly IShoppingCartEventStoreService _eventStoreService;
+    private readonly IShoppingCartEventStoreService _eventStore;
 
-    public RemoveCartItemConsumer(IShoppingCartEventStoreService eventStoreService)
+    public RemoveCartItemConsumer(IShoppingCartEventStoreService eventStore)
     {
-        _eventStoreService = eventStoreService;
+        _eventStore = eventStore;
     }
 
     public async Task Consume(ConsumeContext<Command.RemoveCartItem> context)
     {
-        var shoppingCart = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CartId, context.CancellationToken);
+        var shoppingCart = await _eventStore.LoadAggregateAsync(context.Message.CartId, context.CancellationToken);
         shoppingCart.Handle(context.Message);
-        await _eventStoreService.AppendEventsToStreamAsync(shoppingCart, context.CancellationToken);
+        await _eventStore.AppendEventsAsync(shoppingCart, context.CancellationToken);
     }
 }

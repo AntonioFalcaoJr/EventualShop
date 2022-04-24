@@ -6,17 +6,17 @@ namespace Application.UseCases.Commands;
 
 public class AdjustInventoryConsumer : IConsumer<Command.AdjustInventory>
 {
-    private readonly IWarehouseEventStoreService _eventStoreService;
+    private readonly IWarehouseEventStoreService _eventStore;
 
-    public AdjustInventoryConsumer(IWarehouseEventStoreService eventStoreService)
+    public AdjustInventoryConsumer(IWarehouseEventStoreService eventStore)
     {
-        _eventStoreService = eventStoreService;
+        _eventStore = eventStore;
     }
 
     public async Task Consume(ConsumeContext<Command.AdjustInventory> context)
     {
-        var inventoryItem = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.ProductId, context.CancellationToken);
+        var inventoryItem = await _eventStore.LoadAggregateAsync(context.Message.ProductId, context.CancellationToken);
         inventoryItem.Handle(context.Message);
-        await _eventStoreService.AppendEventsToStreamAsync(inventoryItem, context.CancellationToken);
+        await _eventStore.AppendEventsAsync(inventoryItem, context.CancellationToken);
     }
 }

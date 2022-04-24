@@ -7,22 +7,22 @@ namespace Application.UseCases.Events.Behaviors;
 
 public class ProceedWithPaymentWhenRequestedConsumer : IConsumer<DomainEvent.PaymentRequested>
 {
-    private readonly IPaymentEventStoreService _eventStoreService;
-    private readonly IPaymentStrategy _paymentStrategy;
+    private readonly IPaymentEventStoreService _eventStore;
+    private readonly IPaymentGateway _paymentGateway;
 
     public ProceedWithPaymentWhenRequestedConsumer(
-        IPaymentEventStoreService eventStoreService,
-        IPaymentStrategy paymentStrategy)
+        IPaymentEventStoreService eventStore,
+        IPaymentGateway paymentGateway)
     {
-        _eventStoreService = eventStoreService;
-        _paymentStrategy = paymentStrategy;
+        _eventStore = eventStore;
+        _paymentGateway = paymentGateway;
     }
 
     public async Task Consume(ConsumeContext<DomainEvent.PaymentRequested> context)
     {
-        var payment = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.PaymentId, context.CancellationToken);
-        await _paymentStrategy.AuthorizePaymentAsync(payment, context.CancellationToken);
+        var payment = await _eventStore.LoadAggregateAsync(context.Message.PaymentId, context.CancellationToken);
+        await _paymentGateway.AuthorizeAsync(payment, context.CancellationToken);
         payment.Handle(new Command.ProceedWithPayment(payment.Id, payment.OrderId));
-        await _eventStoreService.AppendEventsToStreamAsync(payment, context.CancellationToken);
+        await _eventStore.AppendEventsAsync(payment, context.CancellationToken);
     }
 }

@@ -6,17 +6,17 @@ namespace Application.UseCases.Commands;
 
 public class IncreaseShoppingCartItemConsumer : IConsumer<Command.IncreaseShoppingCartItem>
 {
-    private readonly IShoppingCartEventStoreService _eventStoreService;
+    private readonly IShoppingCartEventStoreService _eventStore;
 
-    public IncreaseShoppingCartItemConsumer(IShoppingCartEventStoreService eventStoreService)
+    public IncreaseShoppingCartItemConsumer(IShoppingCartEventStoreService eventStore)
     {
-        _eventStoreService = eventStoreService;
+        _eventStore = eventStore;
     }
 
     public async Task Consume(ConsumeContext<Command.IncreaseShoppingCartItem> context)
     {
-        var shoppingCart = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CartId, context.CancellationToken);
+        var shoppingCart = await _eventStore.LoadAggregateAsync(context.Message.CartId, context.CancellationToken);
         shoppingCart.Handle(context.Message);
-        await _eventStoreService.AppendEventsToStreamAsync(shoppingCart, context.CancellationToken);
+        await _eventStore.AppendEventsAsync(shoppingCart, context.CancellationToken);
     }
 }

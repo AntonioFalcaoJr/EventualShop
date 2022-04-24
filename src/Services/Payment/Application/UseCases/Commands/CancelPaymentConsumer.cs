@@ -6,17 +6,17 @@ namespace Application.UseCases.Commands;
 
 public class CancelPaymentConsumer : IConsumer<Command.CancelPayment>
 {
-    private readonly IPaymentEventStoreService _eventStoreService;
+    private readonly IPaymentEventStoreService _eventStore;
 
-    public CancelPaymentConsumer(IPaymentEventStoreService eventStoreService)
+    public CancelPaymentConsumer(IPaymentEventStoreService eventStore)
     {
-        _eventStoreService = eventStoreService;
+        _eventStore = eventStore;
     }
 
     public async Task Consume(ConsumeContext<Command.CancelPayment> context)
     {
-        var payment = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.PaymentId, context.CancellationToken);
+        var payment = await _eventStore.LoadAggregateAsync(context.Message.PaymentId, context.CancellationToken);
         payment.Handle(context.Message);
-        await _eventStoreService.AppendEventsToStreamAsync(payment, context.CancellationToken);
+        await _eventStore.AppendEventsAsync(payment, context.CancellationToken);
     }
 }

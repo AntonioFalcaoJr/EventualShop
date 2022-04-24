@@ -6,17 +6,17 @@ namespace Application.UseCases.Commands;
 
 public class DeleteCatalogItemConsumer : IConsumer<Command.DeleteCatalogItem>
 {
-    private readonly ICatalogEventStoreService _eventStoreService;
+    private readonly ICatalogEventStoreService _eventStore;
 
-    public DeleteCatalogItemConsumer(ICatalogEventStoreService eventStoreService)
+    public DeleteCatalogItemConsumer(ICatalogEventStoreService eventStore)
     {
-        _eventStoreService = eventStoreService;
+        _eventStore = eventStore;
     }
 
     public async Task Consume(ConsumeContext<Command.DeleteCatalogItem> context)
     {
-        var catalog = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CatalogId, context.CancellationToken);
+        var catalog = await _eventStore.LoadAggregateAsync(context.Message.CatalogId, context.CancellationToken);
         catalog.Handle(context.Message);
-        await _eventStoreService.AppendEventsToStreamAsync(catalog, context.CancellationToken);
+        await _eventStore.AppendEventsAsync(catalog, context.CancellationToken);
     }
 }
