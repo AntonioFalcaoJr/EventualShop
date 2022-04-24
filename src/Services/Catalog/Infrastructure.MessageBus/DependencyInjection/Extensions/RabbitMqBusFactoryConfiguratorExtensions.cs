@@ -1,4 +1,4 @@
-﻿using Application.UseCases.EventHandlers;
+﻿using Application.UseCases.Events;
 using ECommerce.Abstractions.Messages.Events;
 using ECommerce.Contracts.Catalogs;
 using MassTransit;

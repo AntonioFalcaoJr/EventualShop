@@ -1,4 +1,4 @@
-﻿using Application.UseCases.EventHandlers.Projections;
+﻿using Application.UseCases.Events.Projections;
 using ECommerce.Abstractions.Messages.Events;
 using ECommerce.Contracts.Identities;
 using MassTransit;

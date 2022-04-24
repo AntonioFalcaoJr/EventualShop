@@ -1,6 +1,6 @@
-﻿using Application.UseCases.EventHandlers.Behaviors;
-using Application.UseCases.EventHandlers.Integrations;
-using Application.UseCases.EventHandlers.Projections;
+﻿using Application.UseCases.Events.Behaviors;
+using Application.UseCases.Events.Integrations;
+using Application.UseCases.Events.Projections;
 using ECommerce.Abstractions.Messages.Events;
 using ECommerce.Contracts.Payments;
 using MassTransit;
