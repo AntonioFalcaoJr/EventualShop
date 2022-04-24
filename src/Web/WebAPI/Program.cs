@@ -1,5 +1,5 @@
 using System.Reflection;
-using ECommerce.Abstractions.Messages;
+using ECommerce.Abstractions;
 using ECommerce.Contracts.ShoppingCarts;
 using ECommerce.JsonConverters;
 using FluentValidation.AspNetCore;

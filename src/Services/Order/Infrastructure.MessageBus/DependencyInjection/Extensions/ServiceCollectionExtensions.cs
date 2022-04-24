@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using Application.Abstractions.Notifications;
-using ECommerce.Abstractions.Messages;
+using ECommerce.Abstractions;
 using ECommerce.JsonConverters;
 using FluentValidation;
 using Infrastructure.MessageBus.DependencyInjection.Options;

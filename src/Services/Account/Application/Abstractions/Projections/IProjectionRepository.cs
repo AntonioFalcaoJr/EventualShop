@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
-using ECommerce.Abstractions.Messages.Queries.Paging;
-using ECommerce.Abstractions.Projections;
+using ECommerce.Abstractions;
+using ECommerce.Abstractions.Paging;
 
 namespace Application.Abstractions.Projections;
 

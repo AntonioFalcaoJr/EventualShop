@@ -5,7 +5,7 @@ using Domain.Entities.PaymentMethods.DebitCards;
 using Domain.Entities.PaymentMethods.PayPal;
 using Domain.Enumerations;
 using Domain.ValueObjects.Addresses;
-using ECommerce.Abstractions.Messages.Events;
+using ECommerce.Abstractions;
 using ECommerce.Contracts.Common;
 using ECommerce.Contracts.Payments;
 

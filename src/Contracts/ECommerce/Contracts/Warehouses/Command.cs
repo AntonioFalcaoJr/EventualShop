@@ -1,5 +1,4 @@
-﻿using ECommerce.Abstractions.Messages;
-using ECommerce.Abstractions.Messages.Commands;
+﻿using ECommerce.Abstractions;
 
 namespace ECommerce.Contracts.Warehouses;
 

@@ -1,6 +1,6 @@
 ﻿using Application.UseCases.Events.Integrations;
 using Application.UseCases.Events.Projections;
-using ECommerce.Abstractions.Messages.Events;
+using ECommerce.Abstractions;
 using ECommerce.Contracts.ShoppingCarts;
 using MassTransit;
 using DomainEvent = ECommerce.Contracts.Orders.DomainEvent;

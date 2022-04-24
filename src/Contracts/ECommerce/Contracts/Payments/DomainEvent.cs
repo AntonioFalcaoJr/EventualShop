@@ -1,5 +1,4 @@
-﻿using ECommerce.Abstractions.Messages;
-using ECommerce.Abstractions.Messages.Events;
+﻿using ECommerce.Abstractions;
 using ECommerce.Contracts.Common;
 
 namespace ECommerce.Contracts.Payments;

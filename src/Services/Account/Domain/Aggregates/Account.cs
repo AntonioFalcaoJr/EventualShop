@@ -1,6 +1,6 @@
 ﻿using Domain.Abstractions.Aggregates;
 using Domain.ValueObjects.Profiles;
-using ECommerce.Abstractions.Messages.Events;
+using ECommerce.Abstractions;
 using ECommerce.Contracts.Accounts;
 
 namespace Domain.Aggregates;
