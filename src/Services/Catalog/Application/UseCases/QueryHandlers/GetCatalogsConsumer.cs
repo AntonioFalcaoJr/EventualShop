@@ -1,11 +1,11 @@
 using Application.Abstractions.Projections;
-using ECommerce.Abstractions.Messages.Queries.Responses;
+using ECommerce.Abstractions;
 using ECommerce.Contracts.Catalogs;
 using MassTransit;
 
 namespace Application.UseCases.QueryHandlers;
 
-public class GetCatalogsConsumer : IConsumer<Queries.GetCatalogs>
+public class GetCatalogsConsumer : IConsumer<Query.GetCatalogs>
 {
     private readonly IProjectionRepository<Projection.Catalog> _projectionRepository;
 
@@ -14,7 +14,7 @@ public class GetCatalogsConsumer : IConsumer<Queries.GetCatalogs>
         _projectionRepository = projectionRepository;
     }
 
-    public async Task Consume(ConsumeContext<Queries.GetCatalogs> context)
+    public async Task Consume(ConsumeContext<Query.GetCatalogs> context)
     {
         var catalogs = await _projectionRepository.GetAsync(context.Message.Limit, context.Message.Offset, context.CancellationToken);
 

@@ -28,79 +28,79 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
         => _paymentMethods;
 
     public void Handle(Command.CreateCart cmd)
-        => RaiseEvent(new DomainEvents.CartCreated(Guid.NewGuid(), cmd.CustomerId, ShoppingCartStatus.Confirmed.ToString()));
+        => RaiseEvent(new DomainEvent.CartCreated(Guid.NewGuid(), cmd.CustomerId, ShoppingCartStatus.Confirmed.ToString()));
 
     public void Handle(Command.AddCartItem cmd)
     {
         var item = _items.SingleOrDefault(item => item.ProductId == cmd.Item.ProductId);
 
         RaiseEvent(item is null
-            ? new DomainEvents.CartItemAdded(cmd.CartId, Guid.NewGuid(), cmd.Item)
-            : new DomainEvents.CartItemIncreased(cmd.CartId, item.Id, item.UnitPrice));
+            ? new DomainEvent.CartItemAdded(cmd.CartId, Guid.NewGuid(), cmd.Item)
+            : new DomainEvent.CartItemIncreased(cmd.CartId, item.Id, item.UnitPrice));
     }
 
     public void Handle(Command.IncreaseShoppingCartItem cmd)
     {
         if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is {IsDeleted: false} item)
-            RaiseEvent(new DomainEvents.CartItemIncreased(cmd.CartId, cmd.ItemId, item.UnitPrice));
+            RaiseEvent(new DomainEvent.CartItemIncreased(cmd.CartId, cmd.ItemId, item.UnitPrice));
     }
 
     public void Handle(Command.DecreaseShoppingCartItem cmd)
     {
         if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is {IsDeleted: false} item)
-            RaiseEvent(new DomainEvents.CartItemDecreased(cmd.CartId, cmd.ItemId, item.UnitPrice));
+            RaiseEvent(new DomainEvent.CartItemDecreased(cmd.CartId, cmd.ItemId, item.UnitPrice));
     }
 
     public void Handle(Command.RemoveCartItem cmd)
     {
         if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is {IsDeleted: false} item)
-            RaiseEvent(new DomainEvents.CartItemRemoved(cmd.CartId, cmd.ItemId, item.UnitPrice, item.Quantity));
+            RaiseEvent(new DomainEvent.CartItemRemoved(cmd.CartId, cmd.ItemId, item.UnitPrice, item.Quantity));
     }
 
     public void Handle(Command.AddCreditCard cmd)
-        => RaiseEvent(new DomainEvents.CreditCardAdded(cmd.CartId, cmd.CreditCard));
+        => RaiseEvent(new DomainEvent.CreditCardAdded(cmd.CartId, cmd.CreditCard));
 
     public void Handle(Command.AddPayPal cmd)
-        => RaiseEvent(new DomainEvents.PayPalAdded(cmd.CartId, cmd.PayPal));
+        => RaiseEvent(new DomainEvent.PayPalAdded(cmd.CartId, cmd.PayPal));
 
     public void Handle(Command.AddShippingAddress cmd)
-        => RaiseEvent(new DomainEvents.ShippingAddressAdded(cmd.CartId, cmd.Address));
+        => RaiseEvent(new DomainEvent.ShippingAddressAdded(cmd.CartId, cmd.Address));
 
     public void Handle(Command.ChangeBillingAddress cmd)
-        => RaiseEvent(new DomainEvents.BillingAddressChanged(cmd.CartId, cmd.Address));
+        => RaiseEvent(new DomainEvent.BillingAddressChanged(cmd.CartId, cmd.Address));
 
     public void Handle(Command.CheckOutCart cmd)
-        => RaiseEvent(new DomainEvents.CartCheckedOut(cmd.CartId));
+        => RaiseEvent(new DomainEvent.CartCheckedOut(cmd.CartId));
 
     public void Handle(Command.DiscardCart cmd)
-        => RaiseEvent(new DomainEvents.CartDiscarded(cmd.CartId));
+        => RaiseEvent(new DomainEvent.CartDiscarded(cmd.CartId));
 
     protected override void ApplyEvent(IEvent @event)
         => When(@event as dynamic);
 
-    private void When(DomainEvents.CartCreated @event)
+    private void When(DomainEvent.CartCreated @event)
     {
         Id = @event.CartId;
         Customer = new(@event.CustomerId);
         Status = ShoppingCartStatus.FromName(@event.Status);
     }
 
-    private void When(DomainEvents.CartCheckedOut _)
+    private void When(DomainEvent.CartCheckedOut _)
         => Status = ShoppingCartStatus.CheckedOut;
 
-    private void When(DomainEvents.CartDiscarded _)
+    private void When(DomainEvent.CartDiscarded _)
         => IsDeleted = true;
 
-    private void When(DomainEvents.CartItemIncreased @event)
+    private void When(DomainEvent.CartItemIncreased @event)
         => _items.Single(item => item.Id == @event.ItemId).Increase();
 
-    private void When(DomainEvents.CartItemDecreased @event)
+    private void When(DomainEvent.CartItemDecreased @event)
         => _items.Single(item => item.Id == @event.ItemId).Decrease();
 
-    private void When(DomainEvents.CartItemRemoved @event)
+    private void When(DomainEvent.CartItemRemoved @event)
         => _items.RemoveAll(item => item.Id == @event.ItemId);
 
-    private void When(DomainEvents.CartItemAdded @event)
+    private void When(DomainEvent.CartItemAdded @event)
         => _items.Add(new(
             @event.ItemId,
             @event.Item.ProductId,
@@ -110,7 +110,7 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
             @event.Item.PictureUrl,
             @event.Item.Sku));
 
-    private void When(DomainEvents.CreditCardAdded @event)
+    private void When(DomainEvent.CreditCardAdded @event)
         => _paymentMethods.Add(
             new CreditCardPaymentMethod(
                 @event.CreditCard.Amount,
@@ -119,14 +119,14 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
                 @event.CreditCard.Number,
                 @event.CreditCard.SecurityNumber));
 
-    private void When(DomainEvents.PayPalAdded @event)
+    private void When(DomainEvent.PayPalAdded @event)
         => _paymentMethods.Add(
             new PayPalPaymentMethod(
                 @event.PayPal.Amount,
                 @event.PayPal.UserName,
                 @event.PayPal.Password));
 
-    private void When(DomainEvents.ShippingAddressAdded @event)
+    private void When(DomainEvent.ShippingAddressAdded @event)
         => Customer.SetShippingAddress(new()
         {
             City = @event.Address.City,
@@ -137,7 +137,7 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
             ZipCode = @event.Address.ZipCode
         });
 
-    private void When(DomainEvents.BillingAddressChanged @event)
+    private void When(DomainEvent.BillingAddressChanged @event)
         => Customer.SetBillingAddress(new()
         {
             City = @event.Address.City,

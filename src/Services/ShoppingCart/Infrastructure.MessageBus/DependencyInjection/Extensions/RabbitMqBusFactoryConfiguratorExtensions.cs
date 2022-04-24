@@ -10,25 +10,25 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistrationContext registration)
     {
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvents.CartCreated>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvents.CartItemAdded>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvents.CartItemRemoved>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvents.CreditCardAdded>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvents.PayPalAdded>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvents.BillingAddressChanged>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvents.ShippingAddressAdded>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvents.CartCheckedOut>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvents.CartItemIncreased>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvents.CartItemDecreased>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvents.CartDiscarded>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvent.CartCreated>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvent.CartItemAdded>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvent.CartItemRemoved>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvent.CreditCardAdded>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvent.PayPalAdded>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvent.BillingAddressChanged>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvent.ShippingAddressAdded>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvent.CartCheckedOut>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvent.CartItemIncreased>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvent.CartItemDecreased>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvent.CartDiscarded>(registration);
 
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartItemsWhenChangedConsumer, DomainEvents.CartItemAdded>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartItemsWhenChangedConsumer, DomainEvents.CartItemDecreased>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartItemsWhenChangedConsumer, DomainEvents.CartItemIncreased>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartItemsWhenChangedConsumer, DomainEvents.CartItemRemoved>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartItemsWhenChangedConsumer, DomainEvents.CartDiscarded>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartItemsWhenChangedConsumer, DomainEvent.CartItemAdded>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartItemsWhenChangedConsumer, DomainEvent.CartItemDecreased>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartItemsWhenChangedConsumer, DomainEvent.CartItemIncreased>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartItemsWhenChangedConsumer, DomainEvent.CartItemRemoved>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartItemsWhenChangedConsumer, DomainEvent.CartDiscarded>(registration);
 
-        cfg.ConfigureEventReceiveEndpoint<PublishCartSubmittedWhenCheckedOutConsumer, DomainEvents.CartCheckedOut>(registration);
+        cfg.ConfigureEventReceiveEndpoint<PublishCartSubmittedWhenCheckedOutConsumer, DomainEvent.CartCheckedOut>(registration);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistrationContext registration)

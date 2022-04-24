@@ -4,7 +4,7 @@ using MassTransit;
 
 namespace Application.UseCases.QueryHandlers;
 
-public class GetInventoryItemDetailsConsumer : IConsumer<Queries.GetInventoryItemDetails>
+public class GetInventoryItemDetailsConsumer : IConsumer<Query.GetInventoryItemDetails>
 {
     private readonly IProjectionRepository<Projection.Inventory> _projectionRepository;
 
@@ -13,7 +13,7 @@ public class GetInventoryItemDetailsConsumer : IConsumer<Queries.GetInventoryIte
         _projectionRepository = projectionRepository;
     }
 
-    public async Task Consume(ConsumeContext<Queries.GetInventoryItemDetails> context)
+    public async Task Consume(ConsumeContext<Query.GetInventoryItemDetails> context)
     {
         var inventory = await _projectionRepository.GetAsync(context.Message.ProductId, context.CancellationToken);
         await context.RespondAsync(inventory);

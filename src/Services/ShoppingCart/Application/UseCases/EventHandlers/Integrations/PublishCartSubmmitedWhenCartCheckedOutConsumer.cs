@@ -9,7 +9,7 @@ using MassTransit;
 
 namespace Application.UseCases.EventHandlers.Integrations;
 
-public class PublishCartSubmittedWhenCheckedOutConsumer : IConsumer<DomainEvents.CartCheckedOut>
+public class PublishCartSubmittedWhenCheckedOutConsumer : IConsumer<DomainEvent.CartCheckedOut>
 {
     private readonly IShoppingCartEventStoreService _eventStoreService;
 
@@ -18,11 +18,11 @@ public class PublishCartSubmittedWhenCheckedOutConsumer : IConsumer<DomainEvents
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<DomainEvents.CartCheckedOut> context)
+    public async Task Consume(ConsumeContext<DomainEvent.CartCheckedOut> context)
     {
         var shoppingCart = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CartId, context.CancellationToken);
 
-        var cartSubmittedEvent = new IntegrationEvents.CartSubmitted(
+        var cartSubmittedEvent = new IntegrationEvent.CartSubmitted(
             ShoppingCartId: shoppingCart.Id,
             Customer: new()
             {

@@ -12,8 +12,8 @@ public class IdentitiesController : ApplicationController
         : base(bus) { }
 
     [HttpGet]
-    public Task<IActionResult> GetUserAuthenticationDetails([FromQuery] Queries.GetUserAuthenticationDetails query, CancellationToken cancellationToken)
-        => GetProjectionAsync<Queries.GetUserAuthenticationDetails, Projection.UserAuthentication>(query, cancellationToken);
+    public Task<IActionResult> GetUserAuthenticationDetails([FromQuery] Query.GetUserAuthentication query, CancellationToken cancellationToken)
+        => GetProjectionAsync<Query.GetUserAuthentication, Projection.UserAuthentication>(query, cancellationToken);
 
     [HttpPost]
     public Task<IActionResult> RegisterUser(Command.RegisterUser command, CancellationToken cancellationToken)

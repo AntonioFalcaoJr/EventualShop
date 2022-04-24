@@ -2,4 +2,4 @@
 
 namespace ECommerce.Contracts.ShoppingCarts.Validators;
 
-public class CartCreatedValidator : AbstractValidator<DomainEvents.CartCreated> { }
+public class CartCreatedValidator : AbstractValidator<DomainEvent.CartCreated> { }

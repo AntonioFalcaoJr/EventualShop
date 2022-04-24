@@ -5,9 +5,9 @@ using MassTransit;
 namespace Application.UseCases.EventHandlers.Projections;
 
 public class ProjectCartPaymentMethodsWhenChangedConsumer :
-    IConsumer<DomainEvents.CreditCardAdded>,
-    IConsumer<DomainEvents.PayPalAdded>,
-    IConsumer<DomainEvents.CartDiscarded>
+    IConsumer<DomainEvent.CreditCardAdded>,
+    IConsumer<DomainEvent.PayPalAdded>,
+    IConsumer<DomainEvent.CartDiscarded>
 {
     private readonly IProjectionRepository<Projection.IPaymentMethod> _projectionRepository;
 
@@ -16,12 +16,12 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
         _projectionRepository = projectionRepository;
     }
 
-    public Task Consume(ConsumeContext<DomainEvents.CartDiscarded> context)
+    public Task Consume(ConsumeContext<DomainEvent.CartDiscarded> context)
         => _projectionRepository.DeleteAsync(
             filter: item => item.ShoppingCartId == context.Message.CartId,
             cancellationToken: context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvents.CreditCardAdded> context)
+    public async Task Consume(ConsumeContext<DomainEvent.CreditCardAdded> context)
     {
         var creditCard = new Projection.CreditCardPaymentMethod
         {
@@ -38,7 +38,7 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
         await _projectionRepository.InsertAsync(creditCard, context.CancellationToken);
     }
 
-    public async Task Consume(ConsumeContext<DomainEvents.PayPalAdded> context)
+    public async Task Consume(ConsumeContext<DomainEvent.PayPalAdded> context)
     {
         var paypal = new Projection.PayPalPaymentMethod
         {

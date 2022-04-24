@@ -29,25 +29,25 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
         => _methods;
 
     public void Handle(Command.RequestPayment cmd)
-        => RaiseEvent(new DomainEvents.PaymentRequested(Guid.NewGuid(), cmd.OrderId, cmd.AmountDue, cmd.BillingAddress, cmd.PaymentMethods, PaymentStatus.Ready.ToString()));
+        => RaiseEvent(new DomainEvent.PaymentRequested(Guid.NewGuid(), cmd.OrderId, cmd.AmountDue, cmd.BillingAddress, cmd.PaymentMethods, PaymentStatus.Ready.ToString()));
 
     public void Handle(Command.ProceedWithPayment cmd)
         => RaiseEvent(AmountDue is 0
-            ? new DomainEvents.PaymentCompleted(cmd.PaymentId, cmd.OrderId)
-            : new DomainEvents.PaymentNotCompleted(cmd.PaymentId, cmd.OrderId));
+            ? new DomainEvent.PaymentCompleted(cmd.PaymentId, cmd.OrderId)
+            : new DomainEvent.PaymentNotCompleted(cmd.PaymentId, cmd.OrderId));
 
     public void Handle(Command.CancelPayment cmd)
-        => RaiseEvent(new DomainEvents.PaymentCanceled(cmd.PaymentId, cmd.OrderId));
+        => RaiseEvent(new DomainEvent.PaymentCanceled(cmd.PaymentId, cmd.OrderId));
 
     public void Handle(Command.UpdatePaymentMethod cmd)
         => RaiseEvent(cmd.Authorized
-            ? new DomainEvents.PaymentMethodAuthorized(cmd.PaymentId, cmd.PaymentMethodId, cmd.TransactionId)
-            : new DomainEvents.PaymentMethodDenied(cmd.PaymentId, cmd.PaymentMethodId));
+            ? new DomainEvent.PaymentMethodAuthorized(cmd.PaymentId, cmd.PaymentMethodId, cmd.TransactionId)
+            : new DomainEvent.PaymentMethodDenied(cmd.PaymentId, cmd.PaymentMethodId));
 
     protected override void ApplyEvent(IEvent @event)
         => When(@event as dynamic);
 
-    private void When(DomainEvents.PaymentRequested @event)
+    private void When(DomainEvent.PaymentRequested @event)
     {
         Id = @event.PaymentId;
         OrderId = @event.OrderId;
@@ -95,15 +95,15 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
         Status = PaymentStatus.FromName(@event.Status);
     }
 
-    private void When(DomainEvents.PaymentMethodAuthorized @event)
+    private void When(DomainEvent.PaymentMethodAuthorized @event)
         => _methods.Single(method => method.Id == @event.PaymentMethodId).Authorize();
 
-    private void When(DomainEvents.PaymentMethodDenied @event)
+    private void When(DomainEvent.PaymentMethodDenied @event)
         => _methods.Single(method => method.Id == @event.PaymentMethodId).Deny();
 
-    private void When(DomainEvents.PaymentCompleted _)
+    private void When(DomainEvent.PaymentCompleted _)
         => Status = PaymentStatus.Completed;
 
-    private void When(DomainEvents.PaymentNotCompleted _)
+    private void When(DomainEvent.PaymentNotCompleted _)
         => Status = PaymentStatus.Pending;
 }

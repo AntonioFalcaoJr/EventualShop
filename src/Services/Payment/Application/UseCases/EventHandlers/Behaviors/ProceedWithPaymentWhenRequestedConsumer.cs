@@ -5,7 +5,7 @@ using MassTransit;
 
 namespace Application.UseCases.EventHandlers.Behaviors;
 
-public class ProceedWithPaymentWhenRequestedConsumer : IConsumer<DomainEvents.PaymentRequested>
+public class ProceedWithPaymentWhenRequestedConsumer : IConsumer<DomainEvent.PaymentRequested>
 {
     private readonly IPaymentEventStoreService _eventStoreService;
     private readonly IPaymentStrategy _paymentStrategy;
@@ -18,7 +18,7 @@ public class ProceedWithPaymentWhenRequestedConsumer : IConsumer<DomainEvents.Pa
         _paymentStrategy = paymentStrategy;
     }
 
-    public async Task Consume(ConsumeContext<DomainEvents.PaymentRequested> context)
+    public async Task Consume(ConsumeContext<DomainEvent.PaymentRequested> context)
     {
         var payment = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.PaymentId, context.CancellationToken);
         await _paymentStrategy.AuthorizePaymentAsync(payment, context.CancellationToken);

@@ -8,9 +8,9 @@ public class ShoppingCartProfile : Profile
 {
     public ShoppingCartProfile()
     {
-        CreateMap<Requests.AddShoppingCartItem, Models.ShoppingCartItem>();
-        CreateMap<Requests.AddPayPal, Models.PayPal>();
-        CreateMap<Requests.AddCreditCard, Models.CreditCard>();
-        CreateMap<Requests.AddAddress, Models.Address>();
+        CreateMap<Request.AddShoppingCartItem, Models.ShoppingCartItem>();
+        CreateMap<Request.AddPayPal, Models.PayPal>();
+        CreateMap<Request.AddCreditCard, Models.CreditCard>();
+        CreateMap<Request.AddAddress, Models.Address>();
     }
 }

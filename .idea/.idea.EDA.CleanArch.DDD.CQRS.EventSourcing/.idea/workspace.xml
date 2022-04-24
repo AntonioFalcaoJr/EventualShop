@@ -16,9 +16,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.Development.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.Development.yaml" afterDir="false" />
+    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Improving naming qualifying">
+      <change afterPath="$PROJECT_DIR$/src/Contracts/ECommerce/Abstractions/NotFound.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/ECommerce/Abstractions/Messages/Events/Event.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/ECommerce/Abstractions/Messages/Queries/Query.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/ECommerce/Abstractions/Messages/Queries/QueryPaging.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/ECommerce/Abstractions/Messages/Queries/QueryPaging.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/ECommerce/Abstractions/Messages/Queries/Responses/IResponse.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/ECommerce/Abstractions/Messages/Queries/Responses/Response.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/ECommerce/Abstractions/Messages/Queries/Responses/ResponseListResult.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/ECommerce/Abstractions/Messages/Queries/Responses/ResponsePaged.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/ECommerce/Contracts/Accounts/DomainEvents.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/ECommerce/Contracts/Accounts/DomainEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/ECommerce/Contracts/Accounts/Projection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/ECommerce/Contracts/Accounts/Projection.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/ECommerce/Contracts/Accounts/Queries.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/ECommerce/Contracts/Accounts/Query.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/UseCases/EventHandlers/Projections/ProjectAccountDetailsWhenChangedConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Application/UseCases/EventHandlers/Projections/ProjectAccountDetailsWhenChangedConsumer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/UseCases/QueryHandlers/GetAccountDetailsConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Application/UseCases/QueryHandlers/GetAccountDetailsConsumer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Domain/Aggregates/Account.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Domain/Aggregates/Account.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/Extensions/RabbitMqBusFactoryConfiguratorExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/Extensions/RabbitMqBusFactoryConfiguratorExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPI/Controllers/AccountsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPI/Controllers/AccountsController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,11 +69,46 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/nginx.conf" root0="SKIP_INSPECTION" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/ECommerce/Contracts/Accounts/Validators/CreateAccountValidator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/ECommerce/Contracts/Catalogs/Validators/ActivateCatalogValidator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/ECommerce/Contracts/Catalogs/Validators/AddCatalogItemValidator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/ECommerce/Contracts/Catalogs/Validators/CreateCatalogValidator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/ECommerce/Contracts/Identities/Validators/RegisterUserValidator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/ECommerce/Contracts/ShoppingCarts/Validators/AddCartItemValidator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/ECommerce/Contracts/ShoppingCarts/Validators/AddCreditCardValidator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/ECommerce/Contracts/ShoppingCarts/Validators/AddShippingAddressValidator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/ECommerce/Contracts/ShoppingCarts/Validators/ChangeBillingAddressValidator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/ECommerce/Contracts/ShoppingCarts/Validators/CheckoutCartValidator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/ECommerce/Contracts/ShoppingCarts/Validators/CreateCartValidator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/ECommerce/Contracts/ShoppingCarts/Validators/RemoveCartItemValidator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/CommandHandlers/CreateAccountConsumer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/CommandHandlers/CreateAccountConsumer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/CommandHandlers/DefineProfessionalAddressConsumer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/CommandHandlers/DefineProfessionalAddressConsumer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/CommandHandlers/DefineResidenceAddressConsumer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/CommandHandlers/DeleteAccountConsumer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Application/UseCases/EventHandlers/Projections/ProjectCartItemsWhenChangedConsumer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Application/UseCases/EventHandlers/Projections/ProjectCartPaymentMethodsWhenChangedConsumer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Application/UseCases/EventHandlers/Projections/ProjectCartWhenChangedConsumer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Application/UseCases/QueryHandlers/GetShoppingCartConsumer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Application/UseCases/QueryHandlers/GetShoppingCartItemConsumer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Application/UseCases/QueryHandlers/GetShoppingCartPaymentMethodConsumer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Infrastructure.Projections/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Web/WebAPI/Controllers/AccountsController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Web/WebAPI/Controllers/CatalogsController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Web/WebAPI/Controllers/IdentitiesController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Web/WebAPI/Controllers/OrdersController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Web/WebAPI/Controllers/PaymentsController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Web/WebAPI/Controllers/ShoppingCartsController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Web/WebAPI/Controllers/ShoppingCartsController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Web/WebAPI/Controllers/WarehouseController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Web/WebAPP/HttpClients/ECommerceHttpClient.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Web/WebAPP/HttpClients/IECommerceHttpClient.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Web/WebAPP/Pages/Catalogs.razor" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Web/WebAPP/Shared/ProductCard.razor" root0="SKIP_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogsViewModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/05f92647cb4742fb9941eade0a7f601a17880/8f/e85ac763/HttpContentJsonExtensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0ac37f20f8854e089d6b33ebbfaf0eae1bd880/07/a8123d2f/HttpContent.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Web/WebAPP/ViewModels/CatalogsViewModel.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1e7af0d8b5a645428c8d39b661c54dfb9778/85/28c9f8c9/QueryBuilder.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1e8ae2bf850546abaa24bd6da535277717470/fe/161ca8da/HttpContentJsonExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/327bc14b2cba47ffbfd26b84e51042a618470/6c/408b9886/ILoggingBuilder.cs" root0="SKIP_HIGHLIGHTING" />
@@ -67,21 +116,13 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4bab001ed0614fcbb5a4f04af3b9e60920498/a9/f4bd3c52/PageTitle.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5ef759c226424ea2be07773f39b564fd1e470/8a/12cf060a/HostingHostBuilderExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6f46656b334c4b678e8cd0ddef94788214898/07/ca3d35a2/INotifyPropertyChanged.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/81043c59962a4938a596db863c6a7ed91d8880/88/2adde91d/ControllerBase.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/863b022794b14cad995f7cd89708e4cf42c00/eb/769c6076/ConnectionFactory.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/863f9d4793aa4b34a303cdf29f9a1c6a15898/2c/ab5645e4/WebAssemblyHostBuilder.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/863f9d4793aa4b34a303cdf29f9a1c6a15898/e4/3d9ca33b/WebAssemblyHost.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8d1186c6efe84b2e92a825e1e70720cf141400/48/21ea9454/IMongoCollection`1.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8d1186c6efe84b2e92a825e1e70720cf141400/7e/a49e5dbf/UpdateDefinition`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/970b0b42d0ff462eb8605eec8e69e2321bc470/b8/eebe615e/HttpClient.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9a151d5b1d7741bda9bb7f018a295dcda6a470/b9/0811afac/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9c52a1af72544c68b92481668e764fdf6c600/06/ba77dc11/CardType.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9c52a1af72544c68b92481668e764fdf6c600/1e/726521f6/Gutters.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9c52a1af72544c68b92481668e764fdf6c600/31/127611bb/BSRow.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9c52a1af72544c68b92481668e764fdf6c600/42/768c65e6/BSCard.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/a0c3c808555d45e68123d418eaecb1a97da8/a7/efa9e2ec/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/adaa1d6303cd4f65802b8ca779ed0a9512680/aa/b68afd77/DescriptionAttribute.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/aff34c6637354216ad0b6f86418d1491fc00/26/d4374ff4/ConfigurationLoggerConfigurationExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b1ab6c3542bf4384b5ec2233cfbb9d974a00/1c/feeb3d4c/OpenTelemetryServicesExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b62623ad9cb645ebab6b8ed908daa90114c98/5e/1def3bf4/ServiceProviderOptions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c75fbd1540f941fa93c2fb9048be1c45b070/ef/2413cc11/ServiceCollection.cs" root0="SKIP_HIGHLIGHTING" />
@@ -104,29 +145,19 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e2d9ae261af84a10a883c832c6500ba141600/3d/5d028466/IRabbitMqHostConfigurator.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e2d9ae261af84a10a883c832c6500ba141600/44/578ca317/RabbitMqHostSettings.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e2d9ae261af84a10a883c832c6500ba141600/ce/c84b137a/IRabbitMqBusFactoryConfigurator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f0831fff97ef44a392d4944ff4e361b83e00/4d/1f2ecd21/SerilogApplicationBuilderExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f5eb8aed0f144780817c2c5a80b0492136098/a6/dff6d8d6/LayoutComponentBase.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f5eb8aed0f144780817c2c5a80b0492189898/31/ae431bb8/NavigationManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f5eb8aed0f144780817c2c5a80b0492189898/6e/e838befc/RenderFragment.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f741249b7da04385a8edc662a45cf5a6a5d880/2c/a83eb8f4/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f741249b7da04385a8edc662a45cf5a6a5d880/82/3c5ff5ac/Enum.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1aa8f79e1b14eb5b2ff38a1b982b2e688673c7d6cab7979747ea238118f41/RenderTreeBuilder.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2d9bc6fc6b9a3d2447afa6c8fb069dbb418def3a444bb89f722a69a928f5585/CorsServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/327f875fd92c358a2c6b3c48cc81b288070ecb997371cd17419f80a482a617/LayoutComponentBase.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/35865e34efa3f33074defe80b3df9edb9a9611a37e6ef0271dae28186943/UpdateDefinitionBuilder.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3c4b057406eaab024867a1fee19f7436caa083752ae2d2de5bdf8a63d47/ServiceProviderOptions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3d2f18d8ff775147d6c0f1e5a936e7e71a2e3e4ad1463ba67aa44ea76857c/RabbitMqTransportOptions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/531e72e7c1e5ffedfeb363bdc44956eb3b3da78de709c73e724407a4ec9fdc/ControllerBase.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/55ddaf6dec127f7c2fe2b78cd192a3ad48db8b44654f1ce46e67de80a35c/UpdateDefinition.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/56f1567780aeb81d384043637043fbd2b7ca14f1a6bbe28138a6eb17be638172/IRequestClient.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/6cc4cc76547babef243f5335c2876916e707053e03a32eefdaf87f656c0f2e7/RabbitMqHostConfigurationExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/73ffe226ca516698d1e28a7fe1cac5a27b5b81ccdcdc89f189e51b14c9d4c/AbstractValidator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7ae1d944d557dfac4e41c4c4518ee2afb845c9a63da7bbf8c63a72d36fda393/IMongoCollection.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/aeb4a8dc9f155d2e7edd1ce8a1fbff63c9ff8e289a95aaf53034e0271d3f/MassTransitHostOptions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/b2c3e28468b2a9ae5485968818c48fd40338a6b8ae1295f29a355225a8d238/First.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/b37bdcda3df384671c8eed0dd528e74eff6e04eeb7b1e81f219e5e066318/ComponentBase.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d317c39e724bf7d734ce72096f68ad4f51432116d6b99f9ba1d3c5ef4c04d/HttpContentJsonExtensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d4a703baf6781548e481cbbabd771387bf4ff72a33c9a642b0d0217562/HttpContentJsonExtensions.netcoreapp.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -346,20 +377,7 @@
       <workItem from="1650716823007" duration="12056000" />
       <workItem from="1650737043919" duration="2480000" />
       <workItem from="1650823334236" duration="371000" />
-    </task>
-    <task id="LOCAL-00059" summary="Cleanup">
-      <created>1649774314237</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1649774314237</updated>
-    </task>
-    <task id="LOCAL-00060" summary="Cleanup">
-      <created>1649774733923</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1649774733923</updated>
+      <workItem from="1650824147497" duration="1895000" />
     </task>
     <task id="LOCAL-00061" summary="Cleanup">
       <created>1649775023408</created>
@@ -690,7 +708,21 @@
       <option name="project" value="LOCAL" />
       <updated>1650739877038</updated>
     </task>
-    <option name="localTasksCounter" value="108" />
+    <task id="LOCAL-00108" summary="Renaming projection">
+      <created>1650824676450</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1650824676450</updated>
+    </task>
+    <task id="LOCAL-00109" summary="Improving naming qualifying">
+      <created>1650825649535</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1650825649535</updated>
+    </task>
+    <option name="localTasksCounter" value="110" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -716,8 +748,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Removing unnecessary content" />
-    <MESSAGE value="Improving Catalogs API controller resources, and other adjusts" />
     <MESSAGE value="Improving Task-Based resources" />
     <MESSAGE value="Improving REST" />
     <MESSAGE value="Great improvements" />
@@ -741,7 +771,9 @@
     <MESSAGE value="Adjusting to support projections directly" />
     <MESSAGE value="Fix based on projections" />
     <MESSAGE value="Improving staging" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improving staging" />
+    <MESSAGE value="Renaming projection" />
+    <MESSAGE value="Improving naming qualifying" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improving naming qualifying" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -751,10 +783,10 @@
           <line>26</line>
           <properties documentPath="C:\Projects\Personal\EDA.CleanArch.DDD.CQRS.EventSourcing\src\Web\WebAPP\ViewModels\CatalogsViewModel.cs" initialLine="26" containingFunctionPresentation="method 'FetchDataAsync'">
             <startOffsets>
-              <option value="707" />
+              <option value="706" />
             </startOffsets>
             <endOffsets>
-              <option value="788" />
+              <option value="787" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="10" />

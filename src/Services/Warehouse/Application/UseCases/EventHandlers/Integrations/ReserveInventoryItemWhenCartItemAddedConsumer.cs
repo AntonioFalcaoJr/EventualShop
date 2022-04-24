@@ -5,7 +5,7 @@ using Command = ECommerce.Contracts.Warehouses.Command;
 
 namespace Application.UseCases.EventHandlers.Integrations;
 
-public class ReserveInventoryItemWhenCartItemAddedConsumer : IConsumer<DomainEvents.CartItemAdded>
+public class ReserveInventoryItemWhenCartItemAddedConsumer : IConsumer<DomainEvent.CartItemAdded>
 {
     private readonly IWarehouseEventStoreService _eventStoreService;
 
@@ -14,7 +14,7 @@ public class ReserveInventoryItemWhenCartItemAddedConsumer : IConsumer<DomainEve
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<DomainEvents.CartItemAdded> context)
+    public async Task Consume(ConsumeContext<DomainEvent.CartItemAdded> context)
     {
         var inventoryItem = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.Item.ProductId, context.CancellationToken);
 

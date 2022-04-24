@@ -38,7 +38,7 @@ public class CatalogsViewModel
     {
         try
         {
-            Requests.CreateCatalog request = new(Guid.NewGuid(), Title, Description);
+            Request.CreateCatalog request = new(Guid.NewGuid(), Title, Description);
             var response = await _httpClient.CreateAsync(request, CancellationToken.None);
 
             if (response.Success)
@@ -81,7 +81,7 @@ public class CatalogsViewModel
     {
         try
         {
-            Requests.ChangeCatalogTitle request = new(Title);
+            Request.ChangeCatalogTitle request = new(Title);
             var response = await _httpClient.ChangeTitleAsync(catalogId, request, CancellationToken.None);
 
             if (response.Success)
@@ -103,7 +103,7 @@ public class CatalogsViewModel
     {
         try
         {
-            Requests.ChangeCatalogDescription request = new(Description);
+            Request.ChangeCatalogDescription request = new(Description);
             var response = await _httpClient.ChangeDescriptionAsync(catalogId, request, CancellationToken.None);
 
             if (response.Success)

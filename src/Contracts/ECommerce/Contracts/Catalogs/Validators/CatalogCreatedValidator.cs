@@ -2,4 +2,4 @@
 
 namespace ECommerce.Contracts.Catalogs.Validators;
 
-public class CatalogCreatedValidator : AbstractValidator<DomainEvents.CatalogCreated> { }
+public class CatalogCreatedValidator : AbstractValidator<DomainEvent.CatalogCreated> { }

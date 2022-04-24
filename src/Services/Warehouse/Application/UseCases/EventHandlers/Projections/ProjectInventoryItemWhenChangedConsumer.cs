@@ -5,8 +5,8 @@ using MassTransit;
 namespace Application.UseCases.EventHandlers.Projections;
 
 public class ProjectInventoryItemWhenChangedConsumer :
-    IConsumer<DomainEvents.InventoryAdjusted>,
-    IConsumer<DomainEvents.InventoryReceived>
+    IConsumer<DomainEvent.InventoryAdjusted>,
+    IConsumer<DomainEvent.InventoryReceived>
 {
     private readonly IProjectionRepository<ECommerce.Contracts.Warehouses.Projection.Inventory> _projectionRepository;
 
@@ -16,14 +16,14 @@ public class ProjectInventoryItemWhenChangedConsumer :
     }
 
     // TODO - It should be some think like (InventoryAdjustmentIncreased and InventoryAdjustmentDecreased)
-    public async Task Consume(ConsumeContext<DomainEvents.InventoryAdjusted> context)
+    public async Task Consume(ConsumeContext<DomainEvent.InventoryAdjusted> context)
         => await _projectionRepository.UpdateFieldAsync(
             id: context.Message.ProductId,
             field: item => item.Quantity,
             value: context.Message.Quantity,
             cancellationToken: context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvents.InventoryReceived> context)
+    public async Task Consume(ConsumeContext<DomainEvent.InventoryReceived> context)
     {
         var inventory = new ECommerce.Contracts.Warehouses.Projection.Inventory
         {

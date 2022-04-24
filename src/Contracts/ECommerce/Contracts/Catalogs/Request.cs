@@ -1,6 +1,6 @@
 ﻿namespace ECommerce.Contracts.Catalogs;
 
-public static class Requests
+public static class Request
 {
     public record CreateCatalog(Guid CatalogId, string Title, string Description);
 

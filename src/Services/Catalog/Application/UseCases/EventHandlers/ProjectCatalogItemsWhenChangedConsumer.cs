@@ -5,10 +5,10 @@ using MassTransit;
 namespace Application.UseCases.EventHandlers;
 
 public class ProjectCatalogItemsWhenChangedConsumer :
-    IConsumer<DomainEvents.CatalogDeleted>,
-    IConsumer<DomainEvents.CatalogItemAdded>,
-    IConsumer<DomainEvents.CatalogItemRemoved>,
-    IConsumer<DomainEvents.CatalogItemUpdated>
+    IConsumer<DomainEvent.CatalogDeleted>,
+    IConsumer<DomainEvent.CatalogItemAdded>,
+    IConsumer<DomainEvent.CatalogItemRemoved>,
+    IConsumer<DomainEvent.CatalogItemUpdated>
 {
     private readonly IProjectionRepository<Projection.CatalogItem> _projectionRepository;
 
@@ -17,13 +17,13 @@ public class ProjectCatalogItemsWhenChangedConsumer :
         _projectionRepository = projectionRepository;
     }
 
-    public async Task Consume(ConsumeContext<DomainEvents.CatalogDeleted> context)
+    public async Task Consume(ConsumeContext<DomainEvent.CatalogDeleted> context)
         => await _projectionRepository.DeleteAsync(item => item.CatalogId == context.Message.CatalogId, context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvents.CatalogItemRemoved> context)
+    public async Task Consume(ConsumeContext<DomainEvent.CatalogItemRemoved> context)
         => await _projectionRepository.DeleteAsync(context.Message.ItemId, context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvents.CatalogItemAdded> context)
+    public async Task Consume(ConsumeContext<DomainEvent.CatalogItemAdded> context)
     {
         Projection.CatalogItem catalogItem = new(
             context.Message.CatalogId,
@@ -37,7 +37,7 @@ public class ProjectCatalogItemsWhenChangedConsumer :
         await _projectionRepository.InsertAsync(catalogItem, context.CancellationToken);
     }
 
-    public async Task Consume(ConsumeContext<DomainEvents.CatalogItemUpdated> context)
+    public async Task Consume(ConsumeContext<DomainEvent.CatalogItemUpdated> context)
     {
         Projection.CatalogItem catalogItem = new(
             context.Message.CatalogId,

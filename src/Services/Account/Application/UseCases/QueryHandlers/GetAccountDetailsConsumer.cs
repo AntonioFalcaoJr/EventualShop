@@ -1,13 +1,13 @@
 using Application.Abstractions.Projections;
-using ECommerce.Abstractions.Messages.Queries.Responses;
+using ECommerce.Abstractions;
 using ECommerce.Contracts.Accounts;
 using MassTransit;
 
 namespace Application.UseCases.QueryHandlers;
 
 public class GetAccountDetailsConsumer :
-    IConsumer<Queries.GetAccountDetails>,
-    IConsumer<Queries.GetAccounts>
+    IConsumer<Query.GetAccount>,
+    IConsumer<Query.GetAccounts>
 {
     private readonly IProjectionRepository<Projection.Account> _projectionRepository;
 
@@ -16,7 +16,7 @@ public class GetAccountDetailsConsumer :
         _projectionRepository = projectionRepository;
     }
 
-    public async Task Consume(ConsumeContext<Queries.GetAccountDetails> context)
+    public async Task Consume(ConsumeContext<Query.GetAccount> context)
     {
         var account = await _projectionRepository.GetAsync(context.Message.AccountId, context.CancellationToken);
 
@@ -25,7 +25,7 @@ public class GetAccountDetailsConsumer :
             : context.RespondAsync(account));
     }
 
-    public async Task Consume(ConsumeContext<Queries.GetAccounts> context)
+    public async Task Consume(ConsumeContext<Query.GetAccounts> context)
     {
         var accounts = await _projectionRepository.GetAsync(context.Message.Limit, context.Message.Offset, context.CancellationToken);
 

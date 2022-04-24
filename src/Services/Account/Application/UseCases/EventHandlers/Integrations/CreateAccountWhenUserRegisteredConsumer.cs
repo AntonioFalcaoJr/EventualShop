@@ -6,7 +6,7 @@ using Command = ECommerce.Contracts.Accounts.Command;
 
 namespace Application.UseCases.EventHandlers.Integrations;
 
-public class CreateAccountWhenUserRegisteredConsumer : IConsumer<DomainEvents.UserRegistered>
+public class CreateAccountWhenUserRegisteredConsumer : IConsumer<DomainEvent.UserRegistered>
 {
     private readonly IAccountEventStoreService _eventStoreService;
 
@@ -15,7 +15,7 @@ public class CreateAccountWhenUserRegisteredConsumer : IConsumer<DomainEvents.Us
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<DomainEvents.UserRegistered> context)
+    public async Task Consume(ConsumeContext<DomainEvent.UserRegistered> context)
     {
         var account = new Account();
 

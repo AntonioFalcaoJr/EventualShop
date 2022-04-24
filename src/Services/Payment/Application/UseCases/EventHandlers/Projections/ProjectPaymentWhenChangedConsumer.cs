@@ -6,8 +6,8 @@ using MassTransit;
 namespace Application.UseCases.EventHandlers.Projections;
 
 public class ProjectPaymentWhenChangedConsumer :
-    IConsumer<DomainEvents.PaymentCanceled>,
-    IConsumer<DomainEvents.PaymentRequested>
+    IConsumer<DomainEvent.PaymentCanceled>,
+    IConsumer<DomainEvent.PaymentRequested>
 {
     private readonly IProjectionRepository<ECommerce.Contracts.Payments.Projection.Payment> _repository;
 
@@ -16,14 +16,14 @@ public class ProjectPaymentWhenChangedConsumer :
         _repository = repository;
     }
 
-    public async Task Consume(ConsumeContext<DomainEvents.PaymentCanceled> context)
+    public async Task Consume(ConsumeContext<DomainEvent.PaymentCanceled> context)
         => await _repository.UpdateFieldAsync(
             id: context.Message.PaymentId,
             field: payment => payment.Status,
             value: PaymentStatus.Canceled.ToString(),
             cancellationToken: context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvents.PaymentRequested> context)
+    public async Task Consume(ConsumeContext<DomainEvent.PaymentRequested> context)
     {
         var payment = new ECommerce.Contracts.Payments.Projection.Payment
         {

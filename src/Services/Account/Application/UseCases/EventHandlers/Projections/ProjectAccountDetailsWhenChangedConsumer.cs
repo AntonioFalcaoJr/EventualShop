@@ -5,11 +5,11 @@ using MassTransit;
 namespace Application.UseCases.EventHandlers.Projections;
 
 public class ProjectAccountDetailsWhenChangedConsumer :
-    IConsumer<DomainEvents.AccountCreated>,
-    IConsumer<DomainEvents.AccountDeleted>,
-    IConsumer<DomainEvents.ProfessionalAddressDefined>,
-    IConsumer<DomainEvents.ProfileUpdated>,
-    IConsumer<DomainEvents.ResidenceAddressDefined>
+    IConsumer<DomainEvent.AccountCreated>,
+    IConsumer<DomainEvent.AccountDeleted>,
+    IConsumer<DomainEvent.ProfessionalAddressDefined>,
+    IConsumer<DomainEvent.ProfileUpdated>,
+    IConsumer<DomainEvent.ResidenceAddressDefined>
 {
     private readonly IProjectionRepository<Projection.Account> _projectionRepository;
 
@@ -18,7 +18,7 @@ public class ProjectAccountDetailsWhenChangedConsumer :
         _projectionRepository = projectionRepository;
     }
 
-    public async Task Consume(ConsumeContext<DomainEvents.AccountCreated> context)
+    public async Task Consume(ConsumeContext<DomainEvent.AccountCreated> context)
     {
         var account = new Projection.Account
         {
@@ -35,10 +35,10 @@ public class ProjectAccountDetailsWhenChangedConsumer :
         await _projectionRepository.InsertAsync(account, context.CancellationToken);
     }
 
-    public async Task Consume(ConsumeContext<DomainEvents.AccountDeleted> context)
+    public async Task Consume(ConsumeContext<DomainEvent.AccountDeleted> context)
         => await _projectionRepository.DeleteAsync(context.Message.AccountId, context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvents.ProfessionalAddressDefined> context)
+    public async Task Consume(ConsumeContext<DomainEvent.ProfessionalAddressDefined> context)
         => await _projectionRepository.UpdateFieldAsync(
             id: context.Message.AccountId,
             field: account => account.Profile.ProfessionalAddress,
@@ -46,7 +46,7 @@ public class ProjectAccountDetailsWhenChangedConsumer :
             cancellationToken: context.CancellationToken);
 
     // TODO - Improve this, update all profile dont like the right approach
-    public async Task Consume(ConsumeContext<DomainEvents.ProfileUpdated> context)
+    public async Task Consume(ConsumeContext<DomainEvent.ProfileUpdated> context)
         => await _projectionRepository.UpdateFieldAsync(
             id: context.Message.AccountId,
             field: account => account.Profile,
@@ -59,7 +59,7 @@ public class ProjectAccountDetailsWhenChangedConsumer :
             },
             cancellationToken: context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvents.ResidenceAddressDefined> context)
+    public async Task Consume(ConsumeContext<DomainEvent.ResidenceAddressDefined> context)
         => await _projectionRepository.UpdateFieldAsync(
             id: context.Message.AccountId,
             field: account => account.Profile.ResidenceAddress,

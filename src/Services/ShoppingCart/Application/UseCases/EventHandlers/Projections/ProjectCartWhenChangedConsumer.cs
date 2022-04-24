@@ -6,17 +6,17 @@ using MassTransit;
 namespace Application.UseCases.EventHandlers.Projections;
 
 public class ProjectCartWhenChangedConsumer :
-    IConsumer<DomainEvents.BillingAddressChanged>,
-    IConsumer<DomainEvents.CartCreated>,
-    IConsumer<DomainEvents.CartItemAdded>,
-    IConsumer<DomainEvents.CreditCardAdded>,
-    IConsumer<DomainEvents.PayPalAdded>,
-    IConsumer<DomainEvents.CartItemRemoved>,
-    IConsumer<DomainEvents.CartCheckedOut>,
-    IConsumer<DomainEvents.ShippingAddressAdded>,
-    IConsumer<DomainEvents.CartItemIncreased>,
-    IConsumer<DomainEvents.CartItemDecreased>,
-    IConsumer<DomainEvents.CartDiscarded>
+    IConsumer<DomainEvent.BillingAddressChanged>,
+    IConsumer<DomainEvent.CartCreated>,
+    IConsumer<DomainEvent.CartItemAdded>,
+    IConsumer<DomainEvent.CreditCardAdded>,
+    IConsumer<DomainEvent.PayPalAdded>,
+    IConsumer<DomainEvent.CartItemRemoved>,
+    IConsumer<DomainEvent.CartCheckedOut>,
+    IConsumer<DomainEvent.ShippingAddressAdded>,
+    IConsumer<DomainEvent.CartItemIncreased>,
+    IConsumer<DomainEvent.CartItemDecreased>,
+    IConsumer<DomainEvent.CartDiscarded>
 {
     private readonly IProjectionRepository<Projection.ShoppingCart> _projectionRepository;
 
@@ -25,52 +25,52 @@ public class ProjectCartWhenChangedConsumer :
         _projectionRepository = projectionRepository;
     }
 
-    public async Task Consume(ConsumeContext<DomainEvents.BillingAddressChanged> context)
+    public async Task Consume(ConsumeContext<DomainEvent.BillingAddressChanged> context)
         => await _projectionRepository.UpdateFieldAsync(
             id: context.Message.CartId,
             field: cart => cart.Customer.BillingAddress,
             value: context.Message.Address,
             cancellationToken: context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvents.CartCheckedOut> context)
+    public async Task Consume(ConsumeContext<DomainEvent.CartCheckedOut> context)
         => await _projectionRepository.UpdateFieldAsync(
             id: context.Message.CartId,
             field: cart => cart.Status,
             value: ShoppingCartStatus.CheckedOut.ToString(),
             cancellationToken: context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvents.CartCreated> context)
+    public async Task Consume(ConsumeContext<DomainEvent.CartCreated> context)
     {
         var customer = new Projection.Customer(context.Message.CustomerId);
         var shoppingCart = new Projection.ShoppingCart(context.Message.CartId, customer, context.Message.Status);
         await _projectionRepository.InsertAsync(shoppingCart, context.CancellationToken);
     }
 
-    public async Task Consume(ConsumeContext<DomainEvents.CartDiscarded> context)
+    public async Task Consume(ConsumeContext<DomainEvent.CartDiscarded> context)
         => await _projectionRepository.DeleteAsync(context.Message.CartId, context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvents.CartItemAdded> context)
+    public async Task Consume(ConsumeContext<DomainEvent.CartItemAdded> context)
         => await _projectionRepository.IncreaseFieldAsync(
             id: context.Message.CartId,
             field: cart => cart.Total,
             value: context.Message.Item.Quantity * context.Message.Item.UnitPrice,
             cancellationToken: context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvents.CartItemDecreased> context)
+    public async Task Consume(ConsumeContext<DomainEvent.CartItemDecreased> context)
         => await _projectionRepository.IncreaseFieldAsync(
             id: context.Message.CartId,
             field: cart => cart.Total,
             value: context.Message.UnitPrice * -1,
             cancellationToken: context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvents.CartItemIncreased> context)
+    public async Task Consume(ConsumeContext<DomainEvent.CartItemIncreased> context)
         => await _projectionRepository.IncreaseFieldAsync(
             id: context.Message.CartId,
             field: cart => cart.Total,
             value: context.Message.UnitPrice,
             cancellationToken: context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvents.CartItemRemoved> context)
+    public async Task Consume(ConsumeContext<DomainEvent.CartItemRemoved> context)
         => await _projectionRepository.IncreaseFieldAsync(
             id: context.Message.CartId,
             field: cart => cart.Total,
@@ -78,13 +78,13 @@ public class ProjectCartWhenChangedConsumer :
             cancellationToken: context.CancellationToken);
 
     // TODO Segregate Payment Methods projections
-    public Task Consume(ConsumeContext<DomainEvents.CreditCardAdded> context)
+    public Task Consume(ConsumeContext<DomainEvent.CreditCardAdded> context)
         => Task.CompletedTask;
 
-    public Task Consume(ConsumeContext<DomainEvents.PayPalAdded> context)
+    public Task Consume(ConsumeContext<DomainEvent.PayPalAdded> context)
         => Task.CompletedTask;
 
-    public async Task Consume(ConsumeContext<DomainEvents.ShippingAddressAdded> context)
+    public async Task Consume(ConsumeContext<DomainEvent.ShippingAddressAdded> context)
         => await _projectionRepository.UpdateFieldAsync(
             id: context.Message.CartId,
             field: cart => cart.Customer.ShippingAddress,

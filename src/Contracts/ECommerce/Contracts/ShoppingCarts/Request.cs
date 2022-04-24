@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace ECommerce.Contracts.ShoppingCarts;
 
-public static class Requests
+public static class Request
 {
     public record CreateCart(Guid CustomerId);
 

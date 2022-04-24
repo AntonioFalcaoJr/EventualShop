@@ -6,7 +6,7 @@ using Command = ECommerce.Contracts.Orders.Command;
 
 namespace Application.UseCases.EventHandlers.Integrations;
 
-public class PlaceOrderWhenCartSubmittedConsumer : IConsumer<IntegrationEvents.CartSubmitted>
+public class PlaceOrderWhenCartSubmittedConsumer : IConsumer<IntegrationEvent.CartSubmitted>
 {
     private readonly IOrderEventStoreService _eventStoreService;
 
@@ -15,7 +15,7 @@ public class PlaceOrderWhenCartSubmittedConsumer : IConsumer<IntegrationEvents.C
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<IntegrationEvents.CartSubmitted> context)
+    public async Task Consume(ConsumeContext<IntegrationEvent.CartSubmitted> context)
     {
         var order = new Order();
 

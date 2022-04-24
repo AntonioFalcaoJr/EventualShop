@@ -4,7 +4,7 @@ using MassTransit;
 
 namespace Application.UseCases.EventHandlers.Projections;
 
-public class ProjectOrderDetailsWhenOrderChangedConsumer : IConsumer<DomainEvents.OrderPlaced>
+public class ProjectOrderDetailsWhenOrderChangedConsumer : IConsumer<DomainEvent.OrderPlaced>
 {
     private readonly IProjectionRepository<ECommerce.Contracts.Orders.Projection.Order> _repository;
 
@@ -13,7 +13,7 @@ public class ProjectOrderDetailsWhenOrderChangedConsumer : IConsumer<DomainEvent
         _repository = repository;
     }
 
-    public async Task Consume(ConsumeContext<DomainEvents.OrderPlaced> context)
+    public async Task Consume(ConsumeContext<DomainEvent.OrderPlaced> context)
     {
         var order = new ECommerce.Contracts.Orders.Projection.Order
         {

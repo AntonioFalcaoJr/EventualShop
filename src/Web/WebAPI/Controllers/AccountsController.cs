@@ -13,12 +13,12 @@ public class AccountsController : ApplicationController
         : base(bus) { }
 
     [HttpGet]
-    public Task<IActionResult> GetAccountsWithPagination([FromQuery] Queries.GetAccounts query, CancellationToken cancellationToken)
-        => GetProjectionAsync<Queries.GetAccounts, IPagedResult<Projection.Account>>(query, cancellationToken);
+    public Task<IActionResult> GetAccountsWithPagination([FromQuery] Query.GetAccounts query, CancellationToken cancellationToken)
+        => GetProjectionAsync<Query.GetAccounts, IPagedResult<Projection.Account>>(query, cancellationToken);
 
     [HttpGet]
-    public Task<IActionResult> GetAccountDetails([FromQuery] Queries.GetAccountDetails query, CancellationToken cancellationToken)
-        => GetProjectionAsync<Queries.GetAccountDetails, Projection.Account>(query, cancellationToken);
+    public Task<IActionResult> GetAccountDetails([FromQuery] Query.GetAccount query, CancellationToken cancellationToken)
+        => GetProjectionAsync<Query.GetAccount, Projection.Account>(query, cancellationToken);
 
     [HttpPost]
     public Task<IActionResult> CreateAccount(Command.CreateAccount command, CancellationToken cancellationToken)

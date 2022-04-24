@@ -1,11 +1,11 @@
 ﻿using Application.Abstractions.Projections;
-using ECommerce.Abstractions.Messages.Queries.Responses;
+using ECommerce.Abstractions;
 using ECommerce.Contracts.Payments;
 using MassTransit;
 
 namespace Application.UseCases.QueryHandlers;
 
-public class GetPaymentDetailsConsumer : IConsumer<Queries.GetPaymentDetails>
+public class GetPaymentDetailsConsumer : IConsumer<Query.GetPaymentDetails>
 {
     private readonly IProjectionRepository<Projection.Payment> _repository;
 
@@ -14,7 +14,7 @@ public class GetPaymentDetailsConsumer : IConsumer<Queries.GetPaymentDetails>
         _repository = repository;
     }
 
-    public async Task Consume(ConsumeContext<Queries.GetPaymentDetails> context)
+    public async Task Consume(ConsumeContext<Query.GetPaymentDetails> context)
     {
         var paymentD = await _repository.GetAsync(context.Message.PaymentId, context.CancellationToken);
 

@@ -1,13 +1,13 @@
 ﻿using Application.Abstractions.Projections;
-using ECommerce.Abstractions.Messages.Queries.Responses;
+using ECommerce.Abstractions;
 using ECommerce.Contracts.ShoppingCarts;
 using MassTransit;
 
 namespace Application.UseCases.QueryHandlers;
 
 public class GetShoppingCartConsumer :
-    IConsumer<Queries.GetShoppingCart>,
-    IConsumer<Queries.GetCustomerShoppingCart>
+    IConsumer<Query.GetShoppingCart>,
+    IConsumer<Query.GetCustomerShoppingCart>
 {
     private readonly IProjectionRepository<Projection.ShoppingCart> _projectionRepository;
 
@@ -16,13 +16,13 @@ public class GetShoppingCartConsumer :
         _projectionRepository = projectionRepository;
     }
 
-    public async Task Consume(ConsumeContext<Queries.GetCustomerShoppingCart> context)
+    public async Task Consume(ConsumeContext<Query.GetCustomerShoppingCart> context)
     {
         var shoppingCartProjection = await _projectionRepository.FindAsync(cart => cart.Customer.Id == context.Message.CustomerId, context.CancellationToken);
         await RespondAsync(shoppingCartProjection, context);
     }
 
-    public async Task Consume(ConsumeContext<Queries.GetShoppingCart> context)
+    public async Task Consume(ConsumeContext<Query.GetShoppingCart> context)
     {
         var shoppingCartProjection = await _projectionRepository.GetAsync(context.Message.CartId, context.CancellationToken);
         await RespondAsync(shoppingCartProjection, context);
