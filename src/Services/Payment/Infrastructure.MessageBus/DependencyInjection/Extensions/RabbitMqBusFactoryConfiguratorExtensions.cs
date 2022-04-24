@@ -1,6 +1,6 @@
-﻿using Application.UseCases.EventHandlers.Behaviors;
-using Application.UseCases.EventHandlers.Integrations;
-using Application.UseCases.EventHandlers.Projections;
+﻿using Application.UseCases.Events.Behaviors;
+using Application.UseCases.Events.Integrations;
+using Application.UseCases.Events.Projections;
 using ECommerce.Abstractions.Messages.Events;
 using ECommerce.Contracts.Payments;
 using MassTransit;
@@ -11,9 +11,9 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistrationContext registration)
     {
-        cfg.ConfigureEventReceiveEndpoint<ProjectPaymentWhenChangedConsumer, DomainEvents.PaymentCanceled>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProceedWithPaymentWhenRequestedConsumer, DomainEvents.PaymentRequested>(registration);
-        cfg.ConfigureEventReceiveEndpoint<RequestPaymentWhenOrderPlacedConsumer, ECommerce.Contracts.Orders.DomainEvents.OrderPlaced>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectPaymentWhenChangedConsumer, DomainEvent.PaymentCanceled>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProceedWithPaymentWhenRequestedConsumer, DomainEvent.PaymentRequested>(registration);
+        cfg.ConfigureEventReceiveEndpoint<RequestPaymentWhenOrderPlacedConsumer, ECommerce.Contracts.Orders.DomainEvent.OrderPlaced>(registration);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistrationContext registration)

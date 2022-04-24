@@ -13,13 +13,13 @@ public class WarehousesController : ApplicationController
 
     [HttpGet("{productId:guid}")]
     public Task<IActionResult> GetInventoryItemDetailsAsync(Guid productId, CancellationToken cancellationToken)
-        => GetProjectionAsync<Queries.GetInventoryItemDetails, Projections.Inventory>(new(productId), cancellationToken);
+        => GetProjectionAsync<Query.GetInventoryItemDetails, Projection.Inventory>(new(productId), cancellationToken);
 
     [HttpPost]
-    public Task<IActionResult> ReceiveInventoryItemAsync(Commands.ReceiveInventoryItem command, CancellationToken cancellationToken)
+    public Task<IActionResult> ReceiveInventoryItemAsync(Command.ReceiveInventoryItem command, CancellationToken cancellationToken)
         => SendCommandAsync(command, cancellationToken);
 
     [HttpPut("{productId:guid}/[action]")]
-    public Task<IActionResult> AdjustInventoryAsync(Guid productId, Commands.AdjustInventory command, CancellationToken cancellationToken)
+    public Task<IActionResult> AdjustInventoryAsync(Guid productId, Command.AdjustInventory command, CancellationToken cancellationToken)
         => SendCommandAsync(command, cancellationToken);
 }

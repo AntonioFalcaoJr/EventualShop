@@ -2,4 +2,4 @@
 
 namespace ECommerce.Contracts.ShoppingCarts.Validators;
 
-public class BillingAddressChangedValidator : AbstractValidator<DomainEvents.BillingAddressChanged> { }
+public class BillingAddressChangedValidator : AbstractValidator<DomainEvent.BillingAddressChanged> { }

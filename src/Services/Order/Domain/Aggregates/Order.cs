@@ -29,21 +29,21 @@ public class Order : AggregateRoot<Guid, OrderValidator>
     public IEnumerable<OrderItem> Items
         => _items;
 
-    public void Handle(Commands.PlaceOrder cmd)
-        => RaiseEvent(new DomainEvents.OrderPlaced(
+    public void Handle(Command.PlaceOrder cmd)
+        => RaiseEvent(new DomainEvent.OrderPlaced(
             Guid.NewGuid(),
             cmd.Customer,
             cmd.Items,
             cmd.Total,
             cmd.PaymentMethods));
 
-    public void Handle(Commands.ConfirmOrder cmd)
-        => RaiseEvent(new DomainEvents.OrderConfirmed(cmd.OrderId));
+    public void Handle(Command.ConfirmOrder cmd)
+        => RaiseEvent(new DomainEvent.OrderConfirmed(cmd.OrderId));
 
     protected override void ApplyEvent(IEvent @event)
         => When(@event as dynamic);
 
-    private void When(DomainEvents.OrderPlaced @event)
+    private void When(DomainEvent.OrderPlaced @event)
     {
         Id = @event.OrderId;
         Customer = new(
@@ -109,6 +109,6 @@ public class Order : AggregateRoot<Guid, OrderValidator>
             }));
     }
 
-    private void When(DomainEvents.OrderConfirmed _)
+    private void When(DomainEvent.OrderConfirmed _)
         => Status = OrderStatus.Confirmed;
 }

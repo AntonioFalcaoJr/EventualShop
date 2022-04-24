@@ -23,39 +23,39 @@ public class InventoryItem : AggregateRoot<Guid, InventoryItemValidator>
     public IEnumerable<Reserve> Reserves
         => _reserves;
 
-    public void Handle(Commands.ReceiveInventoryItem cmd)
-        => RaiseEvent(new DomainEvents.InventoryReceived(Guid.NewGuid(), cmd.Sku, cmd.Name, cmd.Description, cmd.Quantity));
+    public void Handle(Command.ReceiveInventoryItem cmd)
+        => RaiseEvent(new DomainEvent.InventoryReceived(Guid.NewGuid(), cmd.Sku, cmd.Name, cmd.Description, cmd.Quantity));
 
-    public void Handle(Commands.AdjustInventory cmd)
-        => RaiseEvent(new DomainEvents.InventoryAdjusted(cmd.ProductId, cmd.Reason, cmd.Quantity));
+    public void Handle(Command.AdjustInventory cmd)
+        => RaiseEvent(new DomainEvent.InventoryAdjusted(cmd.ProductId, cmd.Reason, cmd.Quantity));
 
-    public void Handle(Commands.ReserveInventory cmd)
+    public void Handle(Command.ReserveInventory cmd)
         => RaiseEvent(cmd.Quantity switch
         {
             _ when QuantityAvailable <= 0
-                => new DomainEvents.StockDepleted(cmd.ProductId, cmd.Sku),
+                => new DomainEvent.StockDepleted(cmd.ProductId, cmd.Sku),
             var quantityDesired when quantityDesired <= QuantityAvailable
-                => new DomainEvents.InventoryReserved(cmd.ProductId, cmd.CartId, cmd.Sku, cmd.Quantity),
+                => new DomainEvent.InventoryReserved(cmd.ProductId, cmd.CartId, cmd.Sku, cmd.Quantity),
             var quantityDesired when quantityDesired > QuantityAvailable
-                => new DomainEvents.InventoryNotReserved(cmd.ProductId, cmd.CartId, cmd.Sku, quantityDesired, QuantityAvailable),
+                => new DomainEvent.InventoryNotReserved(cmd.ProductId, cmd.CartId, cmd.Sku, quantityDesired, QuantityAvailable),
             _ => default
         });
 
     protected override void ApplyEvent(IEvent @event)
         => When(@event as dynamic);
 
-    private void When(DomainEvents.InventoryReceived @event)
+    private void When(DomainEvent.InventoryReceived @event)
         => (Id, Sku, Name, Description, Quantity) = @event;
 
-    private void When(DomainEvents.InventoryAdjusted @event)
+    private void When(DomainEvent.InventoryAdjusted @event)
         => Quantity = @event.Quantity;
 
-    private void When(DomainEvents.StockDepleted _)
+    private void When(DomainEvent.StockDepleted _)
     {
         // Status = OutOfStock;
     }
 
-    private void When(DomainEvents.InventoryReserved @event)
+    private void When(DomainEvent.InventoryReserved @event)
         => _reserves.Add(new()
         {
             Quantity = @event.Quantity,
@@ -63,5 +63,5 @@ public class InventoryItem : AggregateRoot<Guid, InventoryItemValidator>
             ProductId = @event.ProductId
         });
 
-    private void When(DomainEvents.InventoryNotReserved _) { }
+    private void When(DomainEvent.InventoryNotReserved _) { }
 }

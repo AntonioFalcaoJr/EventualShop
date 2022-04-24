@@ -2,4 +2,4 @@
 
 namespace ECommerce.Contracts.ShoppingCarts.Validators;
 
-public class AddCreditCardValidator : AbstractValidator<Commands.AddCreditCard> { }
+public class AddCreditCardValidator : AbstractValidator<Command.AddCreditCard> { }

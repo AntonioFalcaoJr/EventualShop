@@ -2,7 +2,7 @@
 
 namespace ECommerce.Contracts.Accounts.Validators;
 
-public class CreateAccountValidator : AbstractValidator<Commands.CreateAccount>
+public class CreateAccountValidator : AbstractValidator<Command.CreateAccount>
 {
     public CreateAccountValidator()
     {
