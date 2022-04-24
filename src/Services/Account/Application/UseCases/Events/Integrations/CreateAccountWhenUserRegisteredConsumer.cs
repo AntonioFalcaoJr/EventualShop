@@ -8,11 +8,11 @@ namespace Application.UseCases.Events.Integrations;
 
 public class CreateAccountWhenUserRegisteredConsumer : IConsumer<DomainEvent.UserRegistered>
 {
-    private readonly IAccountEventStoreService _eventStoreService;
+    private readonly IAccountEventStoreService _eventStore;
 
-    public CreateAccountWhenUserRegisteredConsumer(IAccountEventStoreService eventStoreService)
+    public CreateAccountWhenUserRegisteredConsumer(IAccountEventStoreService eventStore)
     {
-        _eventStoreService = eventStoreService;
+        _eventStore = eventStore;
     }
 
     public async Task Consume(ConsumeContext<DomainEvent.UserRegistered> context)
@@ -25,6 +25,6 @@ public class CreateAccountWhenUserRegisteredConsumer : IConsumer<DomainEvent.Use
                 context.Message.Email,
                 context.Message.FirstName));
 
-        await _eventStoreService.AppendEventsToStreamAsync(account, context.CancellationToken);
+        await _eventStore.AppendEventsAsync(account, context.CancellationToken);
     }
 }

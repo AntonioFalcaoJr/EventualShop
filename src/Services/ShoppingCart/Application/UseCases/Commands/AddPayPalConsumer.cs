@@ -6,17 +6,17 @@ namespace Application.UseCases.Commands;
 
 public class AddPayPalConsumer : IConsumer<Command.AddPayPal>
 {
-    private readonly IShoppingCartEventStoreService _eventStoreService;
+    private readonly IShoppingCartEventStoreService _eventStore;
 
-    public AddPayPalConsumer(IShoppingCartEventStoreService eventStoreService)
+    public AddPayPalConsumer(IShoppingCartEventStoreService eventStore)
     {
-        _eventStoreService = eventStoreService;
+        _eventStore = eventStore;
     }
 
     public async Task Consume(ConsumeContext<Command.AddPayPal> context)
     {
-        var shoppingCart = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CartId, context.CancellationToken);
+        var shoppingCart = await _eventStore.LoadAggregateAsync(context.Message.CartId, context.CancellationToken);
         shoppingCart.Handle(context.Message);
-        await _eventStoreService.AppendEventsToStreamAsync(shoppingCart, context.CancellationToken);
+        await _eventStore.AppendEventsAsync(shoppingCart, context.CancellationToken);
     }
 }

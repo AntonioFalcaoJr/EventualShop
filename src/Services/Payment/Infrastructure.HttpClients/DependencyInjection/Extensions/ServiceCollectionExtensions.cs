@@ -19,8 +19,8 @@ namespace Infrastructure.HttpClients.DependencyInjection.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddPaymentStrategy(this IServiceCollection services)
-        => services.AddScoped<IPaymentStrategy, PaymentStrategy>();
+    public static void AddPaymentGateway(this IServiceCollection services)
+        => services.AddScoped<IPaymentGateway, PaymentGateway>();
 
     public static void AddPayPalHttpClient(this IServiceCollection services)
     {

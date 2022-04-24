@@ -7,17 +7,17 @@ namespace Application.UseCases.Commands;
 
 public class CreateCatalogConsumer : IConsumer<Command.CreateCatalog>
 {
-    private readonly ICatalogEventStoreService _eventStoreService;
+    private readonly ICatalogEventStoreService _eventStore;
 
-    public CreateCatalogConsumer(ICatalogEventStoreService eventStoreService)
+    public CreateCatalogConsumer(ICatalogEventStoreService eventStore)
     {
-        _eventStoreService = eventStoreService;
+        _eventStore = eventStore;
     }
 
     public async Task Consume(ConsumeContext<Command.CreateCatalog> context)
     {
         var catalog = new Catalog();
         catalog.Handle(context.Message);
-        await _eventStoreService.AppendEventsToStreamAsync(catalog, context.CancellationToken);
+        await _eventStore.AppendEventsAsync(catalog, context.CancellationToken);
     }
 }

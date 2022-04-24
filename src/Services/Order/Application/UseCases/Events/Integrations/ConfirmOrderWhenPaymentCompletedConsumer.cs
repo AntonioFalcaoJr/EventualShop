@@ -7,17 +7,17 @@ namespace Application.UseCases.Events.Integrations;
 
 public class ConfirmOrderWhenPaymentCompletedConsumer : IConsumer<DomainEvent.PaymentCompleted>
 {
-    private readonly IOrderEventStoreService _eventStoreService;
+    private readonly IOrderEventStoreService _eventStore;
 
-    public ConfirmOrderWhenPaymentCompletedConsumer(IOrderEventStoreService eventStoreService)
+    public ConfirmOrderWhenPaymentCompletedConsumer(IOrderEventStoreService eventStore)
     {
-        _eventStoreService = eventStoreService;
+        _eventStore = eventStore;
     }
 
     public async Task Consume(ConsumeContext<DomainEvent.PaymentCompleted> context)
     {
-        var order = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.OrderId, context.CancellationToken);
+        var order = await _eventStore.LoadAggregateAsync(context.Message.OrderId, context.CancellationToken);
         order.Handle(new Command.ConfirmOrder(context.Message.OrderId));
-        await _eventStoreService.AppendEventsToStreamAsync(order, context.CancellationToken);
+        await _eventStore.AppendEventsAsync(order, context.CancellationToken);
     }
 }

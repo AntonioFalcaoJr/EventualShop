@@ -7,11 +7,11 @@ namespace Application.UseCases.Commands;
 
 public class RegisterUserConsumer : IConsumer<Command.RegisterUser>
 {
-    private readonly IUserEventStoreService _eventStoreService;
+    private readonly IUserEventStoreService _eventStore;
 
-    public RegisterUserConsumer(IUserEventStoreService eventStoreService)
+    public RegisterUserConsumer(IUserEventStoreService eventStore)
     {
-        _eventStoreService = eventStoreService;
+        _eventStore = eventStore;
     }
 
     public async Task Consume(ConsumeContext<Command.RegisterUser> context)
@@ -24,6 +24,6 @@ public class RegisterUserConsumer : IConsumer<Command.RegisterUser>
             context.Message.Password,
             context.Message.PasswordConfirmation);
 
-        await _eventStoreService.AppendEventsToStreamAsync(user, context.CancellationToken);
+        await _eventStore.AppendEventsAsync(user, context.CancellationToken);
     }
 }

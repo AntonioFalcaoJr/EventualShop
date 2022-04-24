@@ -6,22 +6,22 @@ namespace Application.UseCases.Commands;
 
 public class ChangeUserPasswordConsumer : IConsumer<Command.ChangeUserPassword>
 {
-    private readonly IUserEventStoreService _eventStoreService;
+    private readonly IUserEventStoreService _eventStore;
 
-    public ChangeUserPasswordConsumer(IUserEventStoreService eventStoreService)
+    public ChangeUserPasswordConsumer(IUserEventStoreService eventStore)
     {
-        _eventStoreService = eventStoreService;
+        _eventStore = eventStore;
     }
 
     public async Task Consume(ConsumeContext<Command.ChangeUserPassword> context)
     {
-        var user = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.UserId, context.CancellationToken);
+        var user = await _eventStore.LoadAggregateAsync(context.Message.UserId, context.CancellationToken);
 
         user.ChangePassword(
             user.Id,
             context.Message.NewPassword,
             context.Message.NewPasswordConfirmation);
 
-        await _eventStoreService.AppendEventsToStreamAsync(user, context.CancellationToken);
+        await _eventStore.AppendEventsAsync(user, context.CancellationToken);
     }
 }

@@ -7,11 +7,11 @@ using ECommerce.Contracts.Payments;
 
 namespace Application.Services;
 
-public class PaymentStrategy : IPaymentStrategy
+public class PaymentGateway : IPaymentGateway
 {
     private readonly IPaymentService _paymentService;
 
-    public PaymentStrategy(
+    public PaymentGateway(
         ICreditCardPaymentService creditCardPaymentService,
         IDebitCardPaymentService debitCardPaymentService,
         IPayPalPaymentService payPalPaymentService)
@@ -23,7 +23,7 @@ public class PaymentStrategy : IPaymentStrategy
         _paymentService = creditCardPaymentService;
     }
 
-    public async Task AuthorizePaymentAsync(Payment payment, CancellationToken cancellationToken)
+    public async Task AuthorizeAsync(Payment payment, CancellationToken cancellationToken)
     {
         foreach (var method in payment.Methods)
         {
@@ -39,7 +39,7 @@ public class PaymentStrategy : IPaymentStrategy
         }
     }
 
-    public async Task CancelPaymentAsync(Payment payment, CancellationToken cancellationToken)
+    public async Task CancelAsync(Payment payment, CancellationToken cancellationToken)
     {
         foreach (var method in payment.Methods)
         {
@@ -55,7 +55,7 @@ public class PaymentStrategy : IPaymentStrategy
         }
     }
 
-    public async Task RefundPaymentAsync(Payment payment, CancellationToken cancellationToken)
+    public async Task RefundAsync(Payment payment, CancellationToken cancellationToken)
     {
         foreach (var method in payment.Methods)
         {
