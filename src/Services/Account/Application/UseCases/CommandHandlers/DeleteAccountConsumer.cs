@@ -4,7 +4,7 @@ using MassTransit;
 
 namespace Application.UseCases.CommandHandlers;
 
-public class DeleteAccountConsumer : IConsumer<Commands.DeleteAccount>
+public class DeleteAccountConsumer : IConsumer<Command.DeleteAccount>
 {
     private readonly IAccountEventStoreService _eventStoreService;
 
@@ -13,7 +13,7 @@ public class DeleteAccountConsumer : IConsumer<Commands.DeleteAccount>
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<Commands.DeleteAccount> context)
+    public async Task Consume(ConsumeContext<Command.DeleteAccount> context)
     {
         var account = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.AccountId, context.CancellationToken);
         account.Handle(context.Message);

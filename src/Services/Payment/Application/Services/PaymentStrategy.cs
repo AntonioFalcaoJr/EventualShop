@@ -31,7 +31,7 @@ public class PaymentStrategy : IPaymentStrategy
 
             var paymentResult = await _paymentService.HandleAsync((srv, mtd, ct) => srv.AuthorizeAsync(mtd, ct), method, cancellationToken);
 
-            payment.Handle(new Commands.UpdatePaymentMethod(
+            payment.Handle(new Command.UpdatePaymentMethod(
                 payment.Id,
                 method.Id,
                 paymentResult.TransactionId,
@@ -47,7 +47,7 @@ public class PaymentStrategy : IPaymentStrategy
 
             var paymentResult = await _paymentService.HandleAsync((srv, mtd, ct) => srv.CancelAsync(mtd, ct), method, cancellationToken);
 
-            payment.Handle(new Commands.UpdatePaymentMethod(
+            payment.Handle(new Command.UpdatePaymentMethod(
                 payment.Id,
                 method.Id,
                 paymentResult.TransactionId,
@@ -63,7 +63,7 @@ public class PaymentStrategy : IPaymentStrategy
 
             var paymentResult = await _paymentService.HandleAsync((srv, mtd, ct) => srv.RefundAsync(mtd, ct), method, cancellationToken);
 
-            payment.Handle(new Commands.UpdatePaymentMethod(
+            payment.Handle(new Command.UpdatePaymentMethod(
                 payment.Id,
                 method.Id,
                 paymentResult.TransactionId,

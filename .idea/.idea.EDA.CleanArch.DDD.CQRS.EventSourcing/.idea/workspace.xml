@@ -19,11 +19,6 @@
     <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.Development.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.Development.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/nginx.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Shared/ProductCard.razor" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/Shared/ProductCard.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/wwwroot/appsettings.Production.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/wwwroot/appsettings.Production.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/wwwroot/appsettings.Staging.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/wwwroot/appsettings.Staging.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,7 +156,7 @@
     &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -349,14 +344,8 @@
       <workItem from="1650559728164" duration="24585000" />
       <workItem from="1650663931231" duration="668000" />
       <workItem from="1650716823007" duration="12056000" />
-      <workItem from="1650737043919" duration="1713000" />
-    </task>
-    <task id="LOCAL-00058" summary="Cleanup">
-      <created>1649773503367</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1649773503367</updated>
+      <workItem from="1650737043919" duration="2480000" />
+      <workItem from="1650823334236" duration="371000" />
     </task>
     <task id="LOCAL-00059" summary="Cleanup">
       <created>1649774314237</created>
@@ -694,7 +683,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650736976201</updated>
     </task>
-    <option name="localTasksCounter" value="107" />
+    <task id="LOCAL-00107" summary="Improving staging">
+      <created>1650739877038</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1650739877038</updated>
+    </task>
+    <option name="localTasksCounter" value="108" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -720,7 +716,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Upgrading docker images .NET version (7 preview 3)" />
     <MESSAGE value="Removing unnecessary content" />
     <MESSAGE value="Improving Catalogs API controller resources, and other adjusts" />
     <MESSAGE value="Improving Task-Based resources" />
@@ -745,7 +740,8 @@
     <MESSAGE value="Bring projections and some adjusts based on it" />
     <MESSAGE value="Adjusting to support projections directly" />
     <MESSAGE value="Fix based on projections" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix based on projections" />
+    <MESSAGE value="Improving staging" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improving staging" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

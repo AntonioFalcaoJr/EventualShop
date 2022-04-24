@@ -29,7 +29,7 @@ public class Order : AggregateRoot<Guid, OrderValidator>
     public IEnumerable<OrderItem> Items
         => _items;
 
-    public void Handle(Commands.PlaceOrder cmd)
+    public void Handle(Command.PlaceOrder cmd)
         => RaiseEvent(new DomainEvents.OrderPlaced(
             Guid.NewGuid(),
             cmd.Customer,
@@ -37,7 +37,7 @@ public class Order : AggregateRoot<Guid, OrderValidator>
             cmd.Total,
             cmd.PaymentMethods));
 
-    public void Handle(Commands.ConfirmOrder cmd)
+    public void Handle(Command.ConfirmOrder cmd)
         => RaiseEvent(new DomainEvents.OrderConfirmed(cmd.OrderId));
 
     protected override void ApplyEvent(IEvent @event)

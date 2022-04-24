@@ -1,8 +1,8 @@
 ﻿using Application.EventStore;
 using Domain.Aggregates;
-using ECommerce.Contracts.Orders;
+using ECommerce.Contracts.Payments;
 using MassTransit;
-using Commands = ECommerce.Contracts.Payments.Commands;
+using DomainEvents = ECommerce.Contracts.Orders.DomainEvents;
 
 namespace Application.UseCases.EventHandlers.Integrations;
 
@@ -19,7 +19,7 @@ public class RequestPaymentWhenOrderPlacedConsumer : IConsumer<DomainEvents.Orde
     {
         var payment = new Payment();
 
-        payment.Handle(new Commands.RequestPayment(
+        payment.Handle(new Command.RequestPayment(
             context.Message.OrderId,
             context.Message.Total,
             context.Message.Customer.BillingAddress,

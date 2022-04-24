@@ -27,10 +27,10 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     public IEnumerable<IPaymentMethod> PaymentMethods
         => _paymentMethods;
 
-    public void Handle(Commands.CreateCart cmd)
+    public void Handle(Command.CreateCart cmd)
         => RaiseEvent(new DomainEvents.CartCreated(Guid.NewGuid(), cmd.CustomerId, ShoppingCartStatus.Confirmed.ToString()));
 
-    public void Handle(Commands.AddCartItem cmd)
+    public void Handle(Command.AddCartItem cmd)
     {
         var item = _items.SingleOrDefault(item => item.ProductId == cmd.Item.ProductId);
 
@@ -39,40 +39,40 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
             : new DomainEvents.CartItemIncreased(cmd.CartId, item.Id, item.UnitPrice));
     }
 
-    public void Handle(Commands.IncreaseShoppingCartItem cmd)
+    public void Handle(Command.IncreaseShoppingCartItem cmd)
     {
         if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is {IsDeleted: false} item)
             RaiseEvent(new DomainEvents.CartItemIncreased(cmd.CartId, cmd.ItemId, item.UnitPrice));
     }
 
-    public void Handle(Commands.DecreaseShoppingCartItem cmd)
+    public void Handle(Command.DecreaseShoppingCartItem cmd)
     {
         if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is {IsDeleted: false} item)
             RaiseEvent(new DomainEvents.CartItemDecreased(cmd.CartId, cmd.ItemId, item.UnitPrice));
     }
 
-    public void Handle(Commands.RemoveCartItem cmd)
+    public void Handle(Command.RemoveCartItem cmd)
     {
         if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is {IsDeleted: false} item)
             RaiseEvent(new DomainEvents.CartItemRemoved(cmd.CartId, cmd.ItemId, item.UnitPrice, item.Quantity));
     }
 
-    public void Handle(Commands.AddCreditCard cmd)
+    public void Handle(Command.AddCreditCard cmd)
         => RaiseEvent(new DomainEvents.CreditCardAdded(cmd.CartId, cmd.CreditCard));
 
-    public void Handle(Commands.AddPayPal cmd)
+    public void Handle(Command.AddPayPal cmd)
         => RaiseEvent(new DomainEvents.PayPalAdded(cmd.CartId, cmd.PayPal));
 
-    public void Handle(Commands.AddShippingAddress cmd)
+    public void Handle(Command.AddShippingAddress cmd)
         => RaiseEvent(new DomainEvents.ShippingAddressAdded(cmd.CartId, cmd.Address));
 
-    public void Handle(Commands.ChangeBillingAddress cmd)
+    public void Handle(Command.ChangeBillingAddress cmd)
         => RaiseEvent(new DomainEvents.BillingAddressChanged(cmd.CartId, cmd.Address));
 
-    public void Handle(Commands.CheckOutCart cmd)
+    public void Handle(Command.CheckOutCart cmd)
         => RaiseEvent(new DomainEvents.CartCheckedOut(cmd.CartId));
 
-    public void Handle(Commands.DiscardCart cmd)
+    public void Handle(Command.DiscardCart cmd)
         => RaiseEvent(new DomainEvents.CartDiscarded(cmd.CartId));
 
     protected override void ApplyEvent(IEvent @event)

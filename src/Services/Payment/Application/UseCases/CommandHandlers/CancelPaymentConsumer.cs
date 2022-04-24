@@ -4,7 +4,7 @@ using MassTransit;
 
 namespace Application.UseCases.CommandHandlers;
 
-public class CancelPaymentConsumer : IConsumer<Commands.CancelPayment>
+public class CancelPaymentConsumer : IConsumer<Command.CancelPayment>
 {
     private readonly IPaymentEventStoreService _eventStoreService;
 
@@ -13,7 +13,7 @@ public class CancelPaymentConsumer : IConsumer<Commands.CancelPayment>
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<Commands.CancelPayment> context)
+    public async Task Consume(ConsumeContext<Command.CancelPayment> context)
     {
         var payment = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.PaymentId, context.CancellationToken);
         payment.Handle(context.Message);

@@ -5,7 +5,7 @@ using MassTransit;
 
 namespace Application.UseCases.CommandHandlers;
 
-public class CreateCartConsumer : IConsumer<Commands.CreateCart>
+public class CreateCartConsumer : IConsumer<Command.CreateCart>
 {
     private readonly IShoppingCartEventStoreService _eventStoreService;
 
@@ -14,7 +14,7 @@ public class CreateCartConsumer : IConsumer<Commands.CreateCart>
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<Commands.CreateCart> context)
+    public async Task Consume(ConsumeContext<Command.CreateCart> context)
     {
         var shoppingCart = new ShoppingCart();
         shoppingCart.Handle(context.Message);

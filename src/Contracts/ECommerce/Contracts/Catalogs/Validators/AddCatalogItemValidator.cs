@@ -2,4 +2,4 @@
 
 namespace ECommerce.Contracts.Catalogs.Validators;
 
-public class AddCatalogItemValidator : AbstractValidator<Commands.AddCatalogItem> { }
+public class AddCatalogItemValidator : AbstractValidator<Command.AddCatalogItem> { }

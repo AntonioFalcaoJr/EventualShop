@@ -2,7 +2,7 @@
 
 namespace ECommerce.Contracts.Warehouses;
 
-public static class Projections
+public static class Projection
 {
     public record Inventory : IProjection
     {

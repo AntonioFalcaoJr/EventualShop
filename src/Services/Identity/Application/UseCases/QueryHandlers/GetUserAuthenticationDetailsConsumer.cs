@@ -7,9 +7,9 @@ namespace Application.UseCases.QueryHandlers;
 
 public class GetUserAuthenticationDetailsConsumer : IConsumer<Queries.GetUserAuthenticationDetails>
 {
-    private readonly IProjectionRepository<Projections.UserAuthentication> _repository;
+    private readonly IProjectionRepository<Projection.UserAuthentication> _repository;
 
-    public GetUserAuthenticationDetailsConsumer(IProjectionRepository<Projections.UserAuthentication> repository)
+    public GetUserAuthenticationDetailsConsumer(IProjectionRepository<Projection.UserAuthentication> repository)
     {
         _repository = repository;
     }

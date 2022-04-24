@@ -28,18 +28,18 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
     public IEnumerable<IPaymentMethod> Methods
         => _methods;
 
-    public void Handle(Commands.RequestPayment cmd)
+    public void Handle(Command.RequestPayment cmd)
         => RaiseEvent(new DomainEvents.PaymentRequested(Guid.NewGuid(), cmd.OrderId, cmd.AmountDue, cmd.BillingAddress, cmd.PaymentMethods, PaymentStatus.Ready.ToString()));
 
-    public void Handle(Commands.ProceedWithPayment cmd)
+    public void Handle(Command.ProceedWithPayment cmd)
         => RaiseEvent(AmountDue is 0
             ? new DomainEvents.PaymentCompleted(cmd.PaymentId, cmd.OrderId)
             : new DomainEvents.PaymentNotCompleted(cmd.PaymentId, cmd.OrderId));
 
-    public void Handle(Commands.CancelPayment cmd)
+    public void Handle(Command.CancelPayment cmd)
         => RaiseEvent(new DomainEvents.PaymentCanceled(cmd.PaymentId, cmd.OrderId));
 
-    public void Handle(Commands.UpdatePaymentMethod cmd)
+    public void Handle(Command.UpdatePaymentMethod cmd)
         => RaiseEvent(cmd.Authorized
             ? new DomainEvents.PaymentMethodAuthorized(cmd.PaymentId, cmd.PaymentMethodId, cmd.TransactionId)
             : new DomainEvents.PaymentMethodDenied(cmd.PaymentId, cmd.PaymentMethodId));

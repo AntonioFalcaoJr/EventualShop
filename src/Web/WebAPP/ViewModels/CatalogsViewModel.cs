@@ -10,7 +10,7 @@ public class CatalogsViewModel
     private readonly IBlazorStrap _blazorStrap;
     private readonly IECommerceHttpClient _httpClient;
 
-    public List<Projections.Catalog> Catalogs = new();
+    public List<Projection.Catalog> Catalogs = new();
     public PageInfo PageInfo = new();
 
     public string Description;

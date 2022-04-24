@@ -5,7 +5,7 @@ using MassTransit;
 
 namespace Application.UseCases.CommandHandlers;
 
-public class CreateCatalogConsumer : IConsumer<Commands.CreateCatalog>
+public class CreateCatalogConsumer : IConsumer<Command.CreateCatalog>
 {
     private readonly ICatalogEventStoreService _eventStoreService;
 
@@ -14,7 +14,7 @@ public class CreateCatalogConsumer : IConsumer<Commands.CreateCatalog>
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<Commands.CreateCatalog> context)
+    public async Task Consume(ConsumeContext<Command.CreateCatalog> context)
     {
         var catalog = new Catalog();
         catalog.Handle(context.Message);

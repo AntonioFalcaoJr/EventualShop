@@ -15,31 +15,31 @@ public class Catalog : AggregateRoot<Guid, CatalogValidator>
     public IEnumerable<CatalogItem> Items
         => _items;
 
-    public void Handle(Commands.CreateCatalog cmd)
+    public void Handle(Command.CreateCatalog cmd)
         => RaiseEvent(new DomainEvents.CatalogCreated(cmd.CatalogId, cmd.Title, cmd.Description, false, false));
 
-    public void Handle(Commands.DeleteCatalog cmd)
+    public void Handle(Command.DeleteCatalog cmd)
         => RaiseEvent(new DomainEvents.CatalogDeleted(cmd.CatalogId));
 
-    public void Handle(Commands.ActivateCatalog cmd)
+    public void Handle(Command.ActivateCatalog cmd)
         => RaiseEvent(new DomainEvents.CatalogActivated(cmd.CatalogId));
 
-    public void Handle(Commands.DeactivateCatalog cmd)
+    public void Handle(Command.DeactivateCatalog cmd)
         => RaiseEvent(new DomainEvents.CatalogDeactivated(cmd.CatalogId));
 
-    public void Handle(Commands.ChangeCatalogDescription cmd)
+    public void Handle(Command.ChangeCatalogDescription cmd)
         => RaiseEvent(new DomainEvents.CatalogDescriptionChanged(cmd.CatalogId, cmd.Description));
 
-    public void Handle(Commands.ChangeCatalogTitle cmd)
+    public void Handle(Command.ChangeCatalogTitle cmd)
         => RaiseEvent(new DomainEvents.CatalogTitleChanged(cmd.CatalogId, cmd.Title));
 
-    public void Handle(Commands.AddCatalogItem cmd)
+    public void Handle(Command.AddCatalogItem cmd)
         => RaiseEvent(new DomainEvents.CatalogItemAdded(cmd.CatalogId, Guid.NewGuid(), cmd.Name, cmd.Description, cmd.Price, cmd.PictureUri));
 
-    public void Handle(Commands.DeleteCatalogItem cmd)
+    public void Handle(Command.DeleteCatalogItem cmd)
         => RaiseEvent(new DomainEvents.CatalogItemRemoved(cmd.CatalogId, cmd.CatalogItemId));
 
-    public void Handle(Commands.UpdateCatalogItem cmd)
+    public void Handle(Command.UpdateCatalogItem cmd)
         => RaiseEvent(new DomainEvents.CatalogItemUpdated(cmd.CatalogId, cmd.CatalogItemId, cmd.Name, cmd.Description, cmd.Price, cmd.PictureUri));
 
     protected override void ApplyEvent(IEvent @event)

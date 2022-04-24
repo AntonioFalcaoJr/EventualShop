@@ -13,17 +13,17 @@ public class IdentitiesController : ApplicationController
 
     [HttpGet]
     public Task<IActionResult> GetUserAuthenticationDetails([FromQuery] Queries.GetUserAuthenticationDetails query, CancellationToken cancellationToken)
-        => GetProjectionAsync<Queries.GetUserAuthenticationDetails, Projections.UserAuthentication>(query, cancellationToken);
+        => GetProjectionAsync<Queries.GetUserAuthenticationDetails, Projection.UserAuthentication>(query, cancellationToken);
 
     [HttpPost]
-    public Task<IActionResult> RegisterUser(Commands.RegisterUser command, CancellationToken cancellationToken)
+    public Task<IActionResult> RegisterUser(Command.RegisterUser command, CancellationToken cancellationToken)
         => SendCommandAsync(command, cancellationToken);
 
     [HttpPut]
-    public Task<IActionResult> ChangeUserPassword(Commands.ChangeUserPassword command, CancellationToken cancellationToken)
+    public Task<IActionResult> ChangeUserPassword(Command.ChangeUserPassword command, CancellationToken cancellationToken)
         => SendCommandAsync(command, cancellationToken);
 
     [HttpDelete]
-    public Task<IActionResult> DeleteUser(Commands.DeleteUser command, CancellationToken cancellationToken)
+    public Task<IActionResult> DeleteUser(Command.DeleteUser command, CancellationToken cancellationToken)
         => SendCommandAsync(command, cancellationToken);
 }

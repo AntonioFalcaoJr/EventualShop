@@ -2,7 +2,7 @@
 
 namespace ECommerce.Contracts.Orders;
 
-public static class Projections
+public static class Projection
 {
     public record Order : IProjection
     {

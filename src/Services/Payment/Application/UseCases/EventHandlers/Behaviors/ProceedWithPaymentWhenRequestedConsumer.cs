@@ -22,7 +22,7 @@ public class ProceedWithPaymentWhenRequestedConsumer : IConsumer<DomainEvents.Pa
     {
         var payment = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.PaymentId, context.CancellationToken);
         await _paymentStrategy.AuthorizePaymentAsync(payment, context.CancellationToken);
-        payment.Handle(new Commands.ProceedWithPayment(payment.Id, payment.OrderId));
+        payment.Handle(new Command.ProceedWithPayment(payment.Id, payment.OrderId));
         await _eventStoreService.AppendEventsToStreamAsync(payment, context.CancellationToken);
     }
 }

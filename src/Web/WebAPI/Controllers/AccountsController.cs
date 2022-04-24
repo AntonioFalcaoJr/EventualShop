@@ -14,29 +14,29 @@ public class AccountsController : ApplicationController
 
     [HttpGet]
     public Task<IActionResult> GetAccountsWithPagination([FromQuery] Queries.GetAccounts query, CancellationToken cancellationToken)
-        => GetProjectionAsync<Queries.GetAccounts, IPagedResult<Projections.Account>>(query, cancellationToken);
+        => GetProjectionAsync<Queries.GetAccounts, IPagedResult<Projection.Account>>(query, cancellationToken);
 
     [HttpGet]
     public Task<IActionResult> GetAccountDetails([FromQuery] Queries.GetAccountDetails query, CancellationToken cancellationToken)
-        => GetProjectionAsync<Queries.GetAccountDetails, Projections.Account>(query, cancellationToken);
+        => GetProjectionAsync<Queries.GetAccountDetails, Projection.Account>(query, cancellationToken);
 
     [HttpPost]
-    public Task<IActionResult> CreateAccount(Commands.CreateAccount command, CancellationToken cancellationToken)
+    public Task<IActionResult> CreateAccount(Command.CreateAccount command, CancellationToken cancellationToken)
         => SendCommandAsync(command, cancellationToken);
 
     [HttpPost]
-    public Task<IActionResult> DefineProfessionalAddress(Commands.DefineProfessionalAddress command, CancellationToken cancellationToken)
+    public Task<IActionResult> DefineProfessionalAddress(Command.DefineProfessionalAddress command, CancellationToken cancellationToken)
         => SendCommandAsync(command, cancellationToken);
 
     [HttpPost]
-    public Task<IActionResult> DefineResidenceAddress(Commands.DefineResidenceAddress command, CancellationToken cancellationToken)
+    public Task<IActionResult> DefineResidenceAddress(Command.DefineResidenceAddress command, CancellationToken cancellationToken)
         => SendCommandAsync(command, cancellationToken);
 
     [HttpPut]
-    public Task<IActionResult> UpdateProfile(Commands.UpdateProfile command, CancellationToken cancellationToken)
+    public Task<IActionResult> UpdateProfile(Command.UpdateProfile command, CancellationToken cancellationToken)
         => SendCommandAsync(command, cancellationToken);
 
     [HttpDelete]
-    public Task<IActionResult> DeleteAccount(Commands.DeleteAccount command, CancellationToken cancellationToken)
+    public Task<IActionResult> DeleteAccount(Command.DeleteAccount command, CancellationToken cancellationToken)
         => SendCommandAsync(command, cancellationToken);
 }

@@ -4,7 +4,7 @@ using MassTransit;
 
 namespace Application.UseCases.CommandHandlers;
 
-public class DefineProfessionalAddressConsumer : IConsumer<Commands.DefineProfessionalAddress>
+public class DefineProfessionalAddressConsumer : IConsumer<Command.DefineProfessionalAddress>
 {
     private readonly IAccountEventStoreService _eventStoreService;
 
@@ -13,7 +13,7 @@ public class DefineProfessionalAddressConsumer : IConsumer<Commands.DefineProfes
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<Commands.DefineProfessionalAddress> context)
+    public async Task Consume(ConsumeContext<Command.DefineProfessionalAddress> context)
     {
         var account = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.AccountId, context.CancellationToken);
         account.Handle(context.Message);

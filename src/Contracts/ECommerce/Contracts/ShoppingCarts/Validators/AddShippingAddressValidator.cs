@@ -2,4 +2,4 @@
 
 namespace ECommerce.Contracts.ShoppingCarts.Validators;
 
-public class AddShippingAddressValidator : AbstractValidator<Commands.AddShippingAddress> { }
+public class AddShippingAddressValidator : AbstractValidator<Command.AddShippingAddress> { }

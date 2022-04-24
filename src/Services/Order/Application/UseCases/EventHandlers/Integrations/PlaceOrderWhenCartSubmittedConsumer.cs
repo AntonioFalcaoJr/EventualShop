@@ -2,7 +2,7 @@
 using Domain.Aggregates;
 using ECommerce.Contracts.ShoppingCarts;
 using MassTransit;
-using Commands = ECommerce.Contracts.Orders.Commands;
+using Command = ECommerce.Contracts.Orders.Command;
 
 namespace Application.UseCases.EventHandlers.Integrations;
 
@@ -19,7 +19,7 @@ public class PlaceOrderWhenCartSubmittedConsumer : IConsumer<IntegrationEvents.C
     {
         var order = new Order();
 
-        order.Handle(new Commands.PlaceOrder(
+        order.Handle(new Command.PlaceOrder(
             context.Message.Customer,
             context.Message.ShoppingCartItems,
             context.Message.Total,

@@ -4,7 +4,7 @@ using MassTransit;
 
 namespace Application.UseCases.CommandHandlers;
 
-public class AddCartItemConsumer : IConsumer<Commands.AddCartItem>
+public class AddCartItemConsumer : IConsumer<Command.AddCartItem>
 {
     private readonly IShoppingCartEventStoreService _eventStoreService;
 
@@ -13,7 +13,7 @@ public class AddCartItemConsumer : IConsumer<Commands.AddCartItem>
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<Commands.AddCartItem> context)
+    public async Task Consume(ConsumeContext<Command.AddCartItem> context)
     {
         var shoppingCart = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CartId, context.CancellationToken);
         shoppingCart.Handle(context.Message);

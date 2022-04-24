@@ -4,7 +4,7 @@ using MassTransit;
 
 namespace Application.UseCases.CommandHandlers;
 
-public class UpdateProfileConsumer : IConsumer<Commands.UpdateProfile>
+public class UpdateProfileConsumer : IConsumer<Command.UpdateProfile>
 {
     private readonly IAccountEventStoreService _eventStoreService;
 
@@ -13,7 +13,7 @@ public class UpdateProfileConsumer : IConsumer<Commands.UpdateProfile>
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<Commands.UpdateProfile> context)
+    public async Task Consume(ConsumeContext<Command.UpdateProfile> context)
     {
         var account = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.AccountId, context.CancellationToken);
         account.Handle(context.Message);

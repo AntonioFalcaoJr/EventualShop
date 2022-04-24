@@ -23,13 +23,13 @@ public class InventoryItem : AggregateRoot<Guid, InventoryItemValidator>
     public IEnumerable<Reserve> Reserves
         => _reserves;
 
-    public void Handle(Commands.ReceiveInventoryItem cmd)
+    public void Handle(Command.ReceiveInventoryItem cmd)
         => RaiseEvent(new DomainEvents.InventoryReceived(Guid.NewGuid(), cmd.Sku, cmd.Name, cmd.Description, cmd.Quantity));
 
-    public void Handle(Commands.AdjustInventory cmd)
+    public void Handle(Command.AdjustInventory cmd)
         => RaiseEvent(new DomainEvents.InventoryAdjusted(cmd.ProductId, cmd.Reason, cmd.Quantity));
 
-    public void Handle(Commands.ReserveInventory cmd)
+    public void Handle(Command.ReserveInventory cmd)
         => RaiseEvent(cmd.Quantity switch
         {
             _ when QuantityAvailable <= 0

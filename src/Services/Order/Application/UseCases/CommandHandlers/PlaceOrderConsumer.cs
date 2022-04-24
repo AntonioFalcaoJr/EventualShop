@@ -5,7 +5,7 @@ using MassTransit;
 
 namespace Application.UseCases.CommandHandlers;
 
-public class PlaceOrderConsumer : IConsumer<Commands.PlaceOrder>
+public class PlaceOrderConsumer : IConsumer<Command.PlaceOrder>
 {
     private readonly IOrderEventStoreService _eventStoreService;
 
@@ -14,7 +14,7 @@ public class PlaceOrderConsumer : IConsumer<Commands.PlaceOrder>
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<Commands.PlaceOrder> context)
+    public async Task Consume(ConsumeContext<Command.PlaceOrder> context)
     {
         var order = new Order();
         order.Handle(context.Message);

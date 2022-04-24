@@ -5,7 +5,7 @@ using MassTransit;
 
 namespace Application.UseCases.CommandHandlers;
 
-public class ReceiveInventoryItemConsumer : IConsumer<Commands.ReceiveInventoryItem>
+public class ReceiveInventoryItemConsumer : IConsumer<Command.ReceiveInventoryItem>
 {
     private readonly IWarehouseEventStoreService _eventStoreService;
 
@@ -14,7 +14,7 @@ public class ReceiveInventoryItemConsumer : IConsumer<Commands.ReceiveInventoryI
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<Commands.ReceiveInventoryItem> context)
+    public async Task Consume(ConsumeContext<Command.ReceiveInventoryItem> context)
     {
         var inventoryItem = new InventoryItem();
         inventoryItem.Handle(context.Message);

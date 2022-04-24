@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace ECommerce.Contracts.Payments;
 
-public static class Projections
+public static class Projection
 {
     public record Payment : IProjection
     {

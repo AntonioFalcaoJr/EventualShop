@@ -5,7 +5,7 @@ using MassTransit;
 
 namespace Application.UseCases.CommandHandlers;
 
-public class CreateAccountConsumer : IConsumer<Commands.CreateAccount>
+public class CreateAccountConsumer : IConsumer<Command.CreateAccount>
 {
     private readonly IAccountEventStoreService _eventStoreService;
 
@@ -14,7 +14,7 @@ public class CreateAccountConsumer : IConsumer<Commands.CreateAccount>
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<Commands.CreateAccount> context)
+    public async Task Consume(ConsumeContext<Command.CreateAccount> context)
     {
         var account = new Account();
         account.Handle(context.Message);

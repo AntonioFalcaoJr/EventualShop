@@ -12,6 +12,6 @@ public class OrdersController : ApplicationController
         : base(bus) { }
 
     [HttpPost]
-    public Task<IActionResult> PlaceOrder(Commands.PlaceOrder command, CancellationToken cancellationToken)
+    public Task<IActionResult> PlaceOrder(Command.PlaceOrder command, CancellationToken cancellationToken)
         => SendCommandAsync(command, cancellationToken);
 }

@@ -5,7 +5,7 @@ using MassTransit;
 
 namespace Application.UseCases.CommandHandlers;
 
-public class RegisterUserConsumer : IConsumer<Commands.RegisterUser>
+public class RegisterUserConsumer : IConsumer<Command.RegisterUser>
 {
     private readonly IUserEventStoreService _eventStoreService;
 
@@ -14,7 +14,7 @@ public class RegisterUserConsumer : IConsumer<Commands.RegisterUser>
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<Commands.RegisterUser> context)
+    public async Task Consume(ConsumeContext<Command.RegisterUser> context)
     {
         var user = new User();
 

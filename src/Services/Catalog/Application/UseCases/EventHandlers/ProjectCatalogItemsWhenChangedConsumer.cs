@@ -10,9 +10,9 @@ public class ProjectCatalogItemsWhenChangedConsumer :
     IConsumer<DomainEvents.CatalogItemRemoved>,
     IConsumer<DomainEvents.CatalogItemUpdated>
 {
-    private readonly IProjectionRepository<Projections.CatalogItem> _projectionRepository;
+    private readonly IProjectionRepository<Projection.CatalogItem> _projectionRepository;
 
-    public ProjectCatalogItemsWhenChangedConsumer(IProjectionRepository<Projections.CatalogItem> projectionRepository)
+    public ProjectCatalogItemsWhenChangedConsumer(IProjectionRepository<Projection.CatalogItem> projectionRepository)
     {
         _projectionRepository = projectionRepository;
     }
@@ -25,7 +25,7 @@ public class ProjectCatalogItemsWhenChangedConsumer :
 
     public async Task Consume(ConsumeContext<DomainEvents.CatalogItemAdded> context)
     {
-        Projections.CatalogItem catalogItem = new(
+        Projection.CatalogItem catalogItem = new(
             context.Message.CatalogId,
             context.Message.ItemId,
             context.Message.Name,
@@ -39,7 +39,7 @@ public class ProjectCatalogItemsWhenChangedConsumer :
 
     public async Task Consume(ConsumeContext<DomainEvents.CatalogItemUpdated> context)
     {
-        Projections.CatalogItem catalogItem = new(
+        Projection.CatalogItem catalogItem = new(
             context.Message.CatalogId,
             context.Message.ItemId,
             context.Message.Name,

@@ -3,7 +3,7 @@ using ECommerce.Contracts.Common;
 
 namespace ECommerce.Contracts.Accounts;
 
-public static class Projections
+public static class Projection
 {
     public record Account : IProjection
     {

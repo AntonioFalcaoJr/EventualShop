@@ -7,9 +7,9 @@ namespace Application.UseCases.QueryHandlers;
 
 public class GetPaymentDetailsConsumer : IConsumer<Queries.GetPaymentDetails>
 {
-    private readonly IProjectionRepository<Projections.Payment> _repository;
+    private readonly IProjectionRepository<Projection.Payment> _repository;
 
-    public GetPaymentDetailsConsumer(IProjectionRepository<Projections.Payment> repository)
+    public GetPaymentDetailsConsumer(IProjectionRepository<Projection.Payment> repository)
     {
         _repository = repository;
     }

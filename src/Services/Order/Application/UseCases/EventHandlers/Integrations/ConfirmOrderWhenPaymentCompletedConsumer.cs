@@ -1,7 +1,7 @@
 ﻿using Application.EventStore;
 using ECommerce.Contracts.Payments;
 using MassTransit;
-using Commands = ECommerce.Contracts.Orders.Commands;
+using Command = ECommerce.Contracts.Orders.Command;
 
 namespace Application.UseCases.EventHandlers.Integrations;
 
@@ -17,7 +17,7 @@ public class ConfirmOrderWhenPaymentCompletedConsumer : IConsumer<DomainEvents.P
     public async Task Consume(ConsumeContext<DomainEvents.PaymentCompleted> context)
     {
         var order = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.OrderId, context.CancellationToken);
-        order.Handle(new Commands.ConfirmOrder(context.Message.OrderId));
+        order.Handle(new Command.ConfirmOrder(context.Message.OrderId));
         await _eventStoreService.AppendEventsToStreamAsync(order, context.CancellationToken);
     }
 }

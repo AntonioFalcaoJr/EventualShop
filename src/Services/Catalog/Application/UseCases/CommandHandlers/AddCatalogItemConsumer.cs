@@ -4,7 +4,7 @@ using MassTransit;
 
 namespace Application.UseCases.CommandHandlers;
 
-public class AddCatalogItemConsumer : IConsumer<Commands.AddCatalogItem>
+public class AddCatalogItemConsumer : IConsumer<Command.AddCatalogItem>
 {
     private readonly ICatalogEventStoreService _eventStoreService;
 
@@ -13,7 +13,7 @@ public class AddCatalogItemConsumer : IConsumer<Commands.AddCatalogItem>
         _eventStoreService = eventStoreService;
     }
 
-    public async Task Consume(ConsumeContext<Commands.AddCatalogItem> context)
+    public async Task Consume(ConsumeContext<Command.AddCatalogItem> context)
     {
         var catalog = await _eventStoreService.LoadAggregateFromStreamAsync(context.Message.CatalogId, context.CancellationToken);
         catalog.Handle(context.Message);

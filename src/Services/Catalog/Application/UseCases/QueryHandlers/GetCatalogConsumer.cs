@@ -7,9 +7,9 @@ namespace Application.UseCases.QueryHandlers;
 
 public class GetCatalogConsumer : IConsumer<Queries.GetCatalog>
 {
-    private readonly IProjectionRepository<Projections.Catalog> _projectionRepository;
+    private readonly IProjectionRepository<Projection.Catalog> _projectionRepository;
 
-    public GetCatalogConsumer(IProjectionRepository<Projections.Catalog> projectionRepository)
+    public GetCatalogConsumer(IProjectionRepository<Projection.Catalog> projectionRepository)
     {
         _projectionRepository = projectionRepository;
     }

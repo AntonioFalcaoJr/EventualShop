@@ -2,7 +2,7 @@
 
 namespace ECommerce.Contracts.ShoppingCarts.Validators;
 
-public class CreateCartValidator : AbstractValidator<Commands.CreateCart>
+public class CreateCartValidator : AbstractValidator<Command.CreateCart>
 {
     public CreateCartValidator()
     {

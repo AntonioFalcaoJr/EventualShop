@@ -26,7 +26,7 @@ public class ShoppingCartsController : ApplicationController
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> CreateAsync(Requests.CreateCart request, CancellationToken cancellationToken)
-        => SendCommandAsync<Commands.CreateCart>(new(request.CustomerId), cancellationToken);
+        => SendCommandAsync<Command.CreateCart>(new(request.CustomerId), cancellationToken);
 
     [HttpGet("{cartId:guid}")]
     [ProducesResponseType(typeof(Projection.ShoppingCart), StatusCodes.Status200OK)]
@@ -38,13 +38,13 @@ public class ShoppingCartsController : ApplicationController
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> DiscardAsync([NotEmpty] Guid cartId, CancellationToken cancellationToken)
-        => SendCommandAsync<Commands.DiscardCart>(new(cartId), cancellationToken);
+        => SendCommandAsync<Command.DiscardCart>(new(cartId), cancellationToken);
 
     [HttpPut("{cartId:guid}/[action]")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> CheckOutAsync([NotEmpty] Guid cartId, CancellationToken cancellationToken)
-        => SendCommandAsync<Commands.CheckOutCart>(new(cartId), cancellationToken);
+        => SendCommandAsync<Command.CheckOutCart>(new(cartId), cancellationToken);
 
     [HttpGet("{cartId:guid}/items")]
     [ProducesResponseType(typeof(IPagedResult<Projection.ShoppingCartItem>), StatusCodes.Status200OK)]
@@ -56,7 +56,7 @@ public class ShoppingCartsController : ApplicationController
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> AddAsync([NotEmpty] Guid cartId, Requests.AddShoppingCartItem request, IMapper mapper, CancellationToken cancellationToken)
-        => SendCommandAsync<Commands.AddCartItem>(new(cartId, mapper.Map<Models.ShoppingCartItem>(request)), cancellationToken);
+        => SendCommandAsync<Command.AddCartItem>(new(cartId, mapper.Map<Models.ShoppingCartItem>(request)), cancellationToken);
 
     [HttpGet("{cartId:guid}/items/{itemId:guid}")]
     [ProducesResponseType(typeof(Projection.ShoppingCartItem), StatusCodes.Status200OK)]
@@ -68,31 +68,31 @@ public class ShoppingCartsController : ApplicationController
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> RemoveAsync([NotEmpty] Guid cartId, [NotEmpty] Guid itemId, CancellationToken cancellationToken)
-        => SendCommandAsync<Commands.RemoveCartItem>(new(cartId, itemId), cancellationToken);
+        => SendCommandAsync<Command.RemoveCartItem>(new(cartId, itemId), cancellationToken);
 
     [HttpPut("{cartId:guid}/items/{itemId:guid}/[action]")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> IncreaseAsync([NotEmpty] Guid cartId, [NotEmpty] Guid itemId, CancellationToken cancellationToken)
-        => SendCommandAsync<Commands.IncreaseShoppingCartItem>(new(cartId, itemId), cancellationToken);
+        => SendCommandAsync<Command.IncreaseShoppingCartItem>(new(cartId, itemId), cancellationToken);
 
     [HttpPut("{cartId:guid}/items/{itemId:guid}/[action]")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> DecreaseAsync([NotEmpty] Guid cartId, [NotEmpty] Guid itemId, CancellationToken cancellationToken)
-        => SendCommandAsync<Commands.DecreaseShoppingCartItem>(new(cartId, itemId), cancellationToken);
+        => SendCommandAsync<Command.DecreaseShoppingCartItem>(new(cartId, itemId), cancellationToken);
 
     [HttpPost("{cartId:guid}/customers/shipping-address")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> AddAsync([NotEmpty] Guid cartId, Requests.AddAddress address, IMapper mapper, CancellationToken cancellationToken)
-        => SendCommandAsync<Commands.AddShippingAddress>(new(cartId, mapper.Map<Models.Address>(address)), cancellationToken);
+        => SendCommandAsync<Command.AddShippingAddress>(new(cartId, mapper.Map<Models.Address>(address)), cancellationToken);
 
     [HttpPut("{cartId:guid}/customers/billing-address")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> ChangeAsync([NotEmpty] Guid cartId, Requests.AddAddress address, IMapper mapper, CancellationToken cancellationToken)
-        => SendCommandAsync<Commands.ChangeBillingAddress>(new(cartId, mapper.Map<Models.Address>(address)), cancellationToken);
+        => SendCommandAsync<Command.ChangeBillingAddress>(new(cartId, mapper.Map<Models.Address>(address)), cancellationToken);
 
     [HttpGet("{cartId:guid}/payment-methods")]
     [ProducesResponseType(typeof(IPagedResult<Projection.IPaymentMethod>), StatusCodes.Status200OK)]
@@ -110,11 +110,11 @@ public class ShoppingCartsController : ApplicationController
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> AddAsync([NotEmpty] Guid cartId, Requests.AddCreditCard creditCard, IMapper mapper, CancellationToken cancellationToken)
-        => SendCommandAsync<Commands.AddCreditCard>(new(cartId, mapper.Map<Models.CreditCard>(creditCard)), cancellationToken);
+        => SendCommandAsync<Command.AddCreditCard>(new(cartId, mapper.Map<Models.CreditCard>(creditCard)), cancellationToken);
 
     [HttpPost("{cartId:guid}/payment-methods/pay-pal")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> AddAsync([NotEmpty] Guid cartId, Requests.AddPayPal payPal, IMapper mapper, CancellationToken cancellationToken)
-        => SendCommandAsync<Commands.AddPayPal>(new(cartId, mapper.Map<Models.PayPal>(payPal)), cancellationToken);
+        => SendCommandAsync<Command.AddPayPal>(new(cartId, mapper.Map<Models.PayPal>(payPal)), cancellationToken);
 }

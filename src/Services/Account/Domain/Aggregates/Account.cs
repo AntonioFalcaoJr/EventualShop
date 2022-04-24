@@ -10,19 +10,19 @@ public class Account : AggregateRoot<Guid, AccountValidator>
     public Guid UserId { get; private set; }
     public Profile Profile { get; private set; }
 
-    public void Handle(Commands.CreateAccount cmd)
+    public void Handle(Command.CreateAccount cmd)
         => RaiseEvent(new DomainEvents.AccountCreated(Guid.NewGuid(), cmd.UserId, cmd.Email, cmd.FirstName));
 
-    public void Handle(Commands.DeleteAccount cmd)
+    public void Handle(Command.DeleteAccount cmd)
         => RaiseEvent(new DomainEvents.AccountDeleted(cmd.AccountId));
 
-    public void Handle(Commands.UpdateProfile cmd)
+    public void Handle(Command.UpdateProfile cmd)
         => RaiseEvent(new DomainEvents.ProfileUpdated(cmd.AccountId, cmd.Birthdate, cmd.Email, cmd.FirstName, cmd.LastName));
 
-    public void Handle(Commands.DefineResidenceAddress cmd)
+    public void Handle(Command.DefineResidenceAddress cmd)
         => RaiseEvent(new DomainEvents.ResidenceAddressDefined(cmd.AccountId, cmd.Address));
 
-    public void Handle(Commands.DefineProfessionalAddress cmd)
+    public void Handle(Command.DefineProfessionalAddress cmd)
         => RaiseEvent(new DomainEvents.ProfessionalAddressDefined(cmd.AccountId, cmd.Address));
 
     protected override void ApplyEvent(IEvent domainEvent)

@@ -2,7 +2,7 @@
 
 namespace ECommerce.Contracts.Catalogs;
 
-public static class Projections
+public static class Projection
 {
     public record Catalog(Guid Id, string Title, string Description, bool IsActive, bool IsDeleted) : IProjection;
 

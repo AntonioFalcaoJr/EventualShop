@@ -2,7 +2,7 @@
 
 namespace ECommerce.Contracts.Identities;
 
-public static class Projections
+public static class Projection
 {
     public record UserAuthentication : IProjection
     {

@@ -9,9 +9,9 @@ public class ProjectUserDetailsWhenUserChangedConsumer :
     IConsumer<DomainEvents.UserPasswordChanged>,
     IConsumer<DomainEvents.UserDeleted>
 {
-    private readonly IProjectionRepository<ECommerce.Contracts.Identities.Projections.UserAuthentication> _repository;
+    private readonly IProjectionRepository<Projection.UserAuthentication> _repository;
 
-    public ProjectUserDetailsWhenUserChangedConsumer(IProjectionRepository<ECommerce.Contracts.Identities.Projections.UserAuthentication> repository)
+    public ProjectUserDetailsWhenUserChangedConsumer(IProjectionRepository<Projection.UserAuthentication> repository)
     {
         _repository = repository;
     }
@@ -28,7 +28,7 @@ public class ProjectUserDetailsWhenUserChangedConsumer :
 
     public async Task Consume(ConsumeContext<DomainEvents.UserRegistered> context)
     {
-        var userAuthentication = new ECommerce.Contracts.Identities.Projections.UserAuthentication
+        var userAuthentication = new Projection.UserAuthentication
         {
             Id = context.Message.UserId,
             Email = context.Message.Email,

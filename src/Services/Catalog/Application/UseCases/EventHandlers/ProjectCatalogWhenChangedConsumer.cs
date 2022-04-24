@@ -12,16 +12,16 @@ public class ProjectCatalogWhenChangedConsumer :
     IConsumer<DomainEvents.CatalogTitleChanged>,
     IConsumer<DomainEvents.CatalogDeleted>
 {
-    private readonly IProjectionRepository<Projections.Catalog> _projectionRepository;
+    private readonly IProjectionRepository<Projection.Catalog> _projectionRepository;
 
-    public ProjectCatalogWhenChangedConsumer(IProjectionRepository<Projections.Catalog> projectionRepository)
+    public ProjectCatalogWhenChangedConsumer(IProjectionRepository<Projection.Catalog> projectionRepository)
     {
         _projectionRepository = projectionRepository;
     }
 
     public async Task Consume(ConsumeContext<DomainEvents.CatalogCreated> context)
     {
-        var catalog = new Projections.Catalog(
+        var catalog = new Projection.Catalog(
             context.Message.CatalogId,
             context.Message.Title,
             context.Message.Description,
