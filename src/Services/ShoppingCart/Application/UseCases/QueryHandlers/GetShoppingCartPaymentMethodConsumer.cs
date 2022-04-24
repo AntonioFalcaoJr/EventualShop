@@ -9,9 +9,9 @@ public class GetShoppingCartPaymentMethodConsumer :
     IConsumer<Queries.GetShoppingCartPaymentMethod>,
     IConsumer<Queries.GetShoppingCartPaymentMethods>
 {
-    private readonly IProjectionRepository<Projections.IPaymentMethod> _projectionRepository;
+    private readonly IProjectionRepository<Projection.IPaymentMethod> _projectionRepository;
 
-    public GetShoppingCartPaymentMethodConsumer(IProjectionRepository<Projections.IPaymentMethod> projectionRepository)
+    public GetShoppingCartPaymentMethodConsumer(IProjectionRepository<Projection.IPaymentMethod> projectionRepository)
     {
         _projectionRepository = projectionRepository;
     }

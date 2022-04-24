@@ -9,9 +9,9 @@ public class GetShoppingCartItemConsumer :
     IConsumer<Queries.GetShoppingCartItem>,
     IConsumer<Queries.GetShoppingCartItems>
 {
-    private readonly IProjectionRepository<Projections.ShoppingCartItem> _projectionRepository;
+    private readonly IProjectionRepository<Projection.ShoppingCartItem> _projectionRepository;
 
-    public GetShoppingCartItemConsumer(IProjectionRepository<Projections.ShoppingCartItem> projectionRepository)
+    public GetShoppingCartItemConsumer(IProjectionRepository<Projection.ShoppingCartItem> projectionRepository)
     {
         _projectionRepository = projectionRepository;
     }

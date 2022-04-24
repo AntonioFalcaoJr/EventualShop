@@ -18,9 +18,9 @@ public class ProjectCartWhenChangedConsumer :
     IConsumer<DomainEvents.CartItemDecreased>,
     IConsumer<DomainEvents.CartDiscarded>
 {
-    private readonly IProjectionRepository<ECommerce.Contracts.ShoppingCarts.Projections.ShoppingCart> _projectionRepository;
+    private readonly IProjectionRepository<Projection.ShoppingCart> _projectionRepository;
 
-    public ProjectCartWhenChangedConsumer(IProjectionRepository<ECommerce.Contracts.ShoppingCarts.Projections.ShoppingCart> projectionRepository)
+    public ProjectCartWhenChangedConsumer(IProjectionRepository<Projection.ShoppingCart> projectionRepository)
     {
         _projectionRepository = projectionRepository;
     }
@@ -41,8 +41,8 @@ public class ProjectCartWhenChangedConsumer :
 
     public async Task Consume(ConsumeContext<DomainEvents.CartCreated> context)
     {
-        var customer = new ECommerce.Contracts.ShoppingCarts.Projections.Customer(context.Message.CustomerId);
-        var shoppingCart = new ECommerce.Contracts.ShoppingCarts.Projections.ShoppingCart(context.Message.CartId, customer, context.Message.Status);
+        var customer = new Projection.Customer(context.Message.CustomerId);
+        var shoppingCart = new Projection.ShoppingCart(context.Message.CartId, customer, context.Message.Status);
         await _projectionRepository.InsertAsync(shoppingCart, context.CancellationToken);
     }
 

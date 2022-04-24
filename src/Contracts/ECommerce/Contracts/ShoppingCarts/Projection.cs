@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace ECommerce.Contracts.ShoppingCarts;
 
-public static class Projections
+public static class Projection
 {
     public record ShoppingCart(Guid Id, Customer Customer, string Status, decimal Total = default, bool IsDeleted = default) : IProjection;
 

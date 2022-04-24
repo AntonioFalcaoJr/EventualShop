@@ -9,9 +9,9 @@ public class GetShoppingCartConsumer :
     IConsumer<Queries.GetShoppingCart>,
     IConsumer<Queries.GetCustomerShoppingCart>
 {
-    private readonly IProjectionRepository<Projections.ShoppingCart> _projectionRepository;
+    private readonly IProjectionRepository<Projection.ShoppingCart> _projectionRepository;
 
-    public GetShoppingCartConsumer(IProjectionRepository<Projections.ShoppingCart> projectionRepository)
+    public GetShoppingCartConsumer(IProjectionRepository<Projection.ShoppingCart> projectionRepository)
     {
         _projectionRepository = projectionRepository;
     }
@@ -28,7 +28,7 @@ public class GetShoppingCartConsumer :
         await RespondAsync(shoppingCartProjection, context);
     }
 
-    private static Task RespondAsync(Projections.ShoppingCart projection, ConsumeContext context)
+    private static Task RespondAsync(Projection.ShoppingCart projection, ConsumeContext context)
         => projection is null
             ? context.RespondAsync<NotFound>(new())
             : context.RespondAsync(projection);

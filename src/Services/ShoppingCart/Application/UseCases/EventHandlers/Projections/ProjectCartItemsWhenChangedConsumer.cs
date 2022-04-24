@@ -11,16 +11,16 @@ public class ProjectCartItemsWhenChangedConsumer :
     IConsumer<DomainEvents.CartDiscarded>,
     IConsumer<DomainEvents.CartItemDecreased>
 {
-    private readonly IProjectionRepository<ECommerce.Contracts.ShoppingCarts.Projections.ShoppingCartItem> _projectionRepository;
+    private readonly IProjectionRepository<Projection.ShoppingCartItem> _projectionRepository;
 
-    public ProjectCartItemsWhenChangedConsumer(IProjectionRepository<ECommerce.Contracts.ShoppingCarts.Projections.ShoppingCartItem> projectionRepository)
+    public ProjectCartItemsWhenChangedConsumer(IProjectionRepository<Projection.ShoppingCartItem> projectionRepository)
     {
         _projectionRepository = projectionRepository;
     }
 
     public async Task Consume(ConsumeContext<DomainEvents.CartItemAdded> context)
     {
-        var shoppingCartItem = new ECommerce.Contracts.ShoppingCarts.Projections.ShoppingCartItem(
+        var shoppingCartItem = new Projection.ShoppingCartItem(
             context.Message.CartId,
             context.Message.Item.ProductId,
             context.Message.Item.ProductName,
