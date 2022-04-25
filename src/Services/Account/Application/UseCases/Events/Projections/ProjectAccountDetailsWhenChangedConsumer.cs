@@ -26,8 +26,7 @@ public class ProjectAccountDetailsWhenChangedConsumer :
             UserId = context.Message.UserId,
             Profile = new()
             {
-                Email = context.Message.Email,
-                FirstName = context.Message.FirstName,
+                Email = context.Message.Email
             },
             IsDeleted = false
         };

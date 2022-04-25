@@ -8,14 +8,5 @@ public class CreateAccountValidator : AbstractValidator<Command.CreateAccount>
     {
         RuleFor(account => account.UserId)
             .NotEqual(default(Guid));
-
-        RuleFor(account => account.Email)
-            .NotNull()
-            .NotEmpty()
-            .EmailAddress();
-
-        RuleFor(account => account.FirstName)
-            .NotNull()
-            .NotEmpty();
     }
 }

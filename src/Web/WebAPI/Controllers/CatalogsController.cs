@@ -7,7 +7,6 @@ using WebAPI.ValidationAttributes;
 
 namespace WebAPI.Controllers;
 
-[Route("api/v1/[controller]")]
 public class CatalogsController : ApplicationController
 {
     public CatalogsController(IBus bus)

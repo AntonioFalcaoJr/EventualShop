@@ -11,7 +11,7 @@ public class Account : AggregateRoot<Guid, AccountValidator>
     public Profile Profile { get; private set; }
 
     public void Handle(Command.CreateAccount cmd)
-        => RaiseEvent(new DomainEvent.AccountCreated(Guid.NewGuid(), cmd.UserId, cmd.Email, cmd.FirstName));
+        => RaiseEvent(new DomainEvent.AccountCreated(Guid.NewGuid(), cmd.UserId, cmd.Email));
 
     public void Handle(Command.DeleteAccount cmd)
         => RaiseEvent(new DomainEvent.AccountDeleted(cmd.AccountId));
@@ -32,7 +32,7 @@ public class Account : AggregateRoot<Guid, AccountValidator>
     {
         Id = @event.AccountId;
         UserId = @event.UserId;
-        Profile = new(@event.Email, @event.FirstName);
+        Profile = new(@event.Email);
     }
 
     private void When(DomainEvent.AccountDeleted _)

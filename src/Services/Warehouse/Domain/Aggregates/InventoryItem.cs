@@ -1,5 +1,6 @@
 ﻿using Domain.Abstractions.Aggregates;
 using Domain.Entities;
+using Domain.Entities.Products;
 using ECommerce.Abstractions;
 using ECommerce.Contracts.Warehouses;
 
@@ -9,9 +10,7 @@ public class InventoryItem : AggregateRoot<Guid, InventoryItemValidator>
 {
     private readonly List<Reserve> _reserves = new();
 
-    public string Sku { get; private set; }
-    public string Name { get; private set; }
-    public string Description { get; private set; }
+    public Product Product { get; private set; }
     public int Quantity { get; private set; }
 
     public int QuantityAvailable
@@ -24,10 +23,13 @@ public class InventoryItem : AggregateRoot<Guid, InventoryItemValidator>
         => _reserves;
 
     public void Handle(Command.ReceiveInventoryItem cmd)
-        => RaiseEvent(new DomainEvent.InventoryReceived(Guid.NewGuid(), cmd.Sku, cmd.Name, cmd.Description, cmd.Quantity));
+        => RaiseEvent(new DomainEvent.InventoryReceived(Guid.NewGuid(), cmd.Product, cmd.Quantity));
 
-    public void Handle(Command.AdjustInventory cmd)
-        => RaiseEvent(new DomainEvent.InventoryAdjusted(cmd.ProductId, cmd.Reason, cmd.Quantity));
+    public void Handle(Command.DecreaseInventoryAdjust cmd)
+        => RaiseEvent(new DomainEvent.InventoryAdjustmentDecreased(cmd.ProductId, cmd.Reason, cmd.Quantity));
+
+    public void Handle(Command.IncreaseInventoryAdjust cmd)
+        => RaiseEvent(new DomainEvent.InventoryAdjustmentIncreased(cmd.ProductId, cmd.Reason, cmd.Quantity));
 
     public void Handle(Command.ReserveInventory cmd)
         => RaiseEvent(cmd.Quantity switch
@@ -45,10 +47,16 @@ public class InventoryItem : AggregateRoot<Guid, InventoryItemValidator>
         => When(@event as dynamic);
 
     private void When(DomainEvent.InventoryReceived @event)
-        => (Id, Sku, Name, Description, Quantity) = @event;
+    {
+        (Id, var product, Quantity) = @event;
+        Product = new(product.Id, product.Name, product.UnitPrice, product.PictureUrl, product.Sku);
+    }
 
-    private void When(DomainEvent.InventoryAdjusted @event)
-        => Quantity = @event.Quantity;
+    private void When(DomainEvent.InventoryAdjustmentDecreased @event)
+        => Quantity -= @event.Quantity;
+
+    private void When(DomainEvent.InventoryAdjustmentIncreased @event)
+        => Quantity += @event.Quantity;
 
     private void When(DomainEvent.StockDepleted _)
     {

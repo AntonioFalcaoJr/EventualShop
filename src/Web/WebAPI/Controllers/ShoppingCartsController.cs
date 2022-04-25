@@ -8,7 +8,6 @@ using WebAPI.ValidationAttributes;
 
 namespace WebAPI.Controllers;
 
-[Route("api/v1/[controller]")]
 public class ShoppingCartsController : ApplicationController
 {
     public ShoppingCartsController(IBus bus)
@@ -110,7 +109,7 @@ public class ShoppingCartsController : ApplicationController
     public Task<IActionResult> AddAsync([NotEmpty] Guid cartId, Request.AddCreditCard request, CancellationToken cancellationToken)
         => SendCommandAsync<Command.AddCreditCard>(new(cartId, request.CreditCard), cancellationToken);
 
-    [HttpPost("{cartId:guid}/payment-methods/dredit-card")]
+    [HttpPost("{cartId:guid}/payment-methods/dedit-card")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> AddAsync([NotEmpty] Guid cartId, Request.AddDebitCard request, CancellationToken cancellationToken)

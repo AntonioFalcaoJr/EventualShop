@@ -2,7 +2,7 @@
 
 namespace ECommerce.Contracts.Identities.Validators;
 
-public class RegisterUserValidator : AbstractValidator<Command.RegisterUser>
+public class RegisterUserValidator : AbstractValidator<Command.Register>
 {
     public RegisterUserValidator()
     {
@@ -10,10 +10,6 @@ public class RegisterUserValidator : AbstractValidator<Command.RegisterUser>
             .NotNull()
             .NotEmpty()
             .EmailAddress();
-
-        RuleFor(user => user.FirstName)
-            .NotNull()
-            .NotEmpty();
 
         RuleFor(user => user.Password)
             .NotNull()

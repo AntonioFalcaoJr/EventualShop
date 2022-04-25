@@ -16,9 +16,5 @@ public class UserValidator : EntityValidator<User, Guid>
             .NotNull()
             .NotEmpty()
             .Equal(user => user.Password);
-
-        RuleFor(user => user.FirstName)
-            .NotNull()
-            .NotEmpty();
     }
 }

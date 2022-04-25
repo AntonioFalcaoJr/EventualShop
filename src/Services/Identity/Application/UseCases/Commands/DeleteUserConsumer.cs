@@ -4,7 +4,7 @@ using MassTransit;
 
 namespace Application.UseCases.Commands;
 
-public class DeleteUserConsumer : IConsumer<Command.DeleteUser>
+public class DeleteUserConsumer : IConsumer<Command.Delete>
 {
     private readonly IUserEventStoreService _eventStore;
 
@@ -13,10 +13,10 @@ public class DeleteUserConsumer : IConsumer<Command.DeleteUser>
         _eventStore = eventStore;
     }
 
-    public async Task Consume(ConsumeContext<Command.DeleteUser> context)
+    public async Task Consume(ConsumeContext<Command.Delete> context)
     {
         var user = await _eventStore.LoadAggregateAsync(context.Message.UserId, context.CancellationToken);
-        user.Delete(user.Id);
+        user.Handle(context.Message);
         await _eventStore.AppendEventsAsync(user, context.CancellationToken);
     }
 }
