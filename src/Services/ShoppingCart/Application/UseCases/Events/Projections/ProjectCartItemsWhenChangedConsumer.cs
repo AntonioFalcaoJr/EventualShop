@@ -11,11 +11,11 @@ public class ProjectCartItemsWhenChangedConsumer :
     IConsumer<DomainEvent.CartDiscarded>,
     IConsumer<DomainEvent.CartItemDecreased>
 {
-    private readonly IProjectionRepository<Projection.ShoppingCartItem> _projectionRepository;
+    private readonly IProjectionRepository<Projection.ShoppingCartItem> _repository;
 
-    public ProjectCartItemsWhenChangedConsumer(IProjectionRepository<Projection.ShoppingCartItem> projectionRepository)
+    public ProjectCartItemsWhenChangedConsumer(IProjectionRepository<Projection.ShoppingCartItem> repository)
     {
-        _projectionRepository = projectionRepository;
+        _repository = repository;
     }
 
     public async Task Consume(ConsumeContext<DomainEvent.CartItemAdded> context)
@@ -30,28 +30,28 @@ public class ProjectCartItemsWhenChangedConsumer :
             context.Message.ItemId,
             false);
 
-        await _projectionRepository.InsertAsync(shoppingCartItem, context.CancellationToken);
+        await _repository.InsertAsync(shoppingCartItem, context.CancellationToken);
     }
 
     public async Task Consume(ConsumeContext<DomainEvent.CartItemIncreased> context)
-        => await _projectionRepository.IncreaseFieldAsync(
+        => await _repository.IncreaseFieldAsync(
             id: context.Message.ItemId,
             field: item => item.Quantity,
             value: 1,
             cancellationToken: context.CancellationToken);
 
     public async Task Consume(ConsumeContext<DomainEvent.CartItemDecreased> context)
-        => await _projectionRepository.IncreaseFieldAsync(
+        => await _repository.IncreaseFieldAsync(
             id: context.Message.ItemId,
             field: item => item.Quantity,
             value: -1,
             cancellationToken: context.CancellationToken);
 
     public async Task Consume(ConsumeContext<DomainEvent.CartItemRemoved> context)
-        => await _projectionRepository.DeleteAsync(context.Message.ItemId, context.CancellationToken);
+        => await _repository.DeleteAsync(context.Message.ItemId, context.CancellationToken);
 
     public async Task Consume(ConsumeContext<DomainEvent.CartDiscarded> context)
-        => await _projectionRepository.DeleteAsync(
+        => await _repository.DeleteAsync(
             filter: item => item.ShoppingCartId == context.Message.CartId,
             cancellationToken: context.CancellationToken);
 }

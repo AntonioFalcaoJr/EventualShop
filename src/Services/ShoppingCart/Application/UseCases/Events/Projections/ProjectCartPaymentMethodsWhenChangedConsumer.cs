@@ -9,15 +9,15 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
     IConsumer<DomainEvent.PayPalAdded>,
     IConsumer<DomainEvent.CartDiscarded>
 {
-    private readonly IProjectionRepository<Projection.IPaymentMethod> _projectionRepository;
+    private readonly IProjectionRepository<Projection.IPaymentMethod> _repository;
 
-    public ProjectCartPaymentMethodsWhenChangedConsumer(IProjectionRepository<Projection.IPaymentMethod> projectionRepository)
+    public ProjectCartPaymentMethodsWhenChangedConsumer(IProjectionRepository<Projection.IPaymentMethod> repository)
     {
-        _projectionRepository = projectionRepository;
+        _repository = repository;
     }
 
     public Task Consume(ConsumeContext<DomainEvent.CartDiscarded> context)
-        => _projectionRepository.DeleteAsync(
+        => _repository.DeleteAsync(
             filter: item => item.ShoppingCartId == context.Message.CartId,
             cancellationToken: context.CancellationToken);
 
@@ -35,7 +35,7 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
             ShoppingCartId = context.Message.CartId
         };
 
-        await _projectionRepository.InsertAsync(creditCard, context.CancellationToken);
+        await _repository.InsertAsync(creditCard, context.CancellationToken);
     }
 
     public async Task Consume(ConsumeContext<DomainEvent.PayPalAdded> context)
@@ -50,6 +50,6 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
             ShoppingCartId = context.Message.CartId,
         };
 
-        await _projectionRepository.InsertAsync(paypal, context.CancellationToken);
+        await _repository.InsertAsync(paypal, context.CancellationToken);
     }
 }
