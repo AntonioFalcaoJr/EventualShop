@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.OpenApi.Any;
 using Serilog;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using WebAPI.DependencyInjection.Extensions;
 using WebAPI.DependencyInjection.Options;
 using WebAPI.DependencyInjection.ParameterTransformers;
@@ -90,7 +91,8 @@ builder.Services.ConfigureMassTransitHostOptions(
 builder.Services.ConfigureRabbitMqTransportOptions(
     builder.Configuration.GetSection(nameof(RabbitMqTransportOptions)));
 
-builder.Services.AddHttpLogging(options => options.LoggingFields = HttpLoggingFields.All);
+builder.Services.AddHttpLogging(options
+    => options.LoggingFields = HttpLoggingFields.All);
 
 var app = builder.Build();
 

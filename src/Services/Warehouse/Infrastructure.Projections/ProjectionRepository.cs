@@ -26,10 +26,10 @@ public class ProjectionRepository<TProjection> : IProjectionRepository<TProjecti
     public Task<TProjection> FindAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
         => _collection.AsQueryable().Where(predicate).FirstOrDefaultAsync(cancellationToken);
 
-    public Task<IPagedResult<TProjection>> GetAsync(int limit, int offset, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
+    public Task<IPagedResult<TProjection>> GetAllAsync(int limit, int offset, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
         => PagedResult<TProjection>.CreateAsync(limit, offset, _collection.AsQueryable().Where(predicate), cancellationToken);
 
-    public Task<IPagedResult<TProjection>> GetAsync(int limit, int offset, CancellationToken cancellationToken)
+    public Task<IPagedResult<TProjection>> GetAllAsync(int limit, int offset, CancellationToken cancellationToken)
         => PagedResult<TProjection>.CreateAsync(limit, offset, _collection.AsQueryable(), cancellationToken);
 
     public Task InsertAsync(TProjection projection, CancellationToken cancellationToken)
@@ -67,5 +67,12 @@ public class ProjectionRepository<TProjection> : IProjectionRepository<TProjecti
         => _collection.UpdateOneAsync(
             filter: projection => projection.Id.Equals(id),
             update: new ObjectUpdateDefinition<TProjection>(new()).Set(field, value),
+            cancellationToken: cancellationToken);
+
+    public Task IncreaseFieldAsync<TId, TField>(TId id, Expression<Func<TProjection, TField>> field, TField value, CancellationToken cancellationToken)
+        where TId : struct
+        => _collection.UpdateOneAsync(
+            filter: projection => projection.Id.Equals(id),
+            update: new ObjectUpdateDefinition<TProjection>(new()).Inc(field, value),
             cancellationToken: cancellationToken);
 }

@@ -5,7 +5,8 @@ using MassTransit;
 namespace Application.UseCases.Events.Projections;
 
 public class ProjectInventoryItemWhenChangedConsumer :
-    IConsumer<DomainEvent.InventoryAdjusted>,
+    IConsumer<DomainEvent.InventoryAdjustmentDecreased>,
+    IConsumer<DomainEvent.InventoryAdjustmentIncreased>,
     IConsumer<DomainEvent.InventoryReceived>
 {
     private readonly IProjectionRepository<Projection.Inventory> _repository;
@@ -15,9 +16,15 @@ public class ProjectInventoryItemWhenChangedConsumer :
         _repository = repository;
     }
 
-    // TODO - It should be some think like (InventoryAdjustmentIncreased and InventoryAdjustmentDecreased)
-    public async Task Consume(ConsumeContext<DomainEvent.InventoryAdjusted> context)
-        => await _repository.UpdateFieldAsync(
+    public async Task Consume(ConsumeContext<DomainEvent.InventoryAdjustmentDecreased> context)
+        => await _repository.IncreaseFieldAsync(
+            id: context.Message.ProductId,
+            field: item => item.Quantity,
+            value: context.Message.Quantity * -1,
+            cancellationToken: context.CancellationToken);
+
+    public async Task Consume(ConsumeContext<DomainEvent.InventoryAdjustmentIncreased> context)
+        => await _repository.IncreaseFieldAsync(
             id: context.Message.ProductId,
             field: item => item.Quantity,
             value: context.Message.Quantity,
@@ -28,10 +35,8 @@ public class ProjectInventoryItemWhenChangedConsumer :
         var inventory = new Projection.Inventory
         {
             Id = context.Message.ProductId,
-            Description = context.Message.Description,
-            Name = context.Message.Name,
+            Product = context.Message.Product,
             Quantity = context.Message.Quantity,
-            Sku = context.Message.Sku,
             IsDeleted = false
         };
 

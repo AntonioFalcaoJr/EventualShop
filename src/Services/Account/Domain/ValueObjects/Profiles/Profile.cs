@@ -5,10 +5,9 @@ namespace Domain.ValueObjects.Profiles;
 
 public record Profile : ValueObject<ProfileValidator>
 {
-    public Profile(string email, string firstName)
+    public Profile(string email)
     {
-        SetEmail(email);
-        SetFirstName(firstName);
+        Email = email;
     }
 
     public DateOnly? Birthdate { get; private set; }

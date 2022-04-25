@@ -5,21 +5,14 @@ using WebAPI.Abstractions;
 
 namespace WebAPI.Controllers;
 
-[Route("api/[controller]/[action]")]
 public class PaymentsController : ApplicationController
 {
     public PaymentsController(IBus bus)
         : base(bus) { }
- 
-    [HttpGet]
-    public Task<IActionResult> GetPaymentDetails([FromQuery] Query.GetPaymentDetails query, CancellationToken cancellationToken)
-        => GetProjectionAsync<Query.GetPaymentDetails, Projection.Payment>(query, cancellationToken);
 
-    [HttpPost]
-    public Task<IActionResult> RequestPayment(Command.RequestPayment command, CancellationToken cancellationToken)
-        => SendCommandAsync(command, cancellationToken);
-
-    [HttpPut]
-    public Task<IActionResult> CancelPayment(Command.CancelPayment command, CancellationToken cancellationToken)
-        => SendCommandAsync(command, cancellationToken);
+    [HttpGet("{paymentId:guid}")]
+    [ProducesResponseType(typeof(Projection.Payment), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> GetPaymentDetails(Guid paymentId, CancellationToken cancellationToken)
+        => GetProjectionAsync<Query.GetPaymentDetails, Projection.Payment>(new(paymentId), cancellationToken);
 }
