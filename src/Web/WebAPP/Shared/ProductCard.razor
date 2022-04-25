@@ -21,8 +21,8 @@
                 <BSCard Class="w-25 border-0" Alignment="Alignment.Center" CardType="CardType.Card">
                     <BSCard Class="rounded-1" CardType="CardType.Image" src="placeholder:286x180"/>
                     <BSCard CardType="CardType.Body">
-                        <BSCard CardType="CardType.Title">@item.Name</BSCard>
-                        <BSCard CardType="CardType.Subtitle">@item.Description</BSCard>
+                        <BSCard CardType="CardType.Title">@item.Product.Name</BSCard>
+                        <BSCard CardType="CardType.Subtitle">@item.Product.Description</BSCard>
                         @* <BSButton Color="BSColor.Warning" OnClick=@(() => EditAsync("New Title", catalog.ItemId))>Edit</BSButton> *@
                         @* <BSButton Color="BSColor.Danger" OnClick="() => DeleteAsync(catalog.ItemId)">Delete</BSButton> *@
                     </BSCard>
