@@ -7,47 +7,29 @@ namespace Application.UseCases.Events;
 public class ProjectCatalogItemsWhenChangedConsumer :
     IConsumer<DomainEvent.CatalogDeleted>,
     IConsumer<DomainEvent.CatalogItemAdded>,
-    IConsumer<DomainEvent.CatalogItemRemoved>,
-    IConsumer<DomainEvent.CatalogItemUpdated>
+    IConsumer<DomainEvent.CatalogItemRemoved>
 {
-    private readonly IProjectionRepository<Projection.CatalogItem> _projectionRepository;
+    private readonly IProjectionRepository<Projection.CatalogItem> _repository;
 
-    public ProjectCatalogItemsWhenChangedConsumer(IProjectionRepository<Projection.CatalogItem> projectionRepository)
+    public ProjectCatalogItemsWhenChangedConsumer(IProjectionRepository<Projection.CatalogItem> repository)
     {
-        _projectionRepository = projectionRepository;
+        _repository = repository;
     }
 
     public async Task Consume(ConsumeContext<DomainEvent.CatalogDeleted> context)
-        => await _projectionRepository.DeleteAsync(item => item.CatalogId == context.Message.CatalogId, context.CancellationToken);
+        => await _repository.DeleteAsync(item => item.CatalogId == context.Message.CatalogId, context.CancellationToken);
 
     public async Task Consume(ConsumeContext<DomainEvent.CatalogItemRemoved> context)
-        => await _projectionRepository.DeleteAsync(context.Message.ItemId, context.CancellationToken);
+        => await _repository.DeleteAsync(context.Message.ItemId, context.CancellationToken);
 
     public async Task Consume(ConsumeContext<DomainEvent.CatalogItemAdded> context)
     {
         Projection.CatalogItem catalogItem = new(
             context.Message.CatalogId,
             context.Message.ItemId,
-            context.Message.Name,
-            context.Message.Description,
-            context.Message.Price,
-            context.Message.PictureUri,
+            context.Message.Product,
             false);
 
-        await _projectionRepository.InsertAsync(catalogItem, context.CancellationToken);
-    }
-
-    public async Task Consume(ConsumeContext<DomainEvent.CatalogItemUpdated> context)
-    {
-        Projection.CatalogItem catalogItem = new(
-            context.Message.CatalogId,
-            context.Message.ItemId,
-            context.Message.Name,
-            context.Message.Description,
-            context.Message.Price,
-            context.Message.PictureUri,
-            false);
-
-        await _projectionRepository.UpsertAsync(catalogItem, context.CancellationToken);
+        await _repository.InsertAsync(catalogItem, context.CancellationToken);
     }
 }

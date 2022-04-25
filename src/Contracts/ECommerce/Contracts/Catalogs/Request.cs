@@ -1,4 +1,6 @@
-﻿namespace ECommerce.Contracts.Catalogs;
+﻿using ECommerce.Contracts.Common;
+
+namespace ECommerce.Contracts.Catalogs;
 
 public static class Request
 {
@@ -8,7 +10,5 @@ public static class Request
 
     public record ChangeCatalogDescription(string Description);
 
-    public record AddCatalogItem(string Name, string Description, decimal Price, string PictureUri);
-
-    public record UpdateCatalogItem(string Name, string Description, decimal Price, string PictureUri);
+    public record AddCatalogItem(Models.Product Product, int Quantity);
 }

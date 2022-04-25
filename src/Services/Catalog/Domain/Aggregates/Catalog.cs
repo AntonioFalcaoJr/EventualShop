@@ -1,5 +1,6 @@
 ﻿using Domain.Abstractions.Aggregates;
 using Domain.Entities.CatalogItems;
+using Domain.Entities.Products;
 using ECommerce.Abstractions;
 using ECommerce.Contracts.Catalogs;
 
@@ -34,13 +35,10 @@ public class Catalog : AggregateRoot<Guid, CatalogValidator>
         => RaiseEvent(new DomainEvent.CatalogTitleChanged(cmd.CatalogId, cmd.Title));
 
     public void Handle(Command.AddCatalogItem cmd)
-        => RaiseEvent(new DomainEvent.CatalogItemAdded(cmd.CatalogId, Guid.NewGuid(), cmd.Name, cmd.Description, cmd.Price, cmd.PictureUri));
+        => RaiseEvent(new DomainEvent.CatalogItemAdded(cmd.CatalogId, Guid.NewGuid(), cmd.Product, cmd.Quantity));
 
     public void Handle(Command.DeleteCatalogItem cmd)
         => RaiseEvent(new DomainEvent.CatalogItemRemoved(cmd.CatalogId, cmd.CatalogItemId));
-
-    public void Handle(Command.UpdateCatalogItem cmd)
-        => RaiseEvent(new DomainEvent.CatalogItemUpdated(cmd.CatalogId, cmd.CatalogItemId, cmd.Name, cmd.Description, cmd.Price, cmd.PictureUri));
 
     protected override void ApplyEvent(IEvent @event)
         => When(@event as dynamic);
@@ -67,19 +65,9 @@ public class Catalog : AggregateRoot<Guid, CatalogValidator>
         => IsActive = false;
 
     private void When(DomainEvent.CatalogItemAdded @event)
-        => _items.Add(new(
-            @event.ItemId,
-            @event.Name,
-            @event.Description,
-            @event.Price,
-            @event.PictureUri));
-
-    private void When(DomainEvent.CatalogItemUpdated @event)
     {
-        var item = _items.Single(item => item.Id == @event.ItemId);
-        item.SetDescription(@event.Description);
-        item.SetName(@event.Name);
-        item.SetPrice(@event.Price);
-        item.SetPictureUri(@event.PictureUri);
+        Product product = new(@event.Product.Id, @event.Product.Name, @event.Product.UnitPrice, @event.Product.PictureUrl, @event.Product.Sku);
+        CatalogItem item = new(@event.ItemId, product, @event.Quantity);
+        _items.Add(item);
     }
 }

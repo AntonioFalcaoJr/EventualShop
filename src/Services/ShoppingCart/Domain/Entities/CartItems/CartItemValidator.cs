@@ -1,11 +1,11 @@
 ﻿using Domain.Abstractions.Validators;
 using FluentValidation;
 
-namespace Domain.Entities.CatalogItems;
+namespace Domain.Entities.CartItems;
 
-public class CatalogItemValidator : EntityValidator<CatalogItem, Guid>
+public class CartItemValidator : EntityValidator<CartItem, Guid>
 {
-    public CatalogItemValidator()
+    public CartItemValidator()
     {
         RuleFor(item => item.Quantity)
             .GreaterThan(0);

@@ -11,11 +11,11 @@ public class ProjectAccountDetailsWhenChangedConsumer :
     IConsumer<DomainEvent.ProfileUpdated>,
     IConsumer<DomainEvent.ResidenceAddressDefined>
 {
-    private readonly IProjectionRepository<Projection.Account> _projectionRepository;
+    private readonly IProjectionRepository<Projection.Account> _repository;
 
-    public ProjectAccountDetailsWhenChangedConsumer(IProjectionRepository<Projection.Account> projectionRepository)
+    public ProjectAccountDetailsWhenChangedConsumer(IProjectionRepository<Projection.Account> repository)
     {
-        _projectionRepository = projectionRepository;
+        _repository = repository;
     }
 
     public async Task Consume(ConsumeContext<DomainEvent.AccountCreated> context)
@@ -32,14 +32,14 @@ public class ProjectAccountDetailsWhenChangedConsumer :
             IsDeleted = false
         };
 
-        await _projectionRepository.InsertAsync(account, context.CancellationToken);
+        await _repository.InsertAsync(account, context.CancellationToken);
     }
 
     public async Task Consume(ConsumeContext<DomainEvent.AccountDeleted> context)
-        => await _projectionRepository.DeleteAsync(context.Message.AccountId, context.CancellationToken);
+        => await _repository.DeleteAsync(context.Message.AccountId, context.CancellationToken);
 
     public async Task Consume(ConsumeContext<DomainEvent.ProfessionalAddressDefined> context)
-        => await _projectionRepository.UpdateFieldAsync(
+        => await _repository.UpdateFieldAsync(
             id: context.Message.AccountId,
             field: account => account.Profile.ProfessionalAddress,
             value: context.Message.Address,
@@ -47,7 +47,7 @@ public class ProjectAccountDetailsWhenChangedConsumer :
 
     // TODO - Improve this, update all profile dont like the right approach
     public async Task Consume(ConsumeContext<DomainEvent.ProfileUpdated> context)
-        => await _projectionRepository.UpdateFieldAsync(
+        => await _repository.UpdateFieldAsync(
             id: context.Message.AccountId,
             field: account => account.Profile,
             value: new()
@@ -60,7 +60,7 @@ public class ProjectAccountDetailsWhenChangedConsumer :
             cancellationToken: context.CancellationToken);
 
     public async Task Consume(ConsumeContext<DomainEvent.ResidenceAddressDefined> context)
-        => await _projectionRepository.UpdateFieldAsync(
+        => await _repository.UpdateFieldAsync(
             id: context.Message.AccountId,
             field: account => account.Profile.ResidenceAddress,
             value: context.Message.Address,

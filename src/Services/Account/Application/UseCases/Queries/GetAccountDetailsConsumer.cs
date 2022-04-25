@@ -9,16 +9,16 @@ public class GetAccountDetailsConsumer :
     IConsumer<Query.GetAccount>,
     IConsumer<Query.GetAccounts>
 {
-    private readonly IProjectionRepository<Projection.Account> _projectionRepository;
+    private readonly IProjectionRepository<Projection.Account> _repository;
 
-    public GetAccountDetailsConsumer(IProjectionRepository<Projection.Account> projectionRepository)
+    public GetAccountDetailsConsumer(IProjectionRepository<Projection.Account> repository)
     {
-        _projectionRepository = projectionRepository;
+        _repository = repository;
     }
 
     public async Task Consume(ConsumeContext<Query.GetAccount> context)
     {
-        var account = await _projectionRepository.GetAsync(context.Message.AccountId, context.CancellationToken);
+        var account = await _repository.GetAsync(context.Message.AccountId, context.CancellationToken);
 
         await (account is null
             ? context.RespondAsync<NotFound>(new())
@@ -27,7 +27,7 @@ public class GetAccountDetailsConsumer :
 
     public async Task Consume(ConsumeContext<Query.GetAccounts> context)
     {
-        var accounts = await _projectionRepository.GetAsync(context.Message.Limit, context.Message.Offset, context.CancellationToken);
+        var accounts = await _repository.GetAsync(context.Message.Limit, context.Message.Offset, context.CancellationToken);
 
         await (accounts is null
             ? context.RespondAsync<NotFound>(new())

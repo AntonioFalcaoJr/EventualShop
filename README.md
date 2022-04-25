@@ -826,7 +826,6 @@ dotnet ef migrations add "First Migration" -s .\WorkerService\ -p .\Infrastructu
 * [ASP.NET Core 7](https://devblogs.microsoft.com/dotnet/asp-net-core-updates-in-net-7-preview-1/) - A free, cross-platform and open-source web-development framework;
 * [MassTransit](https://masstransit-project.com/) - Message Bus;
 * [FluentValidation](https://fluentvalidation.net/) - A popular .NET library for building strongly-typed validation rules;
-* [AutoMapper](https://automapper.org/) - A convention-based object-object mapper;
 * [Serilog](https://serilog.net/) - A diagnostic logging to files, console and elsewhere.
 
 ### Web APP

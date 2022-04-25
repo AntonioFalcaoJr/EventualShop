@@ -68,14 +68,14 @@ public class Order : AggregateRoot<Guid, OrderValidator>
             });
         _items.AddRange(@event.Items.Select(item
             => new OrderItem(
-                item.ProductId,
-                item.ProductName,
-                "SKU",
+                item.Product.Id,
+                item.Product.Name,
+                item.Product.Sku,
                 "CATEGORY",
                 "BRAND",
-                item.UnitPrice,
+                item.Product.UnitPrice,
                 item.Quantity,
-                item.PictureUrl)));
+                item.Product.PictureUrl)));
 
         _paymentMethods.AddRange(@event.PaymentMethods.Select<Models.IPaymentMethod, IPaymentMethod>(method
             => method switch

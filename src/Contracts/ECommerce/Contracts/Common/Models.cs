@@ -22,7 +22,6 @@ public static class Models
         public Address BillingAddress { get; init; }
     }
 
-    // TODO - Remove Id creation from here and move to Domain.
     public record CreditCard : IPaymentMethod
     {
         [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
@@ -30,7 +29,7 @@ public static class Models
         public string HolderName { get; init; }
         public string Number { get; init; }
         public string SecurityNumber { get; init; }
-        public Guid Id { get; } = Guid.NewGuid();
+        public Guid Id { get; init; }
         public decimal Amount { get; init; }
     }
 
@@ -41,7 +40,7 @@ public static class Models
         public string HolderName { get; init; }
         public string Number { get; init; }
         public string SecurityNumber { get; init; }
-        public Guid Id { get; } = Guid.NewGuid();
+        public Guid Id { get; init; }
         public decimal Amount { get; init; }
     }
 
@@ -49,26 +48,24 @@ public static class Models
     {
         public string UserName { get; init; }
         public string Password { get; init; }
-        public Guid Id { get; } = Guid.NewGuid();
+        public Guid Id { get; init; }
         public decimal Amount { get; init; }
     }
 
     public record ShoppingCartItem
     {
-        public Guid ProductId { get; init; }
-        public string ProductName { get; init; }
-        public decimal UnitPrice { get; init; }
+        public Product Product { get; init; }
         public int Quantity { get; init; }
-        public string PictureUrl { get; init; }
-        public string Sku { get; init; }
     }
 
     public record Product
     {
+        public Guid Id { get; init; }
         public string Sku { get; init; }
         public string Name { get; init; }
         public string Description { get; init; }
-        public int Quantity { get; init; }
+        public decimal UnitPrice { get; init; }
+        public string PictureUrl { get; init; }
     }
 
     public interface IPaymentMethod

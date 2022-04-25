@@ -1,10 +1,13 @@
 ﻿@using ECommerce.Contracts.Catalogs
 @using ECommerce.Abstractions.Paging
-@inject HttpClient Http
+@using WebAPP.Abstractions.Http
+@using WebAPP.HttpClients
+
+@inject IECommerceHttpClient HttpClient
 @inject IBlazorStrap BlazorStrap
 
 <BSContainer>
-    @if (_cards.Items.Any() is false)
+    @if (_items.Any() is false)
     {
         <p>
             Nothing to show.
@@ -13,13 +16,13 @@
     else
     {
         <BSRow MarginTop="Margins.Large">
-            @foreach (var catalogItem in _cards.Items)
+            @foreach (var item in _items)
             {
                 <BSCard Class="w-25 border-0" Alignment="Alignment.Center" CardType="CardType.Card">
                     <BSCard Class="rounded-1" CardType="CardType.Image" src="placeholder:286x180"/>
                     <BSCard CardType="CardType.Body">
-                        <BSCard CardType="CardType.Title">@catalogItem.Name</BSCard>
-                        <BSCard CardType="CardType.Subtitle">@catalogItem.Description</BSCard>
+                        <BSCard CardType="CardType.Title">@item.Name</BSCard>
+                        <BSCard CardType="CardType.Subtitle">@item.Description</BSCard>
                         @* <BSButton Color="BSColor.Warning" OnClick=@(() => EditAsync("New Title", catalog.ItemId))>Edit</BSButton> *@
                         @* <BSButton Color="BSColor.Danger" OnClick="() => DeleteAsync(catalog.ItemId)">Delete</BSButton> *@
                     </BSCard>
@@ -27,31 +30,37 @@
             }
         </BSRow>
         <BSPagination Align="Align.Center">
-            <BSPaginationItem IsDisabled=@(_cards.PageInfo.HasPrevious is false) @onclick="MoveToPreview">Previous</BSPaginationItem>
-            @for (var paging = 1; paging <= _cards.PageInfo.Current; paging++)
+            <BSPaginationItem IsDisabled=@(_pageInfo.HasPrevious is false) @onclick="MoveToPreview">Previous</BSPaginationItem>
+            @for (var paging = 1; paging <= _pageInfo.Current; paging++)
             {
                 var current = paging;
                 <BSPaginationItem @onclick=@(() => MoveToPage(current))>@current</BSPaginationItem>
             }
-            <BSPaginationItem IsDisabled=@(_cards.PageInfo.HasNext is false) @onclick="MoveToNext">Next</BSPaginationItem>
+            <BSPaginationItem IsDisabled=@(_pageInfo.HasNext is false) @onclick="MoveToNext">Next</BSPaginationItem>
         </BSPagination>
     }
 </BSContainer >
 
 @code {
 
-    private IPagedResult<Projection.CatalogItem> _cards;
+    private List<Projection.CatalogItem> _items;
+    private PageInfo _pageInfo;
 
     protected override async Task OnInitializedAsync()
         => await LoadAsync();
 
     private async Task LoadAsync(int limit = 8, int offset = 0)
     {
-        var catalogId = "f4367788-6e91-48ff-8c58-6f111c12f6e3";
-
         try
         {
-            _cards = await Http.GetFromJsonAsync<IPagedResult<Projection.CatalogItem>>($"/api/v1/catalogs/{catalogId}/items?limit={limit}&offset={offset}");
+            var response = await HttpClient.GetAllItemsAsync(limit, offset, CancellationToken.None);
+
+            if (response.Success)
+            {
+                _items = response.ActionResult?.Items?.ToList() ?? _items;
+                _pageInfo = response.ActionResult?.PageInfo ?? new();
+            }
+            else Failed(response.Message);
         }
         catch (Exception e)
         {
@@ -74,14 +83,14 @@
 
     private async Task MoveToNext()
     {
-        if (_cards.PageInfo.HasNext)
-            await LoadAsync(offset: _cards.PageInfo.Current);
+        if (_pageInfo.HasNext)
+            await LoadAsync(offset: _pageInfo.Current);
     }
 
     private async Task MoveToPreview()
     {
-        if (_cards.PageInfo.HasPrevious)
-            await LoadAsync(offset: _cards.PageInfo.Current - 2);
+        if (_pageInfo.HasPrevious)
+            await LoadAsync(offset: _pageInfo.Current - 2);
     }
 
 }
