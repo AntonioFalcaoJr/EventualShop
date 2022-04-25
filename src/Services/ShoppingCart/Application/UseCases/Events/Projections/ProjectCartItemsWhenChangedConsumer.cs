@@ -20,17 +20,14 @@ public class ProjectCartItemsWhenChangedConsumer :
 
     public async Task Consume(ConsumeContext<DomainEvent.CartItemAdded> context)
     {
-        var shoppingCartItem = new Projection.ShoppingCartItem(
+        Projection.ShoppingCartItem item = new(
             context.Message.CartId,
-            context.Message.Item.ProductId,
-            context.Message.Item.ProductName,
-            context.Message.Item.UnitPrice,
-            context.Message.Item.Quantity,
-            context.Message.Item.PictureUrl,
             context.Message.ItemId,
+            context.Message.Product,
+            context.Message.Quantity,
             false);
 
-        await _repository.InsertAsync(shoppingCartItem, context.CancellationToken);
+        await _repository.InsertAsync(item, context.CancellationToken);
     }
 
     public async Task Consume(ConsumeContext<DomainEvent.CartItemIncreased> context)
@@ -52,6 +49,6 @@ public class ProjectCartItemsWhenChangedConsumer :
 
     public async Task Consume(ConsumeContext<DomainEvent.CartDiscarded> context)
         => await _repository.DeleteAsync(
-            filter: item => item.ShoppingCartId == context.Message.CartId,
+            filter: item => item.CartId == context.Message.CartId,
             cancellationToken: context.CancellationToken);
 }

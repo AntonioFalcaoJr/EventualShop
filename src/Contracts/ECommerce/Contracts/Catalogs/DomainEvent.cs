@@ -1,4 +1,5 @@
 using ECommerce.Abstractions;
+using ECommerce.Contracts.Common;
 
 namespace ECommerce.Contracts.Catalogs;
 
@@ -16,9 +17,7 @@ public static class DomainEvent
 
     public record CatalogDescriptionChanged(Guid CatalogId, string Description) : Message(CorrelationId: CatalogId), IEvent;
 
-    public record CatalogItemAdded(Guid CatalogId, Guid ItemId, string Name, string Description, decimal Price, string PictureUri) : Message(CorrelationId: CatalogId), IEvent;
+    public record CatalogItemAdded(Guid CatalogId, Guid ItemId, Models.Product Product, int Quantity) : Message(CorrelationId: CatalogId), IEvent;
 
     public record CatalogItemRemoved(Guid CatalogId, Guid ItemId) : Message(CorrelationId: CatalogId), IEvent;
-
-    public record CatalogItemUpdated(Guid CatalogId, Guid ItemId, string Name, string Description, decimal Price, string PictureUri) : Message(CorrelationId: CatalogId), IEvent;
 }

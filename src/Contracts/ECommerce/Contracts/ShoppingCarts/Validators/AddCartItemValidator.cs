@@ -6,7 +6,7 @@ public class AddCartItemValidator : AbstractValidator<Command.AddCartItem>
 {
     public AddCartItemValidator()
     {
-        RuleFor(cart => cart.Item.Quantity)
+        RuleFor(item => item.Quantity)
             .GreaterThan(0);
     }
 }

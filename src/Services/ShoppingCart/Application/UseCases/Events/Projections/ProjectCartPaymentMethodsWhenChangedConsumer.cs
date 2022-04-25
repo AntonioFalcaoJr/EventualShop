@@ -18,7 +18,7 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
 
     public Task Consume(ConsumeContext<DomainEvent.CartDiscarded> context)
         => _repository.DeleteAsync(
-            filter: item => item.ShoppingCartId == context.Message.CartId,
+            filter: item => item.CartId == context.Message.CartId,
             cancellationToken: context.CancellationToken);
 
     public async Task Consume(ConsumeContext<DomainEvent.CreditCardAdded> context)
@@ -32,7 +32,7 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
             HolderName = context.Message.CreditCard.HolderName,
             IsDeleted = false,
             SecurityNumber = context.Message.CreditCard.SecurityNumber,
-            ShoppingCartId = context.Message.CartId
+            CartId = context.Message.CartId
         };
 
         await _repository.InsertAsync(creditCard, context.CancellationToken);
@@ -47,7 +47,7 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
             Password = context.Message.PayPal.Password,
             IsDeleted = false,
             UserName = context.Message.PayPal.UserName,
-            ShoppingCartId = context.Message.CartId,
+            CartId = context.Message.CartId,
         };
 
         await _repository.InsertAsync(paypal, context.CancellationToken);

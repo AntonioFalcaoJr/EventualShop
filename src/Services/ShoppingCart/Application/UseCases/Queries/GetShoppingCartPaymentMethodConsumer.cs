@@ -19,7 +19,7 @@ public class GetShoppingCartPaymentMethodConsumer :
     public async Task Consume(ConsumeContext<Query.GetShoppingCartPaymentMethod> context)
     {
         var paymentMethod = await _repository.FindAsync(
-            predicate: paymentMethod => paymentMethod.ShoppingCartId == context.Message.CartId &&
+            predicate: paymentMethod => paymentMethod.CartId == context.Message.CartId &&
                                         paymentMethod.Id == context.Message.PaymentMethodId,
             cancellationToken: context.CancellationToken);
 
@@ -33,7 +33,7 @@ public class GetShoppingCartPaymentMethodConsumer :
         var paymentMethods = await _repository.GetAllAsync(
             context.Message.Limit,
             context.Message.Offset,
-            item => item.ShoppingCartId == context.Message.CartId,
+            item => item.CartId == context.Message.CartId,
             context.CancellationToken);
 
         await (paymentMethods is null

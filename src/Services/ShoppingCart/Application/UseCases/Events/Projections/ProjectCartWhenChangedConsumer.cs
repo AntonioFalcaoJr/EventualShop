@@ -9,8 +9,6 @@ public class ProjectCartWhenChangedConsumer :
     IConsumer<DomainEvent.BillingAddressChanged>,
     IConsumer<DomainEvent.CartCreated>,
     IConsumer<DomainEvent.CartItemAdded>,
-    IConsumer<DomainEvent.CreditCardAdded>,
-    IConsumer<DomainEvent.PayPalAdded>,
     IConsumer<DomainEvent.CartItemRemoved>,
     IConsumer<DomainEvent.CartCheckedOut>,
     IConsumer<DomainEvent.ShippingAddressAdded>,
@@ -53,7 +51,7 @@ public class ProjectCartWhenChangedConsumer :
         => await _repository.IncreaseFieldAsync(
             id: context.Message.CartId,
             field: cart => cart.Total,
-            value: context.Message.Item.Quantity * context.Message.Item.UnitPrice,
+            value: context.Message.Quantity * context.Message.Product.UnitPrice,
             cancellationToken: context.CancellationToken);
 
     public async Task Consume(ConsumeContext<DomainEvent.CartItemDecreased> context)
@@ -76,13 +74,6 @@ public class ProjectCartWhenChangedConsumer :
             field: cart => cart.Total,
             value: context.Message.UnitPrice * context.Message.Quantity * -1,
             cancellationToken: context.CancellationToken);
-
-    // TODO Segregate Payment Methods projections
-    public Task Consume(ConsumeContext<DomainEvent.CreditCardAdded> context)
-        => Task.CompletedTask;
-
-    public Task Consume(ConsumeContext<DomainEvent.PayPalAdded> context)
-        => Task.CompletedTask;
 
     public async Task Consume(ConsumeContext<DomainEvent.ShippingAddressAdded> context)
         => await _repository.UpdateFieldAsync(

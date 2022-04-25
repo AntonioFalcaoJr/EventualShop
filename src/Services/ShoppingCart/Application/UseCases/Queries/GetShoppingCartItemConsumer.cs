@@ -19,7 +19,7 @@ public class GetShoppingCartItemConsumer :
     public async Task Consume(ConsumeContext<Query.GetShoppingCartItem> context)
     {
         var shoppingCartItem = await _repository.FindAsync(
-            item => item.ShoppingCartId == context.Message.CartId && item.Id == context.Message.ItemId, context.CancellationToken);
+            item => item.CartId == context.Message.CartId && item.Id == context.Message.ItemId, context.CancellationToken);
 
         await (shoppingCartItem is null
             ? context.RespondAsync<NotFound>(new())
@@ -31,7 +31,7 @@ public class GetShoppingCartItemConsumer :
         var shoppingCartItems = await _repository.GetAllAsync(
             context.Message.Limit,
             context.Message.Offset,
-            item => item.ShoppingCartId == context.Message.CartId,
+            item => item.CartId == context.Message.CartId,
             context.CancellationToken);
 
         await (shoppingCartItems is null

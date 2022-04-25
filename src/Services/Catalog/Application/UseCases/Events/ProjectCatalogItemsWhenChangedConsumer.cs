@@ -7,8 +7,7 @@ namespace Application.UseCases.Events;
 public class ProjectCatalogItemsWhenChangedConsumer :
     IConsumer<DomainEvent.CatalogDeleted>,
     IConsumer<DomainEvent.CatalogItemAdded>,
-    IConsumer<DomainEvent.CatalogItemRemoved>,
-    IConsumer<DomainEvent.CatalogItemUpdated>
+    IConsumer<DomainEvent.CatalogItemRemoved>
 {
     private readonly IProjectionRepository<Projection.CatalogItem> _repository;
 
@@ -28,26 +27,9 @@ public class ProjectCatalogItemsWhenChangedConsumer :
         Projection.CatalogItem catalogItem = new(
             context.Message.CatalogId,
             context.Message.ItemId,
-            context.Message.Name,
-            context.Message.Description,
-            context.Message.Price,
-            context.Message.PictureUri,
+            context.Message.Product,
             false);
 
         await _repository.InsertAsync(catalogItem, context.CancellationToken);
-    }
-
-    public async Task Consume(ConsumeContext<DomainEvent.CatalogItemUpdated> context)
-    {
-        Projection.CatalogItem catalogItem = new(
-            context.Message.CatalogId,
-            context.Message.ItemId,
-            context.Message.Name,
-            context.Message.Description,
-            context.Message.Price,
-            context.Message.PictureUri,
-            false);
-
-        await _repository.UpsertAsync(catalogItem, context.CancellationToken);
     }
 }

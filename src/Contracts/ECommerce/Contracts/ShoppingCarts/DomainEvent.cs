@@ -7,8 +7,7 @@ public static class DomainEvent
 {
     public record CartCreated(Guid CartId, Guid CustomerId, string Status) : Message(CorrelationId: CustomerId), IEvent;
 
-    // TODO - ShoppingCartItem should be Product
-    public record CartItemAdded(Guid CartId, Guid ItemId, Models.ShoppingCartItem Item) : Message(CorrelationId: CartId), IEvent;
+    public record CartItemAdded(Guid CartId, Guid ItemId, Models.Product Product, int Quantity) : Message(CorrelationId: CartId), IEvent;
 
     public record CartItemIncreased(Guid CartId, Guid ItemId, decimal UnitPrice) : Message(CorrelationId: CartId), IEvent;
 

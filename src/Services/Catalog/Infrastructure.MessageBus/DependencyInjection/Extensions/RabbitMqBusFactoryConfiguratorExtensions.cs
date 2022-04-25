@@ -17,7 +17,6 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
         cfg.ConfigureEventReceiveEndpoint<ProjectCatalogWhenChangedConsumer, DomainEvent.CatalogTitleChanged>(registration);
         cfg.ConfigureEventReceiveEndpoint<ProjectCatalogWhenChangedConsumer, DomainEvent.CatalogItemAdded>(registration);
         cfg.ConfigureEventReceiveEndpoint<ProjectCatalogWhenChangedConsumer, DomainEvent.CatalogItemRemoved>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectCatalogWhenChangedConsumer, DomainEvent.CatalogItemUpdated>(registration);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistrationContext registration)

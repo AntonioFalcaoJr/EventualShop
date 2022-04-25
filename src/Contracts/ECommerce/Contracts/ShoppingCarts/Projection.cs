@@ -9,20 +9,20 @@ public static class Projection
 {
     public record ShoppingCart(Guid Id, Customer Customer, string Status, decimal Total = default, bool IsDeleted = default) : IProjection;
 
-    public record ShoppingCartItem(Guid ShoppingCartId, Guid ProductId, string ProductName, decimal UnitPrice, int Quantity, string PictureUrl, Guid Id, bool IsDeleted) : IProjection;
+    public record ShoppingCartItem(Guid CartId, Guid Id, Models.Product Product, int Quantity, bool IsDeleted) : IProjection;
 
     public record Customer(Guid Id, Models.Address ShippingAddress = default, Models.Address BillingAddress = default);
 
     public interface IPaymentMethod : IProjection
     {
         decimal Amount { get; }
-        Guid ShoppingCartId { get; }
+        Guid CartId { get; }
     }
 
     public record CreditCardPaymentMethod : IPaymentMethod
     {
         public Guid Id { get; init; }
-        public Guid ShoppingCartId { get; init; }
+        public Guid CartId { get; init; }
         public bool IsDeleted { get; init; }
 
         [BsonSerializer(typeof(ExpirationDateOnlyBsonSerializer))]
@@ -37,9 +37,9 @@ public static class Projection
     public record DebitCardPaymentMethod : IPaymentMethod
     {
         public Guid Id { get; init; }
-        public Guid ShoppingCartId { get; init; }
+        public Guid CartId { get; init; }
         public bool IsDeleted { get; init; }
-        
+
         [BsonSerializer(typeof(ExpirationDateOnlyBsonSerializer))]
         public DateOnly Expiration { get; init; }
 
@@ -52,9 +52,8 @@ public static class Projection
     public record PayPalPaymentMethod : IPaymentMethod
     {
         public Guid Id { get; init; }
-        public Guid ShoppingCartId { get; init; }
+        public Guid CartId { get; init; }
         public bool IsDeleted { get; init; }
-        
         public string Password { get; init; }
         public string UserName { get; init; }
         public decimal Amount { get; init; }
