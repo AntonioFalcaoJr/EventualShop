@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Abstractions;
 
-[ApiController]
+[ApiController, Route("api/v1/[controller]")]
 public abstract class ApplicationController : ControllerBase
 {
     private readonly IBus _bus;
@@ -37,7 +37,7 @@ public abstract class ApplicationController : ControllerBase
             _ => Problem()
         };
     }
-    
+
     private static Uri Address<T>()
         => new($"exchange:{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}");
 }

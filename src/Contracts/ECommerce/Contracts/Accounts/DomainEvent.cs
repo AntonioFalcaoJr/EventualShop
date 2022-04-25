@@ -7,7 +7,7 @@ public static class DomainEvent
 {
     public record AccountDeleted(Guid AccountId) : Message, IEvent;
 
-    public record AccountCreated(Guid AccountId, Guid UserId, string Email, string FirstName) : Message, IEvent;
+    public record AccountCreated(Guid AccountId, Guid UserId,string Email) : Message, IEvent;
 
     public record ProfileUpdated(Guid AccountId, DateOnly Birthdate, string Email, string FirstName, string LastName) : Message, IEvent;
 

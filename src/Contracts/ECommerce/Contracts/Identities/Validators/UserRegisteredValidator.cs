@@ -6,7 +6,6 @@ public class UserRegisteredValidator : AbstractValidator<DomainEvent.UserRegiste
 {
     public UserRegisteredValidator()
     {
-        RuleFor(user => user.Email)
-            .EmailAddress();
+
     }
 }

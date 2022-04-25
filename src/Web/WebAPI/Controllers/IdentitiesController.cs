@@ -2,28 +2,36 @@
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;
+using WebAPI.ValidationAttributes;
 
 namespace WebAPI.Controllers;
 
-[Route("api/[controller]/[action]")]
 public class IdentitiesController : ApplicationController
 {
     public IdentitiesController(IBus bus)
         : base(bus) { }
 
-    [HttpGet]
-    public Task<IActionResult> GetUserAuthenticationDetails([FromQuery] Query.GetUserAuthentication query, CancellationToken cancellationToken)
-        => GetProjectionAsync<Query.GetUserAuthentication, Projection.UserAuthentication>(query, cancellationToken);
+    [HttpGet("{userId:guid}")]
+    [ProducesResponseType(typeof(Projection.UserAuthentication), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> GetUserAuthenticationAsync([NotEmpty] Guid userId, CancellationToken cancellationToken)
+        => GetProjectionAsync<Query.GetUserAuthentication, Projection.UserAuthentication>(new(userId), cancellationToken);
+
+    [HttpPut("{userId:guid}")]
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> ChangePasswordAsync([NotEmpty] Guid userId, Request.ChangePassword request, CancellationToken cancellationToken)
+        => SendCommandAsync<Command.ChangePassword>(new(userId, request.NewPassword, request.NewPasswordConfirmation), cancellationToken);
+
+    [HttpDelete("{userId:guid}")]
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> DeleteAsync([NotEmpty] Guid userId, CancellationToken cancellationToken)
+        => SendCommandAsync<Command.Delete>(new(userId), cancellationToken);
 
     [HttpPost]
-    public Task<IActionResult> RegisterUser(Command.RegisterUser command, CancellationToken cancellationToken)
-        => SendCommandAsync(command, cancellationToken);
-
-    [HttpPut]
-    public Task<IActionResult> ChangeUserPassword(Command.ChangeUserPassword command, CancellationToken cancellationToken)
-        => SendCommandAsync(command, cancellationToken);
-
-    [HttpDelete]
-    public Task<IActionResult> DeleteUser(Command.DeleteUser command, CancellationToken cancellationToken)
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> RegisterAsync(Command.Register command, CancellationToken cancellationToken)
         => SendCommandAsync(command, cancellationToken);
 }

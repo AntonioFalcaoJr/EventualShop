@@ -4,16 +4,16 @@ using MassTransit;
 
 namespace Application.UseCases.Commands;
 
-public class AdjustInventoryConsumer : IConsumer<Command.AdjustInventory>
+public class DecreaseInventoryAdjustConsumer : IConsumer<Command.DecreaseInventoryAdjust>
 {
     private readonly IWarehouseEventStoreService _eventStore;
 
-    public AdjustInventoryConsumer(IWarehouseEventStoreService eventStore)
+    public DecreaseInventoryAdjustConsumer(IWarehouseEventStoreService eventStore)
     {
         _eventStore = eventStore;
     }
 
-    public async Task Consume(ConsumeContext<Command.AdjustInventory> context)
+    public async Task Consume(ConsumeContext<Command.DecreaseInventoryAdjust> context)
     {
         var inventoryItem = await _eventStore.LoadAggregateAsync(context.Message.ProductId, context.CancellationToken);
         inventoryItem.Handle(context.Message);

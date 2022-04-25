@@ -2,24 +2,36 @@
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;
+using WebAPI.ValidationAttributes;
 
 namespace WebAPI.Controllers;
 
-[Route("api/v1/[controller]")]
 public class WarehousesController : ApplicationController
 {
     public WarehousesController(IBus bus)
         : base(bus) { }
 
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> ReceiveInventoryItemAsync(Request.ReceiveInventoryItem request, CancellationToken cancellationToken)
+        => SendCommandAsync<Command.ReceiveInventoryItem>(new(request.Product, request.Quantity), cancellationToken);
+    
     [HttpGet("{productId:guid}")]
-    public Task<IActionResult> GetInventoryItemDetailsAsync(Guid productId, CancellationToken cancellationToken)
+    [ProducesResponseType(typeof(Projection.Inventory), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> GetInventoryItemAsync(Guid productId, CancellationToken cancellationToken)
         => GetProjectionAsync<Query.GetInventoryItemDetails, Projection.Inventory>(new(productId), cancellationToken);
 
-    [HttpPost]
-    public Task<IActionResult> ReceiveInventoryItemAsync(Command.ReceiveInventoryItem command, CancellationToken cancellationToken)
-        => SendCommandAsync(command, cancellationToken);
+    [HttpPut("{productId:guid}/[action]")]
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> IncreaseAdjustAsync([NotEmpty] Guid productId, Request.IncreaseInventoryAdjust request, CancellationToken cancellationToken)
+        => SendCommandAsync<Command.IncreaseInventoryAdjust>(new(productId, request.Quantity, request.Reason), cancellationToken);
 
     [HttpPut("{productId:guid}/[action]")]
-    public Task<IActionResult> AdjustInventoryAsync(Guid productId, Command.AdjustInventory command, CancellationToken cancellationToken)
-        => SendCommandAsync(command, cancellationToken);
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> DecreaseAdjustAsync([NotEmpty] Guid productId, Request.DecreaseInventoryAdjust request, CancellationToken cancellationToken)
+        => SendCommandAsync<Command.DecreaseInventoryAdjust>(new(productId, request.Quantity, request.Reason), cancellationToken);
 }

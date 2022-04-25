@@ -104,8 +104,8 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     private void When(DomainEvent.CartItemAdded @event)
     {
         Product product = new(@event.Product.Id, @event.Product.Name, @event.Product.UnitPrice, @event.Product.PictureUrl, @event.Product.Sku);
-        CartItem item = new(@event.ItemId, product, @event.Quantity);
-        _items.Add(item);
+        CartItem cartItem = new(@event.ItemId, product, @event.Quantity);
+        _items.Add(cartItem);
     }
 
     private void When(DomainEvent.CreditCardAdded @event)
