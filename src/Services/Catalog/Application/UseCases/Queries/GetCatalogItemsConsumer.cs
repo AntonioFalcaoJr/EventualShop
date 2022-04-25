@@ -5,18 +5,20 @@ using MassTransit;
 
 namespace Application.UseCases.Queries;
 
-public class GetCatalogItemsConsumer : IConsumer<Query.GetCatalogItems>
+public class GetCatalogItemsConsumer : 
+    IConsumer<Query.GetCatalogItems>,
+    IConsumer<Query.GetAllItems>
 {
-    private readonly IProjectionRepository<Projection.CatalogItem> _projectionRepository;
+    private readonly IProjectionRepository<Projection.CatalogItem> _repository;
 
-    public GetCatalogItemsConsumer(IProjectionRepository<Projection.CatalogItem> projectionRepository)
+    public GetCatalogItemsConsumer(IProjectionRepository<Projection.CatalogItem> repository)
     {
-        _projectionRepository = projectionRepository;
+        _repository = repository;
     }
 
     public async Task Consume(ConsumeContext<Query.GetCatalogItems> context)
     {
-        var catalogItems = await _projectionRepository.GetAsync(
+        var catalogItems = await _repository.GetAsync(
             limit: context.Message.Limit,
             offset: context.Message.Offset,
             predicate: item => item.CatalogId == context.Message.CatalogId,
@@ -25,5 +27,17 @@ public class GetCatalogItemsConsumer : IConsumer<Query.GetCatalogItems>
         await (catalogItems is null
             ? context.RespondAsync<NotFound>(new())
             : context.RespondAsync(catalogItems));
+    }
+    
+    public async Task Consume(ConsumeContext<Query.GetAllItems> context)
+    {
+        var items = await _repository.GetAsync(
+            limit: context.Message.Limit,
+            offset: context.Message.Offset,
+            cancellationToken: context.CancellationToken);
+
+        await (items is null
+            ? context.RespondAsync<NotFound>(new())
+            : context.RespondAsync(items));
     }
 }

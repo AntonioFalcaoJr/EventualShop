@@ -6,16 +6,16 @@ namespace Application.UseCases.Queries;
 
 public class GetInventoryItemDetailsConsumer : IConsumer<Query.GetInventoryItemDetails>
 {
-    private readonly IProjectionRepository<Projection.Inventory> _projectionRepository;
+    private readonly IProjectionRepository<Projection.Inventory> _repository;
 
-    public GetInventoryItemDetailsConsumer(IProjectionRepository<Projection.Inventory> projectionRepository)
+    public GetInventoryItemDetailsConsumer(IProjectionRepository<Projection.Inventory> repository)
     {
-        _projectionRepository = projectionRepository;
+        _repository = repository;
     }
 
     public async Task Consume(ConsumeContext<Query.GetInventoryItemDetails> context)
     {
-        var inventory = await _projectionRepository.GetAsync(context.Message.ProductId, context.CancellationToken);
+        var inventory = await _repository.GetAsync(context.Message.ProductId, context.CancellationToken);
         await context.RespondAsync(inventory);
     }
 }

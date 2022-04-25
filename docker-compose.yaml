@@ -18,13 +18,14 @@ services:
     deploy:
       resources:
         limits:
-          memory: 1500M
+          cpus: 1
+          memory: 1400M
     networks:
       - internal
   
   rabbitmq:
     container_name: rabbitmq
-    image: rabbitmq:3-management
+    image: rabbitmq:3-management-alpine
     ports:
       - "5672"
       - "15672:15672"
@@ -37,7 +38,8 @@ services:
     deploy:
       resources:
         limits:
-          memory: 500M
+          cpus: 1
+          memory: 400M
     networks:
       - internal
 
@@ -58,6 +60,7 @@ services:
     deploy:
       resources:
         limits:
+          cpus: 1
           memory: 500M
     networks:
       - internal
@@ -83,7 +86,7 @@ services:
       resources:
         limits:
           cpus: '0.25'
-          memory: 256M
+          memory: 200M
       restart_policy:
         condition: any
   
@@ -104,11 +107,11 @@ services:
     networks:
       - internal
     deploy:
-      replicas: 2
+      replicas: 4
       resources:
         limits:
-          cpus: '0.25'
-          memory: 256M
+          cpus: '0.20'
+          memory: 200M
       restart_policy:
         condition: any
   
@@ -133,7 +136,7 @@ services:
       resources:
         limits:
           cpus: '0.25'
-          memory: 256M
+          memory: 200M
       restart_policy:
         condition: any
   
@@ -158,7 +161,7 @@ services:
       resources:
         limits:
           cpus: '0.25'
-          memory: 256M
+          memory: 200M
       restart_policy:
         condition: any
   
@@ -183,7 +186,7 @@ services:
       resources:
         limits:
           cpus: '0.25'
-          memory: 256M
+          memory: 200M
       restart_policy:
         condition: any
   
@@ -208,7 +211,7 @@ services:
       resources:
         limits:
           cpus: '0.25'
-          memory: 256M
+          memory: 200M
       restart_policy:
         condition: any
   
@@ -233,7 +236,7 @@ services:
       resources:
         limits:
           cpus: '0.25'
-          memory: 256M
+          memory: 200M
       restart_policy:
         condition: any
   
@@ -255,11 +258,11 @@ services:
         aliases:
           - webapi
     deploy:
-      replicas: 2
+      replicas: 3
       resources:
         limits:
-          cpus: '0.25'
-          memory: 256M
+          cpus: '0.20'
+          memory: 200M
       restart_policy:
         condition: any
   
@@ -284,13 +287,13 @@ services:
       resources:
         limits:
           cpus: '0.25'
-          memory: 256M
+          memory: 128M
       restart_policy:
         condition: any
 
   nginx:
     container_name: nginx
-    image: nginx:latest
+    image: nginx:alpine
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
@@ -303,6 +306,13 @@ services:
       - "5000:5000"
     networks:
       - internal
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 80M
+      restart_policy:
+        condition: any
 
 networks:
   internal:

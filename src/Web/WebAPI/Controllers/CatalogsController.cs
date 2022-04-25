@@ -31,6 +31,12 @@ public class CatalogsController : ApplicationController
     public Task<IActionResult> GetAsync([NotEmpty] Guid catalogId, CancellationToken cancellationToken)
         => GetProjectionAsync<Query.GetCatalog, Projection.Catalog>(new(catalogId), cancellationToken);
 
+    [HttpDelete("{catalogId:guid}")]
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> DeleteAsync([NotEmpty] Guid catalogId, CancellationToken cancellationToken)
+        => SendCommandAsync<Command.DeleteCatalog>(new(catalogId), cancellationToken);
+
     [HttpPut("{catalogId:guid}/[action]")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
@@ -55,11 +61,11 @@ public class CatalogsController : ApplicationController
     public Task<IActionResult> ChangeDescriptionAsync([NotEmpty] Guid catalogId, Request.ChangeCatalogDescription request, CancellationToken cancellationToken)
         => SendCommandAsync<Command.ChangeCatalogDescription>(new(catalogId, request.Description), cancellationToken);
 
-    [HttpDelete("{catalogId:guid}")]
-    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [HttpGet("items")]
+    [ProducesResponseType(typeof(IPagedResult<Projection.CatalogItem>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> DeleteAsync([NotEmpty] Guid catalogId, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.DeleteCatalog>(new(catalogId), cancellationToken);
+    public Task<IActionResult> GetAllAsync(int limit, int offset, CancellationToken cancellationToken)
+        => GetProjectionAsync<Query.GetAllItems, IPagedResult<Projection.CatalogItem>>(new(limit, offset), cancellationToken);
 
     [HttpGet("{catalogId:guid}/items")]
     [ProducesResponseType(typeof(IPagedResult<Projection.CatalogItem>), StatusCodes.Status200OK)]
@@ -71,13 +77,7 @@ public class CatalogsController : ApplicationController
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> AddAsync([NotEmpty] Guid catalogId, Request.AddCatalogItem request, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.AddCatalogItem>(new(catalogId, request.Name, request.Description, request.Price, request.PictureUri), cancellationToken);
-
-    [HttpPut("{catalogId:guid}/items/{itemId:guid}")]
-    [ProducesResponseType(StatusCodes.Status202Accepted)]
-    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> UpdateAsync([NotEmpty] Guid catalogId, [NotEmpty] Guid itemId, Request.UpdateCatalogItem request, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.UpdateCatalogItem>(new(catalogId, itemId, request.Name, request.Description, request.Price, request.PictureUri), cancellationToken);
+        => SendCommandAsync<Command.AddCatalogItem>(new(catalogId, request.Product, request.Quantity), cancellationToken);
 
     [HttpDelete("{catalogId:guid}/items/{itemId:guid}")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]

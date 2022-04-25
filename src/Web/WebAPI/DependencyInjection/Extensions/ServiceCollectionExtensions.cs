@@ -58,9 +58,6 @@ public static class ServiceCollectionExtensions
             });
         });
 
-    public static void AddAutoMapper(this IServiceCollection services)
-        => services.AddAutoMapper(Assembly.GetExecutingAssembly());
-
     public static OptionsBuilder<MessageBusOptions> ConfigureMessageBusOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<MessageBusOptions>()

@@ -23,7 +23,7 @@ public class PublishCartSubmittedWhenCheckedOutConsumer : IConsumer<DomainEvent.
         var shoppingCart = await _eventStore.LoadAggregateAsync(context.Message.CartId, context.CancellationToken);
 
         var cartSubmittedEvent = new IntegrationEvent.CartSubmitted(
-            ShoppingCartId: shoppingCart.Id,
+            CartId: shoppingCart.Id,
             Customer: new()
             {
                 Id = shoppingCart.Customer.Id,
@@ -48,12 +48,16 @@ public class PublishCartSubmittedWhenCheckedOutConsumer : IConsumer<DomainEvent.
             },
             ShoppingCartItems: shoppingCart.Items.Select(item => new Models.ShoppingCartItem
             {
-                ProductId = item.ProductId,
-                Quantity = item.Quantity,
-                PictureUrl = item.PictureUrl,
-                ProductName = item.ProductName,
-                UnitPrice = item.UnitPrice,
-                Sku = item.Sku
+                Product = new()
+                {
+                    Description = "item.Product.Description",
+                    Id = item.Product.Id,
+                    Name = item.Product.Name,
+                    Sku = item.Product.Sku,
+                    PictureUrl = item.Product.PictureUrl,
+                    UnitPrice = item.Product.UnitPrice
+                },
+                Quantity = item.Quantity
             }),
             Total: shoppingCart.Total,
             PaymentMethods: shoppingCart.PaymentMethods.Select<IPaymentMethod, Models.IPaymentMethod>(method

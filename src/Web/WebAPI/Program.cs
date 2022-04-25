@@ -81,8 +81,6 @@ builder.Services
 
 builder.Services.AddMessageBus();
 
-builder.Services.AddAutoMapper();
-
 builder.Services.ConfigureMessageBusOptions(
     builder.Configuration.GetSection(nameof(MessageBusOptions)));
 

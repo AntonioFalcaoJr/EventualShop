@@ -1,6 +1,6 @@
 ﻿using Domain.Abstractions.Validators;
+using Domain.Entities.CartItems;
 using Domain.Entities.Customers;
-using Domain.Entities.ShoppingCartItems;
 using Domain.ValueObjects.PaymentMethods.CreditCards;
 using Domain.ValueObjects.PaymentMethods.DebitCards;
 using Domain.ValueObjects.PaymentMethods.PayPal;
@@ -17,7 +17,7 @@ public class ShoppingCartValidator : EntityValidator<ShoppingCart, Guid>
 
         RuleForEach(cart => cart.Items)
             .NotNull()
-            .SetValidator(new ShoppingCartItemValidator());
+            .SetValidator(new CartItemValidator());
 
         When(cart => cart.Items.Any(), () =>
         {

@@ -9,17 +9,17 @@ public class GetShoppingCartPaymentMethodConsumer :
     IConsumer<Query.GetShoppingCartPaymentMethod>,
     IConsumer<Query.GetShoppingCartPaymentMethods>
 {
-    private readonly IProjectionRepository<Projection.IPaymentMethod> _projectionRepository;
+    private readonly IProjectionRepository<Projection.IPaymentMethod> _repository;
 
-    public GetShoppingCartPaymentMethodConsumer(IProjectionRepository<Projection.IPaymentMethod> projectionRepository)
+    public GetShoppingCartPaymentMethodConsumer(IProjectionRepository<Projection.IPaymentMethod> repository)
     {
-        _projectionRepository = projectionRepository;
+        _repository = repository;
     }
 
     public async Task Consume(ConsumeContext<Query.GetShoppingCartPaymentMethod> context)
     {
-        var paymentMethod = await _projectionRepository.FindAsync(
-            predicate: paymentMethod => paymentMethod.ShoppingCartId == context.Message.CartId &&
+        var paymentMethod = await _repository.FindAsync(
+            predicate: paymentMethod => paymentMethod.CartId == context.Message.CartId &&
                                         paymentMethod.Id == context.Message.PaymentMethodId,
             cancellationToken: context.CancellationToken);
 
@@ -30,10 +30,10 @@ public class GetShoppingCartPaymentMethodConsumer :
 
     public async Task Consume(ConsumeContext<Query.GetShoppingCartPaymentMethods> context)
     {
-        var paymentMethods = await _projectionRepository.GetAllAsync(
+        var paymentMethods = await _repository.GetAllAsync(
             context.Message.Limit,
             context.Message.Offset,
-            item => item.ShoppingCartId == context.Message.CartId,
+            item => item.CartId == context.Message.CartId,
             context.CancellationToken);
 
         await (paymentMethods is null

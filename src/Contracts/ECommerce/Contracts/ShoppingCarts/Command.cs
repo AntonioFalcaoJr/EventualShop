@@ -5,9 +5,11 @@ namespace ECommerce.Contracts.ShoppingCarts;
 
 public static class Command
 {
-    public record AddCartItem(Guid CartId, Models.ShoppingCartItem Item) : Message(CorrelationId: CartId), ICommand;
+    public record AddCartItem(Guid CartId, Models.Product Product, int Quantity) : Message(CorrelationId: CartId), ICommand;
 
     public record AddCreditCard(Guid CartId, Models.CreditCard CreditCard) : Message(CorrelationId: CartId), ICommand;
+
+    public record AddDebitCard(Guid CartId, Models.DebitCard DebitCard) : Message(CorrelationId: CartId), ICommand;
 
     public record AddPayPal(Guid CartId, Models.PayPal PayPal) : Message(CorrelationId: CartId), ICommand;
 

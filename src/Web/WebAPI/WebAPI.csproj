@@ -3,8 +3,6 @@
         <UserSecretsId>d5597016-71d1-4499-8543-c547fb02f336</UserSecretsId>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="AutoMapper" Version="$(AutoMapper_Version)" />
-        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="$(AutoMapper_Extensions_Version)" />
         <PackageReference Include="FluentValidation.AspNetCore" Version="$(FluentValidation_Version)" />
         <PackageReference Include="MassTransit.Newtonsoft" Version="$(MassTransit_Version)" />
         <PackageReference Include="MassTransit.RabbitMQ" Version="$(MassTransit_Version)" />
