@@ -20,6 +20,4 @@ public static class Command
     public record DeleteCatalogItem(Guid CatalogId, Guid CatalogItemId) : Message(CorrelationId: CatalogId), ICommand;
 
     public record AddCatalogItem(Guid CatalogId, Models.Product Product, int Quantity) : Message(CorrelationId: CatalogId), ICommand;
-
-    public record UpdateCatalogItem(Guid CatalogId, Guid CatalogItemId, string Name, string Description, decimal Price, string PictureUri) : Message(CorrelationId: CatalogId), ICommand;
 }

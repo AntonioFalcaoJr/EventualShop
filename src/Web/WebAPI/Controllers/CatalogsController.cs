@@ -77,13 +77,7 @@ public class CatalogsController : ApplicationController
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> AddAsync([NotEmpty] Guid catalogId, Request.AddCatalogItem request, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.AddCatalogItem>(new(catalogId, request.Name, request.Description, request.Price, request.PictureUri), cancellationToken);
-
-    [HttpPut("{catalogId:guid}/items/{itemId:guid}")]
-    [ProducesResponseType(StatusCodes.Status202Accepted)]
-    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> UpdateAsync([NotEmpty] Guid catalogId, [NotEmpty] Guid itemId, Request.UpdateCatalogItem request, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.UpdateCatalogItem>(new(catalogId, itemId, request.Name, request.Description, request.Price, request.PictureUri), cancellationToken);
+        => SendCommandAsync<Command.AddCatalogItem>(new(catalogId, request.Product, request.Quantity), cancellationToken);
 
     [HttpDelete("{catalogId:guid}/items/{itemId:guid}")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
