@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Application.Abstractions.Notifications;
-using ECommerce.Abstractions;
-using ECommerce.JsonConverters;
+using Contracts.Abstractions;
+using Contracts.JsonConverters;
 using FluentValidation;
 using Infrastructure.MessageBus.DependencyInjection.Options;
 using Infrastructure.MessageBus.DependencyInjection.PipeFilters;

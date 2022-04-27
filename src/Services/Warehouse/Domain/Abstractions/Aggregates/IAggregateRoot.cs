@@ -1,5 +1,5 @@
 ﻿using Domain.Abstractions.Entities;
-using ECommerce.Abstractions;
+using Contracts.Abstractions;
 
 namespace Domain.Abstractions.Aggregates;
 

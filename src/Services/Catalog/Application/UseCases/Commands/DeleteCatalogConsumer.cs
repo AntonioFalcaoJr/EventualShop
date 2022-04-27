@@ -1,5 +1,5 @@
 using Application.EventStore;
-using ECommerce.Contracts.Catalogs;
+using Contracts.Services.Catalog;
 using MassTransit;
 
 namespace Application.UseCases.Commands;

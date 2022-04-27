@@ -1,11 +1,11 @@
 ﻿using Application.Abstractions.Projections;
+using Contracts.Services.ShoppingCart;
 using Infrastructure.Projections.Abstractions.Contexts;
 using Infrastructure.Projections.Abstractions.Contexts.BsonSerializers;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
-using ECommerce.Contracts.ShoppingCarts;
 
 namespace Infrastructure.Projections.DependencyInjection.Extensions;
 

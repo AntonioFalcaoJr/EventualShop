@@ -1,10 +1,10 @@
 ﻿using Application.EventStore;
+using Contracts.DataTransferObjects;
+using Contracts.Services.ShoppingCart;
 using Domain.ValueObjects.PaymentMethods;
 using Domain.ValueObjects.PaymentMethods.CreditCards;
 using Domain.ValueObjects.PaymentMethods.DebitCards;
 using Domain.ValueObjects.PaymentMethods.PayPal;
-using ECommerce.Contracts.Common;
-using ECommerce.Contracts.ShoppingCarts;
 using MassTransit;
 
 namespace Application.UseCases.Events.Integrations;
@@ -46,7 +46,7 @@ public class PublishCartSubmittedWhenCheckedOutConsumer : IConsumer<DomainEvent.
                     ZipCode = shoppingCart.Customer.ShippingAddress.ZipCode
                 }
             },
-            ShoppingCartItems: shoppingCart.Items.Select(item => new Models.ShoppingCartItem
+            ShoppingCartItems: shoppingCart.Items.Select(item => new Dto.ShoppingCartItem
             {
                 Product = new()
                 {
@@ -60,11 +60,11 @@ public class PublishCartSubmittedWhenCheckedOutConsumer : IConsumer<DomainEvent.
                 Quantity = item.Quantity
             }),
             Total: shoppingCart.Total,
-            PaymentMethods: shoppingCart.PaymentMethods.Select<IPaymentMethod, Models.IPaymentMethod>(method
+            PaymentMethods: shoppingCart.PaymentMethods.Select<IPaymentMethod, Dto.IPaymentMethod>(method
                 => method switch
                 {
                     CreditCardPaymentMethod creditCard
-                        => new Models.CreditCard
+                        => new Dto.CreditCard
                         {
                             Amount = creditCard.Amount,
                             Expiration = creditCard.Expiration,
@@ -73,7 +73,7 @@ public class PublishCartSubmittedWhenCheckedOutConsumer : IConsumer<DomainEvent.
                             SecurityNumber = creditCard.SecurityNumber
                         },
                     DebitCardPaymentMethod debitCard
-                        => new Models.DebitCard
+                        => new Dto.DebitCard
                         {
                             Amount = debitCard.Amount,
                             Expiration = debitCard.Expiration,
@@ -82,7 +82,7 @@ public class PublishCartSubmittedWhenCheckedOutConsumer : IConsumer<DomainEvent.
                             SecurityNumber = debitCard.SecurityNumber
                         },
                     PayPalPaymentMethod payPal
-                        => new Models.PayPal
+                        => new Dto.PayPal
                         {
                             Amount = payPal.Amount,
                             Password = payPal.Password,

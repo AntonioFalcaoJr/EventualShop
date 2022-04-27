@@ -1,7 +1,7 @@
 using System.Reflection;
-using ECommerce.Abstractions;
-using ECommerce.Contracts.ShoppingCarts;
-using ECommerce.JsonConverters;
+using Contracts.Abstractions;
+using Contracts.JsonConverters;
+using Contracts.Services.ShoppingCart;
 using FluentValidation.AspNetCore;
 using MassTransit;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.OpenApi.Any;
 using Serilog;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using WebAPI.DependencyInjection.Extensions;
 using WebAPI.DependencyInjection.Options;
 using WebAPI.DependencyInjection.ParameterTransformers;

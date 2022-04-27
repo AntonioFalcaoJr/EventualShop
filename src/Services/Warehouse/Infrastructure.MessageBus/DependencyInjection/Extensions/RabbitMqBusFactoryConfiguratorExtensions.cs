@@ -1,7 +1,7 @@
 ﻿using Application.UseCases.Events.Integrations;
 using Application.UseCases.Events.Projections;
-using ECommerce.Abstractions;
-using ECommerce.Contracts.Warehouses;
+using Contracts.Abstractions;
+using Contracts.Services.Warehouse;
 using MassTransit;
 
 namespace Infrastructure.MessageBus.DependencyInjection.Extensions;
@@ -11,7 +11,7 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistrationContext registration)
     {
         cfg.ConfigureEventReceiveEndpoint<ProjectInventoryItemWhenChangedConsumer, DomainEvent.InventoryReceived>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ReserveInventoryItemWhenCartItemAddedConsumer, ECommerce.Contracts.ShoppingCarts.DomainEvent.CartItemAdded>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ReserveInventoryItemWhenCartItemAddedConsumer, Contracts.Services.ShoppingCart.DomainEvent.CartItemAdded>(registration);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistrationContext registration)

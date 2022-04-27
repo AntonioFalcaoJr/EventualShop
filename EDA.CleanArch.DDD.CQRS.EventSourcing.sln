@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Services\Acco
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Contracts", "Contracts", "{A4AA979C-E984-4303-9B97-5CA85CFCF601}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce", "src\Contracts\ECommerce\ECommerce.csproj", "{50BFE5CE-EE45-43C4-81CC-DF4A16CB9581}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "src\Contracts\Contracts\Contracts.csproj", "{50BFE5CE-EE45-43C4-81CC-DF4A16CB9581}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{C9CDAF5D-FE5E-4E6E-8F65-7B84AFD35A6A}"
 EndProject

@@ -22,7 +22,7 @@ COPY ./src/Services/ShoppingCart/Infrastructure.EventStore/*.csproj ./Services/S
 COPY ./src/Services/ShoppingCart/Infrastructure.MessageBus/*.csproj ./Services/ShoppingCart/Infrastructure.MessageBus/
 COPY ./src/Services/ShoppingCart/Infrastructure.Projections/*.csproj ./Services/ShoppingCart/Infrastructure.Projections/
 COPY ./src/Services/ShoppingCart/WorkerService/*.csproj ./Services/ShoppingCart/WorkerService/
-COPY ./src/Contracts/ECommerce/*.csproj ./Contracts/ECommerce/
+COPY ./src/Contracts/Contracts/*.csproj ./Contracts/Contracts/
 
 RUN dotnet restore -v m ./Services/ShoppingCart/WorkerService
 
@@ -32,7 +32,7 @@ COPY ./src/Services/ShoppingCart/Infrastructure.EventStore/. ./Services/Shopping
 COPY ./src/Services/ShoppingCart/Infrastructure.MessageBus/. ./Services/ShoppingCart/Infrastructure.MessageBus/
 COPY ./src/Services/ShoppingCart/Infrastructure.Projections/. ./Services/ShoppingCart/Infrastructure.Projections/
 COPY ./src/Services/ShoppingCart/WorkerService/. ./Services/ShoppingCart/WorkerService/
-COPY ./src/Contracts/ECommerce/. ./Contracts/ECommerce/
+COPY ./src/Contracts/Contracts/. ./Contracts/Contracts/
 
 WORKDIR /src/Services/ShoppingCart/WorkerService
 

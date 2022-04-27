@@ -1,8 +1,8 @@
 ﻿using Application.EventStore;
+using Contracts.Services.ShoppingCart;
 using Domain.Aggregates;
-using ECommerce.Contracts.ShoppingCarts;
 using MassTransit;
-using Command = ECommerce.Contracts.Orders.Command;
+using Command = Contracts.Services.Order.Command;
 
 namespace Application.UseCases.Events.Integrations;
 

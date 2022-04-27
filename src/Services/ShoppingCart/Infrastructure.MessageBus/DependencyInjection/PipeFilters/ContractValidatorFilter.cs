@@ -1,4 +1,4 @@
-﻿using ECommerce.Abstractions;
+﻿using Contracts.Abstractions;
 using FluentValidation;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,4 +1,4 @@
-﻿using ECommerce.Contracts.Warehouses;
+﻿using Contracts.Services.Warehouse;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;

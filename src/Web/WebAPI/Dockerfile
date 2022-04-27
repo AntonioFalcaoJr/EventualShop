@@ -5,7 +5,7 @@ ARG BASE_ADRESS="mcr.microsoft.com/dotnet"
 FROM $BASE_ADRESS/aspnet:$ASPNET_VERSION AS base
 WORKDIR /app
 
-EXPOSE 5000
+EXPOSE 80
 
 RUN apk add --no-cache icu-libs
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
@@ -19,12 +19,12 @@ COPY ./Directory.Build.props ./
 WORKDIR /src
 
 COPY ./src/Web/WebAPI/*.csproj ./Web/WebAPI/
-COPY ./src/Contracts/ECommerce/*.csproj ./Contracts/ECommerce/
+COPY ./src/Contracts/Contracts/*.csproj ./Contracts/Contracts/
 
 RUN dotnet restore -v m ./Web/WebAPI
 
 COPY ./src/Web/WebAPI/. ./Web/WebAPI/
-COPY ./src/Contracts/ECommerce/. ./Contracts/ECommerce/
+COPY ./src/Contracts/Contracts/. ./Contracts/Contracts/
 
 WORKDIR /src/Web/WebAPI
 RUN dotnet build -c Release --no-restore -v m -o /app/build
