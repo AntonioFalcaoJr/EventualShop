@@ -22,7 +22,7 @@ COPY ./src/Services/Identity/Infrastructure.EventStore/*.csproj ./Services/Ident
 COPY ./src/Services/Identity/Infrastructure.MessageBus/*.csproj ./Services/Identity/Infrastructure.MessageBus/
 COPY ./src/Services/Identity/Infrastructure.Projections/*.csproj ./Services/Identity/Infrastructure.Projections/
 COPY ./src/Services/Identity/WorkerService/*.csproj ./Services/Identity/WorkerService/
-COPY ./src/Contracts/ECommerce/*.csproj ./Contracts/ECommerce/
+COPY ./src/Contracts/Contracts/*.csproj ./Contracts/Contracts/
 
 RUN dotnet restore -v m ./Services/Identity/WorkerService
 
@@ -32,7 +32,7 @@ COPY ./src/Services/Identity/Infrastructure.EventStore/. ./Services/Identity/Inf
 COPY ./src/Services/Identity/Infrastructure.MessageBus/. ./Services/Identity/Infrastructure.MessageBus/
 COPY ./src/Services/Identity/Infrastructure.Projections/. ./Services/Identity/Infrastructure.Projections/
 COPY ./src/Services/Identity/WorkerService/. ./Services/Identity/WorkerService/
-COPY ./src/Contracts/ECommerce/. ./Contracts/ECommerce/
+COPY ./src/Contracts/Contracts/. ./Contracts/Contracts/
 
 WORKDIR /src/Services/Identity/WorkerService
 

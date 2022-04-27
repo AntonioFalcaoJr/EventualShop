@@ -19,7 +19,7 @@ services:
       resources:
         limits:
           cpus: 1
-          memory: 1400M
+          memory: 1500M
       restart_policy:
         condition: any
     networks:

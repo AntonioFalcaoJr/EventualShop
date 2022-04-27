@@ -19,12 +19,12 @@ COPY ./Directory.Build.props ./
 WORKDIR /src
 
 COPY ./src/Web/WebAPI/*.csproj ./Web/WebAPI/
-COPY ./src/Contracts/ECommerce/*.csproj ./Contracts/ECommerce/
+COPY ./src/Contracts/Contracts/*.csproj ./Contracts/Contracts/
 
 RUN dotnet restore -v m ./Web/WebAPI
 
 COPY ./src/Web/WebAPI/. ./Web/WebAPI/
-COPY ./src/Contracts/ECommerce/. ./Contracts/ECommerce/
+COPY ./src/Contracts/Contracts/. ./Contracts/Contracts/
 
 WORKDIR /src/Web/WebAPI
 RUN dotnet build -c Release --no-restore -v m -o /app/build
