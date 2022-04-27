@@ -13,7 +13,6 @@ public class Product : Entity<Guid, ProductValidator>
         Sku = sku;
     }
 
-    public Guid Id { get; }
     public string Name { get; }
     public decimal UnitPrice { get; }
     public string PictureUrl { get; }

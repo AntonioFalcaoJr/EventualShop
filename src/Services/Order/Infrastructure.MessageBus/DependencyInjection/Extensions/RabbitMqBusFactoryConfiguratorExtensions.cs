@@ -1,9 +1,9 @@
 ﻿using Application.UseCases.Events.Integrations;
 using Application.UseCases.Events.Projections;
-using ECommerce.Abstractions;
-using ECommerce.Contracts.ShoppingCarts;
+using Contracts.Abstractions;
+using Contracts.Services.ShoppingCarts;
 using MassTransit;
-using DomainEvent = ECommerce.Contracts.Orders.DomainEvent;
+using DomainEvent = Contracts.Services.Orders.DomainEvent;
 
 namespace Infrastructure.MessageBus.DependencyInjection.Extensions;
 

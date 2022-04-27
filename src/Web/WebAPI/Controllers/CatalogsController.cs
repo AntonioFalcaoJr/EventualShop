@@ -1,5 +1,5 @@
-﻿using ECommerce.Abstractions.Paging;
-using ECommerce.Contracts.Catalogs;
+﻿using Contracts.Abstractions.Paging;
+using Contracts.Services.Catalogs;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;

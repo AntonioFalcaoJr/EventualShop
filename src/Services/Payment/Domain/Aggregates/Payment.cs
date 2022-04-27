@@ -5,9 +5,9 @@ using Domain.Entities.PaymentMethods.DebitCards;
 using Domain.Entities.PaymentMethods.PayPal;
 using Domain.Enumerations;
 using Domain.ValueObjects.Addresses;
-using ECommerce.Abstractions;
-using ECommerce.Contracts.Common;
-using ECommerce.Contracts.Payments;
+using Contracts.Abstractions;
+using Contracts.DataTransferObjects;
+using Contracts.Services.Payments;
 
 namespace Domain.Aggregates;
 
@@ -64,10 +64,10 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
         };
 
         _methods.AddRange(@event.PaymentMethods
-            .Select<Models.IPaymentMethod, IPaymentMethod>(method
+            .Select<Dto.IPaymentMethod, IPaymentMethod>(method
                 => method switch
                 {
-                    Models.CreditCard creditCard
+                    Dto.CreditCard creditCard
                         => new CreditCardPaymentMethod(
                             creditCard.Id,
                             creditCard.Amount,
@@ -75,7 +75,7 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
                             creditCard.Number,
                             creditCard.HolderName,
                             creditCard.SecurityNumber),
-                    Models.DebitCard debitCard
+                    Dto.DebitCard debitCard
                         => new DebitCardPaymentMethod(
                             debitCard.Id,
                             debitCard.Amount,
@@ -83,7 +83,7 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
                             debitCard.Number,
                             debitCard.HolderName,
                             debitCard.SecurityNumber),
-                    Models.PayPal payPal
+                    Dto.PayPal payPal
                         => new PayPalPaymentMethod(
                             payPal.Id,
                             payPal.Amount,

@@ -1,6 +1,6 @@
 ﻿using Application.Abstractions.Projections;
+using Contracts.Services.ShoppingCarts;
 using Domain.Enumerations;
-using ECommerce.Contracts.ShoppingCarts;
 using MassTransit;
 
 namespace Application.UseCases.Events.Projections;

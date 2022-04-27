@@ -1,7 +1,7 @@
 ﻿using Application.EventStore;
-using ECommerce.Contracts.Payments;
+using Contracts.Services.Payments;
 using MassTransit;
-using Command = ECommerce.Contracts.Orders.Command;
+using Command = Contracts.Services.Orders.Command;
 
 namespace Application.UseCases.Events.Integrations;
 

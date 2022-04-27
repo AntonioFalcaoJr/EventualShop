@@ -1,8 +1,8 @@
 ﻿using Application.EventStore;
+using Contracts.Services.Identities;
 using Domain.Aggregates;
-using ECommerce.Contracts.Identities;
 using MassTransit;
-using Command = ECommerce.Contracts.Accounts.Command;
+using Command = Contracts.Services.Accounts.Command;
 
 namespace Application.UseCases.Events.Integrations;
 

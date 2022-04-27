@@ -1,4 +1,4 @@
-﻿using ECommerce.Contracts.Orders;
+﻿using Contracts.Services.Orders;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;

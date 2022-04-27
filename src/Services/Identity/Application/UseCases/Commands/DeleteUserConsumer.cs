@@ -1,5 +1,5 @@
 ﻿using Application.EventStore;
-using ECommerce.Contracts.Identities;
+using Contracts.Services.Identities;
 using MassTransit;
 
 namespace Application.UseCases.Commands;

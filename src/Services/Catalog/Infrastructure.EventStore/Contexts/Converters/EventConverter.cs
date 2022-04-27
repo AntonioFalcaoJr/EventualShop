@@ -1,5 +1,5 @@
-﻿using ECommerce.Abstractions;
-using ECommerce.JsonConverters;
+﻿using Contracts.Abstractions;
+using Contracts.JsonConverters;
 using JsonNet.ContractResolvers;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Newtonsoft.Json;

@@ -1,6 +1,6 @@
 ﻿using Application.UseCases.Events;
-using ECommerce.Abstractions;
-using ECommerce.Contracts.Catalogs;
+using Contracts.Abstractions;
+using Contracts.Services.Catalogs;
 using MassTransit;
 
 namespace Infrastructure.MessageBus.DependencyInjection.Extensions;

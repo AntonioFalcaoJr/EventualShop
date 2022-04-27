@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions.Projections;
-using ECommerce.Contracts.ShoppingCarts;
+using Contracts.Services.ShoppingCarts;
 using MassTransit;
 
 namespace Application.UseCases.Events.Projections;

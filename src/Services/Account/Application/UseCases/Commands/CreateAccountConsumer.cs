@@ -1,6 +1,6 @@
 ﻿using Application.EventStore;
+using Contracts.Services.Accounts;
 using Domain.Aggregates;
-using ECommerce.Contracts.Accounts;
 using MassTransit;
 
 namespace Application.UseCases.Commands;

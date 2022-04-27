@@ -1,8 +1,8 @@
 ﻿using Application.EventStore;
+using Contracts.Services.Payments;
 using Domain.Aggregates;
-using ECommerce.Contracts.Payments;
 using MassTransit;
-using DomainEvent = ECommerce.Contracts.Orders.DomainEvent;
+using DomainEvent = Contracts.Services.Orders.DomainEvent;
 
 namespace Application.UseCases.Events.Integrations;
 

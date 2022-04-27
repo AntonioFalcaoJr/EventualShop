@@ -1,7 +1,7 @@
 ﻿using Domain.Abstractions.Aggregates;
 using Domain.ValueObjects.Profiles;
-using ECommerce.Abstractions;
-using ECommerce.Contracts.Accounts;
+using Contracts.Abstractions;
+using Contracts.Services.Accounts;
 
 namespace Domain.Aggregates;
 

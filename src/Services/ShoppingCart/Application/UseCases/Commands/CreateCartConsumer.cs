@@ -1,6 +1,6 @@
 ﻿using Application.EventStore;
+using Contracts.Services.ShoppingCarts;
 using Domain.Aggregates;
-using ECommerce.Contracts.ShoppingCarts;
 using MassTransit;
 
 namespace Application.UseCases.Commands;

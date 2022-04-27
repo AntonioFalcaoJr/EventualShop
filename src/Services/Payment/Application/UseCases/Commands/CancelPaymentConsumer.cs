@@ -1,5 +1,5 @@
 ﻿using Application.EventStore;
-using ECommerce.Contracts.Payments;
+using Contracts.Services.Payments;
 using MassTransit;
 
 namespace Application.UseCases.Commands;

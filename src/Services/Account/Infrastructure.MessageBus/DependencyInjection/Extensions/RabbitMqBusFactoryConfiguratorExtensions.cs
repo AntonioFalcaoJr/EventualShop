@@ -1,7 +1,7 @@
 ﻿using Application.UseCases.Events.Integrations;
 using Application.UseCases.Events.Projections;
-using ECommerce.Abstractions;
-using ECommerce.Contracts.Accounts;
+using Contracts.Abstractions;
+using Contracts.Services.Accounts;
 using MassTransit;
 
 namespace Infrastructure.MessageBus.DependencyInjection.Extensions;
@@ -10,7 +10,7 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistrationContext registration)
     {
-        cfg.ConfigureEventReceiveEndpoint<CreateAccountWhenUserRegisteredConsumer, ECommerce.Contracts.Identities.DomainEvent.UserRegistered>(registration);
+        cfg.ConfigureEventReceiveEndpoint<CreateAccountWhenUserRegisteredConsumer, Contracts.Services.Identities.DomainEvent.UserRegistered>(registration);
         cfg.ConfigureEventReceiveEndpoint<ProjectAccountDetailsWhenChangedConsumer, DomainEvent.ProfessionalAddressDefined>(registration);
         cfg.ConfigureEventReceiveEndpoint<ProjectAccountDetailsWhenChangedConsumer, DomainEvent.ProfileUpdated>(registration);
         cfg.ConfigureEventReceiveEndpoint<ProjectAccountDetailsWhenChangedConsumer, DomainEvent.ResidenceAddressDefined>(registration);

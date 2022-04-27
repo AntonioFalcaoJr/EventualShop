@@ -1,4 +1,4 @@
-﻿using ECommerce.Contracts.Catalogs;
+﻿using Contracts.Services.Catalogs;
 using WebAPP.Abstractions.Http;
 
 namespace WebAPP.HttpClients;

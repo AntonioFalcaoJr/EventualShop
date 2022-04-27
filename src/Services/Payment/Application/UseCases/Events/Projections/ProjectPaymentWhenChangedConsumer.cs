@@ -1,6 +1,6 @@
 ﻿using Application.Abstractions.Projections;
+using Contracts.Services.Payments;
 using Domain.Enumerations;
-using ECommerce.Contracts.Payments;
 using MassTransit;
 
 namespace Application.UseCases.Events.Projections;

@@ -1,6 +1,6 @@
 ﻿using Application.EventStore;
 using Application.Services;
-using ECommerce.Contracts.Payments;
+using Contracts.Services.Payments;
 using MassTransit;
 
 namespace Application.UseCases.Events.Behaviors;

@@ -1,6 +1,6 @@
 ﻿using Application.Abstractions.Projections;
-using ECommerce.Abstractions;
-using ECommerce.Contracts.ShoppingCarts;
+using Contracts.Abstractions;
+using Contracts.Services.ShoppingCarts;
 using MassTransit;
 
 namespace Application.UseCases.Queries;

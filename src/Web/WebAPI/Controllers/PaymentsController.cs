@@ -1,4 +1,4 @@
-﻿using ECommerce.Contracts.Payments;
+﻿using Contracts.Services.Payments;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;
