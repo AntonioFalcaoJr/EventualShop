@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions.Projections;
-using Contracts.Services.Payments;
+using Contracts.Services.Payment;
 using Domain.Enumerations;
 using MassTransit;
 

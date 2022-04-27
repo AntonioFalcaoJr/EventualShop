@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions.Projections;
-using Contracts.Services.Orders;
+using Contracts.Services.Order;
 using MassTransit;
 
 namespace Application.UseCases.Events.Projections;

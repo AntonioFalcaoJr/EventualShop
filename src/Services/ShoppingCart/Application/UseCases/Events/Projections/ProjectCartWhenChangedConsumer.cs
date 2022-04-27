@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions.Projections;
-using Contracts.Services.ShoppingCarts;
+using Contracts.Services.ShoppingCart;
 using Domain.Enumerations;
 using MassTransit;
 

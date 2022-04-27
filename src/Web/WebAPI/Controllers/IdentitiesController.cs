@@ -1,4 +1,4 @@
-﻿using Contracts.Services.Identities;
+﻿using Contracts.Services.Identity;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;

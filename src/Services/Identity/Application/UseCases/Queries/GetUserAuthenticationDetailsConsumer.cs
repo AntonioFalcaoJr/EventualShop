@@ -1,6 +1,6 @@
 using Application.Abstractions.Projections;
 using Contracts.Abstractions;
-using Contracts.Services.Identities;
+using Contracts.Services.Identity;
 using MassTransit;
 
 namespace Application.UseCases.Queries;

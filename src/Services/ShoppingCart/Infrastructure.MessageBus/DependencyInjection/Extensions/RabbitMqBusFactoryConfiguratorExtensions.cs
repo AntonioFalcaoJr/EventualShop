@@ -1,7 +1,7 @@
 ﻿using Application.UseCases.Events.Integrations;
 using Application.UseCases.Events.Projections;
 using Contracts.Abstractions;
-using Contracts.Services.ShoppingCarts;
+using Contracts.Services.ShoppingCart;
 using MassTransit;
 
 namespace Infrastructure.MessageBus.DependencyInjection.Extensions;

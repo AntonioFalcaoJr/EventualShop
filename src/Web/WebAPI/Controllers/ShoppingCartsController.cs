@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Contracts.Abstractions.Paging;
-using Contracts.Services.ShoppingCarts;
+using Contracts.Services.ShoppingCart;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;

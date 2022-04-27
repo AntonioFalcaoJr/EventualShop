@@ -1,6 +1,6 @@
 ﻿using Application.UseCases.Events.Projections;
 using Contracts.Abstractions;
-using Contracts.Services.Identities;
+using Contracts.Services.Identity;
 using MassTransit;
 
 namespace Infrastructure.MessageBus.DependencyInjection.Extensions;

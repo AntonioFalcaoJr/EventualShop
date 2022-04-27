@@ -7,7 +7,7 @@ using Domain.Enumerations;
 using Domain.ValueObjects.Addresses;
 using Contracts.Abstractions;
 using Contracts.DataTransferObjects;
-using Contracts.Services.Payments;
+using Contracts.Services.Payment;
 
 namespace Domain.Aggregates;
 

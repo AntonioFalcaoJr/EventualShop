@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions.Projections;
-using Contracts.Services.Warehouses;
+using Contracts.Services.Warehouse;
 using MassTransit;
 
 namespace Application.UseCases.Events.Projections;

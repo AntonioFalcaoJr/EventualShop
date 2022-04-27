@@ -1,5 +1,5 @@
 ﻿using Application.EventStore;
-using Contracts.Services.Warehouses;
+using Contracts.Services.Warehouse;
 using Domain.Aggregates;
 using MassTransit;
 

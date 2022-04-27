@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions.Projections;
-using Contracts.Services.ShoppingCarts;
+using Contracts.Services.ShoppingCart;
 using Infrastructure.Projections.Abstractions.Contexts;
 using Infrastructure.Projections.Abstractions.Contexts.BsonSerializers;
 using Microsoft.Extensions.DependencyInjection;

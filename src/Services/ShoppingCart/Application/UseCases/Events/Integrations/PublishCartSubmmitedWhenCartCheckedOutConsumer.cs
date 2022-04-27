@@ -1,6 +1,6 @@
 ﻿using Application.EventStore;
 using Contracts.DataTransferObjects;
-using Contracts.Services.ShoppingCarts;
+using Contracts.Services.ShoppingCart;
 using Domain.ValueObjects.PaymentMethods;
 using Domain.ValueObjects.PaymentMethods.CreditCards;
 using Domain.ValueObjects.PaymentMethods.DebitCards;

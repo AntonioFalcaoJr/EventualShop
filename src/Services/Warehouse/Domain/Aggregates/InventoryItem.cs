@@ -2,7 +2,7 @@
 using Domain.Entities;
 using Domain.Entities.Products;
 using Contracts.Abstractions;
-using Contracts.Services.Warehouses;
+using Contracts.Services.Warehouse;
 
 namespace Domain.Aggregates;
 

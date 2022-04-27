@@ -1,5 +1,5 @@
 ﻿using Application.EventStore;
-using Contracts.Services.ShoppingCarts;
+using Contracts.Services.ShoppingCart;
 using MassTransit;
 
 namespace Application.UseCases.Commands;

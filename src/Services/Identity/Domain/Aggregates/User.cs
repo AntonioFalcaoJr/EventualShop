@@ -1,6 +1,6 @@
 ﻿using Domain.Abstractions.Aggregates;
 using Contracts.Abstractions;
-using Contracts.Services.Identities;
+using Contracts.Services.Identity;
 
 namespace Domain.Aggregates;
 

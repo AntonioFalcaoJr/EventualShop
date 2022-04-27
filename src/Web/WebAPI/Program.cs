@@ -1,7 +1,7 @@
 using System.Reflection;
 using Contracts.Abstractions;
 using Contracts.JsonConverters;
-using Contracts.Services.ShoppingCarts;
+using Contracts.Services.ShoppingCart;
 using FluentValidation.AspNetCore;
 using MassTransit;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
