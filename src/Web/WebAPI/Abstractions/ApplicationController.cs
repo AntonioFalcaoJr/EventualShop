@@ -1,4 +1,4 @@
-using ECommerce.Abstractions;
+using Contracts.Abstractions;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 

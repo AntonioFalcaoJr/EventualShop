@@ -1,7 +1,7 @@
 using Application.Abstractions.EventStore;
 using Application.Abstractions.EventStore.Events;
+using Contracts.Abstractions;
 using Domain.Abstractions.Aggregates;
-using ECommerce.Abstractions;
 using Infrastructure.EventStore.Contexts;
 using Microsoft.EntityFrameworkCore;
 

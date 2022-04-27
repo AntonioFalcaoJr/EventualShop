@@ -68,8 +68,8 @@ var applicationLifetime = host.Services.GetRequiredService<IHostApplicationLifet
 
 applicationLifetime.ApplicationStopping.Register(() =>
 {
-    Log.Information("Waiting 15s for a graceful termination...");
-    Thread.Sleep(15000);
+    Log.Information("Waiting 20s for a graceful termination...");
+    Thread.Sleep(20000);
 });
 
 applicationLifetime.ApplicationStopped.Register(() =>

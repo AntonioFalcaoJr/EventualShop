@@ -1,4 +1,4 @@
-﻿using ECommerce.Contracts.Identities;
+﻿using Contracts.Services.Identity;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;

@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using ECommerce.JsonConverters;
+﻿using Contracts.JsonConverters;
 using MassTransit;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;

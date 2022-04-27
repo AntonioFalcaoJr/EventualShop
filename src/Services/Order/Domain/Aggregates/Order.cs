@@ -6,9 +6,9 @@ using Domain.Entities.PaymentMethods.CreditCards;
 using Domain.Entities.PaymentMethods.DebitCards;
 using Domain.Entities.PaymentMethods.PayPal;
 using Domain.Enumerations;
-using ECommerce.Abstractions;
-using ECommerce.Contracts.Common;
-using ECommerce.Contracts.Orders;
+using Contracts.Abstractions;
+using Contracts.DataTransferObjects;
+using Contracts.Services.Order;
 
 namespace Domain.Aggregates;
 
@@ -77,10 +77,10 @@ public class Order : AggregateRoot<Guid, OrderValidator>
                 item.Quantity,
                 item.Product.PictureUrl)));
 
-        _paymentMethods.AddRange(@event.PaymentMethods.Select<Models.IPaymentMethod, IPaymentMethod>(method
+        _paymentMethods.AddRange(@event.PaymentMethods.Select<Dto.IPaymentMethod, IPaymentMethod>(method
             => method switch
             {
-                Models.CreditCard creditCard
+                Dto.CreditCard creditCard
                     => new CreditCardPaymentMethod
                     {
                         Amount = creditCard.Amount,
@@ -89,7 +89,7 @@ public class Order : AggregateRoot<Guid, OrderValidator>
                         HolderName = creditCard.HolderName,
                         SecurityNumber = creditCard.SecurityNumber
                     },
-                Models.DebitCard debitCard
+                Dto.DebitCard debitCard
                     => new DebitCardPaymentMethod
                     {
                         Amount = debitCard.Amount,
@@ -98,7 +98,7 @@ public class Order : AggregateRoot<Guid, OrderValidator>
                         HolderName = debitCard.HolderName,
                         SecurityNumber = debitCard.SecurityNumber
                     },
-                Models.PayPal payPal
+                Dto.PayPal payPal
                     => new PayPalPaymentMethod
                     {
                         Amount = payPal.Amount,

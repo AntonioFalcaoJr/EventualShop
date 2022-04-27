@@ -1,6 +1,6 @@
 ﻿using BlazorStrap;
-using ECommerce.Abstractions.Paging;
-using ECommerce.Contracts.Catalogs;
+using Contracts.Abstractions.Paging;
+using Contracts.Services.Catalog;
 using WebAPP.HttpClients;
 
 namespace WebAPP.ViewModels;

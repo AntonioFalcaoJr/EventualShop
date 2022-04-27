@@ -1,8 +1,8 @@
 ﻿using Domain.Abstractions.Aggregates;
 using Domain.Entities.CatalogItems;
 using Domain.Entities.Products;
-using ECommerce.Abstractions;
-using ECommerce.Contracts.Catalogs;
+using Contracts.Abstractions;
+using Contracts.Services.Catalog;
 
 namespace Domain.Aggregates;
 

@@ -1,4 +1,4 @@
-﻿using ECommerce.Contracts.Catalogs;
+﻿using Contracts.Services.Catalog;
 using Microsoft.Extensions.Options;
 using WebAPP.Abstractions.Http;
 using WebAPP.DependencyInjection.Options;

@@ -19,7 +19,9 @@ services:
       resources:
         limits:
           cpus: 1
-          memory: 1400M
+          memory: 1500M
+      restart_policy:
+        condition: any
     networks:
       - internal
   
@@ -40,12 +42,14 @@ services:
         limits:
           cpus: 1
           memory: 400M
+      restart_policy:
+        condition: any
     networks:
       - internal
 
   mongodb:
     container_name: mongodb
-    image: mongo
+    image: mongo:latest
     ports:
       - "27017"
     environment:
@@ -62,11 +66,13 @@ services:
         limits:
           cpus: 1
           memory: 500M
+      restart_policy:
+        condition: any
     networks:
       - internal
   
   account:
-    image: account
+    image: account:latest
     build:
       context: .
       dockerfile: ./src/Services/Account/WorkerService/Dockerfile
@@ -85,13 +91,13 @@ services:
       replicas: 2
       resources:
         limits:
-          cpus: '0.25'
+          cpus: '0.20'
           memory: 200M
       restart_policy:
         condition: any
   
   catalog:
-    image: catalog
+    image: catalog:latest
     build:
       context: .
       dockerfile: ./src/Services/Catalog/WorkerService/Dockerfile
@@ -107,7 +113,7 @@ services:
     networks:
       - internal
     deploy:
-      replicas: 4
+      replicas: 2
       resources:
         limits:
           cpus: '0.20'
@@ -116,7 +122,7 @@ services:
         condition: any
   
   identity:
-    image: identity
+    image: identity:latest
     build:
       context: .
       dockerfile: ./src/Services/Identity/WorkerService/Dockerfile
@@ -135,13 +141,13 @@ services:
       replicas: 2
       resources:
         limits:
-          cpus: '0.25'
+          cpus: '0.20'
           memory: 200M
       restart_policy:
         condition: any
   
   order:
-    image: order
+    image: order:latest
     build:
       context: .
       dockerfile: ./src/Services/Order/WorkerService/Dockerfile
@@ -160,13 +166,13 @@ services:
       replicas: 2
       resources:
         limits:
-          cpus: '0.25'
+          cpus: '0.20'
           memory: 200M
       restart_policy:
         condition: any
   
   payment:
-    image: payment
+    image: payment:latest
     build:
       context: .
       dockerfile: ./src/Services/Payment/WorkerService/Dockerfile
@@ -185,13 +191,13 @@ services:
       replicas: 2
       resources:
         limits:
-          cpus: '0.25'
+          cpus: '0.20'
           memory: 200M
       restart_policy:
         condition: any
   
   shoppingcart:
-    image: shoppingcart
+    image: shoppingcart:latest
     build:
       context: .
       dockerfile: ./src/Services/ShoppingCart/WorkerService/Dockerfile
@@ -210,13 +216,13 @@ services:
       replicas: 2
       resources:
         limits:
-          cpus: '0.25'
+          cpus: '0.20'
           memory: 200M
       restart_policy:
         condition: any
   
   warehouse:
-    image: warehouse
+    image: warehouse:latest
     build:
       context: .
       dockerfile: ./src/Services/Warehouse/WorkerService/Dockerfile
@@ -235,30 +241,28 @@ services:
       replicas: 2
       resources:
         limits:
-          cpus: '0.25'
+          cpus: '0.20'
           memory: 200M
       restart_policy:
         condition: any
   
   webapi:
-    image: webapi
+    image: webapi:latest
     build:
       context: .
       dockerfile: ./src/Web/WebAPI/Dockerfile
     environment:
-      ASPNETCORE_URLS: http://*:5000
+      ASPNETCORE_URLS: http://*:80
       ASPNETCORE_ENVIRONMENT: Staging
     ports:
-      - "5000"
+      - "80"
     depends_on:
       rabbitmq:
         condition: service_healthy
     networks:
-      internal:
-        aliases:
-          - webapi
+      - internal
     deploy:
-      replicas: 3
+      replicas: 2
       resources:
         limits:
           cpus: '0.20'
@@ -267,7 +271,7 @@ services:
         condition: any
   
   webapp:
-    image: webapp
+    image: webapp:latest
     build:
       context: .
       dockerfile: ./src/Web/WebAPP/Dockerfile
@@ -279,11 +283,9 @@ services:
       webapi:
         condition: service_started
     networks:
-      internal:
-        aliases:
-          - webapp
+      - internal
     deploy:
-      replicas: 2
+      replicas: 1
       resources:
         limits:
           cpus: '0.25'
@@ -291,8 +293,8 @@ services:
       restart_policy:
         condition: any
 
-  nginx:
-    container_name: nginx
+  proxy:
+    container_name: proxy
     image: nginx:alpine
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
@@ -309,7 +311,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.50'
+          cpus: 1
           memory: 80M
       restart_policy:
         condition: any
