@@ -373,7 +373,9 @@ https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates/
 
 ## EDA + Event-sourcing
 
-> Event sourcing a system means the treatment of events as the source of truth. In principle, until an event is made durable within the system, it cannot be processed any further. Just like an author’s story is not a story at all until it’s written, an event should not be projected, replayed, published or otherwise processed until it’s durable enough such as being persisted to a data store. Other designs where the event is secondary cannot rightfully claim to be event sourced but instead merely an event-logging system.
+> Event sourcing a system means the treatment of events as the source of truth. In principle, until an event is made durable within the system, it cannot be processed any further. Just like an
+> author’s story is not a story at all until it’s written, an event should not be projected, replayed, published or otherwise processed until it’s durable enough such as being persisted to a data store.
+> Other designs where the event is secondary cannot rightfully claim to be event sourced but instead merely an event-logging system.
 >
 >Combining EDA with the event-sourcing pattern is another increment of the system’s design because of the alignment of the EDA principle that events are the units of change and the event-sourcing
 > principle that events should be stored first and foremost.
@@ -620,7 +622,7 @@ https://martinfowler.com/bliki/BoundedContext.html
 > as code bases and database schemas. Apply Continuous Integration to keep model concepts and terms strictly consistent within these bounds, but don’t be distracted or confused by issues outside.
 > Standardize a single development process within the context, which need not be used elsewhere.
 >
-> Evans, Eric. (2015). "Bounded Context", Domain-Driven	Design Reference.
+> Evans, Eric. (2015). "Bounded Context", Domain-Driven Design Reference.   
 > https://www.domainlanguage.com/ddd/reference/
 
 ## Clean Architecture
