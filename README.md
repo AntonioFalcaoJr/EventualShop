@@ -4,9 +4,9 @@ Note. _Greg Young takes the next steps beyond the DDD principles and best practi
 with **Command-Query Responsibility Segregation** (CQRS) and **event sourcing** to simplify construction, decentralize decision-making, and make system development more flexible and responsive._
 Adapted from "Event Centric: Finding Simplicity in Complex Systems" by Y. Greg, 2012.
 
-This project applies the **EventStorming** workshop to explore the business capabilities and identify the respective **Bounded Contexts** of a simple e-commerce, as well as the **Domain Events** that
-provide integration between them. In addition to demonstrating the implementation under an **Event-driven architecture** (EDA), through the **event-sourcing** design supported by the **CQRS** pattern
-in a **Clean Architecture**.
+This project applies the **EventStorming** workshop to decompose and aggregate business capabilities in **Bounded Contexts** of a simple e-commerce, as well as the **Domain Events** that
+provide integration between them. In addition to demonstrating implementation under a reactive **Event-driven architecture** (EDA), through the **event-sourcing** design, supported by the **CQRS**
+pattern, in a **Clean Architecture**.
 
 > State transitions are an important part of our problem space and should be modelled within our domain.    
 > -- <cite> Greg Young </cite>
@@ -484,9 +484,14 @@ Fig. 23: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st 
 
 ### Bounded Context
 
-> Bounded Context is a central pattern in Domain-Driven Design. It is the focus of DDD's strategic design section which is all about dealing with large models and teams. DDD deals with large models by dividing them into different Bounded Contexts and being explicit about their interrelationships.
+> Basically, the idea behind bounded context is to put a clear delineation between one model and another model. This delineation and boundary that's put around a domain model, makes the model that is
+> inside the boundary very explicit with very clear meaning as to the concepts, the elements of the model, and the way that the team, including domain experts, think about the model.
 >
-> Fowler, Martin. "BoundedContext", *martinfowler.com*, last edited on 15 Jan 2014.  
+> You'll find a ubiquitous language that is spoken by the team and that is modeled in software by the team. In scenarios and discussions where somebody says, for example, "product," they know in that
+> context exactly what product means. In another context, product can have a different meaning, one that was defined by another team. The product may share identities across bounded contexts, but,
+> generally speaking, the product in another context has at least a slightly different meaning, and possibly even a vastly different meaning.
+>
+> Vernon, Vaughn. "Modeling Uncertainty with Reactive DDD", *www.infoq.com*, last edited on 29 Set 2018.  
 > https://martinfowler.com/bliki/BoundedContext.html
 
 ![](./.assets/img/BoundedContext.jpg)  
@@ -689,7 +694,7 @@ docker-compose up -d
 
 Worker Services
 
-```dockerfile
+```yaml
 deploy:
   replicas: 2
   resources:
@@ -699,7 +704,8 @@ deploy:
 ```
 
 Web API
-```dockerfile
+
+```yaml
 deploy:
   replicas: 2
   resources:
