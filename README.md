@@ -577,6 +577,9 @@ https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
 
 ### Aggregate
 
+> I think a model is a set of related concepts that can be applied to solve a problem.    
+> -- <cite> Eric Evans </cite>
+
 ![](./.assets/img/aggregate.png)  
 Fig. 23: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st ed, p78.
 
