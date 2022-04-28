@@ -27,6 +27,23 @@ If this project helped you in some way, please **give it a star**. Thanks!
 | ShoppingCart |  [![](https://github.com/AntonioFalcao/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shoppingcart-build-and-test.yaml/badge.svg)](https://github.com/AntonioFalcao/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shoppingcart-build-and-test.yaml)  |            |           |
 | Warehouse    |     [![](https://github.com/AntonioFalcao/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse-build-and-test.yaml/badge.svg)](https://github.com/AntonioFalcao/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse-build-and-test.yaml)     |            |           |
 
+## Roadmap
+
+* **Idempotent Consumer Filter** to prevent intentions from being expressed repeatedly:
+    - Do not consider duplicate messages;
+    - Do not consider naturally idempotent intentions;
+    - Consider the business expected interval in idempotence hash calculation.
+  
+                            
+* **Outbox pattern** to provide distributed resilient publishing:
+    - Wrap publisher to persist just in case of failure;
+  
+ ![](./.assets/img/outbox.jpg) 
+
+* **RPC Read Stack** (gRPC)
+    - V2 BFF/Gateway route; 
+    - Proto files as contracts.
+
 ## The Solution Architecture
 
 ![](./.assets/img/solution_architecture.png)    
