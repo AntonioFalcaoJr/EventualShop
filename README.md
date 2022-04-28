@@ -29,19 +29,25 @@ If this project helped you in some way, please **give it a star**. Thanks!
 
 ## Roadmap
 
+* **Context Mapping** considering different types of relationships (upstream/downstream):
+    - partnership;
+    - customer-supplier;
+    - conformist.
+
+
 * **Idempotent Consumer Filter** to prevent intentions from being expressed repeatedly:
     - Do not consider duplicate messages;
     - Do not consider naturally idempotent intentions;
     - Consider the business expected interval in idempotence hash calculation.
-  
-                            
+
+
 * **Outbox pattern** to provide distributed resilient publishing:
     - Wrap publisher to persist just in case of failure;
-  
- ![](./.assets/img/outbox.jpg) 
+
+![](./.assets/img/outbox.jpg)
 
 * **RPC Read Stack** (gRPC)
-    - V2 BFF/Gateway route; 
+    - V2 BFF/Gateway route;
     - Proto files as contracts.
 
 ## The Solution Architecture
@@ -49,38 +55,62 @@ If this project helped you in some way, please **give it a star**. Thanks!
 ![](./.assets/img/solution_architecture.png)    
 Fig. 1: Falcão Jr., Antônio. *An EDA solution architecture*.
 
-## Command's pipeline
-
-![](./.assets/img/add-ha-message-queue.png)    
-Fig. 2: MSDN. *Use message queues (out-of-proc) in the command's pipeline*.    
-https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/microservice-application-layer-implementation-web-api#use-message-queues-out-of-proc-in-the-commands-pipeline
-
 ## Messaging - Making good use of Context Mapping
 
 ![](./.assets/img/messaging_context_mapping.png)  
 Fig. 3: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed, p65.
 
-> When using asynchronous messaging to integrate, much can be accomplished by a client Bounded Context subscribing to the Domain Events published by your own or another Bounded Context. Using messaging is one of the most robust forms of integration because you remove much of the temporal coupling associated with blocking forms such as RPC and REST. Since you already anticipate the latency of message exchange, you tend to build more robust systems because you never expect immediate results.
+> When using asynchronous messaging to integrate, much can be accomplished by a client Bounded Context subscribing to the Domain Events published by your own or another Bounded Context. Using
+> messaging is one of the most robust forms of integration because you remove much of the temporal coupling associated with blocking forms such as RPC and REST. Since you already anticipate the latency
+> of message exchange, you tend to build more robust systems because you never expect immediate results.
 >
-> Typically an Aggregate in one Bounded Context publishes a Domain Event, which could be consumed by any number of interested parties. When a subscribing Bounded Context receives the Domain Event, some action will be taken based on its type and value. Normally it will cause a new Aggregate to be created or an existing Aggregate to be modified in the consuming Bounded Context.
+> Typically an Aggregate in one Bounded Context publishes a Domain Event, which could be consumed by any number of interested parties. When a subscribing Bounded Context receives the Domain Event,
+> some action will be taken based on its type and value. Normally it will cause a new Aggregate to be created or an existing Aggregate to be modified in the consuming Bounded Context.
 >
 > Vernon, V. (2016) Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional, pp65-67.
 
-## Microservices
+## Reactive Domain Drive Design
 
-> The term "Microservice Architecture" has sprung up over the last few years to describe a particular way of designing software applications as suites of independently deployable services. While there is no precise definition of this architectural style, there are certain common characteristics around organization around business capability, automated deployment, intelligence in the endpoints, and decentralized control of languages and data.
+> I have been seeing, at least in my world, a trend towards reactive systems. Not just reactive within a microservice, but building entire systems that are reactive. In DDD, reactive behavior is also
+> happening within the bounded context. Being reactive isn't entirely new, and Eric Evans was far ahead of the industry when he introduced eventing. Using domain events means we have to react to
+> events that happened in the past, and bring our system into harmony.
 >
-> Fowler, Martin. "Microservices", *martinfowler.com*, last edited on 25 Mar 2014.     
-> https://martinfowler.com/articles/microservices.html
+> Vernon, Vaughn. "Modeling Uncertainty with Reactive DDD", *www.infoq.com*, last edited on 29 Set 2018.  
+> https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/
+
+![](./.assets/img/reactive-system.jpg)  
+Fig. 3: Vernon, V. (2018), "Modeling Uncertainty with Reactive DDD", *Reactive Systems*, www.infoq.com.   
+https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/
+
+## Reactive Process
+
+> Each domain entity is responsible for tracking its state, based on the commands it receives. By following good DDD practices, the state can be safely tracked based on these commands, and using event
+> sourcing to persist the state change events.
+>
+> This is where we want to be. When everything is happening asynchronously everywhere, what happens? That brings us to uncertainty.
+>
+> If there is any possibility of any message being out of order, you have to plan for all of them being out of order.
+>
+> Each entity is also responsible for knowing how to handle any potential uncertainty, according to decisions made by domain experts. For example, if a duplicate event is received, the aggregate will
+> know that it has already seen it, and can decide how to respond.
+>
+> Vernon, Vaughn. "Modeling Uncertainty with Reactive DDD", *www.infoq.com*, last edited on 29 Set 2018.  
+> https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/
+
+![](./.assets/img/reactive_process.jpg)  
+Fig. 3: Vernon, V. (2018), "Modeling Uncertainty with Reactive DDD", *Process Manager*, www.infoq.com.   
+https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/
 
 ## Event-driven architecture (EDA)
 
-> Event-driven architecture (EDA) is a software architecture paradigm promoting the production, detection, consumption of, and reaction to events. An event can be defined as "a significant change in state".
+> Event-driven architecture (EDA) is a software architecture paradigm promoting the production, detection, consumption of, and reaction to events. An event can be defined as "a significant change in
+> state".
 >
 > "Event-driven architecture." *Wikipedia*, Wikimedia Foundation, last edited on 9 May 2021.  
 > https://en.wikipedia.org/wiki/Event-driven_architecture
 
-> Event-driven architecture refers to a system of loosely coupled microservices that exchange information between each other through the production and consumption of events. An event-driven system enables messages to be ingested into the event driven ecosystem and then broadcast out to whichever services are interested in receiving them.
+> Event-driven architecture refers to a system of loosely coupled microservices that exchange information between each other through the production and consumption of events. An event-driven system
+> enables messages to be ingested into the event driven ecosystem and then broadcast out to whichever services are interested in receiving them.
 >
 > Jansen, Grace & Saladas, Johanna. "Advantages of the event-driven architecture pattern." *developer.ibm.com*, IBM Developer, last edited on 12 May 2021.  
 > https://developer.ibm.com/articles/advantages-of-an-event-driven-architecture/
@@ -88,6 +118,15 @@ Fig. 3: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed
 ![](./.assets/img/eda.png)    
 Fig. 4: Uit de Bos, Oskar. *A simple illustration of events using the publish/subscribe messaging model*.    
 https://medium.com/swlh/the-engineers-guide-to-event-driven-architectures-benefits-and-challenges-3e96ded8568b
+
+## Microservices
+
+> The term "Microservice Architecture" has sprung up over the last few years to describe a particular way of designing software applications as suites of independently deployable services. While there
+> is no precise definition of this architectural style, there are certain common characteristics around organization around business capability, automated deployment, intelligence in the endpoints, and
+> decentralized control of languages and data.
+>
+> Fowler, Martin. "Microservices", *martinfowler.com*, last edited on 25 Mar 2014.     
+> https://martinfowler.com/articles/microservices.html
 
 ### EDA & Microservices Architecture
 
@@ -110,7 +149,8 @@ https://developer.ibm.com/articles/eda-and-microservices-architecture-best-pract
 
 ### EDA vs SOA
 
-> Compared to SOA, the essence of an EDA is that the services involved communicate through the capture, propagation, processing and persistence of events. This resulting pattern of communicating through a dataflow is quite different from the SOA approach of requests and responses.
+> Compared to SOA, the essence of an EDA is that the services involved communicate through the capture, propagation, processing and persistence of events. This resulting pattern of communicating
+> through a dataflow is quite different from the SOA approach of requests and responses.
 >
 > Mathew, Jerry. "SOA vs. EDA: Is Not Life Simply a Series of Events?." *Confluent.io*, last edited on 19 Mar 2019.  
 > https://www.confluent.io/blog/soa-vs-eda-is-not-life-simply-a-series-of-events/
@@ -131,11 +171,20 @@ According to Mathew, here are some reasons why the EDA patterns can alleviate so
 Table 2: Mathew, Jerry. *SOA vs. EDA: Is Not Life Simply a Series of Events?*  
 https://www.confluent.io/blog/soa-vs-eda-is-not-life-simply-a-series-of-events/
 
+## Command's pipeline
+
+![](./.assets/img/add-ha-message-queue.png)    
+Fig. 2: MSDN. *Use message queues (out-of-proc) in the command's pipeline*.    
+https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/microservice-application-layer-implementation-web-api#use-message-queues-out-of-proc-in-the-commands-pipeline
+
 ### Broker Topology
 
-> The broker topology differs from the mediator topology in that there is no central event mediator; rather, the message flow is distributed across the event processor components in a chain-like fashion through a lightweight message broker (e.g., ActiveMQ, HornetQ, etc.). This topology is useful when you have a relatively simple event processing flow and you do not want (or need) central event orchestration.
+> The broker topology differs from the mediator topology in that there is no central event mediator; rather, the message flow is distributed across the event processor components in a chain-like
+> fashion through a lightweight message broker (e.g., ActiveMQ, HornetQ, etc.). This topology is useful when you have a relatively simple event processing flow and you do not want (or need) central
+> event orchestration.
 >
-> There are two main types of architecture components within the broker topology: a broker component and an event processor component. The broker component can be centralized or federated and contains all of the event channels that are used within the event flow. The event channels contained within the broker component can be message queues, message topics, or a combination of both.
+> There are two main types of architecture components within the broker topology: a broker component and an event processor component. The broker component can be centralized or federated and contains
+> all of the event channels that are used within the event flow. The event channels contained within the broker component can be message queues, message topics, or a combination of both.
 >
 > Richards, Mark. "Broker Topology." *Software Architecture Patterns by Mark Richards*, O'Reilly.  
 > https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch02.html
@@ -146,7 +195,8 @@ https://www.oreilly.com/library/view/software-architecture-patterns/978149197143
 
 ### Choreography-based SAGA
 
-> In a choreography-based saga, the saga participants collaborate by exchanging events. Each step of a choreography-based saga updates the database (e.g. an aggregate) and publishes a domain event. The first step of a saga is initiated by a command that’s invoked by an external request, such an HTTP POST. Each subsequent step is triggered by an event emitted by a previous step.
+> In a choreography-based saga, the saga participants collaborate by exchanging events. Each step of a choreography-based saga updates the database (e.g. an aggregate) and publishes a domain event.
+> The first step of a saga is initiated by a command that’s invoked by an external request, such an HTTP POST. Each subsequent step is triggered by an event emitted by a previous step.
 >
 > Richardson, Chris. "Implementing a choreography-based saga." *Managing data consistency in a microservice architecture using Sagas*, chrisrichardson.net.  
 > [https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html](https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html#:%7E:text=In%20a%20choreography%2Dbased%20saga,and%20publishes%20a%20domain%20event.&text=The%20step%20of%20the%20saga,data%20and%20emits%20an%20event)
@@ -159,7 +209,8 @@ Fig. 6: Richardson, Chris. "Implementing a choreography-based saga." *Managing d
 
 *SAGA - A long story about past events over a long period of time.*
 
-> Orchestration entails actively controlling all elements and interactions like a conductor directs the musicians of an orchestra, while choreography entails establishing a pattern or routine that microservices follow as the music plays, without requiring supervision and instructions.
+> Orchestration entails actively controlling all elements and interactions like a conductor directs the musicians of an orchestra, while choreography entails establishing a pattern or routine that
+> microservices follow as the music plays, without requiring supervision and instructions.
 >
 > Schabowsky, Jonathan. "The Benefits of Choreography", *solace.com*, last edited on 16 Nov 2019.   
 > https://solace.com/blog/microservices-choreography-vs-orchestration/
@@ -194,14 +245,18 @@ Benefits & drawbacks of Choreography
 
 ## Event sourcing
 
-> Instead of storing just the current state of the data in a domain, use an append-only store to record the full series of actions taken on that data. The store acts as the system of record and can be used to materialize the domain objects. This can simplify tasks in complex domains, by avoiding the need to synchronize the data model and the business domain, while improving performance, scalability, and responsiveness. It can also provide consistency for transactional data, and maintain full audit trails and history that can enable compensating actions.
+> Instead of storing just the current state of the data in a domain, use an append-only store to record the full series of actions taken on that data. The store acts as the system of record and can be
+> used to materialize the domain objects. This can simplify tasks in complex domains, by avoiding the need to synchronize the data model and the business domain, while improving performance,
+> scalability, and responsiveness. It can also provide consistency for transactional data, and maintain full audit trails and history that can enable compensating actions.
 >
 > "Event Sourcing pattern" *MSDN*, Microsoft Docs, last edited on 23 Jun 2017.  
 > https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing
 
-> We can query an application's state to find out the current state of the world, and this answers many questions. However there are times when we don't just want to see where we are, we also want to know how we got there.
+> We can query an application's state to find out the current state of the world, and this answers many questions. However there are times when we don't just want to see where we are, we also want to
+> know how we got there.
 >
-> Event Sourcing ensures that all changes to application state are stored as a sequence of events. Not just can we query these events, we can also use the event log to reconstruct past states, and as a foundation to automatically adjust the state to cope with retroactive changes.
+> Event Sourcing ensures that all changes to application state are stored as a sequence of events. Not just can we query these events, we can also use the event log to reconstruct past states, and as
+> a foundation to automatically adjust the state to cope with retroactive changes.
 >
 > Fowler, Martin. "Eventsourcing", *martinfowler.com*, last edited on 12 Dec 2005.     
 > https://martinfowler.com/eaaDev/EventSourcing.html
@@ -216,12 +271,14 @@ https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing#solu
 
 > To update an entity’s state we use commands from the outside and events on the inside:
 >
-> - Commands: The state of the entity can be changed only by sending commands to it. The commands are the "external" API of an entity. Commands request state changes. The current state may reject the command, or it may accept it producing zero, one or many events (depending on the command and the current state).
+> - Commands: The state of the entity can be changed only by sending commands to it. The commands are the "external" API of an entity. Commands request state changes. The current state may reject the
+> command, or it may accept it producing zero, one or many events (depending on the command and the current state).
 >
 >
-> - Events: The events represent changes of the entity’s state and are the only way to change it. The entity creates events from commands. Events are an internal mechanism for the entity to mutate the state, other parties can’t send events. Other parts of the application may listen to the created events. Summing up, events are facts new tab.
+> - Events: The events represent changes of the entity’s state and are the only way to change it. The entity creates events from commands. Events are an internal mechanism for the entity to mutate the
+> state, other parties can’t send events. Other parts of the application may listen to the created events. Summing up, events are facts new tab.
 >
->The events are persisted to the datastore, while the entity state is kept in memory. In case of a restart the latest state gets rebuilt by replaying the events from the Event Journal.
+> The events are persisted to the datastore, while the entity state is kept in memory. In case of a restart the latest state gets rebuilt by replaying the events from the Event Journal.
 >
 > "Event Sourcing" *Akka platform*, developer.lightbend.com.  
 > https://developer.lightbend.com/docs/akka-platform-guide/concepts/event-sourcing.html
@@ -271,7 +328,9 @@ https://eventuate.io/whyeventsourcing.html
 
 ### Event Store
 
-> So, Event Sourcing is the persistence mechanism where each state transition for a given entity is represented as a domain event that gets persisted to an event database (event store). When the entity state mutates, a new event is produced and saved. When we need to restore the entity state, we read all the events for that entity and apply each event to change the state, reaching the correct final state of the entity when all available events are read and applied.
+> So, Event Sourcing is the persistence mechanism where each state transition for a given entity is represented as a domain event that gets persisted to an event database (event store). When the
+> entity state mutates, a new event is produced and saved. When we need to restore the entity state, we read all the events for that entity and apply each event to change the state, reaching the correct
+> final state of the entity when all available events are read and applied.
 >
 > Zimarev, Alexey. "What is Event Sourcing?", *Event Store blog*, last edited on 03 June 2020.   
 > https://www.eventstore.com/blog/what-is-event-sourcing
@@ -288,12 +347,16 @@ https://microservices.io/patterns/data/event-sourcing.html
 
 ### Snapshot
 
-> Once you understand how Event Sourcing works, the most common thought is: “What happens when you have a lot of Events? Won’t it be inefficient to fetch every event from the event stream and replay all of them to get to the current state?”. It might be. But to combat this, you can use snapshots in event sourcing to rehydrate aggregates. Snapshots give you a representation of your aggregates state at a point in time. You can then use this as a checkpoint and then only replay the events since the snapshot.
+> Once you understand how Event Sourcing works, the most common thought is: “What happens when you have a lot of Events? Won’t it be inefficient to fetch every event from the event stream and replay
+> all of them to get to the current state?”. It might be. But to combat this, you can use snapshots in event sourcing to rehydrate aggregates. Snapshots give you a representation of your aggregates
+> state at a point in time. You can then use this as a checkpoint and then only replay the events since the snapshot.
 >
 > Comartin, Derek. "Snapshots in Event Sourcing for Rehydrating Aggregates", *codeopinion.com*, last edited on 17 Mar 2021.   
 > https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates/
 
-> Snapshotting is an optimisation that reduces time spent on reading event from an event store. If for example a stream contains thousands of events, and we need to read all of them every time, then the time the system takes to handle a command will be noticeable. What we can do instead is to create a snapshot of the aggregate state and save it. Then before a command is handled we can load the latest snapshot and only new events since the snapshot was created.
+> Snapshotting is an optimisation that reduces time spent on reading event from an event store. If for example a stream contains thousands of events, and we need to read all of them every time, then
+> the time the system takes to handle a command will be noticeable. What we can do instead is to create a snapshot of the aggregate state and save it. Then before a command is handled we can load the
+> latest snapshot and only new events since the snapshot was created.
 >
 > Gunia, Kacper. "Event Sourcing: Snapshotting", *domaincentric.net*, last edited on 5 Jun 2020.   
 > https://domaincentric.net/blog/event-sourcing-snapshotting
@@ -312,7 +375,8 @@ https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates/
 
 > Event sourcing a system means the treatment of events as the source of truth. In principle, until an event is made durable within the system, it cannot be processed any further. Just like an author’s story is not a story at all until it’s written, an event should not be projected, replayed, published or otherwise processed until it’s durable enough such as being persisted to a data store. Other designs where the event is secondary cannot rightfully claim to be event sourced but instead merely an event-logging system.
 >
->Combining EDA with the event-sourcing pattern is another increment of the system’s design because of the alignment of the EDA principle that events are the units of change and the event-sourcing principle that events should be stored first and foremost.
+>Combining EDA with the event-sourcing pattern is another increment of the system’s design because of the alignment of the EDA principle that events are the units of change and the event-sourcing
+> principle that events should be stored first and foremost.
 >
 > Go, Jayson. "From Monolith to Event-Driven: Finding Seams in Your Future Architecture", *InfoQ*, last edited on 15 Set 2020.   
 > https://www.eventstore.com/blog/what-is-event-sourcing
@@ -337,14 +401,17 @@ https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-
 
 ## CQRS
 
-> CQRS stands for Command and Query Responsibility Segregation, a pattern that separates read and update operations for a data store. Implementing CQRS in your application can maximize its performance, scalability, and security. The flexibility created by migrating to CQRS allows a system to better evolve over time and prevents update commands from causing merge conflicts at the domain level.
+> CQRS stands for Command and Query Responsibility Segregation, a pattern that separates read and update operations for a data store. Implementing CQRS in your application can maximize its
+> performance, scalability, and security. The flexibility created by migrating to CQRS allows a system to better evolve over time and prevents update commands from causing merge conflicts at the domain
+> level.
 >
 > Benefits of CQRS include:
 >
 > * **Independent scaling**. CQRS allows the read and write workloads to scale independently, and may result in fewer lock contentions.
 > * **Optimized data schemas**. The read side can use a schema that is optimized for queries, while the write side uses a schema that is optimized for updates.
 > * **Security**. It's easier to ensure that only the right domain entities are performing writes on the data.
-> * **Separation of concerns**. Segregating the read and write sides can result in models that are more maintainable and flexible. Most of the complex business logic goes into the write model. The read model can be relatively simple.
+> * **Separation of concerns**. Segregating the read and write sides can result in models that are more maintainable and flexible. Most of the complex business logic goes into the write model. The
+> read model can be relatively simple.
 > * **Simpler queries**. By storing a materialized view in the read database, the application can avoid complex joins when querying.
 >
 > "What is the CQRS pattern?" *MSDN*, Microsoft Docs, last edited on 2 Nov 2020.  
@@ -374,7 +441,10 @@ with some different strategies and ways to implement projections.
 >
 > Young Greg, 2012, *CQRS and Event Sourcing*, **CQRS Documents by Greg Young**, p50.
 
-> The CQRS pattern is often used along with the Event Sourcing pattern. CQRS-based systems use separate read and write data models, each tailored to relevant tasks and often located in physically separate stores. When used with the Event Sourcing pattern, the store of events is the write model, and is the official source of information. The read model of a CQRS-based system provides materialized views of the data, typically as highly denormalized views. These views are tailored to the interfaces and display requirements of the application, which helps to maximize both display and query performance.
+> The CQRS pattern is often used along with the Event Sourcing pattern. CQRS-based systems use separate read and write data models, each tailored to relevant tasks and often located in physically
+> separate stores. When used with the Event Sourcing pattern, the store of events is the write model, and is the official source of information. The read model of a CQRS-based system provides
+> materialized views of the data, typically as highly denormalized views. These views are tailored to the interfaces and display requirements of the application, which helps to maximize both display and
+> query performance.
 >
 > "Event Sourcing and CQRS pattern" *MSDN*, Microsoft Docs, last edited on 02 Nov 2020.   
 > https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs#event-sourcing-and-cqrs-pattern
@@ -391,61 +461,76 @@ https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 
 ### Commands vs Events
 
-> Events represent a past, something that already happened and can't be undone. Commands, on the other hand, represent a wish, an action in the future which can be rejected. An event has typically multiple consumers, but a command is addressed to only one.
+> Events represent a past, something that already happened and can't be undone. Commands, on the other hand, represent a wish, an action in the future which can be rejected. An event has typically
+> multiple consumers, but a command is addressed to only one.
 >
 > Tulka, Tomas. "Events vs. Commands in DDD", *blog.ttulka.com*, last edited on 25 Mar 2020.   
 > https://blog.ttulka.com/events-vs-commands-in-ddd
 
 #### Domain Event
 
-> In domain-driven design, domain events are described as something that happens in the domain and is important to domain experts. Such events typically occur regardless of whether or to what extent the domain is implemented in a software system. They are also independent of technologies. Accordingly, domain events have a high-value semantics, which is expressed in the language spoken by domain experts.
+> In domain-driven design, domain events are described as something that happens in the domain and is important to domain experts. Such events typically occur regardless of whether or to what extent
+> the domain is implemented in a software system. They are also independent of technologies. Accordingly, domain events have a high-value semantics, which is expressed in the language spoken by domain
+> experts.
 >
 > Stettler, Christina. "Domain Events vs. Event Sourcing", *innoq.com*, last edited on 15 Jan 2019.   
 > https://www.innoq.com/en/blog/domain-events-versus-event-sourcing/
 
-> Event Sourcing is when you use Domain Events to store the state of an Aggregate within a Bounded Context. This basically means replacing your relational data model (or other data store) with an ever-growing log of Domain Events, which is called an event store. This is the core of Event Sourcing. So to use Event Sourcing you definitely need to understand Domain Events.
+> Event Sourcing is when you use Domain Events to store the state of an Aggregate within a Bounded Context. This basically means replacing your relational data model (or other data store) with an
+> ever-growing log of Domain Events, which is called an event store. This is the core of Event Sourcing. So to use Event Sourcing you definitely need to understand Domain Events.
 >
 > Holmqvist, Mattias. "What are Domain Events?", *serialized.io*, last edited on 20 Aug 2020.   
 > https://serialized.io/ddd/domain-event/
 
 #### Integration Event
 
-> Integration events are used for bringing domain state in sync across multiple microservices or external systems. This functionality is done by publishing integration events outside the microservice. When an event is published to multiple receiver microservices (to as many microservices as are subscribed to the integration event), the appropriate event handler in each receiver microservice handles the event.
+> Integration events are used for bringing domain state in sync across multiple microservices or external systems. This functionality is done by publishing integration events outside the microservice.
+> When an event is published to multiple receiver microservices (to as many microservices as are subscribed to the integration event), the appropriate event handler in each receiver microservice handles
+> the event.
 >
 > MSDN. "Implementing event-based communication between microservices (integration events)", *docs.microsoft.com*, last edited on 30 Nov 2021.   
 > https://docs.microsoft.com/en-us/dotnet/architecture/microservices/multi-container-microservice-net-applications/integration-event-based-microservice-communications
 
-> Should you publish Domain Events or Integration Events? Common advice is to not publish domain events outside of your service boundary. They should only exist within your service boundary. Instead, you should publish integration events for other service boundaries. While this general advice makes sense, it’s not so cut-and-dry. There are many reasons why you would want to publish domain events for other services to consume.
+> Should you publish Domain Events or Integration Events? Common advice is to not publish domain events outside of your service boundary. They should only exist within your service boundary. Instead,
+> you should publish integration events for other service boundaries. While this general advice makes sense, it’s not so cut-and-dry. There are many reasons why you would want to publish domain events
+> for other services to consume.
 >
-> Domain Events or Integration Events? As always, it depends. If your domain events are stable business concepts and they are understood outside of your boundary as a part of a long-running business process, then yes, publishing domain events outside of your boundary are acceptable. If events are used for data propagation or are more CRUD in nature, then publish Integration Events.
+> Domain Events or Integration Events? As always, it depends. If your domain events are stable business concepts and they are understood outside of your boundary as a part of a long-running business
+> process, then yes, publishing domain events outside of your boundary are acceptable. If events are used for data propagation or are more CRUD in nature, then publish Integration Events.
 >
 > Comartin, Derek. "Should you publish Domain Events or Integration Events?", *codeopinion.com*, last edited on 24 Nov 2021.   
 > https://codeopinion.com/should-you-publish-domain-events-or-integration-events/
 
 ##### Event Notification
 
-> Most times events used for notifications are generally pretty slim. They don’t contain much data. If a consumer is handling an event but needs more information, to, for example, react and perform some action, it might have to make an RPC call back to the producing service to get more information. And this is what leads people to Event carried State Transfer, so they do not have to make these RPC calls.
+> Most times events used for notifications are generally pretty slim. They don’t contain much data. If a consumer is handling an event but needs more information, to, for example, react and perform
+> some action, it might have to make an RPC call back to the producing service to get more information. And this is what leads people to Event carried State Transfer, so they do not have to make these
+> RPC calls.
 >
 > Comartin, Derek. "Event Based Architecture: What do you mean by EVENT?", *codeopinion.com*, last edited on 05 Mai 2021.   
 > https://codeopinion.com/should-you-publish-domain-events-or-integration-events/
 
-> In this mode, the event producer sends a notification to the event system that a change has happened to the entity. The change itself was NOT specified in the event. Consumers are expected to query the read endpoint to understand the latest state of the data.
+> In this mode, the event producer sends a notification to the event system that a change has happened to the entity. The change itself was NOT specified in the event. Consumers are expected to query
+> the read endpoint to understand the latest state of the data.
 >
 > Balachandran, Arvind. "Event Notification vs. Event-Carried State Transfer", *Start it up*, last edited on 27 Oct 2019.
 > https://medium.com/swlh/event-notification-vs-event-carried-state-transfer-2e4fdf8f6662
 
 ##### Event-Carried State Transfer
 
-> The most common way I see events being used and explained is for state propagation. Meaning, you’re publishing events about state changes within a service, so other services (consumers) can keep a local cache copy of the data.
+> The most common way I see events being used and explained is for state propagation. Meaning, you’re publishing events about state changes within a service, so other services (consumers) can keep a
+> local cache copy of the data.
 >
 >This is often referred to as Event Carried State Transfer.
 >
->The reason services will want a local cache copy of another service’s data, is so they do not need to make RPC calls to other services to get data. The issue with making the RPC call is if there are issues with availability or latency, the call might fail. In order to be available when other services are unavailable, they want the data they need locally.
+>The reason services will want a local cache copy of another service’s data, is so they do not need to make RPC calls to other services to get data. The issue with making the RPC call is if there are
+> issues with availability or latency, the call might fail. In order to be available when other services are unavailable, they want the data they need locally.
 >
 > Comartin, Derek. "Event Based Architecture: What do you mean by EVENT?", *codeopinion.com*, last edited on 05 Mai 2021.   
 > https://codeopinion.com/should-you-publish-domain-events-or-integration-events/
 
-> In stark contrast to the event notification model, the event-carried state transfer model puts the data as part of the event itself. There are two key variants to implementing this. Fine-Grained and Snapshots.
+> In stark contrast to the event notification model, the event-carried state transfer model puts the data as part of the event itself. There are two key variants to implementing this. Fine-Grained and
+> Snapshots.
 >
 > Balachandran, Arvind. "Event Notification vs. Event-Carried State Transfer", *Start it up*, last edited on 27 Oct 2019.   
 > https://medium.com/swlh/event-notification-vs-event-carried-state-transfer-2e4fdf8f6662
@@ -461,7 +546,8 @@ https://www.divante.com/blog/event-sourcing-open-loyalty-engineering
 > * to envision new services, that maximise positive outcomes to every party involved;
 > * to design clean and maintainable Event-Driven software, to support rapidly evolving businesses.
 >
-> The adaptive nature of EventStorming allows sophisticated cross-discipline conversation between stakeholders with different backgrounds, delivering a new type of collaboration beyond silo and specialisation boundaries.
+> The adaptive nature of EventStorming allows sophisticated cross-discipline conversation between stakeholders with different backgrounds, delivering a new type of collaboration beyond silo and
+> specialisation boundaries.
 >
 > Brandolini, Alberto. "EventStorming", *EventStorming.com*, last edited on 2020.   
 > https://www.eventstorming.com/
@@ -480,7 +566,9 @@ https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
 
 ## Domain-driven design (DDD)
 
-> Domain-Driven Design is an approach to software development that centers the development on programming a domain model that has a rich understanding of the processes and rules of a domain. The name comes from a 2003 book by Eric Evans that describes the approach through a catalog of patterns. Since then a community of practitioners have further developed the ideas, spawning various other books and training courses. The approach is particularly suited to complex domains, where a lot of often-messy logic needs to be organized.
+> Domain-Driven Design is an approach to software development that centers the development on programming a domain model that has a rich understanding of the processes and rules of a domain. The name
+> comes from a 2003 book by Eric Evans that describes the approach through a catalog of patterns. Since then a community of practitioners have further developed the ideas, spawning various other books
+> and training courses. The approach is particularly suited to complex domains, where a lot of often-messy logic needs to be organized.
 >
 > Fowler, Martin. "DomainDrivenDesign", *martinfowler.com*, last edited on 22 April 2020.  
 > https://martinfowler.com/bliki/DomainDrivenDesign.html
@@ -490,11 +578,15 @@ https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet
 ![](./.assets/img/aggregate.png)  
 Fig. 23: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st ed, p78.
 
-> Each Aggregate forms a transactional consistency boundary. This means that within a single Aggregate, all composed parts must be consistent, according to business rules, when the controlling transaction is committed to the database. This doesn't necessarily mean that you are not supposed to compose other elements within an Aggregate that don't need to be consistent after a transaction. After all, an Aggregate also models a conceptual whole. But you should be first and foremost concerned with transactional consistency. The outer boundary drawn around Aggregate Type 1 and Aggregate Type 2 represents a separate transaction that will be in control of atomically persisting each object cluster.
+> Each Aggregate forms a transactional consistency boundary. This means that within a single Aggregate, all composed parts must be consistent, according to business rules, when the controlling
+> transaction is committed to the database. This doesn't necessarily mean that you are not supposed to compose other elements within an Aggregate that don't need to be consistent after a transaction.
+> After all, an Aggregate also models a conceptual whole. But you should be first and foremost concerned with transactional consistency. The outer boundary drawn around Aggregate Type 1 and Aggregate
+> Type 2 represents a separate transaction that will be in control of atomically persisting each object cluster.
 >
 > Vernon, V. (2016) Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional, p78.
 
-> Aggregate is a pattern in Domain-Driven Design. A DDD aggregate is a cluster of domain objects that can be treated as a single unit. An example may be an order and its line-items, these will be separate objects, but it's useful to treat the order (together with its line items) as a single aggregate.
+> Aggregate is a pattern in Domain-Driven Design. A DDD aggregate is a cluster of domain objects that can be treated as a single unit. An example may be an order and its line-items, these will be
+> separate objects, but it's useful to treat the order (together with its line items) as a single aggregate.
 >
 > Fowler, Martin. "DDD_Aggregate", *martinfowler.com*, last edited on 08 Jun 2015.  
 > https://martinfowler.com/bliki/DomainDrivenDesign.html
@@ -515,22 +607,29 @@ Fig. 23: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st 
 Fig. 24: Martin, Fowler. *BoundedContext*.    
 https://martinfowler.com/bliki/BoundedContext.html
 
-> First, a Bounded Context is a semantic contextual boundary. This means that within the boundary each component of the software model has a specific meaning and does specific things. The components inside a Bounded Context are context specific and semantically motivated. That’s simple enough.
+> First, a Bounded Context is a semantic contextual boundary. This means that within the boundary each component of the software model has a specific meaning and does specific things. The components
+> inside a Bounded Context are context specific and semantically motivated. That’s simple enough.
 >
-> When you are just getting started in your software modeling efforts, your Bounded Context is somewhat conceptual. You could think of it as part of your problem space. However, as your model starts to take on deeper meaning and clarity, your Bounded Context will quickly transition to your solution space , with your software model being reflected as project source code. Remember that a Bounded Context is where a model is implemented, and you will have separate software artifacts for each Bounded Context.
+> When you are just getting started in your software modeling efforts, your Bounded Context is somewhat conceptual. You could think of it as part of your problem space. However, as your model starts
+> to take on deeper meaning and clarity, your Bounded Context will quickly transition to your solution space , with your software model being reflected as project source code. Remember that a Bounded
+> Context is where a model is implemented, and you will have separate software artifacts for each Bounded Context.
 >
 > Vernon, V. (2016). "Strategic Design with Bounded Contexts and the Ubiquitous Language", Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional.
 
-> Explicitly	 define	 the	 context	 within	 which	 a	 model	 applies. Explicitly	 set	 boundaries	 in terms	 of	 team	 organization, usage	 within	 specific	 parts	 of	 the	 application, and	 physical manifestations	such	as	code	bases	and	database	schemas. Apply	Continuous	Integration	to keep	 model	 concepts	 and	 terms	 strictly	 consistent	 within	 these	 bounds, but	 don’t	 be distracted	or	confused	by	issues	outside. Standardize	a	single	development	process	within the	context, which	need	not	be	used	elsewhere.
+> Explicitly define the context within which a model applies. Explicitly set boundaries in terms of team organization, usage within specific parts of the application, and physical manifestations such
+> as code bases and database schemas. Apply Continuous Integration to keep model concepts and terms strictly consistent within these bounds, but don’t be distracted or confused by issues outside.
+> Standardize a single development process within the context, which need not be used elsewhere.
 >
 > Evans, Eric. (2015). "Bounded Context", Domain-Driven	Design Reference.
 > https://www.domainlanguage.com/ddd/reference/
 
 ## Clean Architecture
 
-> Clean architecture is a software design philosophy that separates the elements of a design into ring levels. An important goal of clean architecture is to provide developers with a way to organize code in such a way that it encapsulates the business logic but keeps it separate from the delivery mechanism.
+> Clean architecture is a software design philosophy that separates the elements of a design into ring levels. An important goal of clean architecture is to provide developers with a way to organize
+> code in such a way that it encapsulates the business logic but keeps it separate from the delivery mechanism.
 >
-> The main rule of clean architecture is that code dependencies can only move from the outer levels inward. Code on the inner layers can have no knowledge of functions on the outer layers. The variables, functions and classes (any entities) that exist in the outer layers can not be mentioned in the more inward levels. It is recommended that data formats also stay separate between levels.
+> The main rule of clean architecture is that code dependencies can only move from the outer levels inward. Code on the inner layers can have no knowledge of functions on the outer layers. The
+> variables, functions and classes (any entities) that exist in the outer layers can not be mentioned in the more inward levels. It is recommended that data formats also stay separate between levels.
 >
 > "Clean Architecture." *Whatis*, last edited on 10 Mar 2019.  
 > https://whatis.techtarget.com/definition/clean-architecture
@@ -557,7 +656,8 @@ https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
 ### Pool HTTP connections with HttpClientFactory
 
-> Closed `HttpClient` instances leave sockets open in the `TIME_WAIT` state for a short period of time. If a code path that creates and disposes of `HttpClient` objects is frequently used, the app may exhaust available sockets.
+> Closed `HttpClient` instances leave sockets open in the `TIME_WAIT` state for a short period of time. If a code path that creates and disposes of `HttpClient` objects is frequently used, the app may
+> exhaust available sockets.
 >
 > Recommendations:
 >
@@ -569,9 +669,11 @@ https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
 ### DbContext pooling
 
-> The basic pattern for using EF Core in an ASP.NET Core application usually involves registering a custom DbContext type into the dependency injection system and later obtaining instances of that type through constructor parameters in controllers. This means a new instance of the DbContext is created for each request.
+> The basic pattern for using EF Core in an ASP.NET Core application usually involves registering a custom DbContext type into the dependency injection system and later obtaining instances of that
+> type through constructor parameters in controllers. This means a new instance of the DbContext is created for each request.
 >
-> In version 2.0 we are introducing a new way to register custom DbContext types in dependency injection which transparently introduces a pool of reusable DbContext instances. This is conceptually similar to how connection pooling operates in ADO.NET providers and has the advantage of saving some of the cost of initialization of DbContext instance.
+> In version 2.0 we are introducing a new way to register custom DbContext types in dependency injection which transparently introduces a pool of reusable DbContext instances. This is conceptually
+> similar to how connection pooling operates in ADO.NET providers and has the advantage of saving some of the cost of initialization of DbContext instance.
 >
 > "New features in EF Core 2.0" *MSDN*, Microsoft Docs, last edited on 11 Oct 2020.  
 > https://docs.microsoft.com/en-us/ef/core/what-is-new/ef-core-2.0/#dbcontext-pooling
@@ -716,7 +818,7 @@ deploy:
   replicas: 2
   resources:
     limits:
-      cpus: '0.25'
+      cpus: '0.20'
       memory: 120M
 ```
 
@@ -727,9 +829,10 @@ deploy:
   replicas: 2
   resources:
     limits:
-      cpus: '0.50'
-      memory: 260M
+      cpus: '0.20'
+      memory: 120M
 ```
+
 ## Test
 
 K6
