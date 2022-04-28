@@ -40,13 +40,13 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
             : new DomainEvent.CartItemIncreased(cmd.CartId, item.Id, item.Product.UnitPrice));
     }
 
-    public void Handle(Command.IncreaseShoppingCartItem cmd)
+    public void Handle(Command.IncreaseCartItem cmd)
     {
         if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is {IsDeleted: false} item)
             RaiseEvent(new DomainEvent.CartItemIncreased(cmd.CartId, cmd.ItemId, item.Product.UnitPrice));
     }
 
-    public void Handle(Command.DecreaseShoppingCartItem cmd)
+    public void Handle(Command.DecreaseCartItem cmd)
     {
         if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is {IsDeleted: false} item)
             RaiseEvent(new DomainEvent.CartItemDecreased(cmd.CartId, cmd.ItemId, item.Product.UnitPrice));

@@ -23,9 +23,9 @@ public static class Command
 
     public record RemoveCartItem(Guid CartId, Guid ItemId) : Message(CorrelationId: CartId), ICommand;
 
-    public record IncreaseShoppingCartItem(Guid CartId, Guid ItemId) : Message(CorrelationId: CartId), ICommand;
+    public record IncreaseCartItem(Guid CartId, Guid ItemId) : Message(CorrelationId: CartId), ICommand;
 
-    public record DecreaseShoppingCartItem(Guid CartId, Guid ItemId) : Message(CorrelationId: CartId), ICommand;
+    public record DecreaseCartItem(Guid CartId, Guid ItemId) : Message(CorrelationId: CartId), ICommand;
 
     public record DiscardCart(Guid CartId) : Message(CorrelationId: CartId), ICommand;
 }

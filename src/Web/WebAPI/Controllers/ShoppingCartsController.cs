@@ -71,13 +71,13 @@ public class ShoppingCartsController : ApplicationController
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> IncreaseAsync([NotEmpty] Guid cartId, [NotEmpty] Guid itemId, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.IncreaseShoppingCartItem>(new(cartId, itemId), cancellationToken);
+        => SendCommandAsync<Command.IncreaseCartItem>(new(cartId, itemId), cancellationToken);
 
     [HttpPut("{cartId:guid}/items/{itemId:guid}/[action]")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> DecreaseAsync([NotEmpty] Guid cartId, [NotEmpty] Guid itemId, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.DecreaseShoppingCartItem>(new(cartId, itemId), cancellationToken);
+        => SendCommandAsync<Command.DecreaseCartItem>(new(cartId, itemId), cancellationToken);
 
     [HttpPost("{cartId:guid}/customers/shipping-address")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
