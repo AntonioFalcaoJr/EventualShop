@@ -23,10 +23,19 @@
     <Content >
         <div class="d-grid gap-2">
             <BSLabel>Title</BSLabel>
-            <BSInput InputType="InputType.Text" placeholder="Title" @bind-Value="ViewModel.Title"/>
+            <BSInput InputType="InputType.Text" placeholder="Title" @bind-Value="ViewModel.Title" IsDisabled="_creating"/>
             <BSLabel>Description</BSLabel>
-            <BSInput InputType="InputType.TextArea" placeholder="Description" @bind-Value="ViewModel.Description"/>
-            <BSButton MarginTop="Margins.Large" Size="Size.Medium" Color="BSColor.Dark" OnClick="CreateAsync">Create</BSButton>
+            <BSInput InputType="InputType.TextArea" placeholder="Description" @bind-Value="ViewModel.Description" IsDisabled="_creating"/>
+            <BSButton MarginTop="Margins.Large" Color="BSColor.Dark" OnClick="CreateAsync" IsDisabled="_creating">
+                @if (_creating)
+                {
+                    <BSSpinner Size="Size.Small" Color="BSColor.Light"/>
+                }
+                else
+                {
+                    <p style="margin: auto">Create</p>
+                }
+            </BSButton>
         </div>
     </Content>
 </BSOffCanvas>
@@ -49,22 +58,39 @@
     else
     {
         <div class="row row-cols-md-4">
-            @foreach (var (catalogId, title, description, _, _) in ViewModel.Catalogs)
+            @foreach (var catalog in ViewModel.Catalogs)
             {
-                <BSCol  MarginTopAndBottom="Margins.ExtraSmall" Padding="Padding.None">
+                <BSCol MarginTopAndBottom="Margins.ExtraSmall" Padding="Padding.None">
                     <BSCard CardType="CardType.Card" Padding="Padding.None">
                         <BSCard CardType="CardType.Header">
-                            @title
-                            <BSButton Class="bi bi-pencil-square" Color="BSColor.Warning" OnClick=@(() => ChangeTitleAsync(catalogId))></BSButton>
+                            @if (catalog.IsEditingTitle)
+                            {
+                                <BSInput InputType="InputType.Text" @bind-Value="@catalog.Title"/>
+                                <BSButton Class="bi bi-pencil-square" Color="BSColor.Warning" OnClick=@(async () => {catalog.ToggleTitle(); await ViewModel.ChangeTitleAsync(catalog.Id); })></BSButton>
+                            }
+                            else
+                            {
+                                @catalog.Title
+                                <BSButton Class="bi bi-pencil-square" Color="BSColor.Warning" OnClick=@(() => catalog.ToggleTitle())></BSButton>
+                            }
+
                         </BSCard>
                         <BSCard CardType="CardType.Image" src="https://img.webnots.com/2017/04/Bootstrap-Card-Image.png"></BSCard>
                         <BSCard CardType="CardType.Body">
-                            <BSCard CardType="CardType.Title">@title</BSCard>
+                            <BSCard CardType="CardType.Title">@catalog.Title</BSCard>
                             <BSCard CardType="CardType.Subtitle">
-                                @description
-                                <BSButton Class="bi bi-pencil-square" Color="BSColor.Warning" OnClick=@(() => ChangeDescriptionAsync(catalogId))></BSButton>
+                                @if (catalog.IsEditingDescription)
+                                {
+                                    <BSInput InputType="InputType.Text" @bind-Value="@catalog.Description"/>
+                                    <BSButton Class="bi bi-pencil-square" Color="BSColor.Warning" OnClick=@(async () => {catalog.ToggleDescription(); await ViewModel.ChangeDescriptionAsync(catalog.Id); })></BSButton>
+                                }
+                                else
+                                {
+                                    @catalog.Description
+                                    <BSButton Class="bi bi-pencil-square" Color="BSColor.Warning" OnClick=@(() => catalog.ToggleDescription())></BSButton>
+                                }
                             </BSCard>
-                            <BSButton Class="bi bi-trash3" Color="BSColor.Danger" OnClick=@(() => DeleteAsync(catalogId))></BSButton>
+                            <BSButton Class="bi bi-trash3" Color="BSColor.Danger" OnClick=@(() => ViewModel.DeleteAsync(catalog.Id))></BSButton>
                         </BSCard>
                         <BSCard CardType="CardType.Footer">Last updated 3 mins ago</BSCard>
                     </BSCard>
@@ -87,6 +113,8 @@
 
     private BSOffCanvas _offCanvas;
 
+    private bool _creating;
+
     protected override Task OnInitializedAsync()
         => ViewModel.FetchDataAsync();
 
@@ -94,50 +122,18 @@
     {
         try
         {
+            _creating = true;
             await ViewModel.CreateAsync();
             await _offCanvas.HideAsync();
+            _creating = false;
         }
         catch (Exception e)
         {
+            _creating = false;
             Failed(e.Message);
         }
     }
 
-    private async Task ChangeDescriptionAsync(Guid catalogId)
-    {
-        try
-        {
-            await ViewModel.ChangeDescriptionAsync(catalogId);
-        }
-        catch (Exception e)
-        {
-            Failed(e.Message);
-        }
-    }
-
-    private async Task ChangeTitleAsync(Guid catalogId)
-    {
-        try
-        {
-            await ViewModel.ChangeTitleAsync(catalogId);
-        }
-        catch (Exception e)
-        {
-            Failed(e.Message);
-        }
-    }
-
-    private async Task DeleteAsync(Guid catalogId)
-    {
-        try
-        {
-            await ViewModel.DeleteAsync(catalogId);
-        }
-        catch (Exception e)
-        {
-            Failed(e.Message);
-        }
-    }
 
     private void Failed(string error = default)
     {
@@ -163,5 +159,4 @@
         if (ViewModel.PageInfo.HasPrevious)
             await ViewModel.FetchDataAsync(offset: ViewModel.PageInfo.Current - 2);
     }
-
 }
