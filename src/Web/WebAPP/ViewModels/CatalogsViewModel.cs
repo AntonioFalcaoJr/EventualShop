@@ -2,6 +2,7 @@
 using Contracts.Abstractions.Paging;
 using Contracts.Services.Catalog;
 using WebAPP.HttpClients;
+using WebAPP.Models;
 
 namespace WebAPP.ViewModels;
 
@@ -10,7 +11,7 @@ public class CatalogsViewModel
     private readonly IBlazorStrap _blazorStrap;
     private readonly IECommerceHttpClient _httpClient;
 
-    public List<Projection.Catalog> Catalogs = new();
+    public List<Catalog> Catalogs = new();
     public PageInfo PageInfo = new();
 
     public string Description;
@@ -28,7 +29,7 @@ public class CatalogsViewModel
 
         if (response.Success)
         {
-            Catalogs = response.ActionResult?.Items?.ToList() ?? Catalogs;
+            Catalogs = response.ActionResult.Items.Select(catalog => (Catalog) catalog).ToList();
             PageInfo = response.ActionResult?.PageInfo ?? PageInfo;
         }
         else Failed(response.Message);
@@ -45,9 +46,7 @@ public class CatalogsViewModel
             {
                 Title = string.Empty;
                 Description = string.Empty;
-
-                Catalogs.Add(new(request.CatalogId, request.Title, request.Description, false, false));
-
+                Catalogs.Add(request);
                 Success();
             }
             else Failed(response.Message);
@@ -81,14 +80,11 @@ public class CatalogsViewModel
     {
         try
         {
-            Request.ChangeCatalogTitle request = new(Title);
+            Request.ChangeCatalogTitle request = new(Catalogs.First(catalog => catalog.Id == catalogId).Title);
             var response = await _httpClient.ChangeTitleAsync(catalogId, request, CancellationToken.None);
 
             if (response.Success)
             {
-                var catalog = Catalogs.First(catalog => catalog.Id == catalogId);
-                var index = Catalogs.IndexOf(catalog);
-                Catalogs[index] = catalog with {Id = catalogId, Title = Title};
                 Success();
             }
             else Failed(response.Message);
@@ -103,14 +99,11 @@ public class CatalogsViewModel
     {
         try
         {
-            Request.ChangeCatalogDescription request = new(Description);
+            Request.ChangeCatalogDescription request = new(Catalogs.First(catalog => catalog.Id == catalogId).Description);
             var response = await _httpClient.ChangeDescriptionAsync(catalogId, request, CancellationToken.None);
 
             if (response.Success)
             {
-                var catalog = Catalogs.First(catalog => catalog.Id == catalogId);
-                var index = Catalogs.IndexOf(catalog);
-                Catalogs[index] = catalog with {Id = catalogId, Description = Description};
                 Success();
             }
             else Failed(response.Message);
@@ -140,4 +133,5 @@ public class CatalogsViewModel
             o.Toast = Toast.BottomRight;
         });
     }
+
 }
