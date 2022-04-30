@@ -29,26 +29,27 @@ If this project helped you in some way, please **give it a star**. Thanks!
 
 ## Roadmap
 
-* **Context Mapping** considering different types of relationships (upstream/downstream):
+- **Context Mapping** considering different types of relationships (upstream/downstream):
     - partnership;
     - customer-supplier;
     - conformist.
 
-
-* **Idempotent Consumer Filter** to prevent intentions from being expressed repeatedly:
+- **Idempotent Consumer Filter** to prevent intentions from being expressed repeatedly:
     - Do not consider duplicate messages;
     - Do not consider naturally idempotent intentions;
     - Consider the business expected interval in idempotence hash calculation.
 
-
-* **Outbox pattern** to provide distributed resilient publishing:
+- **Outbox pattern** to provide distributed resilient publishing:
     - Wrap publisher to persist just in case of failure;
 
 ![](./.assets/img/outbox.jpg)
 
-* **RPC Read Stack** (gRPC)
+- **RPC Read Stack** (gRPC)
     - V2 BFF/Gateway route;
     - Proto files as contracts.
+
+- _SPIKE_: **Controller to Minimal API** 
+  - Based on cohesion from [ApplicationController](./src/Web/WebAPI/Abstractions/ApplicationController.cs), consider moving design from Gateway/BFF to Minimal one.
 
 ## The Solution Architecture
 
