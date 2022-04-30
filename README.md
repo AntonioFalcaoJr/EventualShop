@@ -41,8 +41,7 @@ If this project helped you in some way, please **give it a star**. Thanks!
 
 - **Outbox pattern** to provide distributed resilient publishing:
     - Wrap publisher to persist just in case of failure;
-
-![](./.assets/img/outbox.jpg)
+    - ![](./.assets/img/outbox.jpg)
 
 - **RPC Read Stack** (gRPC)
     - V2 BFF/Gateway route;
