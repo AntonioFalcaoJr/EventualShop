@@ -25,7 +25,16 @@
   <component name="ChangeListManager">
     <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/DataTransferObjects/Dto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/DataTransferObjects/Dto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/DataTransferObjects/Validators/ShoppingCartItemValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/DataTransferObjects/Validators/ShoppingCartItemValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Order/Command.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Order/Command.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Order/DomainEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Order/DomainEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/ShoppingCart/IntegrationEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/ShoppingCart/IntegrationEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Events/Integrations/PublishCartSubmmitedWhenCartCheckedOutConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Events/Integrations/PublishCartSubmmitedWhenCartCheckedOutConsumer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Aggregates/ShoppingCart.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Aggregates/ShoppingCart.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Entities/CartItems/CartItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Entities/CartItems/CartItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Entities/Customers/Customer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Entities/Customers/Customer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Entities/Products/Product.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Entities/Products/Product.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +106,7 @@
     &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;Inspections-C#&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.appearance&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -299,41 +308,9 @@
       <workItem from="1650823334236" duration="371000" />
       <workItem from="1650824147497" duration="46232000" />
       <workItem from="1650976591430" duration="76988000" />
-    </task>
-    <task id="LOCAL-00092" summary="Improving read stack retrieving same contract of projections">
-      <created>1650657903272</created>
-      <option name="number" value="00092" />
-      <option name="presentableId" value="LOCAL-00092" />
-      <option name="project" value="LOCAL" />
-      <updated>1650657903272</updated>
-    </task>
-    <task id="LOCAL-00093" summary="Moving abstractions path">
-      <created>1650659037022</created>
-      <option name="number" value="00093" />
-      <option name="presentableId" value="LOCAL-00093" />
-      <option name="project" value="LOCAL" />
-      <updated>1650659037022</updated>
-    </task>
-    <task id="LOCAL-00094" summary="Moving abstractions path">
-      <created>1650659314183</created>
-      <option name="number" value="00094" />
-      <option name="presentableId" value="LOCAL-00094" />
-      <option name="project" value="LOCAL" />
-      <updated>1650659314183</updated>
-    </task>
-    <task id="LOCAL-00095" summary="Adding payment methods projection and query">
-      <created>1650663312375</created>
-      <option name="number" value="00095" />
-      <option name="presentableId" value="LOCAL-00095" />
-      <option name="project" value="LOCAL" />
-      <updated>1650663312375</updated>
-    </task>
-    <task id="LOCAL-00096" summary="Adding payment methods projection and query">
-      <created>1650663418657</created>
-      <option name="number" value="00096" />
-      <option name="presentableId" value="LOCAL-00096" />
-      <option name="project" value="LOCAL" />
-      <updated>1650663418657</updated>
+      <workItem from="1651355981007" duration="163000" />
+      <workItem from="1651498931008" duration="4579000" />
+      <workItem from="1651504895160" duration="874000" />
     </task>
     <task id="LOCAL-00097" summary="Adding await to more fast reflection in data denormalization">
       <created>1650729154686</created>
@@ -643,7 +620,42 @@
       <option name="project" value="LOCAL" />
       <updated>1651185950612</updated>
     </task>
-    <option name="localTasksCounter" value="141" />
+    <task id="LOCAL-00141" summary="Adding Spike">
+      <created>1651342931207</created>
+      <option name="number" value="00141" />
+      <option name="presentableId" value="LOCAL-00141" />
+      <option name="project" value="LOCAL" />
+      <updated>1651342931223</updated>
+    </task>
+    <task id="LOCAL-00142" summary="fixing">
+      <created>1651343100440</created>
+      <option name="number" value="00142" />
+      <option name="presentableId" value="LOCAL-00142" />
+      <option name="project" value="LOCAL" />
+      <updated>1651343100440</updated>
+    </task>
+    <task id="LOCAL-00143" summary="Improving design">
+      <created>1651354313548</created>
+      <option name="number" value="00143" />
+      <option name="presentableId" value="LOCAL-00143" />
+      <option name="project" value="LOCAL" />
+      <updated>1651354313548</updated>
+    </task>
+    <task id="LOCAL-00144" summary="test">
+      <created>1651354702696</created>
+      <option name="number" value="00144" />
+      <option name="presentableId" value="LOCAL-00144" />
+      <option name="project" value="LOCAL" />
+      <updated>1651354702696</updated>
+    </task>
+    <task id="LOCAL-00145" summary=".">
+      <created>1651354753192</created>
+      <option name="number" value="00145" />
+      <option name="presentableId" value="LOCAL-00145" />
+      <option name="project" value="LOCAL" />
+      <updated>1651354753192</updated>
+    </task>
+    <option name="localTasksCounter" value="146" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -669,11 +681,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Adjusting to support projections directly" />
-    <MESSAGE value="Fix based on projections" />
-    <MESSAGE value="Renaming projection" />
-    <MESSAGE value="Improving naming qualifying" />
-    <MESSAGE value="Adjusting description from event store service and resources" />
     <MESSAGE value="Reducing abstractions paths" />
     <MESSAGE value="Fixing payment settings" />
     <MESSAGE value="Adding get all items and adjusting repository naming" />
@@ -694,7 +701,12 @@
     <MESSAGE value="Improving README" />
     <MESSAGE value="Adjusting solution" />
     <MESSAGE value="Adding Evans citation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding Evans citation" />
+    <MESSAGE value="Adding Spike" />
+    <MESSAGE value="fixing" />
+    <MESSAGE value="Improving design" />
+    <MESSAGE value="test" />
+    <MESSAGE value="." />
+    <option name="LAST_COMMIT_MESSAGE" value="." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

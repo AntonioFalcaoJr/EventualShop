@@ -22,6 +22,8 @@ public class PublishCartSubmittedWhenCheckedOutConsumer : IConsumer<DomainEvent.
     {
         var shoppingCart = await _eventStore.LoadAggregateAsync(context.Message.CartId, context.CancellationToken);
 
+        var cartSubmittedEventTwo = new IntegrationEvent.CartSubmitted(shoppingCart.Id, shoppingCart.Customer, shoppingCart.Total, shoppingCart.Items, shoppingCart.PaymentMethods);
+        
         var cartSubmittedEvent = new IntegrationEvent.CartSubmitted(
             CartId: shoppingCart.Id,
             Customer: new()
@@ -46,17 +48,16 @@ public class PublishCartSubmittedWhenCheckedOutConsumer : IConsumer<DomainEvent.
                     ZipCode = shoppingCart.Customer.ShippingAddress.ZipCode
                 }
             },
-            ShoppingCartItems: shoppingCart.Items.Select(item => new Dto.ShoppingCartItem
+            ShoppingCartItems: shoppingCart.Items.Select(item => new Dto.CartItem
             {
-                Product = new()
-                {
-                    Description = "item.Product.Description",
-                    Id = item.Product.Id,
-                    Name = item.Product.Name,
-                    Sku = item.Product.Sku,
-                    PictureUrl = item.Product.PictureUrl,
-                    UnitPrice = item.Product.UnitPrice
-                },
+                Product = new(
+                    item.Product.Id,
+                    item.Product.Sku,
+                    item.Product.Name,
+                    "item.Product.Description",
+                    item.Product.UnitPrice,
+                    item.Product.PictureUrl
+                ),
                 Quantity = item.Quantity
             }),
             Total: shoppingCart.Total,
@@ -90,6 +91,7 @@ public class PublishCartSubmittedWhenCheckedOutConsumer : IConsumer<DomainEvent.
                         },
                     _ => default
                 }));
+
 
         await context.Publish(cartSubmittedEvent, context.CancellationToken);
     }

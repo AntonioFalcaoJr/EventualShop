@@ -42,19 +42,19 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
 
     public void Handle(Command.IncreaseCartItem cmd)
     {
-        if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is {IsDeleted: false} item)
+        if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is { IsDeleted: false } item)
             RaiseEvent(new DomainEvent.CartItemIncreased(cmd.CartId, cmd.ItemId, item.Product.UnitPrice));
     }
 
     public void Handle(Command.DecreaseCartItem cmd)
     {
-        if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is {IsDeleted: false} item)
+        if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is { IsDeleted: false } item)
             RaiseEvent(new DomainEvent.CartItemDecreased(cmd.CartId, cmd.ItemId, item.Product.UnitPrice));
     }
 
     public void Handle(Command.RemoveCartItem cmd)
     {
-        if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is {IsDeleted: false} item)
+        if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is { IsDeleted: false } item)
             RaiseEvent(new DomainEvent.CartItemRemoved(cmd.CartId, cmd.ItemId, item.Product.UnitPrice, item.Quantity));
     }
 
@@ -103,7 +103,7 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
 
     private void When(DomainEvent.CartItemAdded @event)
     {
-        Product product = new(@event.Product.Id, @event.Product.Name, @event.Product.UnitPrice, @event.Product.PictureUrl, @event.Product.Sku);
+        Product product = new(@event.Product);
         CartItem cartItem = new(@event.ItemId, product, @event.Quantity);
         _items.Add(cartItem);
     }
@@ -125,24 +125,8 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
                 @event.PayPal.Password));
 
     private void When(DomainEvent.ShippingAddressAdded @event)
-        => Customer.SetShippingAddress(new()
-        {
-            City = @event.Address.City,
-            Country = @event.Address.Country,
-            Number = @event.Address.Number,
-            State = @event.Address.State,
-            Street = @event.Address.Street,
-            ZipCode = @event.Address.ZipCode
-        });
+        => Customer.SetShippingAddress(@event.Address);
 
     private void When(DomainEvent.BillingAddressChanged @event)
-        => Customer.SetBillingAddress(new()
-        {
-            City = @event.Address.City,
-            Country = @event.Address.Country,
-            Number = @event.Address.Number,
-            State = @event.Address.State,
-            Street = @event.Address.Street,
-            ZipCode = @event.Address.ZipCode
-        });
+        => Customer.SetBillingAddress(@event.Address);
 }
