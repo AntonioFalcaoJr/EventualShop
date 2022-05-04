@@ -24,17 +24,49 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Services/Order/Domain/Entities/Products/Product.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/Order/Domain/Entities/Products/ProductValidator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentMethods/CreditCards/CreditCard.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentMethods/PayPal/PayPal.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Abstractions/IMessage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Abstractions/IMessage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Abstractions/Message.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Abstractions/Message.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/DataTransferObjects/Dto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/DataTransferObjects/Dto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/DataTransferObjects/Validators/ShoppingCartItemValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/DataTransferObjects/Validators/ShoppingCartItemValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Order/Command.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Order/Command.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Order/DomainEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Order/DomainEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/ShoppingCart/IntegrationEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/ShoppingCart/IntegrationEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Catalog/DomainEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Catalog/DomainEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Catalog/Projection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Catalog/Projection.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Application/UseCases/Events/ProjectCatalogWhenChangedConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Application/UseCases/Events/ProjectCatalogWhenChangedConsumer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Domain/Aggregates/Catalog.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Domain/Aggregates/Catalog.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Domain/Entities/Products/Product.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Domain/Entities/Products/Product.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Order/Domain/Aggregates/Order.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Domain/Aggregates/Order.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Order/Domain/Entities/OrderItems/OrderItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Domain/Entities/OrderItems/OrderItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Domain/Aggregates/Payment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Domain/Aggregates/Payment.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Domain/Entities/PaymentMethods/CreditCards/CreditCardPaymentMethod.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Domain/Entities/PaymentMethods/CreditCards/CreditCard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Domain/Entities/PaymentMethods/CreditCards/CreditCardPaymentMethodValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Domain/Entities/PaymentMethods/CreditCards/CreditCardPaymentMethodValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Domain/Entities/PaymentMethods/DebitCards/DebitCardPaymentMethod.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Domain/Entities/PaymentMethods/DebitCards/DebitCard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Domain/Entities/PaymentMethods/DebitCards/DebitCardPaymentMethodValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Domain/Entities/PaymentMethods/DebitCards/DebitCardPaymentMethodValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Domain/Entities/PaymentMethods/PayPal/PayPalPaymentMethod.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Domain/Entities/PaymentMethods/PayPal/PayPal.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Domain/Entities/PaymentMethods/PayPal/PayPalPaymentMethodValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Domain/Entities/PaymentMethods/PayPal/PayPalPaymentMethodValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Domain/Entities/PaymentMethods/PaymentMethod.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Domain/Entities/PaymentMethods/PaymentMethod.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Domain/ValueObjects/Addresses/Address.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Domain/ValueObjects/Addresses/Address.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/CreditCards/CreditCardPaymentService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/CreditCards/CreditCardPaymentService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/DebitCards/DebitCardPaymentService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/DebitCards/DebitCardPaymentService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/PayPal/PayPalPaymentService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/PayPal/PayPalPaymentService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Events/Integrations/PublishCartSubmmitedWhenCartCheckedOutConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Events/Integrations/PublishCartSubmmitedWhenCartCheckedOutConsumer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Events/Projections/ProjectCartPaymentMethodsWhenChangedConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Events/Projections/ProjectCartPaymentMethodsWhenChangedConsumer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Aggregates/ShoppingCart.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Aggregates/ShoppingCart.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Aggregates/ShoppingCartValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Aggregates/ShoppingCartValidator.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Entities/CartItems/CartItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Entities/CartItems/CartItem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Entities/Customers/Customer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Entities/Customers/Customer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Entities/Products/Product.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Entities/Products/Product.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/Addresses/Address.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/Addresses/Address.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentMethods/CreditCards/CreditCardPaymentMethod.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentMethods/CreditCards/CreditCardPaymentMethodValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentMethods/CreditCards/CreditCardValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentMethods/DebitCards/DebitCardPaymentMethod.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentMethods/DebitCards/DebitCard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentMethods/DebitCards/DebitCardPaymentMethodValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentMethods/DebitCards/DebitCardValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentMethods/PayPal/PayPalPaymentMethod.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentMethods/PayPal/PayPalPaymentMethodValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentMethods/PayPal/PayPalValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/Application/UseCases/Events/Integrations/ReserveInventoryItemWhenCartItemAddedConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/Application/UseCases/Events/Integrations/ReserveInventoryItemWhenCartItemAddedConsumer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/Domain/Aggregates/InventoryItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/Domain/Aggregates/InventoryItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/Domain/Entities/Products/Product.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/Domain/Entities/Products/Product.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,6 +109,7 @@
     <setting file="file://$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Web/WebAPP/Pages/Catalogs.razor" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogsViewModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9a151d5b1d7741bda9bb7f018a295dcda6a470/5c/8977c3c0/Nullable`1.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -311,6 +344,8 @@
       <workItem from="1651355981007" duration="163000" />
       <workItem from="1651498931008" duration="4579000" />
       <workItem from="1651504895160" duration="874000" />
+      <workItem from="1651582871683" duration="952000" />
+      <workItem from="1651620034028" duration="6061000" />
     </task>
     <task id="LOCAL-00097" summary="Adding await to more fast reflection in data denormalization">
       <created>1650729154686</created>

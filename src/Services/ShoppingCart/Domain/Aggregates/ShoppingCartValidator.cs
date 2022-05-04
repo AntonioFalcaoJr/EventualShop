@@ -28,9 +28,9 @@ public class ShoppingCartValidator : EntityValidator<ShoppingCart, Guid>
         RuleForEach(cart => cart.PaymentMethods)
             .SetInheritanceValidator(validator =>
             {
-                validator.Add(new CreditCardPaymentMethodValidator());
-                validator.Add(new DebitCardPaymentMethodValidator());
-                validator.Add(new PayPalPaymentMethodValidator());
+                validator.Add(new CreditCardValidator());
+                validator.Add(new DebitCardValidator());
+                validator.Add(new PayPalValidator());
             });
     }
 }

@@ -9,11 +9,11 @@ public static class Dto
 
     public record Customer(Guid? Id, Address ShippingAddress, Address BillingAddress);
 
-    public record CreditCard([property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))] DateOnly Expiration, string HolderName, string Number, string SecurityNumber, Guid Id, decimal Amount) : IPaymentMethod;
+    public record CreditCard(Guid? Id, decimal Amount, [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))] DateOnly Expiration, string Number, string HolderName, string SecurityNumber) : IPaymentMethod;
 
-    public record DebitCard([property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))] DateOnly Expiration, string HolderName, string Number, string SecurityNumber, Guid Id, decimal Amount) : IPaymentMethod;
+    public record DebitCard(Guid? Id, decimal Amount, [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))] DateOnly Expiration, string Number, string HolderName, string SecurityNumber) : IPaymentMethod;
 
-    public record PayPal(string UserName, string Password, Guid Id, decimal Amount) : IPaymentMethod;
+    public record PayPal(Guid? Id, decimal Amount, string UserName, string Password) : IPaymentMethod;
 
     public record CartItem(Guid? Id, Product Product, int Quantity);
 
@@ -23,7 +23,7 @@ public static class Dto
 
     public interface IPaymentMethod
     {
-        Guid Id { get; }
+        Guid? Id { get; }
         decimal Amount { get; }
     }
 }

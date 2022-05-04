@@ -21,7 +21,7 @@ public class Order : AggregateRoot<Guid, OrderValidator>
 
     public decimal Total
         => Items.Sum(item
-            => item.Price * item.Quantity);
+            => item.Product.UnitPrice * item.Quantity);
 
     public IEnumerable<IPaymentMethod> PaymentMethods
         => _paymentMethods;
@@ -47,7 +47,8 @@ public class Order : AggregateRoot<Guid, OrderValidator>
     {
         Id = @event.OrderId;
         Customer = new(
-            @event.Customer.Id,
+            // TODO - Review this
+            @event.Customer.Id ?? default,
             new()
             {
                 City = @event.Customer.BillingAddress.City,
@@ -66,16 +67,9 @@ public class Order : AggregateRoot<Guid, OrderValidator>
                 Street = @event.Customer.ShippingAddress.Street,
                 ZipCode = @event.Customer.ShippingAddress.ZipCode
             });
-        _items.AddRange(@event.Items.Select(item
-            => new OrderItem(
-                item.Product.Id,
-                item.Product.Name,
-                item.Product.Sku,
-                "CATEGORY",
-                "BRAND",
-                item.Product.UnitPrice,
-                item.Quantity,
-                item.Product.PictureUrl)));
+        
+        // TODO - Improve this
+        _items.AddRange(@event.Items.Select(item => (OrderItem) item));
 
         _paymentMethods.AddRange(@event.PaymentMethods.Select<Dto.IPaymentMethod, IPaymentMethod>(method
             => method switch

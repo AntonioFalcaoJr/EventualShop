@@ -101,16 +101,12 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     private void When(DomainEvent.CartItemRemoved @event)
         => _items.RemoveAll(item => item.Id == @event.ItemId);
 
-    private void When(DomainEvent.CartItemAdded @event)
-    {
-        Product product = new(@event.Product);
-        CartItem cartItem = new(@event.ItemId, product, @event.Quantity);
-        _items.Add(cartItem);
-    }
+    private void When(DomainEvent.CartItemAdded @event) 
+        => _items.Add(new(@event.ItemId, @event.Product, @event.Quantity));
 
     private void When(DomainEvent.CreditCardAdded @event)
         => _paymentMethods.Add(
-            new CreditCardPaymentMethod(
+            new CreditCard(
                 @event.CreditCard.Amount,
                 @event.CreditCard.Expiration,
                 @event.CreditCard.HolderName,
@@ -119,7 +115,7 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
 
     private void When(DomainEvent.PayPalAdded @event)
         => _paymentMethods.Add(
-            new PayPalPaymentMethod(
+            new PayPal(
                 @event.PayPal.Amount,
                 @event.PayPal.UserName,
                 @event.PayPal.Password));

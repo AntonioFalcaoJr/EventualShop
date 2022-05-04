@@ -2,7 +2,7 @@
 
 namespace Domain.Entities.PaymentMethods.CreditCards;
 
-public class CreditCardPaymentMethodValidator : AbstractValidator<CreditCardPaymentMethod>
+public class CreditCardPaymentMethodValidator : AbstractValidator<CreditCard>
 {
     public CreditCardPaymentMethodValidator()
     {

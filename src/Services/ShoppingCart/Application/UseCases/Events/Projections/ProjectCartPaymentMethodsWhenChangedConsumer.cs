@@ -27,7 +27,7 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
         {
             Amount = context.Message.CreditCard.Amount,
             Expiration = context.Message.CreditCard.Expiration,
-            Id = context.Message.CreditCard.Id,
+            Id = context.Message.CreditCard.Id.GetValueOrDefault(),
             Number = context.Message.CreditCard.Number,
             HolderName = context.Message.CreditCard.HolderName,
             IsDeleted = false,
@@ -42,8 +42,8 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
     {
         var paypal = new Projection.PayPalPaymentMethod
         {
+            Id = context.Message.PayPal.Id.GetValueOrDefault(),
             Amount = context.Message.PayPal.Amount,
-            Id = context.Message.PayPal.Id,
             Password = context.Message.PayPal.Password,
             IsDeleted = false,
             UserName = context.Message.PayPal.UserName,

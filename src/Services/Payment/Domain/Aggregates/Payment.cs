@@ -52,43 +52,14 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
         Id = @event.PaymentId;
         OrderId = @event.OrderId;
         Amount = @event.Amount;
-
-        BillingAddress = new()
-        {
-            City = @event.BillingAddress.City,
-            Country = @event.BillingAddress.Country,
-            Number = @event.BillingAddress.Number,
-            State = @event.BillingAddress.State,
-            Street = @event.BillingAddress.Street,
-            ZipCode = @event.BillingAddress.ZipCode
-        };
-
+        BillingAddress = @event.BillingAddress;
         _methods.AddRange(@event.PaymentMethods
             .Select<Dto.IPaymentMethod, IPaymentMethod>(method
                 => method switch
                 {
-                    Dto.CreditCard creditCard
-                        => new CreditCardPaymentMethod(
-                            creditCard.Id,
-                            creditCard.Amount,
-                            creditCard.Expiration,
-                            creditCard.Number,
-                            creditCard.HolderName,
-                            creditCard.SecurityNumber),
-                    Dto.DebitCard debitCard
-                        => new DebitCardPaymentMethod(
-                            debitCard.Id,
-                            debitCard.Amount,
-                            debitCard.Expiration,
-                            debitCard.Number,
-                            debitCard.HolderName,
-                            debitCard.SecurityNumber),
-                    Dto.PayPal payPal
-                        => new PayPalPaymentMethod(
-                            payPal.Id,
-                            payPal.Amount,
-                            payPal.Password,
-                            payPal.UserName),
+                    Dto.CreditCard creditCard => (CreditCard) creditCard,
+                    Dto.DebitCard debitCard => (DebitCard) debitCard,
+                    Dto.PayPal payPal => (PayPal) payPal, 
                     _ => default
                 }));
 

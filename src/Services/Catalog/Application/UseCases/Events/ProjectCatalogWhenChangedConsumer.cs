@@ -24,9 +24,7 @@ public class ProjectCatalogWhenChangedConsumer :
         var catalog = new Projection.Catalog(
             context.Message.CatalogId,
             context.Message.Title,
-            context.Message.Description,
-            context.Message.IsActive,
-            context.Message.IsDeleted);
+            context.Message.Description);
 
         await _repository.InsertAsync(catalog, context.CancellationToken);
     }

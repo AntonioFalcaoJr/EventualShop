@@ -16,7 +16,7 @@ public class DebitCardPaymentService : PaymentService, IDebitCardPaymentService
     }
 
     public override Task<IPaymentResult> HandleAsync(Func<IPaymentService, IPaymentMethod, CancellationToken, Task<IPaymentResult>> behaviorProcessor, IPaymentMethod method, CancellationToken cancellationToken)
-        => method is DebitCardPaymentMethod debitCardPaymentMethod
+        => method is DebitCard debitCardPaymentMethod
             ? behaviorProcessor(this, debitCardPaymentMethod, cancellationToken)
             : base.HandleAsync(behaviorProcessor, method, cancellationToken);
 

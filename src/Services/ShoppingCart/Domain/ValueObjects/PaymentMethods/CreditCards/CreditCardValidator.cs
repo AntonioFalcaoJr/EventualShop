@@ -2,9 +2,9 @@
 
 namespace Domain.ValueObjects.PaymentMethods.CreditCards;
 
-public class CreditCardPaymentMethodValidator : AbstractValidator<CreditCardPaymentMethod>
+public class CreditCardValidator : AbstractValidator<CreditCard>
 {
-    public CreditCardPaymentMethodValidator()
+    public CreditCardValidator()
     {
         RuleFor(card => card.Expiration)
             .NotEqual(DateOnly.MinValue)

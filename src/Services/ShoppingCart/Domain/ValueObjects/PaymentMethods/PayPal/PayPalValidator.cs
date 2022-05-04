@@ -2,9 +2,9 @@
 
 namespace Domain.ValueObjects.PaymentMethods.PayPal;
 
-public class PayPalPaymentMethodValidator : AbstractValidator<PayPalPaymentMethod>
+public class PayPalValidator : AbstractValidator<PayPal>
 {
-    public PayPalPaymentMethodValidator()
+    public PayPalValidator()
     {
         RuleFor(card => card.Password)
             .NotNull()

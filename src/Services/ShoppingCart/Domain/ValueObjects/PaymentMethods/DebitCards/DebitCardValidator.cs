@@ -2,9 +2,9 @@
 
 namespace Domain.ValueObjects.PaymentMethods.DebitCards;
 
-public class DebitCardPaymentMethodValidator : AbstractValidator<DebitCardPaymentMethod>
+public class DebitCardValidator : AbstractValidator<DebitCard>
 {
-    public DebitCardPaymentMethodValidator()
+    public DebitCardValidator()
     {
         RuleFor(card => card.Expiration)
             .NotEqual(DateOnly.MinValue)

@@ -5,9 +5,9 @@ namespace Domain.Entities.Products;
 
 public class Product : Entity<Guid, ProductValidator>
 {
-    public Product(Guid id, string description, string name, decimal unitPrice, string pictureUrl, string sku)
+    public Product(Guid? id, string description, string name, decimal unitPrice, string pictureUrl, string sku)
     {
-        Id = id;
+        Id = id ?? Guid.NewGuid();
         Description = description;
         Name = name;
         UnitPrice = unitPrice;
@@ -22,7 +22,7 @@ public class Product : Entity<Guid, ProductValidator>
     public string Sku { get; }
 
     public static implicit operator Product(Dto.Product product)
-        => new(product.Id ?? default, product.Description, product.Name, product.UnitPrice, product.PictureUrl, product.Sku);
+        => new(product.Id, product.Description, product.Name, product.UnitPrice, product.PictureUrl, product.Sku);
 
     public static implicit operator Dto.Product(Product product)
         => new(product.Id, product.Description, product.Name, product.UnitPrice, product.PictureUrl, product.Sku);

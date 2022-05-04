@@ -5,7 +5,7 @@ namespace Contracts.Services.Catalog;
 
 public static class Projection
 {
-    public record Catalog(Guid Id, string Title, string Description, bool IsActive, bool IsDeleted) : IProjection;
+    public record Catalog(Guid Id, string Title, string Description, bool IsActive = default, bool IsDeleted = default) : IProjection;
 
     public record CatalogItem(Guid CatalogId, Guid Id, Dto.Product Product, bool IsDeleted) : IProjection;
 }

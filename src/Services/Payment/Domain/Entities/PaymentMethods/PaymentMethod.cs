@@ -7,9 +7,9 @@ namespace Domain.Entities.PaymentMethods;
 public abstract class PaymentMethod<TValidator> : Entity<Guid, TValidator>, IPaymentMethod
     where TValidator : IValidator, new()
 {
-    protected PaymentMethod(Guid id, decimal amount)
+    protected PaymentMethod(Guid? id, decimal amount)
     {
-        Id = id;
+        Id = id ?? Guid.NewGuid();
         Amount = amount;
         Status = PaymentMethodStatus.Ready;
     }

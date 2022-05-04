@@ -1,28 +1,25 @@
-﻿using Domain.Abstractions.Entities;
+﻿using Contracts.DataTransferObjects;
+using Domain.Abstractions.Entities;
+using Domain.Entities.Products;
 
 namespace Domain.Entities.OrderItems;
 
 public class OrderItem : Entity<Guid, OrderItemValidator>
 {
-    public OrderItem(Guid productId, string productName, string sku, string category, string brand, decimal price, int quantity, string pictureUrl)
+    public OrderItem(Guid? id, Product product, int quantity)
     {
-        Id = Guid.NewGuid();
-        ProductId = productId;
-        ProductName = productName;
-        SKU = sku;
-        Category = category;
-        Brand = brand;
-        Price = price;
+        Id = id ?? Guid.NewGuid();
+        Product = product;
         Quantity = quantity;
-        PictureUrl = pictureUrl;
     }
 
-    public Guid ProductId { get; }
-    public string ProductName { get; }
-    public string SKU { get; }
+    public Product Product { get; }
+    public int Quantity { get; private set; }
+
+    // TODO, include this in PRODUCT
     public string Category { get; }
     public string Brand { get; }
-    public decimal Price { get; }
-    public int Quantity { get; }
-    public string PictureUrl { get; }
+    
+    public static implicit operator OrderItem(Dto.CartItem item)
+        => new(item.Id, item.Product, item.Quantity);
 }

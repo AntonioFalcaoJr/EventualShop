@@ -1,7 +1,4 @@
-﻿
-
-
-using Contracts.DataTransferObjects;
+﻿using Contracts.DataTransferObjects;
 using Domain.Abstractions.ValueObjects;
 
 namespace Domain.ValueObjects.Addresses;
