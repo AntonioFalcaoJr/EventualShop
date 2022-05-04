@@ -7,6 +7,7 @@ using Domain.ValueObjects.PaymentMethods;
 using Domain.ValueObjects.PaymentMethods.CreditCards;
 using Domain.ValueObjects.PaymentMethods.PayPal;
 using Contracts.Abstractions;
+using Contracts.DataTransferObjects;
 using Contracts.Services.ShoppingCart;
 
 namespace Domain.Aggregates;
@@ -101,24 +102,14 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     private void When(DomainEvent.CartItemRemoved @event)
         => _items.RemoveAll(item => item.Id == @event.ItemId);
 
-    private void When(DomainEvent.CartItemAdded @event) 
+    private void When(DomainEvent.CartItemAdded @event)
         => _items.Add(new(@event.ItemId, @event.Product, @event.Quantity));
 
     private void When(DomainEvent.CreditCardAdded @event)
-        => _paymentMethods.Add(
-            new CreditCard(
-                @event.CreditCard.Amount,
-                @event.CreditCard.Expiration,
-                @event.CreditCard.HolderName,
-                @event.CreditCard.Number,
-                @event.CreditCard.SecurityNumber));
+        => _paymentMethods.Add((CreditCard)@event.CreditCard);
 
     private void When(DomainEvent.PayPalAdded @event)
-        => _paymentMethods.Add(
-            new PayPal(
-                @event.PayPal.Amount,
-                @event.PayPal.UserName,
-                @event.PayPal.Password));
+        => _paymentMethods.Add((PayPal)@event.PayPal);
 
     private void When(DomainEvent.ShippingAddressAdded @event)
         => Customer.SetShippingAddress(@event.Address);
