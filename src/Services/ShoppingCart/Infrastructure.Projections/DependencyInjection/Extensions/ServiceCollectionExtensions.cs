@@ -21,8 +21,8 @@ public static class ServiceCollectionExtensions
         BsonSerializer.RegisterSerializer(typeof(decimal), new DecimalSerializer(BsonType.Decimal128));
         BsonSerializer.RegisterSerializer(typeof(decimal?), new NullableSerializer<decimal>(new DecimalSerializer(BsonType.Decimal128)));
 
-        BsonClassMap.RegisterClassMap<Projection.CreditCardPaymentMethod>();
-        BsonClassMap.RegisterClassMap<Projection.DebitCardPaymentMethod>();
-        BsonClassMap.RegisterClassMap<Projection.PayPalPaymentMethod>();
+        BsonClassMap.RegisterClassMap<Projection.CreditCard>();
+        BsonClassMap.RegisterClassMap<Projection.DebitCard>();
+        BsonClassMap.RegisterClassMap<Projection.PayPal>();
     }
 }

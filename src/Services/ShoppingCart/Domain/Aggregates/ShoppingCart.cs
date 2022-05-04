@@ -1,13 +1,11 @@
 ﻿using Domain.Abstractions.Aggregates;
 using Domain.Entities.CartItems;
 using Domain.Entities.Customers;
-using Domain.Entities.Products;
 using Domain.Enumerations;
 using Domain.ValueObjects.PaymentMethods;
 using Domain.ValueObjects.PaymentMethods.CreditCards;
 using Domain.ValueObjects.PaymentMethods.PayPal;
 using Contracts.Abstractions;
-using Contracts.DataTransferObjects;
 using Contracts.Services.ShoppingCart;
 
 namespace Domain.Aggregates;

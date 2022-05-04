@@ -2,7 +2,6 @@
 using Application.Services.PayPal;
 using Application.Services.PayPal.Http;
 using Domain.Entities.PaymentMethods;
-using Domain.Entities.PaymentMethods.PayPal;
 
 namespace Infrastructure.HttpClients.PayPal;
 

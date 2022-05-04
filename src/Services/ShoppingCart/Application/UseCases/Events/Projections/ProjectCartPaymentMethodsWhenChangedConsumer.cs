@@ -23,33 +23,25 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
 
     public async Task Consume(ConsumeContext<DomainEvent.CreditCardAdded> context)
     {
-        var creditCard = new Projection.CreditCardPaymentMethod
-        {
-            Amount = context.Message.CreditCard.Amount,
-            Expiration = context.Message.CreditCard.Expiration,
-            Id = context.Message.CreditCard.Id.GetValueOrDefault(),
-            Number = context.Message.CreditCard.Number,
-            HolderName = context.Message.CreditCard.HolderName,
-            IsDeleted = false,
-            SecurityNumber = context.Message.CreditCard.SecurityNumber,
-            CartId = context.Message.CartId
-        };
+        Projection.CreditCard creditCard = new(
+            context.Message.CreditCard.Id,
+            context.Message.CartId,
+            context.Message.CreditCard.Amount,
+            context.Message.CreditCard,
+            false);
 
         await _repository.InsertAsync(creditCard, context.CancellationToken);
     }
 
     public async Task Consume(ConsumeContext<DomainEvent.PayPalAdded> context)
     {
-        var paypal = new Projection.PayPalPaymentMethod
-        {
-            Id = context.Message.PayPal.Id.GetValueOrDefault(),
-            Amount = context.Message.PayPal.Amount,
-            Password = context.Message.PayPal.Password,
-            IsDeleted = false,
-            UserName = context.Message.PayPal.UserName,
-            CartId = context.Message.CartId,
-        };
+        Projection.PayPal payPal = new(
+            context.Message.PayPal.Id,
+            context.Message.CartId,
+            context.Message.PayPal.Amount,
+            context.Message.PayPal,
+            false);
 
-        await _repository.InsertAsync(paypal, context.CancellationToken);
+        await _repository.InsertAsync(payPal, context.CancellationToken);
     }
 }

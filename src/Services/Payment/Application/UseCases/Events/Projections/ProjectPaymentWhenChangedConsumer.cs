@@ -25,14 +25,14 @@ public class ProjectPaymentWhenChangedConsumer :
 
     public async Task Consume(ConsumeContext<DomainEvent.PaymentRequested> context)
     {
-        var payment = new Projection.Payment
-        {
-            Amount = context.Message.Amount,
-            Id = context.Message.PaymentId,
-            Status = context.Message.Status,
-            IsDeleted = false,
-            OrderId = context.Message.OrderId
-        };
+        var payment = new Projection.Payment(
+            context.Message.PaymentId,
+            context.Message.OrderId,
+            context.Message.Amount,
+            context.Message.BillingAddress,
+            context.Message.PaymentMethods,
+            context.Message.Status,
+            false);
 
         await _repository.InsertAsync(payment, context.CancellationToken);
     }

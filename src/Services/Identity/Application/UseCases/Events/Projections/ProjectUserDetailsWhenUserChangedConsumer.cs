@@ -28,14 +28,7 @@ public class ProjectUserDetailsWhenUserChangedConsumer :
 
     public async Task Consume(ConsumeContext<DomainEvent.UserRegistered> context)
     {
-        var userAuthentication = new Projection.UserAuthentication
-        {
-            Id = context.Message.UserId,
-            Email = context.Message.Email,
-            Password = context.Message.Password,
-            IsDeleted = false
-        };
-
+        Projection.UserAuthentication userAuthentication = new(context.Message.UserId, context.Message.Email, context.Message.Password, false);
         await _repository.InsertAsync(userAuthentication, context.CancellationToken);
     }
 }

@@ -15,12 +15,7 @@ public class ProjectOrderDetailsWhenOrderChangedConsumer : IConsumer<DomainEvent
 
     public async Task Consume(ConsumeContext<DomainEvent.OrderPlaced> context)
     {
-        var order = new Projection.Order
-        {
-            Id = context.Message.OrderId,
-            IsDeleted = false
-        };
-
+        Projection.Order order = new(context.Message.OrderId, false);
         await _repository.InsertAsync(order, context.CancellationToken);
     }
 }

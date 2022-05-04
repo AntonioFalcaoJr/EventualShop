@@ -8,7 +8,7 @@ public class ProjectAccountDetailsWhenChangedConsumer :
     IConsumer<DomainEvent.AccountCreated>,
     IConsumer<DomainEvent.AccountDeleted>,
     IConsumer<DomainEvent.ProfessionalAddressDefined>,
-    IConsumer<DomainEvent.ProfileUpdated>,
+    // IConsumer<DomainEvent.ProfileUpdated>,
     IConsumer<DomainEvent.ResidenceAddressDefined>
 {
     private readonly IProjectionRepository<Projection.Account> _repository;
@@ -20,17 +20,7 @@ public class ProjectAccountDetailsWhenChangedConsumer :
 
     public async Task Consume(ConsumeContext<DomainEvent.AccountCreated> context)
     {
-        var account = new Projection.Account
-        {
-            Id = context.Message.AccountId,
-            UserId = context.Message.UserId,
-            Profile = new()
-            {
-                Email = context.Message.Email
-            },
-            IsDeleted = false
-        };
-
+        Projection.Account account = new(context.Message.AccountId, context.Message.UserId, default, false);
         await _repository.InsertAsync(account, context.CancellationToken);
     }
 
@@ -45,18 +35,18 @@ public class ProjectAccountDetailsWhenChangedConsumer :
             cancellationToken: context.CancellationToken);
 
     // TODO - Improve this, update all profile dont like the right approach
-    public async Task Consume(ConsumeContext<DomainEvent.ProfileUpdated> context)
-        => await _repository.UpdateFieldAsync(
-            id: context.Message.AccountId,
-            field: account => account.Profile,
-            value: new()
-            {
-                Birthdate = context.Message.Birthdate,
-                Email = context.Message.Email,
-                FirstName = context.Message.FirstName,
-                LastName = context.Message.LastName
-            },
-            cancellationToken: context.CancellationToken);
+    // public async Task Consume(ConsumeContext<DomainEvent.ProfileUpdated> context)
+    //     => await _repository.UpdateFieldAsync(
+    //         id: context.Message.AccountId,
+    //         field: account => account.Profile,
+    //         value: new()
+    //         {
+    //             Birthdate = context.Message.Birthdate,
+    //             Email = context.Message.Email,
+    //             FirstName = context.Message.FirstName,
+    //             LastName = context.Message.LastName
+    //         },
+    //         cancellationToken: context.CancellationToken);
 
     public async Task Consume(ConsumeContext<DomainEvent.ResidenceAddressDefined> context)
         => await _repository.UpdateFieldAsync(
