@@ -17,7 +17,7 @@ public class CreateAccountWhenUserRegisteredConsumer : IConsumer<DomainEvent.Use
 
     public async Task Consume(ConsumeContext<DomainEvent.UserRegistered> context)
     {
-        var account = new Account();
+        Account account = new();
         account.Handle(new Command.CreateAccount(context.Message.UserId, context.Message.Email));
         await _eventStore.AppendEventsAsync(account, context.CancellationToken);
     }

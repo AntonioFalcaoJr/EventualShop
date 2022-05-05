@@ -9,7 +9,7 @@ public abstract class MongoDbContext : IMongoDbContext
 
     protected MongoDbContext(IConfiguration configuration)
     {
-        var mongoUrl = new MongoUrl(configuration.GetConnectionString("Projections"));
+        MongoUrl mongoUrl = new(configuration.GetConnectionString("Projections"));
         _database = new MongoClient(mongoUrl).GetDatabase(mongoUrl.DatabaseName);
     }
 

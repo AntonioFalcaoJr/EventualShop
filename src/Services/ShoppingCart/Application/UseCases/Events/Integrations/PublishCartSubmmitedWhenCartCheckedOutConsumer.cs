@@ -1,6 +1,10 @@
 ﻿using Application.EventStore;
 using Contracts.DataTransferObjects;
 using Contracts.Services.ShoppingCart;
+using Domain.Entities.PaymentMethods;
+using Domain.ValueObjects.PaymentOptions.CreditCards;
+using Domain.ValueObjects.PaymentOptions.DebitCards;
+using Domain.ValueObjects.PaymentOptions.PayPals;
 using MassTransit;
 
 namespace Application.UseCases.Events.Integrations;
@@ -18,43 +22,19 @@ public class PublishCartSubmittedWhenCheckedOutConsumer : IConsumer<DomainEvent.
     {
         var shoppingCart = await _eventStore.LoadAggregateAsync(context.Message.CartId, context.CancellationToken);
 
-        var cartSubmittedEvent = new IntegrationEvent.CartSubmitted(shoppingCart.Id, shoppingCart.Customer, shoppingCart.Total, (IEnumerable<Dto.CartItem>) shoppingCart.Items, (IEnumerable<Dto.IPaymentMethod>)shoppingCart.PaymentMethods);
-        
-        // TODO - Finish this 
-        // var cartSubmittedEvent = new IntegrationEvent.CartSubmitted(shoppingCart.Id, shoppingCart.Customer,
-        // ShoppingCartItems: shoppingCart.Items.Select(item => (Dto.CartItem) item),
-        //     Total: shoppingCart.Total,
-        //     PaymentMethods: shoppingCart.PaymentMethods.Select<IPaymentMethod, Dto.IPaymentMethod>(method
-        //         => method switch
-        //         {
-        //             CreditCard creditCard
-        //                 => new Dto.CreditCard
-        //                 {
-        //                     Amount = creditCard.Amount,
-        //                     Expiration = creditCard.Expiration,
-        //                     Number = creditCard.Number,
-        //                     HolderName = creditCard.HolderName,
-        //                     SecurityNumber = creditCard.SecurityNumber
-        //                 },
-        //             DebitCardPaymentMethod debitCard
-        //                 => new Dto.DebitCard
-        //                 {
-        //                     Amount = debitCard.Amount,
-        //                     Expiration = debitCard.Expiration,
-        //                     Number = debitCard.Number,
-        //                     HolderName = debitCard.HolderName,
-        //                     SecurityNumber = debitCard.SecurityNumber
-        //                 },
-        //             PayPalPaymentMethod payPal
-        //                 => new Dto.PayPal
-        //                 {
-        //                     Amount = payPal.Amount,
-        //                     Password = payPal.Password,
-        //                     UserName = payPal.UserName
-        //                 },
-        //             _ => default
-        //         }));
-
+        IntegrationEvent.CartSubmitted cartSubmittedEvent = new(
+            shoppingCart.Id,
+            shoppingCart.Customer,
+            shoppingCart.Total,
+            shoppingCart.Items.Select(item => (Dto.CartItem) item),
+            shoppingCart.PaymentMethods.Select<PaymentMethod, Dto.PaymentMethod>(method
+                => method.Option switch
+                {
+                    CreditCard creditCard => new(method.Id, method.Amount, (Dto.CreditCard) creditCard),
+                    DebitCard debitCard => new(method.Id, method.Amount, (Dto.DebitCard) debitCard),
+                    PayPal payPal => new(method.Id, method.Amount, (Dto.PayPal) payPal),
+                    _ => default
+                }));
 
         await context.Publish(cartSubmittedEvent, context.CancellationToken);
     }

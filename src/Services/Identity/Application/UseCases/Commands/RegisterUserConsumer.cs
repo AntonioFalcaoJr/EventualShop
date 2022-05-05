@@ -16,7 +16,7 @@ public class RegisterUserConsumer : IConsumer<Command.Register>
 
     public async Task Consume(ConsumeContext<Command.Register> context)
     {
-        var user = new User();
+        User user = new();
         user.Handle(context.Message);
         await _eventStore.AppendEventsAsync(user, context.CancellationToken);
     }

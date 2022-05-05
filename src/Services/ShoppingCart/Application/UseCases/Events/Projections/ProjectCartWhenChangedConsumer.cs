@@ -39,7 +39,8 @@ public class ProjectCartWhenChangedConsumer :
 
     public async Task Consume(ConsumeContext<DomainEvent.CartCreated> context)
     {
-        var customer = new Projection.Customer(context.Message.CustomerId);
+        // TODO - use implicit operator
+        var customer = new Projection.Customer(context.Message.CustomerId, default, default, default);
         var shoppingCart = new Projection.ShoppingCart(context.Message.CartId, customer, context.Message.Status);
         await _repository.InsertAsync(shoppingCart, context.CancellationToken);
     }

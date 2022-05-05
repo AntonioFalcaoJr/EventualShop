@@ -29,7 +29,17 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
         => _methods;
 
     public void Handle(Command.RequestPayment cmd)
-        => RaiseEvent(new DomainEvent.PaymentRequested(Guid.NewGuid(), cmd.OrderId, cmd.AmountDue, cmd.BillingAddress, cmd.PaymentMethods, PaymentStatus.Ready.ToString()));
+    {
+        RaiseEvent(new DomainEvent.PaymentRequested(Guid.NewGuid(), cmd.OrderId, cmd.AmountDue, cmd.BillingAddress, cmd.PaymentMethods, PaymentStatus.Ready.ToString()));
+
+        cmd.PaymentMethods.Select<Dto.PaymentMethod, IPaymentMethod>(method => method switch
+        {
+            Dto.CreditCard creditCard => RaiseEvent(new Contracts.Services.ShoppingCart.DomainEvent.CreditCardAdded(Guid.NewGuid(), creditCard)),
+            Dto.DebitCard debitCard => RaiseEvent(new Contracts.Services.ShoppingCart.DomainEvent.CreditCardAdded(Guid.NewGuid(), debitCard)),
+            Dto.PayPal payPal => RaiseEvent(new Contracts.Services.ShoppingCart.DomainEvent.CreditCardAdded(Guid.NewGuid(), payPal)),
+            _ => default
+        });
+    }
 
     public void Handle(Command.ProceedWithPayment cmd)
         => RaiseEvent(AmountDue is 0
@@ -54,7 +64,7 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
         Amount = @event.Amount;
         BillingAddress = @event.BillingAddress;
         _methods.AddRange(@event.PaymentMethods
-            .Select<Dto.IPaymentMethod, IPaymentMethod>(method
+            .Select<Dto.PaymentMethod, IPaymentMethod>(method
                 => method switch
                 {
                     Dto.CreditCard creditCard => (CreditCard) creditCard,

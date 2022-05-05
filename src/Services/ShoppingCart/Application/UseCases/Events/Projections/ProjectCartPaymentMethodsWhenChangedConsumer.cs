@@ -9,9 +9,9 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
     IConsumer<DomainEvent.PayPalAdded>,
     IConsumer<DomainEvent.CartDiscarded>
 {
-    private readonly IProjectionRepository<Projection.IPaymentMethod> _repository;
+    private readonly IProjectionRepository<Projection.PaymentMethod> _repository;
 
-    public ProjectCartPaymentMethodsWhenChangedConsumer(IProjectionRepository<Projection.IPaymentMethod> repository)
+    public ProjectCartPaymentMethodsWhenChangedConsumer(IProjectionRepository<Projection.PaymentMethod> repository)
     {
         _repository = repository;
     }
@@ -23,10 +23,10 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
 
     public async Task Consume(ConsumeContext<DomainEvent.CreditCardAdded> context)
     {
-        Projection.CreditCard creditCard = new(
-            context.Message.CreditCard.Id,
+        Projection.PaymentMethod creditCard = new(
+            context.Message.MethodId,
             context.Message.CartId,
-            context.Message.CreditCard.Amount,
+            context.Message.Amount,
             context.Message.CreditCard,
             false);
 
@@ -35,10 +35,10 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
 
     public async Task Consume(ConsumeContext<DomainEvent.PayPalAdded> context)
     {
-        Projection.PayPal payPal = new(
-            context.Message.PayPal.Id,
+        Projection.PaymentMethod payPal = new(
+            context.Message.MethodId,
             context.Message.CartId,
-            context.Message.PayPal.Amount,
+            context.Message.Amount,
             context.Message.PayPal,
             false);
 

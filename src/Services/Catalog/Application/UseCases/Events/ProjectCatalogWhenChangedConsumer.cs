@@ -21,7 +21,7 @@ public class ProjectCatalogWhenChangedConsumer :
 
     public async Task Consume(ConsumeContext<DomainEvent.CatalogCreated> context)
     {
-        var catalog = new Projection.Catalog(
+        Projection.Catalog catalog = new(
             context.Message.CatalogId,
             context.Message.Title,
             context.Message.Description,

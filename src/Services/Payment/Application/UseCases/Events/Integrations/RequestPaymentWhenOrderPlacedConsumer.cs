@@ -17,7 +17,7 @@ public class RequestPaymentWhenOrderPlacedConsumer : IConsumer<DomainEvent.Order
 
     public async Task Consume(ConsumeContext<DomainEvent.OrderPlaced> context)
     {
-        var payment = new Payment();
+        Payment payment = new();
 
         payment.Handle(new Command.RequestPayment(
             context.Message.OrderId,

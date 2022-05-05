@@ -8,13 +8,15 @@ public static class Dto
 {
     public record Address(string City, string Country, int? Number, string State, string Street, string ZipCode);
 
-    public record Customer(Guid? Id, Address ShippingAddress, Address BillingAddress);
+    public record Customer(Address ShippingAddress, Address BillingAddress);
 
-    public record CreditCard(Guid Id, decimal Amount, [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))] [property: BsonSerializer(typeof(ExpirationDateOnlyBsonSerializer))] DateOnly Expiration, string Number, string HolderName, string SecurityNumber) : IPaymentMethod;
+    public record CreditCard([property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))] [property: BsonSerializer(typeof(ExpirationDateOnlyBsonSerializer))] DateOnly Expiration, string Number, string HolderName, string SecurityNumber) : IPaymentOption;
 
-    public record DebitCard(Guid Id, decimal Amount, [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))] [property: BsonSerializer(typeof(ExpirationDateOnlyBsonSerializer))] DateOnly Expiration, string Number, string HolderName, string SecurityNumber) : IPaymentMethod;
+    public record DebitCard([property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))] [property: BsonSerializer(typeof(ExpirationDateOnlyBsonSerializer))] DateOnly Expiration, string Number, string HolderName, string SecurityNumber) : IPaymentOption;
 
-    public record PayPal(Guid Id, decimal Amount, string UserName, string Password) : IPaymentMethod;
+    public record PayPal(string UserName, string Password) : IPaymentOption;
+    
+    public record PaymentMethod(Guid Id, decimal Amount, IPaymentOption Option);
 
     public record CartItem(Guid? Id, Product Product, int Quantity);
 
@@ -22,9 +24,5 @@ public static class Dto
 
     public record Profile(string FirstName, string LastName, string Email, DateOnly Birthday, Address ResidenceAddress, Address ProfessionalAddress);
 
-    public interface IPaymentMethod
-    {
-        Guid Id { get; }
-        decimal Amount { get; }
-    }
+    public interface IPaymentOption { }
 }

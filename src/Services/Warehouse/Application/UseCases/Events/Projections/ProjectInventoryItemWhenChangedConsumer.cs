@@ -32,7 +32,7 @@ public class ProjectInventoryItemWhenChangedConsumer :
 
     public async Task Consume(ConsumeContext<DomainEvent.InventoryReceived> context)
     {
-        var inventory = new Projection.Inventory
+        Projection.Inventory inventory = new()
         {
             Id = context.Message.ProductId,
             Product = context.Message.Product,

@@ -17,7 +17,7 @@ public class PlaceOrderWhenCartSubmittedConsumer : IConsumer<IntegrationEvent.Ca
 
     public async Task Consume(ConsumeContext<IntegrationEvent.CartSubmitted> context)
     {
-        var order = new Order();
+        Order order = new();
 
         order.Handle(new Command.PlaceOrder(
             context.Message.Customer,

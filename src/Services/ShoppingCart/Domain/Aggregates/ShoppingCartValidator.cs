@@ -1,9 +1,7 @@
 ﻿using Domain.Abstractions.Validators;
 using Domain.Entities.CartItems;
 using Domain.Entities.Customers;
-using Domain.ValueObjects.PaymentMethods.CreditCards;
-using Domain.ValueObjects.PaymentMethods.DebitCards;
-using Domain.ValueObjects.PaymentMethods.PayPal;
+using Domain.Entities.PaymentMethods;
 using FluentValidation;
 
 namespace Domain.Aggregates;
@@ -26,11 +24,6 @@ public class ShoppingCartValidator : EntityValidator<ShoppingCart, Guid>
         });
 
         RuleForEach(cart => cart.PaymentMethods)
-            .SetInheritanceValidator(validator =>
-            {
-                validator.Add(new CreditCardValidator());
-                validator.Add(new DebitCardValidator());
-                validator.Add(new PayPalValidator());
-            });
+            .SetValidator(new PaymentMethodValidator());
     }
 }

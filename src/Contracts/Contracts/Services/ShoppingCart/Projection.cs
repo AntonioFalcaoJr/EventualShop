@@ -9,16 +9,7 @@ public static class Projection
 
     public record ShoppingCartItem(Guid CartId, Guid Id, Dto.Product Product, int Quantity, bool IsDeleted) : IProjection;
 
-    public record Customer(Guid Id, Dto.Address ShippingAddress = default, Dto.Address BillingAddress = default);
+    public record Customer(Guid Id, Dto.Address ShippingAddress, Dto.Address BillingAddress, bool IsDeleted) : Dto.Customer(ShippingAddress, BillingAddress), IProjection;
 
-    public record CreditCard(Guid Id, Guid CartId, decimal Amount, Dto.CreditCard Method, bool IsDeleted) : IPaymentMethod;
-
-    public record DebitCard(Guid Id, Guid CartId, decimal Amount, Dto.DebitCard Method, bool IsDeleted) : IPaymentMethod;
-
-    public record PayPal(Guid Id, Guid CartId, decimal Amount, Dto.PayPal Method, bool IsDeleted) : IPaymentMethod;
-
-    public interface IPaymentMethod : IProjection
-    {
-        Guid CartId { get; }
-    }
+    public record PaymentMethod(Guid CartId, Guid Id, decimal Amount, Dto.IPaymentOption Option, bool IsDeleted) : Dto.PaymentMethod(Id, Amount, Option), IProjection;
 }

@@ -15,7 +15,7 @@ public class AccountConverter : ValueConverter<Account, string>
 
     private static JsonSerializerSettings SerializerSettings()
     {
-        var jsonSerializerSettings = new JsonSerializerSettings
+        JsonSerializerSettings jsonSerializerSettings = new()
         {
             TypeNameHandling = TypeNameHandling.Auto
         };
@@ -28,7 +28,7 @@ public class AccountConverter : ValueConverter<Account, string>
 
     private static JsonSerializerSettings DeserializerSettings()
     {
-        var jsonDeserializerSettings = new JsonSerializerSettings
+        JsonSerializerSettings jsonDeserializerSettings = new()
         {
             TypeNameHandling = TypeNameHandling.Auto,
             ContractResolver = new PrivateSetterContractResolver()

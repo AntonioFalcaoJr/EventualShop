@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions.Projections;
-using Contracts.Services.ShoppingCart;
+using Contracts.DataTransferObjects;
 using Infrastructure.Projections.Abstractions.Contexts;
 using Infrastructure.Projections.Abstractions.Contexts.BsonSerializers;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,8 +21,9 @@ public static class ServiceCollectionExtensions
         BsonSerializer.RegisterSerializer(typeof(decimal), new DecimalSerializer(BsonType.Decimal128));
         BsonSerializer.RegisterSerializer(typeof(decimal?), new NullableSerializer<decimal>(new DecimalSerializer(BsonType.Decimal128)));
 
-        BsonClassMap.RegisterClassMap<Projection.CreditCard>();
-        BsonClassMap.RegisterClassMap<Projection.DebitCard>();
-        BsonClassMap.RegisterClassMap<Projection.PayPal>();
+        // TODO - Review this
+        BsonClassMap.RegisterClassMap<Dto.CreditCard>();
+        BsonClassMap.RegisterClassMap<Dto.DebitCard>();
+        BsonClassMap.RegisterClassMap<Dto.PayPal>();
     }
 }

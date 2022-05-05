@@ -14,7 +14,8 @@ public class PayPalPaymentService : PaymentService, IPayPalPaymentService
         _client = client;
     }
 
-    public override Task<IPaymentResult> HandleAsync(Func<IPaymentService, IPaymentMethod, CancellationToken, Task<IPaymentResult>> behaviorProcessor, IPaymentMethod method, CancellationToken cancellationToken)
+    public override Task<IPaymentResult> HandleAsync(Func<IPaymentService, IPaymentMethod, CancellationToken, Task<IPaymentResult>> behaviorProcessor, IPaymentMethod method,
+            CancellationToken cancellationToken)
         // TODO - Review namespace
         => method is Domain.Entities.PaymentMethods.PayPal.PayPal payPalPaymentMethod
             ? behaviorProcessor(this, payPalPaymentMethod, cancellationToken)
@@ -22,7 +23,7 @@ public class PayPalPaymentService : PaymentService, IPayPalPaymentService
 
     public override async Task<IPaymentResult> AuthorizeAsync(IPaymentMethod method, CancellationToken cancellationToken)
     {
-        var request = new Requests.PaypalAuthorizePayment
+        Requests.PaypalAuthorizePayment request = new()
         {
             // TODO - Use method to hydrate  
         };
@@ -33,7 +34,7 @@ public class PayPalPaymentService : PaymentService, IPayPalPaymentService
 
     public override async Task<IPaymentResult> CancelAsync(IPaymentMethod method, CancellationToken cancellationToken)
     {
-        var request = new Requests.PaypalCancelPayment
+        Requests.PaypalCancelPayment request = new()
         {
             // TODO - Use method to hydrate  
         };
@@ -44,7 +45,7 @@ public class PayPalPaymentService : PaymentService, IPayPalPaymentService
 
     public override async Task<IPaymentResult> RefundAsync(IPaymentMethod method, CancellationToken cancellationToken)
     {
-        var request = new Requests.PaypalRefundPayment
+        Requests.PaypalRefundPayment request = new()
         {
             // TODO - Use method to hydrate  
         };

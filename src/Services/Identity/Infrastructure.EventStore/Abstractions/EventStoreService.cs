@@ -69,7 +69,7 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
 
     private async Task AppendSnapshotToStreamAsync(TAggregate aggregateState, long aggregateVersion, CancellationToken cancellationToken)
     {
-        var snapshot = new TSnapshot
+        TSnapshot snapshot = new()
         {
             AggregateId = aggregateState.Id,
             AggregateState = aggregateState,

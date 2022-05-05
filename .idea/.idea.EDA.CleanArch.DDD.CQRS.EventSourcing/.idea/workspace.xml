@@ -24,25 +24,86 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Entities/PaymentMethods/PaymentMethodValidator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentOptions/IPaymentOption.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/DataTransferObjects/Dto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/DataTransferObjects/Dto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Account/DomainEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Account/DomainEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Account/Projection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Account/Projection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Catalog/Projection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Catalog/Projection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Identity/Projection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Identity/Projection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Order/Projection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Order/Projection.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Order/Command.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Order/Command.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Order/DomainEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Order/DomainEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Payment/Command.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Payment/Command.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Payment/DomainEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Payment/DomainEvent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Payment/Projection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Payment/Projection.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/ShoppingCart/Command.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/ShoppingCart/Command.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/ShoppingCart/DomainEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/ShoppingCart/DomainEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/ShoppingCart/IntegrationEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/ShoppingCart/IntegrationEvent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/ShoppingCart/Projection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/ShoppingCart/Projection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/UseCases/Events/Projections/ProjectAccountDetailsWhenChangedConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Application/UseCases/Events/Projections/ProjectAccountDetailsWhenChangedConsumer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/ShoppingCart/Request.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/ShoppingCart/Request.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/UseCases/Commands/CreateAccountConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Application/UseCases/Commands/CreateAccountConsumer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/UseCases/Events/Integrations/CreateAccountWhenUserRegisteredConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Application/UseCases/Events/Integrations/CreateAccountWhenUserRegisteredConsumer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Abstractions/EventStoreService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Abstractions/EventStoreService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Contexts/Converters/AccountConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Contexts/Converters/AccountConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Contexts/Converters/EventConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Contexts/Converters/EventConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/Abstractions/Contexts/MongoDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/Abstractions/Contexts/MongoDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Application/UseCases/Commands/CreateCatalogConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Application/UseCases/Commands/CreateCatalogConsumer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Application/UseCases/Events/ProjectCatalogWhenChangedConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Application/UseCases/Events/ProjectCatalogWhenChangedConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Domain/Aggregates/Catalog.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Domain/Aggregates/Catalog.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Identity/Application/UseCases/Events/Projections/ProjectUserDetailsWhenUserChangedConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Identity/Application/UseCases/Events/Projections/ProjectUserDetailsWhenUserChangedConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Order/Application/UseCases/Events/Projections/ProjectOrderDetailsWhenOrderChangedConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Application/UseCases/Events/Projections/ProjectOrderDetailsWhenOrderChangedConsumer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/Abstractions/EventStoreService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/Abstractions/EventStoreService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/Contexts/Converters/CatalogConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/Contexts/Converters/CatalogConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/Contexts/Converters/EventConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.EventStore/Contexts/Converters/EventConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.Projections/Abstractions/Contexts/MongoDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.Projections/Abstractions/Contexts/MongoDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Identity/Application/UseCases/Commands/RegisterUserConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Identity/Application/UseCases/Commands/RegisterUserConsumer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Abstractions/EventStoreService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Abstractions/EventStoreService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Contexts/Converters/EventConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Contexts/Converters/EventConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Contexts/Converters/UserConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Contexts/Converters/UserConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.Projections/Abstractions/Contexts/MongoDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.Projections/Abstractions/Contexts/MongoDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Order/Application/UseCases/Commands/PlaceOrderConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Application/UseCases/Commands/PlaceOrderConsumer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Order/Application/UseCases/Events/Integrations/PlaceOrderWhenCartSubmittedConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Application/UseCases/Events/Integrations/PlaceOrderWhenCartSubmittedConsumer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Order/Domain/Aggregates/Order.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Domain/Aggregates/Order.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Order/Domain/Entities/Customers/Customer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Domain/Entities/Customers/Customer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Order/Domain/Entities/PaymentMethods/IPaymentMethod.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Domain/Entities/PaymentMethods/IPaymentMethod.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Order/Domain/ValueObjects/Addresses/Address.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Domain/ValueObjects/Addresses/Address.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Order/Infrastructure.EventStore/Abstractions/EventStoreService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.EventStore/Abstractions/EventStoreService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Order/Infrastructure.EventStore/Contexts/Converters/EventConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.EventStore/Contexts/Converters/EventConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Order/Infrastructure.EventStore/Contexts/Converters/OrderConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.EventStore/Contexts/Converters/OrderConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Order/Infrastructure.Projections/Abstractions/Contexts/MongoDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.Projections/Abstractions/Contexts/MongoDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Application/UseCases/Events/Integrations/RequestPaymentWhenOrderPlacedConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Application/UseCases/Events/Integrations/RequestPaymentWhenOrderPlacedConsumer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/Payment/Application/UseCases/Events/Projections/ProjectPaymentWhenChangedConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Application/UseCases/Events/Projections/ProjectPaymentWhenChangedConsumer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Domain/Aggregates/Payment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Domain/Aggregates/Payment.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Domain/Entities/PaymentMethods/CreditCards/CreditCard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Domain/Entities/PaymentMethods/CreditCards/CreditCard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Domain/Entities/PaymentMethods/CreditCards/CreditCardPaymentMethodValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentOptions/CreditCards/CreditCardValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.EventStore/Abstractions/EventStoreService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.EventStore/Abstractions/EventStoreService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.EventStore/Contexts/Converters/EventConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.EventStore/Contexts/Converters/EventConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.EventStore/Contexts/Converters/PaymentConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.EventStore/Contexts/Converters/PaymentConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/CreditCards/CreditCardPaymentService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/CreditCards/CreditCardPaymentService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/DebitCards/DebitCardPaymentService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/DebitCards/DebitCardPaymentService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/PayPal/PayPalPaymentService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/PayPal/PayPalPaymentService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.Projections/Abstractions/Contexts/MongoDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.Projections/Abstractions/Contexts/MongoDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Commands/CreateCartConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Commands/CreateCartConsumer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Events/Integrations/PublishCartSubmmitedWhenCartCheckedOutConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Events/Integrations/PublishCartSubmmitedWhenCartCheckedOutConsumer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Events/Projections/ProjectCartPaymentMethodsWhenChangedConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Events/Projections/ProjectCartPaymentMethodsWhenChangedConsumer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Events/Projections/ProjectCartWhenChangedConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Events/Projections/ProjectCartWhenChangedConsumer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Queries/GetShoppingCartPaymentMethodConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Queries/GetShoppingCartPaymentMethodConsumer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Aggregates/ShoppingCart.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Aggregates/ShoppingCart.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Aggregates/ShoppingCartValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Aggregates/ShoppingCartValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentMethods/CreditCards/CreditCard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentOptions/CreditCards/CreditCard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentMethods/CreditCards/CreditCardValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Domain/Entities/PaymentMethods/CreditCards/CreditCardValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentMethods/DebitCards/DebitCard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentOptions/DebitCards/DebitCard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentMethods/DebitCards/DebitCardValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentOptions/DebitCards/DebitCardValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentMethods/IPaymentMethod.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentMethods/PayPal/PayPal.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentOptions/PayPals/PayPal.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentMethods/PayPal/PayPalValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentOptions/PayPals/PayPalValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/PaymentMethods/PaymentMethod.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Entities/PaymentMethods/PaymentMethod.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.EventStore/Abstractions/EventStoreService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.EventStore/Abstractions/EventStoreService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.EventStore/Contexts/Converters/CartConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.EventStore/Contexts/Converters/CartConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.EventStore/Contexts/Converters/EventConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.EventStore/Contexts/Converters/EventConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.Projections/Abstractions/Contexts/MongoDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.Projections/Abstractions/Contexts/MongoDbContext.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.Projections/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.Projections/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/Application/UseCases/Commands/ReceiveInventoryItemConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/Application/UseCases/Commands/ReceiveInventoryItemConsumer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/Application/UseCases/Events/Projections/ProjectInventoryItemWhenChangedConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/Application/UseCases/Events/Projections/ProjectInventoryItemWhenChangedConsumer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.EventStore/Abstractions/EventStoreService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.EventStore/Abstractions/EventStoreService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.EventStore/Contexts/Converters/EventConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.EventStore/Contexts/Converters/EventConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.EventStore/Contexts/Converters/InventoryItemConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.EventStore/Contexts/Converters/InventoryItemConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.Projections/Abstractions/Contexts/MongoDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.Projections/Abstractions/Contexts/MongoDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPI/Controllers/ShoppingCartsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPI/Controllers/ShoppingCartsController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,33 +143,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/nginx.conf" root0="SKIP_INSPECTION" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/DataTransferObjects/Dto.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/Account/DomainEvent.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/Account/Projection.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/Catalog/Projection.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/Identity/Projection.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/Order/Projection.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/Payment/Projection.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/ShoppingCart/Projection.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/Abstractions/Projections/IProjectionRepository.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/Events/Projections/ProjectAccountDetailsWhenChangedConsumer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/Events/Projections/ProjectAccountDetailsWhenChangedConsumer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/Events/Projections/ProjectAccountDetailsWhenChangedConsumer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Infrastructure.Projections/ProjectionRepository.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Application/UseCases/Events/ProjectCatalogWhenChangedConsumer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Application/UseCases/Events/ProjectCatalogWhenChangedConsumer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Catalog/Domain/Aggregates/Catalog.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Identity/Application/UseCases/Events/Projections/ProjectUserDetailsWhenUserChangedConsumer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Identity/Application/UseCases/Events/Projections/ProjectUserDetailsWhenUserChangedConsumer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/Application/UseCases/Events/Projections/ProjectOrderDetailsWhenOrderChangedConsumer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/Application/UseCases/Events/Projections/ProjectOrderDetailsWhenOrderChangedConsumer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Application/UseCases/Events/Projections/ProjectPaymentWhenChangedConsumer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Infrastructure.HttpClients/PayPal/PayPalPaymentService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Application/UseCases/Events/Projections/ProjectCartPaymentMethodsWhenChangedConsumer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Application/UseCases/Events/Projections/ProjectCartPaymentMethodsWhenChangedConsumer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Domain/Aggregates/ShoppingCart.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Infrastructure.Projections/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Web/WebAPP/Pages/Catalogs.razor" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogsViewModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1e7af0d8b5a645428c8d39b661c54dfb9778/85/28c9f8c9/QueryBuilder.cs" root0="SKIP_HIGHLIGHTING" />
@@ -152,6 +187,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f5eb8aed0f144780817c2c5a80b0492189898/6e/e838befc/RenderFragment.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f741249b7da04385a8edc662a45cf5a6a5d880/79/cc098872/ValueTask.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1aa8f79e1b14eb5b2ff38a1b982b2e688673c7d6cab7979747ea238118f41/RenderTreeBuilder.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2aa9fe778bb065e5351dd92e72070ab11bd3ec919aa845eba273a8b1932/IConsumer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2d9bc6fc6b9a3d2447afa6c8fb069dbb418def3a444bb89f722a69a928f5585/CorsServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/327f875fd92c358a2c6b3c48cc81b288070ecb997371cd17419f80a482a617/LayoutComponentBase.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3c4b057406eaab024867a1fee19f7436caa083752ae2d2de5bdf8a63d47/ServiceProviderOptions.cs" root0="SKIP_HIGHLIGHTING" />
@@ -178,23 +214,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "full.screen.before.presentation.mode": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.standard": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.standard": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.appearance",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;full.screen.before.presentation.mode&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RiderTodoViewSettings" groupByProject="false" />
   <component name="RunManager" selected=".NET Launch Settings Profile.WebAPP">
     <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Web/WebAPP/bin/Debug/net7.0/publish/wwwroot/index.html" useBuiltInWebServerPort="true">
@@ -398,13 +434,8 @@
       <workItem from="1651504895160" duration="874000" />
       <workItem from="1651582871683" duration="952000" />
       <workItem from="1651620034028" duration="6061000" />
-    </task>
-    <task id="LOCAL-00097" summary="Adding await to more fast reflection in data denormalization">
-      <created>1650729154686</created>
-      <option name="number" value="00097" />
-      <option name="presentableId" value="LOCAL-00097" />
-      <option name="project" value="LOCAL" />
-      <updated>1650729154686</updated>
+      <workItem from="1651755115337" duration="3243000" />
+      <workItem from="1651761951367" duration="8134000" />
     </task>
     <task id="LOCAL-00098" summary="Improving Warehouse projections">
       <created>1650730942441</created>
@@ -742,7 +773,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651354753192</updated>
     </task>
-    <option name="localTasksCounter" value="146" />
+    <task id="LOCAL-00146" summary="Improving projection/dto contracts">
+      <created>1651701996679</created>
+      <option name="number" value="00146" />
+      <option name="presentableId" value="LOCAL-00146" />
+      <option name="project" value="LOCAL" />
+      <updated>1651701996679</updated>
+    </task>
+    <option name="localTasksCounter" value="147" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -768,7 +806,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Reducing abstractions paths" />
     <MESSAGE value="Fixing payment settings" />
     <MESSAGE value="Adding get all items and adjusting repository naming" />
     <MESSAGE value="Improving staging" />
@@ -793,7 +830,8 @@
     <MESSAGE value="Improving design" />
     <MESSAGE value="test" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="Improving projection/dto contracts" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improving projection/dto contracts" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

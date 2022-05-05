@@ -25,7 +25,7 @@ public class ProjectPaymentWhenChangedConsumer :
 
     public async Task Consume(ConsumeContext<DomainEvent.PaymentRequested> context)
     {
-        var payment = new Projection.Payment(
+        Projection.Payment payment = new(
             context.Message.PaymentId,
             context.Message.OrderId,
             context.Message.Amount,

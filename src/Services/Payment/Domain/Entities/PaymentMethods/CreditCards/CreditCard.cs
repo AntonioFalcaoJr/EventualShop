@@ -2,7 +2,7 @@
 
 namespace Domain.Entities.PaymentMethods.CreditCards;
 
-public class CreditCard : PaymentMethod<CreditCardPaymentMethodValidator>
+public class CreditCard : PaymentMethod<CreditCardValidator>
 {
     public CreditCard(Guid? id, decimal amount, DateOnly expiration, string holderName, string number, string securityNumber)
         : base(id, amount)
