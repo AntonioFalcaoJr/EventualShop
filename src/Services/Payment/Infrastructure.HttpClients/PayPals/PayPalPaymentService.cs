@@ -2,8 +2,9 @@
 using Application.Services.PayPal;
 using Application.Services.PayPal.Http;
 using Domain.Entities.PaymentMethods;
+using Domain.ValueObjects.PaymentOptions.PayPals;
 
-namespace Infrastructure.HttpClients.PayPal;
+namespace Infrastructure.HttpClients.PayPals;
 
 public class PayPalPaymentService : PaymentService, IPayPalPaymentService
 {
@@ -14,14 +15,14 @@ public class PayPalPaymentService : PaymentService, IPayPalPaymentService
         _client = client;
     }
 
-    public override Task<IPaymentResult> HandleAsync(Func<IPaymentService, IPaymentMethod, CancellationToken, Task<IPaymentResult>> behaviorProcessor, IPaymentMethod method,
+    public override Task<IPaymentResult> HandleAsync(Func<IPaymentService, PaymentMethod, CancellationToken, Task<IPaymentResult>> behaviorProcessor, IPaymentMethod method,
             CancellationToken cancellationToken)
         // TODO - Review namespace
-        => method is Domain.Entities.PaymentMethods.PayPal.PayPal payPalPaymentMethod
+        => method is PayPal payPalPaymentMethod
             ? behaviorProcessor(this, payPalPaymentMethod, cancellationToken)
             : base.HandleAsync(behaviorProcessor, method, cancellationToken);
 
-    public override async Task<IPaymentResult> AuthorizeAsync(IPaymentMethod method, CancellationToken cancellationToken)
+    public override async Task<IPaymentResult> AuthorizeAsync(PaymentMethod method, CancellationToken cancellationToken)
     {
         Requests.PaypalAuthorizePayment request = new()
         {
@@ -32,7 +33,7 @@ public class PayPalPaymentService : PaymentService, IPayPalPaymentService
         return response.ActionResult;
     }
 
-    public override async Task<IPaymentResult> CancelAsync(IPaymentMethod method, CancellationToken cancellationToken)
+    public override async Task<IPaymentResult> CancelAsync(PaymentMethod method, CancellationToken cancellationToken)
     {
         Requests.PaypalCancelPayment request = new()
         {
@@ -43,7 +44,7 @@ public class PayPalPaymentService : PaymentService, IPayPalPaymentService
         return response.ActionResult;
     }
 
-    public override async Task<IPaymentResult> RefundAsync(IPaymentMethod method, CancellationToken cancellationToken)
+    public override async Task<IPaymentResult> RefundAsync(PaymentMethod method, CancellationToken cancellationToken)
     {
         Requests.PaypalRefundPayment request = new()
         {

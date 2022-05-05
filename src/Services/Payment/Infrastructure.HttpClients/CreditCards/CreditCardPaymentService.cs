@@ -2,7 +2,7 @@
 using Application.Services.CreditCards;
 using Application.Services.CreditCards.Http;
 using Domain.Entities.PaymentMethods;
-using Domain.Entities.PaymentMethods.CreditCards;
+using Domain.ValueObjects.PaymentOptions.CreditCards;
 
 namespace Infrastructure.HttpClients.CreditCards;
 
@@ -15,13 +15,13 @@ public class CreditCardPaymentService : PaymentService, ICreditCardPaymentServic
         _client = client;
     }
 
-    public override Task<IPaymentResult> HandleAsync(Func<IPaymentService, IPaymentMethod, CancellationToken, Task<IPaymentResult>> behaviorProcessor, IPaymentMethod method,
+    public override Task<IPaymentResult> HandleAsync(Func<IPaymentService, PaymentMethod, CancellationToken, Task<IPaymentResult>> behaviorProcessor, IPaymentMethod method,
         CancellationToken cancellationToken)
         => method is CreditCard creditCardPaymentMethod
             ? behaviorProcessor(this, creditCardPaymentMethod, cancellationToken)
             : base.HandleAsync(behaviorProcessor, method, cancellationToken);
 
-    public override async Task<IPaymentResult> AuthorizeAsync(IPaymentMethod method, CancellationToken cancellationToken)
+    public override async Task<IPaymentResult> AuthorizeAsync(PaymentMethod method, CancellationToken cancellationToken)
     {
         Requests.CreditCardAuthorizePayment request = new()
         {
@@ -32,7 +32,7 @@ public class CreditCardPaymentService : PaymentService, ICreditCardPaymentServic
         return response.ActionResult;
     }
 
-    public override async Task<IPaymentResult> CancelAsync(IPaymentMethod method, CancellationToken cancellationToken)
+    public override async Task<IPaymentResult> CancelAsync(PaymentMethod method, CancellationToken cancellationToken)
     {
         Requests.CreditCardCancelPayment request = new()
         {
@@ -43,7 +43,7 @@ public class CreditCardPaymentService : PaymentService, ICreditCardPaymentServic
         return response.ActionResult;
     }
 
-    public override async Task<IPaymentResult> RefundAsync(IPaymentMethod method, CancellationToken cancellationToken)
+    public override async Task<IPaymentResult> RefundAsync(PaymentMethod method, CancellationToken cancellationToken)
     {
         Requests.CreditCardRefundPayment request = new()
         {

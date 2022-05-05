@@ -4,7 +4,7 @@ using Application.Services.PayPal.Http;
 using Infrastructure.HttpClients.DependencyInjection.Options;
 using Microsoft.Extensions.Options;
 
-namespace Infrastructure.HttpClients.PayPal;
+namespace Infrastructure.HttpClients.PayPals;
 
 public class PayPalHttpClient : ApplicationHttpClient, IPayPalHttpClient
 {

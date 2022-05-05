@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 
-namespace Domain.Entities.PaymentMethods.DebitCards;
+namespace Domain.ValueObjects.PaymentOptions.CreditCards;
 
-public class DebitCardPaymentMethodValidator : AbstractValidator<DebitCard>
+public class CreditCardValidator : AbstractValidator<CreditCard>
 {
-    public DebitCardPaymentMethodValidator()
+    public CreditCardValidator()
     {
         RuleFor(card => card.Expiration)
             .NotEqual(DateOnly.MinValue)

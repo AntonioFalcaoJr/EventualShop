@@ -1,20 +1,25 @@
-﻿using Domain.Abstractions.Entities;
+﻿using Contracts.DataTransferObjects;
+using Domain.Abstractions.Entities;
 using Domain.Enumerations;
-using FluentValidation;
+using Domain.ValueObjects.PaymentOptions;
+using Domain.ValueObjects.PaymentOptions.CreditCards;
+using Domain.ValueObjects.PaymentOptions.DebitCards;
+using Domain.ValueObjects.PaymentOptions.PayPals;
 
 namespace Domain.Entities.PaymentMethods;
 
-public abstract class PaymentMethod<TValidator> : Entity<Guid, TValidator>, IPaymentMethod
-    where TValidator : IValidator, new()
+public class PaymentMethod : Entity<Guid, PaymentMethodValidator>
 {
-    protected PaymentMethod(Guid? id, decimal amount)
+    public PaymentMethod(Guid id, decimal amount, IPaymentOption option)
     {
-        Id = id ?? Guid.NewGuid();
+        Id = id;
         Amount = amount;
+        Option = option;
         Status = PaymentMethodStatus.Ready;
     }
 
     public decimal Amount { get; }
+    public IPaymentOption Option { get; }
     public PaymentMethodStatus Status { get; private set; }
 
     public void Authorize()
@@ -22,4 +27,22 @@ public abstract class PaymentMethod<TValidator> : Entity<Guid, TValidator>, IPay
 
     public void Deny()
         => Status = PaymentMethodStatus.Denied;
+
+    public static implicit operator PaymentMethod(Dto.PaymentMethod method)
+        => new(method.Id, method.Amount, method.Option switch
+        {
+            Dto.CreditCard creditCard => (CreditCard) creditCard,
+            Dto.DebitCard debitCard => (DebitCard) debitCard,
+            Dto.PayPal payPal => (PayPal) payPal,
+            _ => default
+        });
+
+    public static implicit operator Dto.PaymentMethod(PaymentMethod method)
+        => new(method.Id, method.Amount, method.Option switch
+        {
+            CreditCard creditCard => (Dto.CreditCard) creditCard,
+            DebitCard debitCard => (Dto.DebitCard) debitCard,
+            PayPal payPal => (Dto.PayPal) payPal,
+            _ => default
+        });
 }
