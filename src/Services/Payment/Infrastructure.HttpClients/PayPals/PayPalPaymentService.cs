@@ -15,11 +15,9 @@ public class PayPalPaymentService : PaymentService, IPayPalPaymentService
         _client = client;
     }
 
-    public override Task<IPaymentResult> HandleAsync(Func<IPaymentService, PaymentMethod, CancellationToken, Task<IPaymentResult>> behaviorProcessor, IPaymentMethod method,
-            CancellationToken cancellationToken)
-        // TODO - Review namespace
-        => method is PayPal payPalPaymentMethod
-            ? behaviorProcessor(this, payPalPaymentMethod, cancellationToken)
+    public override Task<IPaymentResult> HandleAsync(Func<IPaymentService, PaymentMethod, CancellationToken, Task<IPaymentResult>> behaviorProcessor, PaymentMethod method, CancellationToken cancellationToken)
+        => method.Option is PayPal
+            ? behaviorProcessor(this, method, cancellationToken)
             : base.HandleAsync(behaviorProcessor, method, cancellationToken);
 
     public override async Task<IPaymentResult> AuthorizeAsync(PaymentMethod method, CancellationToken cancellationToken)

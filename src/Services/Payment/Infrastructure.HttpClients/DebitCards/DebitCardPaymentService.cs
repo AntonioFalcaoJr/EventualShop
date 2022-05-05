@@ -15,10 +15,9 @@ public class DebitCardPaymentService : PaymentService, IDebitCardPaymentService
         _client = client;
     }
 
-    public override Task<IPaymentResult> HandleAsync(Func<IPaymentService, PaymentMethod, CancellationToken, Task<IPaymentResult>> behaviorProcessor, IPaymentMethod method,
-        CancellationToken cancellationToken)
-        => method is DebitCard debitCardPaymentMethod
-            ? behaviorProcessor(this, debitCardPaymentMethod, cancellationToken)
+    public override Task<IPaymentResult> HandleAsync(Func<IPaymentService, PaymentMethod, CancellationToken, Task<IPaymentResult>> behaviorProcessor, PaymentMethod method, CancellationToken cancellationToken)
+        => method.Option is DebitCard
+            ? behaviorProcessor(this, method, cancellationToken)
             : base.HandleAsync(behaviorProcessor, method, cancellationToken);
 
     public override async Task<IPaymentResult> AuthorizeAsync(PaymentMethod method, CancellationToken cancellationToken)

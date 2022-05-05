@@ -23,10 +23,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Improving implicit conversions">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Domain/Aggregates/Payment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Domain/Aggregates/Payment.cs" afterDir="false" />
-    </list>
+    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Fixing breaking changes in Payment" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -104,10 +101,15 @@
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/Infrastructure.EventStore/Contexts/Converters/EventConverter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/Infrastructure.EventStore/Contexts/Converters/OrderConverter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Order/Infrastructure.Projections/Abstractions/Contexts/MongoDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Application/Abstractions/Services/IPaymentService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Application/Abstractions/Services/PaymentService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Application/Services/PaymentGateway.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Application/UseCases/Events/Integrations/RequestPaymentWhenOrderPlacedConsumer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Application/UseCases/Events/Projections/ProjectPaymentWhenChangedConsumer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Domain/Aggregates/Payment.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Domain/Aggregates/Payment.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Domain/Entities/PaymentMethods/CreditCards/CreditCard.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Domain/Entities/PaymentMethods/PaymentMethod.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Infrastructure.EventStore/Abstractions/EventStoreService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Infrastructure.EventStore/Contexts/Converters/EventConverter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Payment/Infrastructure.EventStore/Contexts/Converters/PaymentConverter.cs" root0="SKIP_HIGHLIGHTING" />
@@ -413,14 +415,7 @@
       <workItem from="1651582871683" duration="952000" />
       <workItem from="1651620034028" duration="6061000" />
       <workItem from="1651755115337" duration="3243000" />
-      <workItem from="1651761951367" duration="9130000" />
-    </task>
-    <task id="LOCAL-00099" summary="Improving Account projections and renaming other projections contract">
-      <created>1650733522762</created>
-      <option name="number" value="00099" />
-      <option name="presentableId" value="LOCAL-00099" />
-      <option name="project" value="LOCAL" />
-      <updated>1650733522762</updated>
+      <workItem from="1651761951367" duration="10152000" />
     </task>
     <task id="LOCAL-00100" summary="Removing reference">
       <created>1650734659117</created>
@@ -758,7 +753,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651778807865</updated>
     </task>
-    <option name="localTasksCounter" value="148" />
+    <task id="LOCAL-00148" summary="Fixing breaking changes in Payment">
+      <created>1651779883887</created>
+      <option name="number" value="00148" />
+      <option name="presentableId" value="LOCAL-00148" />
+      <option name="project" value="LOCAL" />
+      <updated>1651779883887</updated>
+    </task>
+    <option name="localTasksCounter" value="149" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -784,7 +786,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Adding get all items and adjusting repository naming" />
     <MESSAGE value="Improving staging" />
     <MESSAGE value="Using alpine for rabbitmq" />
     <MESSAGE value="Removing AutoMapper, Removing profiles, Improving contracts and using models in a better way" />
@@ -809,7 +810,8 @@
     <MESSAGE value="." />
     <MESSAGE value="Improving projection/dto contracts" />
     <MESSAGE value="Improving implicit conversions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improving implicit conversions" />
+    <MESSAGE value="Fixing breaking changes in Payment" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing breaking changes in Payment" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
