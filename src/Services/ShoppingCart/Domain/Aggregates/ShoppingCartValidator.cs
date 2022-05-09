@@ -1,6 +1,5 @@
 ﻿using Domain.Abstractions.Validators;
 using Domain.Entities.CartItems;
-using Domain.Entities.Customers;
 using Domain.Entities.PaymentMethods;
 using FluentValidation;
 
@@ -10,9 +9,6 @@ public class ShoppingCartValidator : EntityValidator<ShoppingCart, Guid>
 {
     public ShoppingCartValidator()
     {
-        RuleFor(cart => cart.Customer)
-            .SetValidator(new CustomerValidator());
-
         RuleForEach(cart => cart.Items)
             .NotNull()
             .SetValidator(new CartItemValidator());

@@ -4,16 +4,16 @@ using MassTransit;
 
 namespace Application.UseCases.Commands;
 
-public class AddPayPalConsumer : IConsumer<Command.AddPayPal>
+public class AddPaymentMethodConsumer : IConsumer<Command.AddPaymentMethod>
 {
     private readonly IShoppingCartEventStoreService _eventStore;
 
-    public AddPayPalConsumer(IShoppingCartEventStoreService eventStore)
+    public AddPaymentMethodConsumer(IShoppingCartEventStoreService eventStore)
     {
         _eventStore = eventStore;
     }
 
-    public async Task Consume(ConsumeContext<Command.AddPayPal> context)
+    public async Task Consume(ConsumeContext<Command.AddPaymentMethod> context)
     {
         var shoppingCart = await _eventStore.LoadAggregateAsync(context.Message.CartId, context.CancellationToken);
         shoppingCart.Handle(context.Message);

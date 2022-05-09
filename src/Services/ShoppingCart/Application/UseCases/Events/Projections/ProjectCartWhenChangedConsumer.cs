@@ -26,7 +26,14 @@ public class ProjectCartWhenChangedConsumer :
     public async Task Consume(ConsumeContext<DomainEvent.BillingAddressChanged> context)
         => await _repository.UpdateFieldAsync(
             id: context.Message.CartId,
-            field: cart => cart.Customer.BillingAddress,
+            field: cart => cart.BillingAddress,
+            value: context.Message.Address,
+            cancellationToken: context.CancellationToken);
+
+    public async Task Consume(ConsumeContext<DomainEvent.ShippingAddressAdded> context)
+        => await _repository.UpdateFieldAsync(
+            id: context.Message.CartId,
+            field: cart => cart.ShippingAddress,
             value: context.Message.Address,
             cancellationToken: context.CancellationToken);
 
@@ -39,9 +46,15 @@ public class ProjectCartWhenChangedConsumer :
 
     public async Task Consume(ConsumeContext<DomainEvent.CartCreated> context)
     {
-        // TODO - use implicit operator
-        var customer = new Projection.Customer(context.Message.CustomerId, default, default, default);
-        var shoppingCart = new Projection.ShoppingCart(context.Message.CartId, customer, context.Message.Status);
+        Projection.ShoppingCart shoppingCart = new(
+            context.Message.CartId,
+            context.Message.CustomerId,
+            default,
+            default,
+            context.Message.Status,
+            default,
+            false);
+
         await _repository.InsertAsync(shoppingCart, context.CancellationToken);
     }
 
@@ -74,12 +87,5 @@ public class ProjectCartWhenChangedConsumer :
             id: context.Message.CartId,
             field: cart => cart.Total,
             value: context.Message.UnitPrice * context.Message.Quantity * -1,
-            cancellationToken: context.CancellationToken);
-
-    public async Task Consume(ConsumeContext<DomainEvent.ShippingAddressAdded> context)
-        => await _repository.UpdateFieldAsync(
-            id: context.Message.CartId,
-            field: cart => cart.Customer.ShippingAddress,
-            value: context.Message.Address,
             cancellationToken: context.CancellationToken);
 }

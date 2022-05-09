@@ -1,14 +1,10 @@
 ﻿using Domain.Abstractions.Aggregates;
-using Domain.Entities.Customers;
 using Domain.Entities.OrderItems;
 using Domain.Entities.PaymentMethods;
 using Domain.Enumerations;
 using Contracts.Abstractions;
-using Contracts.DataTransferObjects;
 using Contracts.Services.Order;
-using Domain.ValueObjects.PaymentOptions.CreditCards;
-using Domain.ValueObjects.PaymentOptions.DebitCards;
-using Domain.ValueObjects.PaymentOptions.PayPals;
+using Domain.ValueObjects.Addresses;
 
 namespace Domain.Aggregates;
 
@@ -16,21 +12,28 @@ public class Order : AggregateRoot<Guid, OrderValidator>
 {
     private readonly List<OrderItem> _items = new();
     private readonly List<PaymentMethod> _paymentMethods = new();
+
+    public Guid CustomerId { get; private set; }
     public OrderStatus Status { get; private set; }
-    public Customer Customer { get; private set; }
-
-    public decimal Total
-        => Items.Sum(item
-            => item.Product.UnitPrice * item.Quantity);
-
-    public IEnumerable<PaymentMethod> PaymentMethods
-        => _paymentMethods;
+    public Address BillingAddress { get; private set; }
+    public Address ShippingAddress { get; private set; }
+    public decimal Total { get; private set; }
 
     public IEnumerable<OrderItem> Items
         => _items;
 
+    public IEnumerable<PaymentMethod> PaymentMethods
+        => _paymentMethods;
+
     public void Handle(Command.PlaceOrder cmd)
-        => RaiseEvent(new DomainEvent.OrderPlaced(Guid.NewGuid(), cmd.Customer, cmd.Items, cmd.Total, cmd.PaymentMethods));
+        => RaiseEvent(new DomainEvent.OrderPlaced(
+            Guid.NewGuid(),
+            cmd.CustomerId,
+            cmd.Total,
+            cmd.BillingAddress,
+            cmd.ShippingAddress,
+            cmd.Items,
+            cmd.PaymentMethods));
 
     public void Handle(Command.ConfirmOrder cmd)
         => RaiseEvent(new DomainEvent.OrderConfirmed(cmd.OrderId));
@@ -40,17 +43,9 @@ public class Order : AggregateRoot<Guid, OrderValidator>
 
     private void When(DomainEvent.OrderPlaced @event)
     {
-        Id = @event.OrderId;
-        Customer = @event.Customer;
-        _items.AddRange(@event.Items.Select(item => (OrderItem) item));
-        _paymentMethods.AddRange(@event.PaymentMethods.Select<Dto.PaymentMethod, PaymentMethod>(method
-            => method.Option switch
-            {
-                Dto.CreditCard creditCard => new(method.Id, method.Amount, (CreditCard) creditCard),
-                Dto.DebitCard debitCard => new(method.Id, method.Amount, (DebitCard) debitCard),
-                Dto.PayPal payPal => new(method.Id, method.Amount, (PayPal) payPal),
-                _ => default
-            }));
+        (Id, CustomerId, Total, BillingAddress, ShippingAddress, var items, var paymentMethods) = @event;
+        _items.AddRange(items.Select(item => (OrderItem) item));
+        _paymentMethods.AddRange(paymentMethods.Select(method => (PaymentMethod) method));
     }
 
     private void When(DomainEvent.OrderConfirmed _)

@@ -1,7 +1,6 @@
-﻿using Domain.ValueObjects.Addresses;
-using FluentValidation;
+﻿using FluentValidation;
 
-namespace Domain.ValueObjects.Profiles;
+namespace Domain.Entities.Profiles;
 
 public class ProfileValidator : AbstractValidator<Profile>
 {
@@ -24,20 +23,6 @@ public class ProfileValidator : AbstractValidator<Profile>
         {
             RuleFor(profile => profile.LastName)
                 .NotEqual(profile => profile.FirstName);
-        });
-
-        When(profile => profile.ResidenceAddress is not null, () =>
-        {
-            RuleFor(profile => profile.ResidenceAddress)
-                .NotEqual(profile => profile.ProfessionalAddress)
-                .SetValidator(new AddressValidator());
-        });
-
-        When(profile => profile.ProfessionalAddress is not null, () =>
-        {
-            RuleFor(profile => profile.ProfessionalAddress)
-                .NotEqual(profile => profile.ResidenceAddress)
-                .SetValidator(new AddressValidator());
         });
     }
 }

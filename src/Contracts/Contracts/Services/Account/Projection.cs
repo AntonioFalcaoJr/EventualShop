@@ -5,5 +5,11 @@ namespace Contracts.Services.Account;
 
 public static class Projection
 {
-    public record Account(Guid Id, Guid UserId, Dto.Profile Profile, bool IsDeleted) : IProjection;
+    public record Account(Guid Id, Dto.Profile Profile, bool IsDeleted) : IProjection;
+
+    public record BillingAddress(Guid Id, Dto.Address Address, bool IsDeleted) : Address(Id, IsDeleted);
+
+    public record ShippingAddress(Guid Id, Dto.Address Address, bool IsDeleted) : Address(Id, IsDeleted);
+
+    public abstract record Address(Guid Id, bool IsDeleted) : IProjection;
 }

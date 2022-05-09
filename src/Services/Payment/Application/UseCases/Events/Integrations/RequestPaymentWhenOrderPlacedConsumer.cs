@@ -22,7 +22,7 @@ public class RequestPaymentWhenOrderPlacedConsumer : IConsumer<DomainEvent.Order
         payment.Handle(new Command.RequestPayment(
             context.Message.OrderId,
             context.Message.Total,
-            context.Message.Customer.BillingAddress,
+            context.Message.BillingAddress,
             context.Message.PaymentMethods));
 
         await _eventStore.AppendEventsAsync(payment, context.CancellationToken);

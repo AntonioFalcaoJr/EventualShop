@@ -20,9 +20,12 @@ public class PlaceOrderWhenCartSubmittedConsumer : IConsumer<IntegrationEvent.Ca
         Order order = new();
 
         order.Handle(new Command.PlaceOrder(
-            context.Message.Customer,
-            context.Message.ShoppingCartItems,
+            context.Message.CartId,
+            context.Message.CustomerId,
             context.Message.Total,
+            context.Message.BillingAddress,
+            context.Message.ShippingAddress,
+            context.Message.Items,
             context.Message.PaymentMethods));
 
         await _eventStore.AppendEventsAsync(order, context.CancellationToken);

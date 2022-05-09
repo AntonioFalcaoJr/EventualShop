@@ -5,8 +5,7 @@ using MassTransit;
 namespace Application.UseCases.Events.Projections;
 
 public class ProjectCartPaymentMethodsWhenChangedConsumer :
-    IConsumer<DomainEvent.CreditCardAdded>,
-    IConsumer<DomainEvent.PayPalAdded>,
+    IConsumer<DomainEvent.PaymentMethodAdded>,
     IConsumer<DomainEvent.CartDiscarded>
 {
     private readonly IProjectionRepository<Projection.PaymentMethod> _repository;
@@ -21,27 +20,15 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
             filter: item => item.CartId == context.Message.CartId,
             cancellationToken: context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvent.CreditCardAdded> context)
+    public async Task Consume(ConsumeContext<DomainEvent.PaymentMethodAdded> context)
     {
         Projection.PaymentMethod creditCard = new(
             context.Message.MethodId,
             context.Message.CartId,
             context.Message.Amount,
-            context.Message.CreditCard,
+            context.Message.Option,
             false);
 
         await _repository.InsertAsync(creditCard, context.CancellationToken);
-    }
-
-    public async Task Consume(ConsumeContext<DomainEvent.PayPalAdded> context)
-    {
-        Projection.PaymentMethod payPal = new(
-            context.Message.MethodId,
-            context.Message.CartId,
-            context.Message.Amount,
-            context.Message.PayPal,
-            false);
-
-        await _repository.InsertAsync(payPal, context.CancellationToken);
     }
 }

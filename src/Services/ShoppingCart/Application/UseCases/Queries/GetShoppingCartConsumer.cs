@@ -18,7 +18,7 @@ public class GetShoppingCartConsumer :
 
     public async Task Consume(ConsumeContext<Query.GetCustomerShoppingCart> context)
     {
-        var shoppingCartProjection = await _repository.FindAsync(cart => cart.Customer.Id == context.Message.CustomerId, context.CancellationToken);
+        var shoppingCartProjection = await _repository.FindAsync(cart => cart.CustomerId == context.Message.CustomerId, context.CancellationToken);
         await RespondAsync(shoppingCartProjection, context);
     }
 

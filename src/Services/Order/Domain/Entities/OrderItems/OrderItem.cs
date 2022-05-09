@@ -6,9 +6,9 @@ namespace Domain.Entities.OrderItems;
 
 public class OrderItem : Entity<Guid, OrderItemValidator>
 {
-    public OrderItem(Guid? id, Product product, int quantity)
+    public OrderItem(Guid id, Product product, int quantity)
     {
-        Id = id ?? Guid.NewGuid();
+        Id = id;
         Product = product;
         Quantity = quantity;
     }
@@ -19,7 +19,7 @@ public class OrderItem : Entity<Guid, OrderItemValidator>
     // TODO, include this in PRODUCT
     public string Category { get; }
     public string Brand { get; }
-    
+
     public static implicit operator OrderItem(Dto.CartItem item)
         => new(item.Id, item.Product, item.Quantity);
 }

@@ -1,10 +1,11 @@
-﻿using Domain.Abstractions.Aggregates;
-using Domain.Entities.CartItems;
-using Domain.Entities.Customers;
-using Domain.Enumerations;
-using Contracts.Abstractions;
+﻿using Contracts.Abstractions;
+using Contracts.DataTransferObjects;
 using Contracts.Services.ShoppingCart;
+using Domain.Abstractions.Aggregates;
+using Domain.Entities.CartItems;
 using Domain.Entities.PaymentMethods;
+using Domain.Enumerations;
+using Domain.ValueObjects.Addresses;
 using Domain.ValueObjects.PaymentOptions.CreditCards;
 using Domain.ValueObjects.PaymentOptions.DebitCards;
 using Domain.ValueObjects.PaymentOptions.PayPals;
@@ -16,8 +17,11 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     private readonly List<CartItem> _items = new();
     private readonly List<PaymentMethod> _paymentMethods = new();
 
+    public Guid CustomerId { get; private set; }
     public ShoppingCartStatus Status { get; private set; }
-    public Customer Customer { get; private set; }
+    public Address BillingAddress { get; private set; }
+    public Address ShippingAddress { get; private set; }
+    private bool ShippingAndBillingAddressesAreSame { get; set; } = true;
 
     public decimal Total
         => Items.Sum(item => item.Product.UnitPrice * item.Quantity);
@@ -58,14 +62,8 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
             RaiseEvent(new DomainEvent.CartItemRemoved(cmd.CartId, cmd.ItemId, item.Product.UnitPrice, item.Quantity));
     }
 
-    public void Handle(Command.AddCreditCard cmd)
-        => RaiseEvent(new DomainEvent.CreditCardAdded(cmd.CartId, Guid.NewGuid(), cmd.Amount, cmd.CreditCard));
-
-    public void Handle(Command.AddDebitCard cmd)
-        => RaiseEvent(new DomainEvent.DebitCardAdded(cmd.CartId, Guid.NewGuid(), cmd.Amount, cmd.DebitCard));
-
-    public void Handle(Command.AddPayPal cmd)
-        => RaiseEvent(new DomainEvent.PayPalAdded(cmd.CartId, Guid.NewGuid(), cmd.Amount, cmd.PayPal));
+    public void Handle(Command.AddPaymentMethod cmd)
+        => RaiseEvent(new DomainEvent.PaymentMethodAdded(cmd.CartId, Guid.NewGuid(), cmd.Amount, cmd.Option));
 
     public void Handle(Command.AddShippingAddress cmd)
         => RaiseEvent(new DomainEvent.ShippingAddressAdded(cmd.CartId, cmd.Address));
@@ -85,7 +83,7 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     private void When(DomainEvent.CartCreated @event)
     {
         Id = @event.CartId;
-        Customer = new(@event.CustomerId);
+        CustomerId = @event.CustomerId;
         Status = ShoppingCartStatus.FromName(@event.Status);
     }
 
@@ -107,18 +105,26 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     private void When(DomainEvent.CartItemAdded @event)
         => _items.Add(new(@event.ItemId, @event.Product, @event.Quantity));
 
-    private void When(DomainEvent.CreditCardAdded @event)
-        => _paymentMethods.Add(new(@event.MethodId, @event.Amount, (CreditCard) @event.CreditCard));
-
-    private void When(DomainEvent.DebitCardAdded @event)
-        => _paymentMethods.Add(new(@event.MethodId, @event.Amount, (DebitCard) @event.DebitCard));
-
-    private void When(DomainEvent.PayPalAdded @event)
-        => _paymentMethods.Add(new(@event.MethodId, @event.Amount, (PayPal) @event.PayPal));
-
-    private void When(DomainEvent.ShippingAddressAdded @event)
-        => Customer.SetShippingAddress(@event.Address);
+    private void When(DomainEvent.PaymentMethodAdded @event)
+        => _paymentMethods.Add(new(@event.MethodId, @event.Amount, @event.Option switch
+        {
+            Dto.CreditCard creditCard => (CreditCard) creditCard,
+            Dto.DebitCard debitCard => (DebitCard) debitCard,
+            Dto.PayPal payPal => (PayPal) payPal,
+            _ => default
+        }));
 
     private void When(DomainEvent.BillingAddressChanged @event)
-        => Customer.SetBillingAddress(@event.Address);
+    {
+        ShippingAddress = @event.Address;
+
+        if (ShippingAndBillingAddressesAreSame)
+            BillingAddress = ShippingAddress;
+    }
+
+    private void When(DomainEvent.ShippingAddressAdded @event)
+    {
+        BillingAddress = @event.Address;
+        ShippingAndBillingAddressesAreSame = false;
+    }
 }

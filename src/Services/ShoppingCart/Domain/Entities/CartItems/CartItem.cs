@@ -6,9 +6,9 @@ namespace Domain.Entities.CartItems;
 
 public class CartItem : Entity<Guid, CartItemValidator>
 {
-    public CartItem(Guid? id, Product product, int quantity)
+    public CartItem(Guid id, Product product, int quantity)
     {
-        Id = id ?? Guid.NewGuid();
+        Id = id;
         Product = product;
         Quantity = quantity;
     }

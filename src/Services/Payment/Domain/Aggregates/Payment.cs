@@ -3,11 +3,7 @@ using Domain.Entities.PaymentMethods;
 using Domain.Enumerations;
 using Domain.ValueObjects.Addresses;
 using Contracts.Abstractions;
-using Contracts.DataTransferObjects;
 using Contracts.Services.Payment;
-using Domain.ValueObjects.PaymentOptions.CreditCards;
-using Domain.ValueObjects.PaymentOptions.DebitCards;
-using Domain.ValueObjects.PaymentOptions.PayPals;
 
 namespace Domain.Aggregates;
 
@@ -29,7 +25,13 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
         => _paymentMethods;
 
     public void Handle(Command.RequestPayment cmd)
-        => RaiseEvent(new DomainEvent.PaymentRequested(Guid.NewGuid(), cmd.OrderId, cmd.AmountDue, cmd.BillingAddress, cmd.PaymentMethods, PaymentStatus.Ready.ToString()));
+        => RaiseEvent(new DomainEvent.PaymentRequested(
+            Guid.NewGuid(),
+            cmd.OrderId,
+            cmd.AmountDue,
+            cmd.BillingAddress,
+            cmd.PaymentMethods,
+            PaymentStatus.Ready.ToString()));
 
     public void Handle(Command.ProceedWithPayment cmd)
         => RaiseEvent(AmountDue is 0
@@ -53,15 +55,7 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
         OrderId = @event.OrderId;
         Amount = @event.Amount;
         BillingAddress = @event.BillingAddress;
-        _paymentMethods.AddRange(@event.PaymentMethods.Select<Dto.PaymentMethod, PaymentMethod>(method
-            => method.Option switch
-            {
-                Dto.CreditCard creditCard => new(method.Id, method.Amount, (CreditCard) creditCard),
-                Dto.DebitCard debitCard => new(method.Id, method.Amount, (DebitCard) debitCard),
-                Dto.PayPal payPal => new(method.Id, method.Amount, (PayPal) payPal),
-                _ => default
-            }));
-
+        _paymentMethods.AddRange(@event.PaymentMethods.Select(method => (PaymentMethod) method));
         Status = PaymentStatus.FromName(@event.Status);
     }
 

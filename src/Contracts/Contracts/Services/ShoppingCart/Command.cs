@@ -7,11 +7,7 @@ public static class Command
 {
     public record AddCartItem(Guid CartId, Dto.Product Product, int Quantity) : Message(CorrelationId: CartId), ICommand;
 
-    public record AddCreditCard(Guid CartId, decimal Amount, Dto.CreditCard CreditCard) : Message(CorrelationId: CartId), ICommand;
-
-    public record AddDebitCard(Guid CartId, decimal Amount, Dto.DebitCard DebitCard) : Message(CorrelationId: CartId), ICommand;
-
-    public record AddPayPal(Guid CartId, decimal Amount, Dto.PayPal PayPal) : Message(CorrelationId: CartId), ICommand;
+    public record AddPaymentMethod(Guid CartId, decimal Amount, Dto.IPaymentOption Option) : Message(CorrelationId: CartId), ICommand;
 
     public record AddShippingAddress(Guid CartId, Dto.Address Address) : Message(CorrelationId: CartId), ICommand;
 

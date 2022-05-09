@@ -108,17 +108,17 @@ public class ShoppingCartsController : ApplicationController
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> AddAsync([NotEmpty] Guid cartId, decimal amount, Dto.CreditCard creditCard, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.AddCreditCard>(new(cartId, amount, creditCard), cancellationToken);
+        => SendCommandAsync<Command.AddPaymentMethod>(new(cartId, amount, creditCard), cancellationToken);
 
     [HttpPost("{cartId:guid}/payment-methods/debit-card")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> AddAsync([NotEmpty] Guid cartId, decimal amount, Dto.DebitCard debitCard, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.AddDebitCard>(new(cartId, amount, debitCard), cancellationToken);
+        => SendCommandAsync<Command.AddPaymentMethod>(new(cartId, amount, debitCard), cancellationToken);
 
     [HttpPost("{cartId:guid}/payment-methods/pay-pal")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> AddAsync([NotEmpty] Guid cartId, decimal amount, Dto.PayPal payPal, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.AddPayPal>(new(cartId, amount, payPal), cancellationToken);
+        => SendCommandAsync<Command.AddPaymentMethod>(new(cartId, amount, payPal), cancellationToken);
 }
