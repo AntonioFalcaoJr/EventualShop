@@ -4,5 +4,13 @@ namespace Contracts.Services.ShoppingCart;
 
 public static class Request
 {
-    public record AddShoppingCartItem(Dto.Product Product, int Quantity);
+    public record AddCartItem(Dto.Product Product, int Quantity);
+
+    public record AddCreditCard(Dto.CreditCard CreditCard, decimal Amount);
+
+    public record AddDebitCard(Dto.DebitCard DebitCard, decimal Amount);
+
+    public record AddPayPal(Dto.PayPal PayPal, decimal Amount);
+
+    public record CreateCart(Guid CustomerId);
 }

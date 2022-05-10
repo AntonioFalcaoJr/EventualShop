@@ -23,8 +23,8 @@ public class ShoppingCartsController : ApplicationController
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> CreateAsync([NotEmpty] Guid customerId, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.CreateCart>(new(customerId), cancellationToken);
+    public Task<IActionResult> CreateAsync(Request.CreateCart request, CancellationToken cancellationToken)
+        => SendCommandAsync<Command.CreateCart>(new(request.CustomerId), cancellationToken);
 
     [HttpGet("{cartId:guid}")]
     [ProducesResponseType(typeof(Projection.ShoppingCart), StatusCodes.Status200OK)]
@@ -53,7 +53,7 @@ public class ShoppingCartsController : ApplicationController
     [HttpPost("{cartId:guid}/items")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> AddAsync([NotEmpty] Guid cartId, Request.AddShoppingCartItem request, CancellationToken cancellationToken)
+    public Task<IActionResult> AddAsync([NotEmpty] Guid cartId, Request.AddCartItem request, CancellationToken cancellationToken)
         => SendCommandAsync<Command.AddCartItem>(new(cartId, request.Product, request.Quantity), cancellationToken);
 
     [HttpGet("{cartId:guid}/items/{itemId:guid}")]
@@ -107,18 +107,18 @@ public class ShoppingCartsController : ApplicationController
     [HttpPost("{cartId:guid}/payment-methods/credit-card")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> AddAsync([NotEmpty] Guid cartId, decimal amount, Dto.CreditCard creditCard, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.AddPaymentMethod>(new(cartId, amount, creditCard), cancellationToken);
+    public Task<IActionResult> AddAsync([NotEmpty] Guid cartId, Request.AddCreditCard request, CancellationToken cancellationToken)
+        => SendCommandAsync<Command.AddPaymentMethod>(new(cartId, request.Amount, request.CreditCard), cancellationToken);
 
     [HttpPost("{cartId:guid}/payment-methods/debit-card")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> AddAsync([NotEmpty] Guid cartId, decimal amount, Dto.DebitCard debitCard, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.AddPaymentMethod>(new(cartId, amount, debitCard), cancellationToken);
+    public Task<IActionResult> AddAsync([NotEmpty] Guid cartId, Request.AddDebitCard request, CancellationToken cancellationToken)
+        => SendCommandAsync<Command.AddPaymentMethod>(new(cartId, request.Amount, request.DebitCard), cancellationToken);
 
     [HttpPost("{cartId:guid}/payment-methods/pay-pal")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> AddAsync([NotEmpty] Guid cartId, decimal amount, Dto.PayPal payPal, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.AddPaymentMethod>(new(cartId, amount, payPal), cancellationToken);
+    public Task<IActionResult> AddAsync([NotEmpty] Guid cartId, Request.AddPayPal request, CancellationToken cancellationToken)
+        => SendCommandAsync<Command.AddPaymentMethod>(new(cartId, request.Amount, request.PayPal), cancellationToken);
 }
