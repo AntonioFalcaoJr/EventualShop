@@ -2,7 +2,7 @@
 
 namespace Contracts.DataTransferObjects.Validators;
 
-public class ShoppingCartItemValidator : AbstractValidator<Dto.ShoppingCartItem>
+public class ShoppingCartItemValidator : AbstractValidator<Dto.CartItem>
 {
     public ShoppingCartItemValidator()
     {

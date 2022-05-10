@@ -17,7 +17,7 @@ public class ECommerceHttpClient : ApplicationHttpClient, IECommerceHttpClient
 
     public Task<HttpResponse<PagedResult<Projection.CatalogItem>>> GetAllItemsAsync(int limit, int offset, CancellationToken cancellationToken)
         => GetAsync<PagedResult<Projection.CatalogItem>>($"{_options.CatalogEndpoint}/items?limit={limit}&offset={offset}", cancellationToken);
-    
+
     public Task<HttpResponse<PagedResult<Projection.Catalog>>> GetAsync(int limit, int offset, CancellationToken cancellationToken)
         => GetAsync<PagedResult<Projection.Catalog>>($"{_options.CatalogEndpoint}?limit={limit}&offset={offset}", cancellationToken);
 
@@ -27,15 +27,15 @@ public class ECommerceHttpClient : ApplicationHttpClient, IECommerceHttpClient
     public Task<HttpResponse> DeleteAsync(Guid catalogId, CancellationToken cancellationToken)
         => DeleteAsync($"{_options.CatalogEndpoint}/{catalogId}", cancellationToken);
 
-    public Task<HttpResponse> ActivateAsync(Guid catalogId, Request.ChangeCatalogDescription request, CancellationToken cancellationToken)
-        => PutAsync($"{_options.CatalogEndpoint}/{catalogId}/activate", request, cancellationToken);
+    public Task<HttpResponse> ActivateAsync(Guid catalogId, CancellationToken cancellationToken)
+        => PutAsync($"{_options.CatalogEndpoint}/{catalogId}/activate", cancellationToken);
 
-    public Task<HttpResponse> DeactivateAsync(Guid catalogId, Request.ChangeCatalogTitle request, CancellationToken cancellationToken)
-        => PutAsync($"{_options.CatalogEndpoint}/{catalogId}/deactivate", request, cancellationToken);
+    public Task<HttpResponse> DeactivateAsync(Guid catalogId, CancellationToken cancellationToken)
+        => PutAsync($"{_options.CatalogEndpoint}/{catalogId}/deactivate", cancellationToken);
 
-    public Task<HttpResponse> ChangeDescriptionAsync(Guid catalogId, Request.ChangeCatalogDescription request, CancellationToken cancellationToken)
-        => PutAsync($"{_options.CatalogEndpoint}/{catalogId}/description", request, cancellationToken);
+    public Task<HttpResponse> ChangeDescriptionAsync(Guid catalogId, string description, CancellationToken cancellationToken)
+        => PutAsync($"{_options.CatalogEndpoint}/{catalogId}/description", description, cancellationToken);
 
-    public Task<HttpResponse> ChangeTitleAsync(Guid catalogId, Request.ChangeCatalogTitle request, CancellationToken cancellationToken)
-        => PutAsync($"{_options.CatalogEndpoint}/{catalogId}/title", request, cancellationToken);
+    public Task<HttpResponse> ChangeTitleAsync(Guid catalogId, string title, CancellationToken cancellationToken)
+        => PutAsync($"{_options.CatalogEndpoint}/{catalogId}/title", title, cancellationToken);
 }

@@ -80,8 +80,8 @@ public class CatalogsViewModel
     {
         try
         {
-            Request.ChangeCatalogTitle request = new(Catalogs.First(catalog => catalog.Id == catalogId).Title);
-            var response = await _httpClient.ChangeTitleAsync(catalogId, request, CancellationToken.None);
+            var title = Catalogs.First(catalog => catalog.Id == catalogId).Title;
+            var response = await _httpClient.ChangeTitleAsync(catalogId, title, CancellationToken.None);
 
             if (response.Success)
             {
@@ -99,8 +99,8 @@ public class CatalogsViewModel
     {
         try
         {
-            Request.ChangeCatalogDescription request = new(Catalogs.First(catalog => catalog.Id == catalogId).Description);
-            var response = await _httpClient.ChangeDescriptionAsync(catalogId, request, CancellationToken.None);
+            var description = Catalogs.First(catalog => catalog.Id == catalogId).Description;
+            var response = await _httpClient.ChangeDescriptionAsync(catalogId, description, CancellationToken.None);
 
             if (response.Success)
             {
@@ -133,5 +133,4 @@ public class CatalogsViewModel
             o.Toast = Toast.BottomRight;
         });
     }
-
 }

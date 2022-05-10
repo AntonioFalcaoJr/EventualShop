@@ -16,7 +16,7 @@ public class CreateAccountConsumer : IConsumer<Command.CreateAccount>
 
     public async Task Consume(ConsumeContext<Command.CreateAccount> context)
     {
-        var account = new Account();
+        Account account = new();
         account.Handle(context.Message);
         await _eventStore.AppendEventsAsync(account, context.CancellationToken);
     }

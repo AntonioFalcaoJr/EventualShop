@@ -14,4 +14,16 @@ public sealed class PaymentStatus : SmartEnum<PaymentStatus>
     public static readonly PaymentStatus Canceled = new(nameof(Canceled), 3);
     public static readonly PaymentStatus Pending = new(nameof(Pending), 4);
     public static readonly PaymentStatus Refunded = new(nameof(Refunded), 5);
+
+    public static implicit operator PaymentStatus(string name)
+        => FromName(name);
+
+    public static implicit operator PaymentStatus(int value)
+        => FromValue(value);
+
+    public static implicit operator string(PaymentStatus status)
+        => status.Name;
+
+    public static implicit operator int(PaymentStatus status)
+        => status.Value;
 }

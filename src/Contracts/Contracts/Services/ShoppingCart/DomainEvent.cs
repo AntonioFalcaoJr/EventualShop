@@ -21,9 +21,7 @@ public static class DomainEvent
 
     public record BillingAddressChanged(Guid CartId, Dto.Address Address) : Message(CorrelationId: CartId), IEvent;
 
-    public record CreditCardAdded(Guid CartId, Dto.CreditCard CreditCard) : Message(CorrelationId: CartId), IEvent;
-
-    public record PayPalAdded(Guid CartId, Dto.PayPal PayPal) : Message(CorrelationId: CartId), IEvent;
+    public record PaymentMethodAdded(Guid CartId, Guid MethodId, decimal Amount, Dto.IPaymentOption Option) : Message(CorrelationId: CartId), IEvent;
 
     public record CartDiscarded(Guid CartId) : Message(CorrelationId: CartId), IEvent;
 }

@@ -16,7 +16,7 @@ public class ReceiveInventoryItemConsumer : IConsumer<Command.ReceiveInventoryIt
 
     public async Task Consume(ConsumeContext<Command.ReceiveInventoryItem> context)
     {
-        var inventoryItem = new InventoryItem();
+        InventoryItem inventoryItem = new();
         inventoryItem.Handle(context.Message);
         await _eventStore.AppendEventsAsync(inventoryItem, context.CancellationToken);
     }

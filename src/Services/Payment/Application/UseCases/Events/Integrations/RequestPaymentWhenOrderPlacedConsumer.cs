@@ -17,12 +17,12 @@ public class RequestPaymentWhenOrderPlacedConsumer : IConsumer<DomainEvent.Order
 
     public async Task Consume(ConsumeContext<DomainEvent.OrderPlaced> context)
     {
-        var payment = new Payment();
+        Payment payment = new();
 
         payment.Handle(new Command.RequestPayment(
             context.Message.OrderId,
             context.Message.Total,
-            context.Message.Customer.BillingAddress,
+            context.Message.BillingAddress,
             context.Message.PaymentMethods));
 
         await _eventStore.AppendEventsAsync(payment, context.CancellationToken);

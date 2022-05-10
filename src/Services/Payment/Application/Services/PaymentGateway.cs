@@ -25,7 +25,7 @@ public class PaymentGateway : IPaymentGateway
 
     public async Task AuthorizeAsync(Payment payment, CancellationToken cancellationToken)
     {
-        foreach (var method in payment.Methods)
+        foreach (var method in payment.PaymentMethods)
         {
             if (payment.AmountDue <= 0) break;
 
@@ -41,7 +41,7 @@ public class PaymentGateway : IPaymentGateway
 
     public async Task CancelAsync(Payment payment, CancellationToken cancellationToken)
     {
-        foreach (var method in payment.Methods)
+        foreach (var method in payment.PaymentMethods)
         {
             if (payment.AmountDue <= 0) break;
 
@@ -57,7 +57,7 @@ public class PaymentGateway : IPaymentGateway
 
     public async Task RefundAsync(Payment payment, CancellationToken cancellationToken)
     {
-        foreach (var method in payment.Methods)
+        foreach (var method in payment.PaymentMethods)
         {
             if (payment.AmountDue <= 0) break;
 
