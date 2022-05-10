@@ -1,4 +1,5 @@
 ﻿using Contracts.Abstractions.Paging;
+using Contracts.DataTransferObjects;
 using Contracts.Services.Account;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,12 @@ public class AccountsController : ApplicationController
     public Task<IActionResult> GetAsync(int limit, int offset, CancellationToken cancellationToken)
         => GetProjectionAsync<Query.GetAccounts, IPagedResult<Projection.Account>>(new(limit, offset), cancellationToken);
 
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public Task<IActionResult> CreateAsync(Request.CreateAccount request, CancellationToken cancellationToken)
+        => SendCommandAsync<Command.CreateAccount>(new(request.Profile, request.Password, request.PasswordConfirmation, request.WishToReceiveNews, request.AcceptedPolicies), cancellationToken);
+
     [HttpGet("{accountId:guid}")]
     [ProducesResponseType(typeof(Projection.Account), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
@@ -33,12 +40,12 @@ public class AccountsController : ApplicationController
     [HttpPut("{accountId:guid}/profiles/professional-address")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> DefineProfessionalAddressAsync([NotEmpty] Guid accountId, Request.DefineProfessionalAddress request, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.DefineProfessionalAddress>(new(accountId, request.Address), cancellationToken);
+    public Task<IActionResult> DefineProfessionalAddressAsync([NotEmpty] Guid accountId, Dto.Address address, CancellationToken cancellationToken)
+        => SendCommandAsync<Command.AddShippingAddress>(new(accountId, address), cancellationToken);
 
     [HttpPut("{accountId:guid}/profiles/residence-address")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> DefineResidenceAddressAsync([NotEmpty] Guid accountId, Request.DefineResidenceAddress request, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.DefineResidenceAddress>(new(accountId, request.Address), cancellationToken);
+    public Task<IActionResult> DefineResidenceAddressAsync([NotEmpty] Guid accountId, Dto.Address address, CancellationToken cancellationToken)
+        => SendCommandAsync<Command.AddBillingAddress>(new(accountId, address), cancellationToken);
 }

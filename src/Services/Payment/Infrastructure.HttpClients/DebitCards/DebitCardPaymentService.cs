@@ -2,7 +2,7 @@
 using Application.Services.DebitCards;
 using Application.Services.DebitCards.Http;
 using Domain.Entities.PaymentMethods;
-using Domain.Entities.PaymentMethods.DebitCards;
+using Domain.ValueObjects.PaymentOptions.DebitCards;
 
 namespace Infrastructure.HttpClients.DebitCards;
 
@@ -15,14 +15,14 @@ public class DebitCardPaymentService : PaymentService, IDebitCardPaymentService
         _client = client;
     }
 
-    public override Task<IPaymentResult> HandleAsync(Func<IPaymentService, IPaymentMethod, CancellationToken, Task<IPaymentResult>> behaviorProcessor, IPaymentMethod method, CancellationToken cancellationToken)
-        => method is DebitCardPaymentMethod debitCardPaymentMethod
-            ? behaviorProcessor(this, debitCardPaymentMethod, cancellationToken)
+    public override Task<IPaymentResult> HandleAsync(Func<IPaymentService, PaymentMethod, CancellationToken, Task<IPaymentResult>> behaviorProcessor, PaymentMethod method, CancellationToken cancellationToken)
+        => method.Option is DebitCard
+            ? behaviorProcessor(this, method, cancellationToken)
             : base.HandleAsync(behaviorProcessor, method, cancellationToken);
 
-    public override async Task<IPaymentResult> AuthorizeAsync(IPaymentMethod method, CancellationToken cancellationToken)
+    public override async Task<IPaymentResult> AuthorizeAsync(PaymentMethod method, CancellationToken cancellationToken)
     {
-        var request = new Requests.DebitCardAuthorizePayment
+        Requests.DebitCardAuthorizePayment request = new()
         {
             // TODO - Use method to hydrate  
         };
@@ -31,9 +31,9 @@ public class DebitCardPaymentService : PaymentService, IDebitCardPaymentService
         return response.ActionResult;
     }
 
-    public override async Task<IPaymentResult> CancelAsync(IPaymentMethod method, CancellationToken cancellationToken)
+    public override async Task<IPaymentResult> CancelAsync(PaymentMethod method, CancellationToken cancellationToken)
     {
-        var request = new Requests.DebitCardCancelPayment
+        Requests.DebitCardCancelPayment request = new()
         {
             // TODO - Use method to hydrate  
         };
@@ -42,9 +42,9 @@ public class DebitCardPaymentService : PaymentService, IDebitCardPaymentService
         return response.ActionResult;
     }
 
-    public override async Task<IPaymentResult> RefundAsync(IPaymentMethod method, CancellationToken cancellationToken)
+    public override async Task<IPaymentResult> RefundAsync(PaymentMethod method, CancellationToken cancellationToken)
     {
-        var request = new Requests.DebitCardRefundPayment
+        Requests.DebitCardRefundPayment request = new()
         {
             // TODO - Use method to hydrate  
         };

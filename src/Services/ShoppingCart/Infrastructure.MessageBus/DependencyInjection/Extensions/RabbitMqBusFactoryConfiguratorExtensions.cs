@@ -13,8 +13,6 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
         cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvent.CartCreated>(registration);
         cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvent.CartItemAdded>(registration);
         cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvent.CartItemRemoved>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvent.CreditCardAdded>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvent.PayPalAdded>(registration);
         cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvent.BillingAddressChanged>(registration);
         cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvent.ShippingAddressAdded>(registration);
         cfg.ConfigureEventReceiveEndpoint<ProjectCartWhenChangedConsumer, DomainEvent.CartCheckedOut>(registration);
@@ -27,6 +25,8 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
         cfg.ConfigureEventReceiveEndpoint<ProjectCartItemsWhenChangedConsumer, DomainEvent.CartItemIncreased>(registration);
         cfg.ConfigureEventReceiveEndpoint<ProjectCartItemsWhenChangedConsumer, DomainEvent.CartItemRemoved>(registration);
         cfg.ConfigureEventReceiveEndpoint<ProjectCartItemsWhenChangedConsumer, DomainEvent.CartDiscarded>(registration);
+        
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartPaymentMethodsWhenChangedConsumer, DomainEvent.PaymentMethodAdded>(registration);
 
         cfg.ConfigureEventReceiveEndpoint<PublishCartSubmittedWhenCheckedOutConsumer, DomainEvent.CartCheckedOut>(registration);
     }

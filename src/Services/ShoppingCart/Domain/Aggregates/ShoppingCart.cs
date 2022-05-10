@@ -1,35 +1,45 @@
-﻿using Domain.Abstractions.Aggregates;
-using Domain.Entities.CartItems;
-using Domain.Entities.Customers;
-using Domain.Entities.Products;
-using Domain.Enumerations;
-using Domain.ValueObjects.PaymentMethods;
-using Domain.ValueObjects.PaymentMethods.CreditCards;
-using Domain.ValueObjects.PaymentMethods.PayPal;
-using Contracts.Abstractions;
+﻿using Contracts.Abstractions;
+using Contracts.DataTransferObjects;
 using Contracts.Services.ShoppingCart;
+using Domain.Abstractions.Aggregates;
+using Domain.Entities.CartItems;
+using Domain.Entities.PaymentMethods;
+using Domain.Enumerations;
+using Domain.ValueObjects.Addresses;
+using Domain.ValueObjects.PaymentOptions.CreditCards;
+using Domain.ValueObjects.PaymentOptions.DebitCards;
+using Domain.ValueObjects.PaymentOptions.PayPals;
 
 namespace Domain.Aggregates;
 
 public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
 {
     private readonly List<CartItem> _items = new();
-    private readonly List<IPaymentMethod> _paymentMethods = new();
+    private readonly List<PaymentMethod> _paymentMethods = new();
 
-    public ShoppingCartStatus Status { get; private set; }
-    public Customer Customer { get; private set; }
+    public Guid CustomerId { get; private set; }
+    public CartStatus Status { get; private set; }
+    public Address BillingAddress { get; private set; }
+    public Address ShippingAddress { get; private set; }
+    private bool ShippingAndBillingAddressesAreSame { get; set; } = true;
 
     public decimal Total
         => Items.Sum(item => item.Product.UnitPrice * item.Quantity);
 
+    public decimal TotalPayment
+        => PaymentMethods.Sum(method => method.Amount);
+
+    public decimal AmountDue
+        => Total - TotalPayment;
+
     public IEnumerable<CartItem> Items
         => _items;
 
-    public IEnumerable<IPaymentMethod> PaymentMethods
+    public IEnumerable<PaymentMethod> PaymentMethods
         => _paymentMethods;
 
     public void Handle(Command.CreateCart cmd)
-        => RaiseEvent(new DomainEvent.CartCreated(Guid.NewGuid(), cmd.CustomerId, ShoppingCartStatus.Confirmed.ToString()));
+        => RaiseEvent(new DomainEvent.CartCreated(Guid.NewGuid(), cmd.CustomerId, CartStatus.Confirmed));
 
     public void Handle(Command.AddCartItem cmd)
     {
@@ -58,11 +68,11 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
             RaiseEvent(new DomainEvent.CartItemRemoved(cmd.CartId, cmd.ItemId, item.Product.UnitPrice, item.Quantity));
     }
 
-    public void Handle(Command.AddCreditCard cmd)
-        => RaiseEvent(new DomainEvent.CreditCardAdded(cmd.CartId, cmd.CreditCard));
-
-    public void Handle(Command.AddPayPal cmd)
-        => RaiseEvent(new DomainEvent.PayPalAdded(cmd.CartId, cmd.PayPal));
+    public void Handle(Command.AddPaymentMethod cmd)
+    {
+        if (AmountDue >= cmd.Amount)
+            RaiseEvent(new DomainEvent.PaymentMethodAdded(cmd.CartId, Guid.NewGuid(), cmd.Amount, cmd.Option));
+    }
 
     public void Handle(Command.AddShippingAddress cmd)
         => RaiseEvent(new DomainEvent.ShippingAddressAdded(cmd.CartId, cmd.Address));
@@ -71,7 +81,10 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
         => RaiseEvent(new DomainEvent.BillingAddressChanged(cmd.CartId, cmd.Address));
 
     public void Handle(Command.CheckOutCart cmd)
-        => RaiseEvent(new DomainEvent.CartCheckedOut(cmd.CartId));
+    {
+        if (_items.Any() && AmountDue is 0)
+            RaiseEvent(new DomainEvent.CartCheckedOut(cmd.CartId));
+    }
 
     public void Handle(Command.DiscardCart cmd)
         => RaiseEvent(new DomainEvent.CartDiscarded(cmd.CartId));
@@ -80,17 +93,16 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
         => When(@event as dynamic);
 
     private void When(DomainEvent.CartCreated @event)
-    {
-        Id = @event.CartId;
-        Customer = new(@event.CustomerId);
-        Status = ShoppingCartStatus.FromName(@event.Status);
-    }
+        => (Id, CustomerId, Status) = @event;
 
     private void When(DomainEvent.CartCheckedOut _)
-        => Status = ShoppingCartStatus.CheckedOut;
+        => Status = CartStatus.CheckedOut;
 
     private void When(DomainEvent.CartDiscarded _)
-        => IsDeleted = true;
+    {
+        Status = CartStatus.Abandoned;
+        IsDeleted = true;
+    }
 
     private void When(DomainEvent.CartItemIncreased @event)
         => _items.Single(item => item.Id == @event.ItemId).Increase();
@@ -102,47 +114,28 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
         => _items.RemoveAll(item => item.Id == @event.ItemId);
 
     private void When(DomainEvent.CartItemAdded @event)
-    {
-        Product product = new(@event.Product.Id, @event.Product.Name, @event.Product.UnitPrice, @event.Product.PictureUrl, @event.Product.Sku);
-        CartItem cartItem = new(@event.ItemId, product, @event.Quantity);
-        _items.Add(cartItem);
-    }
+        => _items.Add(new(@event.ItemId, @event.Product, @event.Quantity));
 
-    private void When(DomainEvent.CreditCardAdded @event)
-        => _paymentMethods.Add(
-            new CreditCardPaymentMethod(
-                @event.CreditCard.Amount,
-                @event.CreditCard.Expiration,
-                @event.CreditCard.HolderName,
-                @event.CreditCard.Number,
-                @event.CreditCard.SecurityNumber));
-
-    private void When(DomainEvent.PayPalAdded @event)
-        => _paymentMethods.Add(
-            new PayPalPaymentMethod(
-                @event.PayPal.Amount,
-                @event.PayPal.UserName,
-                @event.PayPal.Password));
-
-    private void When(DomainEvent.ShippingAddressAdded @event)
-        => Customer.SetShippingAddress(new()
+    private void When(DomainEvent.PaymentMethodAdded @event)
+        => _paymentMethods.Add(new(@event.MethodId, @event.Amount, @event.Option switch
         {
-            City = @event.Address.City,
-            Country = @event.Address.Country,
-            Number = @event.Address.Number,
-            State = @event.Address.State,
-            Street = @event.Address.Street,
-            ZipCode = @event.Address.ZipCode
-        });
+            Dto.CreditCard creditCard => (CreditCard) creditCard,
+            Dto.DebitCard debitCard => (DebitCard) debitCard,
+            Dto.PayPal payPal => (PayPal) payPal,
+            _ => default
+        }));
 
     private void When(DomainEvent.BillingAddressChanged @event)
-        => Customer.SetBillingAddress(new()
-        {
-            City = @event.Address.City,
-            Country = @event.Address.Country,
-            Number = @event.Address.Number,
-            State = @event.Address.State,
-            Street = @event.Address.Street,
-            ZipCode = @event.Address.ZipCode
-        });
+    {
+        ShippingAddress = @event.Address;
+
+        if (ShippingAndBillingAddressesAreSame)
+            BillingAddress = ShippingAddress;
+    }
+
+    private void When(DomainEvent.ShippingAddressAdded @event)
+    {
+        BillingAddress = @event.Address;
+        ShippingAndBillingAddressesAreSame = false;
+    }
 }

@@ -1,4 +1,5 @@
-﻿using Domain.Abstractions.Entities;
+﻿using Contracts.DataTransferObjects;
+using Domain.Abstractions.Entities;
 using Domain.Entities.Products;
 
 namespace Domain.Entities.CartItems;
@@ -20,4 +21,10 @@ public class CartItem : Entity<Guid, CartItemValidator>
 
     public void Decrease()
         => Quantity -= 1;
+
+    public static implicit operator CartItem(Dto.CartItem item)
+        => new(item.Id, item.Product, item.Quantity);
+
+    public static implicit operator Dto.CartItem(CartItem item)
+        => new(item.Id, item.Product, item.Quantity);
 }

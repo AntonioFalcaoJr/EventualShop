@@ -1,5 +1,6 @@
 ﻿using Domain.Abstractions.Validators;
-using Domain.ValueObjects.Profiles;
+using Domain.Entities.Profiles;
+using Domain.ValueObjects.Addresses;
 
 namespace Domain.Aggregates;
 
@@ -9,5 +10,8 @@ public class AccountValidator : EntityValidator<Account, Guid>
     {
         RuleFor(account => account.Profile)
             .SetValidator(new ProfileValidator());
+
+        RuleForEach(account => account.Addresses)
+            .SetValidator(new AddressValidator());
     }
 }

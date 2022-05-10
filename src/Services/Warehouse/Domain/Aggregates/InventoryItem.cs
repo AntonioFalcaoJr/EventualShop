@@ -46,11 +46,8 @@ public class InventoryItem : AggregateRoot<Guid, InventoryItemValidator>
     protected override void ApplyEvent(IEvent @event)
         => When(@event as dynamic);
 
-    private void When(DomainEvent.InventoryReceived @event)
-    {
-        (Id, var product, Quantity) = @event;
-        Product = new(product.Id, product.Name, product.UnitPrice, product.PictureUrl, product.Sku);
-    }
+    private void When(DomainEvent.InventoryReceived @event) 
+        => (Id, Product, Quantity) = @event;
 
     private void When(DomainEvent.InventoryAdjustmentDecreased @event)
         => Quantity -= @event.Quantity;

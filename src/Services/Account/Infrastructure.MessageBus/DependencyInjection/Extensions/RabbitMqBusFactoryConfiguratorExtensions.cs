@@ -1,5 +1,4 @@
-﻿using Application.UseCases.Events.Integrations;
-using Application.UseCases.Events.Projections;
+﻿using Application.UseCases.Events.Projections;
 using Contracts.Abstractions;
 using Contracts.Services.Account;
 using MassTransit;
@@ -10,12 +9,10 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistrationContext registration)
     {
-        cfg.ConfigureEventReceiveEndpoint<CreateAccountWhenUserRegisteredConsumer, Contracts.Services.Identity.DomainEvent.UserRegistered>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectAccountDetailsWhenChangedConsumer, DomainEvent.ProfessionalAddressDefined>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectAccountDetailsWhenChangedConsumer, DomainEvent.ProfileUpdated>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectAccountDetailsWhenChangedConsumer, DomainEvent.ResidenceAddressDefined>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectAccountDetailsWhenChangedConsumer, DomainEvent.AccountCreated>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectAccountDetailsWhenChangedConsumer, DomainEvent.AccountDeleted>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectAccountWhenChangedConsumer, DomainEvent.AccountCreated>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectAccountWhenChangedConsumer, DomainEvent.AccountDeleted>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectAddressWhenChangedConsumer, DomainEvent.ShippingAddressAdded>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectAddressWhenChangedConsumer, DomainEvent.BillingAddressAdded>(registration);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistrationContext registration)

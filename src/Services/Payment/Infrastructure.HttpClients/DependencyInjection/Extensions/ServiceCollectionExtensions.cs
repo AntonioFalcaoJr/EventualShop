@@ -9,7 +9,7 @@ using Infrastructure.HttpClients.CreditCards;
 using Infrastructure.HttpClients.DebitCards;
 using Infrastructure.HttpClients.DependencyInjection.HttpPolicies;
 using Infrastructure.HttpClients.DependencyInjection.Options;
-using Infrastructure.HttpClients.PayPal;
+using Infrastructure.HttpClients.PayPals;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;

@@ -16,7 +16,7 @@ public class PlaceOrderConsumer : IConsumer<Command.PlaceOrder>
 
     public async Task Consume(ConsumeContext<Command.PlaceOrder> context)
     {
-        var order = new Order();
+        Order order = new();
         order.Handle(context.Message);
         await _eventStore.AppendEventsAsync(order, context.CancellationToken);
     }

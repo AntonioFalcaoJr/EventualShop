@@ -4,7 +4,5 @@ namespace Contracts.Services.Account;
 
 public static class Request
 {
-    public record DefineProfessionalAddress(Dto.Address Address);
-
-    public record DefineResidenceAddress(Dto.Address Address);
+    public record CreateAccount(Dto.Profile Profile, string Password, string PasswordConfirmation, bool WishToReceiveNews, bool AcceptedPolicies);
 }

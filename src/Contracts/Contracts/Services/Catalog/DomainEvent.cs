@@ -5,7 +5,7 @@ namespace Contracts.Services.Catalog;
 
 public static class DomainEvent
 {
-    public record CatalogCreated(Guid CatalogId, string Title, string Description, bool IsActive, bool IsDeleted) : Message(CorrelationId: CatalogId), IEvent;
+    public record CatalogCreated(Guid CatalogId, string Title, string Description) : Message(CorrelationId: CatalogId), IEvent;
 
     public record CatalogDeleted(Guid CatalogId) : Message(CorrelationId: CatalogId), IEvent;
 

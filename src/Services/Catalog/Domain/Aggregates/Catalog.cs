@@ -1,6 +1,5 @@
 ﻿using Domain.Abstractions.Aggregates;
 using Domain.Entities.CatalogItems;
-using Domain.Entities.Products;
 using Contracts.Abstractions;
 using Contracts.Services.Catalog;
 
@@ -17,7 +16,7 @@ public class Catalog : AggregateRoot<Guid, CatalogValidator>
         => _items;
 
     public void Handle(Command.CreateCatalog cmd)
-        => RaiseEvent(new DomainEvent.CatalogCreated(cmd.CatalogId, cmd.Title, cmd.Description, false, false));
+        => RaiseEvent(new DomainEvent.CatalogCreated(cmd.CatalogId, cmd.Title, cmd.Description));
 
     public void Handle(Command.DeleteCatalog cmd)
         => RaiseEvent(new DomainEvent.CatalogDeleted(cmd.CatalogId));
@@ -44,7 +43,7 @@ public class Catalog : AggregateRoot<Guid, CatalogValidator>
         => When(@event as dynamic);
 
     private void When(DomainEvent.CatalogCreated @event)
-        => (Id, Title, Description, IsActive, IsDeleted) = @event;
+        => (Id, Title, Description) = @event;
 
     private void When(DomainEvent.CatalogDescriptionChanged @event)
         => Description = @event.Description;
@@ -64,10 +63,6 @@ public class Catalog : AggregateRoot<Guid, CatalogValidator>
     private void When(DomainEvent.CatalogDeactivated _)
         => IsActive = false;
 
-    private void When(DomainEvent.CatalogItemAdded @event)
-    {
-        Product product = new(@event.Product.Id, @event.Product.Name, @event.Product.UnitPrice, @event.Product.PictureUrl, @event.Product.Sku);
-        CatalogItem item = new(@event.ItemId, product, @event.Quantity);
-        _items.Add(item);
-    }
+    private void When(DomainEvent.CatalogItemAdded @event) 
+        => _items.Add(new(@event.ItemId, @event.Product, @event.Quantity));
 }

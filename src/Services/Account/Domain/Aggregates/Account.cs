@@ -1,66 +1,55 @@
 ﻿using Domain.Abstractions.Aggregates;
-using Domain.ValueObjects.Profiles;
 using Contracts.Abstractions;
 using Contracts.Services.Account;
+using Domain.Entities.Profiles;
+using Domain.ValueObjects.Addresses;
 
 namespace Domain.Aggregates;
 
 public class Account : AggregateRoot<Guid, AccountValidator>
 {
-    public Guid UserId { get; private set; }
+    private readonly List<Address> _addresses = new();
+
     public Profile Profile { get; private set; }
 
+    // public Wallet Wallet { get; private set; }
+    public bool WishToReceiveNews { get; private set; }
+    public bool AcceptedPolicies { get; private set; }
+    public string Password { get; private set; }
+
+    public IEnumerable<Address> Addresses
+        => _addresses;
+
     public void Handle(Command.CreateAccount cmd)
-        => RaiseEvent(new DomainEvent.AccountCreated(Guid.NewGuid(), cmd.UserId, cmd.Email));
+        => RaiseEvent(new DomainEvent.AccountCreated(
+            Guid.NewGuid(),
+            cmd.Profile,
+            cmd.Password,
+            cmd.PasswordConfirmation,
+            cmd.AcceptedPolicies,
+            cmd.WishToReceiveNews));
 
     public void Handle(Command.DeleteAccount cmd)
         => RaiseEvent(new DomainEvent.AccountDeleted(cmd.AccountId));
 
-    public void Handle(Command.UpdateProfile cmd)
-        => RaiseEvent(new DomainEvent.ProfileUpdated(cmd.AccountId, cmd.Birthdate, cmd.Email, cmd.FirstName, cmd.LastName));
+    public void Handle(Command.AddBillingAddress cmd)
+        => RaiseEvent(new DomainEvent.BillingAddressAdded(cmd.AccountId, cmd.Address));
 
-    public void Handle(Command.DefineResidenceAddress cmd)
-        => RaiseEvent(new DomainEvent.ResidenceAddressDefined(cmd.AccountId, cmd.Address));
-
-    public void Handle(Command.DefineProfessionalAddress cmd)
-        => RaiseEvent(new DomainEvent.ProfessionalAddressDefined(cmd.AccountId, cmd.Address));
+    public void Handle(Command.AddShippingAddress cmd)
+        => RaiseEvent(new DomainEvent.ShippingAddressAdded(cmd.AccountId, cmd.Address));
 
     protected override void ApplyEvent(IEvent domainEvent)
         => When(domainEvent as dynamic);
 
     private void When(DomainEvent.AccountCreated @event)
-    {
-        Id = @event.AccountId;
-        UserId = @event.UserId;
-        Profile = new(@event.Email);
-    }
+        => (Id, Profile, Password, _, AcceptedPolicies, WishToReceiveNews) = @event;
 
     private void When(DomainEvent.AccountDeleted _)
         => IsDeleted = true;
 
-    private void When(DomainEvent.ProfileUpdated @event)
-    {
-        Profile.SetBirthdate(@event.Birthdate);
-        Profile.SetEmail(@event.Email);
-        Profile.SetFirstName(@event.FirstName);
-        Profile.SetLastName(@event.LastName);
-    }
+    private void When(DomainEvent.BillingAddressAdded @event)
+        => _addresses.Add((BillingAddress) @event.Address);
 
-    private void When(DomainEvent.ResidenceAddressDefined @event)
-        => Profile.SetResidenceAddress(new(
-            @event.Address.City,
-            @event.Address.Country,
-            @event.Address.Number,
-            @event.Address.State,
-            @event.Address.Street,
-            @event.Address.ZipCode));
-
-    private void When(DomainEvent.ProfessionalAddressDefined @event)
-        => Profile.SetProfessionalAddress(new(
-            @event.Address.City,
-            @event.Address.Country,
-            @event.Address.Number,
-            @event.Address.State,
-            @event.Address.Street,
-            @event.Address.ZipCode));
+    private void When(DomainEvent.ShippingAddressAdded @event)
+        => _addresses.Add((ShippingAddress) @event.Address);
 }

@@ -1,4 +1,5 @@
-﻿using Contracts.Abstractions.Paging;
+﻿using System.ComponentModel.DataAnnotations;
+using Contracts.Abstractions.Paging;
 using Contracts.Services.Catalog;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
@@ -51,14 +52,14 @@ public class CatalogsController : ApplicationController
     [HttpPut("{catalogId:guid}/title")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> ChangeTitleAsync([NotEmpty] Guid catalogId, Request.ChangeCatalogTitle request, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.ChangeCatalogTitle>(new(catalogId, request.Title), cancellationToken);
+    public Task<IActionResult> ChangeTitleAsync([NotEmpty] Guid catalogId, [MinLength(5)] string title, CancellationToken cancellationToken)
+        => SendCommandAsync<Command.ChangeCatalogTitle>(new(catalogId, title), cancellationToken);
 
     [HttpPut("{catalogId:guid}/description")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> ChangeDescriptionAsync([NotEmpty] Guid catalogId, Request.ChangeCatalogDescription request, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.ChangeCatalogDescription>(new(catalogId, request.Description), cancellationToken);
+    public Task<IActionResult> ChangeDescriptionAsync([NotEmpty] Guid catalogId, [MinLength(5)] string description, CancellationToken cancellationToken)
+        => SendCommandAsync<Command.ChangeCatalogDescription>(new(catalogId, description), cancellationToken);
 
     [HttpGet("items")]
     [ProducesResponseType(typeof(IPagedResult<Projection.CatalogItem>), StatusCodes.Status200OK)]

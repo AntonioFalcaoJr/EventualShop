@@ -20,19 +20,19 @@ public class ProjectPaymentWhenChangedConsumer :
         => await _repository.UpdateFieldAsync(
             id: context.Message.PaymentId,
             field: payment => payment.Status,
-            value: PaymentStatus.Canceled.ToString(),
+            value: PaymentStatus.Canceled.Name,
             cancellationToken: context.CancellationToken);
 
     public async Task Consume(ConsumeContext<DomainEvent.PaymentRequested> context)
     {
-        var payment = new Projection.Payment
-        {
-            Amount = context.Message.Amount,
-            Id = context.Message.PaymentId,
-            Status = context.Message.Status,
-            IsDeleted = false,
-            OrderId = context.Message.OrderId
-        };
+        Projection.Payment payment = new(
+            context.Message.PaymentId,
+            context.Message.OrderId,
+            context.Message.Amount,
+            context.Message.BillingAddress,
+            context.Message.PaymentMethods,
+            context.Message.Status,
+            false);
 
         await _repository.InsertAsync(payment, context.CancellationToken);
     }

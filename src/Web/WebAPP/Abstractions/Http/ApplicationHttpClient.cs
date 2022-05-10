@@ -17,6 +17,9 @@ public abstract class ApplicationHttpClient
     protected Task<HttpResponse> PostAsync<TRequest>(string endpoint, TRequest request, CancellationToken cancellationToken)
         => RequestAsync((client, ct) => client.PostAsJsonAsync(endpoint, request, ct), cancellationToken);
 
+    protected Task<HttpResponse> PutAsync(string endpoint, CancellationToken cancellationToken)
+        => RequestAsync((client, ct) => client.PutAsync(endpoint, default, ct), cancellationToken);
+
     protected Task<HttpResponse> PutAsync<TRequest>(string endpoint, TRequest request, CancellationToken cancellationToken)
         => RequestAsync((client, ct) => client.PutAsJsonAsync(endpoint, request, ct), cancellationToken);
 

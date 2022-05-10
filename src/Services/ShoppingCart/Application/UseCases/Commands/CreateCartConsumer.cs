@@ -16,7 +16,7 @@ public class CreateCartConsumer : IConsumer<Command.CreateCart>
 
     public async Task Consume(ConsumeContext<Command.CreateCart> context)
     {
-        var shoppingCart = new ShoppingCart();
+        ShoppingCart shoppingCart = new();
         shoppingCart.Handle(context.Message);
         await _eventStore.AppendEventsAsync(shoppingCart, context.CancellationToken);
     }
