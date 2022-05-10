@@ -23,11 +23,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Improving enumeration">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Directory.Build.props" beforeDir="false" afterPath="$PROJECT_DIR$/Directory.Build.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPI/WebAPI.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPI/WebAPI.csproj" afterDir="false" />
-    </list>
+    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Upgrading packages version" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -409,13 +405,6 @@
       <workItem from="1651842352897" duration="140000" />
       <workItem from="1651842514117" duration="34750000" />
     </task>
-    <task id="LOCAL-00105" summary="Adjusting to support projections directly">
-      <created>1650736638028</created>
-      <option name="number" value="00105" />
-      <option name="presentableId" value="LOCAL-00105" />
-      <option name="project" value="LOCAL" />
-      <updated>1650736638028</updated>
-    </task>
     <task id="LOCAL-00106" summary="Fix based on projections">
       <created>1650736976201</created>
       <option name="number" value="00106" />
@@ -752,7 +741,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652199186313</updated>
     </task>
-    <option name="localTasksCounter" value="154" />
+    <task id="LOCAL-00154" summary="Upgrading packages version">
+      <created>1652200419929</created>
+      <option name="number" value="00154" />
+      <option name="presentableId" value="LOCAL-00154" />
+      <option name="project" value="LOCAL" />
+      <updated>1652200419929</updated>
+    </task>
+    <option name="localTasksCounter" value="155" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -788,7 +784,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Upgrading versions" />
     <MESSAGE value="Fixing" />
     <MESSAGE value="Test" />
     <MESSAGE value="Moving all controllers to RESTful" />
@@ -813,7 +808,8 @@
     <MESSAGE value="removing unnecessary requests" />
     <MESSAGE value="Keep improving based on implicit operators" />
     <MESSAGE value="Improving enumeration" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improving enumeration" />
+    <MESSAGE value="Upgrading packages version" />
+    <option name="LAST_COMMIT_MESSAGE" value="Upgrading packages version" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
