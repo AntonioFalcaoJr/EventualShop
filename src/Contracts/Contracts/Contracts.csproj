@@ -3,7 +3,7 @@
         <PackageReference Include="FluentValidation" Version="$(FluentValidation_Version)" />
         <PackageReference Include="MassTransit" Version="$(MassTransit_Version)" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-        <PackageReference Include="MongoDB.Bson" Version="2.15.0" />
+        <PackageReference Include="MongoDB.Bson" Version="2.15.1" />
         <PackageReference Include="Newtonsoft.Json" Version="$(Newtonsoft_Version)" />
     </ItemGroup>
 </Project>
