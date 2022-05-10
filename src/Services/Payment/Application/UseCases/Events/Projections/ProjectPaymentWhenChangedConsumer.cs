@@ -20,7 +20,7 @@ public class ProjectPaymentWhenChangedConsumer :
         => await _repository.UpdateFieldAsync(
             id: context.Message.PaymentId,
             field: payment => payment.Status,
-            value: PaymentStatus.Canceled.ToString(),
+            value: PaymentStatus.Canceled.Name,
             cancellationToken: context.CancellationToken);
 
     public async Task Consume(ConsumeContext<DomainEvent.PaymentRequested> context)

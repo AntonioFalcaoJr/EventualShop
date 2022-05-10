@@ -31,7 +31,7 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
             cmd.AmountDue,
             cmd.BillingAddress,
             cmd.PaymentMethods,
-            PaymentStatus.Ready.ToString()));
+            PaymentStatus.Ready));
 
     public void Handle(Command.ProceedWithPayment cmd)
         => RaiseEvent(AmountDue is 0
@@ -51,12 +51,8 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
 
     private void When(DomainEvent.PaymentRequested @event)
     {
-        Id = @event.PaymentId;
-        OrderId = @event.OrderId;
-        Amount = @event.Amount;
-        BillingAddress = @event.BillingAddress;
-        _paymentMethods.AddRange(@event.PaymentMethods.Select(method => (PaymentMethod) method));
-        Status = PaymentStatus.FromName(@event.Status);
+        (Id, OrderId, Amount, BillingAddress, var methods, Status) = @event;
+        _paymentMethods.AddRange(methods.Select(method => (PaymentMethod) method));
     }
 
     private void When(DomainEvent.PaymentMethodAuthorized @event)
