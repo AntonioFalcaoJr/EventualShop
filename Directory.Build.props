@@ -22,7 +22,7 @@
         <MongoDb_Version>2.15.0</MongoDb_Version>
 
         <!--MassTransit-->
-        <MassTransit_Version>8.0.2-develop.435</MassTransit_Version>
+        <MassTransit_Version>8.0.2</MassTransit_Version>
         <Quartz_Version>3.4.0</Quartz_Version>
 
         <!--Blazor-->
