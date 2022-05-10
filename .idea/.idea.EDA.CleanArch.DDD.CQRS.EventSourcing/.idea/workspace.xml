@@ -23,7 +23,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Upgrading packages version" />
+    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Adjusting and upgrading versions">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global.json" beforeDir="false" afterPath="$PROJECT_DIR$/global.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -62,60 +65,9 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/nginx.conf" root0="SKIP_INSPECTION" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/DataTransferObjects/Dto.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/DataTransferObjects/Dto.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/Account/Command.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/Account/Command.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/Account/Command.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/Account/DomainEvent.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/Account/DomainEvent.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/Account/DomainEvent.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/Account/Projection.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/Account/Projection.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/Account/Projection.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/Account/Validators/CreateAccountValidator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/Account/Validators/CreateAccountValidator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/Account/Validators/CreateAccountValidator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/Order/Command.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/Order/Command.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/Order/Command.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/Order/DomainEvent.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/ShoppingCart/Command.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/ShoppingCart/DomainEvent.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/ShoppingCart/IntegrationEvent.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/ShoppingCart/Projection.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/ShoppingCart/Projection.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/ShoppingCart/Projection.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/ShoppingCart/Request.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/ShoppingCart/Request.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/ShoppingCart/Request.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/ShoppingCart/Request.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/ShoppingCart/Request.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Contracts/Contracts/Services/ShoppingCart/Request.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/Commands/DefineProfessionalAddressConsumer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/Commands/DefineProfessionalAddressConsumer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/Commands/DefineProfessionalAddressConsumer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/Commands/DefineResidenceAddressConsumer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/Commands/DefineResidenceAddressConsumer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Application/UseCases/Commands/DefineResidenceAddressConsumer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Domain/Aggregates/Account.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Domain/Aggregates/Account.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Domain/Aggregates/AccountValidator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Domain/Aggregates/AccountValidator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Domain/ValueObjects/Addresses/Address.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Domain/ValueObjects/Addresses/Address.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/Extensions/RabbitMqBusFactoryConfiguratorExtensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/Extensions/RabbitMqBusFactoryConfiguratorExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Application/UseCases/Events/Projections/ProjectCartWhenChangedConsumer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Domain/Aggregates/ShoppingCart.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Domain/ValueObjects/PaymentOptions/CreditCards/CreditCard.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Services/ShoppingCart/Domain/ValueObjects/PaymentOptions/IPaymentOption.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Web/WebAPI/Controllers/CatalogsController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Web/WebAPI/Controllers/ShoppingCartsController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Web/WebAPP/Pages/Catalogs.razor" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogsViewModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Projects/Personal/EDA.CleanArch.DDD.CQRS.EventSourcing/src/Web/WebAPP/ViewModels/CatalogsViewModel.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0ac37f20f8854e089d6b33ebbfaf0eae1bd880/23/27a09105/HttpClient.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0c85340aee0d4492a47bedf887bfc33630880/44/32aa7ed0/MinLengthAttribute.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0c85340aee0d4492a47bedf887bfc33630880/5e/e5a1cf74/StringLengthAttribute.cs" root0="SKIP_HIGHLIGHTING" />
@@ -404,13 +356,7 @@
       <workItem from="1651761951367" duration="17122000" />
       <workItem from="1651842352897" duration="140000" />
       <workItem from="1651842514117" duration="34750000" />
-    </task>
-    <task id="LOCAL-00106" summary="Fix based on projections">
-      <created>1650736976201</created>
-      <option name="number" value="00106" />
-      <option name="presentableId" value="LOCAL-00106" />
-      <option name="project" value="LOCAL" />
-      <updated>1650736976201</updated>
+      <workItem from="1652221629712" duration="2121000" />
     </task>
     <task id="LOCAL-00107" summary="Improving staging">
       <created>1650739877038</created>
@@ -748,7 +694,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652200419929</updated>
     </task>
-    <option name="localTasksCounter" value="155" />
+    <task id="LOCAL-00155" summary="Adjusting and upgrading versions">
+      <created>1652201628515</created>
+      <option name="number" value="00155" />
+      <option name="presentableId" value="LOCAL-00155" />
+      <option name="project" value="LOCAL" />
+      <updated>1652201628515</updated>
+    </task>
+    <option name="localTasksCounter" value="156" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -784,7 +737,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Fixing" />
     <MESSAGE value="Test" />
     <MESSAGE value="Moving all controllers to RESTful" />
     <MESSAGE value="Adjusting staging deployment" />
@@ -809,7 +761,8 @@
     <MESSAGE value="Keep improving based on implicit operators" />
     <MESSAGE value="Improving enumeration" />
     <MESSAGE value="Upgrading packages version" />
-    <option name="LAST_COMMIT_MESSAGE" value="Upgrading packages version" />
+    <MESSAGE value="Adjusting and upgrading versions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adjusting and upgrading versions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
