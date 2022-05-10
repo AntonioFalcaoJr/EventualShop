@@ -41,7 +41,7 @@ public class ProjectCartWhenChangedConsumer :
         => await _repository.UpdateFieldAsync(
             id: context.Message.CartId,
             field: cart => cart.Status,
-            value: ShoppingCartStatus.CheckedOut.ToString(),
+            value: CartStatus.CheckedOut.Name,
             cancellationToken: context.CancellationToken);
 
     public async Task Consume(ConsumeContext<DomainEvent.CartCreated> context)

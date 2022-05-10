@@ -18,13 +18,19 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     private readonly List<PaymentMethod> _paymentMethods = new();
 
     public Guid CustomerId { get; private set; }
-    public ShoppingCartStatus Status { get; private set; }
+    public CartStatus Status { get; private set; }
     public Address BillingAddress { get; private set; }
     public Address ShippingAddress { get; private set; }
     private bool ShippingAndBillingAddressesAreSame { get; set; } = true;
 
     public decimal Total
         => Items.Sum(item => item.Product.UnitPrice * item.Quantity);
+
+    public decimal TotalPayment
+        => PaymentMethods.Sum(method => method.Amount);
+
+    public decimal AmountDue
+        => Total - TotalPayment;
 
     public IEnumerable<CartItem> Items
         => _items;
@@ -33,7 +39,7 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
         => _paymentMethods;
 
     public void Handle(Command.CreateCart cmd)
-        => RaiseEvent(new DomainEvent.CartCreated(Guid.NewGuid(), cmd.CustomerId, ShoppingCartStatus.Confirmed.ToString()));
+        => RaiseEvent(new DomainEvent.CartCreated(Guid.NewGuid(), cmd.CustomerId, CartStatus.Confirmed));
 
     public void Handle(Command.AddCartItem cmd)
     {
@@ -63,7 +69,10 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     }
 
     public void Handle(Command.AddPaymentMethod cmd)
-        => RaiseEvent(new DomainEvent.PaymentMethodAdded(cmd.CartId, Guid.NewGuid(), cmd.Amount, cmd.Option));
+    {
+        if (AmountDue >= cmd.Amount)
+            RaiseEvent(new DomainEvent.PaymentMethodAdded(cmd.CartId, Guid.NewGuid(), cmd.Amount, cmd.Option));
+    }
 
     public void Handle(Command.AddShippingAddress cmd)
         => RaiseEvent(new DomainEvent.ShippingAddressAdded(cmd.CartId, cmd.Address));
@@ -72,7 +81,10 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
         => RaiseEvent(new DomainEvent.BillingAddressChanged(cmd.CartId, cmd.Address));
 
     public void Handle(Command.CheckOutCart cmd)
-        => RaiseEvent(new DomainEvent.CartCheckedOut(cmd.CartId));
+    {
+        if (_items.Any() && AmountDue is 0)
+            RaiseEvent(new DomainEvent.CartCheckedOut(cmd.CartId));
+    }
 
     public void Handle(Command.DiscardCart cmd)
         => RaiseEvent(new DomainEvent.CartDiscarded(cmd.CartId));
@@ -81,17 +93,16 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
         => When(@event as dynamic);
 
     private void When(DomainEvent.CartCreated @event)
-    {
-        Id = @event.CartId;
-        CustomerId = @event.CustomerId;
-        Status = ShoppingCartStatus.FromName(@event.Status);
-    }
+        => (Id, CustomerId, Status) = @event;
 
     private void When(DomainEvent.CartCheckedOut _)
-        => Status = ShoppingCartStatus.CheckedOut;
+        => Status = CartStatus.CheckedOut;
 
     private void When(DomainEvent.CartDiscarded _)
-        => IsDeleted = true;
+    {
+        Status = CartStatus.Abandoned;
+        IsDeleted = true;
+    }
 
     private void When(DomainEvent.CartItemIncreased @event)
         => _items.Single(item => item.Id == @event.ItemId).Increase();
