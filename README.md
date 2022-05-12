@@ -101,6 +101,14 @@ https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/
 Fig. 3: Vernon, V. (2018), "Modeling Uncertainty with Reactive DDD", *Process Manager*, www.infoq.com.   
 https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/
 
+## Temporal Coupling and Autonomous Decisions
+
+> Temporal coupling is where you have a dependency on time where one service or one component cannot complete its operation until the other party is done with work. In order to get rid of this
+> temporal coupling, what you can do is you can use events.
+>
+> Alagarsamy, Indu. "Practical DDD: Bounded Contexts + Events => Microservices", *www.infoq.com*, last edited on 03 Set 2019.  
+> https://www.infoq.com/presentations/microservices-ddd-bounded-contexts
+
 ## Event-driven architecture (EDA)
 
 > Event-driven architecture (EDA) is a software architecture paradigm promoting the production, detection, consumption of, and reaction to events. An event can be defined as "a significant change in
