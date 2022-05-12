@@ -46,7 +46,7 @@ public class Inventory : AggregateRoot<Guid, InventoryValidator>
 
     public void Handle(Command.ReserveInventoryItem cmd)
     {
-        if (_items.FirstOrDefault(inventoryItem => inventoryItem.Product.Equals(cmd.Product)) is {IsDeleted: false} item)
+        if (_items.FirstOrDefault(inventoryItem => inventoryItem.Product.Sku == cmd.Product.Sku) is {IsDeleted: false} item)
             RaiseEvent(item.QuantityAvailable switch
             {
                 < 1 => new DomainEvent.StockDepleted(item.Id),
