@@ -9,37 +9,36 @@ public class ProjectInventoryItemWhenChangedConsumer :
     IConsumer<DomainEvent.InventoryAdjustmentIncreased>,
     IConsumer<DomainEvent.InventoryReceived>
 {
-    private readonly IProjectionRepository<Projection.Inventory> _repository;
+    private readonly IProjectionRepository<Projection.InventoryItem> _repository;
 
-    public ProjectInventoryItemWhenChangedConsumer(IProjectionRepository<Projection.Inventory> repository)
+    public ProjectInventoryItemWhenChangedConsumer(IProjectionRepository<Projection.InventoryItem> repository)
     {
         _repository = repository;
     }
 
     public async Task Consume(ConsumeContext<DomainEvent.InventoryAdjustmentDecreased> context)
         => await _repository.IncreaseFieldAsync(
-            id: context.Message.ProductId,
+            id: context.Message.InventoryItemId,
             field: item => item.Quantity,
             value: context.Message.Quantity * -1,
             cancellationToken: context.CancellationToken);
 
     public async Task Consume(ConsumeContext<DomainEvent.InventoryAdjustmentIncreased> context)
         => await _repository.IncreaseFieldAsync(
-            id: context.Message.ProductId,
+            id: context.Message.InventoryItemId,
             field: item => item.Quantity,
             value: context.Message.Quantity,
             cancellationToken: context.CancellationToken);
 
     public async Task Consume(ConsumeContext<DomainEvent.InventoryReceived> context)
     {
-        Projection.Inventory inventory = new()
-        {
-            Id = context.Message.ProductId,
-            Product = context.Message.Product,
-            Quantity = context.Message.Quantity,
-            IsDeleted = false
-        };
+        Projection.InventoryItem inventoryItem = new(
+            context.Message.InventoryItemId,
+            context.Message.InventoryId,
+            context.Message.Product,
+            context.Message.Quantity,
+            false);
 
-        await _repository.InsertAsync(inventory, context.CancellationToken);
+        await _repository.InsertAsync(inventoryItem, context.CancellationToken);
     }
 }

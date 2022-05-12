@@ -6,12 +6,12 @@ using Newtonsoft.Json;
 
 namespace Infrastructure.EventStore.Contexts.Converters;
 
-public class InventoryItemConverter : ValueConverter<InventoryItem, string>
+public class InventoryItemConverter : ValueConverter<Inventory, string>
 {
     public InventoryItemConverter()
         : base(
-            @event => JsonConvert.SerializeObject(@event, typeof(InventoryItem), SerializerSettings()),
-            jsonString => JsonConvert.DeserializeObject<InventoryItem>(jsonString, DeserializerSettings())) { }
+            @event => JsonConvert.SerializeObject(@event, typeof(Inventory), SerializerSettings()),
+            jsonString => JsonConvert.DeserializeObject<Inventory>(jsonString, DeserializerSettings())) { }
 
     private static JsonSerializerSettings SerializerSettings()
     {

@@ -28,11 +28,12 @@ public abstract class ApplicationController : ControllerBase
     {
         var response = await _bus
             .CreateRequestClient<TQuery>(Address<TQuery>())
-            .GetResponse<TProjection, NotFound>(query, cancellationToken);
+            .GetResponse<TProjection, NoContent, NotFound>(query, cancellationToken);
 
         return response.Message switch
         {
             TProjection projection => Ok(projection),
+            NoContent _ => NoContent(),
             NotFound _ => NotFound(),
             _ => Problem()
         };

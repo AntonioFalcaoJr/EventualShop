@@ -43,10 +43,11 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
 
     public void Handle(Command.AddCartItem cmd)
     {
-        var item = _items.SingleOrDefault(item => item.Product.Id == cmd.Product.Id);
+        // TODO - Validate if equality contract is enough for this.
+        var item = _items.SingleOrDefault(item => item.Product.Equals(cmd.Product));
 
         RaiseEvent(item is null
-            ? new DomainEvent.CartItemAdded(cmd.CartId, Guid.NewGuid(), cmd.Product, cmd.Quantity)
+            ? new DomainEvent.CartItemAdded(cmd.CartId, Guid.NewGuid(), cmd.CatalogId, cmd.InventoryId, cmd.Product, cmd.Quantity)
             : new DomainEvent.CartItemIncreased(cmd.CartId, item.Id, item.Product.UnitPrice));
     }
 
@@ -114,7 +115,7 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
         => _items.RemoveAll(item => item.Id == @event.ItemId);
 
     private void When(DomainEvent.CartItemAdded @event)
-        => _items.Add(new(@event.ItemId, @event.Product, @event.Quantity));
+        => _items.Add(new(@event.ItemId, @event.CatalogId, @event.InventoryId, @event.Product, @event.Quantity));
 
     private void When(DomainEvent.PaymentMethodAdded @event)
         => _paymentMethods.Add(new(@event.MethodId, @event.Amount, @event.Option switch

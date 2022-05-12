@@ -27,10 +27,16 @@ public class GetCatalogConsumer :
 
     public async Task Consume(ConsumeContext<Query.GetCatalogs> context)
     {
-        var catalogs = await _repository.GetAsync(context.Message.Limit, context.Message.Offset, context.CancellationToken);
+        var catalogs = await _repository.GetAsync(
+            limit: context.Message.Limit,
+            offset: context.Message.Offset,
+            cancellationToken: context.CancellationToken);
 
-        await (catalogs is null
-            ? context.RespondAsync<NotFound>(new())
-            : context.RespondAsync(catalogs));
+        await context.RespondAsync(catalogs switch
+        {
+            {PageInfo.Size: > 0} => catalogs,
+            {PageInfo.Size: <= 0} => new NoContent(),
+            _ => new NotFound()
+        });
     }
 }

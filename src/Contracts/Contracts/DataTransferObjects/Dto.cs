@@ -20,9 +20,15 @@ public static class Dto
 
     public record PaymentMethod(Guid Id, decimal Amount, IPaymentOption Option);
 
-    public record CartItem(Guid Id, Product Product, int Quantity);
+    public record Product(string Description, string Name, decimal UnitPrice, string PictureUrl, string Sku);
 
-    public record Product(Guid? Id, string Description, string Name, decimal UnitPrice, string PictureUrl, string Sku);
+    public abstract record Item(Guid Id, Product Product, int Quantity);
+
+    public record CatalogItem(Guid Id, Product Product, int Quantity) : Item(Id, Product, Quantity);
+
+    public record CartItem(Guid Id, Guid CatalogId, Guid InventoryId, Product Product, int Quantity) : Item(Id, Product, Quantity);
+
+    public record InventoryItem(Guid Id, Product Product, int Quantity) : Item(Id, Product, Quantity);
 
     public record Profile(string FirstName, string LastName, string Email);
 

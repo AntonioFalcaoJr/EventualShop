@@ -5,18 +5,18 @@ using MassTransit;
 
 namespace Application.UseCases.Queries;
 
-public class GetShoppingCartPaymentMethodConsumer :
-    IConsumer<Query.GetShoppingCartPaymentMethod>,
-    IConsumer<Query.GetShoppingCartPaymentMethods>
+public class GetCartPaymentMethodConsumer :
+    IConsumer<Query.GetCartPaymentMethod>,
+    IConsumer<Query.GetCartPaymentMethods>
 {
     private readonly IProjectionRepository<Projection.PaymentMethod> _repository;
 
-    public GetShoppingCartPaymentMethodConsumer(IProjectionRepository<Projection.PaymentMethod> repository)
+    public GetCartPaymentMethodConsumer(IProjectionRepository<Projection.PaymentMethod> repository)
     {
         _repository = repository;
     }
 
-    public async Task Consume(ConsumeContext<Query.GetShoppingCartPaymentMethod> context)
+    public async Task Consume(ConsumeContext<Query.GetCartPaymentMethod> context)
     {
         var paymentMethod = await _repository.FindAsync(
             predicate: paymentMethod => paymentMethod.CartId == context.Message.CartId &&
@@ -28,16 +28,19 @@ public class GetShoppingCartPaymentMethodConsumer :
             : context.RespondAsync(paymentMethod));
     }
 
-    public async Task Consume(ConsumeContext<Query.GetShoppingCartPaymentMethods> context)
+    public async Task Consume(ConsumeContext<Query.GetCartPaymentMethods> context)
     {
         var paymentMethods = await _repository.GetAllAsync(
-            context.Message.Limit,
-            context.Message.Offset,
-            item => item.CartId == context.Message.CartId,
-            context.CancellationToken);
+            limit: context.Message.Limit,
+            offset: context.Message.Offset,
+            predicate: item => item.CartId == context.Message.CartId,
+            cancellationToken: context.CancellationToken);
 
-        await (paymentMethods is null
-            ? context.RespondAsync<NotFound>(new())
-            : context.RespondAsync(paymentMethods));
+        await context.RespondAsync(paymentMethods switch
+        {
+            {PageInfo.Size: > 0} => paymentMethods,
+            {PageInfo.Size: <= 0} => new NoContent(),
+            _ => new NotFound()
+        });
     }
 }

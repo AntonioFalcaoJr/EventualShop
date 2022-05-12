@@ -1,6 +1,6 @@
 ﻿using Contracts.DataTransferObjects;
 using Domain.Abstractions.Entities;
-using Domain.Entities.Products;
+using Domain.ValueObjects.Products;
 
 namespace Domain.Entities.OrderItems;
 

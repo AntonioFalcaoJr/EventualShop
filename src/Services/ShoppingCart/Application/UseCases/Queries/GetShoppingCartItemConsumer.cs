@@ -19,7 +19,9 @@ public class GetShoppingCartItemConsumer :
     public async Task Consume(ConsumeContext<Query.GetShoppingCartItem> context)
     {
         var shoppingCartItem = await _repository.FindAsync(
-            item => item.CartId == context.Message.CartId && item.Id == context.Message.ItemId, context.CancellationToken);
+            item => item.CartId == context.Message.CartId &&
+                    item.Id == context.Message.ItemId,
+            context.CancellationToken);
 
         await (shoppingCartItem is null
             ? context.RespondAsync<NotFound>(new())
@@ -29,13 +31,16 @@ public class GetShoppingCartItemConsumer :
     public async Task Consume(ConsumeContext<Query.GetShoppingCartItems> context)
     {
         var shoppingCartItems = await _repository.GetAllAsync(
-            context.Message.Limit,
-            context.Message.Offset,
-            item => item.CartId == context.Message.CartId,
-            context.CancellationToken);
+            limit: context.Message.Limit,
+            offset: context.Message.Offset,
+            predicate: item => item.CartId == context.Message.CartId,
+            cancellationToken: context.CancellationToken);
 
-        await (shoppingCartItems is null
-            ? context.RespondAsync<NotFound>(new())
-            : context.RespondAsync(shoppingCartItems));
+        await context.RespondAsync(shoppingCartItems switch
+        {
+            {PageInfo.Size: > 0} => shoppingCartItems,
+            {PageInfo.Size: <= 0} => new NoContent(),
+            _ => new NotFound()
+        });
     }
 }

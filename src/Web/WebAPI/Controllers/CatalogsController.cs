@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Contracts.Abstractions.Paging;
+﻿using Contracts.Abstractions.Paging;
 using Contracts.Services.Catalog;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +14,7 @@ public class CatalogsController : ApplicationController
 
     [HttpGet]
     [ProducesResponseType(typeof(IPagedResult<Projection.Catalog>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> GetAsync(int limit, int offset, CancellationToken cancellationToken)
         => GetProjectionAsync<Query.GetCatalogs, IPagedResult<Projection.Catalog>>(new(limit, offset), cancellationToken);
@@ -52,23 +52,25 @@ public class CatalogsController : ApplicationController
     [HttpPut("{catalogId:guid}/title")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> ChangeTitleAsync([NotEmpty] Guid catalogId, [MinLength(5)] string title, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.ChangeCatalogTitle>(new(catalogId, title), cancellationToken);
+    public Task<IActionResult> ChangeTitleAsync([NotEmpty] Guid catalogId, Request.ChangeCatalogTitle request, CancellationToken cancellationToken)
+        => SendCommandAsync<Command.ChangeCatalogTitle>(new(catalogId, request.Title), cancellationToken);
 
     [HttpPut("{catalogId:guid}/description")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> ChangeDescriptionAsync([NotEmpty] Guid catalogId, [MinLength(5)] string description, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.ChangeCatalogDescription>(new(catalogId, description), cancellationToken);
+    public Task<IActionResult> ChangeDescriptionAsync([NotEmpty] Guid catalogId, Request.ChangeCatalogDescription request, CancellationToken cancellationToken)
+        => SendCommandAsync<Command.ChangeCatalogDescription>(new(catalogId, request.Description), cancellationToken);
 
     [HttpGet("items")]
     [ProducesResponseType(typeof(IPagedResult<Projection.CatalogItem>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> GetAllAsync(int limit, int offset, CancellationToken cancellationToken)
         => GetProjectionAsync<Query.GetAllItems, IPagedResult<Projection.CatalogItem>>(new(limit, offset), cancellationToken);
 
     [HttpGet("{catalogId:guid}/items")]
     [ProducesResponseType(typeof(IPagedResult<Projection.CatalogItem>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> GetAsync([NotEmpty] Guid catalogId, int limit, int offset, CancellationToken cancellationToken)
         => GetProjectionAsync<Query.GetCatalogItems, IPagedResult<Projection.CatalogItem>>(new(catalogId, limit, offset), cancellationToken);
@@ -77,7 +79,7 @@ public class CatalogsController : ApplicationController
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> AddAsync([NotEmpty] Guid catalogId, Request.AddCatalogItem request, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.AddCatalogItem>(new(catalogId, request.Product, request.Quantity), cancellationToken);
+        => SendCommandAsync<Command.AddCatalogItem>(new(catalogId, request.InventoryId, request.Product, request.Quantity), cancellationToken);
 
     [HttpDelete("{catalogId:guid}/items/{itemId:guid}")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]

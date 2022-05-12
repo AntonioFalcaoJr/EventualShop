@@ -15,6 +15,7 @@ public class AccountsController : ApplicationController
 
     [HttpGet]
     [ProducesResponseType(typeof(IPagedResult<Projection.Account>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> GetAsync(int limit, int offset, CancellationToken cancellationToken)
         => GetProjectionAsync<Query.GetAccounts, IPagedResult<Projection.Account>>(new(limit, offset), cancellationToken);

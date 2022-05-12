@@ -5,15 +5,19 @@ namespace Contracts.Services.Warehouse;
 
 public static class DomainEvent
 {
-    public record InventoryReceived(Guid ProductId, Dto.Product Product, int Quantity) : Message(CorrelationId: ProductId), IEvent;
+    public record InventoryCreated(Guid InventoryId, Guid OwnerId) : Message(CorrelationId: OwnerId), IEvent;
 
-    public record InventoryAdjustmentIncreased(Guid ProductId, string Reason, int Quantity) : Message(CorrelationId: ProductId), IEvent;
+    public record InventoryReceived(Guid InventoryId, Guid InventoryItemId, Dto.Product Product, int Quantity) : Message(CorrelationId: InventoryItemId), IEvent;
 
-    public record InventoryAdjustmentDecreased(Guid ProductId, string Reason, int Quantity) : Message(CorrelationId: ProductId), IEvent;
+    public record InventoryAdjustmentIncreased(Guid InventoryId, Guid InventoryItemId, string Reason, int Quantity) : Message(CorrelationId: InventoryId), IEvent;
 
-    public record InventoryReserved(Guid ProductId, Guid OrderId, string Sku, int Quantity) : Message(CorrelationId: ProductId), IEvent;
+    public record InventoryAdjustmentDecreased(Guid InventoryId, Guid InventoryItemId, string Reason, int Quantity) : Message(CorrelationId: InventoryId), IEvent;
 
-    public record StockDepleted(Guid ProductId, string Sku) : Message(CorrelationId: ProductId), IEvent;
+    public record InventoryAdjustmentNotDecreased(Guid InventoryId, Guid InventoryItemId, string Reason, int QuantityDesired, int QuantityAvailable) : Message(CorrelationId: InventoryId), IEvent;
 
-    public record InventoryNotReserved(Guid ProductId, Guid CartId, string Sku, int QuantityDesired, int QuantityAvailable) : Message(CorrelationId: ProductId), IEvent;
+    public record InventoryReserved(Guid InventoryId, Guid CartId, Guid InventoryItemId, int Quantity) : Message(CorrelationId: CartId), IEvent;
+
+    public record StockDepleted(Guid InventoryItemId) : Message(CorrelationId: InventoryItemId), IEvent;
+
+    public record InventoryNotReserved(Guid InventoryId, Guid CartId, Guid InventoryItemId, int QuantityDesired, int QuantityAvailable) : Message(CorrelationId: CartId), IEvent;
 }
