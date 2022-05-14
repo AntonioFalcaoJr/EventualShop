@@ -38,4 +38,7 @@ public class ECommerceHttpClient : ApplicationHttpClient, IECommerceHttpClient
 
     public Task<HttpResponse> ChangeTitleAsync(Guid catalogId, string title, CancellationToken cancellationToken)
         => PutAsync($"{_options.CatalogEndpoint}/{catalogId}/title", title, cancellationToken);
+
+    public Task<HttpResponse> AddCatalogItemAsync(Guid catalogId, Request.AddCatalogItem request, CancellationToken cancellationToken)
+        => PostAsync($"{_options.CatalogEndpoint}/{catalogId}", request, cancellationToken);
 }

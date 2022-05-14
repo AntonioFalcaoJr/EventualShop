@@ -43,12 +43,11 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
 
     public void Handle(Command.AddCartItem cmd)
     {
-        // TODO - Validate if equality contract is enough for this.
-        var item = _items.SingleOrDefault(item => item.Product.Equals(cmd.Product));
+        var item = _items.SingleOrDefault(item => item.Sku == cmd.CatalogItem.Sku);
 
         RaiseEvent(item is null
-            ? new DomainEvent.CartItemAdded(cmd.CartId, Guid.NewGuid(), cmd.CatalogId, cmd.InventoryId, cmd.Product, cmd.Quantity)
-            : new DomainEvent.CartItemIncreased(cmd.CartId, item.Id, item.Product.UnitPrice));
+            ? new DomainEvent.CartItemAdded(Guid.NewGuid(), cmd.CartId, cmd.CatalogItem)
+            : new DomainEvent.CartItemIncreased(Id, item.Id, item.Product.UnitPrice));
     }
 
     public void Handle(Command.IncreaseCartItem cmd)
@@ -80,6 +79,12 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
 
     public void Handle(Command.ChangeBillingAddress cmd)
         => RaiseEvent(new DomainEvent.BillingAddressChanged(cmd.CartId, cmd.Address));
+
+    public void Handle(Command.ConfirmCartItem cmd)
+    {
+        if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is {IsDeleted: false} item)
+            RaiseEvent(new DomainEvent.CartItemConfirmed(cmd.CartId, cmd.ItemId, item.CatalogId, item.Quantity));
+    }
 
     public void Handle(Command.CheckOutCart cmd)
     {
@@ -115,7 +120,7 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
         => _items.RemoveAll(item => item.Id == @event.ItemId);
 
     private void When(DomainEvent.CartItemAdded @event)
-        => _items.Add(new(@event.ItemId, @event.CatalogId, @event.InventoryId, @event.Product, @event.Quantity));
+        => _items.Add(new(@event.Id, @event.CartId, @event.CatalogItem));
 
     private void When(DomainEvent.PaymentMethodAdded @event)
         => _paymentMethods.Add(new(@event.MethodId, @event.Amount, @event.Option switch

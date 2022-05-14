@@ -6,7 +6,7 @@ public static class Request
 {
     public record CreateInventory(Guid OwnerId);
 
-    public record ReceiveInventoryItem(Dto.Product Product, int Quantity);
+    public record ReceiveInventoryItem(Dto.Product Product, decimal Cost, int Quantity);
 
     public record IncreaseInventoryAdjust(int Quantity, string Reason);
 

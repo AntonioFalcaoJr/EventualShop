@@ -20,17 +20,20 @@ public static class Dto
 
     public record PaymentMethod(Guid Id, decimal Amount, IPaymentOption Option);
 
-    public record Product(string Description, string Name, decimal UnitPrice, string PictureUrl, string Sku);
+    public interface IPaymentOption { }
 
-    public abstract record Item(Guid Id, Product Product, int Quantity);
+    public record Product(string Description, string Name, string PictureUrl, string Brand, string Category, string Unit);
 
-    public record CatalogItem(Guid Id, Product Product, int Quantity) : Item(Id, Product, Quantity);
+    public record InventoryItem(Guid Id, Guid InventoryId, Product Product, string Sku, int Quantity, decimal UnitPrice);
 
-    public record CartItem(Guid Id, Guid CatalogId, Guid InventoryId, Product Product, int Quantity) : Item(Id, Product, Quantity);
+    public record CatalogItem(Guid Id, Guid CatalogId, Guid InventoryId, Product Product, string Sku, int Quantity, decimal UnitPrice) 
+        : InventoryItem(Id, InventoryId, Product, Sku, Quantity, UnitPrice);
 
-    public record InventoryItem(Guid Id, Product Product, int Quantity) : Item(Id, Product, Quantity);
+    public record CartItem(Guid Id, Guid CartId, Guid CatalogId, Guid InventoryId, Product Product, string Sku, int Quantity, decimal UnitPrice) 
+        : CatalogItem(Id, CatalogId, InventoryId, Product, Sku, Quantity, UnitPrice);
+
+    public record OrderItem(Guid Id, Guid OrderId, Guid CartId, Guid CatalogId, Guid InventoryId, Product Product, string Sku, int Quantity, decimal UnitPrice) 
+        : CartItem(Id, CartId, CatalogId, InventoryId, Product, Sku, Quantity, UnitPrice);
 
     public record Profile(string FirstName, string LastName, string Email);
-
-    public interface IPaymentOption { }
 }

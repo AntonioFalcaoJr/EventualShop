@@ -13,4 +13,5 @@ public interface IECommerceHttpClient
     Task<HttpResponse> DeactivateAsync(Guid catalogId, CancellationToken cancellationToken);
     Task<HttpResponse> ChangeDescriptionAsync(Guid catalogId, string description, CancellationToken cancellationToken);
     Task<HttpResponse> ChangeTitleAsync(Guid catalogId, string title, CancellationToken cancellationToken);
+    Task<HttpResponse> AddCatalogItemAsync(Guid catalogId, Request.AddCatalogItem item, CancellationToken cancellationToken);
 }

@@ -36,7 +36,7 @@ public class WarehousesController : ApplicationController
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> ReceiveInventoryItemAsync([NotEmpty] Guid inventoryId, Request.ReceiveInventoryItem request, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.ReceiveInventoryItem>(new(inventoryId, request.Product, request.Quantity), cancellationToken);
+        => SendCommandAsync<Command.ReceiveInventoryItem>(new(inventoryId, request.Product, request.Cost, request.Quantity), cancellationToken);
 
     [HttpPut("{inventoryId:guid}/items/{inventoryItemId:guid}/[action]")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]

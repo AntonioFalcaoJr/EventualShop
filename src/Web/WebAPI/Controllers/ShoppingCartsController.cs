@@ -51,11 +51,11 @@ public class ShoppingCartsController : ApplicationController
     public Task<IActionResult> GetAsync([NotEmpty] Guid cartId, int limit, int offset, CancellationToken cancellationToken)
         => GetProjectionAsync<Query.GetShoppingCartItems, IPagedResult<Projection.ShoppingCartItem>>(new(cartId, limit, offset), cancellationToken);
 
-    [HttpPost("{cartId:guid}/items")]
-    [ProducesResponseType(StatusCodes.Status202Accepted)]
-    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> AddAsync([NotEmpty] Guid cartId, Request.AddCartItem request, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.AddCartItem>(new(cartId, request.CatalogId, request.InventoryId, request.Product, request.Quantity), cancellationToken);
+    // [HttpPost("{cartId:guid}/items")]
+    // [ProducesResponseType(StatusCodes.Status202Accepted)]
+    // [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    // public Task<IActionResult> AddAsync([NotEmpty] Guid cartId, Request.AddCartItem request, CancellationToken cancellationToken)
+    //     => SendCommandAsync<Command.AddCartItem>(new(cartId, request.CatalogId, request.InventoryId, request.Product, request.Quantity), cancellationToken);
 
     [HttpGet("{cartId:guid}/items/{itemId:guid}")]
     [ProducesResponseType(typeof(Projection.ShoppingCartItem), StatusCodes.Status200OK)]

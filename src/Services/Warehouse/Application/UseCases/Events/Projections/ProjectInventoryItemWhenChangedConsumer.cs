@@ -7,7 +7,7 @@ namespace Application.UseCases.Events.Projections;
 public class ProjectInventoryItemWhenChangedConsumer :
     IConsumer<DomainEvent.InventoryAdjustmentDecreased>,
     IConsumer<DomainEvent.InventoryAdjustmentIncreased>,
-    IConsumer<DomainEvent.InventoryReceived>
+    IConsumer<DomainEvent.InventoryItemReceived>
 {
     private readonly IProjectionRepository<Projection.InventoryItem> _repository;
 
@@ -30,7 +30,7 @@ public class ProjectInventoryItemWhenChangedConsumer :
             value: context.Message.Quantity,
             cancellationToken: context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvent.InventoryReceived> context)
+    public async Task Consume(ConsumeContext<DomainEvent.InventoryItemReceived> context)
     {
         Projection.InventoryItem inventoryItem = new(
             context.Message.InventoryItemId,
