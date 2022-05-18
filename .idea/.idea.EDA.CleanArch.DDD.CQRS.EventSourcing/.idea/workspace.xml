@@ -24,37 +24,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Contract/Projection adjust">
-      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Events/Integrations/ConfirmItemWhenInventoryReservedConsumer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/CatalogItems/CatalogItem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/CatalogItems/CatalogItemValidator.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Web/WebAPP/Models/CatalogItem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Web/WebAPP/Models/Inventory.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Web/WebAPP/Models/Product.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Web/WebAPP/Pages/Inventory.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Web/WebAPP/Pages/Product.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogItemViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/InventoryViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/DataTransferObjects/Dto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/DataTransferObjects/Dto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/ShoppingCart/Command.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/ShoppingCart/Command.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/ShoppingCart/DomainEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/ShoppingCart/DomainEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/ShoppingCart/Validators/AddCartItemValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/ShoppingCart/Validators/AddCartItemValidator.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Warehouse/Command.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Warehouse/Command.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Warehouse/Request.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Warehouse/Request.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Warehouse/DomainEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Warehouse/DomainEvent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Domain/ValueObjects/Products/Product.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Domain/ValueObjects/Products/Product.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Order/Domain/ValueObjects/Products/Product.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Domain/ValueObjects/Products/Product.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Aggregates/ShoppingCart.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Aggregates/ShoppingCart.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Entities/CartItems/CartItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/Entities/CartItems/CartItem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/Products/Product.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Domain/ValueObjects/Products/Product.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/Application/UseCases/Events/Integrations/ReserveInventoryItemWhenCartItemAddedConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/Application/UseCases/Events/Integrations/ReserveInventoryItemWhenCartItemAddedConsumer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Events/Integrations/ConfirmItemWhenInventoryReservedConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Application/UseCases/Events/Integrations/ConfirmItemWhenInventoryReservedConsumer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/Domain/Aggregates/Inventory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/Domain/Aggregates/Inventory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/Domain/ValueObjects/Products/Product.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/Domain/ValueObjects/Products/Product.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPI/Controllers/ShoppingCartsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPI/Controllers/ShoppingCartsController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPI/Controllers/WarehouseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPI/Controllers/WarehouseController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/HttpClients/ECommerceHttpClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/HttpClients/ECommerceHttpClient.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/HttpClients/IECommerceHttpClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/HttpClients/IECommerceHttpClient.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Shared/NavBar.razor" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/Shared/NavBar.razor" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -433,6 +407,7 @@
       <workItem from="1651842514117" duration="34750000" />
       <workItem from="1652221629712" duration="41540000" />
       <workItem from="1652369250510" duration="31608000" />
+      <workItem from="1652877958695" duration="343000" />
     </task>
     <task id="LOCAL-00111" summary="Improving naming qualifying">
       <created>1650827161073</created>

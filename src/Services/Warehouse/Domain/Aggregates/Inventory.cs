@@ -4,6 +4,8 @@ using Contracts.Services.Warehouse;
 using Domain.Entities.Adjustments;
 using Domain.Entities.InventoryItems;
 using Domain.ValueObjects.Products;
+using MassTransit;
+using MassTransit.Internals;
 
 namespace Domain.Aggregates;
 
@@ -27,38 +29,31 @@ public class Inventory : AggregateRoot<Guid, InventoryValidator>
 
     public void Handle(Command.ReceiveInventoryItem cmd)
     {
-        // if (_items.FirstOrDefault(inventoryItem => inventoryItem.Product == cmd.Product) is {IsDeleted: false} item)
-        // {
-        //     RaiseEvent(item.Cost switch
-        //     {
-        //         
-        //     });
-        // }
+        var raiseEvent = new Action(() => {});
 
         var item = _items.FirstOrDefault(inventoryItem => inventoryItem.Product == cmd.Product);
 
-        if (item is null or {IsDeleted: true})
+        if (item is null or { IsDeleted: true })
         {
-            RaiseEvent(new DomainEvent.InventoryItemReceived(cmd.InventoryId, Guid.NewGuid(), cmd.Product, cmd.Cost, cmd.Quantity));
+            raiseEvent += () => new DomainEvent.InventoryItemReceived(cmd.InventoryId, Guid.NewGuid(), cmd.Product, cmd.Cost, cmd.Markup, cmd.Quantity);
+        }
+        else if (item is { IsDeleted: false })
+        {
+            raiseEvent += () => new DomainEvent.InventoryItemIncreased(cmd.InventoryId, item.Id, cmd.Quantity);
+
+            if (item.Cost != cmd.Cost)
+            {
+                // InventoryItemCostRecalculated 
+            }
+
+            if (item.Markup != cmd.Markup)
+            {
+                // InventoryItemMarkupRecalculated
+            }
         }
 
-        if (item is {IsDeleted: false} && item.Cost == cmd.Cost)
-        {
-            RaiseEvent(new DomainEvent.InventoryItemIncreased(cmd.InventoryId, item.Id, cmd.Quantity));
-        }
-
-        if (item is {IsDeleted: false} && item.Cost != cmd.Cost)
-        {
-            RaiseEvent(new DomainEvent.InventoryItemIncreased(cmd.InventoryId, item.Id, cmd.Quantity));
-            // InventoryItemCostRecalculated 
-        }
+        raiseEvent();
     }
-
-
-    // RaiseEvent(_items.FirstOrDefault(inventoryItem => inventoryItem.Product == cmd.Product) is {IsDeleted: false} item
-    //     ? new DomainEvent.InventoryAdjustmentIncreased(cmd.InventoryId, item.Id, "Receive Inventory", cmd.Quantity)
-    //     : new DomainEvent.InventoryItemReceived(cmd.InventoryId, Guid.NewGuid(), cmd.Product, cmd.Quantity));
-
 
     public void Handle(Command.DecreaseInventoryAdjust cmd)
     {
@@ -92,7 +87,7 @@ public class Inventory : AggregateRoot<Guid, InventoryValidator>
         => (Id, OwnerId) = @event;
 
     private void When(DomainEvent.InventoryItemReceived @event)
-        => _items.Add(new(@event.InventoryItemId, @event.Product, @event.Cost, @event.Quantity));
+        => _items.Add(new(@event.InventoryItemId, @event.Cost, @event.Markup, @event.Product, @event.Quantity));
 
     private void When(DomainEvent.InventoryAdjustmentDecreased @event)
         => _items

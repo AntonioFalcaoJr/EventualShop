@@ -16,9 +16,7 @@ public class ConfirmItemWhenInventoryReservedConsumer : IConsumer<DomainEvent.In
     public async Task Consume(ConsumeContext<DomainEvent.InventoryReserved> context)
     {
         var shoppingCart = await _eventStore.LoadAggregateAsync(context.Message.CartId, context.CancellationToken);
-
         shoppingCart.Handle();
-
-        await context.Publish(cartSubmittedEvent, context.CancellationToken);
+        await context.Publish(shoppingCart, context.CancellationToken);
     }
 }
