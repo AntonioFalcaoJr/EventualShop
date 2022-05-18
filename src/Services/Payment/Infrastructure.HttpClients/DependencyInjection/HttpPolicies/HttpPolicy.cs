@@ -31,7 +31,7 @@ public static class HttpPolicy
             .CircuitBreakerAsync(
                 handledEventsAllowedBeforeBreaking: circuitBreaking,
                 durationOfBreak: durationOfBreak,
-                onBreak: (_, state, breakingTime, _) => { Log.Warning("Circuit breaking! State: {State}. Break time: {BreakingTime}s", state, breakingTime.TotalSeconds); },
-                onReset: _ => { Log.Warning("Circuit resetting!"); },
-                onHalfOpen: () => { Log.Warning("Circuit transitioning to {State}", CircuitState.HalfOpen); });
+                onBreak: (_, state, breakingTime, _) => Log.Warning("Circuit breaking! State: {State}. Break time: {BreakingTime}s", state, breakingTime.TotalSeconds),
+                onReset: _ => Log.Warning("Circuit resetting!"),
+                onHalfOpen: () => Log.Warning("Circuit transitioning to {State}", CircuitState.HalfOpen));
 }
