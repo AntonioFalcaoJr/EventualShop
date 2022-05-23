@@ -7,7 +7,7 @@ public static class DomainEvent
 {
     public record InventoryCreated(Guid InventoryId, Guid OwnerId) : Message(CorrelationId: OwnerId), IEvent;
 
-    public record InventoryItemReceived(Guid InventoryId, Guid InventoryItemId, Dto.Product Product, decimal Cost, decimal Markup, int Quantity) : Message(CorrelationId: InventoryItemId), IEvent;
+    public record InventoryItemReceived(Guid InventoryId, Guid InventoryItemId, Dto.Product Product, decimal Cost, int Quantity) : Message(CorrelationId: InventoryItemId), IEvent;
 
     public record InventoryAdjustmentIncreased(Guid InventoryId, Guid InventoryItemId, string Reason, int Quantity) : Message(CorrelationId: InventoryId), IEvent;
 

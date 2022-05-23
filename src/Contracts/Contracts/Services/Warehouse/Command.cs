@@ -5,7 +5,7 @@ namespace Contracts.Services.Warehouse;
 
 public static class Command
 {
-    public record ReceiveInventoryItem(Guid InventoryId, Dto.Product Product, decimal Cost, decimal Markup, int Quantity) : Message, ICommand;
+    public record ReceiveInventoryItem(Guid InventoryId, Dto.Product Product, decimal Cost, int Quantity) : Message, ICommand;
 
     public record IncreaseInventoryAdjust(Guid InventoryId, Guid InventoryItemId, int Quantity, string Reason) : Message(CorrelationId: InventoryId), ICommand;
 
