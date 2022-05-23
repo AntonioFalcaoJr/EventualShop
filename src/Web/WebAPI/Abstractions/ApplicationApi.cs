@@ -5,8 +5,18 @@ using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace WebAPI.Abstractions;
 
-public static class MessageBus
+public static class ApplicationApi
 {
+    public static void MapQuery(this IEndpointRouteBuilder endpoints, string pattern, Delegate handler)
+        => endpoints
+            .MapGet(pattern, handler)
+            .ProducesValidationProblem()
+            .ProducesProblem(StatusCodes.Status408RequestTimeout)
+            .ProducesProblem(StatusCodes.Status500InternalServerError);
+
+    public static void MapCommand(this IEndpointRouteBuilder endpoints, Func<IEndpointRouteBuilder, RouteHandlerBuilder> action)
+        => action(endpoints).ProducesValidationProblem();
+
     public static async Task<AcceptedAtRoute> SendCommandAsync<TCommand>(IBus bus, TCommand command, CancellationToken cancellationToken)
         where TCommand : class, ICommand
     {

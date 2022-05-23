@@ -19,7 +19,7 @@ public class GetPaymentConsumer : IConsumer<Query.GetPayment>
         var payment = await _repository.GetAsync(context.Message.PaymentId, context.CancellationToken);
 
         await (payment is null
-            ? context.RespondAsync<NotFound>(new())
+            ? context.RespondAsync<Reply.NotFound>(new())
             : context.RespondAsync(payment));
     }
 }

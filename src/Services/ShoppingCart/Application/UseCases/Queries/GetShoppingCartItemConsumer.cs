@@ -24,7 +24,7 @@ public class GetShoppingCartItemConsumer :
             context.CancellationToken);
 
         await (shoppingCartItem is null
-            ? context.RespondAsync<NotFound>(new())
+            ? context.RespondAsync<Reply.NotFound>(new())
             : context.RespondAsync(shoppingCartItem));
     }
 
@@ -38,9 +38,9 @@ public class GetShoppingCartItemConsumer :
 
         await context.RespondAsync(shoppingCartItems switch
         {
-            {PageInfo.Size: > 0} => shoppingCartItems,
-            {PageInfo.Size: <= 0} => new NoContent(),
-            _ => new NotFound()
+            {Page.Size: > 0} => shoppingCartItems,
+            {Page.Size: <= 0} => new Reply.NoContent(),
+            _ => new Reply.NotFound()
         });
     }
 }

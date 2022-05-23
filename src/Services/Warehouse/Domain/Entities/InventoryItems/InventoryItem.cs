@@ -9,11 +9,10 @@ public class InventoryItem : Entity<Guid, InventoryItemValidator>
     private readonly List<Reserve> _reserves = new();
     private readonly List<IAdjustment> _adjustments = new();
 
-    public InventoryItem(Guid id, decimal cost, decimal markup, Product product, int quantity)
+    public InventoryItem(Guid id, decimal cost, Product product, int quantity)
     {
         Id = id;
         Cost = cost;
-        Markup = markup;
         Product = product;
         Quantity = quantity;
     }
@@ -24,8 +23,6 @@ public class InventoryItem : Entity<Guid, InventoryItemValidator>
     public int QuantityReserved
         => _reserves.Sum(reserve => reserve.Quantity);
 
-    public decimal UnitPrice
-        => Cost * Markup;
 
     public int Adjustment
         => _adjustments.Sum(adjustment
@@ -45,7 +42,6 @@ public class InventoryItem : Entity<Guid, InventoryItemValidator>
     public Product Product { get; }
     public int Quantity { get; private set; }
     public decimal Cost { get; private set; }
-    public decimal Markup { get; private set; }
 
     public void Adjust(IAdjustment adjustment)
     {

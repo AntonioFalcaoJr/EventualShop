@@ -18,7 +18,7 @@ public class PagedResult<T> : IPagedResult<T>
     public IEnumerable<T> Items
         => _items.Take(_paging.Limit);
 
-    public PageInfo PageInfo
+    public Page Page
         => new()
         {
             Current = _paging.Offset + 1,

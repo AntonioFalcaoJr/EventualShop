@@ -30,6 +30,6 @@ public class GetShoppingCartConsumer :
 
     private static Task RespondAsync(Projection.ShoppingCart projection, ConsumeContext context)
         => projection is null
-            ? context.RespondAsync<NotFound>(new())
+            ? context.RespondAsync<Reply.NotFound>(new())
             : context.RespondAsync(projection);
 }

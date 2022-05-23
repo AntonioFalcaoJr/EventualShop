@@ -24,7 +24,7 @@ public class GetCartPaymentMethodConsumer :
             cancellationToken: context.CancellationToken);
 
         await (paymentMethod is null
-            ? context.RespondAsync<NotFound>(new())
+            ? context.RespondAsync<Reply.NotFound>(new())
             : context.RespondAsync(paymentMethod));
     }
 
@@ -38,9 +38,9 @@ public class GetCartPaymentMethodConsumer :
 
         await context.RespondAsync(paymentMethods switch
         {
-            {PageInfo.Size: > 0} => paymentMethods,
-            {PageInfo.Size: <= 0} => new NoContent(),
-            _ => new NotFound()
+            {Page.Size: > 0} => paymentMethods,
+            {Page.Size: <= 0} => new Reply.NoContent(),
+            _ => new Reply.NotFound()
         });
     }
 }

@@ -21,7 +21,7 @@ public class GetCatalogConsumer :
         var catalog = await _repository.GetAsync(context.Message.CatalogId, context.CancellationToken);
 
         await (catalog is null
-            ? context.RespondAsync<NotFound>(new())
+            ? context.RespondAsync<Reply.NotFound>(new())
             : context.RespondAsync(catalog));
     }
 
@@ -34,9 +34,9 @@ public class GetCatalogConsumer :
 
         await context.RespondAsync(catalogs switch
         {
-            {PageInfo.Size: > 0} => catalogs,
-            {PageInfo.Size: <= 0} => new NoContent(),
-            _ => new NotFound()
+            {Page.Size: > 0} => catalogs,
+            {Page.Size: <= 0} => new Reply.NoContent(),
+            _ => new Reply.NotFound()
         });
     }
 }
