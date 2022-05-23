@@ -6,9 +6,9 @@ using Newtonsoft.Json;
 
 namespace Infrastructure.EventStore.Contexts.Converters;
 
-public class InventoryItemConverter : ValueConverter<Inventory, string>
+public class InventoryConverter : ValueConverter<Inventory, string>
 {
-    public InventoryItemConverter()
+    public InventoryConverter()
         : base(
             @event => JsonConvert.SerializeObject(@event, typeof(Inventory), SerializerSettings()),
             jsonString => JsonConvert.DeserializeObject<Inventory>(jsonString, DeserializerSettings())) { }
