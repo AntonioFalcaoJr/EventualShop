@@ -1,7 +1,6 @@
 using System.Reflection;
 using Contracts.Abstractions;
 using Contracts.JsonConverters;
-using Contracts.Services.ShoppingCart;
 using FluentValidation.AspNetCore;
 using MassTransit;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
@@ -9,9 +8,11 @@ using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.OpenApi.Any;
 using Serilog;
+using WebAPI;
 using WebAPI.DependencyInjection.Extensions;
 using WebAPI.DependencyInjection.Options;
 using WebAPI.DependencyInjection.ParameterTransformers;
+using WebAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,12 +67,12 @@ builder.Services
     .AddFluentValidation(cfg =>
     {
         cfg.RegisterValidatorsFromAssemblyContaining(typeof(IMessage));
-        cfg.RegisterValidatorsFromAssemblyContaining(typeof(Request));
     });
 
 builder.Services
     .AddSwaggerGenNewtonsoftSupport()
     .AddFluentValidationRulesToSwagger()
+    .AddEndpointsApiExplorer()
     .AddSwaggerGen(options =>
     {
         options.SwaggerDoc("v1", new() {Title = builder.Environment.ApplicationName, Version = "v1"});
@@ -101,17 +102,15 @@ if (builder.Environment.IsDevelopment())
 if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
+    app.UseSwaggerUI();
 }
 
 app.UseCors("cors");
-app.UseRouting();
 app.UseSerilogRequestLogging();
 
-app.UseEndpoints(endpoints
-    => endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller:slugify}/{action:slugify}"));
+app.UseApplicationExceptionHandler();
+
+app.MapGroup("/api/v2/accounts/").MapAccountApi();
 
 try
 {

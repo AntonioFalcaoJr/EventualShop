@@ -319,7 +319,7 @@ The mantra of event sourcing and cover the four steps in slightly more details:
     
         1 - If necessary, the entity creates a failure event;
         2 - If necessary, the entity changes state based on the failure event;
-        3 - The failure event is persisted in the store;
+        3 - If the entity had its state changed, the failure event is persisted in the store;
         4 - The failure event is published to the exchange.
 
 State transition during events applying:
