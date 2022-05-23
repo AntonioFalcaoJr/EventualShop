@@ -1,6 +1,6 @@
 namespace Contracts.Abstractions.Paging;
 
-public record PageInfo
+public record Page
 {
     public int Current { get; init; }
     public int Size { get; init; }

@@ -12,7 +12,7 @@ public class CatalogsViewModel
     private readonly IECommerceHttpClient _httpClient;
 
     public List<Catalog> Catalogs = new();
-    public PageInfo PageInfo = new();
+    public Page Page = new();
 
     public string Description;
     public string Title;
@@ -30,7 +30,7 @@ public class CatalogsViewModel
         if (response.Success)
         {
             Catalogs = response.ActionResult.Items.Select(catalog => (Catalog) catalog).ToList();
-            PageInfo = response.ActionResult?.PageInfo ?? PageInfo;
+            Page = response.ActionResult?.Page ?? Page;
         }
         else Failed(response.Message);
     }

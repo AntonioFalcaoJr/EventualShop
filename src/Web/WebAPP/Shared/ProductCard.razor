@@ -31,13 +31,13 @@
             }
         </BSRow>
         <BSPagination Align="Align.Center">
-            <BSPaginationItem IsDisabled=@(_pageInfo.HasPrevious is false) @onclick="MoveToPreview">Previous</BSPaginationItem>
-            @for (var paging = 1; paging <= _pageInfo.Current; paging++)
+            <BSPaginationItem IsDisabled=@(_page.HasPrevious is false) @onclick="MoveToPreview">Previous</BSPaginationItem>
+            @for (var paging = 1; paging <= _page.Current; paging++)
             {
                 var current = paging;
                 <BSPaginationItem @onclick=@(() => MoveToPage(current))>@current</BSPaginationItem>
             }
-            <BSPaginationItem IsDisabled=@(_pageInfo.HasNext is false) @onclick="MoveToNext">Next</BSPaginationItem>
+            <BSPaginationItem IsDisabled=@(_page.HasNext is false) @onclick="MoveToNext">Next</BSPaginationItem>
         </BSPagination>
     }
 </BSContainer >
@@ -45,7 +45,7 @@
 @code {
 
     private List<Projection.CatalogItem> _items;
-    private PageInfo _pageInfo;
+    private Page _page;
 
     protected override async Task OnInitializedAsync()
         => await LoadAsync();
@@ -59,7 +59,7 @@
             if (response.Success)
             {
                 _items = response.ActionResult?.Items?.ToList() ?? _items;
-                _pageInfo = response.ActionResult?.PageInfo ?? new();
+                _page = response.ActionResult?.Page ?? new();
             }
             else Failed(response.Message);
         }
@@ -84,14 +84,14 @@
 
     private async Task MoveToNext()
     {
-        if (_pageInfo.HasNext)
-            await LoadAsync(offset: _pageInfo.Current);
+        if (_page.HasNext)
+            await LoadAsync(offset: _page.Current);
     }
 
     private async Task MoveToPreview()
     {
-        if (_pageInfo.HasPrevious)
-            await LoadAsync(offset: _pageInfo.Current - 2);
+        if (_page.HasPrevious)
+            await LoadAsync(offset: _page.Current - 2);
     }
 
 }
