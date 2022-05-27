@@ -40,7 +40,7 @@ public class Catalog : AggregateRoot<Guid, CatalogValidator>
         => RaiseEvent(new DomainEvent.CatalogTitleChanged(cmd.CatalogId, cmd.Title));
 
     public void Handle(Command.AddCatalogItem cmd)
-        => RaiseEvent(new DomainEvent.CatalogItemAdded(cmd.CatalogId, Guid.NewGuid(), cmd.InventoryId, cmd.Product, cmd.Quantity));
+        => RaiseEvent(new DomainEvent.CatalogItemAdded(cmd.CatalogId, Guid.NewGuid(), cmd.InventoryId, cmd.Product, cmd.Markup, cmd.Quantity));
 
     public void Handle(Command.DeleteCatalogItem cmd)
         => RaiseEvent(new DomainEvent.CatalogItemRemoved(cmd.CatalogId, cmd.CatalogItemId));
@@ -70,5 +70,5 @@ public class Catalog : AggregateRoot<Guid, CatalogValidator>
         => IsActive = false;
 
     private void When(DomainEvent.CatalogItemAdded @event)
-        => _items.Add(new(@event.ItemId, @event.InventoryId, @event.Product, @event.Quantity));
+        => _items.Add(new(@event.ItemId, @event.InventoryId, @event.Product, @event.Markup, @event.Quantity));
 }
