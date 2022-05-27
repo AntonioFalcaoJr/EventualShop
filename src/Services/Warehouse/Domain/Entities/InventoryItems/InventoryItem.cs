@@ -23,7 +23,6 @@ public class InventoryItem : Entity<Guid, InventoryItemValidator>
     public int QuantityReserved
         => _reserves.Sum(reserve => reserve.Quantity);
 
-
     public int Adjustment
         => _adjustments.Sum(adjustment
             => adjustment switch
@@ -42,6 +41,9 @@ public class InventoryItem : Entity<Guid, InventoryItemValidator>
     public Product Product { get; }
     public int Quantity { get; private set; }
     public decimal Cost { get; private set; }
+
+    public void Increase(int quantity)
+        => Quantity += quantity;
 
     public void Adjust(IAdjustment adjustment)
     {
