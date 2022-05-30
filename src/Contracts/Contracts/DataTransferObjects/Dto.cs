@@ -24,16 +24,13 @@ public static class Dto
 
     public record Product(string Description, string Name, string PictureUrl, string Brand, string Category, string Unit);
 
-    public record InventoryItem(Guid Id, Guid InventoryId, Product Product, string Sku, int Quantity, decimal UnitPrice);
+    public record InventoryItem(Guid Id, Guid InventoryId, Product Product, string Sku, decimal Cost, int Quantity);
 
-    public record CatalogItem(Guid Id, Guid CatalogId, Guid InventoryId, Product Product, string Sku, int Quantity, decimal UnitPrice) 
-        : InventoryItem(Id, InventoryId, Product, Sku, Quantity, UnitPrice);
+    public record CatalogItem(Guid Id, Guid CatalogId, Guid InventoryId, Product Product, string Sku, decimal Cost, decimal Markup, int Quantity);
 
-    public record CartItem(Guid Id, Guid CartId, Guid CatalogId, Guid InventoryId, Product Product, string Sku, int Quantity, decimal UnitPrice) 
-        : CatalogItem(Id, CatalogId, InventoryId, Product, Sku, Quantity, UnitPrice);
+    public record CartItem(Guid Id, Guid CatalogId, Product Product, int Quantity, string Sku, decimal UnitPrice);
 
-    public record OrderItem(Guid Id, Guid OrderId, Guid CartId, Guid CatalogId, Guid InventoryId, Product Product, string Sku, int Quantity, decimal UnitPrice) 
-        : CartItem(Id, CartId, CatalogId, InventoryId, Product, Sku, Quantity, UnitPrice);
+    public record OrderItem(Guid Id, Guid OrderId, Guid CartId, Guid CatalogId, Guid InventoryId, Product Product, string Sku, int Quantity, decimal UnitPrice);
 
     public record Profile(string FirstName, string LastName, string Email);
 }
