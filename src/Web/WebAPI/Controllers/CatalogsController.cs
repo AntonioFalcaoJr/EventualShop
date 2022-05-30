@@ -79,7 +79,7 @@ public class CatalogsController : ApplicationController
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> AddAsync([NotEmpty] Guid catalogId, Request.AddCatalogItem request, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.AddCatalogItem>(new(catalogId, request.InventoryId, request.Product, request.Quantity), cancellationToken);
+        => SendCommandAsync<Command.AddCatalogItem>(new(catalogId, request.InventoryId, request.Product, request.Markup, request.Quantity), cancellationToken);
 
     [HttpDelete("{catalogId:guid}/items/{itemId:guid}")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
