@@ -26,7 +26,7 @@
         <Quartz_Version>3.4.0</Quartz_Version>
 
         <!--Blazor-->
-        <BlazorStrap_Version>5.0.106-Beta1</BlazorStrap_Version>
+        <BlazorStrap_Version>5.0.106-Preview2</BlazorStrap_Version>
         <Microsoft_AspNetCore_WebAssembly_Version>7.0.0-preview.4.22251.1</Microsoft_AspNetCore_WebAssembly_Version>
         
         <!--Newtonsoft-->
@@ -41,7 +41,7 @@
         <Serilog_Settings_Version>3.3.1-dev-00337</Serilog_Settings_Version>
 
         <!--FluentValidation-->
-        <FluentValidation_Version>11.0.1</FluentValidation_Version>
+        <FluentValidation_Version>11.0.2</FluentValidation_Version>
 
         <!--Auto Mapper-->
         <AutoMapper_Version>11.0.1</AutoMapper_Version>
