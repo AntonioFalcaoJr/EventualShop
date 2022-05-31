@@ -27,7 +27,7 @@ public class GetCatalogItemsConsumer :
         await context.RespondAsync(catalogItems switch
         {
             {Page.Size: > 0} => catalogItems,
-            {Page.Size: <= 0} => new Reply.NoContent(),
+            {Page.Size: < 1} => new Reply.NoContent(),
             _ => new Reply.NotFound()
         });
     }
@@ -42,7 +42,7 @@ public class GetCatalogItemsConsumer :
         await context.RespondAsync(items switch
         {
             {Page.Size: > 0} => items,
-            {Page.Size: <= 0} => new Reply.NoContent(),
+            {Page.Size: < 1} => new Reply.NoContent(),
             _ => new Reply.NotFound()
         });
     }

@@ -39,7 +39,7 @@ public class GetCartPaymentMethodConsumer :
         await context.RespondAsync(paymentMethods switch
         {
             {Page.Size: > 0} => paymentMethods,
-            {Page.Size: <= 0} => new Reply.NoContent(),
+            {Page.Size: < 1} => new Reply.NoContent(),
             _ => new Reply.NotFound()
         });
     }

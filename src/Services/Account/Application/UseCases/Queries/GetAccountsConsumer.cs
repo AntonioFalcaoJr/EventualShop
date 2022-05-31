@@ -24,7 +24,7 @@ public class GetAccountsConsumer : IConsumer<Query.GetAccounts>
         await context.RespondAsync(accounts switch
         {
             {Page.Size: > 0} => accounts,
-            {Page.Size: <= 0} => new Reply.NoContent(),
+            {Page.Size: < 1} => new Reply.NoContent(),
             _ => new Reply.NotFound()
         });
     }

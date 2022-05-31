@@ -39,7 +39,7 @@ public class GetShoppingCartItemConsumer :
         await context.RespondAsync(shoppingCartItems switch
         {
             {Page.Size: > 0} => shoppingCartItems,
-            {Page.Size: <= 0} => new Reply.NoContent(),
+            {Page.Size: < 1} => new Reply.NoContent(),
             _ => new Reply.NotFound()
         });
     }

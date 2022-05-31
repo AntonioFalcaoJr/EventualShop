@@ -26,7 +26,7 @@ public class GetInventoryItemsConsumer : IConsumer<Query.GetInventoryItems>
         await context.RespondAsync(inventoryItems switch
         {
             {Page.Size: > 0} => inventoryItems,
-            {Page.Size: <= 0} => new Reply.NoContent(),
+            {Page.Size: < 1} => new Reply.NoContent(),
             _ => new Reply.NotFound()
         });
     }
