@@ -3,12 +3,14 @@ using Contracts.Abstractions;
 using Contracts.Services.Warehouse;
 using Domain.Entities.Adjustments;
 using Domain.Entities.InventoryItems;
+using Domain.ValueObjects.Products;
 
 namespace Domain.Aggregates;
 
 public class Inventory : AggregateRoot<Guid, InventoryValidator>
 {
     private readonly List<InventoryItem> _items = new();
+    private static DateTimeOffset Expiration => DateTimeOffset.Now.AddMinutes(5);
 
     public Guid OwnerId { get; private set; }
 
@@ -29,7 +31,7 @@ public class Inventory : AggregateRoot<Guid, InventoryValidator>
             .Where(inventoryItem => inventoryItem.Product == cmd.Product)
             .SingleOrDefault(inventoryItem => inventoryItem.Cost == cmd.Cost) is {IsDeleted: false} item
             ? new DomainEvent.InventoryItemIncreased(cmd.InventoryId, item.Id, cmd.Quantity)
-            : new DomainEvent.InventoryItemReceived(cmd.InventoryId, Guid.NewGuid(), cmd.Product, cmd.Cost, cmd.Quantity));
+            : new DomainEvent.InventoryItemReceived(cmd.InventoryId, Guid.NewGuid(), cmd.Product, cmd.Cost, cmd.Quantity, FormatSku(cmd.Product)));
 
     public void Handle(Command.DecreaseInventoryAdjust cmd)
     {
@@ -47,11 +49,11 @@ public class Inventory : AggregateRoot<Guid, InventoryValidator>
 
     public void Handle(Command.ReserveInventoryItem cmd)
     {
-        if (_items.SingleOrDefault(inventoryItem => inventoryItem.Product == cmd.Product) is {IsDeleted: false} item)
+        if (_items.Where(inventoryItem => inventoryItem.Product == cmd.Product).SingleOrDefault(inventoryItem => inventoryItem.Sku == cmd.Sku) is {IsDeleted: false} item)
             RaiseEvent(item.QuantityAvailable switch
             {
-                < 1 => new DomainEvent.StockDepleted(item.Id),
-                var availability when availability >= cmd.Quantity => new DomainEvent.InventoryReserved(Id, cmd.CartId, item.Id, cmd.Quantity),
+                < 1 => new DomainEvent.StockDepleted(item.Id, item.Product),
+                var availability when availability >= cmd.Quantity => new DomainEvent.InventoryReserved(cmd.InventoryId, cmd.CatalogId, cmd.CartId, item.Id, cmd.Product, cmd.Quantity, Expiration),
                 _ => new DomainEvent.InventoryNotReserved(Id, cmd.CartId, item.Id, cmd.Quantity, item.QuantityAvailable),
             });
     }
@@ -60,7 +62,7 @@ public class Inventory : AggregateRoot<Guid, InventoryValidator>
         => When(@event as dynamic);
 
     private void When(DomainEvent.InventoryItemReceived @event)
-        => _items.Add(new(@event.InventoryItemId, @event.Cost, @event.Product, @event.Quantity));
+        => _items.Add(new(@event.InventoryItemId, @event.Cost, @event.Product, @event.Quantity, @event.Sku));
 
     private void When(DomainEvent.InventoryItemIncreased @event)
         => _items.Single(item => item.Id == @event.InventoryItemId).Increase(@event.Quantity);
@@ -89,4 +91,14 @@ public class Inventory : AggregateRoot<Guid, InventoryValidator>
             .Reserve(@event.Quantity, @event.CartId);
 
     private void When(DomainEvent.InventoryNotReserved _) { }
+
+    private string FormatSku(Product product)
+    {
+        var count = _items
+            .Where(item => item.Product.Brand == product.Brand)
+            .Where(item => item.Product.Category == product.Category)
+            .Count(item => item.Product.Unit == product.Unit);
+
+        return $"{product.Brand[..2]}{product.Category[..2]}{product.Unit[..2]}{count + 1}".ToUpper();
+    }
 }

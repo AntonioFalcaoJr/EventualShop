@@ -9,12 +9,13 @@ public class InventoryItem : Entity<Guid, InventoryItemValidator>
     private readonly List<Reserve> _reserves = new();
     private readonly List<IAdjustment> _adjustments = new();
 
-    public InventoryItem(Guid id, decimal cost, Product product, int quantity)
+    public InventoryItem(Guid id, decimal cost, Product product, int quantity, string sku)
     {
         Id = id;
         Cost = cost;
         Product = product;
         Quantity = quantity;
+        Sku = sku;
     }
 
     public int QuantityAvailable
@@ -40,7 +41,8 @@ public class InventoryItem : Entity<Guid, InventoryItemValidator>
 
     public Product Product { get; }
     public int Quantity { get; private set; }
-    public decimal Cost { get; private set; }
+    public decimal Cost { get; }
+    public string Sku { get; }
 
     public void Increase(int quantity)
         => Quantity += quantity;

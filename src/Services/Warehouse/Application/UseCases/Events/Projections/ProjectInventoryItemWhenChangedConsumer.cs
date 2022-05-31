@@ -7,6 +7,7 @@ namespace Application.UseCases.Events.Projections;
 public class ProjectInventoryItemWhenChangedConsumer :
     IConsumer<DomainEvent.InventoryAdjustmentDecreased>,
     IConsumer<DomainEvent.InventoryAdjustmentIncreased>,
+    IConsumer<DomainEvent.InventoryItemIncreased>,
     IConsumer<DomainEvent.InventoryItemReceived>
 {
     private readonly IProjectionRepository<Projection.InventoryItem> _repository;
@@ -29,6 +30,13 @@ public class ProjectInventoryItemWhenChangedConsumer :
             field: item => item.Quantity,
             value: context.Message.Quantity,
             cancellationToken: context.CancellationToken);
+    
+    public async Task Consume(ConsumeContext<DomainEvent.InventoryItemIncreased> context)
+        => await _repository.IncreaseFieldAsync(
+            id: context.Message.InventoryItemId,
+            field: item => item.Quantity,
+            value: context.Message.Quantity,
+            cancellationToken: context.CancellationToken);
 
     public async Task Consume(ConsumeContext<DomainEvent.InventoryItemReceived> context)
     {
@@ -37,6 +45,7 @@ public class ProjectInventoryItemWhenChangedConsumer :
             context.Message.InventoryId,
             context.Message.Product,
             context.Message.Quantity,
+            context.Message.Sku,
             false);
 
         await _repository.InsertAsync(inventoryItem, context.CancellationToken);
