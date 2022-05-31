@@ -59,10 +59,11 @@ public class InventoryItem : Entity<Guid, InventoryItemValidator>
         // };
     }
 
-    public void Reserve(int quantity, Guid cartId)
+    public void Reserve(int quantity, Guid cartId, DateTimeOffset expiration)
         => _reserves.Add(new()
         {
             Quantity = quantity,
-            CartId = cartId
+            CartId = cartId,
+            Expiration = expiration
         });
 }

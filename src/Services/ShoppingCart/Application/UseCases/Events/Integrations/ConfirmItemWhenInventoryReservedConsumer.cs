@@ -21,7 +21,7 @@ public class ConfirmItemWhenInventoryReservedConsumer : IConsumer<DomainEvent.In
         shoppingCart.Handle(
             new Command.ConfirmCartItem(
                 context.Message.CartId,
-                context.Message.Product,
+                context.Message.Sku,
                 context.Message.Quantity,
                 context.Message.Expiration));
 

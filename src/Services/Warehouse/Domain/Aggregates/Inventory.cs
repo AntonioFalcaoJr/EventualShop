@@ -49,12 +49,12 @@ public class Inventory : AggregateRoot<Guid, InventoryValidator>
 
     public void Handle(Command.ReserveInventoryItem cmd)
     {
-        if (_items.Where(inventoryItem => inventoryItem.Product == cmd.Product).SingleOrDefault(inventoryItem => inventoryItem.Sku == cmd.Sku) is {IsDeleted: false} item)
+        if (_items.SingleOrDefault(inventoryItem => inventoryItem.Sku == cmd.Sku) is {IsDeleted: false} item)
             RaiseEvent(item.QuantityAvailable switch
             {
                 < 1 => new DomainEvent.StockDepleted(item.Id, item.Product),
-                var availability when availability >= cmd.Quantity => new DomainEvent.InventoryReserved(cmd.InventoryId, cmd.CatalogId, cmd.CartId, item.Id, cmd.Product, cmd.Quantity, Expiration),
-                _ => new DomainEvent.InventoryNotReserved(Id, cmd.CartId, item.Id, cmd.Quantity, item.QuantityAvailable),
+                var availability when availability >= cmd.Quantity => new DomainEvent.InventoryReserved(cmd.InventoryId, cmd.CatalogId, cmd.CartId, item.Id, cmd.Sku, cmd.Quantity, Expiration),
+                _ => new DomainEvent.InventoryNotReserved(Id, cmd.CartId, item.Id, cmd.Sku, cmd.Quantity, item.QuantityAvailable),
             });
     }
 
@@ -88,7 +88,7 @@ public class Inventory : AggregateRoot<Guid, InventoryValidator>
     private void When(DomainEvent.InventoryReserved @event)
         => _items
             .First(item => item.Id == @event.InventoryItemId)
-            .Reserve(@event.Quantity, @event.CartId);
+            .Reserve(@event.Quantity, @event.CartId, @event.Expiration);
 
     private void When(DomainEvent.InventoryNotReserved _) { }
 

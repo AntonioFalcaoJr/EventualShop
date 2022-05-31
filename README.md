@@ -69,7 +69,7 @@ Fig. 3: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed
 >
 > Vernon, V. (2016) Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional, pp65-67.
 
-## Reactive Domain Drive Design
+## Reactive Domain Driven Design
 
 > I have been seeing, at least in my world, a trend towards reactive systems. Not just reactive within a microservice, but building entire systems that are reactive. In DDD, reactive behavior is also
 > happening within the bounded context. Being reactive isn't entirely new, and Eric Evans was far ahead of the industry when he introduced eventing. Using domain events means we have to react to

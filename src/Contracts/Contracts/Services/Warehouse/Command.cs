@@ -11,7 +11,7 @@ public static class Command
 
     public record DecreaseInventoryAdjust(Guid InventoryId, Guid InventoryItemId, int Quantity, string Reason) : Message(CorrelationId: InventoryId), ICommand;
 
-    public record ReserveInventoryItem(Guid CartId, Guid CatalogId, Dto.Product Product, int Quantity) : Message(CorrelationId: CartId), ICommand;
+    public record ReserveInventoryItem(Guid InventoryId, Guid CatalogId, Guid CartId, int Quantity, string Sku) : Message(CorrelationId: CartId), ICommand;
 
     public record CreateInventory(Guid OwnerId) : Message(CorrelationId: OwnerId), ICommand;
 }

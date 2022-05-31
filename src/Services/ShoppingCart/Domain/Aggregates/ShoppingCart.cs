@@ -73,15 +73,21 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     }
 
     public void Handle(Command.AddShippingAddress cmd)
-        => RaiseEvent(new DomainEvent.ShippingAddressAdded(cmd.CartId, cmd.Address));
+    {
+        if (ShippingAddress != cmd.Address)
+            RaiseEvent(new DomainEvent.ShippingAddressAdded(cmd.CartId, cmd.Address));
+    }
 
     public void Handle(Command.ChangeBillingAddress cmd)
-        => RaiseEvent(new DomainEvent.BillingAddressChanged(cmd.CartId, cmd.Address));
+    {
+        if (BillingAddress != cmd.Address)
+            RaiseEvent(new DomainEvent.BillingAddressChanged(cmd.CartId, cmd.Address));
+    }
 
     public void Handle(Command.ConfirmCartItem cmd)
     {
-        if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is {IsDeleted: false} item)
-            RaiseEvent(new DomainEvent.CartItemConfirmed(cmd.CartId, cmd.ItemId, item.CatalogId, item.Quantity));
+        if (_items.SingleOrDefault(cartItem => cartItem.Sku == cmd.Sku) is {IsDeleted: false} item)
+            RaiseEvent(new DomainEvent.CartItemConfirmed(cmd.CartId, item.Id, item.CatalogId, cmd.Sku, cmd.Quantity));
     }
 
     public void Handle(Command.CheckOutCart cmd)

@@ -23,7 +23,6 @@ public class ReserveInventoryItemWhenCartItemAddedConsumer : IConsumer<DomainEve
                 context.Message.InventoryId,
                 context.Message.CatalogId,
                 context.Message.CartId,
-                context.Message.Product,
                 context.Message.Quantity,
                 context.Message.Sku));
 
