@@ -21,16 +21,22 @@ public class GetCatalogConsumer :
         var catalog = await _repository.GetAsync(context.Message.CatalogId, context.CancellationToken);
 
         await (catalog is null
-            ? context.RespondAsync<NotFound>(new())
+            ? context.RespondAsync<Reply.NotFound>(new())
             : context.RespondAsync(catalog));
     }
 
     public async Task Consume(ConsumeContext<Query.GetCatalogs> context)
     {
-        var catalogs = await _repository.GetAsync(context.Message.Limit, context.Message.Offset, context.CancellationToken);
+        var catalogs = await _repository.GetAsync(
+            limit: context.Message.Limit,
+            offset: context.Message.Offset,
+            cancellationToken: context.CancellationToken);
 
-        await (catalogs is null
-            ? context.RespondAsync<NotFound>(new())
-            : context.RespondAsync(catalogs));
+        await context.RespondAsync(catalogs switch
+        {
+            {Page.Size: > 0} => catalogs,
+            {Page.Size: < 1} => new Reply.NoContent(),
+            _ => new Reply.NotFound()
+        });
     }
 }

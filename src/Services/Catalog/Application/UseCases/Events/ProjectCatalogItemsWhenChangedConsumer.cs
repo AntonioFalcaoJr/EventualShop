@@ -27,6 +27,7 @@ public class ProjectCatalogItemsWhenChangedConsumer :
         Projection.CatalogItem catalogItem = new(
             context.Message.CatalogId,
             context.Message.ItemId,
+            context.Message.InventoryId,
             context.Message.Product,
             false);
 

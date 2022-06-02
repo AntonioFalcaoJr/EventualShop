@@ -14,5 +14,5 @@ public class PaymentsController : ApplicationController
     [ProducesResponseType(typeof(Projection.Payment), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> GetPaymentDetails(Guid paymentId, CancellationToken cancellationToken)
-        => GetProjectionAsync<Query.GetPaymentDetails, Projection.Payment>(new(paymentId), cancellationToken);
+        => GetProjectionAsync<Query.GetPayment, Projection.Payment>(new(paymentId), cancellationToken);
 }

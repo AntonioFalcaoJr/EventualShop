@@ -6,7 +6,7 @@ using Infrastructure.EventStore.Contexts;
 
 namespace Infrastructure.EventStore;
 
-public class WarehouseEventStoreRepository : EventStoreRepository<InventoryItem, WarehouseStoreEvent, WarehouseSnapshot, Guid>, IWarehouseEventStoreRepository
+public class WarehouseEventStoreRepository : EventStoreRepository<Inventory, WarehouseStoreEvent, WarehouseSnapshot, Guid>, IWarehouseEventStoreRepository
 {
     public WarehouseEventStoreRepository(EventStoreDbContext dbContext)
         : base(dbContext) { }
