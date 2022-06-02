@@ -11,7 +11,7 @@ public static class ServiceCollectionExtensions
     public static void AddECommerceHttpClient(this IServiceCollection services)
     {
         services
-            .AddHttpClient<IECommerceHttpClient, ECommerceHttpClient>()
+            .AddHttpClient<ICatalogHttpClient, CatalogHttpClient>()
             .ConfigureHttpClient((provider, client) =>
             {
                 var options = provider.GetRequiredService<IOptionsMonitor<ECommerceHttpClientOptions>>().CurrentValue;

@@ -4,7 +4,7 @@
 @using BlazorStrap
 @using Contracts.Services.Catalog
 
-@inject IECommerceHttpClient HttpClient
+@inject ICatalogHttpClient HttpClient
 @inject IBlazorStrap BlazorStrap
 
 <BSContainer>
@@ -44,54 +44,41 @@
 
 @code {
 
+    private readonly CancellationTokenSource _cancellationTokenSource = new();
+
     private List<Projection.CatalogItem> _items;
     private Page _page;
 
     protected override async Task OnInitializedAsync()
-        => await LoadAsync();
+        => await FetchDataAsync();
 
-    private async Task LoadAsync(int limit = 8, int offset = 0)
+    private async Task FetchDataAsync(int limit = 8, int offset = 0)
     {
-        try
-        {
-            var response = await HttpClient.GetAllItemsAsync(limit, offset, CancellationToken.None);
+        var response = await HttpClient.GetAllItemsAsync(limit, offset, _cancellationTokenSource.Token);
 
-            if (response.Success)
-            {
-                _items = response.ActionResult?.Items?.ToList() ?? _items;
-                _page = response.ActionResult?.Page ?? new();
-            }
-            else Failed(response.Message);
-        }
-        catch (Exception e)
+        if (response.Success)
         {
-            Failed(e.Message);
+            _items = response.ActionResult.Items.ToList();
+            _page = response.ActionResult.Page;
         }
-    }
-
-    private void Failed(string error = default)
-    {
-        BlazorStrap.Toaster.Add("Error", error ?? "It was not possible to create a new Catalog", o =>
-        {
-            o.Color = BSColor.Danger;
-            o.CloseAfter = 2000;
-            o.Toast = Toast.BottomRight;
-        });
     }
 
     private Task MoveToPage(int current)
-        => LoadAsync(offset: current - 1);
+        => FetchDataAsync(offset: current - 1);
 
     private async Task MoveToNext()
     {
         if (_page.HasNext)
-            await LoadAsync(offset: _page.Current);
+            await FetchDataAsync(offset: _page.Current);
     }
 
     private async Task MoveToPreview()
     {
         if (_page.HasPrevious)
-            await LoadAsync(offset: _page.Current - 2);
+            await FetchDataAsync(offset: _page.Current - 2);
     }
+
+    private void Dispose()
+        => _cancellationTokenSource.Cancel();
 
 }

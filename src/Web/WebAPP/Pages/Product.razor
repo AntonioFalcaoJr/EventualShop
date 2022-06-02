@@ -1,28 +1,28 @@
 ﻿@inject IBlazorStrap BlazorStrap
 
-<BSModal DataId="model9" OnShow="@(() => NewEmployee(new Models.Product()))">
-    <BSForm Model="model" OnValidSubmit="@Update">
-        <BSModalHeader>New Product</BSModalHeader>
+<BSModal DataId="model9" OnShow="@(() => NewEmployee(new ViewModels.ProductViewModel()))">
+    <BSForm Model="_model" OnValidSubmit="@Update">
+        <BSModalHeader>New ProductViewModel</BSModalHeader>
         <BSModalContent>
             <div class="mb-3">
                 <BSLabel>Name</BSLabel>
-                <BSInput InputType="InputType.Text" @bind-Value="model.Name"/>
+                <BSInput InputType="InputType.Text" @bind-Value="_model.Name"/>
             </div>
             <div class="mb-3">
                 <BSLabel>Description</BSLabel>
-                <BSInput InputType="InputType.Text" @bind-Value="model.Description"/>
+                <BSInput InputType="InputType.Text" @bind-Value="_model.Description"/>
             </div>
             <div class="mb-3">
                 <BSLabel>SKU</BSLabel>
-                <BSInput InputType="InputType.Text" @bind-Value="model.Sku"/>
+                <BSInput InputType="InputType.Text" @bind-Value="_model.Brand"/>
             </div>
             <div class="mb-3">
                 <BSLabel>Unit Price</BSLabel>
-                <BSInput InputType="InputType.Text" @bind-Value="model.UnitPrice"/>
+                <BSInput InputType="InputType.Text" @bind-Value="_model.Category"/>
             </div>
             <div class="mb-3">
                 <BSLabel>Picture</BSLabel>
-                <BSInput InputType="InputType.Email" placeholder="http://wwww.picture.com" @bind-Value="model.PictureUrl"/>
+                <BSInput InputType="InputType.Email" placeholder="http://wwww.picture.com" @bind-Value="_model.PictureUrl"/>
             </div>
         </BSModalContent>
         <BSModalFooter>
@@ -38,11 +38,11 @@
 
     BSModal refModal;
 
-    private Models.Product model = default;
+    private ViewModels.ProductViewModel _model = default;
 
-    private async Task NewEmployee(Models.Product e)
+    private async Task NewEmployee(ViewModels.ProductViewModel e)
     {
-        model = e;
+        _model = e;
     }
 
     private async Task Update()

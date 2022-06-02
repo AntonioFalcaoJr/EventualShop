@@ -1,8 +1,8 @@
 ﻿using Contracts.Services.Catalog;
 
-namespace WebAPP.Models;
+namespace WebAPP.ViewModels;
 
-public record Catalog
+public class CatalogCardViewModel
 {
     public Guid Id { get; set; }
     public string Title { get; set; }
@@ -10,16 +10,7 @@ public record Catalog
     public bool IsActive { get; set; }
     public bool IsDeleted { get; set; }
 
-    public bool IsEditingDescription { get; set; }
-    public bool IsEditingTitle { get; set; }
-
-    public void ToggleDescription()
-        => IsEditingDescription = !IsEditingDescription;
-
-    public void ToggleTitle()
-        => IsEditingTitle = !IsEditingTitle;
-
-    public static implicit operator Catalog(Projection.Catalog catalog)
+    public static implicit operator CatalogCardViewModel(Projection.Catalog catalog)
         => new()
         {
             Description = catalog.Description,
@@ -29,7 +20,7 @@ public record Catalog
             IsDeleted = catalog.IsDeleted
         };
 
-    public static implicit operator Catalog(Request.CreateCatalog request)
+    public static implicit operator CatalogCardViewModel(Request.CreateCatalog request)
         => new()
         {
             Description = request.Description,

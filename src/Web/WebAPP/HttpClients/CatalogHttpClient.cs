@@ -1,16 +1,17 @@
-﻿using Contracts.Services.Catalog;
+﻿using BlazorStrap;
+using Contracts.Services.Catalog;
 using Microsoft.Extensions.Options;
 using WebAPP.Abstractions.Http;
 using WebAPP.DependencyInjection.Options;
 
 namespace WebAPP.HttpClients;
 
-public class ECommerceHttpClient : ApplicationHttpClient, IECommerceHttpClient
+public class CatalogHttpClient : ApplicationHttpClient, ICatalogHttpClient
 {
     private readonly ECommerceHttpClientOptions _options;
 
-    public ECommerceHttpClient(HttpClient client, IOptionsSnapshot<ECommerceHttpClientOptions> optionsSnapshot)
-        : base(client)
+    public CatalogHttpClient(HttpClient client, IOptionsSnapshot<ECommerceHttpClientOptions> optionsSnapshot, IBlazorStrap blazorStrap)
+        : base(client, blazorStrap)
     {
         _options = optionsSnapshot.Value;
     }
@@ -34,10 +35,10 @@ public class ECommerceHttpClient : ApplicationHttpClient, IECommerceHttpClient
         => PutAsync($"{_options.CatalogEndpoint}/{catalogId}/deactivate", cancellationToken);
 
     public Task<HttpResponse> ChangeDescriptionAsync(Guid catalogId, string description, CancellationToken cancellationToken)
-        => PutAsync($"{_options.CatalogEndpoint}/{catalogId}/description", description, cancellationToken);
+        => PutAsync($"{_options.CatalogEndpoint}/{catalogId}/description", new {description}, cancellationToken);
 
     public Task<HttpResponse> ChangeTitleAsync(Guid catalogId, string title, CancellationToken cancellationToken)
-        => PutAsync($"{_options.CatalogEndpoint}/{catalogId}/title", title, cancellationToken);
+        => PutAsync($"{_options.CatalogEndpoint}/{catalogId}/title", new {title}, cancellationToken);
 
     public Task<HttpResponse> AddCatalogItemAsync(Guid catalogId, Request.AddCatalogItem request, CancellationToken cancellationToken)
         => PostAsync($"{_options.CatalogEndpoint}/{catalogId}", request, cancellationToken);

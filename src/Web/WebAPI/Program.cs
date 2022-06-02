@@ -40,16 +40,12 @@ builder.Host.ConfigureLogging((context, loggingBuilder) =>
     builder.Host.UseSerilog();
 });
 
-builder.Services
-    .AddCors(options
-        => options.AddPolicy(
-            name: "cors",
-            configurePolicy: policyBuilder =>
-            {
-                policyBuilder.AllowAnyHeader();
-                policyBuilder.AllowAnyMethod();
-                policyBuilder.AllowAnyOrigin();
-            }));
+builder.Services.AddCors(options 
+    => options.AddDefaultPolicy(policyBuilder 
+        => policyBuilder
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod()));
 
 builder.Services
     .AddRouting(options
@@ -64,10 +60,7 @@ builder.Services
         options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter());
         options.SerializerSettings.Converters.Add(new ExpirationDateOnlyJsonConverter());
     })
-    .AddFluentValidation(cfg =>
-    {
-        cfg.RegisterValidatorsFromAssemblyContaining(typeof(IMessage));
-    });
+    .AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining(typeof(IMessage)));
 
 builder.Services
     .AddSwaggerGenNewtonsoftSupport()
@@ -105,7 +98,16 @@ if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
     app.UseSwaggerUI();
 }
 
-app.UseCors("cors");
+app.UseCors();
+
+// TODO - It should be removed when migration to Minimal API completed 
+app.UseRouting();
+app.UseEndpoints(endpoints
+    => endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller:slugify}/{action:slugify}"));
+// 
+
 app.UseSerilogRequestLogging();
 
 app.UseApplicationExceptionHandler();

@@ -33,8 +33,9 @@ builder.Logging.AddSerilog();
 builder.Services.AddECommerceHttpClient();
 builder.Services.AddBlazorStrap();
 
-builder.Services.AddScoped<CatalogsViewModel>();
+builder.Services.AddScoped<CatalogCardViewModel>();
 builder.Services.AddScoped<CatalogItemViewModel>();
+builder.Services.AddScoped<CatalogGridViewModel>();
 
 builder.Services.ConfigureECommerceHttpClientOptions(
     builder.Configuration.GetSection(nameof(ECommerceHttpClientOptions)));

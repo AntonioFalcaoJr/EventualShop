@@ -3,7 +3,7 @@ using WebAPP.Abstractions.Http;
 
 namespace WebAPP.HttpClients;
 
-public interface IECommerceHttpClient
+public interface ICatalogHttpClient
 {
     Task<HttpResponse<PagedResult<Projection.CatalogItem>>> GetAllItemsAsync(int limit, int offset, CancellationToken cancellationToken);
     Task<HttpResponse<PagedResult<Projection.Catalog>>> GetAsync(int limit, int offset, CancellationToken cancellationToken);

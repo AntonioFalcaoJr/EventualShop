@@ -25,28 +25,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Improving item confirmation">
+    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Web/WebAPP/Pages/CatalogCanvas.razor" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Web/WebAPP/Pages/CatalogCard.razor" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Web/WebAPP/Pages/CatalogGrid.razor" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogGridViewModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/ProductViewModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Catalog/Command.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Catalog/Command.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Catalog/DomainEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Catalog/DomainEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/ShoppingCart/Command.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/ShoppingCart/Command.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/ShoppingCart/DomainEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/ShoppingCart/DomainEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Warehouse/Command.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Warehouse/Command.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Warehouse/DomainEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Warehouse/DomainEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Warehouse/Projection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Warehouse/Projection.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Catalog/Request.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Catalog/Request.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/Abstractions/Projections/IProjectionRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Application/Abstractions/Projections/IProjectionRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/Abstractions/Pagination/PagedResult.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/Abstractions/Pagination/PagedResult.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/Abstractions/Pagination/Paging.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/Abstractions/Pagination/Paging.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/ProjectionRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/ProjectionRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Domain/Aggregates/Catalog.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Domain/Aggregates/Catalog.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Domain/Entities/CatalogItems/CatalogItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Domain/Entities/CatalogItems/CatalogItem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Web/WebAPI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPI/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Models/Product.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/Models/Product.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Abstractions/Http/ApplicationHttpClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/Abstractions/Http/ApplicationHttpClient.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/DependencyInjection/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/DependencyInjection/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/HttpClients/ECommerceHttpClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/HttpClients/CatalogHttpClient.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/HttpClients/IECommerceHttpClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/HttpClients/ICatalogHttpClient.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Models/Catalog.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogCardViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Models/CatalogItem.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Models/Inventory.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Models/Product.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Pages/Catalogs.razor" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/Pages/Catalogs.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Pages/Inventory.razor" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/Pages/Inventory.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Pages/Inventory.razor" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Pages/Product.razor" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/Pages/Product.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Shared/ProductCard.razor" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/Shared/ProductCard.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogItemViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogItemViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/InventoryViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/InventoryViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogsViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogsViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/InventoryViewModel.cs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,23 +174,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "full.screen.before.presentation.mode": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.standard": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.standard": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;full.screen.before.presentation.mode&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propDebugger&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RiderTodoViewSettings" groupByProject="false" />
   <component name="RunAnythingCache">
     <option name="myCommands">
@@ -317,36 +325,7 @@
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="USE_MONO" value="0" />
       <option name="RUNTIME_ARGUMENTS" value="" />
-      <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
-      <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
-      <option name="SEND_DEBUG_REQUEST" value="1" />
-      <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
-      <method v="2">
-        <option name="Build" />
-      </method>
-    </configuration>
-    <configuration name="WebApplication1" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
-      <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/src/Web/WebApplication1/WebApplication1.csproj" />
-      <option name="LAUNCH_PROFILE_TFM" value="net7.0" />
-      <option name="LAUNCH_PROFILE_NAME" value="WebApplication1" />
-      <option name="USE_EXTERNAL_CONSOLE" value="0" />
-      <option name="USE_MONO" value="0" />
-      <option name="RUNTIME_ARGUMENTS" value="" />
-      <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
-      <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
-      <option name="SEND_DEBUG_REQUEST" value="1" />
-      <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
-      <method v="2">
-        <option name="Build" />
-      </method>
-    </configuration>
-    <configuration name="WebApplication1: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
-      <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/src/Web/WebApplication1/WebApplication1.csproj" />
-      <option name="LAUNCH_PROFILE_TFM" value="net7.0" />
-      <option name="LAUNCH_PROFILE_NAME" value="IIS Express" />
-      <option name="USE_EXTERNAL_CONSOLE" value="0" />
-      <option name="USE_MONO" value="0" />
-      <option name="RUNTIME_ARGUMENTS" value="" />
+      <browser name="37cae5b9-e8b2-4949-9172-aafa37fbc09c" />
       <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
       <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
       <option name="SEND_DEBUG_REQUEST" value="1" />
@@ -356,8 +335,6 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue=".NET Launch Settings Profile.WebApplication1" />
-      <item itemvalue=".NET Launch Settings Profile.WebApplication1: IIS Express" />
       <item itemvalue=".NET Launch Settings Profile.Account.WorkerService" />
       <item itemvalue=".NET Launch Settings Profile.Catalog.WorkerService" />
       <item itemvalue=".NET Launch Settings Profile.Identity.WorkerService" />
@@ -437,21 +414,11 @@
       <workItem from="1653569258923" duration="10885000" />
       <workItem from="1653672528199" duration="3989000" />
       <workItem from="1653914149045" duration="23096000" />
-      <workItem from="1654005793923" duration="14400000" />
-    </task>
-    <task id="LOCAL-00139" summary="Adjusting solution">
-      <created>1651178757321</created>
-      <option name="number" value="00139" />
-      <option name="presentableId" value="LOCAL-00139" />
-      <option name="project" value="LOCAL" />
-      <updated>1651178757321</updated>
-    </task>
-    <task id="LOCAL-00140" summary="Adding Evans citation">
-      <created>1651185950612</created>
-      <option name="number" value="00140" />
-      <option name="presentableId" value="LOCAL-00140" />
-      <option name="project" value="LOCAL" />
-      <updated>1651185950612</updated>
+      <workItem from="1654005793923" duration="22989000" />
+      <workItem from="1654046061396" duration="2204000" />
+      <workItem from="1654083692853" duration="1789000" />
+      <workItem from="1654085903093" duration="3383000" />
+      <workItem from="1654089984078" duration="31677000" />
     </task>
     <task id="LOCAL-00141" summary="Adding Spike">
       <created>1651342931207</created>
@@ -782,7 +749,21 @@
       <option name="project" value="LOCAL" />
       <updated>1654014502685</updated>
     </task>
-    <option name="localTasksCounter" value="188" />
+    <task id="LOCAL-00188" summary="Evolving item cross Warehouse, Catalog and ShoppingCart">
+      <created>1654037837784</created>
+      <option name="number" value="00188" />
+      <option name="presentableId" value="LOCAL-00188" />
+      <option name="project" value="LOCAL" />
+      <updated>1654037837784</updated>
+    </task>
+    <task id="LOCAL-00189" summary="Evolving item cross Warehouse, Catalog and ShoppingCart">
+      <created>1654037951876</created>
+      <option name="number" value="00189" />
+      <option name="presentableId" value="LOCAL-00189" />
+      <option name="project" value="LOCAL" />
+      <updated>1654037951877</updated>
+    </task>
+    <option name="localTasksCounter" value="190" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -818,7 +799,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Fixing file name matching" />
     <MESSAGE value="Moving to Minimal API" />
     <MESSAGE value="Adding replies" />
     <MESSAGE value="Moving markup to CatalogItem" />
@@ -843,7 +823,8 @@
     <MESSAGE value="Adding environments definitions" />
     <MESSAGE value="Adjusting condition" />
     <MESSAGE value="Improving item confirmation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improving item confirmation" />
+    <MESSAGE value="Evolving item cross Warehouse, Catalog and ShoppingCart" />
+    <option name="LAST_COMMIT_MESSAGE" value="Evolving item cross Warehouse, Catalog and ShoppingCart" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
