@@ -19,7 +19,7 @@ public class GetUserAuthenticationDetailsConsumer : IConsumer<Query.GetUserAuthe
         var userAuthentication = await _repository.GetAsync(context.Message.UserId, context.CancellationToken);
         
         await (userAuthentication is null
-            ? context.RespondAsync<NotFound>(new())
+            ? context.RespondAsync<Reply.NotFound>(new())
             : context.RespondAsync(userAuthentication));
     }
 }

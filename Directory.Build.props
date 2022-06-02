@@ -22,7 +22,7 @@
         <MongoDb_Version>2.15.1</MongoDb_Version>
 
         <!--MassTransit-->
-        <MassTransit_Version>8.0.3-develop.468</MassTransit_Version>
+        <MassTransit_Version>8.0.3-develop.472</MassTransit_Version>
         <Quartz_Version>3.4.0</Quartz_Version>
 
         <!--Blazor-->
@@ -30,7 +30,7 @@
         <Microsoft_AspNetCore_WebAssembly_Version>7.0.0-preview.4.22251.1</Microsoft_AspNetCore_WebAssembly_Version>
         
         <!--Newtonsoft-->
-        <Newtonsoft_Version>13.0.1</Newtonsoft_Version>
+        <Newtonsoft_Version>13.0.2-beta1</Newtonsoft_Version>
         <ContractResolvers_Version>2.0.0</ContractResolvers_Version>
         <Microsoft_Mvc_NewtonsoftJso_Version>7.0.0-preview.4.22251.1</Microsoft_Mvc_NewtonsoftJso_Version>
 
@@ -56,7 +56,7 @@
 
         <!--Test-->
         <Microsoft_Mvc_Testing_Version>7.0.0-preview.4.22251.1</Microsoft_Mvc_Testing_Version>
-        <Microsoft_Test_SDK_Version>17.2.0</Microsoft_Test_SDK_Version>
+        <Microsoft_Test_SDK_Version>17.3.0-preview-20220426-02</Microsoft_Test_SDK_Version>
 
     </PropertyGroup>
 

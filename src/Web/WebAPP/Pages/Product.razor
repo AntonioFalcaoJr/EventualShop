@@ -1,0 +1,55 @@
+﻿@inject IBlazorStrap BlazorStrap
+
+<BSModal DataId="model9" OnShow="@(() => NewEmployee(new ViewModels.ProductViewModel()))">
+    <BSForm Model="_model" OnValidSubmit="@Update">
+        <BSModalHeader>New ProductViewModel</BSModalHeader>
+        <BSModalContent>
+            <div class="mb-3">
+                <BSLabel>Name</BSLabel>
+                <BSInput InputType="InputType.Text" @bind-Value="_model.Name"/>
+            </div>
+            <div class="mb-3">
+                <BSLabel>Description</BSLabel>
+                <BSInput InputType="InputType.Text" @bind-Value="_model.Description"/>
+            </div>
+            <div class="mb-3">
+                <BSLabel>SKU</BSLabel>
+                <BSInput InputType="InputType.Text" @bind-Value="_model.Brand"/>
+            </div>
+            <div class="mb-3">
+                <BSLabel>Unit Price</BSLabel>
+                <BSInput InputType="InputType.Text" @bind-Value="_model.Category"/>
+            </div>
+            <div class="mb-3">
+                <BSLabel>Picture</BSLabel>
+                <BSInput InputType="InputType.Email" placeholder="http://wwww.picture.com" @bind-Value="_model.PictureUrl"/>
+            </div>
+        </BSModalContent>
+        <BSModalFooter>
+            <BSButton Target="model9">Cancel</BSButton>
+            <BSButton IsSubmit="true" Color="BSColor.Primary">Save</BSButton>
+        </BSModalFooter>
+    </BSForm>
+</BSModal>
+
+<BSButton Color="BSColor.Primary" Target="model9">New Employee</BSButton>
+
+@code {
+
+    // BSModal refModal;
+
+    private ViewModels.ProductViewModel _model = default;
+
+    private async Task NewEmployee(ViewModels.ProductViewModel e)
+    {
+        _model = e;
+        await Task.CompletedTask;
+    }
+
+    private async Task Update()
+    {
+        BlazorStrap.ForwardClick("model9");
+        await Task.CompletedTask;
+    }
+
+}

@@ -4,7 +4,7 @@ namespace Contracts.Services.ShoppingCart;
 
 public static class Request
 {
-    public record AddCartItem(Dto.Product Product, int Quantity);
+    public record AddCartItem(Guid CatalogId, Guid InventoryId, Dto.Product Product, int Quantity);
 
     public record AddCreditCard(Dto.CreditCard CreditCard, decimal Amount);
 

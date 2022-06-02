@@ -3,4 +3,4 @@ using Domain.Aggregates;
 
 namespace Application.EventStore;
 
-public interface IWarehouseEventStoreService : IEventStoreService<InventoryItem, Guid> { }
+public interface IWarehouseEventStoreService : IEventStoreService<Inventory, Guid> { }

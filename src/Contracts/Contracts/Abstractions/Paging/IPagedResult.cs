@@ -6,5 +6,5 @@ namespace Contracts.Abstractions.Paging;
 public interface IPagedResult<out T>
 {
     IEnumerable<T> Items { get; }
-    PageInfo PageInfo { get; }
+    Page Page { get; }
 }

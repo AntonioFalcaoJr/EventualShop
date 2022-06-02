@@ -3,4 +3,4 @@ using Domain.Aggregates;
 
 namespace Application.EventStore.Events;
 
-public record WarehouseStoreEvent : StoreEvent<InventoryItem, Guid>;
+public record WarehouseStoreEvent : StoreEvent<Inventory, Guid>;

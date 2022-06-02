@@ -26,7 +26,7 @@ public class WarehouseSnapshotConfiguration : IEntityTypeConfiguration<Warehouse
 
         builder
             .Property(snapshot => snapshot.AggregateState)
-            .HasConversion<InventoryItemConverter>()
+            .HasConversion<InventoryConverter>()
             .IsRequired();
     }
 }

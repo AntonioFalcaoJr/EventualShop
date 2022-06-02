@@ -1,0 +1,62 @@
+﻿@using Microsoft.AspNetCore.Components
+@using WebAPP.HttpClients
+@using WebAPP.ViewModels
+@using Contracts.Services.Catalog
+@inject ICatalogHttpClient HttpClient
+@inject CatalogGridViewModel ViewModel
+
+<BSOffCanvas @ref="_offCanvas" Placement="Placement.Right">
+    <Header>Create Catalog</Header>
+    <Content >
+        <div class="d-grid gap-2">
+            <BSLabel>Title</BSLabel>
+            <BSInput InputType="InputType.Text" placeholder="Title" @bind-Value="ViewModel.Title" IsDisabled="_creating"/>
+            <BSLabel>Description</BSLabel>
+            <BSInput InputType="InputType.TextArea" placeholder="Description" @bind-Value="ViewModel.Description" IsDisabled="_creating"/>
+            <BSButton MarginTop="Margins.Large" Color="BSColor.Dark" OnClick="CreateAsync" IsDisabled="_creating">
+                @if (_creating)
+                {
+                    <BSSpinner Size="Size.Small" Color="BSColor.Light"/>
+                }
+                else
+                {
+                    <p style="margin: auto">Create</p>
+                }
+            </BSButton>
+        </div>
+    </Content>
+</BSOffCanvas>
+
+@code {
+    
+    [Parameter]
+    public EventCallback<Request.CreateCatalog> OnCreated { get; set; }
+    
+    private readonly CancellationTokenSource _cancellationTokenSource = new();
+    
+    private BSOffCanvas _offCanvas;
+    private bool _creating;
+
+    private async Task CreateAsync()
+    {
+        _creating = true;
+        var request = new Request.CreateCatalog(Guid.NewGuid(), ViewModel.Title, ViewModel.Description);
+        var response = await HttpClient.CreateAsync(request, _cancellationTokenSource.Token);
+
+        if (response.Success)
+        {
+            await _offCanvas.HideAsync();
+            await OnCreated.InvokeAsync(request);
+        }
+        _creating = false;
+    }
+
+    public Task ShowAsync()
+        => _offCanvas.ShowAsync();
+
+    public Task HideAsync()
+        => _offCanvas.HideAsync();
+    
+    private void Dispose()
+        => _cancellationTokenSource.Cancel();
+}

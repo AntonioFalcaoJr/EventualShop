@@ -38,11 +38,9 @@ public static class ServiceCollectionExtensions
 
                     cfg.AddMessageScheduler(new Uri($"queue:{options.SchedulerQueueName}"));
 
-                    bus.UseInMemoryScheduler(schedulerCfg =>
-                    {
-                        schedulerCfg.QueueName = options.SchedulerQueueName;
-                        schedulerCfg.SchedulerFactory = context.GetRequiredService<ISchedulerFactory>();
-                    });
+                    bus.UseInMemoryScheduler(
+                        schedulerFactory: context.GetRequiredService<ISchedulerFactory>(), 
+                        queueName: options.SchedulerQueueName);
 
                     bus.UseMessageRetry(retry
                         => retry.Incremental(
