@@ -65,7 +65,7 @@ public class ProjectCartWhenChangedConsumer :
         => await _repository.IncreaseFieldAsync(
             id: context.Message.CartId,
             field: cart => cart.Total,
-            value: context.Message.Quantity * context.Message.Product.UnitPrice,
+            value: context.Message.Quantity * context.Message.UnitPrice,
             cancellationToken: context.CancellationToken);
 
     public async Task Consume(ConsumeContext<DomainEvent.CartItemDecreased> context)

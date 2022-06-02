@@ -12,7 +12,7 @@ public static class Query
 
     public record GetShoppingCartItems(Guid CartId, int Limit, int Offset) : Message(CorrelationId: CartId), IQuery;
 
-    public record GetShoppingCartPaymentMethods(Guid CartId, int Limit, int Offset) : Message(CorrelationId: CartId), IQuery;
+    public record GetCartPaymentMethods(Guid CartId, int Limit, int Offset) : Message(CorrelationId: CartId), IQuery;
 
-    public record GetShoppingCartPaymentMethod(Guid CartId, Guid PaymentMethodId) : Message(CorrelationId: CartId), IQuery;
+    public record GetCartPaymentMethod(Guid CartId, Guid PaymentMethodId) : Message(CorrelationId: CartId), IQuery;
 }

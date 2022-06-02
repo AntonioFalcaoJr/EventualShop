@@ -69,7 +69,7 @@ Fig. 3: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed
 >
 > Vernon, V. (2016) Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional, pp65-67.
 
-## Reactive Domain Drive Design
+## Reactive Domain Driven Design
 
 > I have been seeing, at least in my world, a trend towards reactive systems. Not just reactive within a microservice, but building entire systems that are reactive. In DDD, reactive behavior is also
 > happening within the bounded context. Being reactive isn't entirely new, and Eric Evans was far ahead of the industry when he introduced eventing. Using domain events means we have to react to
@@ -100,6 +100,14 @@ https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/
 ![](./.assets/img/reactive_process.jpg)  
 Fig. 3: Vernon, V. (2018), "Modeling Uncertainty with Reactive DDD", *Process Manager*, www.infoq.com.   
 https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/
+
+## Temporal Coupling and Autonomous Decisions
+
+> Temporal coupling is where you have a dependency on time where one service or one component cannot complete its operation until the other party is done with work. In order to get rid of this
+> temporal coupling, what you can do is you can use events.
+>
+> Alagarsamy, Indu. "Practical DDD: Bounded Contexts + Events => Microservices", *www.infoq.com*, last edited on 03 Set 2019.  
+> https://www.infoq.com/presentations/microservices-ddd-bounded-contexts
 
 ## Event-driven architecture (EDA)
 
@@ -311,7 +319,7 @@ The mantra of event sourcing and cover the four steps in slightly more details:
     
         1 - If necessary, the entity creates a failure event;
         2 - If necessary, the entity changes state based on the failure event;
-        3 - The failure event is persisted in the store;
+        3 - If the entity had its state changed, the failure event is persisted in the store;
         4 - The failure event is published to the exchange.
 
 State transition during events applying:

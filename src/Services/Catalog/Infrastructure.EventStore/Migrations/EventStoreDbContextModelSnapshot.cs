@@ -47,11 +47,11 @@ namespace Infrastructure.EventStore.Migrations
 
             modelBuilder.Entity("Application.EventSourcing.EventStore.Events.CatalogStoreEvent", b =>
                 {
-                    b.Property<long>("Version")
+                    b.Property<long>("AggregateVersion")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Version"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("AggregateVersion"), 1L, 1);
 
                     b.Property<Guid>("AggregateId")
                         .HasColumnType("uniqueidentifier");
@@ -72,7 +72,7 @@ namespace Infrastructure.EventStore.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
 
-                    b.HasKey("Version");
+                    b.HasKey("AggregateVersion");
 
                     b.ToTable("CatalogStoreEvents");
                 });

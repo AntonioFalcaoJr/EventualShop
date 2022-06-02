@@ -15,8 +15,8 @@ public class IncreaseInventoryAdjustConsumer : IConsumer<Command.IncreaseInvento
 
     public async Task Consume(ConsumeContext<Command.IncreaseInventoryAdjust> context)
     {
-        var inventoryItem = await _eventStore.LoadAggregateAsync(context.Message.ProductId, context.CancellationToken);
-        inventoryItem.Handle(context.Message);
-        await _eventStore.AppendEventsAsync(inventoryItem, context.CancellationToken);
+        var inventory = await _eventStore.LoadAggregateAsync(context.Message.InventoryId, context.CancellationToken);
+        inventory.Handle(context.Message);
+        await _eventStore.AppendEventsAsync(inventory, context.CancellationToken);
     }
 }

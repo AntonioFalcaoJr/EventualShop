@@ -33,60 +33,60 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
         _repository = repository;
     }
 
-    public async Task AppendEventsAsync(TAggregate aggregateState, CancellationToken cancellationToken)
+    public async Task AppendEventsAsync(TAggregate aggregate, CancellationToken ct)
     {
-        if (await aggregateState.IsValidAsync is false)
+        if (await aggregate.IsValidAsync is false)
         {
-            _notificationContext.AddErrors(aggregateState.Errors);
+            _notificationContext.AddErrors(aggregate.Errors);
             return;
         }
 
-        var eventsToStore = GetEventsToStore(aggregateState);
-        await AppendEventsToStreamWithSnapshotControlAsync(aggregateState, eventsToStore, cancellationToken);
-        await PublishEventsAsync(aggregateState.Events, cancellationToken);
+        var storeEvents = GetEventsToStore(aggregate);
+        await AppendEventsAsync(aggregate, storeEvents, ct);
+        await PublishEventsAsync(aggregate.Events, ct);
     }
 
-    public async Task<TAggregate> LoadAggregateAsync(TId aggregateId, CancellationToken cancellationToken)
+    public async Task<TAggregate> LoadAggregateAsync(TId aggregateId, CancellationToken ct)
     {
-        var snapshot = await _repository.GetSnapshotAsync(aggregateId, cancellationToken) ?? new();
-        var events = await _repository.GetStreamAsync(aggregateId, snapshot.AggregateVersion, cancellationToken);
+        var snapshot = await _repository.GetSnapshotAsync(aggregateId, ct) ?? new();
+        var events = await _repository.GetStreamAsync(aggregateId, snapshot.AggregateVersion, ct);
         snapshot.AggregateState.LoadEvents(events);
         return snapshot.AggregateState;
     }
 
-    private async Task AppendEventsToStreamWithSnapshotControlAsync(TAggregate aggregateState, IEnumerable<TStoreEvent> eventsToStore, CancellationToken cancellationToken)
+    private async Task AppendEventsAsync(TAggregate aggregate, IEnumerable<TStoreEvent> storeEvents, CancellationToken ct)
     {
-        await foreach (var version in AppendEventToStreamAsync(eventsToStore, cancellationToken))
+        await foreach (var version in AppendEventsAsync(storeEvents, ct))
             if (version % _options.SnapshotInterval is 0)
-                await AppendSnapshotToStreamAsync(aggregateState, version, cancellationToken);
+                await AppendSnapshotAsync(aggregate, version, ct);
     }
 
-    private async IAsyncEnumerable<long> AppendEventToStreamAsync(IEnumerable<TStoreEvent> storeEvents, [EnumeratorCancellation] CancellationToken cancellationToken)
+    private async IAsyncEnumerable<long> AppendEventsAsync(IEnumerable<TStoreEvent> storeEvents, [EnumeratorCancellation] CancellationToken ct)
     {
         foreach (var storeEvent in storeEvents)
-            yield return await _repository.AppendEventToStreamAsync(storeEvent, cancellationToken);
+            yield return await _repository.AppendEventsAsync(storeEvent, ct);
     }
 
-    private async Task AppendSnapshotToStreamAsync(TAggregate aggregateState, long aggregateVersion, CancellationToken cancellationToken)
+    private async Task AppendSnapshotAsync(TAggregate aggregate, long version, CancellationToken ct)
     {
         TSnapshot snapshot = new()
         {
-            AggregateId = aggregateState.Id,
-            AggregateState = aggregateState,
-            AggregateVersion = aggregateVersion
+            AggregateId = aggregate.Id,
+            AggregateState = aggregate,
+            AggregateVersion = version
         };
 
-        await _repository.AppendSnapshotToStreamAsync(snapshot, cancellationToken);
+        await _repository.AppendSnapshotAsync(snapshot, ct);
     }
 
-    private Task PublishEventsAsync(IEnumerable<IEvent> events, CancellationToken cancellationToken)
-        => Task.WhenAll(events.Select(@event => _publishEndpoint.Publish(@event, @event.GetType(), cancellationToken)));
+    private Task PublishEventsAsync(IEnumerable<IEvent> events, CancellationToken ct)
+        => Task.WhenAll(events.Select(@event => _publishEndpoint.Publish(@event, @event.GetType(), ct)));
 
-    private static IEnumerable<TStoreEvent> GetEventsToStore(TAggregate aggregateState)
-        => aggregateState.Events.Select(@event
+    private static IEnumerable<TStoreEvent> GetEventsToStore(TAggregate aggregate)
+        => aggregate.Events.Select(@event
             => new TStoreEvent
             {
-                AggregateId = aggregateState.Id,
+                AggregateId = aggregate.Id,
                 Event = @event,
                 EventName = @event.GetType().Name
             });

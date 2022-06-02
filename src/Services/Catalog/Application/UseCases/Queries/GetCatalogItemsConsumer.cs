@@ -5,7 +5,7 @@ using MassTransit;
 
 namespace Application.UseCases.Queries;
 
-public class GetCatalogItemsConsumer : 
+public class GetCatalogItemsConsumer :
     IConsumer<Query.GetCatalogItems>,
     IConsumer<Query.GetAllItems>
 {
@@ -24,11 +24,14 @@ public class GetCatalogItemsConsumer :
             predicate: item => item.CatalogId == context.Message.CatalogId,
             cancellationToken: context.CancellationToken);
 
-        await (catalogItems is null
-            ? context.RespondAsync<NotFound>(new())
-            : context.RespondAsync(catalogItems));
+        await context.RespondAsync(catalogItems switch
+        {
+            {Page.Size: > 0} => catalogItems,
+            {Page.Size: < 1} => new Reply.NoContent(),
+            _ => new Reply.NotFound()
+        });
     }
-    
+
     public async Task Consume(ConsumeContext<Query.GetAllItems> context)
     {
         var items = await _repository.GetAsync(
@@ -36,8 +39,11 @@ public class GetCatalogItemsConsumer :
             offset: context.Message.Offset,
             cancellationToken: context.CancellationToken);
 
-        await (items is null
-            ? context.RespondAsync<NotFound>(new())
-            : context.RespondAsync(items));
+        await context.RespondAsync(items switch
+        {
+            {Page.Size: > 0} => items,
+            {Page.Size: < 1} => new Reply.NoContent(),
+            _ => new Reply.NotFound()
+        });
     }
 }

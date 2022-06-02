@@ -5,11 +5,7 @@ namespace Contracts.Services.Warehouse;
 
 public static class Projection
 {
-    public record Inventory : IProjection
-    {
-        public Dto.Product Product { get; init; }
-        public int Quantity { get; init; }
-        public Guid Id { get; init; }
-        public bool IsDeleted { get; init; }
-    }
+    public record Inventory(Guid Id, Guid OwnerId, bool IsDeleted) : IProjection;
+
+    public record InventoryItem(Guid Id, Guid InventoryId, Dto.Product Product, int Quantity, string Sku, bool IsDeleted) : IProjection;
 }

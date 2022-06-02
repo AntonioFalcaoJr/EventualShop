@@ -3,4 +3,4 @@ using Domain.Aggregates;
 
 namespace Application.EventStore.Events;
 
-public record WarehouseSnapshot : Snapshot<InventoryItem, Guid>;
+public record WarehouseSnapshot : Snapshot<Inventory, Guid>;

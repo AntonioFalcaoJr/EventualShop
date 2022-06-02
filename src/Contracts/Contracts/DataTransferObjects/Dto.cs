@@ -20,11 +20,17 @@ public static class Dto
 
     public record PaymentMethod(Guid Id, decimal Amount, IPaymentOption Option);
 
-    public record CartItem(Guid Id, Product Product, int Quantity);
+    public interface IPaymentOption { }
 
-    public record Product(Guid? Id, string Description, string Name, decimal UnitPrice, string PictureUrl, string Sku);
+    public record Product(string Description, string Name, string PictureUrl, string Brand, string Category, string Unit);
+
+    public record InventoryItem(Guid Id, Guid InventoryId, Product Product, string Sku, decimal Cost, int Quantity);
+
+    public record CatalogItem(Guid Id, Guid CatalogId, Guid InventoryId, Product Product, string Sku, decimal Cost, decimal Markup, int Quantity);
+
+    public record CartItem(Guid Id, Guid CatalogId, Product Product, int Quantity, string Sku, decimal UnitPrice);
+
+    public record OrderItem(Guid Id, Guid OrderId, Guid CartId, Guid CatalogId, Guid InventoryId, Product Product, string Sku, int Quantity, decimal UnitPrice);
 
     public record Profile(string FirstName, string LastName, string Email);
-
-    public interface IPaymentOption { }
 }

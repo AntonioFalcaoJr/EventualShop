@@ -24,31 +24,31 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
         _snapshots = dbContext.Set<TSnapshot>();
     }
 
-    public async Task<long> AppendEventToStreamAsync(TStoreEvent storeEvent, CancellationToken cancellationToken)
+    public async Task<long> AppendEventsAsync(TStoreEvent storeEvent, CancellationToken ct)
     {
-        await _storeEvents.AddAsync(storeEvent, cancellationToken);
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        await _storeEvents.AddAsync(storeEvent, ct);
+        await _dbContext.SaveChangesAsync(ct);
         return storeEvent.Version;
     }
 
-    public async Task AppendSnapshotToStreamAsync(TSnapshot snapshot, CancellationToken cancellationToken)
+    public async Task AppendSnapshotAsync(TSnapshot snapshot, CancellationToken ct)
     {
-        await _snapshots.AddAsync(snapshot, cancellationToken);
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        await _snapshots.AddAsync(snapshot, ct);
+        await _dbContext.SaveChangesAsync(ct);
     }
 
-    public async Task<IEnumerable<IEvent>> GetStreamAsync(TId aggregateId, long snapshotVersion, CancellationToken cancellationToken)
+    public async Task<IEnumerable<IEvent>> GetStreamAsync(TId aggregateId, long version, CancellationToken ct)
         => await _storeEvents
-            .AsNoTrackingWithIdentityResolution()
-            .Where(storeEvent => Equals(storeEvent.AggregateId, aggregateId))
-            .Where(storeEvent => storeEvent.Version > snapshotVersion)
+            .AsNoTracking()
+            .Where(storeEvent => storeEvent.AggregateId.Equals(aggregateId))
+            .Where(storeEvent => storeEvent.Version > version)
             .Select(storeEvent => storeEvent.Event)
-            .ToListAsync(cancellationToken);
+            .ToListAsync(ct);
 
-    public async Task<TSnapshot> GetSnapshotAsync(TId aggregateId, CancellationToken cancellationToken)
+    public async Task<TSnapshot> GetSnapshotAsync(TId aggregateId, CancellationToken ct)
         => await _snapshots
-            .AsNoTrackingWithIdentityResolution()
-            .Where(snapshot => Equals(snapshot.AggregateId, aggregateId))
-            .OrderBy(snapshot => snapshot.AggregateVersion)
-            .LastOrDefaultAsync(cancellationToken);
+            .AsNoTracking()
+            .Where(snapshot => snapshot.AggregateId.Equals(aggregateId))
+            .OrderByDescending(snapshot => snapshot.AggregateVersion)
+            .FirstOrDefaultAsync(ct);
 }
