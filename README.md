@@ -4,9 +4,7 @@ Note. _Greg Young takes the next steps beyond the DDD principles and best practi
 with **Command-Query Responsibility Segregation** (CQRS) and **event sourcing** to simplify construction, decentralize decision-making, and make system development more flexible and responsive._
 Adapted from "Event Centric: Finding Simplicity in Complex Systems" by Y. Greg, 2012.
 
-This project applies the **EventStorming** workshop to decompose and aggregate business capabilities in **Bounded Contexts** of a simple e-commerce, as well as the **Domain Events** that
-provide integration between them. In addition to demonstrating implementation under a reactive **Event-driven architecture** (EDA), through the **event-sourcing** design, supported by the **CQRS**
-pattern, in a **Clean Architecture**.
+This project applies the EventStorming workshop to decompose and aggregate correlated business capabilities in **Bounded Contexts** of a simple e-commerce and the **Domain Events** (business facts) that provide integration between them. In addition to demonstrating implementation under a reactive **Event-driven architecture** (EDA), through the **event-sourcing** design, supported by the **CQRS** pattern, in a **Clean Architecture**.
 
 > State transitions are an important part of our problem space and should be modelled within our domain.    
 > -- <cite> Greg Young </cite>
