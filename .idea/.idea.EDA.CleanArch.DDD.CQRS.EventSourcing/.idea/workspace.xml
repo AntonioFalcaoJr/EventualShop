@@ -25,36 +25,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Web/WebAPP/Pages/CatalogCanvas.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Web/WebAPP/Pages/CatalogCard.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Web/WebAPP/Pages/CatalogGrid.razor" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogGridViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/ProductViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Catalog/Request.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Contracts/Services/Catalog/Request.cs" afterDir="false" />
+    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Fixing and improving some Catalog components">
       <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/Abstractions/Projections/IProjectionRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Application/Abstractions/Projections/IProjectionRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/Abstractions/Pagination/PagedResult.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/Abstractions/Pagination/PagedResult.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/Abstractions/Pagination/Paging.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/Abstractions/Pagination/Paging.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/ProjectionRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/ProjectionRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPI/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Abstractions/Http/ApplicationHttpClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/Abstractions/Http/ApplicationHttpClient.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/DependencyInjection/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/DependencyInjection/ServiceCollectionExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/HttpClients/ECommerceHttpClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/HttpClients/CatalogHttpClient.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/HttpClients/IECommerceHttpClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/HttpClients/ICatalogHttpClient.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Models/Catalog.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogCardViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Models/CatalogItem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Models/Inventory.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Models/Product.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Pages/Catalogs.razor" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/Pages/Catalogs.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Pages/Inventory.razor" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Pages/Product.razor" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/Pages/Product.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Shared/ProductCard.razor" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/Shared/ProductCard.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogItemViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogItemViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogsViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogsViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/InventoryViewModel.cs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +78,6 @@
     <setting file="file://$PROJECT_DIR$/nginx.conf" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/Services/Identity/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Web/WebAPP/Pages/Catalogs.razor" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogsViewModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1e7af0d8b5a645428c8d39b661c54dfb9778/85/28c9f8c9/QueryBuilder.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1e8ae2bf850546abaa24bd6da535277717470/fe/161ca8da/HttpContentJsonExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/327bc14b2cba47ffbfd26b84e51042a618470/6c/408b9886/ILoggingBuilder.cs" root0="SKIP_HIGHLIGHTING" />
@@ -418,14 +392,7 @@
       <workItem from="1654046061396" duration="2204000" />
       <workItem from="1654083692853" duration="1789000" />
       <workItem from="1654085903093" duration="3383000" />
-      <workItem from="1654089984078" duration="31677000" />
-    </task>
-    <task id="LOCAL-00141" summary="Adding Spike">
-      <created>1651342931207</created>
-      <option name="number" value="00141" />
-      <option name="presentableId" value="LOCAL-00141" />
-      <option name="project" value="LOCAL" />
-      <updated>1651342931223</updated>
+      <workItem from="1654089984078" duration="32405000" />
     </task>
     <task id="LOCAL-00142" summary="fixing">
       <created>1651343100440</created>
@@ -763,7 +730,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654037951877</updated>
     </task>
-    <option name="localTasksCounter" value="190" />
+    <task id="LOCAL-00190" summary="Fixing and improving some Catalog components">
+      <created>1654176751448</created>
+      <option name="number" value="00190" />
+      <option name="presentableId" value="LOCAL-00190" />
+      <option name="project" value="LOCAL" />
+      <updated>1654176751448</updated>
+    </task>
+    <option name="localTasksCounter" value="191" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -799,7 +773,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Moving to Minimal API" />
     <MESSAGE value="Adding replies" />
     <MESSAGE value="Moving markup to CatalogItem" />
     <MESSAGE value="Moving Accounts API from v1 to v2 (minimal), adding replies in query handlers, adding Query and Command API mapping, and other stuffs." />
@@ -824,7 +797,8 @@
     <MESSAGE value="Adjusting condition" />
     <MESSAGE value="Improving item confirmation" />
     <MESSAGE value="Evolving item cross Warehouse, Catalog and ShoppingCart" />
-    <option name="LAST_COMMIT_MESSAGE" value="Evolving item cross Warehouse, Catalog and ShoppingCart" />
+    <MESSAGE value="Fixing and improving some Catalog components" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing and improving some Catalog components" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
