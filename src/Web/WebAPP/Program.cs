@@ -40,4 +40,19 @@ builder.Services.AddScoped<CatalogGridViewModel>();
 builder.Services.ConfigureECommerceHttpClientOptions(
     builder.Configuration.GetSection(nameof(ECommerceHttpClientOptions)));
 
-await builder.Build().RunAsync();
+var host = builder.Build();
+
+try
+{
+    await host.RunAsync();
+    Log.Information("Stopped cleanly");
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "An unhandled exception occured during bootstrapping");
+}
+finally
+{
+    Log.CloseAndFlush();
+    await host.DisposeAsync();
+}

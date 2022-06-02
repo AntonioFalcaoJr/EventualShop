@@ -36,18 +36,20 @@
 
 @code {
 
-    BSModal refModal;
+    // BSModal refModal;
 
     private ViewModels.ProductViewModel _model = default;
 
     private async Task NewEmployee(ViewModels.ProductViewModel e)
     {
         _model = e;
+        await Task.CompletedTask;
     }
 
     private async Task Update()
     {
         BlazorStrap.ForwardClick("model9");
+        await Task.CompletedTask;
     }
 
 }

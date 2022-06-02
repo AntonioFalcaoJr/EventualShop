@@ -16,7 +16,7 @@
             <BSButton Class="bi bi-pencil-square" Color="BSColor.Warning" OnClick=@(ToggleTitle)></BSButton>
         }
     </BSCard>
-    <BSCard CardType="CardType.Image" src="https://img.webnots.com/2017/04/Bootstrap-ViewModel-Image.png"></BSCard>
+    <BSCard CardType="CardType.Image" src="placeholder:286x180"/>
     <BSCard CardType="CardType.Body">
         <BSCard CardType="CardType.Title">@ViewModel.Title</BSCard>
         <BSCard CardType="CardType.Subtitle">
@@ -45,7 +45,7 @@
     public EventCallback<Guid> OnDeleted { get; set; }
 
     private readonly CancellationTokenSource _cancellationTokenSource = new();
-    
+
     private bool _isEditingDescription;
     private bool _isEditingTitle;
 
@@ -55,7 +55,7 @@
     private void ToggleTitle()
         => _isEditingTitle = !_isEditingTitle;
 
-    private async Task ChangeTitleAsync() 
+    private async Task ChangeTitleAsync()
         => await HttpClient.ChangeTitleAsync(ViewModel.Id, ViewModel.Title, _cancellationTokenSource.Token);
 
     private async Task ChangeDescriptionAsync()
@@ -69,4 +69,5 @@
 
     private void Dispose()
         => _cancellationTokenSource.Cancel();
+
 }
