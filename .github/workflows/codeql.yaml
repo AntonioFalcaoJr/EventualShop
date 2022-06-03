@@ -7,6 +7,10 @@ on:
         description: 'The path of project passed from the caller workflow'
         required: true
         type: string
+      project:
+        description: 'The *csproj project path passed from the caller workflow'
+        required: true
+        type: string  
 
 jobs:
   analyze:
@@ -38,11 +42,11 @@ jobs:
             ${{ runner.os }}-nuget  
 
       - name: Install dependencies
-        working-directory: ${{ inputs.path }}
+        working-directory: ${{ inputs.project }}
         run: dotnet restore
 
       - name: Build
-        working-directory: ${{ inputs.path }}
+        working-directory: ${{ inputs.project }}
         run: dotnet build --configuration Release --no-restore
       
       - name: Initialize CodeQL
