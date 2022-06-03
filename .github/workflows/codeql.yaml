@@ -53,7 +53,7 @@ jobs:
         uses: github/codeql-action/init@v2
         with:
           languages: ${{ matrix.language }}
-          working-directory: ${{ inputs.path }}
+          source-root: ${{ inputs.path }}
 
       - name: Autobuild
         uses: github/codeql-action/autobuild@v2
