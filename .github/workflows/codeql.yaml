@@ -29,29 +29,18 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
 
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget  
-
-      - name: Install dependencies
-        working-directory: ${{ inputs.path }}
-        run: dotnet restore
-
-      - name: Build
-        working-directory: ${{ inputs.path }}
-        run: dotnet build --configuration Release --no-restore
-      
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
           languages: ${{ matrix.language }}
-          path: ${{ inputs.path }}
-      
+          source-root: ${{ inputs.path }}
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
+        with:
+          working-directory: ${{ inputs.path }}
+          
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
         with:
-          path: ${{ inputs.path }}
+          checkout-path: ${{ inputs.path }}

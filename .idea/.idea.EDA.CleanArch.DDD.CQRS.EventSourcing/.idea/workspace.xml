@@ -25,7 +25,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Fixing and improving some Catalog components">
+    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Again">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/Abstractions/Projections/IProjectionRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Application/Abstractions/Projections/IProjectionRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/Abstractions/Pagination/PagedResult.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/Abstractions/Pagination/PagedResult.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/Abstractions/Pagination/Paging.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/Abstractions/Pagination/Paging.cs" afterDir="false" />
@@ -392,63 +393,8 @@
       <workItem from="1654046061396" duration="2204000" />
       <workItem from="1654083692853" duration="1789000" />
       <workItem from="1654085903093" duration="3383000" />
-      <workItem from="1654089984078" duration="32405000" />
-    </task>
-    <task id="LOCAL-00142" summary="fixing">
-      <created>1651343100440</created>
-      <option name="number" value="00142" />
-      <option name="presentableId" value="LOCAL-00142" />
-      <option name="project" value="LOCAL" />
-      <updated>1651343100440</updated>
-    </task>
-    <task id="LOCAL-00143" summary="Improving design">
-      <created>1651354313548</created>
-      <option name="number" value="00143" />
-      <option name="presentableId" value="LOCAL-00143" />
-      <option name="project" value="LOCAL" />
-      <updated>1651354313548</updated>
-    </task>
-    <task id="LOCAL-00144" summary="test">
-      <created>1651354702696</created>
-      <option name="number" value="00144" />
-      <option name="presentableId" value="LOCAL-00144" />
-      <option name="project" value="LOCAL" />
-      <updated>1651354702696</updated>
-    </task>
-    <task id="LOCAL-00145" summary=".">
-      <created>1651354753192</created>
-      <option name="number" value="00145" />
-      <option name="presentableId" value="LOCAL-00145" />
-      <option name="project" value="LOCAL" />
-      <updated>1651354753192</updated>
-    </task>
-    <task id="LOCAL-00146" summary="Improving projection/dto contracts">
-      <created>1651701996679</created>
-      <option name="number" value="00146" />
-      <option name="presentableId" value="LOCAL-00146" />
-      <option name="project" value="LOCAL" />
-      <updated>1651701996679</updated>
-    </task>
-    <task id="LOCAL-00147" summary="Improving implicit conversions">
-      <created>1651778807865</created>
-      <option name="number" value="00147" />
-      <option name="presentableId" value="LOCAL-00147" />
-      <option name="project" value="LOCAL" />
-      <updated>1651778807865</updated>
-    </task>
-    <task id="LOCAL-00148" summary="Fixing breaking changes in Payment">
-      <created>1651779883887</created>
-      <option name="number" value="00148" />
-      <option name="presentableId" value="LOCAL-00148" />
-      <option name="project" value="LOCAL" />
-      <updated>1651779883887</updated>
-    </task>
-    <task id="LOCAL-00149" summary="Fixing breaking changes in Payment">
-      <created>1651780583247</created>
-      <option name="number" value="00149" />
-      <option name="presentableId" value="LOCAL-00149" />
-      <option name="project" value="LOCAL" />
-      <updated>1651780583247</updated>
+      <workItem from="1654089984078" duration="37942000" />
+      <workItem from="1654224396387" duration="4297000" />
     </task>
     <task id="LOCAL-00150" summary="removing unnecessary requests">
       <created>1651782816676</created>
@@ -737,7 +683,63 @@
       <option name="project" value="LOCAL" />
       <updated>1654176751448</updated>
     </task>
-    <option name="localTasksCounter" value="191" />
+    <task id="LOCAL-00191" summary="Upgrading versions">
+      <created>1654177029110</created>
+      <option name="number" value="00191" />
+      <option name="presentableId" value="LOCAL-00191" />
+      <option name="project" value="LOCAL" />
+      <updated>1654177029110</updated>
+    </task>
+    <task id="LOCAL-00192" summary="Adjusts">
+      <created>1654180227494</created>
+      <option name="number" value="00192" />
+      <option name="presentableId" value="LOCAL-00192" />
+      <option name="project" value="LOCAL" />
+      <updated>1654180227494</updated>
+    </task>
+    <task id="LOCAL-00193" summary="fixing proxy routing">
+      <created>1654182868132</created>
+      <option name="number" value="00193" />
+      <option name="presentableId" value="LOCAL-00193" />
+      <option name="project" value="LOCAL" />
+      <updated>1654182868133</updated>
+    </task>
+    <task id="LOCAL-00194" summary="Testing CodeQL template">
+      <created>1654226963831</created>
+      <option name="number" value="00194" />
+      <option name="presentableId" value="LOCAL-00194" />
+      <option name="project" value="LOCAL" />
+      <updated>1654226963831</updated>
+    </task>
+    <task id="LOCAL-00195" summary="Fixing">
+      <created>1654227184104</created>
+      <option name="number" value="00195" />
+      <option name="presentableId" value="LOCAL-00195" />
+      <option name="project" value="LOCAL" />
+      <updated>1654227184104</updated>
+    </task>
+    <task id="LOCAL-00196" summary="moving to root">
+      <created>1654227538183</created>
+      <option name="number" value="00196" />
+      <option name="presentableId" value="LOCAL-00196" />
+      <option name="project" value="LOCAL" />
+      <updated>1654227538183</updated>
+    </task>
+    <task id="LOCAL-00197" summary="fixing codeql template">
+      <created>1654228514074</created>
+      <option name="number" value="00197" />
+      <option name="presentableId" value="LOCAL-00197" />
+      <option name="project" value="LOCAL" />
+      <updated>1654228514074</updated>
+    </task>
+    <task id="LOCAL-00198" summary="Again">
+      <created>1654228740742</created>
+      <option name="number" value="00198" />
+      <option name="presentableId" value="LOCAL-00198" />
+      <option name="project" value="LOCAL" />
+      <updated>1654228740742</updated>
+    </task>
+    <option name="localTasksCounter" value="199" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -773,14 +775,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Adding replies" />
-    <MESSAGE value="Moving markup to CatalogItem" />
-    <MESSAGE value="Moving Accounts API from v1 to v2 (minimal), adding replies in query handlers, adding Query and Command API mapping, and other stuffs." />
-    <MESSAGE value="Renaming PageInfo to Page" />
-    <MESSAGE value="Improving resource naming" />
-    <MESSAGE value="Adjusting receiving item" />
-    <MESSAGE value="Adding markup" />
-    <MESSAGE value="Fixing Product" />
     <MESSAGE value="Splitting consumers" />
     <MESSAGE value="Defining VHost" />
     <MESSAGE value="removing" />
@@ -798,7 +792,15 @@
     <MESSAGE value="Improving item confirmation" />
     <MESSAGE value="Evolving item cross Warehouse, Catalog and ShoppingCart" />
     <MESSAGE value="Fixing and improving some Catalog components" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixing and improving some Catalog components" />
+    <MESSAGE value="Upgrading versions" />
+    <MESSAGE value="Adjusts" />
+    <MESSAGE value="fixing proxy routing" />
+    <MESSAGE value="Testing CodeQL template" />
+    <MESSAGE value="Fixing" />
+    <MESSAGE value="moving to root" />
+    <MESSAGE value="fixing codeql template" />
+    <MESSAGE value="Again" />
+    <option name="LAST_COMMIT_MESSAGE" value="Again" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

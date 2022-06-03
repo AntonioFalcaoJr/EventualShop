@@ -1,0 +1,15 @@
+name: Payment CodeQL
+
+on:
+  push:
+    paths:
+      - src/Services/Payment/**.cs
+      - src/Services/Payment/**.csproj
+      - Directory.Build.props
+      - .github/workflows/**
+
+jobs:
+  payment-codeql:
+    uses: ./.github/workflows/codeql.yaml
+    with:
+      path: ./src/Services/Payment
