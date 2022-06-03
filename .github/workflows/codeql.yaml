@@ -53,17 +53,14 @@ jobs:
         uses: github/codeql-action/init@v2
         with:
           languages: ${{ matrix.language }}
-          path: ${{ inputs.path }}
-          source-root: ${{ inputs.path }}
+          working-directory: ${{ inputs.path }}
 
       - name: Autobuild
         uses: github/codeql-action/autobuild@v2
         with:
-          path: ${{ inputs.path }}
           working-directory: ${{ inputs.path }}
           
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
         with:
-          path: ${{ inputs.path }}
-          checkout_path: ${{ inputs.path }}
+          working-directory: ${{ inputs.path }}
