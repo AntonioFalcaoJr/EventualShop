@@ -46,11 +46,12 @@ jobs:
         run: dotnet build --configuration Release --no-restore
       
       - name: Initialize CodeQL
-        working-directory: ${{ inputs.path }}
         uses: github/codeql-action/init@v2
         with:
           languages: ${{ matrix.language }}
+          path: ${{ inputs.path }}
       
       - name: Perform CodeQL Analysis
-        working-directory: ${{ inputs.path }}
-        uses: github/codeql-action/analyze@v2    
+        uses: github/codeql-action/analyze@v2
+        with:
+          path: ${{ inputs.path }}
