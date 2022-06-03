@@ -60,6 +60,7 @@ jobs:
         uses: github/codeql-action/autobuild@v2
         with:
           path: ${{ inputs.path }}
+          working-directory: ${{ inputs.path }}
           
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
