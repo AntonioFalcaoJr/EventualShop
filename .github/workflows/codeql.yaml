@@ -53,11 +53,9 @@ jobs:
         uses: github/codeql-action/init@v2
         with:
           languages: ${{ matrix.language }}
-          paths:
-            - ${{ inputs.path }}
+          path: ${{ inputs.path }}
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
         with:
-          paths:
-            - ${{ inputs.path }}
+          path: ${{ inputs.path }}
