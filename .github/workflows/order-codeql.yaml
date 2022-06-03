@@ -1,0 +1,15 @@
+name: Order CodeQL
+
+on:
+  push:
+    paths:
+      - src/Services/Order/**.cs
+      - src/Services/Order/**.csproj
+      - Directory.Build.props
+      - .github/workflows/**
+
+jobs:
+  order-codeql:
+    uses: ./.github/workflows/codeql.yaml
+    with:
+      path: ./src/Services/Order
