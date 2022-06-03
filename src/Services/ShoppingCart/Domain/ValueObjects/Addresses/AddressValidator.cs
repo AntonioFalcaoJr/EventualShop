@@ -24,6 +24,6 @@ public class AddressValidator : AbstractValidator<Address>
 
         RuleFor(address => address.ZipCode)
             .NotNull()
-            .NotEmpty(); 
+            .NotEmpty();
     }
 }
