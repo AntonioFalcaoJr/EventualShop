@@ -9,6 +9,6 @@ on:
 
 jobs:
   shoppingcart-codeql:
-    uses: ./.github/workflows/codeql/codeql.yaml
+    uses: ./.github/workflows/codeql.yaml
     with:
       path: ./src/Services/ShoppingCart
