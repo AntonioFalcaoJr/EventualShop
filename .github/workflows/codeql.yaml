@@ -7,10 +7,6 @@ on:
         description: 'The path of project passed from the caller workflow'
         required: true
         type: string
-      project:
-        description: 'The *csproj project path passed from the caller workflow'
-        required: true
-        type: string
 
 jobs:
   analyze:
@@ -30,25 +26,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v1
-
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget  
-
-      - name: Install dependencies
-        working-directory: ${{ inputs.project }}
-        run: dotnet restore
-
-      - name: Build
-        working-directory: ${{ inputs.project }}
-        run: dotnet build --configuration Release --no-restore
-
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
@@ -63,4 +40,4 @@ jobs:
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
         with:
-          working-directory: ${{ inputs.path }}
+          checkout-path: ${{ inputs.path }}

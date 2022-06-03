@@ -3,13 +3,13 @@ name: Shopping Cart CodeQL
 on:
   push:
     paths:
-      - src/Services/ShoppingCart/**.cs
-      - src/Services/ShoppingCart/**.csproj
+      - src/Services/Account/**.cs
+      - src/Services/Account/**.csproj
       - Directory.Build.props
       - .github/workflows/**
 
 jobs:
-  shoppingcart-codeql:
+  account-codeql:
     uses: ./.github/workflows/codeql.yaml
     with:
-      path: ./src/Services/ShoppingCart
+      path: ./src/Services/Account
