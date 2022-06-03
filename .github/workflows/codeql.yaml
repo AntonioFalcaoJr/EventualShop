@@ -10,7 +10,7 @@ on:
       project:
         description: 'The *csproj project path passed from the caller workflow'
         required: true
-        type: string  
+        type: string
 
 jobs:
   analyze:
@@ -48,14 +48,16 @@ jobs:
       - name: Build
         working-directory: ${{ inputs.project }}
         run: dotnet build --configuration Release --no-restore
-      
+
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
           languages: ${{ matrix.language }}
-          path: ${{ inputs.path }}
-      
+          paths:
+            - ${{ inputs.path }}
+
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
         with:
-          path: ${{ inputs.project }}
+          paths:
+            - ${{ inputs.path }}
