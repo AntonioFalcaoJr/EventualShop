@@ -1,4 +1,4 @@
-name: Shopping Cart CodeQL
+name: Warehouse CodeQL
 
 on:
   push:
