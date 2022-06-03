@@ -1,0 +1,14 @@
+name: Shopping Cart CodeQL
+
+on:
+  push:
+    paths:
+      - src/Services/ShoppingCart/**.cs
+      - src/Services/ShoppingCart/**.csproj
+      - Directory.Build.props
+
+jobs:
+  shoppingcart-codeql:
+    uses: ./.github/workflows/codeql.yaml
+    with:
+      path: ./src/Services/ShoppingCart
