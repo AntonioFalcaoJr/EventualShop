@@ -54,6 +54,7 @@ jobs:
         with:
           languages: ${{ matrix.language }}
           path: ${{ inputs.path }}
+          source-root: ${{ inputs.path }}
 
       - name: Autobuild
         uses: github/codeql-action/autobuild@v2
@@ -64,3 +65,4 @@ jobs:
         uses: github/codeql-action/analyze@v2
         with:
           path: ${{ inputs.path }}
+          checkout_path: ${{ inputs.path }}
