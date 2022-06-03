@@ -1,0 +1,15 @@
+name: Account CodeQL
+
+on:
+  push:
+    paths:
+      - src/Services/Account/**.cs
+      - src/Services/Account/**.csproj
+      - Directory.Build.props
+      - .github/workflows/**
+
+jobs:
+  account-codeql:
+    uses: ./.github/workflows/codeql.yaml
+    with:
+      path: ./src/Services/Account

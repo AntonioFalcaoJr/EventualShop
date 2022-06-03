@@ -22,7 +22,7 @@ public static class Accounts
         return group;
     }
 
-    private static Task<Results<Ok<IPagedResult<Projection.Account>>, NoContent, NotFound, Problem>> GetAllAsync(IBus bus, ushort? limit, ushort? offset, CancellationToken ct)
+    private static Task<Results<Ok<IPagedResult<Projection.Account>>, NoContent, NotFound, Problem>> GetAllAsync(IBus bus, int limit, int offset, CancellationToken ct)
         => ApplicationApi.GetPagedProjectionAsync<Query.GetAccounts, Projection.Account>(bus, new(limit, offset), ct);
 
     private static Task<AcceptedAtRoute> CreateAsync(IBus bus, Request.CreateAccount request, CancellationToken ct)

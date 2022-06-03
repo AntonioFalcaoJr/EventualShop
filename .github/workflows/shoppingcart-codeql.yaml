@@ -13,4 +13,3 @@ jobs:
     uses: ./.github/workflows/codeql.yaml
     with:
       path: ./src/Services/ShoppingCart
-      project: ./src/Services/ShoppingCart/WorkerService
