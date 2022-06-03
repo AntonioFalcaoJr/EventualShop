@@ -24,11 +24,11 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
         _snapshots = dbContext.Set<TSnapshot>();
     }
 
-    public async Task<long> AppendEventsAsync(TStoreEvent storeEvent, CancellationToken ct)
+    public async Task<long> AppendEventsAsync(TStoreEvent @event, CancellationToken ct)
     {
-        await _storeEvents.AddAsync(storeEvent, ct);
+        await _storeEvents.AddAsync(@event, ct);
         await _dbContext.SaveChangesAsync(ct);
-        return storeEvent.Version;
+        return @event.Version;
     }
 
     public async Task AppendSnapshotAsync(TSnapshot snapshot, CancellationToken ct)
