@@ -861,24 +861,25 @@ docker run --network=ecommerce --name k6 --rm -i grafana/k6 run - <test.js
 ### Store event
 
 ```sql
-CREATE TABLE [ShoppingCartStoreEvents] (
-    [Version] int NOT NULL IDENTITY,
-    [AggregateId] uniqueidentifier NOT NULL,
-    [AggregateName] varchar(30) NOT NULL,
-    [EventName] varchar(50) NOT NULL,
-    [Event] nvarchar(max) NOT NULL,
-    CONSTRAINT [PK_ShoppingCartStoreEvents] PRIMARY KEY ([Version])
-);
+CREATE TABLE [Events] (
+  [Version] bigint NOT NULL IDENTITY,
+  [AggregateId] uniqueidentifier NOT NULL,
+  [AggregateName] varchar(30) NOT NULL,
+  [DomainEventName] varchar(50) NOT NULL,
+  [DomainEvent] nvarchar(max) NOT NULL,
+  CONSTRAINT [PK_Events] PRIMARY KEY ([Version])
+  );
 ```
 
 ![](./.assets/img/store-event.png)
 
 ```json
 {
-  "$type": "ECommerce.Contracts.ShoppingCart.DomainEvents+CartCreated, ECommerce",
-  "CartId": "f1c2ff9b-d8a5-43ce-9c3e-684364398bf0",
+  "$type": "Contracts.Services.ShoppingCart.DomainEvent+CartCreated, Contracts",
+  "CartId": "f26c669d-d16b-43d8-964a-2cca22649b48",
   "CustomerId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "Timestamp": "2022-02-23T15:49:22.2555835-03:00",
+  "Status": "Confirmed",
+  "Timestamp": "2022-06-04T14:00:54.2529087-03:00",
   "CorrelationId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
 }
 ```
@@ -886,13 +887,13 @@ CREATE TABLE [ShoppingCartStoreEvents] (
 ### Snapshot
 
 ```sql
-CREATE TABLE [ShoppingCartSnapshots] (
-    [AggregateVersion] int NOT NULL,
-    [AggregateId] uniqueidentifier NOT NULL,
-    [AggregateName] varchar(30) NOT NULL,
-    [AggregateState] nvarchar(max) NOT NULL,
-    CONSTRAINT [PK_ShoppingCartSnapshots] PRIMARY KEY ([AggregateVersion], [AggregateId])
-);
+CREATE TABLE [Snapshots] (
+  [AggregateVersion] bigint NOT NULL,
+  [AggregateId] uniqueidentifier NOT NULL,
+  [AggregateName] varchar(30) NOT NULL,
+  [AggregateState] nvarchar(max) NOT NULL,
+  CONSTRAINT [PK_Snapshots] PRIMARY KEY ([AggregateVersion], [AggregateId])
+  );
 ```
 
 ![](./.assets/img/store-snapshot.png)
@@ -900,13 +901,18 @@ CREATE TABLE [ShoppingCartSnapshots] (
 ```json
 {
   "CustomerId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "Status": 2,
-  "ShippingAddress": null,
+  "Status": {
+    "Name": "Confirmed",
+    "Value": 2
+  },
   "BillingAddress": null,
+  "ShippingAddress": null,
   "Total": 0.0,
+  "TotalPayment": 0.0,
+  "AmountDue": 0.0,
   "Items": [],
   "PaymentMethods": [],
-  "Id": "b7bc74a0-c5ad-4510-baaa-8b5cbfc1cea3",
+  "Id": "de2ec981-24c1-4c27-abbb-dd50d99a1e16",
   "IsDeleted": false
 }
 ```
