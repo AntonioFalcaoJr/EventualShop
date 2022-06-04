@@ -1,6 +1,6 @@
 using Domain.Abstractions.Aggregates;
 
-namespace Application.Abstractions.EventStore.Events;
+namespace Domain.Abstractions.StoreEvents;
 
 public abstract record Snapshot<TAggregate, TId>
     where TAggregate : IAggregateRoot<TId>, new()

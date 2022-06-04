@@ -25,7 +25,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Adjusting Dockerfile" />
+    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Adjusting Dockerfile">
+      <change afterPath="$PROJECT_DIR$/src/Services/Account/Domain/StoreEvents.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/Abstractions/EventStore/Events/Snapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Domain/Abstractions/StoreEvents/Snapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/Abstractions/EventStore/Events/StoreEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Domain/Abstractions/StoreEvents/StoreEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/Abstractions/EventStore/IEventStoreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Application/Abstractions/EventStore/IEventStoreRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/EventStore/Events/AccountSnapshot.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/EventStore/Events/AccountStoreEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/EventStore/IAccountEventStoreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Application/EventStore/IAccountEventStoreRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Abstractions/EventStoreService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Abstractions/EventStoreService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/AccountEventStoreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/AccountEventStoreRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/AccountEventStoreService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/AccountEventStoreService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Contexts/Configurations/AccountSnapshotConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Contexts/Configurations/AccountSnapshotConfiguration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Contexts/Configurations/AccountStoreEventConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Contexts/Configurations/AccountStoreEventConfiguration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Contexts/EventStoreDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Contexts/EventStoreDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Infrastructure.EventStore.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Infrastructure.EventStore.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Migrations/20220330185140_First Migration.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Migrations/20220330185140_First Migration.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Migrations/20220330185157_Quartz Migration.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Migrations/20220330185157_Quartz Migration.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Migrations/EventStoreDbContextModelSnapshot.cs" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -143,23 +165,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;full.screen.before.presentation.mode&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propDebugger&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "full.screen.before.presentation.mode": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "terminal",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RiderTodoViewSettings" groupByProject="false" />
   <component name="RunAnythingCache">
     <option name="myCommands">

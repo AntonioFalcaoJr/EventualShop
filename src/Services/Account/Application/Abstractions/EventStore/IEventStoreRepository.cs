@@ -1,6 +1,6 @@
-using Application.Abstractions.EventStore.Events;
 using Contracts.Abstractions;
 using Domain.Abstractions.Aggregates;
+using Domain.Abstractions.StoreEvents;
 
 namespace Application.Abstractions.EventStore;
 

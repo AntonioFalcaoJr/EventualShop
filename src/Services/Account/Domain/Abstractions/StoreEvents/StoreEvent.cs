@@ -1,7 +1,7 @@
 using Contracts.Abstractions;
 using Domain.Abstractions.Aggregates;
 
-namespace Application.Abstractions.EventStore.Events;
+namespace Domain.Abstractions.StoreEvents;
 
 public abstract record StoreEvent<TAggregate, TId>
     where TAggregate : IAggregateRoot<TId>
@@ -10,6 +10,6 @@ public abstract record StoreEvent<TAggregate, TId>
     public long Version { get; }
     public TId AggregateId { get; init; }
     public string AggregateName { get; } = typeof(TAggregate).Name;
-    public string EventName { get; init; }
-    public IEvent Event { get; init; }
+    public string DomainEventName { get; init; }
+    public IEvent DomainEvent { get; init; }
 }
