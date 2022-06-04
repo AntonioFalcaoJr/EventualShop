@@ -1,13 +1,13 @@
-﻿using Application.EventStore.Events;
+﻿using Domain;
 using Infrastructure.EventStore.Contexts.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.EventStore.Contexts.Configurations;
 
-public class WarehouseSnapshotConfiguration : IEntityTypeConfiguration<WarehouseSnapshot>
+public class WarehouseSnapshotConfiguration : IEntityTypeConfiguration<StoreEvents.Snapshot>
 {
-    public void Configure(EntityTypeBuilder<WarehouseSnapshot> builder)
+    public void Configure(EntityTypeBuilder<StoreEvents.Snapshot> builder)
     {
         builder.HasKey(snapshot => new {snapshot.AggregateVersion, snapshot.AggregateId});
 

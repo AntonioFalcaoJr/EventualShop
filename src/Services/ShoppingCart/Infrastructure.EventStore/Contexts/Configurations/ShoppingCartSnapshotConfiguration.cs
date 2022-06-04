@@ -1,13 +1,13 @@
-﻿using Application.EventStore.Events;
+﻿using Domain;
 using Infrastructure.EventStore.Contexts.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.EventStore.Contexts.Configurations;
 
-public class ShoppingCartSnapshotConfiguration : IEntityTypeConfiguration<ShoppingCartSnapshot>
+public class ShoppingCartSnapshotConfiguration : IEntityTypeConfiguration<StoreEvents.Snapshot>
 {
-    public void Configure(EntityTypeBuilder<ShoppingCartSnapshot> builder)
+    public void Configure(EntityTypeBuilder<StoreEvents.Snapshot> builder)
     {
         builder.HasKey(snapshot => new {snapshot.AggregateVersion, snapshot.AggregateId});
 
