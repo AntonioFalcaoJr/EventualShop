@@ -25,7 +25,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="simples adjust" />
+    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="statement body">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogGridViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogGridViewModel.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -385,13 +388,6 @@
       <workItem from="1654089984078" duration="37942000" />
       <workItem from="1654224396387" duration="4297000" />
     </task>
-    <task id="LOCAL-00151" summary="Keep improving based on implicit operators">
-      <created>1652138804737</created>
-      <option name="number" value="00151" />
-      <option name="presentableId" value="LOCAL-00151" />
-      <option name="project" value="LOCAL" />
-      <updated>1652138804737</updated>
-    </task>
     <task id="LOCAL-00152" summary="Improving enumeration">
       <created>1652198814001</created>
       <option name="number" value="00152" />
@@ -728,7 +724,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654269599884</updated>
     </task>
-    <option name="localTasksCounter" value="200" />
+    <task id="LOCAL-00200" summary="statement body">
+      <created>1654349380628</created>
+      <option name="number" value="00200" />
+      <option name="presentableId" value="LOCAL-00200" />
+      <option name="project" value="LOCAL" />
+      <updated>1654349380628</updated>
+    </task>
+    <option name="localTasksCounter" value="201" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -764,7 +767,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Defining VHost" />
     <MESSAGE value="removing" />
     <MESSAGE value="Adding equality operators" />
     <MESSAGE value="Improving addresses management" />
@@ -789,7 +791,8 @@
     <MESSAGE value="fixing codeql template" />
     <MESSAGE value="Again" />
     <MESSAGE value="simples adjust" />
-    <option name="LAST_COMMIT_MESSAGE" value="simples adjust" />
+    <MESSAGE value="statement body" />
+    <option name="LAST_COMMIT_MESSAGE" value="statement body" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -1,4 +1,6 @@
 ﻿using Contracts.Abstractions.Paging;
+using Contracts.Services.Catalog;
+using WebAPP.Abstractions.Http;
 using WebAPP.HttpClients;
 
 namespace WebAPP.ViewModels;
@@ -6,6 +8,8 @@ namespace WebAPP.ViewModels;
 public class CatalogGridViewModel
 {
     private readonly ICatalogHttpClient _httpClient;
+
+    private CatalogGridViewModel() { }
 
     public CatalogGridViewModel(ICatalogHttpClient httpClient)
     {
@@ -18,12 +22,7 @@ public class CatalogGridViewModel
     public async Task FetchDataAsync(CancellationToken ct, int limit = 8, int offset = 0)
     {
         var response = await _httpClient.GetAsync(limit, offset, ct);
-
-        if (response.Success)
-        {
-            Cards = response.ActionResult.Items.Select(catalog => (CatalogCardViewModel) catalog).ToList();
-            Page = response.ActionResult.Page;
-        }
+        if (response.Success) Load(response.ActionResult);
     }
 
     public void Add(CatalogCardViewModel card)
@@ -46,4 +45,17 @@ public class CatalogGridViewModel
         if (Page.HasPrevious)
             await FetchDataAsync(ct, offset: Page.Current - 2);
     }
+
+    private void Load(CatalogGridViewModel model)
+    {
+        Cards = model.Cards;
+        Page = model.Page;
+    }
+
+    public static implicit operator CatalogGridViewModel(PagedResult<Projection.Catalog> pagedResult)
+        => new()
+        {
+            Cards = pagedResult.Items.Select(catalog => (CatalogCardViewModel) catalog).ToList(),
+            Page = pagedResult.Page
+        };
 }
