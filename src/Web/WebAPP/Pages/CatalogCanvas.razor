@@ -42,19 +42,13 @@
         _creating = false;
     }
 
-    public Task ShowAsync()
-    {
-        return _offCanvas.ShowAsync();
-    }
+    public Task ShowAsync() 
+        => _offCanvas.ShowAsync();
 
-    public Task HideAsync()
-    {
-        return _offCanvas.HideAsync();
-    }
+    public Task HideAsync() 
+        => _offCanvas.HideAsync();
 
-    private void Dispose()
-    {
-        _cancellationTokenSource.Cancel();
-    }
+    private void Dispose() 
+        => _cancellationTokenSource.Cancel();
 
 }
