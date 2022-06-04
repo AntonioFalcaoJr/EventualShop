@@ -25,28 +25,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Adjusting Dockerfile">
-      <change afterPath="$PROJECT_DIR$/src/Services/Account/Domain/StoreEvents.cs" afterDir="false" />
+    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="migrations">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/Abstractions/EventStore/Events/Snapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Domain/Abstractions/StoreEvents/Snapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/Abstractions/EventStore/Events/StoreEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Domain/Abstractions/StoreEvents/StoreEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/Abstractions/EventStore/IEventStoreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Application/Abstractions/EventStore/IEventStoreRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/EventStore/Events/AccountSnapshot.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/EventStore/Events/AccountStoreEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/EventStore/IAccountEventStoreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Application/EventStore/IAccountEventStoreRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Abstractions/EventStoreRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Abstractions/EventStoreService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Abstractions/EventStoreService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/AccountEventStoreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/AccountEventStoreRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/AccountEventStoreService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/AccountEventStoreService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Contexts/Configurations/AccountSnapshotConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Contexts/Configurations/AccountSnapshotConfiguration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Contexts/Configurations/AccountStoreEventConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Contexts/Configurations/AccountStoreEventConfiguration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Contexts/EventStoreDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Contexts/EventStoreDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Infrastructure.EventStore.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Infrastructure.EventStore.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Migrations/20220330185140_First Migration.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Migrations/20220330185140_First Migration.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Migrations/20220330185157_Quartz Migration.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Migrations/20220330185157_Quartz Migration.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.EventStore/Migrations/EventStoreDbContextModelSnapshot.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -412,13 +393,6 @@
       <workItem from="1654089984078" duration="37942000" />
       <workItem from="1654224396387" duration="4297000" />
     </task>
-    <task id="LOCAL-00150" summary="removing unnecessary requests">
-      <created>1651782816676</created>
-      <option name="number" value="00150" />
-      <option name="presentableId" value="LOCAL-00150" />
-      <option name="project" value="LOCAL" />
-      <updated>1651782816676</updated>
-    </task>
     <task id="LOCAL-00151" summary="Keep improving based on implicit operators">
       <created>1652138804737</created>
       <option name="number" value="00151" />
@@ -755,7 +729,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654228740742</updated>
     </task>
-    <option name="localTasksCounter" value="199" />
+    <task id="LOCAL-00199" summary="migrations">
+      <created>1654353854573</created>
+      <option name="number" value="00199" />
+      <option name="presentableId" value="LOCAL-00199" />
+      <option name="project" value="LOCAL" />
+      <updated>1654353854573</updated>
+    </task>
+    <option name="localTasksCounter" value="200" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -791,7 +772,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Splitting consumers" />
     <MESSAGE value="Defining VHost" />
     <MESSAGE value="removing" />
     <MESSAGE value="Adding equality operators" />
@@ -816,7 +796,8 @@
     <MESSAGE value="moving to root" />
     <MESSAGE value="fixing codeql template" />
     <MESSAGE value="Again" />
-    <option name="LAST_COMMIT_MESSAGE" value="Again" />
+    <MESSAGE value="migrations" />
+    <option name="LAST_COMMIT_MESSAGE" value="migrations" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
