@@ -1,7 +1,4 @@
 ﻿@using WebAPP.ViewModels
-@using WebAPP.HttpClients
-
-@inject ICatalogHttpClient HttpClient
 
 <BSCard CardType="CardType.Card" Padding="Padding.None">
     <BSCard CardType="CardType.Header">
@@ -56,16 +53,13 @@
         => _isEditingTitle = !_isEditingTitle;
 
     private async Task ChangeTitleAsync()
-        => await HttpClient.ChangeTitleAsync(ViewModel.Id, ViewModel.Title, _cancellationTokenSource.Token);
+        => await ViewModel.ChangeTitleAsync(_cancellationTokenSource.Token);
 
     private async Task ChangeDescriptionAsync()
-        => await HttpClient.ChangeDescriptionAsync(ViewModel.Id, ViewModel.Description, _cancellationTokenSource.Token);
+        => await ViewModel.ChangeDescriptionAsync(_cancellationTokenSource.Token);
 
     private async Task DeleteAsync()
-    {
-        var response = await HttpClient.DeleteAsync(ViewModel.Id, _cancellationTokenSource.Token);
-        if (response.Success) await OnDeleted.InvokeAsync(ViewModel.Id);
-    }
+        => await ViewModel.DeleteAsync(OnDeleted, _cancellationTokenSource.Token);
 
     private void Dispose()
         => _cancellationTokenSource.Cancel();

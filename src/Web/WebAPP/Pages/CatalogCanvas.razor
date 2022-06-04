@@ -1,9 +1,6 @@
-﻿@using Microsoft.AspNetCore.Components
-@using WebAPP.HttpClients
-@using WebAPP.ViewModels
+﻿@using WebAPP.ViewModels
 @using Contracts.Services.Catalog
-@inject ICatalogHttpClient HttpClient
-@inject CatalogGridViewModel ViewModel
+@inject CatalogCanvasViewModel ViewModel
 
 <BSOffCanvas @ref="_offCanvas" Placement="Placement.Right">
     <Header>Create Catalog</Header>
@@ -28,35 +25,36 @@
 </BSOffCanvas>
 
 @code {
-    
+
+    private readonly CancellationTokenSource _cancellationTokenSource = new();
+
     [Parameter]
     public EventCallback<Request.CreateCatalog> OnCreated { get; set; }
-    
-    private readonly CancellationTokenSource _cancellationTokenSource = new();
-    
+
     private BSOffCanvas _offCanvas;
     private bool _creating;
 
     private async Task CreateAsync()
     {
         _creating = true;
-        var request = new Request.CreateCatalog(Guid.NewGuid(), ViewModel.Title, ViewModel.Description);
-        var response = await HttpClient.CreateAsync(request, _cancellationTokenSource.Token);
-
-        if (response.Success)
-        {
-            await _offCanvas.HideAsync();
-            await OnCreated.InvokeAsync(request);
-        }
+        await ViewModel.CreateAsync(OnCreated, _cancellationTokenSource.Token);
+        await _offCanvas.HideAsync();
         _creating = false;
     }
 
     public Task ShowAsync()
-        => _offCanvas.ShowAsync();
+    {
+        return _offCanvas.ShowAsync();
+    }
 
     public Task HideAsync()
-        => _offCanvas.HideAsync();
-    
+    {
+        return _offCanvas.HideAsync();
+    }
+
     private void Dispose()
-        => _cancellationTokenSource.Cancel();
+    {
+        _cancellationTokenSource.Cancel();
+    }
+
 }
