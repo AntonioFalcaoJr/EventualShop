@@ -17,12 +17,12 @@ public static class ApplicationApi
     public static void MapCommand(this IEndpointRouteBuilder endpoints, Func<IEndpointRouteBuilder, RouteHandlerBuilder> action)
         => action(endpoints).ProducesValidationProblem();
 
-    public static async Task<AcceptedAtRoute> SendCommandAsync<TCommand>(IBus bus, TCommand command, CancellationToken cancellationToken)
+    public static async Task<Accepted> SendCommandAsync<TCommand>(IBus bus, TCommand command, CancellationToken cancellationToken)
         where TCommand : class, ICommand
     {
         var endpoint = await bus.GetSendEndpoint(Address<TCommand>());
         await endpoint.Send(command, cancellationToken);
-        return TypedResults.AcceptedAtRoute();
+        return TypedResults.Accepted("");
     }
 
     public static Task<Results<Ok<TProjection>, NoContent, NotFound, Problem>> GetProjectionAsync<TQuery, TProjection>

@@ -1,13 +1,13 @@
-﻿using Application.EventStore.Events;
+﻿using Domain;
 using Infrastructure.EventStore.Contexts.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.EventStore.Contexts.Configurations;
 
-public class OrderStoreEventConfiguration : IEntityTypeConfiguration<OrderStoreEvent>
+public class OrderStoreEventConfiguration : IEntityTypeConfiguration<StoreEvents.Event>
 {
-    public void Configure(EntityTypeBuilder<OrderStoreEvent> builder)
+    public void Configure(EntityTypeBuilder<StoreEvents.Event> builder)
     {
         builder.HasKey(storeEvent => storeEvent.Version);
 
@@ -21,12 +21,12 @@ public class OrderStoreEventConfiguration : IEntityTypeConfiguration<OrderStoreE
             .IsRequired();
 
         builder
-            .Property(storeEvent => storeEvent.EventName)
+            .Property(storeEvent => storeEvent.DomainEventName)
             .HasMaxLength(50)
             .IsRequired();
 
         builder
-            .Property(storeEvent => storeEvent.Event)
+            .Property(storeEvent => storeEvent.DomainEvent)
             .HasConversion<EventConverter>()
             .IsRequired();
     }

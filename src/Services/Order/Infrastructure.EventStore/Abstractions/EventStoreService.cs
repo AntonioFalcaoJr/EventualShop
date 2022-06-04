@@ -1,9 +1,9 @@
 ﻿using System.Runtime.CompilerServices;
 using Application.Abstractions.EventStore;
-using Application.Abstractions.EventStore.Events;
 using Application.Abstractions.Notifications;
 using Contracts.Abstractions;
 using Domain.Abstractions.Aggregates;
+using Domain.Abstractions.StoreEvents;
 using Infrastructure.EventStore.DependencyInjection.Options;
 using MassTransit;
 using Microsoft.Extensions.Options;
@@ -87,7 +87,7 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
             => new TStoreEvent
             {
                 AggregateId = aggregate.Id,
-                Event = @event,
-                EventName = @event.GetType().Name
+                DomainEvent = @event,
+                DomainEventName = @event.GetType().Name
             });
 }
