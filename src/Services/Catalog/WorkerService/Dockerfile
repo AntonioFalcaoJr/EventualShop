@@ -22,7 +22,7 @@ COPY ./src/Services/Catalog/Infrastructure.EventStore/*.csproj ./Services/Catalo
 COPY ./src/Services/Catalog/Infrastructure.MessageBus/*.csproj ./Services/Catalog/Infrastructure.MessageBus/
 COPY ./src/Services/Catalog/Infrastructure.Projections/*.csproj ./Services/Catalog/Infrastructure.Projections/
 COPY ./src/Services/Catalog/WorkerService/*.csproj ./Services/Catalog/WorkerService/
-COPY ./src/Contracts/Contracts/*.csproj ./Contracts/Contracts/
+COPY ./src/Contracts/*.csproj ./Contracts/
 
 RUN dotnet restore -v m ./Services/Catalog/WorkerService
 
@@ -32,7 +32,7 @@ COPY ./src/Services/Catalog/Infrastructure.EventStore/. ./Services/Catalog/Infra
 COPY ./src/Services/Catalog/Infrastructure.MessageBus/. ./Services/Catalog/Infrastructure.MessageBus/
 COPY ./src/Services/Catalog/Infrastructure.Projections/. ./Services/Catalog/Infrastructure.Projections/
 COPY ./src/Services/Catalog/WorkerService/. ./Services/Catalog/WorkerService/
-COPY ./src/Contracts/Contracts/. ./Contracts/Contracts/
+COPY ./src/Contracts/. ./Contracts/
 
 WORKDIR /src/Services/Catalog/WorkerService
 
