@@ -1,7 +1,7 @@
 using Application.Abstractions.EventStore;
-using Application.EventStore.Events;
+using Domain;
 using Domain.Aggregates;
 
 namespace Application.EventStore;
 
-public interface IAccountEventStoreRepository : IEventStoreRepository<Account, AccountStoreEvent, AccountSnapshot, Guid> { }
+public interface IAccountEventStoreRepository : IEventStoreRepository<Account, StoreEvents.Event, StoreEvents.Snapshot, Guid> { }

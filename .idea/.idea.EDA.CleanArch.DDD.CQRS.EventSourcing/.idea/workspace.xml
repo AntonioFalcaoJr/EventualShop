@@ -25,22 +25,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Again">
+    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Fixing dockerfiles">
+      <change beforePath="$PROJECT_DIR$/.assets/img/store-event.png" beforeDir="false" afterPath="$PROJECT_DIR$/.assets/img/store-event.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.assets/img/store-snapshot.png" beforeDir="false" afterPath="$PROJECT_DIR$/.assets/img/store-snapshot.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Application/Abstractions/Projections/IProjectionRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Application/Abstractions/Projections/IProjectionRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/Abstractions/Pagination/PagedResult.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/Abstractions/Pagination/PagedResult.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/Abstractions/Pagination/Paging.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/Abstractions/Pagination/Paging.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/ProjectionRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.Projections/ProjectionRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/WorkerService/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/WorkerService/appsettings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="ChangesViewManager">
-    <option name="groupingKeys">
-      <option value="directory" />
-    </option>
   </component>
   <component name="DisabledMethodsStorage">
     <option name="disabledMethods">
@@ -162,7 +157,7 @@
     &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propDebugger&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -172,7 +167,7 @@
       <command value="pwd" />
     </option>
   </component>
-  <component name="RunManager" selected=".NET Launch Settings Profile.WebAPP">
+  <component name="RunManager" selected=".NET Launch Settings Profile.WebAPI">
     <configuration name="Account.WorkerService" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/src/Services/Account/WorkerService/WorkerService.csproj" />
       <option name="LAUNCH_PROFILE_TFM" value="net7.0" />
@@ -395,48 +390,8 @@
       <workItem from="1654085903093" duration="3383000" />
       <workItem from="1654089984078" duration="37942000" />
       <workItem from="1654224396387" duration="4297000" />
-    </task>
-    <task id="LOCAL-00150" summary="removing unnecessary requests">
-      <created>1651782816676</created>
-      <option name="number" value="00150" />
-      <option name="presentableId" value="LOCAL-00150" />
-      <option name="project" value="LOCAL" />
-      <updated>1651782816676</updated>
-    </task>
-    <task id="LOCAL-00151" summary="Keep improving based on implicit operators">
-      <created>1652138804737</created>
-      <option name="number" value="00151" />
-      <option name="presentableId" value="LOCAL-00151" />
-      <option name="project" value="LOCAL" />
-      <updated>1652138804737</updated>
-    </task>
-    <task id="LOCAL-00152" summary="Improving enumeration">
-      <created>1652198814001</created>
-      <option name="number" value="00152" />
-      <option name="presentableId" value="LOCAL-00152" />
-      <option name="project" value="LOCAL" />
-      <updated>1652198814001</updated>
-    </task>
-    <task id="LOCAL-00153" summary="Improving enumeration">
-      <created>1652199186313</created>
-      <option name="number" value="00153" />
-      <option name="presentableId" value="LOCAL-00153" />
-      <option name="project" value="LOCAL" />
-      <updated>1652199186313</updated>
-    </task>
-    <task id="LOCAL-00154" summary="Upgrading packages version">
-      <created>1652200419929</created>
-      <option name="number" value="00154" />
-      <option name="presentableId" value="LOCAL-00154" />
-      <option name="project" value="LOCAL" />
-      <updated>1652200419929</updated>
-    </task>
-    <task id="LOCAL-00155" summary="Adjusting and upgrading versions">
-      <created>1652201628515</created>
-      <option name="number" value="00155" />
-      <option name="presentableId" value="LOCAL-00155" />
-      <option name="project" value="LOCAL" />
-      <updated>1652201628515</updated>
+      <workItem from="1654356923796" duration="1521000" />
+      <workItem from="1654358490361" duration="4364000" />
     </task>
     <task id="LOCAL-00156" summary="Upgrading SDK version">
       <created>1652224555336</created>
@@ -739,7 +694,49 @@
       <option name="project" value="LOCAL" />
       <updated>1654228740742</updated>
     </task>
-    <option name="localTasksCounter" value="199" />
+    <task id="LOCAL-00199" summary="migrations">
+      <created>1654353854573</created>
+      <option name="number" value="00199" />
+      <option name="presentableId" value="LOCAL-00199" />
+      <option name="project" value="LOCAL" />
+      <updated>1654353854573</updated>
+    </task>
+    <task id="LOCAL-00200" summary="removing unnecessary references">
+      <created>1654354832848</created>
+      <option name="number" value="00200" />
+      <option name="presentableId" value="LOCAL-00200" />
+      <option name="project" value="LOCAL" />
+      <updated>1654354832848</updated>
+    </task>
+    <task id="LOCAL-00201" summary="Moving contracts path">
+      <created>1654358676406</created>
+      <option name="number" value="00201" />
+      <option name="presentableId" value="LOCAL-00201" />
+      <option name="project" value="LOCAL" />
+      <updated>1654358676406</updated>
+    </task>
+    <task id="LOCAL-00202" summary="Moving all projects to new design adjusts">
+      <created>1654361106795</created>
+      <option name="number" value="00202" />
+      <option name="presentableId" value="LOCAL-00202" />
+      <option name="project" value="LOCAL" />
+      <updated>1654361106795</updated>
+    </task>
+    <task id="LOCAL-00203" summary="Moving all projects to new design adjusts">
+      <created>1654361259260</created>
+      <option name="number" value="00203" />
+      <option name="presentableId" value="LOCAL-00203" />
+      <option name="project" value="LOCAL" />
+      <updated>1654361259260</updated>
+    </task>
+    <task id="LOCAL-00204" summary="Fixing dockerfiles">
+      <created>1654361350365</created>
+      <option name="number" value="00204" />
+      <option name="presentableId" value="LOCAL-00204" />
+      <option name="project" value="LOCAL" />
+      <updated>1654361350365</updated>
+    </task>
+    <option name="localTasksCounter" value="205" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -775,11 +772,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Splitting consumers" />
-    <MESSAGE value="Defining VHost" />
-    <MESSAGE value="removing" />
-    <MESSAGE value="Adding equality operators" />
-    <MESSAGE value="Improving addresses management" />
     <MESSAGE value="improving CartItem" />
     <MESSAGE value="Adding itemStatus" />
     <MESSAGE value="Simplifying relationship" />
@@ -800,7 +792,21 @@
     <MESSAGE value="moving to root" />
     <MESSAGE value="fixing codeql template" />
     <MESSAGE value="Again" />
-    <option name="LAST_COMMIT_MESSAGE" value="Again" />
+    <MESSAGE value="migrations" />
+    <MESSAGE value="removing unnecessary references" />
+    <MESSAGE value="Moving contracts path" />
+    <MESSAGE value="Moving all projects to new design adjusts" />
+    <MESSAGE value="Fixing dockerfiles" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing dockerfiles" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint enabled="true" type="DotNet Exception Breakpoints" />
+        <breakpoint enabled="true" type="CidrExceptionBreakpoint" />
+        <breakpoint enabled="true" type="javascript-exception" />
+      </default-breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

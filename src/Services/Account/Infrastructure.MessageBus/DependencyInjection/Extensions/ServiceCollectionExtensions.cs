@@ -8,14 +8,11 @@ using Infrastructure.MessageBus.DependencyInjection.PipeFilters;
 using Infrastructure.MessageBus.DependencyInjection.PipeObservers;
 using Infrastructure.MessageBus.Notifications;
 using MassTransit;
-using MassTransit.QuartzIntegration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Quartz;
-using Quartz.Core;
-using Quartz.Spi;
 
 namespace Infrastructure.MessageBus.DependencyInjection.Extensions;
 
