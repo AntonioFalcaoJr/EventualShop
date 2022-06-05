@@ -3,7 +3,6 @@ using FluentValidation;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using ValidationResult = FluentValidation.Results.ValidationResult;
 
 namespace Infrastructure.MessageBus.DependencyInjection.PipeFilters;
 
@@ -11,12 +10,9 @@ public class ContractValidatorFilter<T> : IFilter<ConsumeContext<T>>
     where T : class
 {
     private readonly IValidator<T> _validator;
-    private ValidationResult _validationResult;
 
-    public ContractValidatorFilter(IServiceProvider serviceProvider)
-    {
-        _validator = serviceProvider.GetService<IValidator<T>>();
-    }
+    public ContractValidatorFilter(IServiceProvider serviceProvider) 
+        => _validator = serviceProvider.GetService<IValidator<T>>();
 
     public async Task Send(ConsumeContext<T> context, IPipe<ConsumeContext<T>> next)
     {
@@ -26,19 +22,19 @@ public class ContractValidatorFilter<T> : IFilter<ConsumeContext<T>>
             return;
         }
 
-        _validationResult = await _validator.ValidateAsync(context.Message, context.CancellationToken);
+        var validationResult = await _validator.ValidateAsync(context.Message, context.CancellationToken);
 
-        if (_validationResult.IsValid)
+        if (validationResult.IsValid)
         {
             await next.Send(context);
             return;
         }
 
-        Log.Error("Contract validation errors: {Errors}", _validationResult.Errors);
+        Log.Error("Contract validation errors: {Errors}", validationResult.Errors);
 
         await context.Send(
             destinationAddress: new($"queue:identity.{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}.contract-errors"),
-            message: new ContractValidationResult<T>(context.Message, _validationResult.Errors.Select(failure => failure.ErrorMessage)));
+            message: new ContractValidationResult<T>(context.Message, validationResult.Errors.Select(failure => failure.ErrorMessage)));
     }
 
     public void Probe(ProbeContext context)
