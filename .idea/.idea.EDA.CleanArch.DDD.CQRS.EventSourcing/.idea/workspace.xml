@@ -26,11 +26,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Fixing dockerfiles">
-      <change beforePath="$PROJECT_DIR$/.assets/img/store-event.png" beforeDir="false" afterPath="$PROJECT_DIR$/.assets/img/store-event.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.assets/img/store-snapshot.png" beforeDir="false" afterPath="$PROJECT_DIR$/.assets/img/store-snapshot.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/WorkerService/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/WorkerService/appsettings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +128,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="Toolset" />
   </component>
   <component name="ProjectId" id="272AlzSpFbwqE2CsySenvlmLsgY" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -392,6 +388,7 @@
       <workItem from="1654224396387" duration="4297000" />
       <workItem from="1654356923796" duration="1521000" />
       <workItem from="1654358490361" duration="4364000" />
+      <workItem from="1654449325201" duration="45000" />
     </task>
     <task id="LOCAL-00156" summary="Upgrading SDK version">
       <created>1652224555336</created>
@@ -743,7 +740,7 @@
     <option name="version" value="3" />
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
-  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" hasHiddenPlayButtons="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.conf" />
