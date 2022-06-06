@@ -87,7 +87,7 @@ public class Inventory : AggregateRoot<Guid, InventoryValidator>
 
     private void When(DomainEvent.InventoryReserved @event)
         => _items
-            .First(item => item.Id == @event.InventoryItemId)
+            .Single(item => item.Id == @event.InventoryItemId)
             .Reserve(@event.Quantity, @event.CartId, @event.Expiration);
 
     private void When(DomainEvent.InventoryNotReserved _) { }
@@ -99,6 +99,6 @@ public class Inventory : AggregateRoot<Guid, InventoryValidator>
             .Where(item => item.Product.Category == product.Category)
             .Count(item => item.Product.Unit == product.Unit);
 
-        return $"{product.Brand[..2]}{product.Category[..2]}{product.Unit[..2]}{count + 1}".ToUpper();
+        return $"{product.Brand[..2]}{product.Category[..2]}{product.Unit[..2]}{count + 1}".ToUpperInvariant();
     }
 }
