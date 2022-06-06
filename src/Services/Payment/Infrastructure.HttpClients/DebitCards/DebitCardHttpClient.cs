@@ -10,11 +10,8 @@ public class DebitCardHttpClient : ApplicationHttpClient, IDebitCardHttpClient
 {
     private readonly DebitCardHttpClientOptions _options;
 
-    public DebitCardHttpClient(IOptionsMonitor<DebitCardHttpClientOptions> optionsMonitor, HttpClient client)
-        : base(client)
-    {
-        _options = optionsMonitor.CurrentValue;
-    }
+    public DebitCardHttpClient(IOptionsMonitor<DebitCardHttpClientOptions> optionsMonitor, HttpClient client) : base(client) 
+        => _options = optionsMonitor.CurrentValue;
 
     public Task<HttpResponse<DebitCardPaymentResult>> AuthorizeAsync(Requests.DebitCardAuthorizePayment request, CancellationToken cancellationToken)
         => PostAsync<Requests.DebitCardAuthorizePayment, DebitCardPaymentResult>(_options.AuthorizeEndpoint, request, cancellationToken);
