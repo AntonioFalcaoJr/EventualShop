@@ -22,33 +22,24 @@ public class PayPalPaymentService : PaymentService, IPayPalPaymentService
 
     public override async Task<IPaymentResult> AuthorizeAsync(PaymentMethod method, CancellationToken cancellationToken)
     {
-        Requests.PaypalAuthorizePayment request = new()
-        {
-            // TODO - Use method to hydrate  
-        };
-
+        // TODO - Use method to hydrate
+        Requests.PaypalAuthorizePayment request = new();
         var response = await _client.AuthorizeAsync(request, cancellationToken);
         return response.ActionResult;
     }
 
     public override async Task<IPaymentResult> CancelAsync(PaymentMethod method, CancellationToken cancellationToken)
     {
-        Requests.PaypalCancelPayment request = new()
-        {
-            // TODO - Use method to hydrate  
-        };
-
+        // TODO - Use method to hydrate
+        Requests.PaypalCancelPayment request = new();
         var response = await _client.CancelAsync(Guid.NewGuid(), request, cancellationToken);
         return response.ActionResult;
     }
 
     public override async Task<IPaymentResult> RefundAsync(PaymentMethod method, CancellationToken cancellationToken)
     {
-        Requests.PaypalRefundPayment request = new()
-        {
-            // TODO - Use method to hydrate  
-        };
-
+        // TODO - Use method to hydrate
+        Requests.PaypalRefundPayment request = new();
         var response = await _client.RefundAsync(Guid.NewGuid(), request, cancellationToken);
         return response.ActionResult;
     }

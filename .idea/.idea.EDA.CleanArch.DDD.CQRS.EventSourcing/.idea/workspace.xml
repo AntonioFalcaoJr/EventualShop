@@ -25,14 +25,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="Fixing dockerfiles">
+    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Account/Infrastructure.MessageBus/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.MessageBus/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Catalog/Infrastructure.MessageBus/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.MessageBus/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Identity/Infrastructure.MessageBus/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Order/Infrastructure.MessageBus/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Order/Infrastructure.MessageBus/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ShoppingCart/Infrastructure.MessageBus/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.MessageBus/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/Infrastructure.MessageBus/DependencyInjection/PipeFilters/ContractValidatorFilter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Contracts/Services/Identity/Validators/UserRegisteredValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Contracts/Services/Identity/Validators/UserRegisteredValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Application/Abstractions/Http/ApplicationHttpClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Application/Abstractions/Http/ApplicationHttpClient.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/CreditCards/CreditCardHttpClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/CreditCards/CreditCardHttpClient.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/CreditCards/CreditCardPaymentService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/CreditCards/CreditCardPaymentService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/DebitCards/DebitCardHttpClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/DebitCards/DebitCardHttpClient.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/DebitCards/DebitCardPaymentService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/DebitCards/DebitCardPaymentService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/PayPals/PayPalHttpClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/PayPals/PayPalHttpClient.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/PayPals/PayPalPaymentService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Payment/Infrastructure.HttpClients/PayPals/PayPalPaymentService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/Warehouse/Domain/Aggregates/Inventory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/Warehouse/Domain/Aggregates/Inventory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPI/ValidationAttributes/NotEmptyAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPI/ValidationAttributes/NotEmptyAttribute.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -350,21 +354,8 @@
       <workItem from="1654356923796" duration="1521000" />
       <workItem from="1654358490361" duration="4364000" />
       <workItem from="1654449325201" duration="45000" />
-      <workItem from="1654449685395" duration="843000" />
-    </task>
-    <task id="LOCAL-00156" summary="Upgrading SDK version">
-      <created>1652224555336</created>
-      <option name="number" value="00156" />
-      <option name="presentableId" value="LOCAL-00156" />
-      <option name="project" value="LOCAL" />
-      <updated>1652224555336</updated>
-    </task>
-    <task id="LOCAL-00157" summary="Enriching Catalog and Warehouse relationship capabilities, and adding NoContent Request-Reply return type.">
-      <created>1652389586390</created>
-      <option name="number" value="00157" />
-      <option name="presentableId" value="LOCAL-00157" />
-      <option name="project" value="LOCAL" />
-      <updated>1652389586391</updated>
+      <workItem from="1654449685395" duration="1144000" />
+      <workItem from="1654514219138" duration="1641000" />
     </task>
     <task id="LOCAL-00158" summary="Adding Temporal Coupling topic">
       <created>1652391587551</created>
@@ -695,7 +686,21 @@
       <option name="project" value="LOCAL" />
       <updated>1654361350365</updated>
     </task>
-    <option name="localTasksCounter" value="205" />
+    <task id="LOCAL-00205" summary="Fixing queue">
+      <created>1654450558063</created>
+      <option name="number" value="00205" />
+      <option name="presentableId" value="LOCAL-00205" />
+      <option name="project" value="LOCAL" />
+      <updated>1654450558063</updated>
+    </task>
+    <task id="LOCAL-00206" summary="Adjusting construcutor">
+      <created>1654450712214</created>
+      <option name="number" value="00206" />
+      <option name="presentableId" value="LOCAL-00206" />
+      <option name="project" value="LOCAL" />
+      <updated>1654450712214</updated>
+    </task>
+    <option name="localTasksCounter" value="207" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -731,8 +736,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="improving CartItem" />
-    <MESSAGE value="Adding itemStatus" />
     <MESSAGE value="Simplifying relationship" />
     <MESSAGE value="Adding Markup" />
     <MESSAGE value="Adding confirmation use case" />
@@ -756,7 +759,9 @@
     <MESSAGE value="Moving contracts path" />
     <MESSAGE value="Moving all projects to new design adjusts" />
     <MESSAGE value="Fixing dockerfiles" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixing dockerfiles" />
+    <MESSAGE value="Fixing queue" />
+    <MESSAGE value="Adjusting construcutor" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adjusting construcutor" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
