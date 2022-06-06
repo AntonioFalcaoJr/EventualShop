@@ -2,10 +2,4 @@
 
 namespace Contracts.Services.Identity.Validators;
 
-public class UserRegisteredValidator : AbstractValidator<DomainEvent.UserRegistered>
-{
-    public UserRegisteredValidator()
-    {
-
-    }
-}
+public class UserRegisteredValidator : AbstractValidator<DomainEvent.UserRegistered> { }
