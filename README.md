@@ -13,7 +13,7 @@ the **CQRS** pattern, in a **Clean Architecture**.
 > State transitions are an important part of our problem space and should be modelled within our domain.   
 > -- <cite> Greg Young </cite>
 
-### Give a Star! :star
+### Give a Star! :star:
 
 If this project helped you in some way, please **give it a star**. Thanks!
 
