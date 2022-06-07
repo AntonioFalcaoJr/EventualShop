@@ -1,12 +1,12 @@
 ﻿using System.Reflection;
 using Application.Abstractions.Notifications;
-using Contracts.Abstractions;
+using Contracts.Abstractions.Messages;
 using Contracts.JsonConverters;
 using FluentValidation;
 using Infrastructure.MessageBus.DependencyInjection.Options;
-using Infrastructure.MessageBus.DependencyInjection.PipeFilters;
-using Infrastructure.MessageBus.DependencyInjection.PipeObservers;
 using Infrastructure.MessageBus.Notifications;
+using Infrastructure.MessageBus.PipeFilters;
+using Infrastructure.MessageBus.PipeObservers;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

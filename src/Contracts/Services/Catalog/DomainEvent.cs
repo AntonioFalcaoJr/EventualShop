@@ -1,4 +1,4 @@
-using Contracts.Abstractions;
+using Contracts.Abstractions.Messages;
 using Contracts.DataTransferObjects;
 
 namespace Contracts.Services.Catalog;
