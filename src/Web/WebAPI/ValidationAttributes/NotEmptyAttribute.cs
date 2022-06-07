@@ -11,9 +11,5 @@ public class NotEmptyAttribute : ValidationAttribute
         : base(DefaultErrorMessage) { }
 
     public override bool IsValid(object value)
-        => value is null || value switch
-        {
-            Guid guid => guid != Guid.Empty,
-            _ => true
-        };
+        => value is Guid guid && guid != Guid.Empty;
 }

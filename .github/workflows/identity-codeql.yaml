@@ -1,0 +1,15 @@
+name: Identity CodeQL
+
+on:
+  push:
+    paths:
+      - src/Services/Identity/**.cs
+      - src/Services/Identity/**.csproj
+      - Directory.Build.props
+      - .github/workflows/**
+
+jobs:
+  identity-codeql:
+    uses: ./.github/workflows/codeql.yaml
+    with:
+      path: ./src/Services/Identity

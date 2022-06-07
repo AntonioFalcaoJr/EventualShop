@@ -10,12 +10,12 @@ COPY ./Directory.Build.props ./
 WORKDIR /src
 
 COPY ./src/Web/WebAPP/*.csproj ./Web/WebAPP/
-COPY ./src/Contracts/Contracts/*.csproj ./Contracts/Contracts/
+COPY ./src/Contracts/*.csproj ./Contracts/
 
 RUN dotnet restore -v m ./Web/WebAPP
 
 COPY ./src/Web/WebAPP/. ./Web/WebAPP/
-COPY ./src/Contracts/Contracts/. ./Contracts/Contracts/
+COPY ./src/Contracts/. ./Contracts/
 
 WORKDIR /src/Web/WebAPP
 RUN dotnet build -c Release --no-restore -v m -o /app/build

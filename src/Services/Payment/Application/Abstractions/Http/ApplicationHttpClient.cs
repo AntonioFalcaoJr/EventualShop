@@ -6,10 +6,8 @@ public abstract class ApplicationHttpClient
 {
     private readonly HttpClient _client;
 
-    protected ApplicationHttpClient(HttpClient client)
-    {
-        _client = client;
-    }
+    protected ApplicationHttpClient(HttpClient client) 
+        => _client = client;
 
     protected Task<HttpResponse<TResponse>> GetAsync<TResponse>(string endpoint, CancellationToken cancellationToken)
         where TResponse : new()

@@ -1,7 +1,7 @@
 using Application.Abstractions.EventStore;
-using Application.Abstractions.EventStore.Events;
 using Contracts.Abstractions;
 using Domain.Abstractions.Aggregates;
+using Domain.Abstractions.StoreEvents;
 using Infrastructure.EventStore.Contexts;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,11 +24,11 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
         _snapshots = dbContext.Set<TSnapshot>();
     }
 
-    public async Task<long> AppendEventsAsync(TStoreEvent storeEvent, CancellationToken ct)
+    public async Task<long> AppendEventsAsync(TStoreEvent @event, CancellationToken ct)
     {
-        await _storeEvents.AddAsync(storeEvent, ct);
+        await _storeEvents.AddAsync(@event, ct);
         await _dbContext.SaveChangesAsync(ct);
-        return storeEvent.Version;
+        return @event.Version;
     }
 
     public async Task AppendSnapshotAsync(TSnapshot snapshot, CancellationToken ct)
@@ -40,9 +40,9 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
     public async Task<IEnumerable<IEvent>> GetStreamAsync(TId aggregateId, long version, CancellationToken ct)
         => await _storeEvents
             .AsNoTracking()
-            .Where(storeEvent => storeEvent.AggregateId.Equals(aggregateId))
-            .Where(storeEvent => storeEvent.Version > version)
-            .Select(storeEvent => storeEvent.Event)
+            .Where(@event => @event.AggregateId.Equals(aggregateId))
+            .Where(@event => @event.Version > version)
+            .Select(@event => @event.DomainEvent)
             .ToListAsync(ct);
 
     public async Task<TSnapshot> GetSnapshotAsync(TId aggregateId, CancellationToken ct)
