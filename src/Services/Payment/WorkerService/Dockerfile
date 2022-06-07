@@ -23,7 +23,7 @@ COPY ./src/Services/Payment/Infrastructure.HttpClients/*.csproj ./Services/Payme
 COPY ./src/Services/Payment/Infrastructure.MessageBus/*.csproj ./Services/Payment/Infrastructure.MessageBus/
 COPY ./src/Services/Payment/Infrastructure.Projections/*.csproj ./Services/Payment/Infrastructure.Projections/
 COPY ./src/Services/Payment/WorkerService/*.csproj ./Services/Payment/WorkerService/
-COPY ./src/Contracts/Contracts/*.csproj ./Contracts/Contracts/
+COPY ./src/Contracts/*.csproj ./Contracts/
 
 RUN dotnet restore -v m ./Services/Payment/WorkerService
 
@@ -34,7 +34,7 @@ COPY ./src/Services/Payment/Infrastructure.HttpClients/. ./Services/Payment/Infr
 COPY ./src/Services/Payment/Infrastructure.MessageBus/. ./Services/Payment/Infrastructure.MessageBus/
 COPY ./src/Services/Payment/Infrastructure.Projections/. ./Services/Payment/Infrastructure.Projections/
 COPY ./src/Services/Payment/WorkerService/. ./Services/Payment/WorkerService/
-COPY ./src/Contracts/Contracts/. ./Contracts/Contracts/
+COPY ./src/Contracts/. ./Contracts/
 
 WORKDIR /src/Services/Payment/WorkerService
 

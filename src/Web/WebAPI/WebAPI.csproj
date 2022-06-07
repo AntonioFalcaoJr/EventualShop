@@ -18,6 +18,6 @@
         <InternalsVisibleTo Include="$(AssemblyName).IntegrationTests" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\Contracts\Contracts\Contracts.csproj" />
+        <ProjectReference Include="..\..\Contracts\Contracts.csproj" />
     </ItemGroup>
 </Project>

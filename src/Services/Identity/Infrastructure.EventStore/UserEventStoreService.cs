@@ -1,6 +1,6 @@
 using Application.Abstractions.Notifications;
 using Application.EventStore;
-using Application.EventStore.Events;
+using Domain;
 using Domain.Aggregates;
 using Infrastructure.EventStore.Abstractions;
 using Infrastructure.EventStore.DependencyInjection.Options;
@@ -9,7 +9,7 @@ using Microsoft.Extensions.Options;
 
 namespace Infrastructure.EventStore;
 
-public class UserEventStoreService : EventStoreService<User, UserStoreEvent, UserSnapshot, Guid>, IUserEventStoreService
+public class UserEventStoreService : EventStoreService<User, StoreEvents.Event, StoreEvents.Snapshot, Guid>, IUserEventStoreService
 {
     public UserEventStoreService(IPublishEndpoint publishEndpoint, IUserEventStoreRepository repository, INotificationContext notificationContext, IOptionsMonitor<EventStoreOptions> optionsMonitor)
         : base(publishEndpoint, repository, notificationContext, optionsMonitor) { }

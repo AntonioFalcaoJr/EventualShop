@@ -10,10 +10,8 @@ public class BusinessValidatorFilter<T> : IFilter<ConsumeContext<T>>
 {
     private readonly INotificationContext _notificationContext;
 
-    public BusinessValidatorFilter(INotificationContext notificationContext)
-    {
-        _notificationContext = notificationContext;
-    }
+    public BusinessValidatorFilter(INotificationContext notificationContext) 
+        => _notificationContext = notificationContext;
 
     public async Task Send(ConsumeContext<T> context, IPipe<ConsumeContext<T>> next)
     {
