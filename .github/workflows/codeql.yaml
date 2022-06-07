@@ -43,4 +43,4 @@ jobs:
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
         with:
-          checkout-path: ${{ inputs.path }}
+          checkout_path: ${{ inputs.path }}
