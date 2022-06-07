@@ -34,7 +34,7 @@ builder.Services.AddECommerceHttpClient();
 builder.Services.AddBlazorStrap();
 
 builder.Services.AddScoped<CatalogCardViewModel>();
-builder.Services.AddTransient<CatalogCanvasViewModel>();
+builder.Services.AddScoped<CatalogCanvasViewModel>();
 builder.Services.AddScoped<CatalogItemViewModel>();
 builder.Services.AddScoped<CatalogGridViewModel>();
 

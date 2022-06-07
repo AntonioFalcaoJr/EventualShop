@@ -1,10 +1,11 @@
-﻿using Contracts.Services.Catalog;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
+using WebAPP.Abstractions.ViewModels;
 using WebAPP.HttpClients;
+using WebAPP.Models;
 
 namespace WebAPP.ViewModels;
 
-public class CatalogCardViewModel
+public class CatalogCardViewModel : ViewModel
 {
     private readonly ICatalogHttpClient _httpClient;
 
@@ -15,40 +16,23 @@ public class CatalogCardViewModel
         _httpClient = httpClient;
     }
 
-    public Guid Id { get; set; }
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public bool IsActive { get; set; }
-    public bool IsDeleted { get; set; }
+    private CatalogModel _catalog = new();
 
+    public CatalogModel Catalog
+    {
+        get => _catalog;
+        private set => SetField(ref _catalog, value);
+    }
 
     public async Task ChangeTitleAsync(CancellationToken ct)
-        => await _httpClient.ChangeTitleAsync(Id, Title, ct);
+        => await _httpClient.ChangeTitleAsync(Catalog.Id, Catalog.Title, ct);
 
     public async Task ChangeDescriptionAsync(CancellationToken ct)
-        => await _httpClient.ChangeDescriptionAsync(Id, Description, ct);
+        => await _httpClient.ChangeDescriptionAsync(Catalog.Id, Catalog.Description, ct);
 
     public async Task DeleteAsync(EventCallback<Guid> callback, CancellationToken ct)
     {
-        var response = await _httpClient.DeleteAsync(Id, ct);
-        if (response.Success) await callback.InvokeAsync(Id);
+        var response = await _httpClient.DeleteAsync(Catalog.Id, ct);
+        if (response.Success) await callback.InvokeAsync(Catalog.Id);
     }
-
-    public static implicit operator CatalogCardViewModel(Projection.Catalog catalog)
-        => new()
-        {
-            Description = catalog.Description,
-            Id = catalog.Id,
-            Title = catalog.Title,
-            IsActive = catalog.IsActive,
-            IsDeleted = catalog.IsDeleted
-        };
-
-    public static implicit operator CatalogCardViewModel(Request.CreateCatalog request)
-        => new()
-        {
-            Description = request.Description,
-            Id = request.CatalogId,
-            Title = request.Title
-        };
 }

@@ -29,7 +29,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="merging" />
+    <list default="true" id="f7600a56-bdb1-40cc-9a3e-834f17b67514" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Web/WebAPP/Abstractions/ViewModels/ViewModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Web/WebAPP/Models/CatalogModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Pages/CatalogCanvas.razor" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/Pages/CatalogCanvas.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Pages/CatalogCard.razor" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/Pages/CatalogCard.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Pages/CatalogGrid.razor" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/Pages/CatalogGrid.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogCanvasViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogCanvasViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogCardViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogCardViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogGridViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Web/WebAPP/ViewModels/CatalogGridViewModel.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

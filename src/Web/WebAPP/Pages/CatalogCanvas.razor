@@ -1,5 +1,6 @@
 ﻿@using WebAPP.ViewModels
 @using Contracts.Services.Catalog
+@using System.ComponentModel
 @inject CatalogCanvasViewModel ViewModel
 
 <BSOffCanvas @ref="_offCanvas" Placement="Placement.Right">
@@ -7,9 +8,9 @@
     <Content >
         <div class="d-grid gap-2">
             <BSLabel>Title</BSLabel>
-            <BSInput InputType="InputType.Text" placeholder="Title" @bind-Value="ViewModel.Title" IsDisabled="_creating"/>
+            <BSInput InputType="InputType.Text" placeholder="Title" @bind-Value="ViewModel.Catalog.Title" IsDisabled="_creating"/>
             <BSLabel>Description</BSLabel>
-            <BSInput InputType="InputType.TextArea" placeholder="Description" @bind-Value="ViewModel.Description" IsDisabled="_creating"/>
+            <BSInput InputType="InputType.TextArea" placeholder="Description" @bind-Value="ViewModel.Catalog.Description" IsDisabled="_creating"/>
             <BSButton MarginTop="Margins.Large" Color="BSColor.Dark" OnClick="CreateAsync" IsDisabled="_creating">
                 @if (_creating)
                 {
@@ -25,6 +26,12 @@
 </BSOffCanvas>
 
 @code {
+
+    protected override async Task OnInitializedAsync()
+    {
+        ViewModel.PropertyChanged += async (_, _) => { await InvokeAsync(StateHasChanged); };
+        await base.OnInitializedAsync();
+    }
 
     private readonly CancellationTokenSource _cancellationTokenSource = new();
 
@@ -42,13 +49,19 @@
         _creating = false;
     }
 
-    public Task ShowAsync() 
+    public Task ShowAsync()
         => _offCanvas.ShowAsync();
 
-    public Task HideAsync() 
+    public Task HideAsync()
         => _offCanvas.HideAsync();
 
-    private void Dispose() 
-        => _cancellationTokenSource.Cancel();
+    async void OnPropertyChangedHandler(object sender, PropertyChangedEventArgs e) 
+        => await InvokeAsync(StateHasChanged);
+
+    public void Dispose()
+    {
+        _cancellationTokenSource.Cancel();
+        ViewModel.PropertyChanged -= OnPropertyChangedHandler;
+    }
 
 }

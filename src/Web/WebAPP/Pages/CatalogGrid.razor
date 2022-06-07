@@ -1,6 +1,8 @@
 ﻿@using WebAPP.ViewModels
 @using Contracts.Services.Catalog
 @using Contracts.Abstractions.Paging
+@using WebAPP.Models
+@using System.ComponentModel
 
 @inject CatalogGridViewModel ViewModel
 
@@ -24,13 +26,17 @@
 
 
 @code {
-
+    
     private readonly CancellationTokenSource _cancellationTokenSource = new();
 
     protected override async Task OnInitializedAsync()
-        => await ViewModel.FetchDataAsync(_cancellationTokenSource.Token);
+    {
+        await ViewModel.FetchDataAsync(_cancellationTokenSource.Token);
+        ViewModel.PropertyChanged += async (_, _) => { await InvokeAsync(StateHasChanged); };
+        await base.OnInitializedAsync();
+    }
 
-    public void Add(CatalogCardViewModel card)
+    public void Add(CatalogModel card)
     {
         ViewModel.Add(card);
         StateHasChanged();
@@ -48,7 +54,13 @@
     private async Task MoveToPreviewAsync()
         => await ViewModel.MoveToPreviewAsync(_cancellationTokenSource.Token);
 
-    private void Dispose()
-        => _cancellationTokenSource.Cancel();
+    async void OnPropertyChangedHandler(object sender, PropertyChangedEventArgs e) 
+        => await InvokeAsync(StateHasChanged);
 
+    public void Dispose()
+    {
+        _cancellationTokenSource.Cancel();
+        ViewModel.PropertyChanged -= OnPropertyChangedHandler;
+    }
+    
 }

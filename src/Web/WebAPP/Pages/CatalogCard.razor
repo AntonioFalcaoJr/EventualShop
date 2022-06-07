@@ -4,27 +4,27 @@
     <BSCard CardType="CardType.Header">
         @if (_isEditingTitle)
         {
-            <BSInput InputType="InputType.Text" @bind-Value="@ViewModel.Title"/>
+            <BSInput InputType="InputType.Text" @bind-Value="@ViewModel.Catalog.Title"/>
             <BSButton Class="bi bi-pencil-square" Color="BSColor.Warning" OnClick=@(async () => {ToggleTitle(); await ChangeTitleAsync(); })></BSButton>
         }
         else
         {
-            @ViewModel.Title
+            @ViewModel.Catalog.Title
             <BSButton Class="bi bi-pencil-square" Color="BSColor.Warning" OnClick=@(ToggleTitle)></BSButton>
         }
     </BSCard>
     <BSCard CardType="CardType.Image" src="placeholder:286x180"/>
     <BSCard CardType="CardType.Body">
-        <BSCard CardType="CardType.Title">@ViewModel.Title</BSCard>
+        <BSCard CardType="CardType.Title">@ViewModel.Catalog.Title</BSCard>
         <BSCard CardType="CardType.Subtitle">
             @if (_isEditingDescription)
             {
-                <BSInput InputType="InputType.Text" @bind-Value="@ViewModel.Description"/>
+                <BSInput InputType="InputType.Text" @bind-Value="@ViewModel.Catalog.Description"/>
                 <BSButton Class="bi bi-pencil-square" Color="BSColor.Warning" OnClick=@(async () => {ToggleDescription(); await ChangeDescriptionAsync(); })></BSButton>
             }
             else
             {
-                @ViewModel.Description
+                @ViewModel.Catalog.Description
                 <BSButton Class="bi bi-pencil-square" Color="BSColor.Warning" OnClick=@(ToggleDescription)></BSButton>
             }
         </BSCard>
