@@ -1,4 +1,5 @@
 using Contracts.Abstractions;
+using Contracts.Abstractions.Messages;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 

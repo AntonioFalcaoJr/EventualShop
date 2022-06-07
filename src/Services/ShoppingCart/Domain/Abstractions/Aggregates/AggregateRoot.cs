@@ -1,4 +1,4 @@
-﻿using Contracts.Abstractions;
+﻿using Contracts.Abstractions.Messages;
 using Domain.Abstractions.Entities;
 using FluentValidation;
 using Newtonsoft.Json;
