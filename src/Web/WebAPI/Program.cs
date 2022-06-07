@@ -11,8 +11,8 @@ using Serilog;
 using WebAPI;
 using WebAPI.DependencyInjection.Extensions;
 using WebAPI.DependencyInjection.Options;
-using WebAPI.DependencyInjection.ParameterTransformers;
 using WebAPI.Extensions;
+using WebAPI.ParameterTransformers;
 
 var builder = WebApplication.CreateBuilder(args);
 

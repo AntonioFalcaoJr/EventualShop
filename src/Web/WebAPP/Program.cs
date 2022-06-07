@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Serilog;
 using WebAPP;
 using WebAPP.DependencyInjection;
+using WebAPP.DependencyInjection.Extensions;
 using WebAPP.DependencyInjection.Options;
 using WebAPP.ViewModels;
 
