@@ -1,4 +1,4 @@
-﻿using Contracts.Abstractions;
+﻿using Contracts.Abstractions.Validations;
 using FluentValidation;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;

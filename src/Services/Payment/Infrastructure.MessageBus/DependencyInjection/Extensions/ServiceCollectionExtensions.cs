@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using Application.Abstractions.Notifications;
-using Contracts.Abstractions;
+using Contracts.Abstractions.Messages;
 using Contracts.JsonConverters;
 using FluentValidation;
 using Infrastructure.MessageBus.DependencyInjection.Options;

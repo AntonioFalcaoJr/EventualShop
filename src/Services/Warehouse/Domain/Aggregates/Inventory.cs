@@ -1,5 +1,5 @@
 ﻿using Domain.Abstractions.Aggregates;
-using Contracts.Abstractions;
+using Contracts.Abstractions.Messages;
 using Contracts.Services.Warehouse;
 using Domain.Entities.Adjustments;
 using Domain.Entities.InventoryItems;
