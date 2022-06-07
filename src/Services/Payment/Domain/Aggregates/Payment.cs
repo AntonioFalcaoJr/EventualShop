@@ -25,13 +25,7 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
         => _paymentMethods;
 
     public void Handle(Command.RequestPayment cmd)
-        => RaiseEvent(new DomainEvent.PaymentRequested(
-            Guid.NewGuid(),
-            cmd.OrderId,
-            cmd.AmountDue,
-            cmd.BillingAddress,
-            cmd.PaymentMethods,
-            PaymentStatus.Ready));
+        => RaiseEvent(new DomainEvent.PaymentRequested(Guid.NewGuid(), cmd.OrderId, cmd.AmountDue, cmd.BillingAddress, cmd.PaymentMethods, PaymentStatus.Ready));
 
     public void Handle(Command.ProceedWithPayment cmd)
         => RaiseEvent(AmountDue is 0
@@ -41,10 +35,11 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
     public void Handle(Command.CancelPayment cmd)
         => RaiseEvent(new DomainEvent.PaymentCanceled(cmd.PaymentId, cmd.OrderId));
 
-    public void Handle(Command.UpdatePaymentMethod cmd)
-        => RaiseEvent(cmd.Authorized
-            ? new DomainEvent.PaymentMethodAuthorized(cmd.PaymentId, cmd.PaymentMethodId, cmd.TransactionId)
-            : new DomainEvent.PaymentMethodDenied(cmd.PaymentId, cmd.PaymentMethodId));
+    public void Handle(Command.AuthorizePaymentMethod cmd)
+        => RaiseEvent(new DomainEvent.PaymentMethodAuthorized(cmd.PaymentId, cmd.PaymentMethodId, cmd.TransactionId));
+    
+    public void Handle(Command.DenyPaymentMethod cmd)
+        => RaiseEvent(new DomainEvent.PaymentMethodDenied(cmd.PaymentId, cmd.PaymentMethodId));
 
     protected override void ApplyEvent(IEvent @event)
         => When(@event as dynamic);

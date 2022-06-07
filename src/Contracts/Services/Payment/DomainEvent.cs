@@ -9,11 +9,19 @@ public static class DomainEvent
 
     public record PaymentCanceled(Guid PaymentId, Guid OrderId) : Message(CorrelationId: PaymentId), IEvent;
 
+    public record PaymentCompleted(Guid PaymentId, Guid OrderId) : Message(CorrelationId: PaymentId), IEvent;
+
+    public record PaymentNotCompleted(Guid PaymentId, Guid OrderId) : Message(CorrelationId: PaymentId), IEvent;
+
     public record PaymentMethodAuthorized(Guid PaymentId, Guid PaymentMethodId, Guid TransactionId) : Message(CorrelationId: PaymentId), IEvent;
 
     public record PaymentMethodDenied(Guid PaymentId, Guid PaymentMethodId) : Message(CorrelationId: PaymentId), IEvent;
 
-    public record PaymentCompleted(Guid PaymentId, Guid OrderId) : Message(CorrelationId: PaymentId), IEvent;
+    public record PaymentMethodRefunded(Guid PaymentId, Guid PaymentMethodId) : Message(CorrelationId: PaymentId), IEvent;
 
-    public record PaymentNotCompleted(Guid PaymentId, Guid OrderId) : Message(CorrelationId: PaymentId), IEvent;
+    public record PaymentMethodRefundDenied(Guid PaymentId, Guid PaymentMethodId) : Message(CorrelationId: PaymentId), IEvent;
+
+    public record PaymentMethodCancellationDenied(Guid PaymentId, Guid PaymentMethodId) : Message(CorrelationId: PaymentId), IEvent;
+
+    public record PaymentMethodCanceled(Guid PaymentId, Guid PaymentMethodId) : Message(CorrelationId: PaymentId), IEvent;
 }

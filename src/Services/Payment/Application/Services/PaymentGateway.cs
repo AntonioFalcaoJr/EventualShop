@@ -31,11 +31,9 @@ public class PaymentGateway : IPaymentGateway
 
             var paymentResult = await _paymentService.HandleAsync((srv, mtd, ct) => srv.AuthorizeAsync(mtd, ct), method, cancellationToken);
 
-            payment.Handle(new Command.UpdatePaymentMethod(
-                payment.Id,
-                method.Id,
-                paymentResult.TransactionId,
-                /* TODO - paymentResult.Success */ true));
+            payment.Handle(paymentResult.Success
+                ? new Command.AuthorizePaymentMethod(payment.Id, method.Id, paymentResult.TransactionId)
+                : new Command.DenyPaymentMethod(payment.Id, method.Id, paymentResult.TransactionId) as dynamic);
         }
     }
 
@@ -46,12 +44,10 @@ public class PaymentGateway : IPaymentGateway
             if (payment.AmountDue <= 0) break;
 
             var paymentResult = await _paymentService.HandleAsync((srv, mtd, ct) => srv.CancelAsync(mtd, ct), method, cancellationToken);
-
-            payment.Handle(new Command.UpdatePaymentMethod(
-                payment.Id,
-                method.Id,
-                paymentResult.TransactionId,
-                /* TODO - paymentResult.Success */ true));
+            
+            payment.Handle(paymentResult.Success
+                ? new Command.CancelPaymentMethod(payment.Id, method.Id, paymentResult.TransactionId)
+                : new Command.DenyCancelPaymentMethod(payment.Id, method.Id, paymentResult.TransactionId) as dynamic);
         }
     }
 
@@ -63,11 +59,9 @@ public class PaymentGateway : IPaymentGateway
 
             var paymentResult = await _paymentService.HandleAsync((srv, mtd, ct) => srv.RefundAsync(mtd, ct), method, cancellationToken);
 
-            payment.Handle(new Command.UpdatePaymentMethod(
-                payment.Id,
-                method.Id,
-                paymentResult.TransactionId,
-                /* TODO - paymentResult.Success */ true));
+            payment.Handle(paymentResult.Success
+                ? new Command.RefundPaymentMethod(payment.Id, method.Id, paymentResult.TransactionId)
+                : new Command.DenyRefundPaymentMethod(payment.Id, method.Id, paymentResult.TransactionId) as dynamic);
         }
     }
 }
