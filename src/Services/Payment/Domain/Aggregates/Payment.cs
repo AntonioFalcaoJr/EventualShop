@@ -2,7 +2,7 @@
 using Domain.Entities.PaymentMethods;
 using Domain.Enumerations;
 using Domain.ValueObjects.Addresses;
-using Contracts.Abstractions;
+using Contracts.Abstractions.Messages;
 using Contracts.Services.Payment;
 
 namespace Domain.Aggregates;

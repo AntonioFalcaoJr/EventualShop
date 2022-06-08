@@ -1,4 +1,5 @@
 using Contracts.Abstractions;
+using Contracts.Abstractions.Messages;
 using Contracts.Abstractions.Paging;
 using MassTransit;
 using Microsoft.AspNetCore.Http.HttpResults;

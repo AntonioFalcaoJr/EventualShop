@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions.EventStore;
-using Contracts.Abstractions;
+using Contracts.Abstractions.Messages;
 using Domain.Abstractions.Aggregates;
 using Domain.Abstractions.StoreEvents;
 using Infrastructure.EventStore.Contexts;

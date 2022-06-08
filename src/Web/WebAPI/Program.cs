@@ -1,5 +1,5 @@
 using System.Reflection;
-using Contracts.Abstractions;
+using Contracts.Abstractions.Messages;
 using Contracts.JsonConverters;
 using FluentValidation.AspNetCore;
 using MassTransit;
@@ -11,8 +11,8 @@ using Serilog;
 using WebAPI;
 using WebAPI.DependencyInjection.Extensions;
 using WebAPI.DependencyInjection.Options;
-using WebAPI.DependencyInjection.ParameterTransformers;
 using WebAPI.Extensions;
+using WebAPI.ParameterTransformers;
 
 var builder = WebApplication.CreateBuilder(args);
 
