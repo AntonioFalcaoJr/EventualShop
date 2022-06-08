@@ -1,5 +1,5 @@
 ﻿using Domain.Abstractions.Entities;
-using Contracts.Abstractions;
+using Contracts.Abstractions.Messages;
 
 namespace Domain.Abstractions.Aggregates;
 

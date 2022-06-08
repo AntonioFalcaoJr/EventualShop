@@ -3,7 +3,7 @@ using MassTransit;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using WebAPI.DependencyInjection.Options;
-using WebAPI.DependencyInjection.PipeObservers;
+using WebAPI.PipeObservers;
 
 namespace WebAPI.DependencyInjection.Extensions;
 

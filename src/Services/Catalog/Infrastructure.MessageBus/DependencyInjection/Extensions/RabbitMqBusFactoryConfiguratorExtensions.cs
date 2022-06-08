@@ -1,5 +1,5 @@
 ﻿using Application.UseCases.Events;
-using Contracts.Abstractions;
+using Contracts.Abstractions.Messages;
 using Contracts.Services.Catalog;
 using MassTransit;
 

@@ -1,4 +1,4 @@
-﻿using Contracts.Abstractions;
+﻿using Contracts.Abstractions.Messages;
 using Contracts.JsonConverters;
 using JsonNet.ContractResolvers;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
