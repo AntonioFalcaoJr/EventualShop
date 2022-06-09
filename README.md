@@ -57,20 +57,6 @@ If this project helped you in some way, please **give it a star**. Thanks!
 ![](./.assets/img/solution_architecture.png)    
 Fig. 1: Falcão Jr., Antônio. _An EDA solution architecture_.
 
-## Messaging - Making good use of Context Mapping
-
-![](./.assets/img/messaging_context_mapping.png)    
-Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed, p65.
-
-> When using asynchronous messaging to integrate, much can be accomplished by a client Bounded Context subscribing to the Domain Events published by your own or another Bounded Context. Using
-> messaging is one of the most robust forms of integration because you remove much of the temporal coupling associated with blocking forms such as RPC and REST. Since you already anticipate the
-> latency of message exchange, you tend to build more robust systems because you never expect immediate results.
->
-> Typically an Aggregate in one Bounded Context publishes a Domain Event, which could be consumed by any number of interested parties. When a subscribing Bounded Context receives the Domain Event,
-> some action will be taken based on its type and value. Normally it will cause a new Aggregate to be created or an existing Aggregate to be modified in the consuming Bounded Context.
->
-> Vernon, V. (2016) Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional, p65-67.
-
 ## Reactive Domain Driven Design
 
 > I have been seeing, at least in my world, a trend towards reactive systems. Not just reactive within a microservice, but building entire systems that are reactive. In DDD, reactive behavior is also
@@ -82,7 +68,7 @@ Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed
 ![](./.assets/img/reactive-system.jpg)  
 [Fig. 3: Vernon, V. (2018), "Modeling Uncertainty with Reactive DDD", _Reactive Systems_, www.infoq.com](https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/)
 
-## Reactive Process
+### Reactive Process
 
 > Each domain entity is responsible for tracking its state, based on the commands it receives. By following good DDD practices, the state can be safely tracked based on these commands, and using event
 > sourcing to persist the state change events.
@@ -99,12 +85,20 @@ Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed
 ![](./.assets/img/reactive_process.jpg)     
 [Fig. 4: Vernon, V. (2018), "Modeling Uncertainty with Reactive DDD", _Process Manager_, www.infoq.com](https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/)
 
-## Temporal Coupling and Autonomous Decisions
+### Messaging - Making good use of Context Mapping
 
-> Temporal coupling is where you have a dependency on time where one service or one component cannot complete its operation until the other party is done with work. In order to get rid of this
-> temporal coupling, what you can do is you can use events.
+![](./.assets/img/messaging_context_mapping.png)    
+Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed, p65.
+
+> When using asynchronous messaging to integrate, much can be accomplished by a client Bounded Context subscribing to the Domain Events published by your own or another Bounded Context. Using
+> messaging is one of the most robust forms of integration because you remove much of the temporal coupling associated with blocking forms such as RPC and REST. Since you already anticipate the
+> latency of message exchange, you tend to build more robust systems because you never expect immediate results.
 >
-> [Alagarsamy, Indu. "Practical DDD: Bounded Contexts + Events => Microservices", _www.infoq.com_, last edited on 03 Set 2019](https://www.infoq.com/presentations/microservices-ddd-bounded-contexts)
+> Typically an Aggregate in one Bounded Context publishes a Domain Event, which could be consumed by any number of interested parties. When a subscribing Bounded Context receives the Domain Event,
+> some action will be taken based on its type and value. Normally it will cause a new Aggregate to be created or an existing Aggregate to be modified in the consuming Bounded Context.
+>
+> Vernon, V. (2016) Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional, p65-67.
+> 
 
 ## Event-driven architecture (EDA)
 
@@ -121,13 +115,6 @@ Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed
 ![](./.assets/img/eda.png)  
 [Fig. 5: Uit de Bos, Oskar. _A simple illustration of events using the publish/subscribe messagingmodel_](https://medium.com/swlh/the-engineers-guide-to-event-driven-architectures-benefits-and-challenges-3e96ded8568b)
 
-## Microservices
-
-> The term "Microservice Architecture" has sprung up over the last few years to describe a particular way of designing software applications as suites of independently deployable services. While there
-> is no precise definition of this architectural style, there are certain common characteristics around organization around business capability, automated deployment, intelligence in the endpoints,
-> and decentralized control of languages and data.
->
-> [Fowler, Martin. "Microservices", _martinfowler.com_, last edited on 25 Mar 2014](https://martinfowler.com/articles/microservices.html)
 
 ### EDA & Microservices Architecture
 
@@ -169,10 +156,20 @@ According to Mathew, here are some reasons why the EDA patterns can alleviate so
 
 [Table 2: Mathew, Jerry. _SOA vs. EDA: Is Not Life Simply a Series of Events?_](https://www.confluent.io/blog/soa-vs-eda-is-not-life-simply-a-series-of-events)
 
-## Command's pipeline
+### Microservices
 
-![](./.assets/img/add-ha-message-queue.png)     
-[Fig. 6: MSDN. _Use message queues (out-of-proc) in the command's pipeline_](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/microservice-application-layer-implementation-web-api#use-message-queues-out-of-proc-in-the-commands-pipeline)
+> The term "Microservice Architecture" has sprung up over the last few years to describe a particular way of designing software applications as suites of independently deployable services. While there
+> is no precise definition of this architectural style, there are certain common characteristics around organization around business capability, automated deployment, intelligence in the endpoints,
+> and decentralized control of languages and data.
+>
+> [Fowler, Martin. "Microservices", _martinfowler.com_, last edited on 25 Mar 2014](https://martinfowler.com/articles/microservices.html)
+
+#### Temporal Coupling and Autonomous Decisions
+
+> Temporal coupling is where you have a dependency on time where one service or one component cannot complete its operation until the other party is done with work. In order to get rid of this
+> temporal coupling, what you can do is you can use events.
+>
+> [Alagarsamy, Indu. "Practical DDD: Bounded Contexts + Events => Microservices", _www.infoq.com_, last edited on 03 Set 2019](https://www.infoq.com/presentations/microservices-ddd-bounded-contexts)
 
 ### Broker Topology
 
@@ -188,7 +185,7 @@ According to Mathew, here are some reasons why the EDA patterns can alleviate so
 ![](./.assets/img/broker_topology_eda.png)      
 [Fig. 7: Richards, Mark. "Broker Topology." _Software Architecture Patterns by Mark Richards_, O'Reilly](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch02.html)
 
-### Choreography-based SAGA
+#### Choreography-based SAGA
 
 > In a choreography-based saga, the saga participants collaborate by exchanging events. Each step of a choreography-based saga updates the database (e.g. an aggregate) and publishes a domain event.
 > The first step of a saga is initiated by a command that’s invoked by an external request, such an HTTP POST. Each subsequent step is triggered by an event emitted by a previous step.
@@ -198,7 +195,7 @@ According to Mathew, here are some reasons why the EDA patterns can alleviate so
 ![](./.assets/img/Saga.png)     
 [Fig. 8: Richardson, Chris. "Implementing a choreography-based saga." _Managing data consistency in a microservice architecture using Sagas_, chrisrichardson.net](https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html#:%7E:text=In%20a%20choreography%2Dbased%20saga,and%20publishes%20a%20domain%20event.&text=The%20step%20of%20the%20saga,data%20and%20emits%20an%20event)
 
-#### Orchestration vs Choreography
+### Orchestration vs Choreography
 
 _SAGA - A long story about past events over a long period of time._
 
@@ -207,7 +204,7 @@ _SAGA - A long story about past events over a long period of time._
 >
 > [Schabowsky, Jonathan. "The Benefits of Choreography", _solace.com_, last edited on 16 Nov 2019](https://solace.com/blog/microservices-choreography-vs-orchestration)
 
-##### Orchestration
+#### Orchestration
 
 ![](./.assets/img/orchestration.png)    
 Fig. 9: Falcão, Antônio. "Order orchestration-based saga".
@@ -221,7 +218,7 @@ Benefits & drawbacks of Orchestration
 - Point of failure;
 - Easier to debug and test.
 
-##### Choreography
+#### Choreography
 
 ![](./.assets/img/choreography.png)     
 Fig. 10: Falcão, Antônio. "Order choreography-based saga".
@@ -279,7 +276,7 @@ Benefits & drawbacks of Choreography
 > -- <cite>@gregyoung</cite>
 
 ![](./.assets/img/event-sourcing-state-transition.png)  
-[Fig. 12: Battermann, Leif. _12 Things You Should Know About Event Sourcing_](http://blog.leifbattermann.de/2017/04/21/12-things-you-should-know-about-event-sourcing)\
+[Fig. 12: Battermann, Leif. _12 Things You Should Know About Event Sourcing_](http://blog.leifbattermann.de/2017/04/21/12-things-you-should-know-about-event-sourcing)
 
 The mantra of event sourcing and cover the four steps in slightly more details:
 
@@ -327,7 +324,7 @@ The following picture shows the difference between approaches:
 ![](./.assets/img/event-sourcing.png)
 [Fig. 16: Richardson, Chris. _Pattern: Event sourcing_](https://microservices.io/patterns/data/event-sourcing.html)
 
-### Snapshot
+#### Snapshot
 
 > Once you understand how Event Sourcing works, the most common thought is: “What happens when you have a lot of Events? Won’t it be inefficient to fetch every event from the event stream and replay
 > all of them to get to the current state?”. It might be. But to combat this, you can use snapshots in event sourcing to rehydrate aggregates. Snapshots give you a representation of your aggregates
@@ -401,6 +398,11 @@ Comparison overview:
 ![](.assets/img/cqrs.jpg)   
 [Fig. 21: Go, Jayson. _From Monolith to Event-Driven: Finding Seams in Your Future Architecture_](https://www.eventstore.com/blog/what-is-event-sourcing)
 
+### Command's pipeline
+
+![](./.assets/img/add-ha-message-queue.png)     
+[Fig. 6: MSDN. _Use message queues (out-of-proc) in the command's pipeline_](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/microservice-application-layer-implementation-web-api#use-message-queues-out-of-proc-in-the-commands-pipeline)
+
 ### Projections
 
 To cover this topic was
@@ -469,7 +471,7 @@ with some different strategies and ways to implement projections.
 >
 > [Comartin, Derek. "Should you publish Domain Events or Integration Events?", _codeopinion.com_, last edited on 24 Nov 2021](https://codeopinion.com/should-you-publish-domain-events-or-integration-events)
 
-##### Event Notification
+#### Event Notification
 
 > Most times events used for notifications are generally pretty slim. They don’t contain much data. If a consumer is handling an event but needs more information, to, for example, react and perform
 > some action, it might have to make an RPC call back to the producing service to get more information. And this is what leads people to Event carried State Transfer, so they do not have to make these
@@ -482,7 +484,7 @@ with some different strategies and ways to implement projections.
 >
 > [Balachandran, Arvind. "Event Notification vs. Event-Carried State Transfer", _Start it up_, last edited on 27 Oct 2019](https://medium.com/swlh/event-notification-vs-event-carried-state-transfer-2e4fdf8f6662)
 
-##### Event-Carried State Transfer
+#### Event-Carried State Transfer
 
 > The most common way I see events being used and explained is for state propagation. Meaning, you’re publishing events about state changes within a service, so other services (consumers) can keep a
 > local cache copy of the data.
