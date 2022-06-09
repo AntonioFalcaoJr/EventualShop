@@ -56,7 +56,7 @@
 
         <!--Test-->
         <Microsoft_Mvc_Testing_Version>7.0.0-preview.4.22251.1</Microsoft_Mvc_Testing_Version>
-        <Microsoft_Test_SDK_Version>17.3.0-preview-20220426-02</Microsoft_Test_SDK_Version>
+        <Microsoft_Test_SDK_Version>17.3.0-preview-20220530-08</Microsoft_Test_SDK_Version>
 
     </PropertyGroup>
 
