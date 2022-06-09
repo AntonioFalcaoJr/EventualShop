@@ -1,6 +1,6 @@
 ﻿using Application.UseCases.Events.Integrations;
 using Application.UseCases.Events.Projections;
-using Contracts.Abstractions;
+using Contracts.Abstractions.Messages;
 using Contracts.Services.ShoppingCart;
 using MassTransit;
 

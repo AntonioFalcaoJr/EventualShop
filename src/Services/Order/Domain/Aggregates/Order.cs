@@ -2,7 +2,7 @@
 using Domain.Entities.OrderItems;
 using Domain.Entities.PaymentMethods;
 using Domain.Enumerations;
-using Contracts.Abstractions;
+using Contracts.Abstractions.Messages;
 using Contracts.Services.Order;
 using Domain.ValueObjects.Addresses;
 
