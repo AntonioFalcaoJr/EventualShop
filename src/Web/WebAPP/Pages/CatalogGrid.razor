@@ -10,7 +10,7 @@
     @foreach (var card in ViewModel.Cards)
     {
         <BSCol MarginTopAndBottom="Margins.ExtraSmall" Padding="Padding.None">
-            <CatalogCard ViewModel="card" OnDeleted="Delete"></CatalogCard>
+            <CatalogCard Catalog="card" OnDeleted="Delete"></CatalogCard>
         </BSCol>
     }
 </div>
