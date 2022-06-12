@@ -1,0 +1,40 @@
+﻿@using WebAPP.Models;
+@using Contracts.Abstractions.Paging;
+
+<CascadingValue Value="this">
+	@ChildComponent
+</CascadingValue>
+
+@code {
+	[Parameter]
+	public RenderFragment ChildComponent { get; set; }
+
+	private List<CatalogModel> _cards = new List<CatalogModel>();
+	public List<CatalogModel> Cards { 
+		get => _cards; 
+		set { 
+			_cards = value; 
+			StateHasChanged(); 
+		} 
+	}
+
+	private Page _page = new Page();
+	public Page Page
+	{
+		get => _page; 
+		set { 
+			_page = value; 
+			StateHasChanged(); 
+		} 
+	}
+
+	private bool _canvasIsVisible = false;
+	public bool CanvasIsVisible
+	{
+		get => _canvasIsVisible; 
+		set { 
+			_canvasIsVisible = value; 
+			StateHasChanged(); 
+		} 
+	}
+}

@@ -1,16 +1,16 @@
 ﻿@using WebAPP.ViewModels
 @using Contracts.Services.Catalog
 @using System.ComponentModel
-@inject CatalogCanvasViewModel ViewModel
+@using WebAPP.Models;
 
-<BSOffCanvas @ref="_offCanvas" Placement="Placement.Right">
+<BSOffCanvas @ref="_offCanvas" Placement="Placement.Right" >
     <Header>Create Catalog</Header>
     <Content >
         <div class="d-grid gap-2">
             <BSLabel>Title</BSLabel>
-            <BSInput InputType="InputType.Text" placeholder="Title" @bind-Value="ViewModel.Catalog.Title" IsDisabled="_creating"/>
+            <BSInput InputType="InputType.Text" placeholder="Title" @bind-Value="CatalogState.Catalog.Title" IsDisabled="_creating"/>
             <BSLabel>Description</BSLabel>
-            <BSInput InputType="InputType.TextArea" placeholder="Description" @bind-Value="ViewModel.Catalog.Description" IsDisabled="_creating"/>
+            <BSInput InputType="InputType.TextArea" placeholder="Description" @bind-Value="CatalogState.Catalog.Description" IsDisabled="_creating"/>
             <BSButton MarginTop="Margins.Large" Color="BSColor.Dark" OnClick="CreateAsync" IsDisabled="_creating">
                 @if (_creating)
                 {
@@ -27,25 +27,27 @@
 
 @code {
 
-    protected override async Task OnInitializedAsync()
-    {
-        ViewModel.PropertyChanged += async (_, _) => { await InvokeAsync(StateHasChanged); };
-        await base.OnInitializedAsync();
-    }
+    [CascadingParameter] Catalogs CatalogState { get; set; }
 
     private readonly CancellationTokenSource _cancellationTokenSource = new();
-
-    [Parameter]
-    public EventCallback<Request.CreateCatalog> OnCreated { get; set; }
 
     private BSOffCanvas _offCanvas;
     private bool _creating;
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (CatalogState.CanvasIsVisible) await ShowAsync();
+        else await HideAsync();
+
+        base.OnAfterRender(firstRender);
+    }
+
     private async Task CreateAsync()
     {
         _creating = true;
-        await ViewModel.CreateAsync(OnCreated, _cancellationTokenSource.Token);
-        await _offCanvas.HideAsync();
+        
+        await CatalogState.CreateCatalogAsync(); 
+        
         _creating = false;
     }
 
@@ -54,14 +56,5 @@
 
     public Task HideAsync()
         => _offCanvas.HideAsync();
-
-    async void OnPropertyChangedHandler(object sender, PropertyChangedEventArgs e) 
-        => await InvokeAsync(StateHasChanged);
-
-    public void Dispose()
-    {
-        _cancellationTokenSource.Cancel();
-        ViewModel.PropertyChanged -= OnPropertyChangedHandler;
-    }
 
 }

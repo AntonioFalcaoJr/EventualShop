@@ -1,7 +1,6 @@
 ﻿@using WebAPP.ViewModels
 @using Microsoft.AspNetCore.Components
 @using WebAPP.Models
-@inject CatalogCardViewModel ViewModel;
 
 <BSCard CardType="CardType.Card" Padding="Padding.None">
     <BSCard CardType="CardType.Header">
@@ -31,18 +30,17 @@
                 <BSButton Class="bi bi-pencil-square" Color="BSColor.Warning" OnClick=@(ToggleDescription)></BSButton>
             }
         </BSCard>
-        <BSButton Class="bi bi-trash3" Color="BSColor.Danger" OnClick="@(DeleteAsync)"></BSButton>
+        <BSButton Class="bi bi-trash3" Color="BSColor.Danger" OnClick="DeleteAsync"></BSButton>
     </BSCard>
     <BSCard CardType="CardType.Footer">Last updated 3 mins ago</BSCard>
 </BSCard>
 
 @code {
 
-    [Parameter]
-    public CatalogModel Catalog { get; set; }
+    [CascadingParameter] Catalogs CatalogState { get; set; }
 
     [Parameter]
-    public EventCallback<Guid> OnDeleted { get; set; }
+    public CatalogModel Catalog { get; set; }
 
     private readonly CancellationTokenSource _cancellationTokenSource = new();
 
@@ -56,13 +54,13 @@
         => _isEditingTitle = !_isEditingTitle;
 
     private async Task ChangeTitleAsync()
-        => await ViewModel.ChangeTitleAsync(_cancellationTokenSource.Token);
+        => await CatalogState.ChangeCatalogTitleAsync(Catalog.Id, Catalog.Title);
 
     private async Task ChangeDescriptionAsync()
-        => await ViewModel.ChangeDescriptionAsync(_cancellationTokenSource.Token);
+        => await CatalogState.ChangeCatalogDescriptionAsync(Catalog.Id, Catalog.Description);
 
     private async Task DeleteAsync()
-        => await ViewModel.DeleteAsync(OnDeleted, _cancellationTokenSource.Token);
+    => await CatalogState.DeleteAsync(Catalog.Id);    
 
     private void Dispose()
         => _cancellationTokenSource.Cancel();

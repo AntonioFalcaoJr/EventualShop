@@ -1,0 +1,31 @@
+﻿@using WebAPP.ViewModels
+@using Contracts.Services.Catalog
+@using Contracts.Abstractions.Paging
+@using WebAPP.Models
+@using System.ComponentModel
+
+<div class="row row-cols-md-4">
+    @foreach (var card in Catalog.Cards)
+    {
+        <BSCol MarginTopAndBottom="Margins.ExtraSmall" Padding="Padding.None">
+            <CatalogCard Catalog="card" />
+        </BSCol>
+    }
+</div>
+@*<BSPagination Align="Align.Center">
+    <BSPaginationItem IsDisabled="@(CatalogState.Page.HasPrevious is false)" @onclick="MoveToPreviewAsync">Previous</BSPaginationItem>
+    @for (var paging = 1; paging <= CatalogState.Page.Current; paging++)
+    {
+        var current = paging;
+        <BSPaginationItem @onclick="() => MoveToPageAsync(current)">@current</BSPaginationItem>
+    }
+    <BSPaginationItem IsDisabled="@(CatalogState.Page.HasNext is false)" @onclick="MoveToNextAsync">Next</BSPaginationItem>
+</BSPagination>*@
+
+
+@code {
+
+    [CascadingParameter] Catalogs Catalog { get; set; }
+
+    private readonly CancellationTokenSource _cancellationTokenSource = new();
+}
