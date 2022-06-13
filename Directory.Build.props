@@ -22,7 +22,7 @@
         <MongoDb_Version>2.16.0</MongoDb_Version>
 
         <!--MassTransit-->
-        <MassTransit_Version>8.0.4-develop.478</MassTransit_Version>
+        <MassTransit_Version>8.0.4-develop.480</MassTransit_Version>
         <Quartz_Version>3.4.0</Quartz_Version>
 
         <!--Blazor-->
@@ -41,7 +41,7 @@
         <Serilog_Settings_Version>3.3.1-dev-00337</Serilog_Settings_Version>
 
         <!--FluentValidation-->
-        <FluentValidation_Version>11.0.2</FluentValidation_Version>
+        <FluentValidation_Version>11.0.3</FluentValidation_Version>
 
         <!--Auto Mapper-->
         <AutoMapper_Version>11.0.1</AutoMapper_Version>
@@ -49,14 +49,14 @@
 
         <!--Swashbuckle-->
         <Swashbuckle_Version>6.3.1</Swashbuckle_Version>
-        <Swashbuckle_FluentValidation_Version>5.6.0</Swashbuckle_FluentValidation_Version>
+        <Swashbuckle_FluentValidation_Version>5.7.0</Swashbuckle_FluentValidation_Version>
 
         <!--Polly-->
         <Polly_Version>7.0.0-preview.4.22251.1</Polly_Version>
 
         <!--Test-->
         <Microsoft_Mvc_Testing_Version>7.0.0-preview.4.22251.1</Microsoft_Mvc_Testing_Version>
-        <Microsoft_Test_SDK_Version>17.3.0-preview-20220426-02</Microsoft_Test_SDK_Version>
+        <Microsoft_Test_SDK_Version>17.3.0-preview-20220612-01</Microsoft_Test_SDK_Version>
 
     </PropertyGroup>
 
