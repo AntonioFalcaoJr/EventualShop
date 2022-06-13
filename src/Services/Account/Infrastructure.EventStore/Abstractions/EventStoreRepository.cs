@@ -31,10 +31,9 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
                 foreach (var @event in events)
                 {
                     await _storeEvents.AddAsync(@event, ct);
+                    await _dbContext.SaveChangesAsync(ct);
                     await onEventStored(@event, ct);
                 }
-
-                await _dbContext.SaveChangesAsync(ct);
             },
             cancellationToken: cancellationToken);
 
