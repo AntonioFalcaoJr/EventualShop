@@ -1,4 +1,3 @@
-using System.Transactions;
 using Application.Abstractions.EventStore;
 using Contracts.Abstractions.Messages;
 using Domain.Abstractions.Aggregates;
@@ -25,14 +24,14 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
         _snapshots = dbContext.Set<TSnapshot>();
     }
 
-    public Task AppendEventsAsync(IEnumerable<TStoreEvent> events, Func<TStoreEvent, Task> onEventStored, CancellationToken cancellationToken)
-        => ExecuteInTransactionScopeAsync(
+    public Task AppendEventsAsync(IEnumerable<TStoreEvent> events, Func<TStoreEvent, CancellationToken, Task> onEventStored, CancellationToken cancellationToken)
+        => ExecuteInTransactionStrategyAsync(
             operationAsync: async ct =>
             {
                 foreach (var @event in events)
                 {
                     await _storeEvents.AddAsync(@event, ct);
-                    await onEventStored(@event);
+                    await onEventStored(@event, ct);
                 }
 
                 await _dbContext.SaveChangesAsync(ct);
@@ -60,13 +59,13 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
             .OrderByDescending(snapshot => snapshot.AggregateVersion)
             .FirstOrDefaultAsync(ct);
 
-    private Task ExecuteInTransactionScopeAsync(Func<CancellationToken, Task> operationAsync, CancellationToken cancellationToken)
-        => _dbContext.Database.CreateExecutionStrategy().ExecuteAsync(ct => ExecuteInScopeAsync(operationAsync, ct), cancellationToken);
+    private Task ExecuteInTransactionStrategyAsync(Func<CancellationToken, Task> operationAsync, CancellationToken cancellationToken)
+        => _dbContext.Database.CreateExecutionStrategy().ExecuteAsync(ct => ExecuteInTransactionAsync(operationAsync, ct), cancellationToken);
 
-    private static async Task ExecuteInScopeAsync(Func<CancellationToken, Task> operationAsync, CancellationToken ct)
+    private async Task ExecuteInTransactionAsync(Func<CancellationToken, Task> operationAsync, CancellationToken cancellationToken)
     {
-        using TransactionScope scope = new(TransactionScopeAsyncFlowOption.Enabled);
-        await operationAsync(ct);
-        scope.Complete();
+        await using var transaction = await _dbContext.Database.BeginTransactionAsync(cancellationToken);
+        await operationAsync(cancellationToken);
+        await transaction.CommitAsync(cancellationToken);
     }
 }

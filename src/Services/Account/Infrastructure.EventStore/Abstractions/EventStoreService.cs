@@ -32,7 +32,7 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
         _repository = repository;
     }
 
-    public async Task AppendEventsAsync(TAggregate aggregate, CancellationToken ct)
+    public async Task AppendEventsAsync(TAggregate aggregate, CancellationToken cancellationToken)
     {
         if (await aggregate.IsValidAsync is false)
         {
@@ -40,13 +40,13 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
             return;
         }
 
-        async Task OnEventStored(TStoreEvent storeEvent)
+        async Task OnEventStored(TStoreEvent storeEvent, CancellationToken ct)
         {
             await AppendSnapshotAsync(aggregate, storeEvent.Version, ct);
             await PublishEventAsync(storeEvent.DomainEvent, ct);
         }
 
-        await _repository.AppendEventsAsync(GetEventsToStore(aggregate), OnEventStored, ct);
+        await _repository.AppendEventsAsync(GetEventsToStore(aggregate), OnEventStored, cancellationToken);
     }
 
     public async Task<TAggregate> LoadAggregateAsync(TId aggregateId, CancellationToken ct)
