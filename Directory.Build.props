@@ -49,7 +49,7 @@
 
         <!--Swashbuckle-->
         <Swashbuckle_Version>6.3.1</Swashbuckle_Version>
-        <Swashbuckle_FluentValidation_Version>5.6.0</Swashbuckle_FluentValidation_Version>
+        <Swashbuckle_FluentValidation_Version>5.7.0</Swashbuckle_FluentValidation_Version>
 
         <!--Polly-->
         <Polly_Version>7.0.0-preview.4.22251.1</Polly_Version>
