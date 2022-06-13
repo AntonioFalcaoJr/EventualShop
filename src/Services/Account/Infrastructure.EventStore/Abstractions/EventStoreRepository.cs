@@ -1,3 +1,4 @@
+using System.Transactions;
 using Application.Abstractions.EventStore;
 using Contracts.Abstractions.Messages;
 using Domain.Abstractions.Aggregates;
@@ -24,12 +25,19 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
         _snapshots = dbContext.Set<TSnapshot>();
     }
 
-    public async Task<long> AppendEventsAsync(TStoreEvent @event, CancellationToken ct)
-    {
-        await _storeEvents.AddAsync(@event, ct);
-        await _dbContext.SaveChangesAsync(ct);
-        return @event.Version;
-    }
+    public Task AppendEventsAsync(IEnumerable<TStoreEvent> events, Func<TStoreEvent, Task> onEventStored, CancellationToken cancellationToken)
+        => ExecuteInTransactionScopeAsync(
+            operationAsync: async ct =>
+            {
+                foreach (var @event in events)
+                {
+                    await _storeEvents.AddAsync(@event, ct);
+                    await onEventStored(@event);
+                }
+
+                await _dbContext.SaveChangesAsync(ct);
+            },
+            cancellationToken: cancellationToken);
 
     public async Task AppendSnapshotAsync(TSnapshot snapshot, CancellationToken ct)
     {
@@ -37,18 +45,28 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
         await _dbContext.SaveChangesAsync(ct);
     }
 
-    public async Task<IEnumerable<IEvent>> GetStreamAsync(TId aggregateId, long version, CancellationToken ct)
-        => await _storeEvents
+    public Task<List<IEvent>> GetStreamAsync(TId aggregateId, long version, CancellationToken ct)
+        => _storeEvents
             .AsNoTracking()
             .Where(@event => @event.AggregateId.Equals(aggregateId))
             .Where(@event => @event.Version > version)
             .Select(@event => @event.DomainEvent)
             .ToListAsync(ct);
 
-    public async Task<TSnapshot> GetSnapshotAsync(TId aggregateId, CancellationToken ct)
-        => await _snapshots
+    public Task<TSnapshot> GetSnapshotAsync(TId aggregateId, CancellationToken ct)
+        => _snapshots
             .AsNoTracking()
             .Where(snapshot => snapshot.AggregateId.Equals(aggregateId))
             .OrderByDescending(snapshot => snapshot.AggregateVersion)
             .FirstOrDefaultAsync(ct);
+
+    private Task ExecuteInTransactionScopeAsync(Func<CancellationToken, Task> operationAsync, CancellationToken cancellationToken)
+        => _dbContext.Database.CreateExecutionStrategy().ExecuteAsync(ct => ExecuteInScopeAsync(operationAsync, ct), cancellationToken);
+
+    private static async Task ExecuteInScopeAsync(Func<CancellationToken, Task> operationAsync, CancellationToken ct)
+    {
+        using TransactionScope scope = new(TransactionScopeAsyncFlowOption.Enabled);
+        await operationAsync(ct);
+        scope.Complete();
+    }
 }
