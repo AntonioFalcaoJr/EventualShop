@@ -1,5 +1,6 @@
 using System.Reflection;
 using BlazorStrap;
+using Fluxor;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Serilog;
@@ -37,6 +38,9 @@ builder.Services.AddScoped<CatalogItemViewModel>();
 
 builder.Services.ConfigureECommerceHttpClientOptions(
     builder.Configuration.GetSection(nameof(ECommerceHttpClientOptions)));
+
+// Flux pattern DI
+builder.Services.AddFluxor(o => o.ScanAssemblies(typeof(Program).Assembly));
 
 var host = builder.Build();
 

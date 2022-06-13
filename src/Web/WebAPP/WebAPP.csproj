@@ -14,4 +14,8 @@
     <ItemGroup>
         <ProjectReference Include="..\..\Contracts\Contracts.csproj" />
     </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Fluxor.Blazor.Web" Version="5.4.0" />
+	</ItemGroup>
 </Project>

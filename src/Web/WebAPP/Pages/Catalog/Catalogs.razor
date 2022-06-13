@@ -1,11 +1,16 @@
 ﻿@page "/catalogs"
 
+@inherits FluxorComponent
+
 @using WebAPP.Models;
 @using Contracts.Abstractions.Paging;
 @using WebAPP.HttpClients;
 @using System.ComponentModel
 
-@inject ICatalogHttpClient httpClient;
+@using WebAPP.Pages.Catalog.Store
+
+@inject IDispatcher Dispatcher
+@inject IState<CatalogStore.CatalogState> CatalogState
 
 <NavBar/>
 <SearchBar/>
@@ -30,9 +35,6 @@
     [Parameter]
     public RenderFragment ChildComponent { get; set; }
 
-    private List<CatalogModel> _cards = new List<CatalogModel>();
-    public IEnumerable<CatalogModel> Cards => _cards;
-
     private readonly CancellationTokenSource _cancellationTokenSource = new();
 
     private bool _canvasIsVisible = false;
@@ -40,81 +42,51 @@
 
     public CatalogModel Catalog = new();
 
-    private void ChangeCards(IEnumerable<CatalogModel> cards)
-    {
-        _cards = cards.ToList();
-        StateHasChanged();
-    }
-
-    private void ShowCanvas()
-    {
-        _canvasIsVisible = true;
-        StateHasChanged();
-    }
+    private void ShowCanvas() 
+        => Dispatcher.Dispatch(new CatalogStore.CatalogSetCanvasVisibilityAction(true));    
 
     private void HideCanvas()
-    {
-        _canvasIsVisible = false; 
-        StateHasChanged(); 
-    }
+        => Dispatcher.Dispatch(new CatalogStore.CatalogSetCanvasVisibilityAction(false));
 
     protected override async Task OnInitializedAsync()
     {
-        await FetchDataAsync(_cancellationTokenSource.Token);        
+        Dispatcher.Dispatch(new CatalogStore.CatalogGetPagedAction());
         await base.OnInitializedAsync();
     }
 
-    private async Task FetchDataAsync(CancellationToken ct, int limit = 8, int offset = 0)
-    {
-        var response = await httpClient.GetAsync(limit, offset, ct);
-        if (response.Success)
-        {
-            var cards = response.ActionResult.Items.Select(catalog => (CatalogModel)catalog);
-            ChangeCards(cards);
-        }        
-    }
+    //public async Task ChangeCatalogTitleAsync(Guid catalogId, string title)
+    //    => await httpClient.ChangeTitleAsync(catalogId, title, _cancellationTokenSource.Token);
 
-    public async Task CreateCatalogAsync()
-    {
-        var response = await httpClient.CreateAsync(Catalog, _cancellationTokenSource.Token);
-        if (response.Success)
-        {
-            ChangeCards(_cards.Append(Catalog));
-            HideCanvas();
-            
-            Catalog = new();
-        }
-    }
+    //public async Task ChangeCatalogDescriptionAsync(Guid catalogId, string description)
+    //    => await httpClient.ChangeDescriptionAsync(catalogId, description, _cancellationTokenSource.Token);
 
     public async Task ChangeCatalogTitleAsync(Guid catalogId, string title)
-        => await httpClient.ChangeTitleAsync(catalogId, title, _cancellationTokenSource.Token);
+        => await Task.CompletedTask;
 
     public async Task ChangeCatalogDescriptionAsync(Guid catalogId, string description)
-        => await httpClient.ChangeDescriptionAsync(catalogId, description, _cancellationTokenSource.Token);
+        => await Task.CompletedTask;
 
     public async Task DeleteAsync(Guid catalogId)
     {
-        var response = await httpClient.DeleteAsync(catalogId, _cancellationTokenSource.Token);
-        if (response.Success)        
-            ChangeCards(_cards.Where(catalog => catalog.Id != catalogId));
+        //var response = await httpClient.DeleteAsync(catalogId, _cancellationTokenSource.Token);
+        //if (response.Success)        
+        //    ChangeCards(_cards.Where(catalog => catalog.Id != catalogId));
     }
+    
+    private void MoveToPageAsync(int page)
+        => Dispatcher.Dispatch(new CatalogStore.CatalogGetPagedAction(Offset: page - 1));
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    private async Task MoveToPageAsync(int page)
-        => await FetchDataAsync(_cancellationTokenSource.Token, offset: page - 1);
+
+
+
+
+
+
+
+
+
+
+
 
     private async Task MoveToNextAsync()
     {

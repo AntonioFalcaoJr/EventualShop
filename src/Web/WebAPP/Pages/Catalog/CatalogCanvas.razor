@@ -2,15 +2,20 @@
 @using Contracts.Services.Catalog
 @using System.ComponentModel
 @using WebAPP.Models;
+@using WebAPP.Pages.Catalog.Store
+
+@inject IDispatcher Dispatcher
+@inject IState<CatalogStore.CatalogState> CatalogState
+@inject IActionSubscriber ActionSubscriber
 
 <BSOffCanvas @ref="_offCanvas" Placement="Placement.Right" >
     <Header>Create Catalog</Header>
     <Content >
         <div class="d-grid gap-2">
             <BSLabel>Title</BSLabel>
-            <BSInput InputType="InputType.Text" placeholder="Title" @bind-Value="CatalogState.Catalog.Title" IsDisabled="_creating"/>
+            <BSInput InputType="InputType.Text" placeholder="Title" @bind-Value="Catalog.Title" IsDisabled="_creating"/>
             <BSLabel>Description</BSLabel>
-            <BSInput InputType="InputType.TextArea" placeholder="Description" @bind-Value="CatalogState.Catalog.Description" IsDisabled="_creating"/>
+            <BSInput InputType="InputType.TextArea" placeholder="Description" @bind-Value="Catalog.Description" IsDisabled="_creating"/>
             <BSButton MarginTop="Margins.Large" Color="BSColor.Dark" OnClick="CreateAsync" IsDisabled="_creating">
                 @if (_creating)
                 {
@@ -26,27 +31,27 @@
 </BSOffCanvas>
 
 @code {
-
-    [CascadingParameter] Catalogs CatalogState { get; set; }
-
-    private readonly CancellationTokenSource _cancellationTokenSource = new();
+    public CatalogModel Catalog => CatalogState.Value.Catalog;
 
     private BSOffCanvas _offCanvas;
     private bool _creating;
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override Task OnInitializedAsync()
     {
-        if (CatalogState.CanvasIsVisible) await ShowAsync();
-        else await HideAsync();
-
-        base.OnAfterRender(firstRender);
+        ActionSubscriber.SubscribeToAction<CatalogStore.CatalogSetCanvasVisibilityAction>(this, async (action) =>
+        {
+            if (action.CanvasVisibility) await ShowAsync();
+            else await HideAsync();
+        });
+        
+        return base.OnInitializedAsync();
     }
 
     private async Task CreateAsync()
     {
         _creating = true;
         
-        await CatalogState.CreateCatalogAsync(); 
+        Dispatcher.Dispatch(new CatalogStore.CatalogCreateAction()); 
         
         _creating = false;
     }

@@ -1,11 +1,17 @@
-﻿@using WebAPP.ViewModels
+﻿@inherits FluxorComponent
+
+@using WebAPP.ViewModels
 @using Contracts.Services.Catalog
 @using Contracts.Abstractions.Paging
 @using WebAPP.Models
 @using System.ComponentModel
 
+@using WebAPP.Pages.Catalog.Store
+
+@inject IState<CatalogStore.CatalogState> CatalogState
+
 <div class="row row-cols-md-4">
-    @foreach (var card in Catalog.Cards)
+    @foreach (var card in _catalogs)
     {
         <BSCol MarginTopAndBottom="Margins.ExtraSmall" Padding="Padding.None">
             <CatalogCard Catalog="card" />
@@ -24,8 +30,5 @@
 
 
 @code {
-
-    [CascadingParameter] Catalogs Catalog { get; set; }
-
-    private readonly CancellationTokenSource _cancellationTokenSource = new();
+    private List<CatalogModel> _catalogs => CatalogState.Value.Catalogs;
 }
