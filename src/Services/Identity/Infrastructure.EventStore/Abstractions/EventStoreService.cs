@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using Application.Abstractions.EventStore;
 using Application.Abstractions.Notifications;
 using Contracts.Abstractions.Messages;
@@ -33,7 +32,7 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
         _repository = repository;
     }
 
-    public async Task AppendEventsAsync(TAggregate aggregate, CancellationToken ct)
+    public async Task AppendEventsAsync(TAggregate aggregate, CancellationToken cancellationToken)
     {
         if (await aggregate.IsValidAsync is false)
         {
@@ -41,9 +40,13 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
             return;
         }
 
-        var events = GetEventsToStore(aggregate);
-        await AppendEventsAsync(aggregate, events, ct);
-        await PublishEventsAsync(aggregate.Events, ct);
+        async Task OnEventStored(TStoreEvent storeEvent, CancellationToken ct)
+        {
+            await AppendSnapshotAsync(aggregate, storeEvent.Version, ct);
+            await PublishEventAsync(storeEvent.DomainEvent, ct);
+        }
+
+        await _repository.AppendEventsAsync(GetEventsToStore(aggregate), OnEventStored, cancellationToken);
     }
 
     public async Task<TAggregate> LoadAggregateAsync(TId aggregateId, CancellationToken ct)
@@ -54,21 +57,13 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
         return snapshot.AggregateState;
     }
 
-    private async Task AppendEventsAsync(TAggregate aggregate, IEnumerable<TStoreEvent> events, CancellationToken ct)
-    {
-        await foreach (var version in AppendEventsAsync(events, ct))
-            if (version % _options.SnapshotInterval is 0)
-                await AppendSnapshotAsync(aggregate, version, ct);
-    }
-
-    private async IAsyncEnumerable<long> AppendEventsAsync(IEnumerable<TStoreEvent> events, [EnumeratorCancellation] CancellationToken ct)
-    {
-        foreach (var @event in events)
-            yield return await _repository.AppendEventsAsync(@event, ct);
-    }
+    private Task PublishEventAsync(IEvent @event, CancellationToken ct)
+        => _publishEndpoint.Publish(@event, @event.GetType(), ct);
 
     private async Task AppendSnapshotAsync(TAggregate aggregate, long version, CancellationToken ct)
     {
+        if (version % _options.SnapshotInterval is not 0) return;
+
         TSnapshot snapshot = new()
         {
             AggregateId = aggregate.Id,
@@ -78,9 +73,6 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
 
         await _repository.AppendSnapshotAsync(snapshot, ct);
     }
-
-    private Task PublishEventsAsync(IEnumerable<IEvent> events, CancellationToken ct)
-        => Task.WhenAll(events.Select(@event => _publishEndpoint.Publish(@event, @event.GetType(), ct)));
 
     private static IEnumerable<TStoreEvent> GetEventsToStore(TAggregate aggregate)
         => aggregate.Events.Select(@event
