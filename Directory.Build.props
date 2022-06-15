@@ -27,7 +27,7 @@
 
         <!--Blazor-->
         <BlazorStrap_Version>5.0.106-Preview2</BlazorStrap_Version>
-        <Microsoft_AspNetCore_WebAssembly_Version>7.0.0-preview.4.22251.1</Microsoft_AspNetCore_WebAssembly_Version>
+        <Microsoft_AspNetCore_WebAssembly_Version>7.0.0-preview.5.22303.8</Microsoft_AspNetCore_WebAssembly_Version>
         
         <!--Newtonsoft-->
         <Newtonsoft_Version>13.0.2-beta1</Newtonsoft_Version>
