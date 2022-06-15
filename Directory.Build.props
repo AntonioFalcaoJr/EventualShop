@@ -13,7 +13,7 @@
 
         <!--Microsoft-->
         <Microsoft_Extensions_Version>7.0.0-preview.4.22229.4</Microsoft_Extensions_Version>
-        <Microsoft_Extensions_Hosting_Version>7.0.0-preview.4.22229.4</Microsoft_Extensions_Hosting_Version>
+        <Microsoft_Extensions_Hosting_Version>7.0.0-preview.5.22301.12</Microsoft_Extensions_Hosting_Version>
 
         <!--EF Core-->
         <EntityFrameworkCore_Version>7.0.0-preview.4.22229.2</EntityFrameworkCore_Version>
