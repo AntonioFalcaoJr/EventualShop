@@ -2,8 +2,8 @@
 
 namespace Domain.Abstractions.StoreEvents;
 
-public abstract record Snapshot<TAggregate, TId>
-    where TAggregate : IAggregateRoot<TId>, new()
+public abstract record Snapshot<TAggregate, TId> : ISnapshot<TAggregate, TId>
+    where TAggregate : IAggregateRoot<TId, IStoreEvent<TId>>, new()
     where TId : struct
 {
     public long AggregateVersion { get; init; }
