@@ -4,11 +4,12 @@ using Domain.Entities.PaymentMethods;
 using Domain.Enumerations;
 using Contracts.Abstractions.Messages;
 using Contracts.Services.Order;
+using Domain.StoreEvents;
 using Domain.ValueObjects.Addresses;
 
 namespace Domain.Aggregates;
 
-public class Order : AggregateRoot<Guid, OrderValidator>
+public class Order : AggregateRoot<Guid, OrderValidator, OrderStoreEvent>
 {
     private readonly List<OrderItem> _items = new();
     private readonly List<PaymentMethod> _paymentMethods = new();
