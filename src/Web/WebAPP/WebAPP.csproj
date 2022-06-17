@@ -3,7 +3,7 @@
         <PackageReference Include="BlazorStrap" Version="$(BlazorStrap_Version)" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(Microsoft_AspNetCore_WebAssembly_Version)" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="$(Microsoft_AspNetCore_WebAssembly_Version)" PrivateAssets="all" />
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="$(Microsoft_Extensions_Hosting_Version)" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="$(Microsoft_Extensions_Version)" />
         <PackageReference Include="Microsoft.Extensions.Http" Version="$(Microsoft_Extensions_Version)" />
         <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="$(Polly_Version)" />
         <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="$(Microsoft_Extensions_Version)" />

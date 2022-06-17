@@ -7,5 +7,5 @@ public interface IAggregateRoot<out TId> : IEntity<TId>
     where TId : struct
 {
     IEnumerable<IEvent> Events { get; }
-    void LoadEvents(IEnumerable<IEvent> events);
+    void LoadEvents(List<IEvent> events);
 }
