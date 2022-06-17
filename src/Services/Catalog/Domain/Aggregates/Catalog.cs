@@ -2,10 +2,11 @@
 using Domain.Entities.CatalogItems;
 using Contracts.Abstractions.Messages;
 using Contracts.Services.Catalog;
+using Domain.StoreEvents;
 
 namespace Domain.Aggregates;
 
-public class Catalog : AggregateRoot<Guid, CatalogValidator>
+public class Catalog : AggregateRoot<Guid, CatalogValidator, CatalogStoreEvent>
 {
     private readonly List<CatalogItem> _items = new();
     public bool IsActive { get; private set; }
