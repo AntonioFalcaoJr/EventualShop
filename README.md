@@ -57,20 +57,6 @@ If this project helped you in some way, please **give it a star**. Thanks!
 ![](./.assets/img/solution_architecture.png)    
 Fig. 1: Falcão Jr., Antônio. _An EDA solution architecture_.
 
-## Messaging - Making good use of Context Mapping
-
-![](./.assets/img/messaging_context_mapping.png)    
-Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed, p65.
-
-> When using asynchronous messaging to integrate, much can be accomplished by a client Bounded Context subscribing to the Domain Events published by your own or another Bounded Context. Using
-> messaging is one of the most robust forms of integration because you remove much of the temporal coupling associated with blocking forms such as RPC and REST. Since you already anticipate the
-> latency of message exchange, you tend to build more robust systems because you never expect immediate results.
->
-> Typically an Aggregate in one Bounded Context publishes a Domain Event, which could be consumed by any number of interested parties. When a subscribing Bounded Context receives the Domain Event,
-> some action will be taken based on its type and value. Normally it will cause a new Aggregate to be created or an existing Aggregate to be modified in the consuming Bounded Context.
->
-> Vernon, V. (2016) Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional, p65-67.
-
 ## Reactive Domain Driven Design
 
 > I have been seeing, at least in my world, a trend towards reactive systems. Not just reactive within a microservice, but building entire systems that are reactive. In DDD, reactive behavior is also
@@ -82,7 +68,7 @@ Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed
 ![](./.assets/img/reactive-system.jpg)  
 [Fig. 3: Vernon, V. (2018), "Modeling Uncertainty with Reactive DDD", _Reactive Systems_, www.infoq.com](https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/)
 
-## Reactive Process
+### Reactive Process
 
 > Each domain entity is responsible for tracking its state, based on the commands it receives. By following good DDD practices, the state can be safely tracked based on these commands, and using event
 > sourcing to persist the state change events.
@@ -99,143 +85,22 @@ Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed
 ![](./.assets/img/reactive_process.jpg)     
 [Fig. 4: Vernon, V. (2018), "Modeling Uncertainty with Reactive DDD", _Process Manager_, www.infoq.com](https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/)
 
-## Temporal Coupling and Autonomous Decisions
+### Messaging - Making good use of Context Mapping
 
-> Temporal coupling is where you have a dependency on time where one service or one component cannot complete its operation until the other party is done with work. In order to get rid of this
-> temporal coupling, what you can do is you can use events.
+![](./.assets/img/messaging_context_mapping.png)    
+Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed, p65.
+
+> When using asynchronous messaging to integrate, much can be accomplished by a client Bounded Context subscribing to the Domain Events published by your own or another Bounded Context. Using
+> messaging is one of the most robust forms of integration because you remove much of the temporal coupling associated with blocking forms such as RPC and REST. Since you already anticipate the
+> latency of message exchange, you tend to build more robust systems because you never expect immediate results.
 >
-> [Alagarsamy, Indu. "Practical DDD: Bounded Contexts + Events => Microservices", _www.infoq.com_, last edited on 03 Set 2019](https://www.infoq.com/presentations/microservices-ddd-bounded-contexts)
-
-## Event-driven architecture (EDA)
-
-> Event-driven architecture (EDA) is a software architecture paradigm promoting the production, detection, consumption of, and reaction to events. An event can be defined as "a significant change in
-> state".
+> Typically an Aggregate in one Bounded Context publishes a Domain Event, which could be consumed by any number of interested parties. When a subscribing Bounded Context receives the Domain Event,
+> some action will be taken based on its type and value. Normally it will cause a new Aggregate to be created or an existing Aggregate to be modified in the consuming Bounded Context.
 >
-> ["Event-driven architecture." _Wikipedia_, Wikimedia Foundation, last edited on 9 May 2021](https://en.wikipedia.org/wiki/Event-driven_architecture)
+> Vernon, V. (2016) Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional, p65-67.
+> 
 
-> Event-driven architecture refers to a system of loosely coupled microservices that exchange information between each other through the production and consumption of events. An event-driven system
-> enables messages to be ingested into the event driven ecosystem and then broadcast out to whichever services are interested in receiving them.
->
-> [Jansen, Grace & Saladas, Johanna. "Advantages of the event-driven architecture pattern." _developer.ibm.com_, IBM Developer, last edited on 12 May 2021](https://developer.ibm.com/articles/advantages-of-an-event-driven-architecture)
-
-![](./.assets/img/eda.png)  
-[Fig. 5: Uit de Bos, Oskar. _A simple illustration of events using the publish/subscribe messagingmodel_](https://medium.com/swlh/the-engineers-guide-to-event-driven-architectures-benefits-and-challenges-3e96ded8568b)
-
-## Microservices
-
-> The term "Microservice Architecture" has sprung up over the last few years to describe a particular way of designing software applications as suites of independently deployable services. While there
-> is no precise definition of this architectural style, there are certain common characteristics around organization around business capability, automated deployment, intelligence in the endpoints,
-> and decentralized control of languages and data.
->
-> [Fowler, Martin. "Microservices", _martinfowler.com_, last edited on 25 Mar 2014](https://martinfowler.com/articles/microservices.html)
-
-### EDA & Microservices Architecture
-
-The following table shows how EDA and Microservices architectural styles compliment each other:
-
-| EDA                                                                                                       | Microservices Architecture                                                                                             |
-|-----------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
-| Loose coupling between components/services                                                                | Bounded context which provides separation of concerns                                                                  |
-| Ability to scale individual components                                                                    | Independently deployable & scalable                                                                                    |
-| Processing components can be developed independent of each other                                          | Support for polyglot programming                                                                                       |
-| High cloud affinity                                                                                       | Cloud native                                                                                                           |
-| Asynchronous nature. As well as ability to throttle workload                                              | Elastic scalability                                                                                                    |
-| Fault Tolerance and better resiliency                                                                     | Good observability to detect failures quickly                                                                          |
-| Ability to build processing pipelines                                                                     | Evolutionary in nature                                                                                                 |
-| Availability of sophisticated event brokers reduce code complexity                                        | Set of standard reusable technical services often referred as `MicroServices Chassis`                                  |
-| A rich palate of proven [Enterprise Integration Patterns](https://www.enterpriseintegrationpatterns.com/) | Provides a rich repository of reusable [implementation patterns](https://microservices.io/patterns/microservices.html) |
-
-[Table 1: Ambre, Tanmay. _Architectural styles compliment_, Architectural considerations for event-driven microservices-based systems](https://developer.ibm.com/articles/eda-and-microservices-architecture-best-practices)
-
-### EDA vs SOA
-
-> Compared to SOA, the essence of an EDA is that the services involved communicate through the capture, propagation, processing and persistence of events. This resulting pattern of communicating
-> through a dataflow is quite different from the SOA approach of requests and responses.
->
-> [Mathew, Jerry. "SOA vs. EDA: Is Not Life Simply a Series of Events?." _Confluent.io_, last edited on 19 Mar 2019](https://www.confluent.io/blog/soa-vs-eda-is-not-life-simply-a-series-of-events)
-
-According to Mathew, here are some reasons why the EDA patterns can alleviate some of the challenges traditional SOA patterns bring:
-
-|                                                                          | SOA                                                                                                                                                                                                                                                                                                                                                                         | EDA                                                                                                                                                                                                                                                                                                                                                                              |
-|--------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Pull vs. Reactive                                                        | Client makes a request of a service and expects a response. It’s great for persisted, static data, but gets a little hard when data keeps changing. You have to poll to detect changes.                                                                                                                                                                                     | Subscription model pushes events to consumers.                                                                                                                                                                                                                                                                                                                                   |
-| Coupling                                                                 | Client has to know details of the API and its location at runtime.                                                                                                                                                                                                                                                                                                          | Producers have no knowledge of consumer which will ultimately receive the event. There is still some minimal coupling in terms names of queues/topics and event formats.                                                                                                                                                                                                         |
-| Service Availability                                                     | A service must be available at the time a request is made by a client even if you are doing an asynchronous response handling.                                                                                                                                                                                                                                              | Events do not require a reply and are inherently asynchronous. Events can be persisted for future consumption. With a highly fault-tolerant broker, the event producer does not need to know whether the consumers are available. Thus, we achieve higher resilience to network and compute failure, and this allows event producers to avoid blocking.                          |
-| Process Modification and Extension                                       | Processing logic is a request-response API that is hardwired into a service endpoint (with or without service discovery). If the logic needs to change or be extended, or if new logic needs to be introduced, the definition (not contract) of the service must be updated. This introduces change management and regression risk.                                         | Additional event producers and consumers can be added to a system without any explicit process definition.                                                                                                                                                                                                                                                                       |
-| Consistency Between Process Interaction and Internal State Management    | State changes are managed based on requests. For example, a request to “withdraw money” mutates the state of an account. The distinct processes of a request, a change in state and its persistence in case of failure must be tied together transactionally. This often leads users to deploy expensive distributed transaction protocols like eXtended architecture (XA). | EDA provides better support for consistency between process interaction and persisted internal state transitions. This is done through the event sourcing pattern, where the communication protocol (the event) is also the persistence mechanism (the event log). The current state of a system can be built or rebuilt from the log of events.                                 |
-| Retaining the Exact State Transitions That Customers or Services Perform | In SOAs, data is typically “mutated in place” in a database. This is a lossy process where each state change loses the information about the state changes that happened previously.                                                                                                                                                                                        | EDAs are event sourced, meaning every state change is captured, providing a truthful journal of the exact state changes that every customer or every service made over time. This journal lets operators rewind time to view or replay previous events exactly as they happened. It is also important for analytics that review customer (or system) behavior to derive insight. |
-| *Streaming Analytics                                                     | SOA is incapable of deriving analytics of data in flight. This requires the ability to detect a pattern from multiple state changes both temporally and spatially.                                                                                                                                                                                                          | EDA is fully capable of detecting patterns across multiple event sources over many different types of time windows. Also, deriving analytics of data in flight is a means of continuous intelligence.                                                                                                                                                                            |
-| The Timing of Consistency and of Intelligence                            | Synchronous communication makes it a bit easier to create consistent state across services from a client’s perspective. Intelligence from the consistent state are derived eventually—that is, eventual intelligence and continuous consistency                                                                                                                             | Events, being asynchronous, mean that different services become consistent with one another only in eventuality: There is no control over the timeliness of the process of event propagation.                                                                                                                                                                                    |
-
-[Table 2: Mathew, Jerry. _SOA vs. EDA: Is Not Life Simply a Series of Events?_](https://www.confluent.io/blog/soa-vs-eda-is-not-life-simply-a-series-of-events)
-
-## Command's pipeline
-
-![](./.assets/img/add-ha-message-queue.png)     
-[Fig. 6: MSDN. _Use message queues (out-of-proc) in the command's pipeline_](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/microservice-application-layer-implementation-web-api#use-message-queues-out-of-proc-in-the-commands-pipeline)
-
-### Broker Topology
-
-> The broker topology differs from the mediator topology in that there is no central event mediator; rather, the message flow is distributed across the event processor components in a chain-like
-> fashion through a lightweight message broker (e.g., ActiveMQ, HornetQ, etc.). This topology is useful when you have a relatively simple event processing flow and you do not want (or need) central
-> event orchestration.
->
-> There are two main types of architecture components within the broker topology: a broker component and an event processor component. The broker component can be centralized or federated and contains
-> all of the event channels that are used within the event flow. The event channels contained within the broker component can be message queues, message topics, or a combination of both.
->
-> [Richards, Mark. "Broker Topology." _Software Architecture Patterns by Mark Richards_, O'Reilly](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch02.html)
-
-![](./.assets/img/broker_topology_eda.png)      
-[Fig. 7: Richards, Mark. "Broker Topology." _Software Architecture Patterns by Mark Richards_, O'Reilly](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch02.html)
-
-### Choreography-based SAGA
-
-> In a choreography-based saga, the saga participants collaborate by exchanging events. Each step of a choreography-based saga updates the database (e.g. an aggregate) and publishes a domain event.
-> The first step of a saga is initiated by a command that’s invoked by an external request, such an HTTP POST. Each subsequent step is triggered by an event emitted by a previous step.
->
-> [Richardson, Chris. "Implementing a choreography-based saga." _Managing data consistency in a microservice architecture using Sagas_, chrisrichardson.net](https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html#:%7E:text=In%20a%20choreography%2Dbased%20saga,and%20publishes%20a%20domain%20event.&text=The%20step%20of%20the%20saga,data%20and%20emits%20an%20event)
-
-![](./.assets/img/Saga.png)     
-[Fig. 8: Richardson, Chris. "Implementing a choreography-based saga." _Managing data consistency in a microservice architecture using Sagas_, chrisrichardson.net](https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html#:%7E:text=In%20a%20choreography%2Dbased%20saga,and%20publishes%20a%20domain%20event.&text=The%20step%20of%20the%20saga,data%20and%20emits%20an%20event)
-
-#### Orchestration vs Choreography
-
-_SAGA - A long story about past events over a long period of time._
-
-> Orchestration entails actively controlling all elements and interactions like a conductor directs the musicians of an orchestra, while choreography entails establishing a pattern or routine that
-> microservices follow as the music plays, without requiring supervision and instructions.
->
-> [Schabowsky, Jonathan. "The Benefits of Choreography", _solace.com_, last edited on 16 Nov 2019](https://solace.com/blog/microservices-choreography-vs-orchestration)
-
-##### Orchestration
-
-![](./.assets/img/orchestration.png)    
-Fig. 9: Falcão, Antônio. "Order orchestration-based saga".
-
-Benefits & drawbacks of Orchestration
-
-- Centralized logic: this can be good and bad;
-- High coupling: Need to know about the capability of other services;
-- Easier to understand the workflow since its defined in a central location;
-- Full control over the workflow steps via commands;
-- Point of failure;
-- Easier to debug and test.
-
-##### Choreography
-
-![](./.assets/img/choreography.png)     
-Fig. 10: Falcão, Antônio. "Order choreography-based saga".
-
-Benefits & drawbacks of Choreography
-
-- No centralized logic: this can be good and bad;
-- Low coupling: Clear separation of concerns;
-- Better performance: Fewer messages to handle;
-- Useful for small/simple workflows;
-- Difficult to conceptualize if a lot of services are involved;
-- Harder to debug & test if a lot of services are involved.
-
-## Event sourcing
+## Event Sourcing
 
 > Instead of storing just the current state of the data in a domain, use an append-only store to record the full series of actions taken on that data. The store acts as the system of record and can be
 > used to materialize the domain objects. This can simplify tasks in complex domains, by avoiding the need to synchronize the data model and the business domain, while improving performance,
@@ -279,7 +144,7 @@ Benefits & drawbacks of Choreography
 > -- <cite>@gregyoung</cite>
 
 ![](./.assets/img/event-sourcing-state-transition.png)  
-[Fig. 12: Battermann, Leif. _12 Things You Should Know About Event Sourcing_](http://blog.leifbattermann.de/2017/04/21/12-things-you-should-know-about-event-sourcing)\
+[Fig. 12: Battermann, Leif. _12 Things You Should Know About Event Sourcing_](http://blog.leifbattermann.de/2017/04/21/12-things-you-should-know-about-event-sourcing)
 
 The mantra of event sourcing and cover the four steps in slightly more details:
 
@@ -327,7 +192,7 @@ The following picture shows the difference between approaches:
 ![](./.assets/img/event-sourcing.png)
 [Fig. 16: Richardson, Chris. _Pattern: Event sourcing_](https://microservices.io/patterns/data/event-sourcing.html)
 
-### Snapshot
+#### Snapshot
 
 > Once you understand how Event Sourcing works, the most common thought is: “What happens when you have a lot of Events? Won’t it be inefficient to fetch every event from the event stream and replay
 > all of them to get to the current state?”. It might be. But to combat this, you can use snapshots in event sourcing to rehydrate aggregates. Snapshots give you a representation of your aggregates
@@ -349,7 +214,146 @@ Snapshot stream:
 ![](./.assets/img/stream_snapshot.png)        
 [Fig. 18: Comartin, Derek. _Snapshots in Event Sourcing for Rehydrating Aggregates_](https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates)
 
-## EDA + Event-sourcing
+## Event-Driven Architecture (EDA)
+
+> Event-driven architecture (EDA) is a software architecture paradigm promoting the production, detection, consumption of, and reaction to events. An event can be defined as "a significant change in
+> state".
+>
+> ["Event-driven architecture." _Wikipedia_, Wikimedia Foundation, last edited on 9 May 2021](https://en.wikipedia.org/wiki/Event-driven_architecture)
+
+> Event-driven architecture refers to a system of loosely coupled microservices that exchange information between each other through the production and consumption of events. An event-driven system
+> enables messages to be ingested into the event driven ecosystem and then broadcast out to whichever services are interested in receiving them.
+>
+> [Jansen, Grace & Saladas, Johanna. "Advantages of the event-driven architecture pattern." _developer.ibm.com_, IBM Developer, last edited on 12 May 2021](https://developer.ibm.com/articles/advantages-of-an-event-driven-architecture)
+
+![](./.assets/img/eda.png)  
+[Fig. 5: Uit de Bos, Oskar. _A simple illustration of events using the publish/subscribe messagingmodel_](https://medium.com/swlh/the-engineers-guide-to-event-driven-architectures-benefits-and-challenges-3e96ded8568b)
+
+### Topologies
+
+> To achieve complex responses, event-driven architectures consist of two main topologies: the mediator and the broker. The mediator topology is commonly used when you need to orchestrate multiple
+> steps within an event through a central mediator, whereas the broker topology is used when you want to chain events and responses together directly without the need for a mediator. Because the
+> architecture characteristics and implementation strategies differ between these two EDA topologies, it is important to understand each one to know which is best suited for your particular use case.
+>
+> ["Event-Driven Architecture Topologies – Broker and Mediator." _www.3pillarglobal.com_, last edited on 20 Set 2021](https://www.3pillarglobal.com/insights/event-driven-architecture-topologies-broker-and-mediator/)
+
+#### Broker Topology
+
+> The broker topology differs from the mediator topology in that there is no central event mediator; rather, the message flow is distributed across the event processor components in a chain-like
+> fashion through a lightweight message broker (e.g., ActiveMQ, HornetQ, etc.). This topology is useful when you have a relatively simple event processing flow and you do not want (or need) central
+> event orchestration.
+>
+> There are two main types of architecture components within the broker topology: a broker component and an event processor component. The broker component can be centralized or federated and contains
+> all of the event channels that are used within the event flow. The event channels contained within the broker component can be message queues, message topics, or a combination of both.
+>
+> [Richards, Mark. "Broker Topology." _Software Architecture Patterns by Mark Richards_, O'Reilly](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch02.html)
+
+![](./.assets/img/broker_topology_eda.png)      
+[Fig. 7: Richards, Mark. "Broker Topology." _Software Architecture Patterns by Mark Richards_, O'Reilly](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch02.html)
+
+#### Choreography-based SAGA
+
+> In a choreography-based saga, the saga participants collaborate by exchanging events. Each step of a choreography-based saga updates the database (e.g. an aggregate) and publishes a domain event.
+> The first step of a saga is initiated by a command that’s invoked by an external request, such an HTTP POST. Each subsequent step is triggered by an event emitted by a previous step.
+>
+> [Richardson, Chris. "Implementing a choreography-based saga." _Managing data consistency in a microservice architecture using Sagas_, chrisrichardson.net](https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html#:%7E:text=In%20a%20choreography%2Dbased%20saga,and%20publishes%20a%20domain%20event.&text=The%20step%20of%20the%20saga,data%20and%20emits%20an%20event)
+
+![](./.assets/img/Saga.png)     
+[Fig. 8: Richardson, Chris. "Implementing a choreography-based saga." _Managing data consistency in a microservice architecture using Sagas_, chrisrichardson.net](https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html#:%7E:text=In%20a%20choreography%2Dbased%20saga,and%20publishes%20a%20domain%20event.&text=The%20step%20of%20the%20saga,data%20and%20emits%20an%20event)
+
+#### Orchestration vs Choreography
+
+_SAGA - A long story about past events over a long period of time._
+
+> Orchestration entails actively controlling all elements and interactions like a conductor directs the musicians of an orchestra, while choreography entails establishing a pattern or routine that
+> microservices follow as the music plays, without requiring supervision and instructions.
+>
+> [Schabowsky, Jonathan. "The Benefits of Choreography", _solace.com_, last edited on 16 Nov 2019](https://solace.com/blog/microservices-choreography-vs-orchestration)
+
+#### Orchestration
+
+![](./.assets/img/orchestration.png)    
+Fig. 9: Falcão, Antônio. "Order orchestration-based saga".
+
+Benefits & drawbacks of Orchestration
+
+- Centralized logic: this can be good and bad;
+- High coupling: Need to know about the capability of other services;
+- Easier to understand the workflow since its defined in a central location;
+- Full control over the workflow steps via commands;
+- Point of failure;
+- Easier to debug and test.
+
+#### Choreography
+
+![](./.assets/img/choreography.png)     
+Fig. 10: Falcão, Antônio. "Order choreography-based saga".
+
+Benefits & drawbacks of Choreography
+
+- No centralized logic: this can be good and bad;
+- Low coupling: Clear separation of concerns;
+- Better performance: Fewer messages to handle;
+- Useful for small/simple workflows;
+- Difficult to conceptualize if a lot of services are involved;
+- Harder to debug & test if a lot of services are involved.
+
+### EDA & Microservices Architecture
+
+The following table shows how EDA and Microservices architectural styles compliment each other:
+
+| EDA                                                                                                       | Microservices Architecture                                                                                             |
+|-----------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| Loose coupling between components/services                                                                | Bounded context which provides separation of concerns                                                                  |
+| Ability to scale individual components                                                                    | Independently deployable & scalable                                                                                    |
+| Processing components can be developed independent of each other                                          | Support for polyglot programming                                                                                       |
+| High cloud affinity                                                                                       | Cloud native                                                                                                           |
+| Asynchronous nature. As well as ability to throttle workload                                              | Elastic scalability                                                                                                    |
+| Fault Tolerance and better resiliency                                                                     | Good observability to detect failures quickly                                                                          |
+| Ability to build processing pipelines                                                                     | Evolutionary in nature                                                                                                 |
+| Availability of sophisticated event brokers reduce code complexity                                        | Set of standard reusable technical services often referred as `MicroServices Chassis`                                  |
+| A rich palate of proven [Enterprise Integration Patterns](https://www.enterpriseintegrationpatterns.com/) | Provides a rich repository of reusable [implementation patterns](https://microservices.io/patterns/microservices.html) |
+
+[Table 1: Ambre, Tanmay. _Architectural styles compliment_, Architectural considerations for event-driven microservices-based systems](https://developer.ibm.com/articles/eda-and-microservices-architecture-best-practices)
+
+#### Microservices
+
+> The term "Microservice Architecture" has sprung up over the last few years to describe a particular way of designing software applications as suites of independently deployable services. While there
+> is no precise definition of this architectural style, there are certain common characteristics around organization around business capability, automated deployment, intelligence in the endpoints,
+> and decentralized control of languages and data.
+>
+> [Fowler, Martin. "Microservices", _martinfowler.com_, last edited on 25 Mar 2014](https://martinfowler.com/articles/microservices.html)
+
+#### Temporal Coupling and Autonomous Decisions
+
+> Temporal coupling is where you have a dependency on time where one service or one component cannot complete its operation until the other party is done with work. In order to get rid of this
+> temporal coupling, what you can do is you can use events.
+>
+> [Alagarsamy, Indu. "Practical DDD: Bounded Contexts + Events => Microservices", _www.infoq.com_, last edited on 03 Set 2019](https://www.infoq.com/presentations/microservices-ddd-bounded-contexts)
+
+### EDA vs SOA
+
+> Compared to SOA, the essence of an EDA is that the services involved communicate through the capture, propagation, processing and persistence of events. This resulting pattern of communicating
+> through a dataflow is quite different from the SOA approach of requests and responses.
+>
+> [Mathew, Jerry. "SOA vs. EDA: Is Not Life Simply a Series of Events?." _Confluent.io_, last edited on 19 Mar 2019](https://www.confluent.io/blog/soa-vs-eda-is-not-life-simply-a-series-of-events)
+
+According to Mathew, here are some reasons why the EDA patterns can alleviate some of the challenges traditional SOA patterns bring:
+
+|                                                                          | SOA                                                                                                                                                                                                                                                                                                                                                                         | EDA                                                                                                                                                                                                                                                                                                                                                                              |
+|--------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Pull vs. Reactive                                                        | Client makes a request of a service and expects a response. It’s great for persisted, static data, but gets a little hard when data keeps changing. You have to poll to detect changes.                                                                                                                                                                                     | Subscription model pushes events to consumers.                                                                                                                                                                                                                                                                                                                                   |
+| Coupling                                                                 | Client has to know details of the API and its location at runtime.                                                                                                                                                                                                                                                                                                          | Producers have no knowledge of consumer which will ultimately receive the event. There is still some minimal coupling in terms names of queues/topics and event formats.                                                                                                                                                                                                         |
+| Service Availability                                                     | A service must be available at the time a request is made by a client even if you are doing an asynchronous response handling.                                                                                                                                                                                                                                              | Events do not require a reply and are inherently asynchronous. Events can be persisted for future consumption. With a highly fault-tolerant broker, the event producer does not need to know whether the consumers are available. Thus, we achieve higher resilience to network and compute failure, and this allows event producers to avoid blocking.                          |
+| Process Modification and Extension                                       | Processing logic is a request-response API that is hardwired into a service endpoint (with or without service discovery). If the logic needs to change or be extended, or if new logic needs to be introduced, the definition (not contract) of the service must be updated. This introduces change management and regression risk.                                         | Additional event producers and consumers can be added to a system without any explicit process definition.                                                                                                                                                                                                                                                                       |
+| Consistency Between Process Interaction and Internal State Management    | State changes are managed based on requests. For example, a request to “withdraw money” mutates the state of an account. The distinct processes of a request, a change in state and its persistence in case of failure must be tied together transactionally. This often leads users to deploy expensive distributed transaction protocols like eXtended architecture (XA). | EDA provides better support for consistency between process interaction and persisted internal state transitions. This is done through the event sourcing pattern, where the communication protocol (the event) is also the persistence mechanism (the event log). The current state of a system can be built or rebuilt from the log of events.                                 |
+| Retaining the Exact State Transitions That Customers or Services Perform | In SOAs, data is typically “mutated in place” in a database. This is a lossy process where each state change loses the information about the state changes that happened previously.                                                                                                                                                                                        | EDAs are event sourced, meaning every state change is captured, providing a truthful journal of the exact state changes that every customer or every service made over time. This journal lets operators rewind time to view or replay previous events exactly as they happened. It is also important for analytics that review customer (or system) behavior to derive insight. |
+| *Streaming Analytics                                                     | SOA is incapable of deriving analytics of data in flight. This requires the ability to detect a pattern from multiple state changes both temporally and spatially.                                                                                                                                                                                                          | EDA is fully capable of detecting patterns across multiple event sources over many different types of time windows. Also, deriving analytics of data in flight is a means of continuous intelligence.                                                                                                                                                                            |
+| The Timing of Consistency and of Intelligence                            | Synchronous communication makes it a bit easier to create consistent state across services from a client’s perspective. Intelligence from the consistent state are derived eventually—that is, eventual intelligence and continuous consistency                                                                                                                             | Events, being asynchronous, mean that different services become consistent with one another only in eventuality: There is no control over the timeliness of the process of event propagation.                                                                                                                                                                                    |
+
+[Table 2: Mathew, Jerry. _SOA vs. EDA: Is Not Life Simply a Series of Events?_](https://www.confluent.io/blog/soa-vs-eda-is-not-life-simply-a-series-of-events)
+
+### EDA & Event-sourcing
 
 > Event sourcing a system means the treatment of events as the source of truth. In principle, until an event is made durable within the system, it cannot be processed any further. Just like an
 > author’s story is not a story at all until it’s written, an event should not be projected, replayed, published or otherwise processed until it’s durable enough such as being persisted to a data
@@ -401,6 +405,11 @@ Comparison overview:
 ![](.assets/img/cqrs.jpg)   
 [Fig. 21: Go, Jayson. _From Monolith to Event-Driven: Finding Seams in Your Future Architecture_](https://www.eventstore.com/blog/what-is-event-sourcing)
 
+### Command's pipeline
+
+![](./.assets/img/add-ha-message-queue.png)     
+[Fig. 6: MSDN. _Use message queues (out-of-proc) in the command's pipeline_](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/microservice-application-layer-implementation-web-api#use-message-queues-out-of-proc-in-the-commands-pipeline)
+
 ### Projections
 
 To cover this topic was
@@ -409,7 +418,7 @@ with some different strategies and ways to implement projections.
 
 ![](.assets/img/projections.svg)    
 
-## Event-sourcing + CQRS
+## CQRS + Event Sourcing
 
 > CQRS and Event Sourcing have a symbiotic relationship. CQRS allows Event Sourcing to be used as the data storage mechanism for the domain.
 >
@@ -469,7 +478,7 @@ with some different strategies and ways to implement projections.
 >
 > [Comartin, Derek. "Should you publish Domain Events or Integration Events?", _codeopinion.com_, last edited on 24 Nov 2021](https://codeopinion.com/should-you-publish-domain-events-or-integration-events)
 
-##### Event Notification
+#### Event Notification
 
 > Most times events used for notifications are generally pretty slim. They don’t contain much data. If a consumer is handling an event but needs more information, to, for example, react and perform
 > some action, it might have to make an RPC call back to the producing service to get more information. And this is what leads people to Event carried State Transfer, so they do not have to make these
@@ -482,7 +491,7 @@ with some different strategies and ways to implement projections.
 >
 > [Balachandran, Arvind. "Event Notification vs. Event-Carried State Transfer", _Start it up_, last edited on 27 Oct 2019](https://medium.com/swlh/event-notification-vs-event-carried-state-transfer-2e4fdf8f6662)
 
-##### Event-Carried State Transfer
+#### Event-Carried State Transfer
 
 > The most common way I see events being used and explained is for state propagation. Meaning, you’re publishing events about state changes within a service, so other services (consumers) can keep a
 > local cache copy of the data.
@@ -526,33 +535,13 @@ with some different strategies and ways to implement projections.
 
 ![](./.assets/img/from-eventstorming-to-eventsourcing.png)
 
-## Domain-driven design (DDD)
+## Domain Driven Design (DDD)
 
 > Domain-Driven Design is an approach to software development that centers the development on programming a domain model that has a rich understanding of the processes and rules of a domain. The name
 > comes from a 2003 book by Eric Evans that describes the approach through a catalog of patterns. Since then a community of practitioners have further developed the ideas, spawning various other books
 > and training courses. The approach is particularly suited to complex domains, where a lot of often-messy logic needs to be organized.
 >
 > [Fowler, Martin. "DomainDrivenDesign", _martinfowler.com_, last edited on 22 April 2020](https://martinfowler.com/bliki/DomainDrivenDesign.html)
-
-### Aggregate
-
-> I think a model is a set of related concepts that can be applied to solve a problem.
-> -- <cite> Eric Evans </cite>
-
-![](./.assets/img/aggregate.png)  
-Fig. 25: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st ed, p78.
-
-> Each Aggregate forms a transactional consistency boundary. This means that within a single Aggregate, all composed parts must be consistent, according to business rules, when the controlling
-> transaction is committed to the database. This doesn't necessarily mean that you are not supposed to compose other elements within an Aggregate that don't need to be consistent after a transaction.
-> After all, an Aggregate also models a conceptual whole. But you should be first and foremost concerned with transactional consistency. The outer boundary drawn around Aggregate Type 1 and Aggregate
-> Type 2 represents a separate transaction that will be in control of atomically persisting each object cluster.
->
-> Vernon, V. (2016) Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional, p78.
-
-> Aggregate is a pattern in Domain-Driven Design. A DDD aggregate is a cluster of domain objects that can be treated as a single unit. An example may be an order and its line-items, these will be
-> separate objects, but it's useful to treat the order (together with its line items) as a single aggregate.
->
-> [Fowler, Martin. "DDD_Aggregate", _martinfowler.com_, last edited on 08 Jun 2015](https://martinfowler.com/bliki/DomainDrivenDesign.html)
 
 ### Bounded Context
 
@@ -582,6 +571,26 @@ Fig. 25: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st 
 > Standardize a single development process within the context, which need not be used elsewhere.
 >
 > [Evans, Eric. (2015). "Bounded Context", Domain-Driven Design Reference](https://www.domainlanguage.com/ddd/reference)
+
+### Aggregate
+
+> I think a model is a set of related concepts that can be applied to solve a problem.
+> -- <cite> Eric Evans </cite>
+
+![](./.assets/img/aggregate.png)  
+Fig. 25: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st ed, p78.
+
+> Each Aggregate forms a transactional consistency boundary. This means that within a single Aggregate, all composed parts must be consistent, according to business rules, when the controlling
+> transaction is committed to the database. This doesn't necessarily mean that you are not supposed to compose other elements within an Aggregate that don't need to be consistent after a transaction.
+> After all, an Aggregate also models a conceptual whole. But you should be first and foremost concerned with transactional consistency. The outer boundary drawn around Aggregate Type 1 and Aggregate
+> Type 2 represents a separate transaction that will be in control of atomically persisting each object cluster.
+>
+> Vernon, V. (2016) Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional, p78.
+
+> Aggregate is a pattern in Domain-Driven Design. A DDD aggregate is a cluster of domain objects that can be treated as a single unit. An example may be an order and its line-items, these will be
+> separate objects, but it's useful to treat the order (together with its line items) as a single aggregate.
+>
+> [Fowler, Martin. "DDD_Aggregate", _martinfowler.com_, last edited on 08 Jun 2015](https://martinfowler.com/bliki/DomainDrivenDesign.html)
 
 ## Clean Architecture
 
@@ -756,7 +765,7 @@ An environment for testing that exactly resembles the production environment. In
 To preserve this concept, and considering a containerized deployment strategy (immutable environment), the staging environment is provided via [./docker-compose.yaml](./docker-compose.yaml)
 accordingly with each `appsettings.Staging.json`, considering Docker has a network interface with an IP address, a gateway, a routing table, DNS services, and other networking details.
 
-#### Docker
+#### Docker-compose
 
 The respective [./docker-compose.yaml](./docker-compose.Development.yaml) will provision all system dependencies, with minimal resources needed, and expose only the **WebAPP** connection port (as in
 Production environment):
@@ -795,7 +804,7 @@ K6
 docker run --network=ecommerce --name k6 --rm -i grafana/k6 run - <test.js
 ```
 
-## Event store
+## Event Store
 
 ### Store event
 
@@ -862,7 +871,7 @@ CREATE TABLE [Snapshots] (
 dotnet ef migrations add "First Migration" -s .\WorkerService\ -p .\Infrastructure.EventStore\
 ```
 
-## Main references
+## Main References
 
 - [Evans, Eric (2003), Domain-Driven Design: Tackling Complexity in the Heart of Software.](https://www.amazon.com/dp-0321125215/dp/0321125215/ref=mt_other?_encoding=UTF8&me=&qid=1641385448)
 - [Hohpe, Gregor (2003), Enterprise Integration Patterns: Designing, Building, and Deploying Messaging Solutions](https://www.enterpriseintegrationpatterns.com/)
@@ -870,7 +879,7 @@ dotnet ef migrations add "First Migration" -s .\WorkerService\ -p .\Infrastructu
 - [Vernon, Vaughn (2016), Domain-Driven Design Distilled.](https://www.amazon.com/dp-0134434420/dp/0134434420/ref=mt_other?_encoding=UTF8&me=&qid=1641385096)
 - [Richardson, Chris (2018), Microservices Patterns: With examples in Java.](https://www.amazon.com/-/pt/dp-B09782192F/dp/B09782192F/ref=mt_other?_encoding=UTF8&me=&qid=1641385683)
 
-## Complementary references
+### Complementary References
 
 - [CQRS Documents - Greg Young](https://cqrs.files.wordpress.com/2010/11/cqrs_documents.pdf)
 - [Versioning in an Event Sourced - Greg Young](https://leanpub.com/esversioning/read)
