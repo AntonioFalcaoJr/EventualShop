@@ -1,6 +1,6 @@
 ﻿{
   "profiles": {
-    "WorkerService": {
+    "ShoppingCart.WorkerService": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "environmentVariables": {

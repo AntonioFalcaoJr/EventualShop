@@ -1,16 +1,17 @@
 ﻿using Application.Abstractions.Notifications;
 using Application.EventStore;
-using Domain;
 using Domain.Aggregates;
+using Domain.StoreEvents;
 using Infrastructure.EventStore.Abstractions;
 using Infrastructure.EventStore.DependencyInjection.Options;
+using Infrastructure.EventStore.UnitsOfWork;
 using MassTransit;
 using Microsoft.Extensions.Options;
 
 namespace Infrastructure.EventStore;
 
-public class ShoppingCartEventStoreService : EventStoreService<ShoppingCart, StoreEvents.Event, StoreEvents.Snapshot, Guid>, IShoppingCartEventStoreService
+public class ShoppingCartEventStoreService : EventStoreService<ShoppingCart, ShoppingCartStoreEvent, ShoppingCartSnapshot, Guid>, IShoppingCartEventStoreService
 {
-    public ShoppingCartEventStoreService(IPublishEndpoint publishEndpoint, IShoppingCartEventStoreRepository repository, INotificationContext notificationContext, IOptionsMonitor<EventStoreOptions> optionsMonitor)
-        : base(publishEndpoint, repository, notificationContext, optionsMonitor) { }
+    public ShoppingCartEventStoreService(IPublishEndpoint publishEndpoint, IShoppingCartEventStoreRepository repository, INotificationContext notificationContext, IOptionsMonitor<EventStoreOptions> optionsMonitor, IUnitOfWork unitOfWork)
+        : base(publishEndpoint, repository, notificationContext, optionsMonitor, unitOfWork) { }
 }
