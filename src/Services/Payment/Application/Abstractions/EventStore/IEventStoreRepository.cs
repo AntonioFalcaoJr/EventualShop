@@ -5,9 +5,9 @@ using Domain.Abstractions.StoreEvents;
 namespace Application.Abstractions.EventStore;
 
 public interface IEventStoreRepository<in TAggregate, in TStoreEvent, TSnapshot, in TId>
-    where TAggregate : IAggregateRoot<TId, TStoreEvent>
-    where TStoreEvent : class, IStoreEvent<TId>
-    where TSnapshot : class, ISnapshot<TAggregate, TId>
+    where TAggregate : IAggregateRoot<TId>, new()
+    where TStoreEvent : StoreEvent<TId, TAggregate>
+    where TSnapshot : Snapshot<TId, TAggregate>
     where TId : struct
 {
     Task AppendEventsAsync(IEnumerable<TStoreEvent> events, Func<long, CancellationToken, Task> onEventStored, CancellationToken cancellationToken);
