@@ -3,4 +3,4 @@ using Domain.Aggregates;
 
 namespace Domain.StoreEvents;
 
-public record ShoppingCartSnapshot :  Snapshot<ShoppingCart, Guid>;
+public record ShoppingCartSnapshot : Snapshot<Guid, ShoppingCart>;

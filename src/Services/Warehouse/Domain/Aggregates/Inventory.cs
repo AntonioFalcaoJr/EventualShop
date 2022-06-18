@@ -3,12 +3,11 @@ using Contracts.Abstractions.Messages;
 using Contracts.Services.Warehouse;
 using Domain.Entities.Adjustments;
 using Domain.Entities.InventoryItems;
-using Domain.StoreEvents;
 using Domain.ValueObjects.Products;
 
 namespace Domain.Aggregates;
 
-public class Inventory : AggregateRoot<Guid, InventoryValidator, InventoryStoreEvent>
+public class Inventory : AggregateRoot<Guid, InventoryValidator>
 {
     private readonly List<InventoryItem> _items = new();
     private static DateTimeOffset Expiration => DateTimeOffset.Now.AddMinutes(5);

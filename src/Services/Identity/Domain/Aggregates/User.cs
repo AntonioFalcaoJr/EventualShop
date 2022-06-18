@@ -1,11 +1,10 @@
 ﻿using Domain.Abstractions.Aggregates;
 using Contracts.Abstractions.Messages;
 using Contracts.Services.Identity;
-using Domain.StoreEvents;
 
 namespace Domain.Aggregates;
 
-public class User : AggregateRoot<Guid, UserValidator, UserStoreEvent>
+public class User : AggregateRoot<Guid, UserValidator>
 {
     public string Email { get; private set; }
     public string Password { get; private set; }

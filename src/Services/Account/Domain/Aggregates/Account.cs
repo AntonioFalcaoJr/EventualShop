@@ -2,12 +2,11 @@
 using Contracts.Abstractions.Messages;
 using Contracts.Services.Account;
 using Domain.Entities.Profiles;
-using Domain.StoreEvents;
 using Domain.ValueObjects.Addresses;
 
 namespace Domain.Aggregates;
 
-public class Account : AggregateRoot<Guid, AccountValidator, AccountStoreEvent>
+public class Account : AggregateRoot<Guid, AccountValidator>
 {
     private readonly List<Address> _addresses = new();
 

@@ -3,4 +3,4 @@ using Domain.Aggregates;
 
 namespace Domain.StoreEvents;
 
-public record OrderSnapshot :  Snapshot<Order, Guid>;
+public record OrderSnapshot : Snapshot<Guid, Order>;

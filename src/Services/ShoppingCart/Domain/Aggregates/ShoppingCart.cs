@@ -5,7 +5,6 @@ using Domain.Abstractions.Aggregates;
 using Domain.Entities.CartItems;
 using Domain.Entities.PaymentMethods;
 using Domain.Enumerations;
-using Domain.StoreEvents;
 using Domain.ValueObjects.Addresses;
 using Domain.ValueObjects.PaymentOptions.CreditCards;
 using Domain.ValueObjects.PaymentOptions.DebitCards;
@@ -13,7 +12,7 @@ using Domain.ValueObjects.PaymentOptions.PayPals;
 
 namespace Domain.Aggregates;
 
-public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator, ShoppingCartStoreEvent>
+public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
 {
     private readonly List<CartItem> _items = new();
     private readonly List<PaymentMethod> _paymentMethods = new();
