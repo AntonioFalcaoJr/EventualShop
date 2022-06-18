@@ -10,10 +10,10 @@ using Microsoft.Extensions.Options;
 
 namespace Infrastructure.EventStore.Abstractions;
 
-public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId> : IEventStoreService<TAggregate, TId>
-    where TAggregate : IAggregateRoot<TId, TStoreEvent>, new()
-    where TStoreEvent : class, IStoreEvent<TId>
-    where TSnapshot : class, ISnapshot<TAggregate, TId>, new()
+public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId> : IEventStoreService<TId, TAggregate>
+    where TAggregate : IAggregateRoot<TId>, new()
+    where TStoreEvent : StoreEvent<TId, TAggregate>, new()
+    where TSnapshot : Snapshot<TId, TAggregate>, new()
     where TId : struct
 {
     private readonly INotificationContext _notificationContext;
@@ -61,7 +61,7 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
 
     private Task AppendEventsWithSnapshotControlAsync(TAggregate aggregate, CancellationToken cancellationToken)
         => _repository.AppendEventsAsync(
-            events: aggregate.StoreEvents,
+            events: ToStoreEvents(aggregate),
             onEventStored: (version, ct) => AppendSnapshotAsync(aggregate, version, ct),
             cancellationToken: cancellationToken);
 
@@ -81,4 +81,12 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
 
     private Task PublishEventsAsync(IEnumerable<IEvent> events, CancellationToken ct)
         => Task.WhenAll(events.Select(@event => _publishEndpoint.Publish(@event, @event.GetType(), ct)));
+
+    private static IEnumerable<TStoreEvent> ToStoreEvents(TAggregate aggregate)
+        => aggregate.Events.Select<IEvent, TStoreEvent>(@event => new()
+        {
+            AggregateId = aggregate.Id,
+            DomainEvent = @event,
+            DomainEventName = @event.GetType().Name
+        });
 }
