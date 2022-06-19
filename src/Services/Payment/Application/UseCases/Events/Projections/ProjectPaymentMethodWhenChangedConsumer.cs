@@ -53,5 +53,5 @@ public class ProjectPaymentMethodWhenChangedConsumer :
         => UpdateStatusAsync(context.Message.PaymentMethodId, PaymentMethodStatus.RefundDenied, context.CancellationToken);
 
     private Task UpdateStatusAsync(Guid methodId, PaymentMethodStatus status, CancellationToken cancellationToken)
-        => _repository.UpdateFieldAsync(methodId, payment => payment.Status, status.Name, cancellationToken);
+        => _repository.UpdateFieldAsync(methodId, method => method.Status, status.Name, cancellationToken);
 }
