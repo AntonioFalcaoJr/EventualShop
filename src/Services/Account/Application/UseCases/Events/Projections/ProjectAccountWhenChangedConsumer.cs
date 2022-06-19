@@ -11,9 +11,7 @@ public class ProjectAccountWhenChangedConsumer :
     private readonly IProjectionRepository<Projection.Account> _repository;
 
     public ProjectAccountWhenChangedConsumer(IProjectionRepository<Projection.Account> repository)
-    {
-        _repository = repository;
-    }
+        => _repository = repository;
 
     public async Task Consume(ConsumeContext<DomainEvent.AccountCreated> context)
     {
