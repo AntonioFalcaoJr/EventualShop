@@ -3,7 +3,7 @@ using Domain.Abstractions.Aggregates;
 
 namespace Domain.Abstractions.StoreEvents;
 
-public abstract record StoreEvent<TAggregate, TId>
+public abstract record StoreEvent<TId, TAggregate>
     where TAggregate : IAggregateRoot<TId>
     where TId : struct
 {

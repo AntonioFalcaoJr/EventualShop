@@ -1,13 +1,13 @@
-using Domain;
+using Domain.StoreEvents;
 using Infrastructure.EventStore.Contexts.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.EventStore.Contexts.Configurations;
 
-public class AccountStoreEventConfiguration : IEntityTypeConfiguration<StoreEvents.Event>
+public class AccountStoreEventConfiguration : IEntityTypeConfiguration<AccountStoreEvent>
 {
-    public void Configure(EntityTypeBuilder<StoreEvents.Event> builder)
+    public void Configure(EntityTypeBuilder<AccountStoreEvent> builder)
     {
         builder.HasKey(storeEvent => storeEvent.Version);
 
