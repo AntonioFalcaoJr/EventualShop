@@ -3,4 +3,4 @@ using Domain.Aggregates;
 
 namespace Application.EventStore;
 
-public interface IUserEventStoreService : IEventStoreService<User, Guid> { }
+public interface IUserEventStoreService : IEventStoreService<Guid, User> { }

@@ -6,7 +6,7 @@
 
     <ItemGroup>
         <PackageReference Include="MassTransit" Version="$(MassTransit_Version)"/>
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="$(Microsoft_Extensions_Hosting_Version)"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="$(Microsoft_Extensions_Version)"/>
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(Microsoft_Mvc_Testing_Version)"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EntityFrameworkCore_Version)"/>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(Microsoft_Test_SDK_Version)"/>

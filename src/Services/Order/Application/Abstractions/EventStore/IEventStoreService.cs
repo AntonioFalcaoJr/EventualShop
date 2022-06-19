@@ -2,7 +2,7 @@
 
 namespace Application.Abstractions.EventStore;
 
-public interface IEventStoreService<TAggregate, in TId>
+public interface IEventStoreService<in TId, TAggregate>
     where TAggregate : IAggregateRoot<TId>
     where TId : struct
 {
