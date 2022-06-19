@@ -12,9 +12,7 @@ public class GetCatalogItemsConsumer :
     private readonly IProjectionRepository<Projection.CatalogItem> _repository;
 
     public GetCatalogItemsConsumer(IProjectionRepository<Projection.CatalogItem> repository)
-    {
-        _repository = repository;
-    }
+        => _repository = repository;
 
     public async Task Consume(ConsumeContext<Query.GetCatalogItems> context)
     {

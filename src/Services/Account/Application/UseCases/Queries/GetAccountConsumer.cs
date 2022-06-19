@@ -10,9 +10,7 @@ public class GetAccountConsumer : IConsumer<Query.GetAccount>
     private readonly IProjectionRepository<Projection.Account> _repository;
 
     public GetAccountConsumer(IProjectionRepository<Projection.Account> repository)
-    {
-        _repository = repository;
-    }
+        => _repository = repository;
 
     public async Task Consume(ConsumeContext<Query.GetAccount> context)
     {

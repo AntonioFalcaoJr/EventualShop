@@ -2,34 +2,81 @@
     "version": "0.2.0",
     "configurations": [
         {
-            // Use IntelliSense to find out which attributes exist for C# debugging
-            // Use hover for the description of the existing attributes
-            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
-            "name": ".NET Core Launch (web)",
+            "name": "Account",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/src/Web/WebAPI/ECommerce.WebAPI/bin/Debug/net7.0/ECommerce.WebAPI.dll",
+            "program": "${workspaceFolder}/src/Services/Account/WorkerService/bin/Debug/net7.0/WorkerService.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/Web/WebAPI/ECommerce.WebAPI",
-            "stopAtEntry": false,
-            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            },
-            "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
-            }
+            "cwd": "${workspaceFolder}/src/Services/Account/WorkerService",
+            "console": "internalConsole",
+            "stopAtEntry": false
         },
         {
-            "name": ".NET Core Attach",
+            "name": "Catalog",
             "type": "coreclr",
-            "request": "attach"
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/Services/Catalog/WorkerService/bin/Debug/net7.0/WorkerService.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/Services/Catalog/WorkerService",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Identity",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/Services/Identity/WorkerService/bin/Debug/net7.0/WorkerService.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/Services/Identity/WorkerService",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Order",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/Services/Order/WorkerService/bin/Debug/net7.0/WorkerService.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/Services/Order/WorkerService",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Payment",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/Services/Payment/WorkerService/bin/Debug/net7.0/WorkerService.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/Services/Payment/WorkerService",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "ShoppingCart",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/Services/ShoppingCart/WorkerService/bin/Debug/net7.0/WorkerService.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/Services/ShoppingCart/WorkerService",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Warehouse",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/Services/Warehouse/WorkerService/bin/Debug/net7.0/WorkerService.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/Services/Warehouse/WorkerService",
+            "console": "internalConsole",
+            "stopAtEntry": false
         }
     ]
 }

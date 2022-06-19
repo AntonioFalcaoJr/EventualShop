@@ -10,9 +10,7 @@ public class GetUserAuthenticationDetailsConsumer : IConsumer<Query.GetUserAuthe
     private readonly IProjectionRepository<Projection.UserAuthentication> _repository;
 
     public GetUserAuthenticationDetailsConsumer(IProjectionRepository<Projection.UserAuthentication> repository)
-    {
-        _repository = repository;
-    }
+        => _repository = repository;
 
     public async Task Consume(ConsumeContext<Query.GetUserAuthentication> context)
     {

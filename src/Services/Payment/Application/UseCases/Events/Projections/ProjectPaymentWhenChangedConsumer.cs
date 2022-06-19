@@ -12,18 +12,16 @@ public class ProjectPaymentWhenChangedConsumer :
     private readonly IProjectionRepository<Projection.Payment> _repository;
 
     public ProjectPaymentWhenChangedConsumer(IProjectionRepository<Projection.Payment> repository)
-    {
-        _repository = repository;
-    }
+        => _repository = repository;
 
-    public async Task Consume(ConsumeContext<DomainEvent.PaymentCanceled> context)
-        => await _repository.UpdateFieldAsync(
+    public Task Consume(ConsumeContext<DomainEvent.PaymentCanceled> context)
+        => _repository.UpdateFieldAsync(
             id: context.Message.PaymentId,
             field: payment => payment.Status,
             value: PaymentStatus.Canceled.Name,
             cancellationToken: context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvent.PaymentRequested> context)
+    public Task Consume(ConsumeContext<DomainEvent.PaymentRequested> context)
     {
         Projection.Payment payment = new(
             context.Message.PaymentId,
@@ -34,6 +32,6 @@ public class ProjectPaymentWhenChangedConsumer :
             context.Message.Status,
             false);
 
-        await _repository.InsertAsync(payment, context.CancellationToken);
+        return _repository.InsertAsync(payment, context.CancellationToken);
     }
 }

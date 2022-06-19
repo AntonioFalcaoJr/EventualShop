@@ -1,6 +1,6 @@
 ﻿{
   "profiles": {
-    "Warehouse.WorkerService": {
+    "Warehouse": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "environmentVariables": {

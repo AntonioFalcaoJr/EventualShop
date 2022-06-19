@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Catalog.WorkerService": {
+    "Catalog": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "environmentVariables": {
