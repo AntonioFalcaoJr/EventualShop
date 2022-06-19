@@ -12,9 +12,7 @@ public class ProjectUserDetailsWhenUserChangedConsumer :
     private readonly IProjectionRepository<Projection.UserAuthentication> _repository;
 
     public ProjectUserDetailsWhenUserChangedConsumer(IProjectionRepository<Projection.UserAuthentication> repository)
-    {
-        _repository = repository;
-    }
+        => _repository = repository;
 
     public async Task Consume(ConsumeContext<DomainEvent.UserDeleted> context)
         => await _repository.DeleteAsync(context.Message.UserId, context.CancellationToken);

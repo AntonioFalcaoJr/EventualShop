@@ -15,9 +15,7 @@ public class ProjectCatalogWhenChangedConsumer :
     private readonly IProjectionRepository<Projection.Catalog> _repository;
 
     public ProjectCatalogWhenChangedConsumer(IProjectionRepository<Projection.Catalog> repository)
-    {
-        _repository = repository;
-    }
+        => _repository = repository;
 
     public async Task Consume(ConsumeContext<DomainEvent.CatalogCreated> context)
     {

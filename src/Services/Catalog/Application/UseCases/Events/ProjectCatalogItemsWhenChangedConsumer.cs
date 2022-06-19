@@ -12,9 +12,7 @@ public class ProjectCatalogItemsWhenChangedConsumer :
     private readonly IProjectionRepository<Projection.CatalogItem> _repository;
 
     public ProjectCatalogItemsWhenChangedConsumer(IProjectionRepository<Projection.CatalogItem> repository)
-    {
-        _repository = repository;
-    }
+        => _repository = repository;
 
     public async Task Consume(ConsumeContext<DomainEvent.CatalogDeleted> context)
         => await _repository.DeleteAsync(item => item.CatalogId == context.Message.CatalogId, context.CancellationToken);

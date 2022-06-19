@@ -14,9 +14,7 @@ public class ProjectCartItemsWhenChangedConsumer :
     private readonly IProjectionRepository<Projection.ShoppingCartItem> _repository;
 
     public ProjectCartItemsWhenChangedConsumer(IProjectionRepository<Projection.ShoppingCartItem> repository)
-    {
-        _repository = repository;
-    }
+        => _repository = repository;
 
     public async Task Consume(ConsumeContext<DomainEvent.CartItemAdded> context)
     {

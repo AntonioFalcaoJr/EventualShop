@@ -19,9 +19,7 @@ public class ProjectCartWhenChangedConsumer :
     private readonly IProjectionRepository<Projection.ShoppingCart> _repository;
 
     public ProjectCartWhenChangedConsumer(IProjectionRepository<Projection.ShoppingCart> repository)
-    {
-        _repository = repository;
-    }
+        => _repository = repository;
 
     public async Task Consume(ConsumeContext<DomainEvent.BillingAddressChanged> context)
         => await _repository.UpdateFieldAsync(

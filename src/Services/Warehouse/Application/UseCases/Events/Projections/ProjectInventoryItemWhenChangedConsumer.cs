@@ -13,9 +13,7 @@ public class ProjectInventoryItemWhenChangedConsumer :
     private readonly IProjectionRepository<Projection.InventoryItem> _repository;
 
     public ProjectInventoryItemWhenChangedConsumer(IProjectionRepository<Projection.InventoryItem> repository)
-    {
-        _repository = repository;
-    }
+        => _repository = repository;
 
     public async Task Consume(ConsumeContext<DomainEvent.InventoryAdjustmentDecreased> context)
         => await _repository.IncreaseFieldAsync(

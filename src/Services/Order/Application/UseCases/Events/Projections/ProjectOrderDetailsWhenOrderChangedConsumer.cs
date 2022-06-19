@@ -9,9 +9,7 @@ public class ProjectOrderDetailsWhenOrderChangedConsumer : IConsumer<DomainEvent
     private readonly IProjectionRepository<Projection.Order> _repository;
 
     public ProjectOrderDetailsWhenOrderChangedConsumer(IProjectionRepository<Projection.Order> repository)
-    {
-        _repository = repository;
-    }
+        => _repository = repository;
 
     public async Task Consume(ConsumeContext<DomainEvent.OrderPlaced> context)
     {

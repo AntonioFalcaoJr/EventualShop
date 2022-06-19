@@ -12,9 +12,7 @@ public class GetShoppingCartConsumer :
     private readonly IProjectionRepository<Projection.ShoppingCart> _repository;
 
     public GetShoppingCartConsumer(IProjectionRepository<Projection.ShoppingCart> repository)
-    {
-        _repository = repository;
-    }
+        => _repository = repository;
 
     public async Task Consume(ConsumeContext<Query.GetCustomerShoppingCart> context)
     {
