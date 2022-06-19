@@ -18,7 +18,7 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
 
     public decimal AmountDue
         => _paymentMethods
-            .Where(method => method.Status is not PaymentMethodStatus.Authorized)
+            .Where(method => method.Status != PaymentMethodStatus.Authorized)
             .Sum(method => method.Amount);
 
     public IEnumerable<PaymentMethod> PaymentMethods
@@ -89,8 +89,14 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
     private void When(DomainEvent.PaymentMethodCanceled @event)
         => _paymentMethods.Single(method => method.Id == @event.PaymentMethodId).Cancel();
 
+    private void When(DomainEvent.PaymentMethodCancellationDenied @event)
+        => _paymentMethods.Single(method => method.Id == @event.PaymentMethodId).DenyCancellation();
+
     private void When(DomainEvent.PaymentMethodRefunded @event)
         => _paymentMethods.Single(method => method.Id == @event.PaymentMethodId).Refund();
+
+    private void When(DomainEvent.PaymentMethodRefundDenied @event)
+        => _paymentMethods.Single(method => method.Id == @event.PaymentMethodId).DenyRefund();
 
     private void When(DomainEvent.PaymentCompleted _)
         => Status = PaymentStatus.Completed;
