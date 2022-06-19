@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Account.WorkerService": {
+    "Account": {
       "commandName": "Project",
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"
