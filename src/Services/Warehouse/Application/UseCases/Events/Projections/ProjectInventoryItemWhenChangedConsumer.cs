@@ -15,28 +15,28 @@ public class ProjectInventoryItemWhenChangedConsumer :
     public ProjectInventoryItemWhenChangedConsumer(IProjectionRepository<Projection.InventoryItem> repository)
         => _repository = repository;
 
-    public async Task Consume(ConsumeContext<DomainEvent.InventoryAdjustmentDecreased> context)
-        => await _repository.IncreaseFieldAsync(
+    public Task Consume(ConsumeContext<DomainEvent.InventoryAdjustmentDecreased> context)
+        => _repository.IncreaseFieldAsync(
             id: context.Message.InventoryItemId,
             field: item => item.Quantity,
             value: context.Message.Quantity * -1,
             cancellationToken: context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvent.InventoryAdjustmentIncreased> context)
-        => await _repository.IncreaseFieldAsync(
-            id: context.Message.InventoryItemId,
-            field: item => item.Quantity,
-            value: context.Message.Quantity,
-            cancellationToken: context.CancellationToken);
-    
-    public async Task Consume(ConsumeContext<DomainEvent.InventoryItemIncreased> context)
-        => await _repository.IncreaseFieldAsync(
+    public Task Consume(ConsumeContext<DomainEvent.InventoryAdjustmentIncreased> context)
+        => _repository.IncreaseFieldAsync(
             id: context.Message.InventoryItemId,
             field: item => item.Quantity,
             value: context.Message.Quantity,
             cancellationToken: context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvent.InventoryItemReceived> context)
+    public Task Consume(ConsumeContext<DomainEvent.InventoryItemIncreased> context)
+        => _repository.IncreaseFieldAsync(
+            id: context.Message.InventoryItemId,
+            field: item => item.Quantity,
+            value: context.Message.Quantity,
+            cancellationToken: context.CancellationToken);
+
+    public Task Consume(ConsumeContext<DomainEvent.InventoryItemReceived> context)
     {
         Projection.InventoryItem inventoryItem = new(
             context.Message.InventoryItemId,
@@ -46,6 +46,6 @@ public class ProjectInventoryItemWhenChangedConsumer :
             context.Message.Sku,
             false);
 
-        await _repository.InsertAsync(inventoryItem, context.CancellationToken);
+        return _repository.InsertAsync(inventoryItem, context.CancellationToken);
     }
 }

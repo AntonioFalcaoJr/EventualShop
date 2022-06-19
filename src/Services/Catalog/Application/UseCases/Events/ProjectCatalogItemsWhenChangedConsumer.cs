@@ -14,13 +14,13 @@ public class ProjectCatalogItemsWhenChangedConsumer :
     public ProjectCatalogItemsWhenChangedConsumer(IProjectionRepository<Projection.CatalogItem> repository)
         => _repository = repository;
 
-    public async Task Consume(ConsumeContext<DomainEvent.CatalogDeleted> context)
-        => await _repository.DeleteAsync(item => item.CatalogId == context.Message.CatalogId, context.CancellationToken);
+    public Task Consume(ConsumeContext<DomainEvent.CatalogDeleted> context)
+        => _repository.DeleteAsync(item => item.CatalogId == context.Message.CatalogId, context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvent.CatalogItemRemoved> context)
-        => await _repository.DeleteAsync(context.Message.ItemId, context.CancellationToken);
+    public Task Consume(ConsumeContext<DomainEvent.CatalogItemRemoved> context)
+        => _repository.DeleteAsync(context.Message.ItemId, context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvent.CatalogItemAdded> context)
+    public Task Consume(ConsumeContext<DomainEvent.CatalogItemAdded> context)
     {
         Projection.CatalogItem catalogItem = new(
             context.Message.CatalogId,
@@ -29,6 +29,6 @@ public class ProjectCatalogItemsWhenChangedConsumer :
             context.Message.Product,
             false);
 
-        await _repository.InsertAsync(catalogItem, context.CancellationToken);
+        return _repository.InsertAsync(catalogItem, context.CancellationToken);
     }
 }

@@ -21,28 +21,28 @@ public class ProjectCartWhenChangedConsumer :
     public ProjectCartWhenChangedConsumer(IProjectionRepository<Projection.ShoppingCart> repository)
         => _repository = repository;
 
-    public async Task Consume(ConsumeContext<DomainEvent.BillingAddressChanged> context)
-        => await _repository.UpdateFieldAsync(
+    public Task Consume(ConsumeContext<DomainEvent.BillingAddressChanged> context)
+        => _repository.UpdateFieldAsync(
             id: context.Message.CartId,
             field: cart => cart.BillingAddress,
             value: context.Message.Address,
             cancellationToken: context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvent.ShippingAddressAdded> context)
-        => await _repository.UpdateFieldAsync(
+    public Task Consume(ConsumeContext<DomainEvent.ShippingAddressAdded> context)
+        => _repository.UpdateFieldAsync(
             id: context.Message.CartId,
             field: cart => cart.ShippingAddress,
             value: context.Message.Address,
             cancellationToken: context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvent.CartCheckedOut> context)
-        => await _repository.UpdateFieldAsync(
+    public Task Consume(ConsumeContext<DomainEvent.CartCheckedOut> context)
+        => _repository.UpdateFieldAsync(
             id: context.Message.CartId,
             field: cart => cart.Status,
             value: CartStatus.CheckedOut.Name,
             cancellationToken: context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvent.CartCreated> context)
+    public Task Consume(ConsumeContext<DomainEvent.CartCreated> context)
     {
         Projection.ShoppingCart shoppingCart = new(
             context.Message.CartId,
@@ -53,35 +53,35 @@ public class ProjectCartWhenChangedConsumer :
             default,
             false);
 
-        await _repository.InsertAsync(shoppingCart, context.CancellationToken);
+        return _repository.InsertAsync(shoppingCart, context.CancellationToken);
     }
 
-    public async Task Consume(ConsumeContext<DomainEvent.CartDiscarded> context)
-        => await _repository.DeleteAsync(context.Message.CartId, context.CancellationToken);
+    public Task Consume(ConsumeContext<DomainEvent.CartDiscarded> context)
+        => _repository.DeleteAsync(context.Message.CartId, context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvent.CartItemAdded> context)
-        => await _repository.IncreaseFieldAsync(
+    public Task Consume(ConsumeContext<DomainEvent.CartItemAdded> context)
+        => _repository.IncreaseFieldAsync(
             id: context.Message.CartId,
             field: cart => cart.Total,
             value: context.Message.Quantity * context.Message.UnitPrice,
             cancellationToken: context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvent.CartItemDecreased> context)
-        => await _repository.IncreaseFieldAsync(
+    public Task Consume(ConsumeContext<DomainEvent.CartItemDecreased> context)
+        => _repository.IncreaseFieldAsync(
             id: context.Message.CartId,
             field: cart => cart.Total,
             value: context.Message.UnitPrice * -1,
             cancellationToken: context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvent.CartItemIncreased> context)
-        => await _repository.IncreaseFieldAsync(
+    public Task Consume(ConsumeContext<DomainEvent.CartItemIncreased> context)
+        => _repository.IncreaseFieldAsync(
             id: context.Message.CartId,
             field: cart => cart.Total,
             value: context.Message.UnitPrice,
             cancellationToken: context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvent.CartItemRemoved> context)
-        => await _repository.IncreaseFieldAsync(
+    public Task Consume(ConsumeContext<DomainEvent.CartItemRemoved> context)
+        => _repository.IncreaseFieldAsync(
             id: context.Message.CartId,
             field: cart => cart.Total,
             value: context.Message.UnitPrice * context.Message.Quantity * -1,

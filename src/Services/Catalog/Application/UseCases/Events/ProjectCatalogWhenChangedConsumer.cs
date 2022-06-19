@@ -17,7 +17,7 @@ public class ProjectCatalogWhenChangedConsumer :
     public ProjectCatalogWhenChangedConsumer(IProjectionRepository<Projection.Catalog> repository)
         => _repository = repository;
 
-    public async Task Consume(ConsumeContext<DomainEvent.CatalogCreated> context)
+    public Task Consume(ConsumeContext<DomainEvent.CatalogCreated> context)
     {
         Projection.Catalog catalog = new(
             context.Message.CatalogId,
@@ -26,35 +26,35 @@ public class ProjectCatalogWhenChangedConsumer :
             false,
             false);
 
-        await _repository.InsertAsync(catalog, context.CancellationToken);
+        return _repository.InsertAsync(catalog, context.CancellationToken);
     }
 
-    public async Task Consume(ConsumeContext<DomainEvent.CatalogDeleted> context)
-        => await _repository.DeleteAsync(context.Message.CatalogId, context.CancellationToken);
+    public Task Consume(ConsumeContext<DomainEvent.CatalogDeleted> context)
+        => _repository.DeleteAsync(context.Message.CatalogId, context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvent.CatalogActivated> context)
-        => await _repository.UpdateFieldAsync(
+    public Task Consume(ConsumeContext<DomainEvent.CatalogActivated> context)
+        => _repository.UpdateFieldAsync(
             id: context.Message.CatalogId,
             field: catalog => catalog.IsActive,
             value: true,
             cancellationToken: context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvent.CatalogDeactivated> context)
-        => await _repository.UpdateFieldAsync(
+    public Task Consume(ConsumeContext<DomainEvent.CatalogDeactivated> context)
+        => _repository.UpdateFieldAsync(
             id: context.Message.CatalogId,
             field: catalog => catalog.IsActive,
             value: false,
             cancellationToken: context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvent.CatalogDescriptionChanged> context)
-        => await _repository.UpdateFieldAsync(
+    public Task Consume(ConsumeContext<DomainEvent.CatalogDescriptionChanged> context)
+        => _repository.UpdateFieldAsync(
             id: context.Message.CatalogId,
             field: catalog => catalog.Description,
             value: context.Message.Description,
             cancellationToken: context.CancellationToken);
 
-    public async Task Consume(ConsumeContext<DomainEvent.CatalogTitleChanged> context)
-        => await _repository.UpdateFieldAsync(
+    public Task Consume(ConsumeContext<DomainEvent.CatalogTitleChanged> context)
+        => _repository.UpdateFieldAsync(
             id: context.Message.CatalogId,
             field: catalog => catalog.Title,
             value: context.Message.Title,
