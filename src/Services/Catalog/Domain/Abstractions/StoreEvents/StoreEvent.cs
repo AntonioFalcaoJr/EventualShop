@@ -8,8 +8,8 @@ public abstract record StoreEvent<TId, TAggregate>
     where TId : struct
 {
     public long Version { get; }
-    public required TId AggregateId { get; init; }
+    public TId AggregateId { get; init; }
     public string AggregateName { get; } = typeof(TAggregate).Name;
-    public required string DomainEventName { get; init; }
-    public required IEvent DomainEvent { get; init; }
+    public string DomainEventName { get; init; }
+    public IEvent DomainEvent { get; init; }
 }
