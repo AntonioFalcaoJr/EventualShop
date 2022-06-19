@@ -10,9 +10,7 @@ public class GetPaymentConsumer : IConsumer<Query.GetPayment>
     private readonly IProjectionRepository<Projection.Payment> _repository;
 
     public GetPaymentConsumer(IProjectionRepository<Projection.Payment> repository)
-    {
-        _repository = repository;
-    }
+        => _repository = repository;
 
     public async Task Consume(ConsumeContext<Query.GetPayment> context)
     {

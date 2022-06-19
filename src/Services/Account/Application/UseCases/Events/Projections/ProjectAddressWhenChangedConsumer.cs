@@ -11,9 +11,7 @@ public class ProjectAddressWhenChangedConsumer :
     private readonly IProjectionRepository<Projection.Address> _repository;
 
     public ProjectAddressWhenChangedConsumer(IProjectionRepository<Projection.Address> repository)
-    {
-        _repository = repository;
-    }
+        => _repository = repository;
 
     public async Task Consume(ConsumeContext<DomainEvent.BillingAddressAdded> context)
     {
