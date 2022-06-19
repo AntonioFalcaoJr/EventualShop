@@ -19,7 +19,7 @@ public static class Command
 
     public record RefundPaymentMethod(Guid PaymentId, Guid PaymentMethodId, Guid TransactionId) : Message(CorrelationId: PaymentId), ICommand;
 
-    public record DenyRefundPaymentMethod(Guid PaymentId, Guid PaymentMethodId, Guid TransactionId) : Message(CorrelationId: PaymentId), ICommand;
+    public record DenyPaymentMethodRefund(Guid PaymentId, Guid PaymentMethodId, Guid TransactionId) : Message(CorrelationId: PaymentId), ICommand;
 
-    public record DenyCancelPaymentMethod(Guid PaymentId, Guid PaymentMethodId, Guid TransactionId) : Message(CorrelationId: PaymentId), ICommand;
+    public record DenyPaymentMethodCancellation(Guid PaymentId, Guid PaymentMethodId, Guid TransactionId) : Message(CorrelationId: PaymentId), ICommand;
 }
