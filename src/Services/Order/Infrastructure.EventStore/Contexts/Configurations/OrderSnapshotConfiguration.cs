@@ -1,13 +1,13 @@
-﻿using Domain;
+﻿using Domain.StoreEvents;
 using Infrastructure.EventStore.Contexts.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.EventStore.Contexts.Configurations;
 
-public class OrderSnapshotConfiguration : IEntityTypeConfiguration<StoreEvents.Snapshot>
+public class OrderSnapshotConfiguration : IEntityTypeConfiguration<OrderSnapshot>
 {
-    public void Configure(EntityTypeBuilder<StoreEvents.Snapshot> builder)
+    public void Configure(EntityTypeBuilder<OrderSnapshot> builder)
     {
         builder.HasKey(snapshot => new {snapshot.AggregateVersion, snapshot.AggregateId});
 

@@ -1,13 +1,13 @@
-﻿using Domain;
+﻿using Domain.StoreEvents;
 using Infrastructure.EventStore.Contexts.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.EventStore.Contexts.Configurations;
 
-public class PaymentStoreEventConfiguration : IEntityTypeConfiguration<StoreEvents.Event>
+public class PaymentStoreEventConfiguration : IEntityTypeConfiguration<PaymentStoreEvent>
 {
-    public void Configure(EntityTypeBuilder<StoreEvents.Event> builder)
+    public void Configure(EntityTypeBuilder<PaymentStoreEvent> builder)
     {
         builder.HasKey(storeEvent => storeEvent.Version);
 

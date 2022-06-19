@@ -1,6 +1,7 @@
 using Application.EventStore;
 using Infrastructure.EventStore.Contexts;
 using Infrastructure.EventStore.DependencyInjection.Options;
+using Infrastructure.EventStore.UnitsOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,8 +14,8 @@ public static class ServiceCollectionExtensions
     public static void AddEventStore(this IServiceCollection services)
     {
         services.AddScoped<IUserEventStoreService, UserEventStoreService>();
-
         services.AddScoped<IUserEventStoreRepository, UserEventStoreRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddDbContextPool<EventStoreDbContext>((provider, builder) =>
         {
@@ -25,7 +26,7 @@ public static class ServiceCollectionExtensions
                 .EnableDetailedErrors()
                 .EnableSensitiveDataLogging()
                 .UseSqlServer(
-                    connectionString: configuration.GetConnectionString("EventStore")!,
+                    connectionString: configuration.GetConnectionString("EventStore"),
                     sqlServerOptionsAction: optionsBuilder
                         => optionsBuilder.ExecutionStrategy(
                                 dependencies => new SqlServerRetryingExecutionStrategy(

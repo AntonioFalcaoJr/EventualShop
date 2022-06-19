@@ -5,9 +5,7 @@ using MassTransit;
 
 namespace Application.UseCases.Queries;
 
-public class GetCatalogConsumer :
-    IConsumer<Query.GetCatalog>,
-    IConsumer<Query.GetCatalogs>
+public class GetCatalogConsumer : IConsumer<Query.GetCatalog>, IConsumer<Query.GetCatalogs>
 {
     private readonly IProjectionRepository<Projection.Catalog> _repository;
 

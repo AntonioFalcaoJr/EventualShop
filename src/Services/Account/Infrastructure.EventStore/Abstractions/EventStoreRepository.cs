@@ -9,8 +9,8 @@ namespace Infrastructure.EventStore.Abstractions;
 
 public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId> : IEventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId>
     where TAggregate : IAggregateRoot<TId>, new()
-    where TStoreEvent : StoreEvent<TAggregate, TId>
-    where TSnapshot : Snapshot<TAggregate, TId>
+    where TStoreEvent : StoreEvent<TId, TAggregate>
+    where TSnapshot : Snapshot<TId, TAggregate>
     where TId : struct
 {
     private readonly EventStoreDbContext _dbContext;
@@ -23,18 +23,23 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
         _snapshots = dbContext.Set<TSnapshot>();
     }
 
-    public Task AppendEventsAsync(IEnumerable<TStoreEvent> events, Func<TStoreEvent, CancellationToken, Task> onEventStored, CancellationToken cancellationToken)
-        => ExecuteInTransactionStrategyAsync(
-            operationAsync: async ct =>
-            {
-                foreach (var @event in events)
-                {
-                    await _storeEvents.AddAsync(@event, ct);
-                    await _dbContext.SaveChangesAsync(ct);
-                    await onEventStored(@event, ct);
-                }
-            },
-            cancellationToken: cancellationToken);
+    public async Task AppendEventsAsync(
+        IEnumerable<TStoreEvent> events,
+        Func<long, CancellationToken, Task> onEventStored,
+        CancellationToken ct)
+    {
+        foreach (var @event in events)
+        {
+            await AppendEventAsync(@event, ct);
+            await onEventStored(@event.Version, ct);
+        }
+    }
+
+    public async Task AppendEventAsync(TStoreEvent storeEvent, CancellationToken ct)
+    {
+        await _storeEvents.AddAsync(storeEvent, ct);
+        await _dbContext.SaveChangesAsync(ct);
+    }
 
     public async Task AppendSnapshotAsync(TSnapshot snapshot, CancellationToken ct)
     {
@@ -56,14 +61,4 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
             .Where(snapshot => snapshot.AggregateId.Equals(aggregateId))
             .OrderByDescending(snapshot => snapshot.AggregateVersion)
             .FirstOrDefaultAsync(ct);
-
-    private Task ExecuteInTransactionStrategyAsync(Func<CancellationToken, Task> operationAsync, CancellationToken cancellationToken)
-        => _dbContext.Database.CreateExecutionStrategy().ExecuteAsync(ct => ExecuteInTransactionAsync(operationAsync, ct), cancellationToken);
-
-    private async Task ExecuteInTransactionAsync(Func<CancellationToken, Task> operationAsync, CancellationToken cancellationToken)
-    {
-        await using var transaction = await _dbContext.Database.BeginTransactionAsync(cancellationToken);
-        await operationAsync(cancellationToken);
-        await transaction.CommitAsync(cancellationToken);
-    }
 }
