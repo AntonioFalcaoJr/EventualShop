@@ -38,19 +38,19 @@ public class ProjectPaymentMethodWhenChangedConsumer :
         => UpdateStatusAsync(context.Message.PaymentMethodId, PaymentMethodStatus.Authorized, context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.PaymentMethodDenied> context)
-        => UpdateStatusAsync(context.Message.PaymentMethodId, PaymentMethodStatus.Authorized, context.CancellationToken);
+        => UpdateStatusAsync(context.Message.PaymentMethodId, PaymentMethodStatus.Denied, context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.PaymentMethodCanceled> context)
-        => UpdateStatusAsync(context.Message.PaymentMethodId, PaymentMethodStatus.Authorized, context.CancellationToken);
+        => UpdateStatusAsync(context.Message.PaymentMethodId, PaymentMethodStatus.Canceled, context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.PaymentMethodCancellationDenied> context)
-        => UpdateStatusAsync(context.Message.PaymentMethodId, PaymentMethodStatus.Authorized, context.CancellationToken);
+        => UpdateStatusAsync(context.Message.PaymentMethodId, PaymentMethodStatus.CancellationDenied, context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.PaymentMethodRefunded> context)
-        => UpdateStatusAsync(context.Message.PaymentMethodId, PaymentMethodStatus.Authorized, context.CancellationToken);
+        => UpdateStatusAsync(context.Message.PaymentMethodId, PaymentMethodStatus.Refunded, context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.PaymentMethodRefundDenied> context)
-        => UpdateStatusAsync(context.Message.PaymentMethodId, PaymentMethodStatus.Authorized, context.CancellationToken);
+        => UpdateStatusAsync(context.Message.PaymentMethodId, PaymentMethodStatus.RefundDenied, context.CancellationToken);
 
     private Task UpdateStatusAsync(Guid methodId, PaymentMethodStatus status, CancellationToken cancellationToken)
         => _repository.UpdateFieldAsync(methodId, payment => payment.Status, status.Name, cancellationToken);
