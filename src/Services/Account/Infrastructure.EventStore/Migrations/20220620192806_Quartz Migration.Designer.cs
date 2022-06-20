@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.EventStore.Migrations
 {
     [DbContext(typeof(EventStoreDbContext))]
-    [Migration("20220617192747_Quartz Migration")]
+    [Migration("20220620192806_Quartz Migration")]
     partial class QuartzMigration
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace Infrastructure.EventStore.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0-preview.4.22229.2")
+                .HasAnnotation("ProductVersion", "7.0.0-preview.5.22302.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -51,10 +51,7 @@ namespace Infrastructure.EventStore.Migrations
             modelBuilder.Entity("Domain.StoreEvents.AccountStoreEvent", b =>
                 {
                     b.Property<long>("Version")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Version"), 1L, 1);
 
                     b.Property<Guid>("AggregateId")
                         .HasColumnType("uniqueidentifier");
@@ -75,7 +72,7 @@ namespace Infrastructure.EventStore.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
 
-                    b.HasKey("Version");
+                    b.HasKey("Version", "AggregateId");
 
                     b.ToTable("Events");
                 });

@@ -9,7 +9,10 @@ public class AccountStoreEventConfiguration : IEntityTypeConfiguration<AccountSt
 {
     public void Configure(EntityTypeBuilder<AccountStoreEvent> builder)
     {
-        builder.HasKey(storeEvent => storeEvent.Version);
+        builder.HasKey(storeEvent => new {storeEvent.Version, storeEvent.AggregateId});
+
+        builder.Property(storeEvent => storeEvent.Version)
+            .IsRequired();
 
         builder
             .Property(storeEvent => storeEvent.AggregateId)
