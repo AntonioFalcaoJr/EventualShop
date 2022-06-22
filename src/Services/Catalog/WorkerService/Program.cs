@@ -58,9 +58,6 @@ builder.ConfigureServices((context, services) =>
 
     services.ConfigureMassTransitHostOptions(
         context.Configuration.GetSection(nameof(MassTransitHostOptions)));
-
-    services.ConfigureRabbitMqTransportOptions(
-        context.Configuration.GetSection(nameof(RabbitMqTransportOptions)));
 });
 
 using var host = builder.Build();
