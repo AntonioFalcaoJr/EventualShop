@@ -28,6 +28,18 @@ public class PaymentMethod : Entity<Guid, PaymentMethodValidator>
     public void Deny()
         => Status = PaymentMethodStatus.Denied;
 
+    public void Cancel()
+        => Status = PaymentMethodStatus.Canceled;
+
+    public void DenyCancellation()
+        => Status = PaymentMethodStatus.CancellationDenied;
+
+    public void Refund()
+        => Status = PaymentMethodStatus.Refunded;
+
+    public void DenyRefund()
+        => Status = PaymentMethodStatus.RefundDenied;
+
     public static implicit operator PaymentMethod(Dto.PaymentMethod method)
         => new(method.Id, method.Amount, method.Option switch
         {

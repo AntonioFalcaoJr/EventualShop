@@ -21,10 +21,10 @@ public abstract class ApplicationHttpClient
         where TResponse : new()
         => RequestAsync<TResponse>((client, ct) => client.PutAsJsonAsync(endpoint, request, ct), cancellationToken);
 
-    private async Task<HttpResponse<TResponse>> RequestAsync<TResponse>(Func<HttpClient, CancellationToken, Task<HttpResponseMessage>> requestAsync, CancellationToken cancellationToken)
+    private async Task<HttpResponse<TResponse>> RequestAsync<TResponse>(Func<HttpClient, CancellationToken, Task<HttpResponseMessage>> request, CancellationToken cancellationToken)
         where TResponse : new()
     {
-        var response = await requestAsync(_client, cancellationToken);
+        var response = await request(_client, cancellationToken);
 
         return new()
         {

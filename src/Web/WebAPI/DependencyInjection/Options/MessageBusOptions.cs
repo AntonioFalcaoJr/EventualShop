@@ -4,7 +4,8 @@ namespace WebAPI.DependencyInjection.Options;
 
 public record MessageBusOptions
 {
-    public List<string> Cluster { get; init; }
+    [Required]
+    public Uri ConnectionString { get; init; }
 
     [Required, Range(1, 10)]
     public int RetryLimit { get; init; }

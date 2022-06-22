@@ -10,10 +10,16 @@ public static class Dto
 
     public record Customer(Guid Id, Profile Profile);
 
-    public record CreditCard([property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))] [property: BsonSerializer(typeof(ExpirationDateOnlyBsonSerializer))] DateOnly Expiration, string Number, string HolderName, string SecurityNumber)
+    public record CreditCard(
+            [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
+            [property: BsonSerializer(typeof(ExpirationDateOnlyBsonSerializer))]
+            DateOnly Expiration, string Number, string HolderName, string SecurityNumber)
         : IPaymentOption;
 
-    public record DebitCard([property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))] [property: BsonSerializer(typeof(ExpirationDateOnlyBsonSerializer))] DateOnly Expiration, string Number, string HolderName, string SecurityNumber)
+    public record DebitCard(
+            [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
+            [property: BsonSerializer(typeof(ExpirationDateOnlyBsonSerializer))]
+            DateOnly Expiration, string Number, string HolderName, string SecurityNumber)
         : IPaymentOption;
 
     public record PayPal(string UserName, string Password) : IPaymentOption;

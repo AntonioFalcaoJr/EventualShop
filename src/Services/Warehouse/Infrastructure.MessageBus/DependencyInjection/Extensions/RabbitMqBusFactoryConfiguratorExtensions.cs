@@ -8,19 +8,19 @@ namespace Infrastructure.MessageBus.DependencyInjection.Extensions;
 
 internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
-    public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistrationContext registration)
+    public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistrationContext context)
     {
-        cfg.ConfigureEventReceiveEndpoint<ProjectInventoryWhenChangedConsumer, DomainEvent.InventoryCreated>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectInventoryWhenChangedConsumer, DomainEvent.InventoryCreated>(context);
         
-        cfg.ConfigureEventReceiveEndpoint<ProjectInventoryItemWhenChangedConsumer, DomainEvent.InventoryItemReceived>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectInventoryItemWhenChangedConsumer, DomainEvent.InventoryAdjustmentDecreased>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectInventoryItemWhenChangedConsumer, DomainEvent.InventoryAdjustmentIncreased>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectInventoryItemWhenChangedConsumer, DomainEvent.InventoryItemIncreased>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectInventoryItemWhenChangedConsumer, DomainEvent.InventoryItemReceived>(context);
+        cfg.ConfigureEventReceiveEndpoint<ProjectInventoryItemWhenChangedConsumer, DomainEvent.InventoryAdjustmentDecreased>(context);
+        cfg.ConfigureEventReceiveEndpoint<ProjectInventoryItemWhenChangedConsumer, DomainEvent.InventoryAdjustmentIncreased>(context);
+        cfg.ConfigureEventReceiveEndpoint<ProjectInventoryItemWhenChangedConsumer, DomainEvent.InventoryItemIncreased>(context);
         
-        cfg.ConfigureEventReceiveEndpoint<ReserveInventoryItemWhenCartItemAddedConsumer, Contracts.Services.ShoppingCart.DomainEvent.CartItemAdded>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ReserveInventoryItemWhenCartItemAddedConsumer, Contracts.Services.ShoppingCart.DomainEvent.CartItemAdded>(context);
     }
 
-    private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistrationContext registration)
+    private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistrationContext context)
         where TConsumer : class, IConsumer
         where TEvent : class, IEvent
         => bus.ReceiveEndpoint(
@@ -29,6 +29,6 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
             {
                 endpoint.ConfigureConsumeTopology = false;
                 endpoint.Bind<TEvent>();
-                endpoint.ConfigureConsumer<TConsumer>(registration);
+                endpoint.ConfigureConsumer<TConsumer>(context);
             });
 }

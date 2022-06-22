@@ -11,9 +11,7 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
     private readonly IProjectionRepository<Projection.PaymentMethod> _repository;
 
     public ProjectCartPaymentMethodsWhenChangedConsumer(IProjectionRepository<Projection.PaymentMethod> repository)
-    {
-        _repository = repository;
-    }
+        => _repository = repository;
 
     public Task Consume(ConsumeContext<DomainEvent.CartDiscarded> context)
         => _repository.DeleteAsync(

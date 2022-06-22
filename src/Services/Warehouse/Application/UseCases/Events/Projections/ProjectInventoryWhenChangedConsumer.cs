@@ -9,9 +9,7 @@ public class ProjectInventoryWhenChangedConsumer : IConsumer<DomainEvent.Invento
     private readonly IProjectionRepository<Projection.Inventory> _repository;
 
     public ProjectInventoryWhenChangedConsumer(IProjectionRepository<Projection.Inventory> repository)
-    {
-        _repository = repository;
-    }
+        => _repository = repository;
 
     public async Task Consume(ConsumeContext<DomainEvent.InventoryCreated> context)
     {
