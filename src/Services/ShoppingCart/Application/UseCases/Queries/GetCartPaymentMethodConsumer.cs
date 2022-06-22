@@ -12,9 +12,7 @@ public class GetCartPaymentMethodConsumer :
     private readonly IProjectionRepository<Projection.PaymentMethod> _repository;
 
     public GetCartPaymentMethodConsumer(IProjectionRepository<Projection.PaymentMethod> repository)
-    {
-        _repository = repository;
-    }
+        => _repository = repository;
 
     public async Task Consume(ConsumeContext<Query.GetCartPaymentMethod> context)
     {

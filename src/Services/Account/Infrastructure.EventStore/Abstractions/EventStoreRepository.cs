@@ -9,14 +9,13 @@ namespace Infrastructure.EventStore.Abstractions;
 
 public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId> : IEventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId>
     where TAggregate : IAggregateRoot<TId>, new()
-    where TStoreEvent : StoreEvent<TAggregate, TId>
-    where TSnapshot : Snapshot<TAggregate, TId>
+    where TStoreEvent : StoreEvent<TId, TAggregate>
+    where TSnapshot : Snapshot<TId, TAggregate>
     where TId : struct
 {
     private readonly EventStoreDbContext _dbContext;
     private readonly DbSet<TSnapshot> _snapshots;
     private readonly DbSet<TStoreEvent> _storeEvents;
-
     protected EventStoreRepository(EventStoreDbContext dbContext)
     {
         _dbContext = dbContext;
@@ -24,11 +23,22 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
         _snapshots = dbContext.Set<TSnapshot>();
     }
 
-    public async Task<long> AppendEventsAsync(TStoreEvent @event, CancellationToken ct)
+    public async Task AppendEventsAsync(
+        IEnumerable<TStoreEvent> events,
+        Func<long, CancellationToken, Task> onEventStored,
+        CancellationToken ct)
     {
-        await _storeEvents.AddAsync(@event, ct);
+        foreach (var @event in events)
+        {
+            await AppendEventAsync(@event, ct);
+            await onEventStored(@event.Version, ct);
+        }
+    }
+
+    public async Task AppendEventAsync(TStoreEvent storeEvent, CancellationToken ct)
+    {
+        await _storeEvents.AddAsync(storeEvent, ct);
         await _dbContext.SaveChangesAsync(ct);
-        return @event.Version;
     }
 
     public async Task AppendSnapshotAsync(TSnapshot snapshot, CancellationToken ct)
@@ -37,16 +47,16 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
         await _dbContext.SaveChangesAsync(ct);
     }
 
-    public async Task<IEnumerable<IEvent>> GetStreamAsync(TId aggregateId, long version, CancellationToken ct)
-        => await _storeEvents
+    public Task<List<IEvent>> GetStreamAsync(TId aggregateId, long version, CancellationToken ct)
+        => _storeEvents
             .AsNoTracking()
             .Where(@event => @event.AggregateId.Equals(aggregateId))
             .Where(@event => @event.Version > version)
             .Select(@event => @event.DomainEvent)
             .ToListAsync(ct);
 
-    public async Task<TSnapshot> GetSnapshotAsync(TId aggregateId, CancellationToken ct)
-        => await _snapshots
+    public Task<TSnapshot> GetSnapshotAsync(TId aggregateId, CancellationToken ct)
+        => _snapshots
             .AsNoTracking()
             .Where(snapshot => snapshot.AggregateId.Equals(aggregateId))
             .OrderByDescending(snapshot => snapshot.AggregateVersion)

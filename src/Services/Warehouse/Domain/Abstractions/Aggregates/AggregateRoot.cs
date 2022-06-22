@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 namespace Domain.Abstractions.Aggregates;
 
 public abstract class AggregateRoot<TId, TValidator> : Entity<TId, TValidator>, IAggregateRoot<TId>
-    where TId : struct
     where TValidator : IValidator, new()
+    where TId : struct
 {
     [JsonIgnore]
     private readonly List<IEvent> _events = new();
@@ -16,11 +16,8 @@ public abstract class AggregateRoot<TId, TValidator> : Entity<TId, TValidator>, 
     public IEnumerable<IEvent> Events
         => _events;
 
-    public void LoadEvents(IEnumerable<IEvent> events)
-    {
-        foreach (var @event in events)
-            ApplyEvent(@event);
-    }
+    public void LoadEvents(List<IEvent> events)
+        => events.ForEach(ApplyEvent);
 
     private void AddEvent(IEvent @event)
         => _events.Add(@event);

@@ -35,6 +35,9 @@ public class ProjectionRepository<TProjection> : IProjectionRepository<TProjecti
     public Task InsertAsync(TProjection projection, CancellationToken cancellationToken)
         => _collection.InsertOneAsync(projection, cancellationToken: cancellationToken);
 
+    public Task InsertManyAsync(IEnumerable<TProjection> projections, CancellationToken cancellationToken)
+        => _collection.InsertManyAsync(projections, cancellationToken: cancellationToken);
+
     public Task UpsertAsync(TProjection replacement, CancellationToken cancellationToken)
         => _collection.ReplaceOneAsync(
             filter: projection => projection.Id == replacement.Id,
