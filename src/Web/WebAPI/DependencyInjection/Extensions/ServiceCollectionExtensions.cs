@@ -18,13 +18,7 @@ public static class ServiceCollectionExtensions
             {
                 var options = context.GetRequiredService<IOptionsMonitor<MessageBusOptions>>().CurrentValue;
 
-                // TODO - What is the best approach to deal with cluster (settings.json)?
-                // bus.Host(
-                //     configure: host =>
-                //     {
-                //         options.Cluster?.ForEach(node
-                //             => host.UseCluster(cluster => cluster.Node(node)));
-                //     });
+                bus.Host(options.ConnectionString);
 
                 bus.UseMessageRetry(retry
                     => retry.Incremental(
