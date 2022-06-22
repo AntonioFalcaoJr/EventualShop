@@ -5,16 +5,12 @@ using MassTransit;
 
 namespace Application.UseCases.Queries;
 
-public class GetCatalogConsumer :
-    IConsumer<Query.GetCatalog>,
-    IConsumer<Query.GetCatalogs>
+public class GetCatalogConsumer : IConsumer<Query.GetCatalog>, IConsumer<Query.GetCatalogs>
 {
     private readonly IProjectionRepository<Projection.Catalog> _repository;
 
     public GetCatalogConsumer(IProjectionRepository<Projection.Catalog> repository)
-    {
-        _repository = repository;
-    }
+        => _repository = repository;
 
     public async Task Consume(ConsumeContext<Query.GetCatalog> context)
     {

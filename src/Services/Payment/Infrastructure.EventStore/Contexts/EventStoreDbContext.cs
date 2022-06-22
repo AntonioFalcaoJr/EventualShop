@@ -1,4 +1,4 @@
-﻿using Domain;
+﻿using Domain.StoreEvents;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.EventStore.Contexts;
@@ -8,8 +8,8 @@ public class EventStoreDbContext : DbContext
     public EventStoreDbContext(DbContextOptions options)
         : base(options) { }
 
-    public DbSet<StoreEvents.Event> Events { get; set; }
-    public DbSet<StoreEvents.Snapshot> Snapshots { get; set; }
+    public DbSet<PaymentStoreEvent> Events { get; set; }
+    public DbSet<PaymentSnapshot> Snapshots { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
         => modelBuilder.ApplyConfigurationsFromAssembly(typeof(EventStoreDbContext).Assembly);

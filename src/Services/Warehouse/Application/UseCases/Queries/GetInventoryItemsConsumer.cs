@@ -10,9 +10,7 @@ public class GetInventoryItemsConsumer : IConsumer<Query.GetInventoryItems>
     private readonly IProjectionRepository<Projection.InventoryItem> _repository;
 
     public GetInventoryItemsConsumer(IProjectionRepository<Projection.InventoryItem> repository)
-    {
-        _repository = repository;
-    }
+        => _repository = repository;
 
     public async Task Consume(ConsumeContext<Query.GetInventoryItems> context)
     {

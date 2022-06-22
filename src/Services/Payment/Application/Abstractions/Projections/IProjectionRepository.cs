@@ -12,6 +12,7 @@ public interface IProjectionRepository<TProjection>
     Task<IPagedResult<TProjection>> GetAsync(int limit, int offset, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken);
     Task<IPagedResult<TProjection>> GetAsync(int limit, int offset, CancellationToken cancellationToken);
     Task InsertAsync(TProjection projection, CancellationToken cancellationToken);
+    Task InsertManyAsync(IEnumerable<TProjection> projections, CancellationToken cancellationToken);
     Task UpsertAsync(TProjection replacement, CancellationToken cancellationToken);
     Task UpsertManyAsync(IEnumerable<TProjection> replacements, CancellationToken cancellationToken);
     Task DeleteAsync(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken);

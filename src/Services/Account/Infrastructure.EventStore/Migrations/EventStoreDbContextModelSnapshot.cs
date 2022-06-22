@@ -22,7 +22,30 @@ namespace Infrastructure.EventStore.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Domain.StoreEvents+Event", b =>
+            modelBuilder.Entity("Domain.StoreEvents.AccountSnapshot", b =>
+                {
+                    b.Property<long>("AggregateVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid>("AggregateId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AggregateName")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<string>("AggregateState")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AggregateVersion", "AggregateId");
+
+                    b.ToTable("Snapshots");
+                });
+
+            modelBuilder.Entity("Domain.StoreEvents.AccountStoreEvent", b =>
                 {
                     b.Property<long>("Version")
                         .ValueGeneratedOnAdd()
@@ -52,29 +75,6 @@ namespace Infrastructure.EventStore.Migrations
                     b.HasKey("Version");
 
                     b.ToTable("Events");
-                });
-
-            modelBuilder.Entity("Domain.StoreEvents+Snapshot", b =>
-                {
-                    b.Property<long>("AggregateVersion")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid>("AggregateId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("AggregateName")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(30)");
-
-                    b.Property<string>("AggregateState")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("AggregateVersion", "AggregateId");
-
-                    b.ToTable("Snapshots");
                 });
 #pragma warning restore 612, 618
         }

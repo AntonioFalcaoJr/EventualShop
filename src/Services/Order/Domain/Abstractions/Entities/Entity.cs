@@ -5,8 +5,8 @@ using Newtonsoft.Json;
 namespace Domain.Abstractions.Entities;
 
 public abstract class Entity<TId, TValidator> : IEntity<TId>
-    where TId : struct
     where TValidator : IValidator, new()
+    where TId : struct
 {
     [JsonIgnore]
     private readonly TValidator _validator = new();

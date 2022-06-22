@@ -40,16 +40,15 @@ builder.Host.ConfigureLogging((context, loggingBuilder) =>
     builder.Host.UseSerilog();
 });
 
-builder.Services.AddCors(options 
-    => options.AddDefaultPolicy(policyBuilder 
+builder.Services.AddCors(options
+    => options.AddDefaultPolicy(policyBuilder
         => policyBuilder
             .AllowAnyOrigin()
             .AllowAnyHeader()
             .AllowAnyMethod()));
 
 builder.Services
-    .AddRouting(options
-        => options.LowercaseUrls = true)
+    .AddRouting(options => options.LowercaseUrls = true)
     .AddControllers(options =>
     {
         options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
