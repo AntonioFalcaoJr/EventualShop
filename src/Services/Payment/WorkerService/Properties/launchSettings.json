@@ -1,6 +1,6 @@
 ﻿{
   "profiles": {
-    "Payment.WorkerService": {
+    "Payment": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "environmentVariables": {

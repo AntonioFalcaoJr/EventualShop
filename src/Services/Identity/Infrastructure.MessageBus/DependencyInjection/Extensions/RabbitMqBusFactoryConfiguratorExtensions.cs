@@ -7,14 +7,14 @@ namespace Infrastructure.MessageBus.DependencyInjection.Extensions;
 
 internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
-    public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistrationContext registration)
+    public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistrationContext context)
     {
-        cfg.ConfigureEventReceiveEndpoint<ProjectUserDetailsWhenUserChangedConsumer, DomainEvent.UserRegistered>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectUserDetailsWhenUserChangedConsumer, DomainEvent.UserPasswordChanged>(registration);
-        cfg.ConfigureEventReceiveEndpoint<ProjectUserDetailsWhenUserChangedConsumer, DomainEvent.UserDeleted>(registration);
+        cfg.ConfigureEventReceiveEndpoint<ProjectUserDetailsWhenUserChangedConsumer, DomainEvent.UserRegistered>(context);
+        cfg.ConfigureEventReceiveEndpoint<ProjectUserDetailsWhenUserChangedConsumer, DomainEvent.UserPasswordChanged>(context);
+        cfg.ConfigureEventReceiveEndpoint<ProjectUserDetailsWhenUserChangedConsumer, DomainEvent.UserDeleted>(context);
     }
 
-    private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistrationContext registration)
+    private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistrationContext context)
         where TConsumer : class, IConsumer
         where TEvent : class, IEvent
         => bus.ReceiveEndpoint(
@@ -23,6 +23,6 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
             {
                 endpoint.ConfigureConsumeTopology = false;
                 endpoint.Bind<TEvent>();
-                endpoint.ConfigureConsumer<TConsumer>(registration);
+                endpoint.ConfigureConsumer<TConsumer>(context);
             });
 }

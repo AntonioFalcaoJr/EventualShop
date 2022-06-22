@@ -1,5 +1,5 @@
-﻿ARG ASPNET_VERSION="7.0.0-preview.4-alpine3.15"
-ARG SDK_VERSION="7.0.100-preview.4-alpine3.15"
+﻿ARG ASPNET_VERSION="7.0.0-preview.5-alpine3.16"
+ARG SDK_VERSION="7.0.100-preview.5-1-alpine3.16"
 ARG BASE_ADRESS="mcr.microsoft.com/dotnet"
 
 FROM $BASE_ADRESS/aspnet:$ASPNET_VERSION AS base
