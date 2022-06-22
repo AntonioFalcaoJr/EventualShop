@@ -728,7 +728,21 @@ local configuration files.
 
 #### User-secrets
 
-Define app secrets for **each project**. The secret is associated with the project's `UserSecretsId` value. The command must be run from the directory in which the project file exists:
+The secret of **each service** must be defined in the respective **entry project**. The secret is associated with the project's `UserSecretsId` value. The command must be run from the directory in which the project file exists:
+
+_Worker Services_
+
+```bash
+cd ./src/Services/Account/WorkerService
+```
+
+_Web API_
+
+```bash
+cd ./src/Web/WebAPI
+```
+
+Defining secrets:
 
 ```bash
 dotnet user-secrets set "ConnectionStrings:EventStore" "Server=<IP_ADDRESS>,<PORT>;Database=<YourServiceEventStore>;User=<USER_NAME>;Password=<PASSWORD>;trustServerCertificate=true"
