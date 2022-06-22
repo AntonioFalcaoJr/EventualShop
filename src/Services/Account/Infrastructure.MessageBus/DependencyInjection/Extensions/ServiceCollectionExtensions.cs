@@ -28,13 +28,7 @@ public static class ServiceCollectionExtensions
                 {
                     var options = context.GetRequiredService<IOptionsMonitor<MessageBusOptions>>().CurrentValue;
 
-                    // TODO - What is the best approach to deal with cluster (settings.json)?
-                    // bus.Host(
-                    //     configure: host =>
-                    //     {
-                    //         options.Cluster?.ForEach(node
-                    //             => host.UseCluster(cluster => cluster.Node(node)));
-                    //     });
+                    bus.Host(options.ConnectionString);
 
                     cfg.AddMessageScheduler(new Uri($"queue:{options.SchedulerQueueName}"));
 
@@ -102,13 +96,6 @@ public static class ServiceCollectionExtensions
     public static OptionsBuilder<MassTransitHostOptions> ConfigureMassTransitHostOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<MassTransitHostOptions>()
-            .Bind(section)
-            .ValidateDataAnnotations()
-            .ValidateOnStart();
-
-    public static OptionsBuilder<RabbitMqTransportOptions> ConfigureRabbitMqTransportOptions(this IServiceCollection services, IConfigurationSection section)
-        => services
-            .AddOptions<RabbitMqTransportOptions>()
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();
