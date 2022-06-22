@@ -4,7 +4,8 @@ namespace Infrastructure.MessageBus.DependencyInjection.Options;
 
 public record MessageBusOptions
 {
-    public List<string> Cluster { get; init; }
+    [Required, MinLength(10)]
+    public string ConnectionString { get; init; }
 
     [Required, MinLength(5)]
     public string SchedulerQueueName { get; init; }
