@@ -83,10 +83,12 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
         => Task.WhenAll(events.Select(@event => _publishEndpoint.Publish(@event, @event.GetType(), ct)));
 
     private static IEnumerable<TStoreEvent> ToStoreEvents(TAggregate aggregate)
-        => aggregate.Events.Select<IEvent, TStoreEvent>(@event => new()
-        {
-            AggregateId = aggregate.Id,
-            DomainEvent = @event,
-            DomainEventName = @event.GetType().Name
-        });
+        => aggregate.Events.Select(@event
+            => new TStoreEvent
+            {
+                Version = aggregate.Version,
+                AggregateId = aggregate.Id,
+                DomainEvent = @event,
+                DomainEventName = @event.GetType().Name
+            });
 }
