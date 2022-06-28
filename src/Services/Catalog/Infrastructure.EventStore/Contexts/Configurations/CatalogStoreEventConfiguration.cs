@@ -9,7 +9,11 @@ public class CatalogStoreEventConfiguration : IEntityTypeConfiguration<CatalogSt
 {
     public void Configure(EntityTypeBuilder<CatalogStoreEvent> builder)
     {
-        builder.HasKey(storeEvent => storeEvent.Version);
+        builder.HasKey(storeEvent => new {storeEvent.Version, storeEvent.AggregateId});
+
+        builder
+            .Property(storeEvent => storeEvent.Version)
+            .IsRequired();
 
         builder
             .Property(storeEvent => storeEvent.AggregateId)
