@@ -33,7 +33,7 @@ public abstract class AggregateRoot<TId, TValidator> : Entity<TId, TValidator>, 
     protected void RaiseEvent(IEvent @event)
     {
         ApplyEvent(@event);
-        
+
         if (IsValid)
         {
             AddEvent(@event);

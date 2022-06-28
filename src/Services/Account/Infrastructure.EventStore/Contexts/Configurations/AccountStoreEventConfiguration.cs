@@ -11,7 +11,8 @@ public class AccountStoreEventConfiguration : IEntityTypeConfiguration<AccountSt
     {
         builder.HasKey(storeEvent => new {storeEvent.Version, storeEvent.AggregateId});
 
-        builder.Property(storeEvent => storeEvent.Version)
+        builder
+            .Property(storeEvent => storeEvent.Version)
             .IsRequired();
 
         builder
