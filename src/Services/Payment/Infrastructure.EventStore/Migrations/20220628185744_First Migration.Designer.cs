@@ -12,20 +12,20 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.EventStore.Migrations
 {
     [DbContext(typeof(EventStoreDbContext))]
-    [Migration("20220617204921_Quartz Migration")]
-    partial class QuartzMigration
+    [Migration("20220628185744_First Migration")]
+    partial class FirstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0-preview.4.22229.2")
+                .HasAnnotation("ProductVersion", "7.0.0-preview.5.22302.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Domain.StoreEvents.OrderSnapshot", b =>
+            modelBuilder.Entity("Domain.StoreEvents.PaymentSnapshot", b =>
                 {
                     b.Property<long>("AggregateVersion")
                         .HasColumnType("bigint");
@@ -48,13 +48,10 @@ namespace Infrastructure.EventStore.Migrations
                     b.ToTable("Snapshots");
                 });
 
-            modelBuilder.Entity("Domain.StoreEvents.OrderStoreEvent", b =>
+            modelBuilder.Entity("Domain.StoreEvents.PaymentStoreEvent", b =>
                 {
                     b.Property<long>("Version")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Version"), 1L, 1);
 
                     b.Property<Guid>("AggregateId")
                         .HasColumnType("uniqueidentifier");
@@ -75,7 +72,7 @@ namespace Infrastructure.EventStore.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
 
-                    b.HasKey("Version");
+                    b.HasKey("Version", "AggregateId");
 
                     b.ToTable("Events");
                 });

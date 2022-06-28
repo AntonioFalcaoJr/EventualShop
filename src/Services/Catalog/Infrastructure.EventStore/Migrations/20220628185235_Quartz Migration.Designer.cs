@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.EventStore.Migrations
 {
     [DbContext(typeof(EventStoreDbContext))]
-    [Migration("20220620192731_First Migration")]
-    partial class FirstMigration
+    [Migration("20220628185235_Quartz Migration")]
+    partial class QuartzMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace Infrastructure.EventStore.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Domain.StoreEvents.AccountSnapshot", b =>
+            modelBuilder.Entity("Domain.StoreEvents.CatalogSnapshot", b =>
                 {
                     b.Property<long>("AggregateVersion")
                         .HasColumnType("bigint");
@@ -48,7 +48,7 @@ namespace Infrastructure.EventStore.Migrations
                     b.ToTable("Snapshots");
                 });
 
-            modelBuilder.Entity("Domain.StoreEvents.AccountStoreEvent", b =>
+            modelBuilder.Entity("Domain.StoreEvents.CatalogStoreEvent", b =>
                 {
                     b.Property<long>("Version")
                         .HasColumnType("bigint");
