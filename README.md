@@ -6,8 +6,9 @@ Note. _Greg Young takes the next steps beyond the DDD principles and best practi
 with **Command-Query Responsibility Segregation** (CQRS) and **event sourcing** to simplify construction, decentralize decision-making, and make system development more flexible and responsive._
 Adapted from "Event Centric: Finding Simplicity in Complex Systems" by Y. Greg, 2012.
 
-This project applies the **EventStorming** workshop to decompose and aggregate correlated business capabilities in **Bounded Contexts** of a simple e-commerce, as well as the **Domain Events** 
-(business facts) that provide integration between them. In addition to demonstrating implementation under a reactive **Event-driven architecture** (EDA), through the **event-sourcing** design, supported by
+This project applies the **EventStorming** workshop to decompose and aggregate correlated business capabilities in **Bounded Contexts** of a simple e-commerce, as well as the **Domain Events**
+(business facts) that provide integration between them. In addition to demonstrating implementation under a reactive **Event-driven architecture** (EDA), through the **event-sourcing** design,
+supported by
 the **CQRS** pattern, in a **Clean Architecture**.
 
 > State transitions are an important part of our problem space and should be modelled within our domain.   
@@ -28,6 +29,73 @@ If this project helped you in some way, please **give it a star**. Thanks!
 | Payment      |       [![](https://github.com/AntonioFalcao/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment-build-and-test.yaml/badge.svg)](https://github.com/AntonioFalcao/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment-build-and-test.yaml)       |      [![](https://github.com/AntonioFalcao/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment-codeql.yaml/badge.svg)](https://github.com/AntonioFalcao/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment-codeql.yaml)      |           |
 | ShoppingCart |  [![](https://github.com/AntonioFalcao/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shoppingcart-build-and-test.yaml/badge.svg)](https://github.com/AntonioFalcao/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shoppingcart-build-and-test.yaml)  | [![](https://github.com/AntonioFalcao/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shoppingcart-codeql.yaml/badge.svg)](https://github.com/AntonioFalcao/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shoppingcart-codeql.yaml) |           |
 | Warehouse    |     [![](https://github.com/AntonioFalcao/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse-build-and-test.yaml/badge.svg)](https://github.com/AntonioFalcao/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse-build-and-test.yaml)     |    [![](https://github.com/AntonioFalcao/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse-codeql.yaml/badge.svg)](https://github.com/AntonioFalcao/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse-codeql.yaml)    |           |
+
+## Contents
+
+- [Roadmap](#roadmap)
+- [The Solution Architecture](#the-solution-architecture)
+- [Reactive Domain Driven Design](#reactive-domain-driven-design)
+    - [Reactive Process](#reactive-process)
+    - [Messaging - Making good use of Context Mapping](#messaging---making-good-use-of-context-mapping)
+- [Event Sourcing](#event-sourcing)
+    - [Updating entities](#updating-entities)
+    - [Pattern](#pattern)
+    - [Event Store](#event-store)
+        - [Snapshot](#snapshot)
+- [Event-Driven Architecture (EDA)](#event-driven-architecture-eda)
+    - [Topologies](#topologies)
+        - [Broker Topology](#broker-topology)
+        - [Choreography-based SAGA](#choreography-based-saga)
+        - [Orchestration vs Choreography](#orchestration-vs-choreography)
+        - [Orchestration](#orchestration)
+        - [Choreography](#choreography)
+    - [EDA & Microservices Architecture](#eda--microservices-architecture)
+        - [Microservices](#microservices)
+        - [Temporal Coupling and Autonomous Decisions](#temporal-coupling-and-autonomous-decisions)
+    - [EDA vs SOA](#eda-vs-soa)
+    - [EDA & Event-sourcing](#eda--event-sourcing)
+- [CQRS](#cqrs)
+    - [Command's pipeline](#commands-pipeline)
+    - [Projections](#projections)
+- [CQRS + Event Sourcing](#cqrs--event-sourcing)
+    - [Commands vs Events](#commands-vs-events)
+        - [Domain Event](#domain-event)
+        - [Integration Event](#integration-event)
+        - [Event Notification](#event-notification)
+        - [Event-Carried State Transfer](#event-carried-state-transfer)
+- [EventStorming](#eventstorming)
+    - [EventStorming (WIP)](#eventstorming-wip)
+    - [From EventStorming to Event Sourcing](#from-eventstorming-to-event-sourcing)
+- [Domain Driven Design (DDD)](#domain-driven-design-ddd)
+    - [Bounded Context](#bounded-context)
+    - [Aggregate](#aggregate)
+- [Clean Architecture](#clean-architecture)
+- [Performance](#performance)
+    - [Minimize exceptions](#minimize-exceptions)
+    - [Pool HTTP connections with HttpClientFactory](#pool-http-connections-with-httpclientfactory)
+    - [DbContext pooling](#dbcontext-pooling)
+    - [Snapshotting](#snapshotting)
+    - [Running](#running)
+        - [Development](#development)
+            - [User-secrets](#user-secrets)
+            - [Docker](#docker)
+        - [Staging](#staging)
+            - [Docker-compose](#docker-compose)
+    - [Test](#test)
+    - [Event Store](#event-store)
+        - [Store event](#store-event)
+        - [Snapshot](#snapshot)
+        - [Migrations](#migrations)
+- [Main References](#main-references)
+    - [Complementary References](#complementary-references)
+- [Built With](#built-with)
+    - [Worker Services](#worker-services)
+    - [Web API](#web-api)
+    - [Web APP](#web-app)
+- [Contributing](#contributing)
+- [Versioning](#versioning)
+- [Authors](#authors)
+- [License](#license)
 
 ## Roadmap
 
@@ -98,7 +166,6 @@ Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed
 > some action will be taken based on its type and value. Normally it will cause a new Aggregate to be created or an existing Aggregate to be modified in the consuming Bounded Context.
 >
 > Vernon, V. (2016) Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional, p65-67.
-> 
 
 ## Event Sourcing
 
@@ -416,7 +483,7 @@ To cover this topic was
 prepared [this presentation](https://www.canva.com/design/DAEY9ttmPgY/F_lh7TXQEdG-su-qojEjdw/view?utm_content=DAEY9ttmPgY&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
 with some different strategies and ways to implement projections.
 
-![](.assets/img/projections.svg)    
+![](.assets/img/projections.svg)
 
 ## CQRS + Event Sourcing
 
@@ -661,30 +728,60 @@ local configuration files.
 
 #### User-secrets
 
-Define app secrets for **each project**. The secret is associated with the project's `UserSecretsId` value. The command must be run from the directory in which the project file exists:
+The secret of **each service** must be defined in the respective **entry project**. The secret is associated with the project's `UserSecretsId` value. The command must be run from the directory in which the project file exists:
+
+_Worker Services_
 
 ```bash
-dotnet user-secrets set "ConnectionStrings:EventStore" "Server=<IP_ADDRESS>,1433;Database=<YourContextName>EventStore;User=sa;Password=<PASSWORD>;trustServerCertificate=true"
-dotnet user-secrets set "ConnectionStrings:Projections" "mongodb://<USER_NAME>:<PASSWORD>@<IP_ADDRESS>:27017/<YourContextName>Projections/?authSource=admin"
-dotnet user-secrets set "QuartzOptions:quartz.dataSource.default.connectionString" "Server=<IP_ADDRESS>,1433;Database=Quartz;User=sa;Password=<PASSWORD>;trustServerCertificate=true"
+cd ./src/Services/Account/WorkerService
+```
+
+_Web API_
+
+```bash
+cd ./src/Web/WebAPI
+```
+
+Defining secrets:
+
+```bash
+dotnet user-secrets set "ConnectionStrings:EventStore" "Server=<IP_ADDRESS>,<PORT>;Database=<YourServiceEventStore>;User=<USER_NAME>;Password=<PASSWORD>;trustServerCertificate=true"
+dotnet user-secrets set "ConnectionStrings:Projections" "mongodb://<USER_NAME>:<PASSWORD>@<IP_ADDRESS>:<PORT>/<YourServiceProjections>/?authSource=admin"
+dotnet user-secrets set "MessageBusOptions:ConnectionString" "amqp://<USER_NAME>:<PASSWORD>@<IP_ADDRESS>:<PORT>/<VIRTUAL_HOST>"
+dotnet user-secrets set "QuartzOptions:quartz.dataSource.default.connectionString" "Server=<IP_ADDRESS>,<PORT>;Database=Quartz;User=<USER_NAME>;Password=<PASSWORD>;trustServerCertificate=true"
+```
+
+Example:
+
+Based on the **Account** service and the infrastructure provided by the [docker-compose](#docker-compose):
+
+```bash
+dotnet user-secrets set "ConnectionStrings:EventStore" "Server=127.0.0.1,1433;Database=AccountEventStore;User=sa;Password=!MyStrongPassword;trustServerCertificate=true"
+dotnet user-secrets set "ConnectionStrings:Projections" "mongodb://mongoadmin:secret@127.0.0.1:27017/AccountProjections/?authSource=admin"
+dotnet user-secrets set "MessageBusOptions:ConnectionString" "amqp://guest:guest@127.0.0.1:5672/ecommerce"
+dotnet user-secrets set "QuartzOptions:quartz.dataSource.default.connectionString" "Server=127.0.0.1,1433;Database=Quartz;User=sa;Password=!MyStrongPassword;trustServerCertificate=true"
 ```
 
 Expected:
 
+The result from the `dotnet user-secrets list` command should be:
+
 ```bash
-dotnet user-secrets list
-ConnectionStrings:EventStore = Server=<IP_ADDRESS>,1433;Database=<YourContextName>EventStore;User=sa;Password=!MyStrongPassword;trustServerCertificate=true
-ConnectionStrings:Projections = mongodb://<USER_NAME>:<PASSWORD>@<IP_ADDRESS>:27017/<YourContextName>Projections/?authSource=admin
-QuartzOptions:quartz.dataSource.default.connectionString = Server=<IP_ADDRESS>,1433;Database=Quartz;User=sa;Password=!MyStrongPassword;trustServerCertificate=true
+QuartzOptions:quartz.dataSource.default.connectionString = Server=127.0.0.1,1433;Database=Quartz;User=sa;Password=!MyStrongPassword;trustServerCertificate=true
+MessageBusOptions:ConnectionString = amqp://guest:guest@127.0.0.1:5672/ecommerce
+ConnectionStrings:Projections = mongodb://mongoadmin:secret@127.0.0.1:27017/AccountProjections/?authSource=admin
+ConnectionStrings:EventStore = Server=127.0.0.1,1433;Database=AccountEventStore;User=sa;Password=!MyStrongPassword;trustServerCertificate=true
 ```
+Extra:
 
 A batch of secrets can be set by piping JSON to the set command, as in the following example:
 
 ```json
 {
-  "QuartzOptions:quartz.dataSource.default.connectionString": "Server=127.0.0.1,1433;Database=Quartz;User=sa;Password=!MyStrongPassword;trustServerCertificate=true",
-  "ConnectionStrings:Projections": "mongodb://mongoadmin:secret@127.0.0.1:27017/ShoppingCartProjections/?authSource=admin",
-  "ConnectionStrings:EventStore": "Server=127.0.0.1,1433;Database=ShoppingCartEventStore;User=sa;Password=!MyStrongPassword;trustServerCertificate=true"
+  "QuartzOptions:quartz.dataSource.default.connectionString":"Server=127.0.0.1,1433;Database=Quartz;User=sa;Password=!MyStrongPassword;trustServerCertificate=true",
+  "MessageBusOptions:ConnectionString":"amqp://guest:guest@127.0.0.1:5672/ecommerce",
+  "ConnectionStrings:Projections":"mongodb://mongoadmin:secret@127.0.0.1:27017/AccountProjections/?authSource=admin",
+  "ConnectionStrings:EventStore":"Server=127.0.0.1,1433;Database=AccountEventStore;User=sa;Password=!MyStrongPassword;trustServerCertificate=true"
 }
 ```
 
@@ -801,7 +898,7 @@ deploy:
 K6
 
 ```bash
-docker run --network=ecommerce --name k6 --rm -i grafana/k6 run - <test.js
+docker run --network=internal --name k6 --rm -i grafana/k6 run - <test.js
 ```
 
 ## Event Store

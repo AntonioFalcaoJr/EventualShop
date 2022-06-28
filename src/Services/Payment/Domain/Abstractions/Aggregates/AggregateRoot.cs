@@ -1,5 +1,5 @@
-﻿using Domain.Abstractions.Entities;
-using Contracts.Abstractions.Messages;
+﻿using Contracts.Abstractions.Messages;
+using Domain.Abstractions.Entities;
 using FluentValidation;
 using Newtonsoft.Json;
 
@@ -12,12 +12,18 @@ public abstract class AggregateRoot<TId, TValidator> : Entity<TId, TValidator>, 
     [JsonIgnore]
     private readonly List<IEvent> _events = new();
 
+    public long Version { get; private set; }
+
     [JsonIgnore]
     public IEnumerable<IEvent> Events
         => _events;
 
     public void LoadEvents(List<IEvent> events)
-        => events.ForEach(ApplyEvent);
+        => events.ForEach(@event =>
+        {
+            ApplyEvent(@event);
+            Version += 1;
+        });
 
     private void AddEvent(IEvent @event)
         => _events.Add(@event);
@@ -27,6 +33,11 @@ public abstract class AggregateRoot<TId, TValidator> : Entity<TId, TValidator>, 
     protected void RaiseEvent(IEvent @event)
     {
         ApplyEvent(@event);
-        if (IsValid) AddEvent(@event);
+
+        if (IsValid)
+        {
+            AddEvent(@event);
+            Version += 1;
+        }
     }
 }

@@ -22,10 +22,10 @@
         <EntityFrameworkCore_Version>7.0.0-preview.5.22302.2</EntityFrameworkCore_Version>
 
         <!--MongoDb-->
-        <MongoDb_Version>2.16.0</MongoDb_Version>
+        <MongoDb_Version>2.16.1</MongoDb_Version>
 
         <!--MassTransit-->
-        <MassTransit_Version>8.0.4-develop.482</MassTransit_Version>
+        <MassTransit_Version>8.0.4-develop.499</MassTransit_Version>
         <Quartz_Version>3.4.0</Quartz_Version>
 
         <!--Newtonsoft-->
@@ -40,7 +40,7 @@
         <Serilog_Settings_Version>3.3.1-dev-00337</Serilog_Settings_Version>
 
         <!--FluentValidation-->
-        <FluentValidation_Version>11.0.3</FluentValidation_Version>
+        <FluentValidation_Version>11.1.0</FluentValidation_Version>
 
         <!--Auto Mapper-->
         <AutoMapper_Version>11.0.1</AutoMapper_Version>
