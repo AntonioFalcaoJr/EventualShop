@@ -1,7 +1,6 @@
 using System.Reflection;
 using Contracts.Abstractions.Messages;
 using Contracts.JsonConverters;
-using Contracts.Services.Catalog;
 using FluentValidation.AspNetCore;
 using MassTransit;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
