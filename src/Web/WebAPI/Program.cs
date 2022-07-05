@@ -1,6 +1,7 @@
 using System.Reflection;
 using Contracts.Abstractions.Messages;
 using Contracts.JsonConverters;
+using Contracts.Services.Catalog;
 using FluentValidation.AspNetCore;
 using MassTransit;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
@@ -69,7 +70,7 @@ builder.Services
     {
         options.SwaggerDoc("v1", new() {Title = builder.Environment.ApplicationName, Version = "v1"});
         options.MapType<DateOnly>(() => new() {Format = "date", Example = new OpenApiString(DateOnly.MinValue.ToString())});
-        options.CustomSchemaIds(type => type.ToString());
+        options.CustomSchemaIds(type => type.ToString().Replace("+", "."));
     });
 
 builder.Services.AddMessageBus();
