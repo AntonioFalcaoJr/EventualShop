@@ -94,7 +94,7 @@ if (builder.Environment.IsDevelopment())
 if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options => options.EnableTryItOutByDefault());
 }
 
 app.UseCors();
@@ -111,7 +111,7 @@ app.UseSerilogRequestLogging();
 
 app.UseApplicationExceptionHandler();
 
-app.MapGroup("/api/v2/accounts/").MapAccountApi();
+app.MapGroup("/api/v1/accounts/").MapAccountApi();
 
 try
 {
