@@ -7,4 +7,6 @@ public static class Query
     public record GetAccount(Guid AccountId) : Message(CorrelationId: AccountId), IQuery;
 
     public record ListAccounts(int Limit, int Offset) : Message, IQuery;
+
+    public record ListAddresses(Guid AccountId, int Limit, int Offset) : Message, IQuery;
 }
