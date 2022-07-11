@@ -21,6 +21,9 @@ public static class Accounts
         group.MapCommand(builder => builder.MapDelete("/{accountId:guid}", (IBus bus, Guid accountId, CancellationToken ct)
             => ApplicationApi.SendCommandAsync<Command.DeleteAccount>(bus, new(accountId), ct)));
 
+        group.MapQuery("/{accountId:guid}/profiles/address", (IBus bus, Guid accountId, int? limit, int? offset, CancellationToken ct)
+            => ApplicationApi.GetPagedProjectionAsync<Query.ListAddresses, Projection.Address>(bus, new(accountId, limit ?? 0, offset ?? 0), ct));
+
         group.MapCommand(builder => builder.MapPut("/{accountId:guid}/profiles/billing-address", (IBus bus, Guid accountId, Dto.Address address, CancellationToken ct)
             => ApplicationApi.SendCommandAsync<Command.AddBillingAddress>(bus, new(accountId, address), ct)));
 

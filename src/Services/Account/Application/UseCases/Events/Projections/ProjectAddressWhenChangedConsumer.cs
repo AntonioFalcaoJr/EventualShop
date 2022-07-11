@@ -15,13 +15,13 @@ public class ProjectAddressWhenChangedConsumer :
 
     public async Task Consume(ConsumeContext<DomainEvent.BillingAddressAdded> context)
     {
-        Projection.BillingAddress address = new(context.Message.AccountId, context.Message.Address, false);
+        Projection.BillingAddress address = new(context.Message.AddressId, context.Message.AccountId, context.Message.Address, false);
         await _repository.InsertAsync(address, context.CancellationToken);
     }
 
     public async Task Consume(ConsumeContext<DomainEvent.ShippingAddressAdded> context)
     {
-        Projection.ShippingAddress address = new(context.Message.AccountId, context.Message.Address, false);
+        Projection.ShippingAddress address = new(context.Message.AddressId, context.Message.AccountId, context.Message.Address, false);
         await _repository.InsertAsync(address, context.CancellationToken);
     }
 }
