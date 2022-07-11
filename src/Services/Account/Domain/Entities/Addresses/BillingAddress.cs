@@ -1,12 +1,14 @@
 ﻿using Contracts.DataTransferObjects;
 
-namespace Domain.ValueObjects.Addresses;
+namespace Domain.Entities.Addresses;
 
-public record BillingAddress(string City, string Country, int? Number, string State, string Street, string ZipCode)
-    : Address(City, Country, Number, State, Street, ZipCode)
+public class BillingAddress : Address
 {
-    public static implicit operator BillingAddress(Dto.Address address)
-        => new(address.City, address.Country, address.Number, address.State, address.Street, address.ZipCode);
+    public BillingAddress(Guid id, string city, string country, int? number, string state, string street, string zipCode)
+        : base(id, city, country, number, state, street, zipCode) { }
+
+    public static BillingAddress Create(Guid id, Dto.Address dto)
+        => new(id, dto.City, dto.Country, dto.Number, dto.State, dto.Street, dto.ZipCode);
 
     public static implicit operator Dto.Address(BillingAddress address)
         => new(address.City, address.Country, address.Number, address.State, address.Street, address.ZipCode);
