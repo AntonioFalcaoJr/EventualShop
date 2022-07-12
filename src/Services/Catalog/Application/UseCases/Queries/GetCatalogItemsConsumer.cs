@@ -16,7 +16,7 @@ public class GetCatalogItemsConsumer :
 
     public async Task Consume(ConsumeContext<Query.GetCatalogItems> context)
     {
-        var catalogItems = await _repository.GetAsync(
+        var catalogItems = await _repository.GetAllAsync(
             limit: context.Message.Limit,
             offset: context.Message.Offset,
             predicate: item => item.CatalogId == context.Message.CatalogId,
@@ -32,7 +32,7 @@ public class GetCatalogItemsConsumer :
 
     public async Task Consume(ConsumeContext<Query.GetAllItems> context)
     {
-        var items = await _repository.GetAsync(
+        var items = await _repository.GetAllAsync(
             limit: context.Message.Limit,
             offset: context.Message.Offset,
             cancellationToken: context.CancellationToken);

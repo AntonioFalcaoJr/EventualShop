@@ -23,7 +23,7 @@ public class GetCatalogConsumer : IConsumer<Query.GetCatalog>, IConsumer<Query.G
 
     public async Task Consume(ConsumeContext<Query.GetCatalogs> context)
     {
-        var catalogs = await _repository.GetAsync(
+        var catalogs = await _repository.GetAllAsync(
             limit: context.Message.Limit,
             offset: context.Message.Offset,
             cancellationToken: context.CancellationToken);
