@@ -15,34 +15,32 @@ public class ProjectionRepository<TProjection> : IProjectionRepository<TProjecti
     private readonly IMongoCollection<TProjection> _collection;
 
     public ProjectionRepository(IMongoDbContext context)
-    {
-        _collection = context.GetCollection<TProjection>();
-    }
+        => _collection = context.GetCollection<TProjection>();
 
-    public Task<TProjection> GetAsync<TId>(TId id, CancellationToken cancellationToken)
+    public Task<TProjection> GetAsync<TId>(TId id, CancellationToken ct)
         where TId : struct
-        => FindAsync(projection => projection.Id.Equals(id), cancellationToken);
+        => FindAsync(projection => projection.Id.Equals(id), ct);
 
-    public Task<TProjection> FindAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
-        => _collection.AsQueryable().Where(predicate).FirstOrDefaultAsync(cancellationToken);
+    public Task<TProjection> FindAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken ct)
+        => _collection.AsQueryable().Where(predicate).FirstOrDefaultAsync(ct);
 
-    public Task<IPagedResult<TProjection>> GetAsync(int limit, int offset, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
-        => PagedResult<TProjection>.CreateAsync(limit, offset, _collection.AsQueryable().Where(predicate), cancellationToken);
+    public Task<IPagedResult<TProjection>> GetAllAsync(ushort limit, ushort offset, Expression<Func<TProjection, bool>> predicate, CancellationToken ct)
+        => PagedResult<TProjection>.CreateAsync(limit, offset, _collection.AsQueryable().Where(predicate), ct);
 
-    public Task<IPagedResult<TProjection>> GetAsync(int limit, int offset, CancellationToken cancellationToken)
-        => PagedResult<TProjection>.CreateAsync(limit, offset, _collection.AsQueryable(), cancellationToken);
+    public Task<IPagedResult<TProjection>> GetAllAsync(ushort limit, ushort offset, CancellationToken ct)
+        => PagedResult<TProjection>.CreateAsync(limit, offset, _collection.AsQueryable(), ct);
 
-    public Task InsertAsync(TProjection projection, CancellationToken cancellationToken)
-        => _collection.InsertOneAsync(projection, cancellationToken: cancellationToken);
+    public Task InsertAsync(TProjection projection, CancellationToken ct)
+        => _collection.InsertOneAsync(projection, cancellationToken: ct);
 
-    public Task UpsertAsync(TProjection replacement, CancellationToken cancellationToken)
+    public Task UpsertAsync(TProjection replacement, CancellationToken ct)
         => _collection.ReplaceOneAsync(
             filter: projection => projection.Id == replacement.Id,
             replacement: replacement,
             options: new ReplaceOptions {IsUpsert = true},
-            cancellationToken: cancellationToken);
+            cancellationToken: ct);
 
-    public Task UpsertManyAsync(IEnumerable<TProjection> replacements, CancellationToken cancellationToken)
+    public Task UpsertManyAsync(IEnumerable<TProjection> replacements, CancellationToken ct)
     {
         var requests = replacements.Select(replacement => new ReplaceOneModel<TProjection>(
             filter: new ExpressionFilterDefinition<TProjection>(projection => projection.Id == replacement.Id),
@@ -53,19 +51,19 @@ public class ProjectionRepository<TProjection> : IProjectionRepository<TProjecti
             .BulkWriteAsync(
                 requests: requests,
                 options: new BulkWriteOptions {IsOrdered = false},
-                cancellationToken: cancellationToken);
+                cancellationToken: ct);
     }
 
-    public Task DeleteAsync(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken)
-        => _collection.DeleteManyAsync(filter, cancellationToken);
+    public Task DeleteAsync(Expression<Func<TProjection, bool>> filter, CancellationToken ct)
+        => _collection.DeleteManyAsync(filter, ct);
 
-    public Task DeleteAsync<TId>(TId id, CancellationToken cancellationToken)
-        => _collection.DeleteOneAsync(projection => projection.Id.Equals(id), cancellationToken);
+    public Task DeleteAsync<TId>(TId id, CancellationToken ct)
+        => _collection.DeleteOneAsync(projection => projection.Id.Equals(id), ct);
 
-    public Task UpdateFieldAsync<TField, TId>(TId id, Expression<Func<TProjection, TField>> field, TField value, CancellationToken cancellationToken)
+    public Task UpdateFieldAsync<TField, TId>(TId id, Expression<Func<TProjection, TField>> field, TField value, CancellationToken ct)
         where TId : struct
         => _collection.UpdateOneAsync(
             filter: projection => projection.Id.Equals(id),
             update: new ObjectUpdateDefinition<TProjection>(new()).Set(field, value),
-            cancellationToken: cancellationToken);
+            cancellationToken: ct);
 }
