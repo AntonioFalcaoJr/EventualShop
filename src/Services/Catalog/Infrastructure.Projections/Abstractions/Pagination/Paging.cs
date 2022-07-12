@@ -2,14 +2,22 @@ namespace Infrastructure.Projections.Abstractions.Pagination;
 
 public record Paging
 {
-    private const int DefaultLimit = 10;
-    private readonly int _limit;
+    private const ushort UpperLimit = 100;
+    private const ushort DefaultLimit = 10;
 
-    public int Limit
+    private readonly ushort _limit;
+
+    public ushort Limit
     {
-        get => _limit > 0 ? _limit : DefaultLimit;
-        init => _limit = value;
+        get => _limit;
+
+        init => _limit = value switch
+        {
+            < 1 => DefaultLimit,
+            > UpperLimit => UpperLimit,
+            _ => _limit
+        };
     }
 
-    public int Offset { get; init; }
+    public ushort Offset { get; init; }
 }
