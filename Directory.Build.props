@@ -12,7 +12,7 @@
     <PropertyGroup Label="Packages dependency versions">
 
         <!--Microsoft-->
-        <Microsoft_Extensions_Version>7.0.0-preview.5.22301.12</Microsoft_Extensions_Version>
+        <Microsoft_Extensions_Version>7.0.0-preview.6.22324.4</Microsoft_Extensions_Version>
 
         <!--Blazor-->
         <BlazorStrap_Version>5.0.106-Preview3</BlazorStrap_Version>
