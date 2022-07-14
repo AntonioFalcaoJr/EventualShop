@@ -16,7 +16,7 @@ public class WarehousesController : ApplicationController
     [ProducesResponseType(typeof(IPagedResult<Projection.Inventory>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> GetInventoriesAsync(int limit, int offset, CancellationToken cancellationToken)
+    public Task<IActionResult> GetInventoriesAsync(ushort limit, ushort offset, CancellationToken cancellationToken)
         => GetProjectionAsync<Query.GetInventories, IPagedResult<Projection.Inventory>>(new(limit, offset), cancellationToken);
 
     [HttpPost]
@@ -29,7 +29,7 @@ public class WarehousesController : ApplicationController
     [ProducesResponseType(typeof(IPagedResult<Projection.InventoryItem>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> GetInventoryItemAsync(Guid inventoryId, int limit, int offset, CancellationToken cancellationToken)
+    public Task<IActionResult> GetInventoryItemAsync(Guid inventoryId, ushort limit, ushort offset, CancellationToken cancellationToken)
         => GetProjectionAsync<Query.GetInventoryItems, IPagedResult<Projection.InventoryItem>>(new(inventoryId, limit, offset), cancellationToken);
 
     [HttpPost("{inventoryId:guid}/items")]

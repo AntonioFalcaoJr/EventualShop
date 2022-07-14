@@ -16,7 +16,7 @@ public class CatalogsController : ApplicationController
     [ProducesResponseType(typeof(IPagedResult<Projection.Catalog>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> GetAsync(int limit, int offset, CancellationToken cancellationToken)
+    public Task<IActionResult> GetAsync(ushort limit, ushort offset, CancellationToken cancellationToken)
         => GetProjectionAsync<Query.GetCatalogs, IPagedResult<Projection.Catalog>>(new(limit, offset), cancellationToken);
 
     [HttpPost]
@@ -65,14 +65,14 @@ public class CatalogsController : ApplicationController
     [ProducesResponseType(typeof(IPagedResult<Projection.CatalogItem>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> GetAllAsync(int limit, int offset, CancellationToken cancellationToken)
+    public Task<IActionResult> GetAllAsync(ushort limit, ushort offset, CancellationToken cancellationToken)
         => GetProjectionAsync<Query.GetAllItems, IPagedResult<Projection.CatalogItem>>(new(limit, offset), cancellationToken);
 
     [HttpGet("{catalogId:guid}/items")]
     [ProducesResponseType(typeof(IPagedResult<Projection.CatalogItem>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> GetAsync([NotEmpty] Guid catalogId, int limit, int offset, CancellationToken cancellationToken)
+    public Task<IActionResult> GetAsync([NotEmpty] Guid catalogId, ushort limit, ushort offset, CancellationToken cancellationToken)
         => GetProjectionAsync<Query.GetCatalogItems, IPagedResult<Projection.CatalogItem>>(new(catalogId, limit, offset), cancellationToken);
 
     [HttpPost("{catalogId:guid}/items")]
