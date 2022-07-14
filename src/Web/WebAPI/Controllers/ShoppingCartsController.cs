@@ -48,7 +48,7 @@ public class ShoppingCartsController : ApplicationController
     [ProducesResponseType(typeof(IPagedResult<Projection.ShoppingCartItem>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> GetAsync([NotEmpty] Guid cartId, int limit, int offset, CancellationToken cancellationToken)
+    public Task<IActionResult> GetAsync([NotEmpty] Guid cartId, ushort limit, ushort offset, CancellationToken cancellationToken)
         => GetProjectionAsync<Query.GetShoppingCartItems, IPagedResult<Projection.ShoppingCartItem>>(new(cartId, limit, offset), cancellationToken);
 
     // [HttpPost("{cartId:guid}/items")]
@@ -97,7 +97,7 @@ public class ShoppingCartsController : ApplicationController
     [ProducesResponseType(typeof(IPagedResult<Projection.PaymentMethod>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> GetPaymentMethodsAsync([NotEmpty] Guid cartId, int limit, int offset, CancellationToken cancellationToken)
+    public Task<IActionResult> GetPaymentMethodsAsync([NotEmpty] Guid cartId, ushort limit, ushort offset, CancellationToken cancellationToken)
         => GetProjectionAsync<Query.GetCartPaymentMethods, IPagedResult<Projection.PaymentMethod>>(new(cartId, limit, offset), cancellationToken);
 
     [HttpGet("{cartId:guid}/payment-methods/{paymentMethodId:guid}")]
