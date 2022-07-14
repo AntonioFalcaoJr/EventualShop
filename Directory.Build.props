@@ -16,7 +16,7 @@
 
         <!--Blazor-->
         <BlazorStrap_Version>5.0.106-Preview3</BlazorStrap_Version>
-        <Microsoft_AspNetCore_WebAssembly_Version>7.0.0-preview.5.22303.8</Microsoft_AspNetCore_WebAssembly_Version>
+        <Microsoft_AspNetCore_WebAssembly_Version>7.0.0-preview.6.22330.3</Microsoft_AspNetCore_WebAssembly_Version>
         
         <!--EF Core-->
         <EntityFrameworkCore_Version>7.0.0-preview.5.22302.2</EntityFrameworkCore_Version>
