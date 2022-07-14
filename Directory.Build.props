@@ -19,7 +19,7 @@
         <Microsoft_AspNetCore_WebAssembly_Version>7.0.0-preview.5.22303.8</Microsoft_AspNetCore_WebAssembly_Version>
         
         <!--EF Core-->
-        <EntityFrameworkCore_Version>7.0.0-preview.5.22302.2</EntityFrameworkCore_Version>
+        <EntityFrameworkCore_Version>7.0.0-preview.6.22329.4</EntityFrameworkCore_Version>
 
         <!--MongoDb-->
         <MongoDb_Version>2.16.1</MongoDb_Version>
