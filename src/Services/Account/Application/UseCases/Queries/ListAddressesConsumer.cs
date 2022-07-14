@@ -14,7 +14,7 @@ public class ListAddressesConsumer : IConsumer<Query.ListAddresses>
 
     public async Task Consume(ConsumeContext<Query.ListAddresses> context)
     {
-        var accounts = await _repository.GetAsync(
+        var accounts = await _repository.GetAllAsync(
             limit: context.Message.Limit,
             offset: context.Message.Offset,
             cancellationToken: context.CancellationToken);

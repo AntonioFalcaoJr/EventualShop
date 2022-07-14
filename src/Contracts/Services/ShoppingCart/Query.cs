@@ -10,9 +10,9 @@ public static class Query
 
     public record GetShoppingCartItem(Guid CartId, Guid ItemId) : Message(CorrelationId: CartId), IQuery;
 
-    public record GetShoppingCartItems(Guid CartId, int Limit, int Offset) : Message(CorrelationId: CartId), IQuery;
+    public record GetShoppingCartItems(Guid CartId, ushort Limit, ushort Offset) : Message(CorrelationId: CartId), IQuery;
 
-    public record GetCartPaymentMethods(Guid CartId, int Limit, int Offset) : Message(CorrelationId: CartId), IQuery;
+    public record GetCartPaymentMethods(Guid CartId, ushort Limit, ushort Offset) : Message(CorrelationId: CartId), IQuery;
 
     public record GetCartPaymentMethod(Guid CartId, Guid PaymentMethodId) : Message(CorrelationId: CartId), IQuery;
 }
