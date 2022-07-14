@@ -9,8 +9,8 @@ public interface IProjectionRepository<TProjection>
 {
     Task<TProjection> FindAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken);
     Task<TProjection> GetAsync<TId>(TId id, CancellationToken cancellationToken) where TId : struct;
-    Task<IPagedResult<TProjection>> GetAsync(int limit, int offset, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken);
-    Task<IPagedResult<TProjection>> GetAsync(int limit, int offset, CancellationToken cancellationToken);
+    Task<IPagedResult<TProjection>> GetAllAsync(ushort limit, ushort offset, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken);
+    Task<IPagedResult<TProjection>> GetAllAsync(ushort limit, ushort offset, CancellationToken cancellationToken);
     Task InsertAsync(TProjection projection, CancellationToken cancellationToken);
     Task InsertManyAsync(IEnumerable<TProjection> projections, CancellationToken cancellationToken);
     Task UpsertAsync(TProjection replacement, CancellationToken cancellationToken);
