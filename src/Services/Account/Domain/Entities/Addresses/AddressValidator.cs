@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Domain.ValueObjects.Addresses;
+namespace Domain.Entities.Addresses;
 
 public class AddressValidator : AbstractValidator<Address>
 {

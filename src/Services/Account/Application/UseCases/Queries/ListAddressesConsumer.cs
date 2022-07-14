@@ -5,16 +5,16 @@ using MassTransit;
 
 namespace Application.UseCases.Queries;
 
-public class GetAccountsConsumer : IConsumer<Query.GetAccounts>
+public class ListAddressesConsumer : IConsumer<Query.ListAddresses>
 {
-    private readonly IProjectionRepository<Projection.Account> _repository;
+    private readonly IProjectionRepository<Projection.Address> _repository;
 
-    public GetAccountsConsumer(IProjectionRepository<Projection.Account> repository)
+    public ListAddressesConsumer(IProjectionRepository<Projection.Address> repository)
         => _repository = repository;
 
-    public async Task Consume(ConsumeContext<Query.GetAccounts> context)
+    public async Task Consume(ConsumeContext<Query.ListAddresses> context)
     {
-        var accounts = await _repository.GetAsync(
+        var accounts = await _repository.GetAllAsync(
             limit: context.Message.Limit,
             offset: context.Message.Offset,
             cancellationToken: context.CancellationToken);

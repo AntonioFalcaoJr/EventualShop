@@ -15,7 +15,7 @@
         <Microsoft_Extensions_Version>7.0.0-preview.5.22301.12</Microsoft_Extensions_Version>
 
         <!--Blazor-->
-        <BlazorStrap_Version>5.0.106-Preview2</BlazorStrap_Version>
+        <BlazorStrap_Version>5.0.106-Preview3</BlazorStrap_Version>
         <Microsoft_AspNetCore_WebAssembly_Version>7.0.0-preview.5.22303.8</Microsoft_AspNetCore_WebAssembly_Version>
         
         <!--EF Core-->
@@ -25,7 +25,7 @@
         <MongoDb_Version>2.16.1</MongoDb_Version>
 
         <!--MassTransit-->
-        <MassTransit_Version>8.0.4-develop.503</MassTransit_Version>
+        <MassTransit_Version>8.0.4</MassTransit_Version>
         <Quartz_Version>3.4.0</Quartz_Version>
 
         <!--Newtonsoft-->
@@ -36,7 +36,7 @@
         <!--Serilog-->
         <Serilog_Version>2.11.1-dev-01397</Serilog_Version>
         <Serilog_AspNetCore_Version>6.0.0-dev-00265</Serilog_AspNetCore_Version>
-        <Serilog_Extensions_Version>5.0.0-dev-00095</Serilog_Extensions_Version>
+        <Serilog_Extensions_Version>5.0.0</Serilog_Extensions_Version>
         <Serilog_Settings_Version>3.3.1-dev-00337</Serilog_Settings_Version>
 
         <!--FluentValidation-->

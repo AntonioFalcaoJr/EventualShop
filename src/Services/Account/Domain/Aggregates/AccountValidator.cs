@@ -1,6 +1,6 @@
 ﻿using Domain.Abstractions.Validators;
+using Domain.Entities.Addresses;
 using Domain.Entities.Profiles;
-using Domain.ValueObjects.Addresses;
 
 namespace Domain.Aggregates;
 
