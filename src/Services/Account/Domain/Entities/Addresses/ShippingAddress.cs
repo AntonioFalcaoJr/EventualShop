@@ -2,7 +2,10 @@
 
 namespace Domain.Entities.Addresses;
 
+// TODO - Deal with it
+#pragma warning disable CS0660, CS0661
 public class ShippingAddress : Address
+#pragma warning restore CS0660, CS0661
 {
     public ShippingAddress(Guid id, string city, string country, int? number, string state, string street, string zipCode)
         : base(id, city, country, number, state, street, zipCode) { }
