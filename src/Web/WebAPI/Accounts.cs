@@ -7,7 +7,7 @@ namespace WebAPI;
 
 public static class Accounts
 {
-    public static void MapAccountApi(this GroupRouteBuilder group)
+    public static void MapAccountApi(this RouteGroupBuilder group)
     {
         group.MapQuery("/", (IBus bus, ushort? limit, ushort? offset, CancellationToken ct)
             => ApplicationApi.GetPagedProjectionAsync<Query.ListAccounts, Projection.Account>(bus, new(limit ?? 0, offset ?? 0), ct));
