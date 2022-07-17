@@ -1,4 +1,5 @@
 ﻿using Contracts.Services.Catalog;
+using WebAPP.HttpClients;
 
 namespace WebAPP.ViewModels;
 
@@ -20,7 +21,7 @@ public class CatalogCardViewModel
             IsDeleted = catalog.IsDeleted
         };
 
-    public static implicit operator CatalogCardViewModel(Request.CreateCatalog request)
+    public static implicit operator CatalogCardViewModel(Requests.CreateCatalog request)
         => new()
         {
             Description = request.Description,
