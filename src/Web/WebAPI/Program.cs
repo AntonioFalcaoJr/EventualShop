@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.OpenApi.Any;
 using Serilog;
-using WebAPI;
+using WebAPI.APIs;
 using WebAPI.DependencyInjection.Extensions;
 using WebAPI.DependencyInjection.Options;
 using WebAPI.Extensions;
@@ -112,6 +112,7 @@ app.UseSerilogRequestLogging();
 app.UseApplicationExceptionHandler();
 
 app.MapGroup("/api/v1/accounts/").MapAccountApi();
+app.MapGroup("/api/v1/catalogs/").MapCatalogApi();
 
 try
 {
