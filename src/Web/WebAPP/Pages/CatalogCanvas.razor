@@ -30,7 +30,7 @@
 @code {
     
     [Parameter]
-    public EventCallback<Request.CreateCatalog> OnCreated { get; set; }
+    public EventCallback<Requests.CreateCatalog> OnCreated { get; set; }
     
     private readonly CancellationTokenSource _cancellationTokenSource = new();
     
@@ -40,7 +40,7 @@
     private async Task CreateAsync()
     {
         _creating = true;
-        var request = new Request.CreateCatalog(Guid.NewGuid(), ViewModel.Title, ViewModel.Description);
+        var request = new Requests.CreateCatalog(Guid.NewGuid(), ViewModel.Title, ViewModel.Description);
         var response = await HttpClient.CreateAsync(request, _cancellationTokenSource.Token);
 
         if (response.Success)
