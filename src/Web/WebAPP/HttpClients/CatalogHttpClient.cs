@@ -22,7 +22,7 @@ public class CatalogHttpClient : ApplicationHttpClient, ICatalogHttpClient
     public Task<HttpResponse<PagedResult<Projection.Catalog>>> GetAsync(int limit, int offset, CancellationToken cancellationToken)
         => GetAsync<PagedResult<Projection.Catalog>>($"{_options.CatalogEndpoint}?limit={limit}&offset={offset}", cancellationToken);
 
-    public Task<HttpResponse> CreateAsync(Request.CreateCatalog request, CancellationToken cancellationToken)
+    public Task<HttpResponse> CreateAsync(Requests.CreateCatalog request, CancellationToken cancellationToken)
         => PostAsync($"{_options.CatalogEndpoint}", request, cancellationToken);
 
     public Task<HttpResponse> DeleteAsync(Guid catalogId, CancellationToken cancellationToken)
@@ -35,11 +35,11 @@ public class CatalogHttpClient : ApplicationHttpClient, ICatalogHttpClient
         => PutAsync($"{_options.CatalogEndpoint}/{catalogId}/deactivate", cancellationToken);
 
     public Task<HttpResponse> ChangeDescriptionAsync(Guid catalogId, string description, CancellationToken cancellationToken)
-        => PutAsync($"{_options.CatalogEndpoint}/{catalogId}/description", new {description}, cancellationToken);
+        => PutAsync($"{_options.CatalogEndpoint}/{catalogId}/description?description={description}", cancellationToken);
 
     public Task<HttpResponse> ChangeTitleAsync(Guid catalogId, string title, CancellationToken cancellationToken)
-        => PutAsync($"{_options.CatalogEndpoint}/{catalogId}/title", new {title}, cancellationToken);
+        => PutAsync($"{_options.CatalogEndpoint}/{catalogId}/title?title={title}", cancellationToken);
 
-    public Task<HttpResponse> AddCatalogItemAsync(Guid catalogId, Request.AddCatalogItem request, CancellationToken cancellationToken)
+    public Task<HttpResponse> AddCatalogItemAsync(Guid catalogId, Requests.AddCatalogItem request, CancellationToken cancellationToken)
         => PostAsync($"{_options.CatalogEndpoint}/{catalogId}", request, cancellationToken);
 }
