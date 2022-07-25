@@ -4,11 +4,11 @@ using Contracts.Services.Account;
 
 namespace Application.UseCases.Commands.DeleteAccount;
 
-public class ProjectAccountDeletedInteractor : IInteractor<DomainEvent.AccountDeleted>
+public class ProjectDetailsWhenAccountDeletedInteractor : IInteractor<DomainEvent.AccountDeleted>
 {
-    private readonly IProjectionRepository<Projection.Account> _repository;
+    private readonly IProjectionRepository<Projection.AccountDetails> _repository;
 
-    public ProjectAccountDeletedInteractor(IProjectionRepository<Projection.Account> repository)
+    public ProjectDetailsWhenAccountDeletedInteractor(IProjectionRepository<Projection.AccountDetails> repository)
     {
         _repository = repository;
     }

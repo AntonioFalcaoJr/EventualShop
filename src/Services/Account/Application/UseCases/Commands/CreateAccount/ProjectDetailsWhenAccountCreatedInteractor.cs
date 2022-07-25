@@ -4,11 +4,11 @@ using Contracts.Services.Account;
 
 namespace Application.UseCases.Commands.CreateAccount;
 
-public class ProjectAccountCreatedInteractor : IInteractor<DomainEvent.AccountCreated>
+public class ProjectDetailsWhenAccountCreatedInteractor : IInteractor<DomainEvent.AccountCreated>
 {
-    private readonly IProjectionRepository<Projection.Account> _repository;
+    private readonly IProjectionRepository<Projection.AccountDetails> _repository;
 
-    public ProjectAccountCreatedInteractor(IProjectionRepository<Projection.Account> repository)
+    public ProjectDetailsWhenAccountCreatedInteractor(IProjectionRepository<Projection.AccountDetails> repository)
     {
         _repository = repository;
     }

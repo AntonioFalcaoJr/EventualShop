@@ -16,8 +16,8 @@ public static class ServiceCollectionExtensions
             .AddScoped<IInteractor<Command.AddShippingAddress>, AddShippingAddressInteractor>()
             .AddScoped<IInteractor<Command.CreateAccount>, CreateAccountInteractor>()
             .AddScoped<IInteractor<Command.DeleteAccount>, DeleteAccountInteractor>()
-            .AddScoped<IInteractor<DomainEvent.AccountCreated>, ProjectAccountCreatedInteractor>()
-            .AddScoped<IInteractor<DomainEvent.AccountDeleted>, ProjectAccountDeletedInteractor>()
-            .AddScoped<IInteractor<DomainEvent.BillingAddressAdded>, ProjectBillingAddressAddedInteractor>()
-            .AddScoped<IInteractor<DomainEvent.ShippingAddressAdded>, ProjectShippingAddressAddedInteractor>();
+            .AddScoped<IInteractor<DomainEvent.AccountCreated>, ProjectDetailsWhenAccountCreatedInteractor>()
+            .AddScoped<IInteractor<DomainEvent.AccountDeleted>, ProjectDetailsWhenAccountDeletedInteractor>()
+            .AddScoped<IInteractor<DomainEvent.BillingAddressAdded>, ProjectListItemWhenBillingAddressAddedInteractor>()
+            .AddScoped<IInteractor<DomainEvent.ShippingAddressAdded>, ProjectListItemWhenShippingAddressAddedInteractor>();
 }
