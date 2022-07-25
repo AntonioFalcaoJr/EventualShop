@@ -18,6 +18,6 @@ public class RegisterUserConsumer : IConsumer<Command.Register>
     {
         User user = new();
         user.Handle(context.Message);
-        await _eventStore.AppendEventsAsync(user, context.CancellationToken);
+        await _eventStore.AppendAsync(user, context.CancellationToken);
     }
 }

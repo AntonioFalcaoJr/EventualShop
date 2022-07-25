@@ -18,6 +18,6 @@ public class CreateInventoryConsumer : IConsumer<Command.CreateInventory>
     {
         Inventory inventory = new();
         inventory.Handle(context.Message);
-        await _eventStore.AppendEventsAsync(inventory, context.CancellationToken);
+        await _eventStore.AppendAsync(inventory, context.CancellationToken);
     }
 }

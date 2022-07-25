@@ -7,9 +7,9 @@ namespace Application.UseCases.Queries;
 
 public class GetAccountConsumer : IConsumer<Query.GetAccount>
 {
-    private readonly IProjectionRepository<Projection.Account> _repository;
+    private readonly IProjectionRepository<Projection.AccountDetails> _repository;
 
-    public GetAccountConsumer(IProjectionRepository<Projection.Account> repository)
+    public GetAccountConsumer(IProjectionRepository<Projection.AccountDetails> repository)
         => _repository = repository;
 
     public async Task Consume(ConsumeContext<Query.GetAccount> context)

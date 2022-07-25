@@ -16,7 +16,7 @@ public class ReserveInventoryItemWhenCartItemAddedConsumer : IConsumer<DomainEve
 
     public async Task Consume(ConsumeContext<DomainEvent.CartItemAdded> context)
     {
-        var inventory = await _eventStore.LoadAggregateAsync(context.Message.InventoryId, context.CancellationToken);
+        var inventory = await _eventStore.LoadAsync(context.Message.InventoryId, context.CancellationToken);
 
         inventory.Handle(
             new Command.ReserveInventoryItem(
@@ -26,6 +26,6 @@ public class ReserveInventoryItemWhenCartItemAddedConsumer : IConsumer<DomainEve
                 context.Message.Quantity,
                 context.Message.Sku));
 
-        await _eventStore.AppendEventsAsync(inventory, context.CancellationToken);
+        await _eventStore.AppendAsync(inventory, context.CancellationToken);
     }
 }
