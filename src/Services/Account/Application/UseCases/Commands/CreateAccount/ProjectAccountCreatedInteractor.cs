@@ -2,7 +2,7 @@
 using Application.Abstractions.UseCases;
 using Contracts.Services.Account;
 
-namespace Application.UseCases.CreateAccount;
+namespace Application.UseCases.Commands.CreateAccount;
 
 public class ProjectAccountCreatedInteractor : IInteractor<DomainEvent.AccountCreated>
 {

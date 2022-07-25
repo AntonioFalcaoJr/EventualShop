@@ -2,7 +2,7 @@
 using Application.EventStore;
 using Contracts.Services.Account;
 
-namespace Application.UseCases.AddBillingAddress;
+namespace Application.UseCases.Commands.AddBillingAddress;
 
 public class AddBillingAddressInteractor : IInteractor<Command.AddBillingAddress>
 {
@@ -15,8 +15,8 @@ public class AddBillingAddressInteractor : IInteractor<Command.AddBillingAddress
 
     public async Task InteractAsync(Command.AddBillingAddress command, CancellationToken ct)
     {
-        var account = await _eventStore.LoadAggregateAsync(command.AccountId, ct);
+        var account = await _eventStore.LoadAsync(command.AccountId, ct);
         account.Handle(command);
-        await _eventStore.AppendEventsAsync(account, ct);
+        await _eventStore.AppendAsync(account, ct);
     }
 }

@@ -2,7 +2,7 @@
 using Application.Abstractions.UseCases;
 using Contracts.Services.Account;
 
-namespace Application.UseCases.AddShippingAddress;
+namespace Application.UseCases.Commands.AddShippingAddress;
 
 public class ProjectShippingAddressAddedInteractor : IInteractor<DomainEvent.ShippingAddressAdded>
 {

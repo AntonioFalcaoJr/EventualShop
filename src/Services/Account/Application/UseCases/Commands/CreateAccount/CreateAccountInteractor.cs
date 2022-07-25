@@ -3,7 +3,7 @@ using Application.EventStore;
 using Contracts.Services.Account;
 using Domain.Aggregates;
 
-namespace Application.UseCases.CreateAccount;
+namespace Application.UseCases.Commands.CreateAccount;
 
 public class CreateAccountInteractor : IInteractor<Command.CreateAccount>
 {
@@ -18,6 +18,6 @@ public class CreateAccountInteractor : IInteractor<Command.CreateAccount>
     {
         Account account = new();
         account.Handle(command);
-        await _eventStore.AppendEventsAsync(account, ct);
+        await _eventStore.AppendAsync(account, ct);
     }
 }

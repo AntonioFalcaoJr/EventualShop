@@ -2,7 +2,7 @@
 using Application.Abstractions.UseCases;
 using Contracts.Services.Account;
 
-namespace Application.UseCases.AddBillingAddress;
+namespace Application.UseCases.Commands.AddBillingAddress;
 
 public class ProjectBillingAddressAddedInteractor : IInteractor<DomainEvent.BillingAddressAdded>
 {

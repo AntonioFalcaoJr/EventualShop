@@ -2,7 +2,7 @@
 using Application.EventStore;
 using Contracts.Services.Account;
 
-namespace Application.UseCases.AddShippingAddress;
+namespace Application.UseCases.Commands.AddShippingAddress;
 
 public class AddShippingAddressInteractor : IInteractor<Command.AddShippingAddress>
 {
@@ -15,8 +15,8 @@ public class AddShippingAddressInteractor : IInteractor<Command.AddShippingAddre
 
     public async Task InteractAsync(Command.AddShippingAddress command, CancellationToken ct)
     {
-        var account = await _eventStore.LoadAggregateAsync(command.AccountId, ct);
+        var account = await _eventStore.LoadAsync(command.AccountId, ct);
         account.Handle(command);
-        await _eventStore.AppendEventsAsync(account, ct);
+        await _eventStore.AppendAsync(account, ct);
     }
 }

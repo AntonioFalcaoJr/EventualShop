@@ -1,8 +1,8 @@
 using Application.Abstractions.UseCases;
-using Application.UseCases.AddBillingAddress;
-using Application.UseCases.AddShippingAddress;
-using Application.UseCases.CreateAccount;
-using Application.UseCases.DeleteAccount;
+using Application.UseCases.Commands.AddBillingAddress;
+using Application.UseCases.Commands.AddShippingAddress;
+using Application.UseCases.Commands.CreateAccount;
+using Application.UseCases.Commands.DeleteAccount;
 using Contracts.Services.Account;
 using Microsoft.Extensions.DependencyInjection;
 

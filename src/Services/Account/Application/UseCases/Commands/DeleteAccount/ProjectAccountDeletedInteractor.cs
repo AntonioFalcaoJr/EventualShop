@@ -2,7 +2,7 @@
 using Application.Abstractions.UseCases;
 using Contracts.Services.Account;
 
-namespace Application.UseCases.DeleteAccount;
+namespace Application.UseCases.Commands.DeleteAccount;
 
 public class ProjectAccountDeletedInteractor : IInteractor<DomainEvent.AccountDeleted>
 {

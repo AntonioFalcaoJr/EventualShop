@@ -28,6 +28,6 @@ public class PlaceOrderWhenCartSubmittedConsumer : IConsumer<IntegrationEvent.Ca
             context.Message.Items,
             context.Message.PaymentMethods));
 
-        await _eventStore.AppendEventsAsync(order, context.CancellationToken);
+        await _eventStore.AppendAsync(order, context.CancellationToken);
     }
 }

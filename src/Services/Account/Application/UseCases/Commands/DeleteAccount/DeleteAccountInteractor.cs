@@ -2,7 +2,7 @@
 using Application.EventStore;
 using Contracts.Services.Account;
 
-namespace Application.UseCases.DeleteAccount;
+namespace Application.UseCases.Commands.DeleteAccount;
 
 public class DeleteAccountInteractor : IInteractor<Command.DeleteAccount>
 {
@@ -15,8 +15,8 @@ public class DeleteAccountInteractor : IInteractor<Command.DeleteAccount>
 
     public async Task InteractAsync(Command.DeleteAccount command, CancellationToken ct)
     {
-        var account = await _eventStore.LoadAggregateAsync(command.AccountId, ct);
+        var account = await _eventStore.LoadAsync(command.AccountId, ct);
         account.Handle(command);
-        await _eventStore.AppendEventsAsync(account, ct);
+        await _eventStore.AppendAsync(account, ct);
     }
 }
