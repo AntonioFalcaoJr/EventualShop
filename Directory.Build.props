@@ -16,17 +16,17 @@
         <Microsoft_Extensions_Version>7.0.0-preview.6.22324.4</Microsoft_Extensions_Version>
 
         <!--Blazor-->
-        <BlazorStrap_Version>5.0.106-Preview3</BlazorStrap_Version>
+        <BlazorStrap_Version>5.1.100-Beta1</BlazorStrap_Version>
         <Microsoft_AspNetCore_WebAssembly_Version>7.0.0-preview.6.22330.3</Microsoft_AspNetCore_WebAssembly_Version>
         
         <!--EF Core-->
         <EntityFrameworkCore_Version>7.0.0-preview.6.22329.4</EntityFrameworkCore_Version>
 
         <!--MongoDb-->
-        <MongoDb_Version>2.16.1</MongoDb_Version>
+        <MongoDb_Version>2.17.0</MongoDb_Version>
 
         <!--MassTransit-->
-        <MassTransit_Version>8.0.6-develop.515</MassTransit_Version>
+        <MassTransit_Version>8.0.6-develop.519</MassTransit_Version>
         <Quartz_Version>3.4.0</Quartz_Version>
 
         <!--Newtonsoft-->
@@ -49,8 +49,8 @@
         <AutoMapper_Extensions_Version>11.0.0</AutoMapper_Extensions_Version>
 
         <!--Swashbuckle-->
-        <Swashbuckle_Version>6.3.2</Swashbuckle_Version>
-        <Swashbuckle_FluentValidation_Version>5.7.0</Swashbuckle_FluentValidation_Version>
+        <Swashbuckle_Version>6.4.0</Swashbuckle_Version>
+        <Swashbuckle_FluentValidation_Version>6.0.0-beta.1</Swashbuckle_FluentValidation_Version>
 
         <!--Polly-->
         <Polly_Version>7.0.0-preview.6.22330.3</Polly_Version>
