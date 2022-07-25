@@ -5,12 +5,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="MassTransit" Version="$(MassTransit_Version)"/>
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="$(Microsoft_Extensions_Version)"/>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(Microsoft_Mvc_Testing_Version)"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EntityFrameworkCore_Version)"/>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(Microsoft_Test_SDK_Version)"/>
-        <PackageReference Include="xunit" Version="2.4.2-pre.12"/>
+        <PackageReference Include="MassTransit" Version="$(MassTransit_Version)" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="$(Microsoft_Extensions_Version)" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(Microsoft_Mvc_Testing_Version)" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EntityFrameworkCore_Version)" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(Microsoft_Test_SDK_Version)" />
+        <PackageReference Include="xunit" Version="2.4.2-pre.27" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
@@ -21,6 +21,6 @@
         </PackageReference>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\src\Web\WebAPI\WebAPI.csproj"/>
+        <ProjectReference Include="..\..\..\..\src\Web\WebAPI\WebAPI.csproj" />
     </ItemGroup>
 </Project>
