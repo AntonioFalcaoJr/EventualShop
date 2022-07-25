@@ -15,8 +15,8 @@ public class DeleteUserConsumer : IConsumer<Command.Delete>
 
     public async Task Consume(ConsumeContext<Command.Delete> context)
     {
-        var user = await _eventStore.LoadAggregateAsync(context.Message.UserId, context.CancellationToken);
+        var user = await _eventStore.LoadAsync(context.Message.UserId, context.CancellationToken);
         user.Handle(context.Message);
-        await _eventStore.AppendEventsAsync(user, context.CancellationToken);
+        await _eventStore.AppendAsync(user, context.CancellationToken);
     }
 }

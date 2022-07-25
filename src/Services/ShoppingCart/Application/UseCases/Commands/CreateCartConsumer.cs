@@ -18,6 +18,6 @@ public class CreateCartConsumer : IConsumer<Command.CreateCart>
     {
         ShoppingCart shoppingCart = new();
         shoppingCart.Handle(context.Message);
-        await _eventStore.AppendEventsAsync(shoppingCart, context.CancellationToken);
+        await _eventStore.AppendAsync(shoppingCart, context.CancellationToken);
     }
 }

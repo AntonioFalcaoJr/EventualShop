@@ -864,7 +864,7 @@ accordingly with each `appsettings.Staging.json`, considering Docker has a netwo
 
 #### Docker-compose
 
-The respective [./docker-compose.yaml](./docker-compose.Development.yaml) will provision all system dependencies, with minimal resources needed, and expose only the **WebAPP** connection port (as in
+The respective [./docker-compose.yaml](./docker-compose.yaml) will provision all system dependencies, with minimal resources needed, and expose only the **WebAPP** connection port (as in
 Production environment):
 
 ```bash

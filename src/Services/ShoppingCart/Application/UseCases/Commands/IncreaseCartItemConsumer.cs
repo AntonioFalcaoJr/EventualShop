@@ -15,8 +15,8 @@ public class IncreaseCartItemConsumer : IConsumer<Command.IncreaseCartItem>
 
     public async Task Consume(ConsumeContext<Command.IncreaseCartItem> context)
     {
-        var shoppingCart = await _eventStore.LoadAggregateAsync(context.Message.CartId, context.CancellationToken);
+        var shoppingCart = await _eventStore.LoadAsync(context.Message.CartId, context.CancellationToken);
         shoppingCart.Handle(context.Message);
-        await _eventStore.AppendEventsAsync(shoppingCart, context.CancellationToken);
+        await _eventStore.AppendAsync(shoppingCart, context.CancellationToken);
     }
 }
