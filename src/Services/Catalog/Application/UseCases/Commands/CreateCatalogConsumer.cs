@@ -18,6 +18,6 @@ public class CreateCatalogConsumer : IConsumer<Command.CreateCatalog>
     {
         Catalog catalog = new();
         catalog.Handle(context.Message);
-        await _eventStore.AppendEventsAsync(catalog, context.CancellationToken);
+        await _eventStore.AppendAsync(catalog, context.CancellationToken);
     }
 }

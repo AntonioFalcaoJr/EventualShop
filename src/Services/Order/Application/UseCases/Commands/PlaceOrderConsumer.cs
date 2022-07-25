@@ -18,6 +18,6 @@ public class PlaceOrderConsumer : IConsumer<Command.PlaceOrder>
     {
         Order order = new();
         order.Handle(context.Message);
-        await _eventStore.AppendEventsAsync(order, context.CancellationToken);
+        await _eventStore.AppendAsync(order, context.CancellationToken);
     }
 }

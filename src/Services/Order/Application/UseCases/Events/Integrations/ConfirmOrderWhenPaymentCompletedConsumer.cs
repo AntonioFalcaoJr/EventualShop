@@ -16,8 +16,8 @@ public class ConfirmOrderWhenPaymentCompletedConsumer : IConsumer<DomainEvent.Pa
 
     public async Task Consume(ConsumeContext<DomainEvent.PaymentCompleted> context)
     {
-        var order = await _eventStore.LoadAggregateAsync(context.Message.OrderId, context.CancellationToken);
+        var order = await _eventStore.LoadAsync(context.Message.OrderId, context.CancellationToken);
         order.Handle(new Command.ConfirmOrder(context.Message.OrderId));
-        await _eventStore.AppendEventsAsync(order, context.CancellationToken);
+        await _eventStore.AppendAsync(order, context.CancellationToken);
     }
 }

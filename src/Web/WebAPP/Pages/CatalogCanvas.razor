@@ -2,6 +2,7 @@
 @using WebAPP.HttpClients
 @using WebAPP.ViewModels
 @using Contracts.Services.Catalog
+@using BlazorStrap.Shared.Components.OffCanvas
 @inject ICatalogHttpClient HttpClient
 @inject CatalogGridViewModel ViewModel
 
@@ -33,8 +34,9 @@
     public EventCallback<Requests.CreateCatalog> OnCreated { get; set; }
     
     private readonly CancellationTokenSource _cancellationTokenSource = new();
-    
-    private BSOffCanvas _offCanvas;
+
+
+    private BSOffCanvasBase _offCanvas;
     private bool _creating;
 
     private async Task CreateAsync()

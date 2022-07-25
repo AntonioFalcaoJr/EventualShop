@@ -7,9 +7,9 @@ namespace Application.UseCases.Queries;
 
 public class ListAddressesConsumer : IConsumer<Query.ListAddresses>
 {
-    private readonly IProjectionRepository<Projection.Address> _repository;
+    private readonly IProjectionRepository<Projection.AddressListItem> _repository;
 
-    public ListAddressesConsumer(IProjectionRepository<Projection.Address> repository)
+    public ListAddressesConsumer(IProjectionRepository<Projection.AddressListItem> repository)
         => _repository = repository;
 
     public async Task Consume(ConsumeContext<Query.ListAddresses> context)
