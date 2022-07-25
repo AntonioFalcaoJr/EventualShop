@@ -36,13 +36,13 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
         _repository = repository;
     }
 
-    public async Task AppendEventsAsync(TAggregate aggregate, CancellationToken cancellationToken)
+    public async Task AppendAsync(TAggregate aggregate, CancellationToken cancellationToken)
     {
         if (await aggregate.IsValidAsync) await OnAppendEventsAsync(aggregate, cancellationToken);
         else _notificationContext.AddErrors(aggregate.Errors);
     }
 
-    public async Task<TAggregate> LoadAggregateAsync(TId aggregateId, CancellationToken ct)
+    public async Task<TAggregate> LoadAsync(TId aggregateId, CancellationToken ct)
     {
         var snapshot = await _repository.GetSnapshotAsync(aggregateId, ct) ?? new();
         var events = await _repository.GetStreamAsync(aggregateId, snapshot.AggregateVersion, ct);
