@@ -46,6 +46,9 @@ public class InventoryItem : Entity<Guid, InventoryItemValidator>
 
     public void Increase(int quantity)
         => Quantity += quantity;
+    
+    public void Decrease(int quantity)
+        => Quantity -= quantity;
 
     public void Adjust(IAdjustment adjustment)
     {

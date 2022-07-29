@@ -61,24 +61,31 @@ public class Inventory : AggregateRoot<Guid, InventoryValidator>
     protected override void ApplyEvent(IEvent @event)
         => When(@event as dynamic);
 
-    private void When(DomainEvent.InventoryItemReceived @event)
-        => _items.Add(new(@event.InventoryItemId, @event.Cost, @event.Product, @event.Quantity, @event.Sku));
-
-    private void When(DomainEvent.InventoryItemIncreased @event)
-        => _items.Single(item => item.Id == @event.InventoryItemId).Increase(@event.Quantity);
-
     private void When(DomainEvent.InventoryCreated @event)
         => (Id, OwnerId) = @event;
-
-    private void When(DomainEvent.InventoryAdjustmentDecreased @event)
+    
+    private void When(DomainEvent.InventoryItemReceived @event)
+        => _items.Add(new(@event.InventoryItemId, @event.Cost, @event.Product, @event.Quantity, @event.Sku));
+    
+    private void When(DomainEvent.InventoryItemIncreased @event)
         => _items
             .Single(item => item.Id == @event.InventoryItemId)
-            .Adjust(new DecreaseAdjustment(@event.Reason, @event.Quantity));
+            .Increase(@event.Quantity);
+    
+    private void When(DomainEvent.InventoryItemDecreased @event)
+        => _items
+            .Single(item => item.Id == @event.InventoryItemId)
+            .Decrease(@event.Quantity);
 
     private void When(DomainEvent.InventoryAdjustmentIncreased @event)
         => _items
             .Single(item => item.Id == @event.InventoryItemId)
             .Adjust(new IncreaseAdjustment(@event.Reason, @event.Quantity));
+    
+    private void When(DomainEvent.InventoryAdjustmentDecreased @event)
+        => _items
+            .Single(item => item.Id == @event.InventoryItemId)
+            .Adjust(new DecreaseAdjustment(@event.Reason, @event.Quantity));
 
     // private void When(DomainEvent.StockDepleted _)
     // {
