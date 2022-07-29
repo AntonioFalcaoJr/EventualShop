@@ -16,27 +16,28 @@ using WebAPI.ParameterTransformers;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseDefaultServiceProvider((context, options) =>
+builder.Host.UseDefaultServiceProvider((context, provider) =>
 {
-    options.ValidateScopes = context.HostingEnvironment.IsDevelopment();
-    options.ValidateOnBuild = true;
+    provider.ValidateScopes =
+        provider.ValidateOnBuild =
+            context.HostingEnvironment.IsDevelopment();
 });
 
-builder.Host.ConfigureAppConfiguration(configurationBuilder =>
+builder.Host.ConfigureAppConfiguration(configuration =>
 {
-    configurationBuilder
+    configuration
         .AddUserSecrets(Assembly.GetExecutingAssembly())
         .AddEnvironmentVariables();
 });
 
-builder.Host.ConfigureLogging((context, loggingBuilder) =>
+builder.Host.ConfigureLogging((context, logging) =>
 {
     Log.Logger = new LoggerConfiguration().ReadFrom
         .Configuration(context.Configuration)
         .CreateLogger();
 
-    loggingBuilder.ClearProviders();
-    loggingBuilder.AddSerilog();
+    logging.ClearProviders();
+    logging.AddSerilog();
     builder.Host.UseSerilog();
 });
 

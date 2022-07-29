@@ -1,10 +1,10 @@
 using System.Diagnostics;
+using Application.DependencyInjection.Extensions;
 using Infrastructure.EventStore.Contexts;
 using Infrastructure.EventStore.DependencyInjection.Extensions;
 using Infrastructure.EventStore.DependencyInjection.Options;
 using Infrastructure.MessageBus.DependencyInjection.Extensions;
 using Infrastructure.MessageBus.DependencyInjection.Options;
-using Infrastructure.Projections.DependencyInjection.Extensions;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Quartz;
@@ -12,34 +12,35 @@ using Serilog;
 
 var builder = Host.CreateDefaultBuilder(args);
 
-builder.UseDefaultServiceProvider((context, options) =>
+builder.UseDefaultServiceProvider((context, provider) =>
 {
-    options.ValidateScopes = context.HostingEnvironment.IsDevelopment();
-    options.ValidateOnBuild = true;
+    provider.ValidateScopes =
+        provider.ValidateOnBuild =
+            context.HostingEnvironment.IsDevelopment();
 });
 
-builder.ConfigureAppConfiguration(configurationBuilder =>
+builder.ConfigureAppConfiguration(configuration =>
 {
-    configurationBuilder
+    configuration
         .AddUserSecrets<Program>()
         .AddEnvironmentVariables();
 });
 
-builder.ConfigureLogging((context, loggingBuilder) =>
+builder.ConfigureLogging((context, logging) =>
 {
     Log.Logger = new LoggerConfiguration().ReadFrom
         .Configuration(context.Configuration)
         .CreateLogger();
 
-    loggingBuilder.ClearProviders();
-    loggingBuilder.AddSerilog();
+    logging.ClearProviders();
+    logging.AddSerilog();
 });
 
 builder.ConfigureServices((context, services) =>
 {
     services.AddEventStore();
-    services.AddProjections();
-    services.AddMessageBus();
+    services.AddCommandBus();
+    services.AddCommandInteractors();
     services.AddMessageValidators();
     services.AddNotificationContext();
 
@@ -49,8 +50,8 @@ builder.ConfigureServices((context, services) =>
     services.ConfigureSqlServerRetryOptions(
         context.Configuration.GetSection(nameof(SqlServerRetryOptions)));
 
-    services.ConfigureMessageBusOptions(
-        context.Configuration.GetSection(nameof(MessageBusOptions)));
+    services.ConfigureCommandBusOptions(
+        context.Configuration.GetSection(nameof(CommandBusOptions)));
 
     services.ConfigureQuartzOptions(
         context.Configuration.GetSection(nameof(QuartzOptions)));
