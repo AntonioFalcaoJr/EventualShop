@@ -6,7 +6,7 @@ using Application.UseCases.Commands.DeleteAccount;
 using Contracts.Services.Account;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Application.DependencyInjection;
+namespace Application.DependencyInjection.Extensions;
 
 public static class ServiceCollectionExtensions
 {
