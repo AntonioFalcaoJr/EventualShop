@@ -2,7 +2,13 @@
 
 namespace Infrastructure.HttpClients.DependencyInjection.Options;
 
-public record PayPalHttpClientOptions
+public record CreditCardHttpClientOptions : HttpClientOptions;
+
+public record DebitCardHttpClientOptions : HttpClientOptions;
+
+public record PayPalHttpClientOptions : HttpClientOptions;
+
+public abstract record HttpClientOptions
 {
     [Required, Url]
     public string BaseAddress { get; init; }
@@ -11,13 +17,13 @@ public record PayPalHttpClientOptions
     public string CancelEndpoint { get; init; }
 
     [Required, MinLength(5)]
-    public string CaptureEndpoint { get; init; }
-
-    [Required, MinLength(5)]
     public string AuthorizeEndpoint { get; init; }
 
     [Required, MinLength(5)]
     public string RefundEndpoint { get; init; }
+
+    [Required, MinLength(5)]
+    public string CaptureEndpoint { get; init; }
 
     [Required, Timestamp]
     public TimeSpan OverallTimeout { get; init; }
