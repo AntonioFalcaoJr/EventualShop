@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup>
+        <PackageReference Include="MongoDB.Driver" Version="$(MongoDb_Version)"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\..\Contracts\Contracts.csproj"/>
+        <ProjectReference Include="..\Application\Application.csproj"/>
+    </ItemGroup>
+</Project>
