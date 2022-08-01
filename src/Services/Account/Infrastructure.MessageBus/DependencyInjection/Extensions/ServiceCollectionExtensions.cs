@@ -22,6 +22,8 @@ public static class ServiceCollectionExtensions
         => services.AddMassTransit(cfg =>
             {
                 cfg.SetKebabCaseEndpointNameFormatter();
+                
+                // TODO - Remove when migrated to interactors
                 cfg.AddConsumers(Assembly.Load(nameof(Application)));
                 cfg.AddConsumers(Assembly.GetExecutingAssembly());
 
