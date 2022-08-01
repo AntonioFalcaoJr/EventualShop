@@ -24,7 +24,7 @@ public class InventoryItem : Entity<Guid, InventoryItemValidator>
     public int QuantityReserved
         => _reserves.Sum(reserve => reserve.Quantity);
 
-    public int Adjustment
+    public int TotalAdjustments
         => _adjustments.Sum(adjustment
             => adjustment switch
             {
