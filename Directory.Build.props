@@ -8,6 +8,7 @@
         <LangVersion>preview</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <NoWarn>8981</NoWarn>
     </PropertyGroup>
 
     <PropertyGroup Label="Packages dependency versions">
