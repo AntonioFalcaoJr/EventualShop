@@ -772,6 +772,14 @@ MessageBusOptions:ConnectionString = amqp://guest:guest@127.0.0.1:5672/ecommerce
 ConnectionStrings:Projections = mongodb://mongoadmin:secret@127.0.0.1:27017/AccountProjections/?authSource=admin
 ConnectionStrings:EventStore = Server=127.0.0.1,1433;Database=AccountEventStore;User=sa;Password=!MyStrongPassword;trustServerCertificate=true
 ```
+Authentication:
+
+In especial for the [Identity GrpcService](./src/Services/Identity/GrpcService) service, it is necessary to define one more user secret, referred to as the authentication secret-key:
+
+```bash
+dotnet user-secrets set "JwtOptions:SecretKey" "development-secret-key"
+```
+
 Extra:
 
 A batch of secrets can be set by piping JSON to the set command, as in the following example:
