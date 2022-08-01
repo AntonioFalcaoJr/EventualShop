@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package com.google.protobuf;
+
+service IdentityService {
+  rpc Login(LoginRequest) returns (LoginResponse);
+}
+
+message LoginRequest {
+  string Email = 1;
+  string Password = 2;
+}
+
+message LoginResponse {
+  string Token = 1;
+}
