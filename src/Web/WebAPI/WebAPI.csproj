@@ -5,6 +5,8 @@
     <ItemGroup>
         <PackageReference Include="FluentValidation" Version="$(FluentValidation_Version)" />
         <PackageReference Include="FluentValidation.AspNetCore" Version="$(FluentValidation_AspNetCore_Version)" />
+        <PackageReference Include="Grpc.Net.Client" Version="2.47.0" />
+        <PackageReference Include="Grpc.Net.ClientFactory" Version="2.47.0" />
         <PackageReference Include="MassTransit.Newtonsoft" Version="$(MassTransit_Version)" />
         <PackageReference Include="MassTransit.RabbitMQ" Version="$(MassTransit_Version)" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="$(Microsoft_Mvc_NewtonsoftJso_Version)" />

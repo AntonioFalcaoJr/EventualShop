@@ -41,51 +41,58 @@ builder.Host.ConfigureLogging((context, logging) =>
     builder.Host.UseSerilog();
 });
 
-builder.Services.AddCors(options
-    => options.AddDefaultPolicy(policyBuilder
-        => policyBuilder
-            .AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod()));
+builder.Host.ConfigureServices((context, services) =>
+{
+    services.AddCors(options
+        => options.AddDefaultPolicy(policyBuilder
+            => policyBuilder
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod()));
 
-builder.Services
-    .AddRouting(options => options.LowercaseUrls = true)
-    .AddControllers(options =>
-    {
-        options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
-        options.SuppressAsyncSuffixInActionNames = true;
-    })
-    .AddNewtonsoftJson(options =>
-    {
-        options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter());
-        options.SerializerSettings.Converters.Add(new ExpirationDateOnlyJsonConverter());
-    })
-    .AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining(typeof(IMessage)));
+    services
+        .AddRouting(options => options.LowercaseUrls = true)
+        .AddControllers(options =>
+        {
+            options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
+            options.SuppressAsyncSuffixInActionNames = true;
+        })
+        .AddNewtonsoftJson(options =>
+        {
+            options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter());
+            options.SerializerSettings.Converters.Add(new ExpirationDateOnlyJsonConverter());
+        })
+        .AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining(typeof(IMessage)));
 
-builder.Services
-    .AddSwaggerGenNewtonsoftSupport()
-    .AddFluentValidationRulesToSwagger()
-    .AddEndpointsApiExplorer()
-    .AddSwaggerGen(options =>
-    {
-        options.SwaggerDoc("v1", new() {Title = builder.Environment.ApplicationName, Version = "v1"});
-        options.MapType<DateOnly>(() => new() {Format = "date", Example = new OpenApiString(DateOnly.MinValue.ToString())});
-        options.CustomSchemaIds(type => type.ToString().Replace("+", "."));
-    });
+    services
+        .AddSwaggerGenNewtonsoftSupport()
+        .AddFluentValidationRulesToSwagger()
+        .AddEndpointsApiExplorer()
+        .AddSwaggerGen(options =>
+        {
+            options.SwaggerDoc("v1", new() {Title = builder.Environment.ApplicationName, Version = "v1"});
+            options.MapType<DateOnly>(() => new() {Format = "date", Example = new OpenApiString(DateOnly.MinValue.ToString())});
+            options.CustomSchemaIds(type => type.ToString().Replace("+", "."));
+        });
 
-builder.Services.AddMessageBus();
+    services.AddMessageBus();
+    services.AddIdentityGrpcClient();
 
-builder.Services.ConfigureMessageBusOptions(
-    builder.Configuration.GetSection(nameof(MessageBusOptions)));
+    services.ConfigureMessageBusOptions(
+        context.Configuration.GetSection(nameof(MessageBusOptions)));
 
-builder.Services.ConfigureMassTransitHostOptions(
-    builder.Configuration.GetSection(nameof(MassTransitHostOptions)));
+    services.ConfigureIdentityGrpcClientOptions(
+        context.Configuration.GetSection(nameof(IdentityGrpcClientOptions)));
 
-builder.Services.ConfigureRabbitMqTransportOptions(
-    builder.Configuration.GetSection(nameof(RabbitMqTransportOptions)));
+    services.ConfigureMassTransitHostOptions(
+        context.Configuration.GetSection(nameof(MassTransitHostOptions)));
 
-builder.Services.AddHttpLogging(options
-    => options.LoggingFields = HttpLoggingFields.All);
+    services.ConfigureRabbitMqTransportOptions(
+        context.Configuration.GetSection(nameof(RabbitMqTransportOptions)));
+
+    services.AddHttpLogging(options
+        => options.LoggingFields = HttpLoggingFields.All);
+});
 
 var app = builder.Build();
 
@@ -114,6 +121,7 @@ app.UseApplicationExceptionHandler();
 
 app.MapGroup("/api/v1/accounts/").MapAccountApi();
 app.MapGroup("/api/v1/catalogs/").MapCatalogApi();
+app.MapGroup("/api/v2/identities/").MapIdentityApi();
 
 try
 {

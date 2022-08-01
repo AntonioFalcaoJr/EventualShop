@@ -1,4 +1,5 @@
-﻿using Contracts.JsonConverters;
+﻿using Com.Google.Protobuf;
+using Contracts.JsonConverters;
 using MassTransit;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -51,6 +52,13 @@ public static class ServiceCollectionExtensions
             });
         });
 
+    public static void AddIdentityGrpcClient(this IServiceCollection services)
+        => services.AddGrpcClient<IdentityService.IdentityServiceClient>((provider, client) =>
+        {
+            var options = provider.GetRequiredService<IOptionsMonitor<IdentityGrpcClientOptions>>().CurrentValue;
+            client.Address = new(options.BaseAddress);
+        });
+
     public static OptionsBuilder<MessageBusOptions> ConfigureMessageBusOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<MessageBusOptions>()
@@ -68,6 +76,13 @@ public static class ServiceCollectionExtensions
     public static OptionsBuilder<RabbitMqTransportOptions> ConfigureRabbitMqTransportOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<RabbitMqTransportOptions>()
+            .Bind(section)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+
+    public static OptionsBuilder<IdentityGrpcClientOptions> ConfigureIdentityGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
+        => services
+            .AddOptions<IdentityGrpcClientOptions>()
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();
