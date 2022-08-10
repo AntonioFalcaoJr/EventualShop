@@ -42,7 +42,7 @@
 
         <!--FluentValidation-->
         <FluentValidation_Version>11.1.0</FluentValidation_Version>
-        <FluentValidation_AspNetCore_Version>11.1.2</FluentValidation_AspNetCore_Version>
+        <FluentValidation_AspNetCore_Version>11.2.1</FluentValidation_AspNetCore_Version>
 
         <!--Auto Mapper-->
         <AutoMapper_Version>11.0.1</AutoMapper_Version>
