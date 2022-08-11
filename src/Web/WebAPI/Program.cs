@@ -23,23 +23,19 @@ builder.Host.UseDefaultServiceProvider((context, provider) =>
             context.HostingEnvironment.IsDevelopment();
 });
 
-builder.Host.ConfigureAppConfiguration(configuration =>
-{
-    configuration
-        .AddUserSecrets(Assembly.GetExecutingAssembly())
-        .AddEnvironmentVariables();
-});
+builder.Configuration
+    .AddUserSecrets(Assembly.GetExecutingAssembly())
+    .AddEnvironmentVariables();
 
-builder.Host.ConfigureLogging((context, logging) =>
-{
-    Log.Logger = new LoggerConfiguration().ReadFrom
-        .Configuration(context.Configuration)
-        .CreateLogger();
+Log.Logger = new LoggerConfiguration().ReadFrom
+    .Configuration(builder.Configuration)
+    .CreateLogger();
 
-    logging.ClearProviders();
-    logging.AddSerilog();
-    builder.Host.UseSerilog();
-});
+builder.Logging
+    .ClearProviders()
+    .AddSerilog();
+
+builder.Host.UseSerilog();
 
 builder.Host.ConfigureServices((context, services) =>
 {
@@ -51,6 +47,10 @@ builder.Host.ConfigureServices((context, services) =>
                 .AllowAnyMethod()));
 
     services
+        .AddFluentValidationAutoValidation()
+        .AddFluentValidationClientsideAdapters();
+    
+    services
         .AddRouting(options => options.LowercaseUrls = true)
         .AddControllers(options =>
         {
@@ -61,8 +61,7 @@ builder.Host.ConfigureServices((context, services) =>
         {
             options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter());
             options.SerializerSettings.Converters.Add(new ExpirationDateOnlyJsonConverter());
-        })
-        .AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining(typeof(IMessage)));
+        });
 
     services
         .AddSwaggerGenNewtonsoftSupport()
