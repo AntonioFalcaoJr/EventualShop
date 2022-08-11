@@ -1,7 +1,6 @@
 ﻿using Contracts.Abstractions.Validations;
 using FluentValidation;
 using MassTransit;
-using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
 namespace Infrastructure.MessageBus.PipeFilters;
@@ -11,8 +10,8 @@ public class ContractValidatorFilter<T> : IFilter<ConsumeContext<T>>
 {
     private readonly IValidator<T> _validator;
 
-    public ContractValidatorFilter(IServiceProvider serviceProvider) 
-        => _validator = serviceProvider.GetService<IValidator<T>>();
+    public ContractValidatorFilter(IValidator<T> validator = null) 
+        => _validator = validator;
 
     public async Task Send(ConsumeContext<T> context, IPipe<ConsumeContext<T>> next)
     {
