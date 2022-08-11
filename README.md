@@ -774,7 +774,7 @@ ConnectionStrings:EventStore = Server=127.0.0.1,1433;Database=AccountEventStore;
 ```
 Authentication:
 
-In especial for the [Identity GrpcService](./src/Services/Identity/GrpcService) service, it is necessary to define one more user secret, referred to as the authentication secret-key:
+In especial for the [Identity GrpcService](./src/Services/Identity/GrpcService) it is necessary to define one more user-secret, referred to as the authentication secret-key:
 
 ```bash
 dotnet user-secrets set "JwtOptions:SecretKey" "development-secret-key"

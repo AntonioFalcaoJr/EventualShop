@@ -1,15 +1,15 @@
 using Application.Abstractions.UseCases;
-using Com.Google.Protobuf;
+using Contracts.Query;
 using Contracts.Services.Identity;
 using Grpc.Core;
 
 namespace GrpcService;
 
-public class IdentityService : Com.Google.Protobuf.IdentityService.IdentityServiceBase
+public class IdentityGrpcService : IdentityService.IdentityServiceBase
 {
     private readonly IInteractor<Query.Login, Projection.UserDetails> _interactor;
 
-    public IdentityService(IInteractor<Query.Login, Projection.UserDetails> interactor)
+    public IdentityGrpcService(IInteractor<Query.Login, Projection.UserDetails> interactor)
     {
         _interactor = interactor;
     }

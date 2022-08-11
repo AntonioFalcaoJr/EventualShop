@@ -16,6 +16,7 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
     private readonly EventStoreDbContext _dbContext;
     private readonly DbSet<TSnapshot> _snapshots;
     private readonly DbSet<TStoreEvent> _storeEvents;
+
     protected EventStoreRepository(EventStoreDbContext dbContext)
     {
         _dbContext = dbContext;

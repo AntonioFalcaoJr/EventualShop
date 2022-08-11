@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package com.google.protobuf;
+package contracts.query;
 
 service IdentityService {
   rpc Login(LoginRequest) returns (LoginResponse);

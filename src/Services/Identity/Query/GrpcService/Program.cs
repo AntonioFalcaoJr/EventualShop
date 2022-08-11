@@ -72,7 +72,7 @@ var app = builder.Build();
 
 app.UseCors();
 app.UseSerilogRequestLogging();
-app.MapGrpcService<IdentityService>();
+app.MapGrpcService<IdentityGrpcService>();
 
 var applicationLifetime = app.Services.GetRequiredService<IHostApplicationLifetime>();
 

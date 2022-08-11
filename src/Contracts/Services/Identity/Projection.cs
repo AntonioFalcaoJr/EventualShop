@@ -1,5 +1,5 @@
-﻿using Com.Google.Protobuf;
-using Contracts.Abstractions;
+﻿using Contracts.Abstractions;
+using Contracts.Query;
 
 namespace Contracts.Services.Identity;
 
