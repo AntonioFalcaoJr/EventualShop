@@ -1,7 +1,7 @@
+using System.Reflection;
 using Contracts.Abstractions.Messages;
 using Contracts.JsonConverters;
 using FluentValidation;
-using Infrastructure.MessageBus.Consumers;
 using Infrastructure.MessageBus.DependencyInjection.Options;
 using Infrastructure.MessageBus.PipeFilters;
 using Infrastructure.MessageBus.PipeObservers;
@@ -19,9 +19,7 @@ public static class ServiceCollectionExtensions
         => services.AddMassTransit(cfg =>
         {
             cfg.SetKebabCaseEndpointNameFormatter();
-
-            // TODO - Improve it
-            cfg.AddConsumersFromNamespaceContaining<UserRegisteredConsumer>();
+            cfg.AddConsumers(Assembly.GetExecutingAssembly());
 
             cfg.UsingRabbitMq((context, bus) =>
             {

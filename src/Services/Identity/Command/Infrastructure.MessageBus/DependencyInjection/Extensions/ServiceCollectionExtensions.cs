@@ -1,3 +1,4 @@
+using System.Reflection;
 using Application.Abstractions.Notifications;
 using Contracts.Abstractions.Messages;
 using Contracts.JsonConverters;
@@ -21,9 +22,7 @@ public static class ServiceCollectionExtensions
         => services.AddMassTransit(cfg =>
             {
                 cfg.SetKebabCaseEndpointNameFormatter();
-
-                // TODO - Improve it
-                cfg.AddConsumersFromNamespaceContaining<Consumers.Commands.RegisterUserConsumer>();
+                cfg.AddConsumers(Assembly.GetExecutingAssembly());
 
                 cfg.UsingRabbitMq((context, bus) =>
                 {

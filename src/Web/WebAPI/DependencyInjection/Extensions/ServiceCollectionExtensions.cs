@@ -1,5 +1,5 @@
-﻿using Com.Google.Protobuf;
-using Contracts.JsonConverters;
+﻿using Contracts.JsonConverters;
+using Contracts.Query;
 using MassTransit;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -54,10 +54,12 @@ public static class ServiceCollectionExtensions
 
     public static void AddIdentityGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<IdentityService.IdentityServiceClient>((provider, client) =>
-        {
-            var options = provider.GetRequiredService<IOptionsMonitor<IdentityGrpcClientOptions>>().CurrentValue;
-            client.Address = new(options.BaseAddress);
-        });
+            {
+                var options = provider.GetRequiredService<IOptionsMonitor<IdentityGrpcClientOptions>>().CurrentValue;
+                client.Address = new(options.BaseAddress);
+            })
+            .EnableCallContextPropagation(options
+                => options.SuppressContextNotFoundErrors = true);
 
     public static OptionsBuilder<MessageBusOptions> ConfigureMessageBusOptions(this IServiceCollection services, IConfigurationSection section)
         => services
