@@ -1,7 +1,6 @@
-using Application.Abstractions.EventStore;
 using Contracts.Abstractions.Messages;
 using Domain.Abstractions.Aggregates;
-using Domain.Abstractions.StoreEvents;
+using Domain.Abstractions.EventStore;
 using Infrastructure.EventStore.Contexts;
 using Microsoft.EntityFrameworkCore;
 
