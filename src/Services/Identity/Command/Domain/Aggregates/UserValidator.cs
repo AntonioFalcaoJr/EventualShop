@@ -1,12 +1,14 @@
-﻿using Domain.Abstractions.Validators;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Domain.Aggregates;
 
-public class UserValidator : EntityValidator<User, Guid>
+public class UserValidator : AbstractValidator<User>
 {
     public UserValidator()
     {
+        RuleFor(user => user.Id)
+            .NotEqual(Guid.Empty);
+        
         RuleFor(user => user.Password)
             .NotNull()
             .NotEmpty()
