@@ -12,24 +12,27 @@ public class User : AggregateRoot<Guid, UserValidator>
     public string Password { get; private set; }
     public string PasswordConfirmation { get; private set; }
 
-    public void Handle(Command.RegisterUser cmd)
-        => RaiseEvent(new DomainEvent.UserRegistered(Guid.NewGuid(), cmd.FirstName, cmd.LastName, cmd.Email, cmd.Password, cmd.PasswordConfirmation));
+    public override void Handle(ICommand command)
+        => Handle(command as dynamic);
 
-    public void Handle(Command.ChangePassword cmd)
-        => RaiseEvent(new DomainEvent.UserPasswordChanged(cmd.UserId, cmd.NewPassword, cmd.NewPasswordConfirmation));
+    private void Handle(Command.RegisterUser cmd)
+        => Raise(new DomainEvent.UserRegistered(Guid.NewGuid(), cmd.FirstName, cmd.LastName, cmd.Email, cmd.Password, cmd.PasswordConfirmation));
 
-    public void Handle(Command.DeleteUser cmd)
-        => RaiseEvent(new DomainEvent.UserDeleted(cmd.UserId));
+    private void Handle(Command.ChangePassword cmd)
+        => Raise(new DomainEvent.UserPasswordChanged(cmd.UserId, cmd.NewPassword, cmd.NewPasswordConfirmation));
 
-    protected override void ApplyEvent(IEvent @event)
-        => When(@event as dynamic);
+    private void Handle(Command.DeleteUser cmd)
+        => Raise(new DomainEvent.UserDeleted(cmd.UserId));
 
-    private void When(DomainEvent.UserRegistered @event)
+    protected override void Apply(IEvent @event)
+        => Apply(@event as dynamic);
+
+    private void Apply(DomainEvent.UserRegistered @event)
         => (Id, FirstName, LastName, Email, Password, PasswordConfirmation) = @event;
 
-    private void When(DomainEvent.UserPasswordChanged @event)
+    private void Apply(DomainEvent.UserPasswordChanged @event)
         => (_, Password, PasswordConfirmation) = @event;
 
-    private void When(DomainEvent.UserDeleted _)
+    private void Apply(DomainEvent.UserDeleted _)
         => IsDeleted = true;
 }
