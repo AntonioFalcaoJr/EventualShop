@@ -5,7 +5,7 @@ namespace Contracts.Services.Account;
 
 public static class Command
 {
-    public record CreateAccount(Dto.Profile Profile, string Password, string PasswordConfirmation, bool AcceptedPolicies, bool WishToReceiveNews) : Message, ICommand;
+    public record CreateAccount(Guid AccountId, Dto.Profile Profile, string Password, string PasswordConfirmation, bool AcceptedPolicies, bool WishToReceiveNews) : Message(CorrelationId: AccountId), ICommand;
 
     public record AddShippingAddress(Guid AccountId, Dto.Address Address) : Message(CorrelationId: AccountId), ICommand;
 
