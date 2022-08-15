@@ -1,4 +1,4 @@
-﻿using Domain.Abstractions.StoreEvents;
+﻿using Domain.Abstractions.EventStore;
 using Domain.Aggregates;
 
 namespace Domain.StoreEvents;
