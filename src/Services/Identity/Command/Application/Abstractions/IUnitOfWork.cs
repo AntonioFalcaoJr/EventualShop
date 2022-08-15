@@ -1,7 +1,6 @@
-﻿namespace Infrastructure.EventStore.UnitsOfWork;
+namespace Application.Abstractions;
 
 public interface IUnitOfWork
 {
     Task ExecuteAsync(Func<CancellationToken, Task> operationAsync, CancellationToken cancellationToken);
-    Task CommitAsync(CancellationToken ct);
 }
