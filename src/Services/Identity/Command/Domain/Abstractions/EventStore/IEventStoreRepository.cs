@@ -1,8 +1,7 @@
 using Contracts.Abstractions.Messages;
 using Domain.Abstractions.Aggregates;
-using Domain.Abstractions.StoreEvents;
 
-namespace Application.Abstractions.EventStore;
+namespace Domain.Abstractions.EventStore;
 
 public interface IEventStoreRepository<in TAggregate, in TStoreEvent, TSnapshot, in TId>
     where TAggregate : IAggregateRoot<TId>, new()

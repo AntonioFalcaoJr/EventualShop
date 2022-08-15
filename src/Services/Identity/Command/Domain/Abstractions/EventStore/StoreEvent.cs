@@ -1,7 +1,7 @@
 ﻿using Contracts.Abstractions.Messages;
 using Domain.Abstractions.Aggregates;
 
-namespace Domain.Abstractions.StoreEvents;
+namespace Domain.Abstractions.EventStore;
 
 public abstract record StoreEvent<TId, TAggregate>
     where TAggregate : IAggregateRoot<TId>
