@@ -1,4 +1,3 @@
-using Application.EventStore;
 using Domain.Aggregates;
 using Domain.StoreEvents;
 using Infrastructure.EventStore.Abstractions;

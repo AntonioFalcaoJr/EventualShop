@@ -1,5 +1,4 @@
-﻿using System.Data;
-using Domain.Abstractions.Validators;
+﻿using Domain.Abstractions.Validators;
 using Domain.Entities.CartItems;
 using Domain.Entities.PaymentMethods;
 using Domain.ValueObjects.Addresses;

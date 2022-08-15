@@ -1,5 +1,4 @@
 using System.Reflection;
-using Contracts.Abstractions.Messages;
 using Contracts.JsonConverters;
 using FluentValidation.AspNetCore;
 using MassTransit;

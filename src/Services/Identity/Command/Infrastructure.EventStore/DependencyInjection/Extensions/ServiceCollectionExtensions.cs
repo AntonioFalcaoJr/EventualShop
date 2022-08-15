@@ -1,4 +1,5 @@
-using Application.EventStore;
+using Application.Abstractions;
+using Infrastructure.EventStore.Abstractions;
 using Infrastructure.EventStore.Contexts;
 using Infrastructure.EventStore.DependencyInjection.Options;
 using Infrastructure.EventStore.UnitsOfWork;
@@ -13,7 +14,7 @@ public static class ServiceCollectionExtensions
 {
     public static void AddEventStore(this IServiceCollection services)
     {
-        services.AddScoped<IUserEventStoreService, UserEventStoreService>();
+        services.AddScoped(typeof(IEventStoreGateway), typeof(EventStoreGateway<,,>));
         services.AddScoped<IUserEventStoreRepository, UserEventStoreRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
