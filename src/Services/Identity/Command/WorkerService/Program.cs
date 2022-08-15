@@ -42,7 +42,6 @@ builder.ConfigureServices((context, services) =>
     services.AddCommandBus();
     services.AddCommandInteractors();
     services.AddMessageValidators();
-    services.AddNotificationContext();
 
     services.ConfigureEventStoreOptions(
         context.Configuration.GetSection(nameof(EventStoreOptions)));
