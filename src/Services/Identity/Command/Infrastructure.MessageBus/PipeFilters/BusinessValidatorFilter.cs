@@ -1,29 +1,22 @@
-﻿using Application.Abstractions.Notifications;
-using Contracts.Abstractions.Validations;
+﻿using Contracts.Abstractions.Validations;
+using FluentValidation;
 using MassTransit;
 using Serilog;
 
 namespace Infrastructure.MessageBus.PipeFilters;
 
-public class BusinessValidatorFilter<T> : IFilter<ConsumeContext<T>>
+public class BusinessValidatorFilter<T> : IFilter<ExceptionConsumeContext<T>>
     where T : class
 {
-    private readonly INotificationContext _notificationContext;
-
-    public BusinessValidatorFilter(INotificationContext notificationContext) 
-        => _notificationContext = notificationContext;
-
-    public async Task Send(ConsumeContext<T> context, IPipe<ConsumeContext<T>> next)
+    public async Task Send(ExceptionConsumeContext<T> context, IPipe<ExceptionConsumeContext<T>> next)
     {
-        await next.Send(context);
-
-        if (_notificationContext.HasErrors)
+        if (context.Exception is ValidationException exception)
         {
-            Log.Error("Business validation errors: {Errors}", _notificationContext.Errors);
+            Log.Error("Business validation errors: {Errors}", exception.Errors);
 
             await context.Send(
                 destinationAddress: new($"queue:identity.{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}.business-error"),
-                message: new BusinessValidationResult<T>(context.Message, _notificationContext.Errors));
+                message: new BusinessValidationResult<T>(context.Message, exception.Errors.Select(failure => failure.ErrorMessage)));
         }
     }
 
