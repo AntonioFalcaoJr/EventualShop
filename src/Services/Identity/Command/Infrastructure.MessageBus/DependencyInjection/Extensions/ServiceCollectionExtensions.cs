@@ -1,10 +1,8 @@
 using System.Reflection;
-using Application.Abstractions.Notifications;
 using Contracts.Abstractions.Messages;
 using Contracts.JsonConverters;
 using FluentValidation;
 using Infrastructure.MessageBus.DependencyInjection.Options;
-using Infrastructure.MessageBus.Notifications;
 using Infrastructure.MessageBus.PipeFilters;
 using Infrastructure.MessageBus.PipeObservers;
 using MassTransit;
@@ -74,9 +72,6 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddMessageValidators(this IServiceCollection services)
         => services.AddValidatorsFromAssemblyContaining(typeof(IMessage));
-
-    public static IServiceCollection AddNotificationContext(this IServiceCollection services)
-        => services.AddScoped<INotificationContext, NotificationContext>();
 
     public static OptionsBuilder<CommandBusOptions> ConfigureCommandBusOptions(this IServiceCollection services, IConfigurationSection section)
         => services
