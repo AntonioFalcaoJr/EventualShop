@@ -1,5 +1,5 @@
-using Domain.Abstractions.Entities;
 using Contracts.Abstractions.Messages;
+using Domain.Abstractions.Entities;
 
 namespace Domain.Abstractions.Aggregates;
 
@@ -8,5 +8,6 @@ public interface IAggregateRoot<out TId> : IEntity<TId>
 {
     long Version { get; }
     IEnumerable<IEvent> Events { get; }
-    void LoadEvents(List<IEvent> events);
+    void Load(List<IEvent> events);
+    void Handle(ICommand command);
 }

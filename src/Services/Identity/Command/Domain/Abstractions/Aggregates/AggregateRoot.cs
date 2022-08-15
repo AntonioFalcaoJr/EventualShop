@@ -18,26 +18,27 @@ public abstract class AggregateRoot<TId, TValidator> : Entity<TId, TValidator>, 
     public IEnumerable<IEvent> Events
         => _events;
 
-    public void LoadEvents(List<IEvent> events)
-        => events.ForEach(@event =>
+    public void Load(List<IEvent> events)
+    {
+        events.ForEach(@event =>
         {
-            ApplyEvent(@event);
+            Apply(@event);
             Version += 1;
         });
+    }
 
-    private void AddEvent(IEvent @event)
-        => _events.Add(@event);
+    public abstract void Handle(ICommand command);
 
-    protected abstract void ApplyEvent(IEvent @event);
-
-    protected void RaiseEvent(IEvent @event)
+    protected void Raise(IEvent @event)
     {
-        ApplyEvent(@event);
+        Apply(@event);
 
         if (IsValid)
         {
-            AddEvent(@event);
+            _events.Add(@event);
             Version += 1;
         }
     }
+
+    protected abstract void Apply(IEvent @event);
 }
