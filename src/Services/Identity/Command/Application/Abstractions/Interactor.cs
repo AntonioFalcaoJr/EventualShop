@@ -4,7 +4,7 @@ using Domain.Abstractions.Aggregates;
 namespace Application.Abstractions;
 
 public abstract class Interactor<TCommand> : IInteractor<TCommand>
-    where TCommand : ICommand
+    where TCommand : ICommandWithId
 {
     private readonly IEventBusGateway _eventBusGateway;
     private readonly IEventStoreGateway _eventStoreGateway;
@@ -20,21 +20,17 @@ public abstract class Interactor<TCommand> : IInteractor<TCommand>
         _unitOfWork = unitOfWork;
     }
 
-    public virtual async Task InteractAsync<TAggregate, TId>(TCommand command, CancellationToken cancellationToken)
-        where TAggregate : IAggregateRoot<TId>, new()
-        where TId : struct
+    public virtual async Task InteractAsync(TCommand command, CancellationToken cancellationToken) 
     {
-        var aggregate = (TAggregate) await LoadAggregateAsync(Guid.NewGuid(), cancellationToken) ?? new();
+        var aggregate = await LoadAggregateAsync(command.Id, cancellationToken);
         aggregate.Handle(command);
         await AppendEventsAsync(aggregate, cancellationToken);
     }
 
-    protected Task<IAggregateRoot<TId>> LoadAggregateAsync<TId>(TId id, CancellationToken cancellationToken)
-        where TId : struct
+    protected Task<IAggregateRoot> LoadAggregateAsync(Guid id, CancellationToken cancellationToken)
         => _eventStoreGateway.LoadAsync(id, cancellationToken);
 
-    protected Task AppendEventsAsync<TId>(IAggregateRoot<TId> aggregate, CancellationToken cancellationToken)
-        where TId : struct
+    protected Task AppendEventsAsync(IAggregateRoot aggregate, CancellationToken cancellationToken)
         => _unitOfWork.ExecuteAsync(async ct =>
         {
             await _eventStoreGateway.AppendAsync(aggregate, ct);
