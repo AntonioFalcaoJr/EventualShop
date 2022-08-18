@@ -10,7 +10,7 @@ namespace Infrastructure.EventStore.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-          migrationBuilder.Sql(@"
+            migrationBuilder.Sql(@"
 IF db_id(N'Quartz') IS NULL
 CREATE DATABASE [Quartz] COLLATE SQL_Latin1_General_CP1_CS_AS;
 GO
@@ -309,11 +309,12 @@ IF OBJECT_ID(N'[dbo].[QRTZ_CALENDARS]', N'U') IS NULL
 GO
 
 USE [IdentityEventStore];", true);
-          
+
         }
 
         /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder) 
-          => migrationBuilder.DropTable(name: "Quartz");
+        protected override void Down(MigrationBuilder migrationBuilder)
+            => migrationBuilder.DropTable(name: "Quartz");
     }
 }
+

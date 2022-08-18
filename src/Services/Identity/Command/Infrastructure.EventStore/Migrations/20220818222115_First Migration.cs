@@ -33,7 +33,7 @@ namespace Infrastructure.EventStore.Migrations
                     AggregateVersion = table.Column<long>(type: "bigint", nullable: false),
                     AggregateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AggregateName = table.Column<string>(type: "varchar(30)", unicode: false, maxLength: 30, nullable: false),
-                    AggregateState = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Aggregate = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
