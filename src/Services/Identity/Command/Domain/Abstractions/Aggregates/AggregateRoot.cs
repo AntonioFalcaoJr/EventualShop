@@ -5,9 +5,8 @@ using Newtonsoft.Json;
 
 namespace Domain.Abstractions.Aggregates;
 
-public abstract class AggregateRoot<TId, TValidator> : Entity<TId, TValidator>, IAggregateRoot<TId>
+public abstract class AggregateRoot<TValidator> : Entity<TValidator>, IAggregateRoot
     where TValidator : IValidator, new()
-    where TId : struct
 {
     [JsonIgnore]
     private readonly List<IEvent> _events = new();
@@ -27,17 +26,14 @@ public abstract class AggregateRoot<TId, TValidator> : Entity<TId, TValidator>, 
         });
     }
 
-    public abstract void Handle(ICommand command);
+    public abstract void Handle(ICommandWithId command);
 
     protected void Raise(IEvent @event)
     {
         Apply(@event);
-
-        if (IsValid)
-        {
-            _events.Add(@event);
-            Version += 1;
-        }
+        Validate();
+        _events.Add(@event);
+        Version += 1;
     }
 
     protected abstract void Apply(IEvent @event);

@@ -4,7 +4,7 @@ using Contracts.Services.Identity;
 
 namespace Domain.Aggregates;
 
-public class User : AggregateRoot<Guid, UserValidator>
+public class User : AggregateRoot<UserValidator>
 {
     public string FirstName { get; private set; }
     public string LastName { get; private set; }
@@ -12,17 +12,17 @@ public class User : AggregateRoot<Guid, UserValidator>
     public string Password { get; private set; }
     public string PasswordConfirmation { get; private set; }
 
-    public override void Handle(ICommand command)
+    public override void Handle(ICommandWithId command)
         => Handle(command as dynamic);
 
     private void Handle(Command.RegisterUser cmd)
-        => Raise(new DomainEvent.UserRegistered(Guid.NewGuid(), cmd.FirstName, cmd.LastName, cmd.Email, cmd.Password, cmd.PasswordConfirmation));
+        => Raise(new DomainEvent.UserRegistered(cmd.Id, cmd.FirstName, cmd.LastName, cmd.Email, cmd.Password, cmd.PasswordConfirmation));
 
     private void Handle(Command.ChangePassword cmd)
-        => Raise(new DomainEvent.UserPasswordChanged(cmd.UserId, cmd.NewPassword, cmd.NewPasswordConfirmation));
+        => Raise(new DomainEvent.UserPasswordChanged(cmd.Id, cmd.NewPassword, cmd.NewPasswordConfirmation));
 
     private void Handle(Command.DeleteUser cmd)
-        => Raise(new DomainEvent.UserDeleted(cmd.UserId));
+        => Raise(new DomainEvent.UserDeleted(cmd.Id));
 
     protected override void Apply(IEvent @event)
         => Apply(@event as dynamic);

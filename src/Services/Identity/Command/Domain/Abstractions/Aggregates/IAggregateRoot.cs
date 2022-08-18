@@ -3,11 +3,10 @@ using Domain.Abstractions.Entities;
 
 namespace Domain.Abstractions.Aggregates;
 
-public interface IAggregateRoot<out TId> : IEntity<TId>
-    where TId : struct
+public interface IAggregateRoot : IEntity
 {
     long Version { get; }
     IEnumerable<IEvent> Events { get; }
     void Load(List<IEvent> events);
-    void Handle(ICommand command);
+    void Handle(ICommandWithId command);
 }
