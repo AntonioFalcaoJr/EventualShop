@@ -1,13 +1,13 @@
-using Domain.StoreEvents;
+using Domain.Abstractions.EventStore;
 using Infrastructure.EventStore.Contexts.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.EventStore.Contexts.Configurations;
 
-public class UserSnapshotConfiguration : IEntityTypeConfiguration<UserSnapshot>
+public class SnapshotConfiguration : IEntityTypeConfiguration<Snapshot>
 {
-    public void Configure(EntityTypeBuilder<UserSnapshot> builder)
+    public void Configure(EntityTypeBuilder<Snapshot> builder)
     {
         builder.HasKey(snapshot => new {snapshot.AggregateVersion, snapshot.AggregateId});
 
@@ -25,8 +25,8 @@ public class UserSnapshotConfiguration : IEntityTypeConfiguration<UserSnapshot>
             .IsRequired();
 
         builder
-            .Property(snapshot => snapshot.AggregateState)
-            .HasConversion<UserConverter>()
+            .Property(snapshot => snapshot.Aggregate)
+            .HasConversion<AggregateConverter>()
             .IsRequired();
     }
 }
