@@ -3,7 +3,8 @@ using Domain.Abstractions.Aggregates;
 
 namespace Application.Abstractions;
 
-public abstract class Interactor<TCommand> : IInteractor<TCommand>
+public abstract class Interactor<TAggregate, TCommand> : IInteractor<TCommand>
+    where TAggregate : IAggregateRoot, new()
     where TCommand : ICommandWithId
 {
     private readonly IEventBusGateway _eventBusGateway;
@@ -20,7 +21,7 @@ public abstract class Interactor<TCommand> : IInteractor<TCommand>
         _unitOfWork = unitOfWork;
     }
 
-    public virtual async Task InteractAsync(TCommand command, CancellationToken cancellationToken) 
+    public virtual async Task InteractAsync(TCommand command, CancellationToken cancellationToken)
     {
         var aggregate = await LoadAggregateAsync(command.Id, cancellationToken);
         aggregate.Handle(command);
@@ -28,7 +29,7 @@ public abstract class Interactor<TCommand> : IInteractor<TCommand>
     }
 
     protected Task<IAggregateRoot> LoadAggregateAsync(Guid id, CancellationToken cancellationToken)
-        => _eventStoreGateway.LoadAsync(id, cancellationToken);
+        => _eventStoreGateway.LoadAsync<TAggregate>(id, cancellationToken);
 
     protected Task AppendEventsAsync(IAggregateRoot aggregate, CancellationToken cancellationToken)
         => _unitOfWork.ExecuteAsync(async ct =>
