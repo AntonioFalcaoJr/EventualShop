@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using Contracts.Query;
 using Contracts.Services.Identity;
 using MassTransit;
