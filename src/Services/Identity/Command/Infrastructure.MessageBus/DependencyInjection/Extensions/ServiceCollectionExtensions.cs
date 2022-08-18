@@ -1,4 +1,5 @@
 using System.Reflection;
+using Application.Abstractions;
 using Contracts.Abstractions.Messages;
 using Contracts.JsonConverters;
 using FluentValidation;
@@ -59,8 +60,11 @@ public static class ServiceCollectionExtensions
                     });
 
                     bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
+
+                    // TODO - Solve this!
+                    // bus.UseConsumeFilter(typeof(BusinessValidatorFilter<>), context);
+
                     bus.UseConsumeFilter(typeof(ContractValidatorFilter<>), context);
-                    bus.UseConsumeFilter(typeof(BusinessValidatorFilter<>), context);
                     bus.ConnectReceiveObserver(new LoggingReceiveObserver());
                     bus.ConnectConsumeObserver(new LoggingConsumeObserver());
                     bus.ConnectPublishObserver(new LoggingPublishObserver());
@@ -70,6 +74,9 @@ public static class ServiceCollectionExtensions
             })
             .AddQuartz();
 
+    public static IServiceCollection AddEventBusGateway(this IServiceCollection services)
+        => services.AddScoped<IEventBusGateway, EventBusGateway>(); 
+    
     public static IServiceCollection AddMessageValidators(this IServiceCollection services)
         => services.AddValidatorsFromAssemblyContaining(typeof(IMessage));
 
