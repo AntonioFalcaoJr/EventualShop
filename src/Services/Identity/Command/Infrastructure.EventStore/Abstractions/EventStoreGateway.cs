@@ -27,7 +27,8 @@ public class EventStoreGateway : IEventStoreGateway
     }
 
     private static IEnumerable<StoreEvent> ToStoreEvents(IAggregateRoot aggregate)
-        => aggregate.Events.Select(@event => new StoreEvent(aggregate.Version, aggregate.Id, aggregate.GetType().Name, @event, @event.GetType().Name));
+        => aggregate.Events.Select(@event 
+            => new StoreEvent(aggregate.Version, aggregate.Id, aggregate.GetType().Name, @event, @event.GetType().Name));
 
     public Task AppendAsync(IAggregateRoot aggregate, CancellationToken cancellationToken)
         => _repository.AppendEventsAsync(
