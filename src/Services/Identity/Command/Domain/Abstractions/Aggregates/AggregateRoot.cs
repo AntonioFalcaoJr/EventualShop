@@ -17,18 +17,20 @@ public abstract class AggregateRoot<TValidator> : Entity<TValidator>, IAggregate
     public IEnumerable<IEvent> Events
         => _events;
 
-    public void Load(List<IEvent> events)
+    public IAggregateRoot Load(List<IEvent> events)
     {
         events.ForEach(@event =>
         {
             Apply(@event);
             Version += 1;
         });
+
+        return this;
     }
 
     public abstract void Handle(ICommandWithId command);
 
-    protected void Raise(IEvent @event)
+    protected void RaiseEvent(IEvent @event)
     {
         Apply(@event);
         Validate();
