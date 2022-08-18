@@ -16,13 +16,16 @@ public class User : AggregateRoot<UserValidator>
         => Handle(command as dynamic);
 
     private void Handle(Command.RegisterUser cmd)
-        => Raise(new DomainEvent.UserRegistered(cmd.Id, cmd.FirstName, cmd.LastName, cmd.Email, cmd.Password, cmd.PasswordConfirmation));
+    {
+        if (Id != cmd.Id)
+            RaiseEvent(new DomainEvent.UserRegistered(cmd.Id, cmd.FirstName, cmd.LastName, cmd.Email, cmd.Password, cmd.PasswordConfirmation));
+    }
 
     private void Handle(Command.ChangePassword cmd)
-        => Raise(new DomainEvent.UserPasswordChanged(cmd.Id, cmd.NewPassword, cmd.NewPasswordConfirmation));
+        => RaiseEvent(new DomainEvent.UserPasswordChanged(cmd.Id, cmd.NewPassword, cmd.NewPasswordConfirmation));
 
     private void Handle(Command.DeleteUser cmd)
-        => Raise(new DomainEvent.UserDeleted(cmd.Id));
+        => RaiseEvent(new DomainEvent.UserDeleted(cmd.Id));
 
     protected override void Apply(IEvent @event)
         => Apply(@event as dynamic);
