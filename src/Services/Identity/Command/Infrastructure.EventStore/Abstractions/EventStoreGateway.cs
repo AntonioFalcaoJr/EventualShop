@@ -6,57 +6,40 @@ using Microsoft.Extensions.Options;
 
 namespace Infrastructure.EventStore.Abstractions;
 
-public abstract class EventStoreGateway<TStoreEvent, TSnapshot, TId> : IEventStoreGateway
-    where TStoreEvent : StoreEvent<TId, IAggregateRoot<TId>>, new()
-    where TSnapshot : Snapshot<TId, IAggregateRoot<TId>>, new()
-    where TId : struct
+public class EventStoreGateway : IEventStoreGateway
 {
     private readonly EventStoreOptions _options;
-    private readonly IEventStoreRepository<IAggregateRoot<TId>, TStoreEvent, TSnapshot, TId> _repository;
+    private readonly IEventStoreRepository _repository;
 
-    protected EventStoreGateway(
-        IEventStoreRepository<IAggregateRoot<TId>, TStoreEvent, TSnapshot, TId> repository,
+    public EventStoreGateway(
+        IEventStoreRepository repository,
         IOptionsMonitor<EventStoreOptions> optionsMonitor)
     {
         _options = optionsMonitor.CurrentValue;
         _repository = repository;
     }
 
-    public async Task AppendSnapshotAsync(IAggregateRoot<TId> aggregate, long version, CancellationToken cancellationToken)
+    private async Task AppendSnapshotAsync(IAggregateRoot aggregate, long version, CancellationToken cancellationToken)
     {
         if (version % _options.SnapshotInterval is not 0) return;
-
-        TSnapshot snapshot = new()
-        {
-            AggregateId = aggregate.Id,
-            AggregateState = aggregate,
-            AggregateVersion = version
-        };
-
+        Snapshot snapshot = new(aggregate.Id, aggregate.GetType().Name, aggregate, version);
         await _repository.AppendSnapshotAsync(snapshot, cancellationToken);
     }
 
-    private static IEnumerable<TStoreEvent> ToStoreEvents(IAggregateRoot<TId> aggregate)
-        => aggregate.Events.Select(@event
-            => new TStoreEvent
-            {
-                Version = aggregate.Version,
-                AggregateId = aggregate.Id,
-                DomainEvent = @event,
-                DomainEventName = @event.GetType().Name
-            });
+    private static IEnumerable<StoreEvent> ToStoreEvents(IAggregateRoot aggregate)
+        => aggregate.Events.Select(@event => new StoreEvent(aggregate.Version, aggregate.Id, aggregate.GetType().Name, @event, @event.GetType().Name));
 
-    public Task AppendAsync<TId1>(IAggregateRoot<TId> aggregate, CancellationToken cancellationToken)
+    public Task AppendAsync(IAggregateRoot aggregate, CancellationToken cancellationToken)
         => _repository.AppendEventsAsync(
             events: ToStoreEvents(aggregate),
             onEventStored: (version, ct) => AppendSnapshotAsync(aggregate, version, ct),
             cancellationToken: cancellationToken);
 
-    public async Task<IAggregateRoot<TId>> LoadAsync(TId aggregateId, CancellationToken ct)
+    public async Task<IAggregateRoot> LoadAsync<TAggregate>(Guid aggregateId, CancellationToken ct)
+        where TAggregate : IAggregateRoot, new()
     {
-        var snapshot = await _repository.GetSnapshotAsync(aggregateId, ct) ?? new();
-        var events = await _repository.GetStreamAsync(aggregateId, snapshot.AggregateVersion, ct);
-        snapshot.AggregateState.Load(events);
-        return snapshot.AggregateState;
+        var snapshot = await _repository.GetSnapshotAsync(aggregateId, ct);
+        var events = await _repository.GetStreamAsync(aggregateId, snapshot?.AggregateVersion ?? default, ct);
+        return snapshot?.Aggregate?.Load(events) ?? new TAggregate().Load(events);
     }
 }
