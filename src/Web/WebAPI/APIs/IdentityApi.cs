@@ -17,7 +17,7 @@ public static class IdentityApi
                 : Results.ValidationProblem(errors));
 
         group.MapCommand(builder => builder.MapPost("/", (IBus bus, Command.RegisterUser command, CancellationToken ct)
-            => ApplicationApi.SendCommandWithIdAsync(bus, command, ct)));
+            => ApplicationApi.SendCommandAsync(bus, command, ct)));
 
         group.WithMetadata(new TagsAttribute("IdentitiesV2"));
     }
