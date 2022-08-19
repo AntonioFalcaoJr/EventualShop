@@ -1,4 +1,4 @@
-using Application.Abstractions;
+using Application.Abstractions.Interactors;
 using Application.UseCases;
 using Contracts.Services.Identity;
 using Microsoft.Extensions.DependencyInjection;
