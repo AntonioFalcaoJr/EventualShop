@@ -18,7 +18,8 @@ public class User : AggregateRoot<UserValidator>
     private void Handle(Command.RegisterUser cmd)
     {
         if (Id != cmd.Id)
-            RaiseEvent(new DomainEvent.UserRegistered(cmd.Id, cmd.FirstName, cmd.LastName, cmd.Email, cmd.Password, cmd.PasswordConfirmation));
+            RaiseEvent(new DomainEvent.UserRegistered(
+                cmd.Id, cmd.FirstName, cmd.LastName, cmd.Email, cmd.Password, cmd.PasswordConfirmation));
     }
 
     private void Handle(Command.ChangePassword cmd)

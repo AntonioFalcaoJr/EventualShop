@@ -7,7 +7,7 @@ public class UserValidator : AbstractValidator<User>
     public UserValidator()
     {
         RuleFor(user => user.Id)
-            .NotEqual(Guid.Empty);
+            .NotEmpty();
         
         RuleFor(user => user.Password)
             .NotNull()
