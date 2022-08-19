@@ -1,8 +1,12 @@
 ﻿using Contracts.DataTransferObjects;
 using Contracts.Services.Account;
+using Contracts.Services.ShoppingCart.Validators;
+using FluentValidation;
+using FluentValidation.Validators;
 using MassTransit;
 using WebAPI.Abstractions;
 using WebAPI.ValidationAttributes;
+using WebAPI.Validations;
 
 namespace WebAPI.APIs;
 
@@ -28,9 +32,56 @@ public static class AccountApi
         group.MapCommand(builder => builder.MapPut("/{accountId:guid}/profiles/billing-address", (IBus bus, [NotEmpty] Guid accountId, Dto.Address address, CancellationToken ct)
             => ApplicationApi.SendCommandAsync<Command.AddBillingAddress>(bus, new(accountId, address), ct)));
 
-        group.MapCommand(builder => builder.MapPut("/{accountId:guid}/profiles/shipping-address", (IBus bus, [NotEmpty] Guid accountId, Dto.Address address, CancellationToken ct)
-            => ApplicationApi.SendCommandAsync<Command.AddShippingAddress>(bus, new(accountId, address), ct)));
+        group.MapCommand(builder => builder.MapPut("/{AccountId:guid}/profiles/shipping-address", ([AsParameters] AddShippingAddressRequest request)
+            => ApplicationApi.SendCommandAsync<Command.AddShippingAddress>(request.Bus, request, request.CancellationToken)));
 
         group.WithMetadata(new TagsAttribute("Accounts"));
+    }
+}
+
+public record struct AddShippingAddressRequest(IBus Bus, Guid AccountId, Dto.Address Address,
+    CancellationToken CancellationToken)
+{
+    public static implicit operator Command.AddShippingAddress(AddShippingAddressRequest request)
+        => new(request.AccountId, request.Address);
+}
+
+public class AddShippingAddressRequestValidator : AbstractValidator<AddShippingAddressRequest>
+{
+    public AddShippingAddressRequestValidator()
+    {
+        RuleFor(x => x.AccountId)
+            .NotNull()
+            .NotEmpty()
+            .NotEqual(Guid.Empty);
+
+        RuleFor(x => x.Address)
+            .SetValidator(new AddressValidator());
+    }
+}
+
+public class AddressValidator : AbstractValidator<Dto.Address>
+{
+    public AddressValidator()
+    {
+        RuleFor(address => address.City)
+            .NotNull()
+            .NotEmpty();
+
+        RuleFor(address => address.Country)
+            .NotNull()
+            .NotEmpty();
+
+        RuleFor(address => address.State)
+            .NotNull()
+            .NotEmpty();
+
+        RuleFor(address => address.Street)
+            .NotNull()
+            .NotEmpty();
+
+        RuleFor(address => address.ZipCode)
+            .NotNull()
+            .NotEmpty();
     }
 }

@@ -11,7 +11,6 @@
         <PackageReference Include="MassTransit.Newtonsoft" Version="$(MassTransit_Version)" />
         <PackageReference Include="MassTransit.RabbitMQ" Version="$(MassTransit_Version)" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="$(Microsoft_Mvc_NewtonsoftJso_Version)" />
-        <PackageReference Include="MinimalApis.Extensions" Version="0.7.1-pre.20220712.30" />
         <PackageReference Include="MiniValidation" Version="0.6.0-pre.20220527.55" />
         <PackageReference Include="Serilog.AspNetCore" Version="$(Serilog_AspNetCore_Version)" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="$(Swashbuckle_Version)" />

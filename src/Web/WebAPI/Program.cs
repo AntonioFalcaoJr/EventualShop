@@ -1,5 +1,6 @@
 using System.Reflection;
 using Contracts.JsonConverters;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using MassTransit;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
@@ -12,6 +13,7 @@ using WebAPI.DependencyInjection.Extensions;
 using WebAPI.DependencyInjection.Options;
 using WebAPI.Extensions;
 using WebAPI.ParameterTransformers;
+using WebAPI.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,7 +49,8 @@ builder.Host.ConfigureServices((context, services) =>
 
     services
         .AddFluentValidationAutoValidation()
-        .AddFluentValidationClientsideAdapters();
+        .AddFluentValidationClientsideAdapters()
+        .AddValidatorsFromAssemblyContaining<Program>();
     
     services
         .AddRouting(options => options.LowercaseUrls = true)
@@ -94,8 +97,8 @@ builder.Host.ConfigureServices((context, services) =>
 
 var app = builder.Build();
 
-if (builder.Environment.IsDevelopment())
-    app.UseDeveloperExceptionPage();
+// if (builder.Environment.IsDevelopment())
+//     app.UseDeveloperExceptionPage();
 
 if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
 {
@@ -111,15 +114,13 @@ app.UseEndpoints(endpoints
     => endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller:slugify}/{action:slugify}"));
-// 
 
 app.UseSerilogRequestLogging();
+app.MapGroup("/api/v1/accounts/").AddEndpointFilter<ValidationEndpointFilter>().MapAccountApi();
+app.MapGroup("/api/v1/catalogs/").AddEndpointFilter<ValidationEndpointFilter>().MapCatalogApi();
+app.MapGroup("/api/v2/identities/").AddEndpointFilter<ValidationEndpointFilter>().MapIdentityApi();
 
 app.UseApplicationExceptionHandler();
-
-app.MapGroup("/api/v1/accounts/").MapAccountApi();
-app.MapGroup("/api/v1/catalogs/").MapCatalogApi();
-app.MapGroup("/api/v2/identities/").MapIdentityApi();
 
 try
 {
