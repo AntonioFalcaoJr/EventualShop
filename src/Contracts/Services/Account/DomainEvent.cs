@@ -6,6 +6,8 @@ namespace Contracts.Services.Account;
 public static class DomainEvent
 {
     public record AccountDeleted(Guid AccountId) : Message, IEvent;
+    
+    public record AccountDeactivated(Guid Id) : Message(CorrelationId: Id), IEventWithId;
 
     public record AccountCreated(Guid AccountId, Dto.Profile Profile, string Password, string PasswordConfirmation, bool AcceptedPolicies, bool WishToReceiveNews) : Message, IEvent;
 
