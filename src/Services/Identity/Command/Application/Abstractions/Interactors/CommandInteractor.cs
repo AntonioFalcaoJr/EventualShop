@@ -1,17 +1,18 @@
+using Application.Abstractions.Gateways;
 using Contracts.Abstractions.Messages;
 using Domain.Abstractions.Aggregates;
 
-namespace Application.Abstractions;
+namespace Application.Abstractions.Interactors;
 
-public abstract class Interactor<TAggregate, TCommand> : IInteractor<TCommand>
+public abstract class CommandInteractor<TAggregate, TCommand> : ICommandInteractor<TCommand>
     where TAggregate : IAggregateRoot, new()
     where TCommand : ICommandWithId
 {
-    private readonly IEventBusGateway _eventBusGateway;
     private readonly IEventStoreGateway _eventStoreGateway;
+    private readonly IEventBusGateway _eventBusGateway;
     private readonly IUnitOfWork _unitOfWork;
 
-    protected Interactor(
+    protected CommandInteractor(
         IEventStoreGateway eventStoreGateway,
         IEventBusGateway eventBusGateway,
         IUnitOfWork unitOfWork)
