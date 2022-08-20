@@ -42,6 +42,7 @@ builder.ConfigureServices((context, services) =>
     services.AddCommandBus();
     services.AddEventBusGateway();
     services.AddCommandInteractors();
+    services.AddEventInteractors();
     services.AddMessageValidators();
 
     services.ConfigureEventStoreOptions(
