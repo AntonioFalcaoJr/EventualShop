@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.OpenApi.Any;
 using Serilog;
 using WebAPI.APIs;
+using WebAPI.APIs.Accounts;
 using WebAPI.DependencyInjection.Extensions;
 using WebAPI.DependencyInjection.Options;
 using WebAPI.Extensions;
 using WebAPI.ParameterTransformers;
-using WebAPI.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -109,18 +109,19 @@ if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
 app.UseCors();
 
 // TODO - It should be removed when migration to Minimal API completed 
-app.UseRouting();
-app.UseEndpoints(endpoints
-    => endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller:slugify}/{action:slugify}"));
+// app.UseRouting();
+// app.UseEndpoints(endpoints
+//     => endpoints.MapControllerRoute(
+//         name: "default",
+//         pattern: "{controller:slugify}/{action:slugify}"));
 
 app.UseSerilogRequestLogging();
-app.MapGroup("/api/v1/accounts/").AddEndpointFilter<ValidationEndpointFilter>().MapAccountApi();
-app.MapGroup("/api/v1/catalogs/").AddEndpointFilter<ValidationEndpointFilter>().MapCatalogApi();
-app.MapGroup("/api/v2/identities/").AddEndpointFilter<ValidationEndpointFilter>().MapIdentityApi();
-
 app.UseApplicationExceptionHandler();
+    
+app.MapGroup("/api/v1/accounts/").MapAccountApi();
+app.MapGroup("/api/v1/catalogs/").MapCatalogApi();
+app.MapGroup("/api/v2/identities/").MapIdentityApi();
+
 
 try
 {

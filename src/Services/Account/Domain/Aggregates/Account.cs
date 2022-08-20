@@ -61,7 +61,7 @@ public class Account : AggregateRoot<Guid, AccountValidator>
             RaiseEvent(new DomainEvent.ShippingAddressPreferred(cmd.AccountId, cmd.AddressId));
     }
 
-    protected override void ApplyEvent(IEvent domainEvent)
+    protected override void ApplyEvent(IEvent domainEvent) 
         => When(domainEvent as dynamic);
 
     private void When(DomainEvent.AccountCreated @event)
