@@ -6,22 +6,19 @@ namespace WebAPI.APIs.Accounts;
 
 public static class Requests
 {
-    public record struct AddShippingAddress(IBus Bus, Guid AccountId, Dto.Address Address,
-        CancellationToken CancellationToken)
+    public record struct AddShippingAddress(IBus Bus, Guid AccountId, Dto.Address Address, CancellationToken CancellationToken)
     {
         public static implicit operator Command.AddShippingAddress(AddShippingAddress request)
             => new(request.AccountId, request.Address);
     }
 
-    public record struct AddBillingAddress(IBus Bus, Guid AccountId, Dto.Address Address,
-        CancellationToken CancellationToken)
+    public record struct AddBillingAddress(IBus Bus, Guid AccountId, Dto.Address Address, CancellationToken CancellationToken)
     {
         public static implicit operator Command.AddBillingAddress(AddBillingAddress request)
             => new(request.AccountId, request.Address);
     }
 
-    public record struct ListAddresses(IBus Bus, Guid AccountId, ushort? Limit, ushort? Offset,
-        CancellationToken CancellationToken)
+    public record struct ListAddresses(IBus Bus, Guid AccountId, ushort? Limit, ushort? Offset, CancellationToken CancellationToken)
     {
         public static implicit operator Query.ListAddresses(ListAddresses request)
             => new(request.AccountId, request.Limit ?? 0, request.Offset ?? 0);
