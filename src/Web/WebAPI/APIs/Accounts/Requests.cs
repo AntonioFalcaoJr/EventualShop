@@ -1,21 +1,24 @@
-﻿using Contracts.DataTransferObjects;
+﻿using Contracts.Abstractions.Messages;
+using Contracts.DataTransferObjects;
 using Contracts.Services.Account;
 using MassTransit;
+using WebAPI.Abstractions;
+using WebAPI.APIs.Accounts.Validators;
 
 namespace WebAPI.APIs.Accounts;
 
 public static class Requests
 {
-    public record struct AddShippingAddress(IBus Bus, Guid AccountId, Dto.Address Address, CancellationToken CancellationToken)
+    public record  AddShippingAddress(IBus Bus, Guid AccountId, Dto.Address Address, CancellationToken CancellationToken) : Validatable<AddShippingAddressValidator>, IRequest
     {
-        public static implicit operator Command.AddShippingAddress(AddShippingAddress request)
-            => new(request.AccountId, request.Address);
+        public ICommand AsCommand()
+            => new Command.AddShippingAddress(AccountId, Address);
     }
 
-    public record struct AddBillingAddress(IBus Bus, Guid AccountId, Dto.Address Address, CancellationToken CancellationToken)
+    public record  AddBillingAddress(IBus Bus, Guid AccountId, Dto.Address Address, CancellationToken CancellationToken) : Validatable<AddBillingAddressValidator>, IRequest
     {
-        public static implicit operator Command.AddBillingAddress(AddBillingAddress request)
-            => new(request.AccountId, request.Address);
+        public ICommand AsCommand()
+            => new Command.AddBillingAddress(AccountId, Address);
     }
 
     public record struct ListAddresses(IBus Bus, Guid AccountId, ushort? Limit, ushort? Offset, CancellationToken CancellationToken)
@@ -24,10 +27,10 @@ public static class Requests
             => new(request.AccountId, request.Limit ?? 0, request.Offset ?? 0);
     }
 
-    public record struct DeleteAccount(IBus Bus, Guid AccountId, CancellationToken CancellationToken)
+    public record DeleteAccount(IBus Bus, Guid AccountId, CancellationToken CancellationToken) : Validatable<DeleteAccountValidator>, IRequest
     {
-        public static implicit operator Command.DeleteAccount(DeleteAccount request)
-            => new(request.AccountId);
+        public ICommand AsCommand()
+            => new Command.DeleteAccount(AccountId);
     }
 
     public record struct GetAccount(IBus Bus, Guid AccountId, CancellationToken CancellationToken)
@@ -36,10 +39,10 @@ public static class Requests
             => new(request.AccountId);
     }
 
-    public record struct CreateAccount(IBus Bus, Guid AccountId, Dto.Profile Profile, string Password, string PasswordConfirmation, bool AcceptedPolicies, bool WishToReceiveNews, CancellationToken CancellationToken)
+    public record CreateAccount(IBus Bus, Payloads.CreateAccount Payload, CancellationToken CancellationToken) : Validatable<CreateAccountValidator>, IRequest
     {
-        public static implicit operator Command.CreateAccount(CreateAccount request)
-            => new(request.AccountId, request.Profile, request.Password, request.PasswordConfirmation, request.AcceptedPolicies, request.WishToReceiveNews);
+        public ICommand AsCommand()
+            => new Command.CreateAccount(Guid.NewGuid(), Payload.Email, Payload.Password, Payload.PasswordConfirmation, Payload.AcceptedPolicies, Payload.WishToReceiveNews);
     }
 
     public record struct ListAccounts(IBus Bus, ushort? Limit, ushort? Offset, CancellationToken CancellationToken)
