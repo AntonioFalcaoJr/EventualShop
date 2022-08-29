@@ -1,4 +1,7 @@
 using System.Reflection;
+using System.Text.Json.Serialization;
+using Ardalis.SmartEnum.SystemTextJson;
+using Contracts.Enumerations;
 using Contracts.JsonConverters;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -51,7 +54,15 @@ builder.Host.ConfigureServices((context, services) =>
         .AddFluentValidationAutoValidation()
         .AddFluentValidationClientsideAdapters()
         .AddValidatorsFromAssemblyContaining<Program>();
-    
+
+    // TODO - Review it!
+    builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
+    {
+        options.SerializerOptions.Converters.Add(new DateOnlyTextJsonConverter());
+        options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        options.SerializerOptions.Converters.Add(new SmartEnumNameConverter<Gender, int>());
+    });
+
     services
         .AddRouting(options => options.LowercaseUrls = true)
         .AddControllers(options =>
@@ -97,8 +108,8 @@ builder.Host.ConfigureServices((context, services) =>
 
 var app = builder.Build();
 
-// if (builder.Environment.IsDevelopment())
-//     app.UseDeveloperExceptionPage();
+if (builder.Environment.IsDevelopment())
+    app.UseDeveloperExceptionPage();
 
 if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
 {
@@ -117,7 +128,7 @@ app.UseCors();
 
 app.UseSerilogRequestLogging();
 app.UseApplicationExceptionHandler();
-    
+
 app.MapGroup("/api/v1/accounts/").MapAccountApi();
 app.MapGroup("/api/v1/catalogs/").MapCatalogApi();
 app.MapGroup("/api/v2/identities/").MapIdentityApi();
