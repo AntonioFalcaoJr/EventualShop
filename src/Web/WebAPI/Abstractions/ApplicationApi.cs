@@ -3,33 +3,30 @@ using Contracts.Abstractions.Messages;
 using Contracts.Abstractions.Paging;
 using MassTransit;
 using Microsoft.AspNetCore.Http.HttpResults;
-using WebAPI.Validations;
 
 namespace WebAPI.Abstractions;
 
 public static class ApplicationApi
 {
-    public static void MapQuery(this IEndpointRouteBuilder endpoints, string pattern, Delegate handler)
-        => endpoints
-            .MapGet(pattern, handler)
-            .UseOptionalValidation()
-            .ProducesValidationProblem()
-            .ProducesProblem(StatusCodes.Status408RequestTimeout)
-            .ProducesProblem(StatusCodes.Status500InternalServerError);
-
-    public static void MapCommand(this IEndpointRouteBuilder endpoints,
-        Func<IEndpointRouteBuilder, RouteHandlerBuilder> action)
-        => action(endpoints).UseOptionalValidation().ProducesValidationProblem();
-
-    public static RouteHandlerBuilder UseOptionalValidation(this RouteHandlerBuilder builder) 
-        => builder.AddEndpointFilter((ctx, next) => new ValidationFilter(ctx, next).ExecuteAsync());
-    
-    public static async Task<Accepted> SendCommandAsync<TCommand>(IBus bus, TCommand command, CancellationToken cancellationToken)
+    public static async Task<AcceptedAtRoute> SendCommandAsync<TCommand>(IBus bus, TCommand command, CancellationToken cancellationToken)
         where TCommand : class, ICommand
     {
         var endpoint = await bus.GetSendEndpoint(Address<TCommand>());
         await endpoint.Send(command, cancellationToken);
-        return TypedResults.Accepted("");
+        return TypedResults.AcceptedAtRoute();
+    }
+
+    public static async Task<Results<Accepted, ValidationProblem>> SendCommandAsync<TCommand>(IRequest request)
+        where TCommand : ICommand
+    {
+        return request.IsValid(out var errors) ? await AcceptAsync() : TypedResults.ValidationProblem(errors);
+
+        async Task<Accepted> AcceptAsync()
+        {
+            var endpoint = await request.Bus.GetSendEndpoint(Address<TCommand>());
+            await endpoint.Send(request.AsCommand(), request.CancellationToken);
+            return TypedResults.Accepted("");
+        }
     }
 
     public static Task<Results<Ok<TProjection>, NoContent, NotFound, Problem>> GetProjectionAsync<TQuery, TProjection>
