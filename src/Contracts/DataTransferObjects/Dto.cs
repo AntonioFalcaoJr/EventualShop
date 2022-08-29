@@ -38,5 +38,5 @@ public static class Dto
 
     public record OrderItem(Guid Id, Guid OrderId, Guid CartId, Guid CatalogId, Guid InventoryId, Product Product, string Sku, int Quantity, decimal UnitPrice);
 
-    public record Profile(string FirstName, string LastName, string Email);
+    public record Profile(string FirstName, string LastName, string Email, DateOnly Birthdate, string Gender);
 }

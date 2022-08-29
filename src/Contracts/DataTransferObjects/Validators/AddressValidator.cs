@@ -1,9 +1,7 @@
-﻿using Contracts.DataTransferObjects;
-using FluentValidation;
+﻿using FluentValidation;
 
-namespace WebAPI.APIs.Accounts.Validators;
+namespace Contracts.DataTransferObjects.Validators;
 
-// TODO [Obsolete("Use AddressValidator from Contracts library")]
 public class AddressValidator : AbstractValidator<Dto.Address>
 {
     public AddressValidator()
