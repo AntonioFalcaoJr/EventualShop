@@ -3,7 +3,7 @@ using Contracts.Services.Warehouse;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;
-using WebAPI.ValidationAttributes;
+using WebAPI.Validations;
 
 namespace WebAPI.Controllers;
 
