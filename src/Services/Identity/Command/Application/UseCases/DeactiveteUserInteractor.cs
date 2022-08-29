@@ -13,5 +13,5 @@ public class DeactivateUserInteractor : EventInteractor<User, DomainEvent.Accoun
         : base(eventStoreGateway, eventBusGateway, unitOfWork) { }
 
     public override Task InteractAsync(DomainEvent.AccountDeactivated @event, CancellationToken cancellationToken)
-        => InteractAsync(@event, root => new Command.DeleteUser(root.Id), cancellationToken);
+        => OnInteractAsync(@event, root => new Command.DeleteUser(root.Id), cancellationToken);
 }
