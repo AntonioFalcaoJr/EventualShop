@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Contracts.DataTransferObjects.Validators;
+using FluentValidation;
 
 namespace WebAPI.APIs.Accounts.Validators;
 
@@ -11,6 +12,7 @@ public class AddShippingAddressValidator : AbstractValidator<Requests.AddShippin
             .NotEmpty();
 
         RuleFor(x => x.Address)
-            .SetValidator(new AddressValidator());
+            .SetValidator(new AddressValidator())
+            .OverridePropertyName(string.Empty);;
     }
 }
