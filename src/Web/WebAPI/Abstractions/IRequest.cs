@@ -12,8 +12,8 @@ public interface IRequest
 
 public interface ICommandRequest : IRequest
 {
+    ICommand Command { get; }
     IBus Bus { get; }
-    ICommand AsCommand();
 }
 
 public interface IQueryRequest<out TClient> : IRequest
