@@ -11,10 +11,10 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddCommandInteractors(this IServiceCollection services)
         => services
             .AddScoped<IInteractor<Command.RegisterUser>, RegisterUserInteractor>()
-            .AddScoped<IInteractor<Command.ChangePassword>, ChangePasswordInteractor>()
-            .AddScoped<IInteractor<Command.DeleteUser>, DeleteUserInteractor>();
+            .AddScoped<IInteractor<Command.ChangePassword>, ChangePasswordInteractor>();
     
     public static IServiceCollection AddEventInteractors(this IServiceCollection services)
         => services
-            .AddScoped<IInteractor<DomainEvent.AccountDeactivated>, DeactivateUserInteractor>();
+            .AddScoped<IInteractor<DomainEvent.AccountDeactivated>, DeactivateUserInteractor>()
+            .AddScoped<IInteractor<DomainEvent.AccountDeleted>, DeleteUserInteractor>();
 }
