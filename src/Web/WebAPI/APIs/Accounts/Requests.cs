@@ -12,14 +12,14 @@ public static class Requests
     public record AddShippingAddress(IBus Bus, Guid AccountId, Dto.Address Address, CancellationToken CancellationToken)
         : Validatable<AddShippingAddressValidator>, ICommandRequest
     {
-        public ICommand AsCommand()
+        public ICommand Command
             => new Command.AddShippingAddress(AccountId, Address);
     }
 
     public record AddBillingAddress(IBus Bus, Guid AccountId, Dto.Address Address, CancellationToken CancellationToken)
         : Validatable<AddBillingAddressValidator>, ICommandRequest
     {
-        public ICommand AsCommand()
+        public ICommand Command
             => new Command.AddBillingAddress(AccountId, Address);
     }
 
@@ -32,7 +32,7 @@ public static class Requests
     public record DeleteAccount(IBus Bus, Guid AccountId, CancellationToken CancellationToken)
         : Validatable<DeleteAccountValidator>, ICommandRequest
     {
-        public ICommand AsCommand()
+        public ICommand Command
             => new Command.DeleteAccount(AccountId);
     }
 
@@ -45,8 +45,8 @@ public static class Requests
     public record CreateAccount(IBus Bus, Payloads.CreateAccount Payload, CancellationToken CancellationToken)
         : Validatable<CreateAccountValidator>, ICommandRequest
     {
-        public ICommand AsCommand()
-            => new Command.CreateAccount(Guid.NewGuid(), Payload.Email, Payload.Password, Payload.PasswordConfirmation, 
+        public ICommand Command
+            => new Command.CreateAccount(Guid.NewGuid(), Payload.Email, Payload.Password, Payload.PasswordConfirmation,
                 Payload.AcceptedPolicies, Payload.WishToReceiveNews);
     }
 
