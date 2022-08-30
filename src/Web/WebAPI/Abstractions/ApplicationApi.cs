@@ -4,21 +4,22 @@ using Contracts.Abstractions.Paging;
 using Grpc.Core;
 using MassTransit;
 using Microsoft.AspNetCore.Http.HttpResults;
+using static Microsoft.AspNetCore.Http.TypedResults;
 
 namespace WebAPI.Abstractions;
 
 public static class ApplicationApi
 {
     public static async Task<Results<Accepted, ValidationProblem>> SendCommandAsync<TCommand>(ICommandRequest request)
-        where TCommand : ICommand
+        where TCommand : class, ICommand
     {
-        return request.IsValid(out var errors) ? await AcceptAsync() : TypedResults.ValidationProblem(errors);
+        return request.IsValid(out var errors) ? await AcceptAsync() : ValidationProblem(errors);
 
         async Task<Accepted> AcceptAsync()
         {
             var endpoint = await request.Bus.GetSendEndpoint(Address<TCommand>());
-            await endpoint.Send(request.AsCommand(), request.CancellationToken);
-            return TypedResults.Accepted("");
+            await endpoint.Send((TCommand) request.Command, request.CancellationToken);
+            return Accepted("");
         }
     }
 
