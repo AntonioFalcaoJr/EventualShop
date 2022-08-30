@@ -19,5 +19,5 @@ public static class Command
 
     public record DeleteCatalog(Guid CatalogId) : Message(CorrelationId: CatalogId), ICommand;
 
-    public record DeleteCatalogItem(Guid CatalogId, Guid CatalogItemId) : Message(CorrelationId: CatalogId), ICommand;
+    public record RemoveCatalogItem(Guid CatalogId, Guid ItemId) : Message(CorrelationId: CatalogId), ICommand;
 }
