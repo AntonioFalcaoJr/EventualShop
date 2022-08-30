@@ -9,13 +9,15 @@ namespace WebAPI.APIs.Accounts;
 
 public static class Requests
 {
-    public record  AddShippingAddress(IBus Bus, Guid AccountId, Dto.Address Address, CancellationToken CancellationToken) : Validatable<AddShippingAddressValidator>, IRequest
+    public record AddShippingAddress(IBus Bus, Guid AccountId, Dto.Address Address, CancellationToken CancellationToken)
+        : Validatable<AddShippingAddressValidator>, ICommandRequest
     {
         public ICommand AsCommand()
             => new Command.AddShippingAddress(AccountId, Address);
     }
 
-    public record  AddBillingAddress(IBus Bus, Guid AccountId, Dto.Address Address, CancellationToken CancellationToken) : Validatable<AddBillingAddressValidator>, IRequest
+    public record AddBillingAddress(IBus Bus, Guid AccountId, Dto.Address Address, CancellationToken CancellationToken)
+        : Validatable<AddBillingAddressValidator>, ICommandRequest
     {
         public ICommand AsCommand()
             => new Command.AddBillingAddress(AccountId, Address);
@@ -27,7 +29,8 @@ public static class Requests
             => new(request.AccountId, request.Limit ?? 0, request.Offset ?? 0);
     }
 
-    public record DeleteAccount(IBus Bus, Guid AccountId, CancellationToken CancellationToken) : Validatable<DeleteAccountValidator>, IRequest
+    public record DeleteAccount(IBus Bus, Guid AccountId, CancellationToken CancellationToken)
+        : Validatable<DeleteAccountValidator>, ICommandRequest
     {
         public ICommand AsCommand()
             => new Command.DeleteAccount(AccountId);
@@ -39,10 +42,12 @@ public static class Requests
             => new(request.AccountId);
     }
 
-    public record CreateAccount(IBus Bus, Payloads.CreateAccount Payload, CancellationToken CancellationToken) : Validatable<CreateAccountValidator>, IRequest
+    public record CreateAccount(IBus Bus, Payloads.CreateAccount Payload, CancellationToken CancellationToken)
+        : Validatable<CreateAccountValidator>, ICommandRequest
     {
         public ICommand AsCommand()
-            => new Command.CreateAccount(Guid.NewGuid(), Payload.Email, Payload.Password, Payload.PasswordConfirmation, Payload.AcceptedPolicies, Payload.WishToReceiveNews);
+            => new Command.CreateAccount(Guid.NewGuid(), Payload.Email, Payload.Password, Payload.PasswordConfirmation, 
+                Payload.AcceptedPolicies, Payload.WishToReceiveNews);
     }
 
     public record struct ListAccounts(IBus Bus, ushort? Limit, ushort? Offset, CancellationToken CancellationToken)
