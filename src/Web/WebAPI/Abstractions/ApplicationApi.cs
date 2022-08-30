@@ -22,9 +22,9 @@ public static class ApplicationApi
         }
     }
 
-    public static async Task<Results<Ok<TResponse>, ValidationProblem>> QueryAsync<TClient, TResponse>(IQueryRequest<TClient> request, Func<TClient, AsyncUnaryCall<TResponse>> query)
+    public static async Task<Results<Ok<TResponse>, ValidationProblem>> QueryAsync<TClient, TResponse>(IQueryRequest<TClient> request, Func<TClient, CancellationToken, AsyncUnaryCall<TResponse>> query)
         where TClient : ClientBase<TClient>
-        => request.IsValid(out var errors) ? TypedResults.Ok(await query(request.Client)) : TypedResults.ValidationProblem(errors);
+        => request.IsValid(out var errors) ? Ok(await query(request.Client, request.CancellationToken)) : ValidationProblem(errors);
 
     public static Task<Results<Ok<TProjection>, NoContent, NotFound, Problem>> GetProjectionAsync<TQuery, TProjection>
         (IBus bus, TQuery query, CancellationToken cancellationToken)
