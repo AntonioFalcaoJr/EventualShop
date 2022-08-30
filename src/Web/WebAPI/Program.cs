@@ -7,6 +7,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using MassTransit;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Http.Json;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.OpenApi.Any;
@@ -57,7 +58,7 @@ builder.Host.ConfigureServices((context, services) =>
         .AddValidatorsFromAssemblyContaining<Program>();
 
     // TODO - Review it!
-    builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
+    builder.Services.Configure<JsonOptions>(options =>
     {
         options.SerializerOptions.Converters.Add(new DateOnlyTextJsonConverter());
         options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
