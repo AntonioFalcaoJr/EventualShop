@@ -4,16 +4,16 @@ using MassTransit;
 
 namespace Application.UseCases.Commands;
 
-public class DeleteCatalogItemConsumer : IConsumer<Command.DeleteCatalogItem>
+public class RemoveCatalogItemConsumer : IConsumer<Command.RemoveCatalogItem>
 {
     private readonly ICatalogEventStoreService _eventStore;
 
-    public DeleteCatalogItemConsumer(ICatalogEventStoreService eventStore)
+    public RemoveCatalogItemConsumer(ICatalogEventStoreService eventStore)
     {
         _eventStore = eventStore;
     }
 
-    public async Task Consume(ConsumeContext<Command.DeleteCatalogItem> context)
+    public async Task Consume(ConsumeContext<Command.RemoveCatalogItem> context)
     {
         var catalog = await _eventStore.LoadAsync(context.Message.CatalogId, context.CancellationToken);
         catalog.Handle(context.Message);

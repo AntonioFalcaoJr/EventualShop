@@ -46,8 +46,8 @@ public class Catalog : AggregateRoot<Guid, CatalogValidator>
             ? new DomainEvent.CatalogItemIncreased(cmd.CatalogId, item.Id, cmd.InventoryId, cmd.Quantity)
             : new DomainEvent.CatalogItemAdded(cmd.CatalogId, Guid.NewGuid(), cmd.InventoryId, cmd.Product, cmd.UnitPrice, cmd.Sku, cmd.Quantity));
 
-    public void Handle(Command.DeleteCatalogItem cmd)
-        => RaiseEvent(new DomainEvent.CatalogItemRemoved(cmd.CatalogId, cmd.CatalogItemId));
+    public void Handle(Command.RemoveCatalogItem cmd)
+        => RaiseEvent(new DomainEvent.CatalogItemRemoved(cmd.CatalogId, cmd.ItemId));
 
     protected override void ApplyEvent(IEvent @event)
         => When(@event as dynamic);
