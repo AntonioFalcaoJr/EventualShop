@@ -7,7 +7,7 @@ public interface IEvent : IMessage { }
 
 // TODO - Remove it!
 [ExcludeFromTopology]
-public interface IEventWithId : IMessage
+public interface IEventWithId : IEvent
 {
     Guid Id { get; }
 }
