@@ -50,9 +50,9 @@ public static class ApplicationApi
 
         return response.Message switch
         {
-            TProjection projection => TypedResults.Ok(projection),
-            Reply.NoContent => TypedResults.NoContent(),
-            Reply.NotFound => TypedResults.NotFound(),
+            TProjection projection => Ok(projection),
+            Reply.NoContent => NoContent(),
+            Reply.NotFound => NotFound(),
             _ => new Problem()
         };
     }
