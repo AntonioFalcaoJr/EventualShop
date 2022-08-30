@@ -1,6 +1,7 @@
 using Contracts.Abstractions;
 using Contracts.Abstractions.Messages;
 using Contracts.Abstractions.Paging;
+using Grpc.Core;
 using MassTransit;
 using Microsoft.AspNetCore.Http.HttpResults;
 
@@ -8,15 +9,7 @@ namespace WebAPI.Abstractions;
 
 public static class ApplicationApi
 {
-    public static async Task<AcceptedAtRoute> SendCommandAsync<TCommand>(IBus bus, TCommand command, CancellationToken cancellationToken)
-        where TCommand : class, ICommand
-    {
-        var endpoint = await bus.GetSendEndpoint(Address<TCommand>());
-        await endpoint.Send(command, cancellationToken);
-        return TypedResults.AcceptedAtRoute();
-    }
-
-    public static async Task<Results<Accepted, ValidationProblem>> SendCommandAsync<TCommand>(IRequest request)
+    public static async Task<Results<Accepted, ValidationProblem>> SendCommandAsync<TCommand>(ICommandRequest request)
         where TCommand : ICommand
     {
         return request.IsValid(out var errors) ? await AcceptAsync() : TypedResults.ValidationProblem(errors);
@@ -28,6 +21,10 @@ public static class ApplicationApi
             return TypedResults.Accepted("");
         }
     }
+
+    public static async Task<Results<Ok<TResponse>, ValidationProblem>> QueryAsync<TClient, TResponse>(IQueryRequest<TClient> request, Func<TClient, Task<TResponse>> query)
+        where TClient : ClientBase
+        => request.IsValid(out var errors) ? TypedResults.Ok(await query(request.Client)) : TypedResults.ValidationProblem(errors);
 
     public static Task<Results<Ok<TProjection>, NoContent, NotFound, Problem>> GetProjectionAsync<TQuery, TProjection>
         (IBus bus, TQuery query, CancellationToken cancellationToken)
