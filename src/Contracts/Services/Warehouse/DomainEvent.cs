@@ -22,4 +22,6 @@ public static class DomainEvent
     public record InventoryNotReserved(Guid InventoryId, Guid CartId, Guid InventoryItemId, string Sku, int QuantityDesired, int QuantityAvailable) : Message(CorrelationId: CartId), IEvent;
 
     public record InventoryItemIncreased(Guid InventoryId, Guid InventoryItemId, int Quantity) : Message(CorrelationId: InventoryId), IEvent;
+
+    public record InventoryItemDecreased(Guid InventoryId, Guid InventoryItemId, int Quantity) : Message(CorrelationId: InventoryId), IEvent;
 }

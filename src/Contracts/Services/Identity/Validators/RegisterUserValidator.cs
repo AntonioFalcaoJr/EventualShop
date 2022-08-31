@@ -2,23 +2,26 @@
 
 namespace Contracts.Services.Identity.Validators;
 
-public class RegisterUserValidator : AbstractValidator<Command.Register>
+public class RegisterUserValidator : AbstractValidator<Command.RegisterUser>
 {
     public RegisterUserValidator()
     {
-        RuleFor(user => user.Email)
-            .NotNull()
-            .NotEmpty()
+        RuleFor(account => account.FirstName)
+            .Length(4, 30);
+
+        RuleFor(account => account.LastName)
+            .Length(4, 30)
+            .NotEqual(user => user.FirstName);
+
+        RuleFor(account => account.Email)
             .EmailAddress();
 
-        RuleFor(user => user.Password)
-            .NotNull()
-            .NotEmpty()
-            .Equal(user => user.PasswordConfirmation);
-
-        RuleFor(user => user.PasswordConfirmation)
-            .NotNull()
-            .NotEmpty()
-            .Equal(user => user.Password);
+        RuleFor(account => account.Password)
+            .MinimumLength(8)
+            .MaximumLength(16)
+            .Matches("[A-Z]").WithMessage("Password must contain 1 uppercase letter")
+            .Matches("[a-z]").WithMessage("Password must contain 1 lowercase letter")
+            .Matches("[0-9]").WithMessage("Password must contain 1 number")
+            .Matches("[^a-zA-Z0-9]").WithMessage("Password must contain 1 non alphanumeric");
     }
 }

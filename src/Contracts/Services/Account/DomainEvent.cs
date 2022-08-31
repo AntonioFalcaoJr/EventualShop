@@ -5,9 +5,11 @@ namespace Contracts.Services.Account;
 
 public static class DomainEvent
 {
-    public record AccountDeleted(Guid AccountId) : Message, IEvent;
+    public record AccountDeleted(Guid Id) : Message(CorrelationId: Id), IEventWithId;
 
-    public record AccountCreated(Guid AccountId, Dto.Profile Profile, string Password, string PasswordConfirmation, bool AcceptedPolicies, bool WishToReceiveNews) : Message, IEvent;
+    public record AccountDeactivated(Guid Id) : Message(CorrelationId: Id), IEventWithId;
+
+    public record AccountCreated(Guid Id, string FirstName, string LastName, string Email) : Message(CorrelationId: Id), IEventWithId;
 
     public record BillingAddressAdded(Guid AccountId, Guid AddressId, Dto.Address Address) : Message, IEvent;
 
