@@ -215,23 +215,25 @@ Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed
 
 The mantra of event sourcing and cover the four steps in slightly more details:
 
-    1 - A command is received by an entity.
+    1 - A command is received by an aggregate.
     
-    2 - The entity checks to see if the command can be applied.
+    2 - The aggregate checks to see if the command can be applied.
     
     3 - If the command can be applied:
     
-        1 - The entity creates at least one event;
-        2 - The entity changes state based on the event details;
-        3 - The event is persisted in the store;
-        4 - The event is published to the exchange.
+        1 - The aggregate creates at least one event;
+        2 - The aggregate changes state based on the event details;
+        3 - As a unit: 
+           3.1 - The event is persisted in the store;
+           3.2 - The event is published in the exchange.
     
     4 - If the command cannot be applied:
     
-        1 - If necessary, the entity creates a failure event;
-        2 - If necessary, the entity changes state based on the failure event;
-        3 - If the entity had its state changed, the failure event is persisted in the store;
-        4 - The failure event is published to the exchange.
+        1 - If necessary, the aggregate creates a failure event;
+        2 - The aggregate changes state based on the failure event;
+        3 - As a unit: 
+           3.1 - The failure event is persisted in the store;
+           3.2 - The failure event is published in the exchange.
 
 State transition during events applying:
 
@@ -915,25 +917,26 @@ docker run --network=internal --name k6 --rm -i grafana/k6 run - <test.js
 
 ```sql
 CREATE TABLE [Events] (
-  [Version] bigint NOT NULL IDENTITY,
-  [AggregateId] uniqueidentifier NOT NULL,
-  [AggregateName] varchar(30) NOT NULL,
-  [DomainEventName] varchar(50) NOT NULL,
-  [DomainEvent] nvarchar(max) NOT NULL,
-  CONSTRAINT [PK_Events] PRIMARY KEY ([Version])
-  );
+    [Version] bigint NOT NULL,
+    [AggregateId] uniqueidentifier NOT NULL,
+    [AggregateName] varchar(30) NOT NULL,
+    [DomainEventName] varchar(50) NOT NULL,
+    [DomainEvent] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Events] PRIMARY KEY ([Version], [AggregateId])
+);
 ```
 
 ![](./.assets/img/store-event.png)
 
 ```json
 {
-  "$type": "Contracts.Services.ShoppingCart.DomainEvent+CartCreated, Contracts",
-  "CartId": "f26c669d-d16b-43d8-964a-2cca22649b48",
-  "CustomerId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "Status": "Confirmed",
-  "Timestamp": "2022-06-04T14:00:54.2529087-03:00",
-  "CorrelationId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+  "$type": "Contracts.Services.Account.DomainEvent+AccountCreated, Contracts",
+  "Id": "b7450a4c-5749-4131-830c-28dcfd7e5dea",
+  "FirstName": "Antônio Roque",
+  "LastName": "Falcão Júnior",
+  "Email": "arfj@edu.univali.br",
+  "Timestamp": "2022-08-31T19:27:41.7810008-03:00",
+  "CorrelationId": "b7450a4c-5749-4131-830c-28dcfd7e5dea"
 }
 ```
 
@@ -941,12 +944,12 @@ CREATE TABLE [Events] (
 
 ```sql
 CREATE TABLE [Snapshots] (
-  [AggregateVersion] bigint NOT NULL,
-  [AggregateId] uniqueidentifier NOT NULL,
-  [AggregateName] varchar(30) NOT NULL,
-  [AggregateState] nvarchar(max) NOT NULL,
-  CONSTRAINT [PK_Snapshots] PRIMARY KEY ([AggregateVersion], [AggregateId])
-  );
+    [AggregateVersion] bigint NOT NULL,
+    [AggregateId] uniqueidentifier NOT NULL,
+    [AggregateName] varchar(30) NOT NULL,
+    [AggregateState] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Snapshots] PRIMARY KEY ([AggregateVersion], [AggregateId])
+);
 ```
 
 ![](./.assets/img/store-snapshot.png)
