@@ -6,9 +6,9 @@
         <PackageReference Include="MassTransit" Version="$(MassTransit_Version)"/>
         <PackageReference Include="MongoDB.Bson" Version="$(MongoDb_Version)"/>
         <PackageReference Include="Newtonsoft.Json" Version="$(Newtonsoft_Version)"/>
-        <PackageReference Include="Google.Protobuf" Version="3.21.5"/>
-        <PackageReference Include="Grpc.Net.Client" Version="2.47.0"/>
-        <PackageReference Include="Grpc.Tools" Version="2.48.0-pre1">
+        <PackageReference Include="Google.Protobuf" Version="$(Google_Protobuf_Version)"/>
+        <PackageReference Include="Grpc.Net.Client" Version="$(Grpc_Net_Client_Version)"/>
+        <PackageReference Include="Grpc.Tools" Version="$(Grpc_Tools_Version)">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
