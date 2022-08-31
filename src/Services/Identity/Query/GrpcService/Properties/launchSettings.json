@@ -1,15 +1,6 @@
 ﻿{
   "profiles": {
-    "http": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": false,
-      "applicationUrl": "http://localhost:5130",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
-    "https": {
+    "Identity.GrpcService": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,

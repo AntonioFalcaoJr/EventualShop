@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Account": {
+    "Account.WorkerService": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "environmentVariables": {
