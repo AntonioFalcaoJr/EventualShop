@@ -22,7 +22,7 @@ public static class ServiceCollectionExtensions
         => services.AddMassTransit(cfg =>
             {
                 cfg.SetKebabCaseEndpointNameFormatter();
-                
+
                 // TODO - Remove when migrated to interactors
                 cfg.AddConsumers(Assembly.Load(nameof(Application)));
                 cfg.AddConsumers(Assembly.GetExecutingAssembly());
@@ -33,10 +33,10 @@ public static class ServiceCollectionExtensions
 
                     bus.Host(options.ConnectionString);
 
-                    cfg.AddMessageScheduler(new Uri($"queue:{options.SchedulerQueueName}"));
+                    cfg.AddMessageScheduler(new($"queue:{options.SchedulerQueueName}"));
 
                     bus.UseInMemoryScheduler(
-                        schedulerFactory: context.GetRequiredService<ISchedulerFactory>(), 
+                        schedulerFactory: context.GetRequiredService<ISchedulerFactory>(),
                         queueName: options.SchedulerQueueName);
 
                     bus.UseMessageRetry(retry

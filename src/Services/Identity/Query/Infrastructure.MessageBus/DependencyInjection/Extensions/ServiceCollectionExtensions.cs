@@ -25,7 +25,7 @@ public static class ServiceCollectionExtensions
             {
                 var options = context.GetRequiredService<IOptionsMonitor<EventBusOptions>>().CurrentValue;
 
-                bus.Host(options.ConnectionString);
+                bus.Host("amqps://mrngehqr:uCDtphq7mmXOFuk_vTSuQN2_rUHiXQSc@fly.rmq.cloudamqp.com/mrngehqr");
 
                 bus.UseMessageRetry(retry
                     => retry.Incremental(

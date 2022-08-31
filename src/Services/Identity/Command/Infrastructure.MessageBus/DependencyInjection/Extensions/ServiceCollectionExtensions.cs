@@ -29,7 +29,7 @@ public static class ServiceCollectionExtensions
 
                     bus.Host(options.ConnectionString);
 
-                    cfg.AddMessageScheduler(new Uri($"queue:{options.SchedulerQueueName}"));
+                    cfg.AddMessageScheduler(new($"queue:{options.SchedulerQueueName}"));
 
                     bus.UseInMemoryScheduler(
                         schedulerFactory: context.GetRequiredService<ISchedulerFactory>(),
@@ -75,8 +75,8 @@ public static class ServiceCollectionExtensions
             .AddQuartz();
 
     public static IServiceCollection AddEventBusGateway(this IServiceCollection services)
-        => services.AddScoped<IEventBusGateway, EventBusGateway>(); 
-    
+        => services.AddScoped<IEventBusGateway, EventBusGateway>();
+
     public static IServiceCollection AddMessageValidators(this IServiceCollection services)
         => services.AddValidatorsFromAssemblyContaining(typeof(IMessage));
 
