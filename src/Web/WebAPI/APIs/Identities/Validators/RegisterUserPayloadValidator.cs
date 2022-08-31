@@ -6,21 +6,21 @@ public class RegisterUserPayloadValidator : AbstractValidator<Payloads.RegisterU
 {
     public RegisterUserPayloadValidator()
     {
-        RuleFor(account => account.FirstName)
+        RuleFor(user => user.FirstName)
             .NotEmpty()
             .MinimumLength(4)
             .MaximumLength(30);
 
-        RuleFor(account => account.LastName)
+        RuleFor(user => user.LastName)
             .NotEmpty()
             .MinimumLength(4)
             .MaximumLength(30)
             .NotEqual(user => user.FirstName);
 
-        RuleFor(account => account.Email)
+        RuleFor(user => user.Email)
             .EmailAddress();
 
-        RuleFor(account => account.Password)
+        RuleFor(user => user.Password)
             .NotEmpty()
             .MinimumLength(8)
             .MaximumLength(16)
@@ -29,7 +29,7 @@ public class RegisterUserPayloadValidator : AbstractValidator<Payloads.RegisterU
             .Matches("[0-9]").WithMessage("Password must contain 1 number")
             .Matches("[^a-zA-Z0-9]").WithMessage("Password must contain 1 non alphanumeric");
 
-        RuleFor(account => account.PasswordConfirmation)
-            .Equal(account => account.Password).WithMessage("{PropertyName} must match {ComparisonProperty}");
+        RuleFor(user => user.PasswordConfirmation)
+            .Equal(user => user.Password).WithMessage("{PropertyName} must match {ComparisonProperty}");
     }
 }
