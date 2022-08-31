@@ -10,7 +10,6 @@ public class User : AggregateRoot<UserValidator>
     public string LastName { get; private set; }
     public string Email { get; private set; }
     public string Password { get; private set; }
-    public string PasswordConfirmation { get; private set; }
 
     public override void Handle(ICommandWithId command)
         => Handle(command as dynamic);
@@ -18,8 +17,7 @@ public class User : AggregateRoot<UserValidator>
     private void Handle(Command.RegisterUser cmd)
     {
         if (Id != cmd.Id)
-            RaiseEvent(new DomainEvent.UserRegistered(
-                cmd.Id, cmd.FirstName, cmd.LastName, cmd.Email, cmd.Password, cmd.PasswordConfirmation));
+            RaiseEvent(new DomainEvent.UserRegistered(cmd.Id, cmd.FirstName, cmd.LastName, cmd.Email, cmd.Password));
     }
 
     private void Handle(Command.ChangePassword cmd)
@@ -32,10 +30,10 @@ public class User : AggregateRoot<UserValidator>
         => Apply(@event as dynamic);
 
     private void Apply(DomainEvent.UserRegistered @event)
-        => (Id, FirstName, LastName, Email, Password, PasswordConfirmation) = @event;
+        => (Id, FirstName, LastName, Email, Password) = @event;
 
     private void Apply(DomainEvent.UserPasswordChanged @event)
-        => (_, Password, PasswordConfirmation) = @event;
+        => Password = @event.NewPassword;
 
     private void Apply(DomainEvent.UserDeleted _)
         => IsDeleted = true;
