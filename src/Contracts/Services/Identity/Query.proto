@@ -12,5 +12,9 @@ message LoginRequest {
 }
 
 message LoginResponse {
-  string Token = 1;
+  string Id = 1;
+  string FirstName = 2;
+  string LastName = 3;
+  string Email = 4;
+  string Token = 5;
 }

@@ -42,14 +42,6 @@ public static class Requests
             => new(request.AccountId);
     }
 
-    public record CreateAccount(IBus Bus, Payloads.CreateAccount Payload, CancellationToken CancellationToken)
-        : Validatable<CreateAccountValidator>, ICommandRequest
-    {
-        public ICommand Command
-            => new Command.CreateAccount(Guid.NewGuid(), Payload.Email, Payload.Password, Payload.PasswordConfirmation,
-                Payload.AcceptedPolicies, Payload.WishToReceiveNews);
-    }
-
     public record struct ListAccounts(IBus Bus, ushort? Limit, ushort? Offset, CancellationToken CancellationToken)
     {
         public static implicit operator Query.ListAccounts(ListAccounts request)

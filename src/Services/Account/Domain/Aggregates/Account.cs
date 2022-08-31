@@ -10,20 +10,18 @@ public class Account : AggregateRoot<Guid, AccountValidator>
 {
     private readonly List<Address> _addresses = new();
 
-    public Profile Profile { get; private set; }
-
     // TODO - Implement Wallet capability. Interesting in Payment Methods business facts
     // public Wallet Wallet { get; private set; }
+
+    public Profile Profile { get; private set; }
     public bool WishToReceiveNews { get; private set; }
     public bool AcceptedPolicies { get; private set; }
-    public string Password { get; private set; }
-    public string PasswordConfirmation { get; private set; }
 
     public IEnumerable<Address> Addresses
         => _addresses;
 
     public void Handle(Command.CreateAccount cmd)
-        => RaiseEvent(new DomainEvent.AccountCreated(cmd.AccountId, cmd.Password, cmd.PasswordConfirmation, cmd.AcceptedPolicies, cmd.WishToReceiveNews));
+        => RaiseEvent(new DomainEvent.AccountCreated(cmd.AccountId, cmd.FirstName, cmd.LastName, cmd.Email));
 
     public void Handle(Command.DeleteAccount cmd)
         => RaiseEvent(new DomainEvent.AccountDeleted(cmd.AccountId));
@@ -42,15 +40,13 @@ public class Account : AggregateRoot<Guid, AccountValidator>
 
     public void Handle(Command.PreferBillingAddress cmd)
     {
-        if (_addresses.OfType<BillingAddress>().SingleOrDefault(address
-                => address.Id != cmd.AddressId) is {IsDeleted: false} and {IsPreferred: false})
+        if (_addresses.OfType<BillingAddress>().SingleOrDefault(address => address.Id != cmd.AddressId) is { IsDeleted: false } and { IsPreferred: false })
             RaiseEvent(new DomainEvent.BillingAddressPreferred(cmd.AccountId, cmd.AddressId));
     }
 
     public void Handle(Command.PreferShippingAddress cmd)
     {
-        if (_addresses.OfType<ShippingAddress>().SingleOrDefault(address
-                => address.Id != cmd.AddressId) is {IsDeleted: false} and {IsPreferred: false})
+        if (_addresses.OfType<ShippingAddress>().SingleOrDefault(address => address.Id != cmd.AddressId) is { IsDeleted: false } and { IsPreferred: false })
             RaiseEvent(new DomainEvent.ShippingAddressPreferred(cmd.AccountId, cmd.AddressId));
     }
 
@@ -58,7 +54,10 @@ public class Account : AggregateRoot<Guid, AccountValidator>
         => When(domainEvent as dynamic);
 
     private void When(DomainEvent.AccountCreated @event)
-        => (Id, Password, PasswordConfirmation, AcceptedPolicies, WishToReceiveNews) = @event;
+    {
+        Id = @event.Id;
+        Profile = new(@event.FirstName, @event.LastName, @event.Email);
+    }
 
     private void When(DomainEvent.BillingAddressAdded @event)
         => _addresses.Add(BillingAddress.Create(@event.AddressId, @event.Address));

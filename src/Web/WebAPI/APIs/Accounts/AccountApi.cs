@@ -10,9 +10,6 @@ public static class AccountApi
         group.MapGet("/", ([AsParameters] Requests.ListAccounts request)
             => ApplicationApi.GetPagedProjectionAsync<Query.ListAccounts, Projection.AccountDetails>(request.Bus, request, request.CancellationToken));
 
-        group.MapPost("/", ([AsParameters] Requests.CreateAccount request)
-            => ApplicationApi.SendCommandAsync<Command.CreateAccount>(request));
-
         group.MapGet("/{AccountId:guid}", ([AsParameters] Requests.GetAccount request)
             => ApplicationApi.GetProjectionAsync<Query.GetAccount, Projection.AccountDetails>(request.Bus, request, request.CancellationToken));
 
