@@ -10,11 +10,17 @@
             <BSDropdownItem Url="javascript:void(0);">Something else here</BSDropdownItem>
         </Content>
     </BSDropdown>
-    <BSInput InputType="InputType.Search" placeholder="Search" @bind-Value="_search"/>
+    <BSInput InputType="InputType.Search" placeholder="Search" @bind-Value="_search" @bind:after="PerformSearch"/>
     <BSButton Class="bi bi-search" Color="BSColor.Dark"/>
 </BSContainer>
 
 @code
 {
     string _search;
+
+    Task PerformSearch()
+    {
+        return Task.CompletedTask;
+    // ... do something asynchronously with 'searchText' ...
+    }
 }

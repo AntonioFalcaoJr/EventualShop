@@ -32,70 +32,70 @@ If this project helped you in some way, please **give it a star**. Thanks!
 
 ## Contents
 
-- [Roadmap](#roadmap)
-- [The Solution Architecture](#the-solution-architecture)
-- [Reactive Domain Driven Design](#reactive-domain-driven-design)
-    - [Reactive Process](#reactive-process)
-    - [Messaging - Making good use of Context Mapping](#messaging---making-good-use-of-context-mapping)
-- [Event Sourcing](#event-sourcing)
-    - [Updating entities](#updating-entities)
-    - [Pattern](#pattern)
-    - [Event Store](#event-store)
-        - [Snapshot](#snapshot)
-- [Event-Driven Architecture (EDA)](#event-driven-architecture-eda)
-    - [Topologies](#topologies)
-        - [Broker Topology](#broker-topology)
-        - [Choreography-based SAGA](#choreography-based-saga)
-        - [Orchestration vs Choreography](#orchestration-vs-choreography)
-        - [Orchestration](#orchestration)
-        - [Choreography](#choreography)
-    - [EDA & Microservices Architecture](#eda--microservices-architecture)
-        - [Microservices](#microservices)
-        - [Temporal Coupling and Autonomous Decisions](#temporal-coupling-and-autonomous-decisions)
-    - [EDA vs SOA](#eda-vs-soa)
-    - [EDA & Event-sourcing](#eda--event-sourcing)
-- [CQRS](#cqrs)
-    - [Command's pipeline](#commands-pipeline)
-    - [Projections](#projections)
-- [CQRS + Event Sourcing](#cqrs--event-sourcing)
-    - [Commands vs Events](#commands-vs-events)
-        - [Domain Event](#domain-event)
-        - [Integration Event](#integration-event)
-        - [Event Notification](#event-notification)
-        - [Event-Carried State Transfer](#event-carried-state-transfer)
-- [EventStorming](#eventstorming)
-    - [EventStorming (WIP)](#eventstorming-wip)
-    - [From EventStorming to Event Sourcing](#from-eventstorming-to-event-sourcing)
-- [Domain Driven Design (DDD)](#domain-driven-design-ddd)
-    - [Bounded Context](#bounded-context)
-    - [Aggregate](#aggregate)
-- [Clean Architecture](#clean-architecture)
-- [Performance](#performance)
-    - [Minimize exceptions](#minimize-exceptions)
-    - [Pool HTTP connections with HttpClientFactory](#pool-http-connections-with-httpclientfactory)
-    - [DbContext pooling](#dbcontext-pooling)
-    - [Snapshotting](#snapshotting)
-    - [Running](#running)
-        - [Development](#development)
-            - [User-secrets](#user-secrets)
-            - [Docker](#docker)
-        - [Staging](#staging)
-            - [Docker-compose](#docker-compose)
-    - [Test](#test)
-    - [Event Store](#event-store)
-        - [Store event](#store-event)
-        - [Snapshot](#snapshot)
-        - [Migrations](#migrations)
-- [Main References](#main-references)
-    - [Complementary References](#complementary-references)
-- [Built With](#built-with)
-    - [Worker Services](#worker-services)
-    - [Web API](#web-api)
-    - [Web APP](#web-app)
-- [Contributing](#contributing)
-- [Versioning](#versioning)
-- [Authors](#authors)
-- [License](#license)
+  * [Roadmap](#roadmap)
+  * [The Solution Architecture](#the-solution-architecture)
+  * [Reactive Domain Driven Design](#reactive-domain-driven-design)
+    * [Reactive Process](#reactive-process)
+    * [Messaging - Making good use of Context Mapping](#messaging---making-good-use-of-context-mapping)
+  * [Event Sourcing](#event-sourcing)
+    * [Updating entities](#updating-entities)
+    * [Pattern](#pattern)
+    * [Event Store](#event-store)
+      * [Snapshot](#snapshot)
+  * [Event-Driven Architecture (EDA)](#event-driven-architecture--eda-)
+    * [Topologies](#topologies)
+      * [Broker Topology](#broker-topology)
+      * [Choreography-based SAGA](#choreography-based-saga)
+      * [Orchestration vs Choreography](#orchestration-vs-choreography)
+      * [Orchestration](#orchestration)
+      * [Choreography](#choreography)
+    * [EDA & Microservices Architecture](#eda--microservices-architecture)
+      * [Microservices](#microservices)
+      * [Temporal Coupling and Autonomous Decisions](#temporal-coupling-and-autonomous-decisions)
+    * [EDA vs SOA](#eda-vs-soa)
+    * [EDA & Event-sourcing](#eda--event-sourcing)
+  * [CQRS](#cqrs)
+    * [Command's pipeline](#commands-pipeline)
+    * [Projections](#projections)
+  * [CQRS + Event Sourcing](#cqrs--event-sourcing)
+    * [Commands vs Events](#commands-vs-events)
+      * [Domain Event](#domain-event)
+      * [Integration Event](#integration-event)
+      * [Event Notification](#event-notification)
+      * [Event-Carried State Transfer](#event-carried-state-transfer)
+  * [EventStorming](#eventstorming)
+    * [EventStorming (WIP)](#eventstorming--wip-)
+    * [From EventStorming to Event Sourcing](#from-eventstorming-to-event-sourcing)
+  * [Domain Driven Design (DDD)](#domain-driven-design--ddd-)
+    * [Bounded Context](#bounded-context)
+    * [Aggregate](#aggregate)
+  * [Clean Architecture](#clean-architecture)
+  * [Performance](#performance)
+    * [Minimize exceptions](#minimize-exceptions)
+    * [Pool HTTP connections with HttpClientFactory](#pool-http-connections-with-httpclientfactory)
+    * [DbContext pooling](#dbcontext-pooling)
+    * [Snapshotting](#snapshotting)
+  * [Running](#running)
+    * [Development](#development)
+      * [User-secrets](#user-secrets)
+      * [Docker](#docker)
+    * [Staging](#staging)
+      * [Docker-compose](#docker-compose)
+  * [Test](#test)
+  * [Event Store](#event-store)
+    * [Store event](#store-event)
+    * [Snapshot](#snapshot)
+    * [Migrations](#migrations)
+  * [Main References](#main-references)
+    * [Complementary References](#complementary-references)
+  * [Built With](#built-with)
+    * [Worker Services](#worker-services)
+    * [Web API](#web-api)
+    * [Web APP](#web-app)
+  * [Contributing](#contributing)
+  * [Versioning](#versioning)
+  * [Authors](#authors)
+  * [License](#license)
 
 ## Roadmap
 
@@ -215,23 +215,25 @@ Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed
 
 The mantra of event sourcing and cover the four steps in slightly more details:
 
-    1 - A command is received by an entity.
+    1 - A command is received by an aggregate.
     
-    2 - The entity checks to see if the command can be applied.
+    2 - The aggregate checks to see if the command can be applied.
     
     3 - If the command can be applied:
     
-        1 - The entity creates at least one event;
-        2 - The entity changes state based on the event details;
-        3 - The event is persisted in the store;
-        4 - The event is published to the exchange.
+        1 - The aggregate creates at least one event;
+        2 - The aggregate changes state based on the event details;
+        3 - As a unit: 
+           3.1 - The event is persisted in the store;
+           3.2 - The event is published in the exchange.
     
     4 - If the command cannot be applied:
     
-        1 - If necessary, the entity creates a failure event;
-        2 - If necessary, the entity changes state based on the failure event;
-        3 - If the entity had its state changed, the failure event is persisted in the store;
-        4 - The failure event is published to the exchange.
+        1 - If necessary, the aggregate creates a failure event;
+        2 - The aggregate changes state based on the failure event;
+        3 - As a unit: 
+           3.1 - The failure event is persisted in the store;
+           3.2 - The failure event is published in the exchange.
 
 State transition during events applying:
 
@@ -772,6 +774,14 @@ MessageBusOptions:ConnectionString = amqp://guest:guest@127.0.0.1:5672/ecommerce
 ConnectionStrings:Projections = mongodb://mongoadmin:secret@127.0.0.1:27017/AccountProjections/?authSource=admin
 ConnectionStrings:EventStore = Server=127.0.0.1,1433;Database=AccountEventStore;User=sa;Password=!MyStrongPassword;trustServerCertificate=true
 ```
+Authentication:
+
+In especial for the [Identity GrpcService](./src/Services/Identity/GrpcService) it is necessary to define one more user-secret, referred to as the authentication secret-key:
+
+```bash
+dotnet user-secrets set "JwtOptions:SecretKey" "development-secret-key"
+```
+
 Extra:
 
 A batch of secrets can be set by piping JSON to the set command, as in the following example:
@@ -907,25 +917,26 @@ docker run --network=internal --name k6 --rm -i grafana/k6 run - <test.js
 
 ```sql
 CREATE TABLE [Events] (
-  [Version] bigint NOT NULL IDENTITY,
-  [AggregateId] uniqueidentifier NOT NULL,
-  [AggregateName] varchar(30) NOT NULL,
-  [DomainEventName] varchar(50) NOT NULL,
-  [DomainEvent] nvarchar(max) NOT NULL,
-  CONSTRAINT [PK_Events] PRIMARY KEY ([Version])
-  );
+    [Version] bigint NOT NULL,
+    [AggregateId] uniqueidentifier NOT NULL,
+    [AggregateName] varchar(30) NOT NULL,
+    [DomainEventName] varchar(50) NOT NULL,
+    [DomainEvent] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Events] PRIMARY KEY ([Version], [AggregateId])
+);
 ```
 
 ![](./.assets/img/store-event.png)
 
 ```json
 {
-  "$type": "Contracts.Services.ShoppingCart.DomainEvent+CartCreated, Contracts",
-  "CartId": "f26c669d-d16b-43d8-964a-2cca22649b48",
-  "CustomerId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "Status": "Confirmed",
-  "Timestamp": "2022-06-04T14:00:54.2529087-03:00",
-  "CorrelationId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+  "$type": "Contracts.Services.Account.DomainEvent+AccountCreated, Contracts",
+  "Id": "b7450a4c-5749-4131-830c-28dcfd7e5dea",
+  "FirstName": "Antônio Roque",
+  "LastName": "Falcão Júnior",
+  "Email": "arfj@edu.univali.br",
+  "Timestamp": "2022-08-31T19:27:41.7810008-03:00",
+  "CorrelationId": "b7450a4c-5749-4131-830c-28dcfd7e5dea"
 }
 ```
 
@@ -933,12 +944,12 @@ CREATE TABLE [Events] (
 
 ```sql
 CREATE TABLE [Snapshots] (
-  [AggregateVersion] bigint NOT NULL,
-  [AggregateId] uniqueidentifier NOT NULL,
-  [AggregateName] varchar(30) NOT NULL,
-  [AggregateState] nvarchar(max) NOT NULL,
-  CONSTRAINT [PK_Snapshots] PRIMARY KEY ([AggregateVersion], [AggregateId])
-  );
+    [AggregateVersion] bigint NOT NULL,
+    [AggregateId] uniqueidentifier NOT NULL,
+    [AggregateName] varchar(30) NOT NULL,
+    [AggregateState] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Snapshots] PRIMARY KEY ([AggregateVersion], [AggregateId])
+);
 ```
 
 ![](./.assets/img/store-snapshot.png)

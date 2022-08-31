@@ -1,11 +1,21 @@
 ﻿using Contracts.DataTransferObjects;
+using Contracts.Enumerations;
 using Domain.Abstractions.Entities;
 
 namespace Domain.Entities.Profiles;
 
 public class Profile : Entity<Guid, ProfileValidator>
 {
-    public Profile(string email, string firstName, string lastName)
+    private Profile(string firstName, string lastName, string email, DateOnly? birthdate, Gender gender)
+    {
+        Email = email;
+        FirstName = firstName;
+        LastName = lastName;
+        Birthdate = birthdate;
+        Gender = gender;
+    }
+
+    public Profile(string firstName, string lastName, string email)
     {
         Email = email;
         FirstName = firstName;
@@ -16,7 +26,7 @@ public class Profile : Entity<Guid, ProfileValidator>
     public string Email { get; private set; }
     public string FirstName { get; private set; }
     public string LastName { get; private set; }
-
+    public Gender Gender { get; private set; }
 
     public void ChangeFirstName(string firstName)
         => FirstName = firstName;
@@ -30,9 +40,12 @@ public class Profile : Entity<Guid, ProfileValidator>
     public void ChangeEmail(string email)
         => Email = email;
 
+    public void ChangeGender(Gender gender)
+        => Gender = gender;
+
     public static implicit operator Profile(Dto.Profile profile)
-        => new(profile.Email, profile.FirstName, profile.LastName);
+        => new(profile.FirstName, profile.LastName, profile.Email, profile.Birthdate, profile.Gender);
 
     public static implicit operator Dto.Profile(Profile profile)
-        => new(profile.Email, profile.FirstName, profile.LastName);
+        => new(profile.FirstName, profile.LastName, profile.Email, profile.Birthdate, profile.Gender);
 }

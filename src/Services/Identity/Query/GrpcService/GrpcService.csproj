@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+    <PropertyGroup>
+        <UserSecretsId>60c78fe4-2288-4ecf-b3a7-ac6052ce5fe5</UserSecretsId>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Grpc.AspNetCore" Version="$(Grpc_AspNetCore_Version)"/>
+        <PackageReference Include="Serilog.AspNetCore" Version="$(Serilog_AspNetCore_Version)"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\..\Contracts\Contracts.csproj"/>
+        <ProjectReference Include="..\Infrastructure.Authentication\Infrastructure.Authentication.csproj"/>
+        <ProjectReference Include="..\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj"/>
+        <ProjectReference Include="..\Infrastructure.Projections\Infrastructure.Projections.csproj"/>
+    </ItemGroup>
+</Project>

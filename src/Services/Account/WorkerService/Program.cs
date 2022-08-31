@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using Application.DependencyInjection;
+using Application.DependencyInjection.Extensions;
 using Infrastructure.EventStore.Contexts;
 using Infrastructure.EventStore.DependencyInjection.Extensions;
 using Infrastructure.EventStore.DependencyInjection.Options;
@@ -13,27 +13,28 @@ using Serilog;
 
 var builder = Host.CreateDefaultBuilder(args);
 
-builder.UseDefaultServiceProvider((context, options) =>
+builder.UseDefaultServiceProvider((context, provider) =>
 {
-    options.ValidateScopes = context.HostingEnvironment.IsDevelopment();
-    options.ValidateOnBuild = true;
+    provider.ValidateScopes =
+        provider.ValidateOnBuild =
+            context.HostingEnvironment.IsDevelopment();
 });
 
-builder.ConfigureAppConfiguration(configurationBuilder =>
+builder.ConfigureAppConfiguration(configuration =>
 {
-    configurationBuilder
+    configuration
         .AddUserSecrets<Program>()
         .AddEnvironmentVariables();
 });
 
-builder.ConfigureLogging((context, loggingBuilder) =>
+builder.ConfigureLogging((context, logging) =>
 {
     Log.Logger = new LoggerConfiguration().ReadFrom
         .Configuration(context.Configuration)
         .CreateLogger();
 
-    loggingBuilder.ClearProviders();
-    loggingBuilder.AddSerilog();
+    logging.ClearProviders();
+    logging.AddSerilog();
 });
 
 builder.ConfigureServices((context, services) =>

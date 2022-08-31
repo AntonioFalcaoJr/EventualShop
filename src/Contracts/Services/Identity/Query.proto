@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package contracts.query;
+
+service IdentityService {
+  rpc Login(LoginRequest) returns (LoginResponse);
+}
+
+message LoginRequest {
+  string Email = 1;
+  string Password = 2;
+}
+
+message LoginResponse {
+  string Id = 1;
+  string FirstName = 2;
+  string LastName = 3;
+  string Email = 4;
+  string Token = 5;
+}

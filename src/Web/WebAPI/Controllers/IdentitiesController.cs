@@ -2,7 +2,7 @@
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;
-using WebAPI.ValidationAttributes;
+using WebAPI.Validations;
 
 namespace WebAPI.Controllers;
 
@@ -12,10 +12,10 @@ public class IdentitiesController : ApplicationController
         : base(bus) { }
 
     [HttpGet("{userId:guid}")]
-    [ProducesResponseType(typeof(Projection.UserAuthentication), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Projection.UserDetails), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> GetUserAuthenticationAsync([NotEmpty] Guid userId, CancellationToken cancellationToken)
-        => GetProjectionAsync<Query.GetUserAuthentication, Projection.UserAuthentication>(new(userId), cancellationToken);
+        => GetProjectionAsync<Query.GetUserAuthentication, Projection.UserDetails>(new(userId), cancellationToken);
 
     [HttpPut("{userId:guid}")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
@@ -27,11 +27,11 @@ public class IdentitiesController : ApplicationController
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> DeleteAsync([NotEmpty] Guid userId, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.Delete>(new(userId), cancellationToken);
+        => SendCommandAsync<Command.DeleteUser>(new(userId), cancellationToken);
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public Task<IActionResult> RegisterAsync(Command.Register command, CancellationToken cancellationToken)
+    public Task<IActionResult> RegisterAsync(Command.RegisterUser command, CancellationToken cancellationToken)
         => SendCommandAsync(command, cancellationToken);
 }

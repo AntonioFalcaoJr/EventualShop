@@ -1,14 +1,20 @@
 using System.Reflection;
-using Contracts.Abstractions.Messages;
+using System.Text.Json.Serialization;
+using Ardalis.SmartEnum.SystemTextJson;
+using Contracts.Enumerations;
 using Contracts.JsonConverters;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using MassTransit;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Http.Json;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.OpenApi.Any;
 using Serilog;
-using WebAPI.APIs;
+using WebAPI.APIs.Accounts;
+using WebAPI.APIs.Catalogs;
+using WebAPI.APIs.Identities;
 using WebAPI.DependencyInjection.Extensions;
 using WebAPI.DependencyInjection.Options;
 using WebAPI.Extensions;
@@ -16,75 +22,91 @@ using WebAPI.ParameterTransformers;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseDefaultServiceProvider((context, options) =>
+builder.Host.UseDefaultServiceProvider((context, provider) =>
 {
-    options.ValidateScopes = context.HostingEnvironment.IsDevelopment();
-    options.ValidateOnBuild = true;
+    provider.ValidateScopes =
+        provider.ValidateOnBuild =
+            context.HostingEnvironment.IsDevelopment();
 });
 
-builder.Host.ConfigureAppConfiguration(configurationBuilder =>
+builder.Configuration
+    .AddUserSecrets(Assembly.GetExecutingAssembly())
+    .AddEnvironmentVariables();
+
+Log.Logger = new LoggerConfiguration().ReadFrom
+    .Configuration(builder.Configuration)
+    .CreateLogger();
+
+builder.Logging
+    .ClearProviders()
+    .AddSerilog();
+
+builder.Host.UseSerilog();
+
+builder.Host.ConfigureServices((context, services) =>
 {
-    configurationBuilder
-        .AddUserSecrets(Assembly.GetExecutingAssembly())
-        .AddEnvironmentVariables();
-});
+    services.AddCors(options
+        => options.AddDefaultPolicy(policyBuilder
+            => policyBuilder
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod()));
 
-builder.Host.ConfigureLogging((context, loggingBuilder) =>
-{
-    Log.Logger = new LoggerConfiguration().ReadFrom
-        .Configuration(context.Configuration)
-        .CreateLogger();
+    services
+        .AddFluentValidationAutoValidation()
+        .AddFluentValidationClientsideAdapters()
+        .AddValidatorsFromAssemblyContaining<Program>();
 
-    loggingBuilder.ClearProviders();
-    loggingBuilder.AddSerilog();
-    builder.Host.UseSerilog();
-});
-
-builder.Services.AddCors(options
-    => options.AddDefaultPolicy(policyBuilder
-        => policyBuilder
-            .AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod()));
-
-builder.Services
-    .AddRouting(options => options.LowercaseUrls = true)
-    .AddControllers(options =>
+    // TODO - Review it!
+    builder.Services.Configure<JsonOptions>(options =>
     {
-        options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
-        options.SuppressAsyncSuffixInActionNames = true;
-    })
-    .AddNewtonsoftJson(options =>
-    {
-        options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter());
-        options.SerializerSettings.Converters.Add(new ExpirationDateOnlyJsonConverter());
-    })
-    .AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining(typeof(IMessage)));
-
-builder.Services
-    .AddSwaggerGenNewtonsoftSupport()
-    .AddFluentValidationRulesToSwagger()
-    .AddEndpointsApiExplorer()
-    .AddSwaggerGen(options =>
-    {
-        options.SwaggerDoc("v1", new() {Title = builder.Environment.ApplicationName, Version = "v1"});
-        options.MapType<DateOnly>(() => new() {Format = "date", Example = new OpenApiString(DateOnly.MinValue.ToString())});
-        options.CustomSchemaIds(type => type.ToString().Replace("+", "."));
+        options.SerializerOptions.Converters.Add(new DateOnlyTextJsonConverter());
+        options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        options.SerializerOptions.Converters.Add(new SmartEnumNameConverter<Gender, int>());
     });
 
-builder.Services.AddMessageBus();
+    services
+        .AddRouting(options => options.LowercaseUrls = true)
+        .AddControllers(options =>
+        {
+            options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
+            options.SuppressAsyncSuffixInActionNames = true;
+        })
+        .AddNewtonsoftJson(options =>
+        {
+            options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter());
+            options.SerializerSettings.Converters.Add(new ExpirationDateOnlyJsonConverter());
+        });
 
-builder.Services.ConfigureMessageBusOptions(
-    builder.Configuration.GetSection(nameof(MessageBusOptions)));
+    services
+        .AddSwaggerGenNewtonsoftSupport()
+        .AddFluentValidationRulesToSwagger()
+        .AddEndpointsApiExplorer()
+        .AddSwaggerGen(options =>
+        {
+            options.SwaggerDoc("v1", new() {Title = builder.Environment.ApplicationName, Version = "v1"});
+            options.MapType<DateOnly>(() => new() {Format = "date", Example = new OpenApiString(DateOnly.MinValue.ToString())});
+            options.CustomSchemaIds(type => type.ToString().Replace("+", "."));
+        });
 
-builder.Services.ConfigureMassTransitHostOptions(
-    builder.Configuration.GetSection(nameof(MassTransitHostOptions)));
+    services.AddMessageBus();
+    services.AddIdentityGrpcClient();
 
-builder.Services.ConfigureRabbitMqTransportOptions(
-    builder.Configuration.GetSection(nameof(RabbitMqTransportOptions)));
+    services.ConfigureMessageBusOptions(
+        context.Configuration.GetSection(nameof(MessageBusOptions)));
 
-builder.Services.AddHttpLogging(options
-    => options.LoggingFields = HttpLoggingFields.All);
+    services.ConfigureIdentityGrpcClientOptions(
+        context.Configuration.GetSection(nameof(IdentityGrpcClientOptions)));
+
+    services.ConfigureMassTransitHostOptions(
+        context.Configuration.GetSection(nameof(MassTransitHostOptions)));
+
+    services.ConfigureRabbitMqTransportOptions(
+        context.Configuration.GetSection(nameof(RabbitMqTransportOptions)));
+
+    services.AddHttpLogging(options
+        => options.LoggingFields = HttpLoggingFields.All);
+});
 
 var app = builder.Build();
 
@@ -100,19 +122,19 @@ if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
 app.UseCors();
 
 // TODO - It should be removed when migration to Minimal API completed 
-app.UseRouting();
-app.UseEndpoints(endpoints
-    => endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller:slugify}/{action:slugify}"));
-// 
+// app.UseRouting();
+// app.UseEndpoints(endpoints
+//     => endpoints.MapControllerRoute(
+//         name: "default",
+//         pattern: "{controller:slugify}/{action:slugify}"));
 
 app.UseSerilogRequestLogging();
-
 app.UseApplicationExceptionHandler();
 
 app.MapGroup("/api/v1/accounts/").MapAccountApi();
 app.MapGroup("/api/v1/catalogs/").MapCatalogApi();
+app.MapGroup("/api/v2/identities/").MapIdentityApi();
+
 
 try
 {

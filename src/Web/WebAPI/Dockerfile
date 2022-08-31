@@ -1,14 +1,11 @@
-﻿ARG ASPNET_VERSION="7.0.0-preview.5-alpine3.16"
-ARG SDK_VERSION="7.0.100-preview.5-1-alpine3.16"
+﻿ARG ASPNET_VERSION="7.0.0-preview.6"
+ARG SDK_VERSION="7.0.100-preview.6"
 ARG BASE_ADRESS="mcr.microsoft.com/dotnet"
 
 FROM $BASE_ADRESS/aspnet:$ASPNET_VERSION AS base
 WORKDIR /app
 
 EXPOSE 80
-
-RUN apk add --no-cache icu-libs
-ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 
 FROM $BASE_ADRESS/sdk:$SDK_VERSION AS build
 

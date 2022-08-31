@@ -13,8 +13,9 @@ public static class ExceptionHandlerExtensions
             => builder.Run(async context =>
             {
                 var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+                var message = exception?.Message + " " + exception?.InnerException?.Message;
 
-                Log.Error("[Exception Handler] {Error}", exception?.Message);
+                Log.Error("[Exception Handler] {Error}", message);
 
                 context.Response.StatusCode = exception switch
                 {
@@ -25,7 +26,7 @@ public static class ExceptionHandlerExtensions
 
                 ProblemDetails problemDetails = new()
                 {
-                    Detail = exception?.Message,
+                    Detail = message,
                     Status = context.Response.StatusCode,
                     Type = exception?.GetType().Name,
                     Instance = context.Request.Path

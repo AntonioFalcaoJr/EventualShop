@@ -1,30 +1,31 @@
 using Contracts.Abstractions;
 using Contracts.Abstractions.Messages;
 using Contracts.Abstractions.Paging;
+using Grpc.Core;
 using MassTransit;
 using Microsoft.AspNetCore.Http.HttpResults;
+using static Microsoft.AspNetCore.Http.TypedResults;
 
 namespace WebAPI.Abstractions;
 
 public static class ApplicationApi
 {
-    public static void MapQuery(this IEndpointRouteBuilder endpoints, string pattern, Delegate handler)
-        => endpoints
-            .MapGet(pattern, handler)
-            .ProducesValidationProblem()
-            .ProducesProblem(StatusCodes.Status408RequestTimeout)
-            .ProducesProblem(StatusCodes.Status500InternalServerError);
-
-    public static void MapCommand(this IEndpointRouteBuilder endpoints, Func<IEndpointRouteBuilder, RouteHandlerBuilder> action)
-        => action(endpoints).ProducesValidationProblem();
-
-    public static async Task<Accepted> SendCommandAsync<TCommand>(IBus bus, TCommand command, CancellationToken cancellationToken)
+    public static async Task<Results<Accepted, ValidationProblem>> SendCommandAsync<TCommand>(ICommandRequest request)
         where TCommand : class, ICommand
     {
-        var endpoint = await bus.GetSendEndpoint(Address<TCommand>());
-        await endpoint.Send(command, cancellationToken);
-        return TypedResults.Accepted("");
+        return request.IsValid(out var errors) ? await AcceptAsync() : ValidationProblem(errors);
+
+        async Task<Accepted> AcceptAsync()
+        {
+            var endpoint = await request.Bus.GetSendEndpoint(Address<TCommand>());
+            await endpoint.Send((TCommand) request.Command, request.CancellationToken);
+            return Accepted("");
+        }
     }
+
+    public static async Task<Results<Ok<TResponse>, ValidationProblem>> QueryAsync<TClient, TResponse>(IQueryRequest<TClient> request, Func<TClient, CancellationToken, AsyncUnaryCall<TResponse>> query)
+        where TClient : ClientBase<TClient>
+        => request.IsValid(out var errors) ? Ok(await query(request.Client, request.CancellationToken)) : ValidationProblem(errors);
 
     public static Task<Results<Ok<TProjection>, NoContent, NotFound, Problem>> GetProjectionAsync<TQuery, TProjection>
         (IBus bus, TQuery query, CancellationToken cancellationToken)
@@ -49,9 +50,9 @@ public static class ApplicationApi
 
         return response.Message switch
         {
-            TProjection projection => TypedResults.Ok(projection),
-            Reply.NoContent => TypedResults.NoContent(),
-            Reply.NotFound => TypedResults.NotFound(),
+            TProjection projection => Ok(projection),
+            Reply.NoContent => NoContent(),
+            Reply.NotFound => NotFound(),
             _ => new Problem()
         };
     }
