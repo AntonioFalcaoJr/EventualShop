@@ -5,11 +5,11 @@ using Contracts.Services.Identity;
 using Domain.Aggregates;
 using DomainEvent = Contracts.Services.Account.DomainEvent;
 
-namespace Application.UseCases;
+namespace Application.UseCases.Events;
 
-public class DeleteUserInteractor : EventInteractor<User, DomainEvent.AccountDeleted>
+public class DeleteUserWhenAccountDeletedInteractor : EventInteractor<User, DomainEvent.AccountDeleted>
 {
-    public DeleteUserInteractor(IEventStoreGateway eventStoreGateway, IEventBusGateway eventBusGateway, IUnitOfWork unitOfWork)
+    public DeleteUserWhenAccountDeletedInteractor(IEventStoreGateway eventStoreGateway, IEventBusGateway eventBusGateway, IUnitOfWork unitOfWork)
         : base(eventStoreGateway, eventBusGateway, unitOfWork) { }
 
     public override Task InteractAsync(DomainEvent.AccountDeleted @event, CancellationToken cancellationToken)

@@ -4,7 +4,7 @@ using Application.Abstractions.Interactors;
 using Contracts.Services.Identity;
 using Domain.Aggregates;
 
-namespace Application.UseCases;
+namespace Application.UseCases.Commands;
 
 public class ChangePasswordInteractor : CommandInteractor<User, Command.ChangePassword>
 {

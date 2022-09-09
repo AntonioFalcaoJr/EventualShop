@@ -4,10 +4,10 @@ using Application.Abstractions.Interactors;
 using Contracts.Services.Identity;
 using Domain.Aggregates;
 
-namespace Application.UseCases;
+namespace Application.UseCases.Commands;
 
-public class RegisterUserInteractor : CommandInteractor<User, Command.RegisterUser>
+public class AddEmailInteractor : CommandInteractor<User, Command.ChangePassword>
 {
-    public RegisterUserInteractor(IEventStoreGateway eventStoreGateway, IEventBusGateway eventBusGateway, IUnitOfWork unitOfWork)
+    public AddEmailInteractor(IEventStoreGateway eventStoreGateway, IEventBusGateway eventBusGateway, IUnitOfWork unitOfWork)
         : base(eventStoreGateway, eventBusGateway, unitOfWork) { }
 }
