@@ -28,25 +28,43 @@ public class Account : AggregateRoot<Guid, AccountValidator>
 
     public void Handle(Command.AddBillingAddress cmd)
     {
-        if (_addresses.OfType<BillingAddress>().Where(address => address.IsDeleted is false).All(address => address != cmd.Address))
+        if (_addresses
+            .OfType<BillingAddress>()
+            .Where(address => address.IsDeleted is false)
+            .All(address => address != cmd.Address))
+
             RaiseEvent(new DomainEvent.BillingAddressAdded(cmd.AccountId, Guid.NewGuid(), cmd.Address));
     }
 
     public void Handle(Command.AddShippingAddress cmd)
     {
-        if (_addresses.OfType<ShippingAddress>().Where(address => address.IsDeleted is false).All(address => address != cmd.Address))
+        if (_addresses
+            .OfType<ShippingAddress>()
+            .Where(address => address.IsDeleted is false)
+            .All(address => address != cmd.Address))
+
             RaiseEvent(new DomainEvent.ShippingAddressAdded(cmd.AccountId, Guid.NewGuid(), cmd.Address));
     }
 
     public void Handle(Command.PreferBillingAddress cmd)
     {
-        if (_addresses.OfType<BillingAddress>().SingleOrDefault(address => address.Id != cmd.AddressId) is { IsDeleted: false } and { IsPreferred: false })
+        if (_addresses
+                .OfType<BillingAddress>()
+                .SingleOrDefault(address => address.Id != cmd.AddressId)
+            is { IsDeleted: false }
+            and { IsPreferred: false })
+
             RaiseEvent(new DomainEvent.BillingAddressPreferred(cmd.AccountId, cmd.AddressId));
     }
 
     public void Handle(Command.PreferShippingAddress cmd)
     {
-        if (_addresses.OfType<ShippingAddress>().SingleOrDefault(address => address.Id != cmd.AddressId) is { IsDeleted: false } and { IsPreferred: false })
+        if (_addresses
+                .OfType<ShippingAddress>()
+                .SingleOrDefault(address => address.Id != cmd.AddressId)
+            is { IsDeleted: false }
+            and { IsPreferred: false })
+
             RaiseEvent(new DomainEvent.ShippingAddressPreferred(cmd.AccountId, cmd.AddressId));
     }
 
