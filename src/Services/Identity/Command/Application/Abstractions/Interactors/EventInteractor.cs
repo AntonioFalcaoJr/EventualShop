@@ -11,10 +11,10 @@ public abstract class EventInteractor<TAggregate, TEvent> : Interactor<TAggregat
     protected EventInteractor(IEventStoreGateway eventStoreGateway, IEventBusGateway eventBusGateway, IUnitOfWork unitOfWork)
         : base(eventStoreGateway, eventBusGateway, unitOfWork) { }
 
-    protected async Task OnInteractAsync(TEvent @event, Func<IAggregateRoot, ICommandWithId> command, CancellationToken cancellationToken)
+    protected async Task OnInteractAsync(Guid aggregateId, Func<TAggregate, ICommandWithId> command, CancellationToken cancellationToken)
     {
-        var aggregate = await LoadAggregateAsync(@event.Id, cancellationToken);
-        aggregate.Handle(command(aggregate));
+        var aggregate = await LoadAggregateAsync(aggregateId, cancellationToken);
+        aggregate.Handle(command((TAggregate)aggregate));
         await AppendEventsAsync(aggregate, cancellationToken);
     }
 }
