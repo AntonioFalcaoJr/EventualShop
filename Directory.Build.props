@@ -52,7 +52,7 @@
 
         <!--FluentValidation-->
         <FluentValidation_Version>11.2.1</FluentValidation_Version>
-        <FluentValidation_AspNetCore_Version>11.2.1</FluentValidation_AspNetCore_Version>
+        <FluentValidation_AspNetCore_Version>11.2.2</FluentValidation_AspNetCore_Version>
 
         <!--Swashbuckle-->
         <Swashbuckle_Version>6.4.0</Swashbuckle_Version>
