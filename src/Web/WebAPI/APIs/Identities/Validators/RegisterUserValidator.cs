@@ -6,7 +6,7 @@ public class RegisterUserValidator : AbstractValidator<Requests.RegisterUser>
 {
     public RegisterUserValidator()
     {
-        RuleFor(user => user.Payload)
+        RuleFor(request => request.Payload)
             .SetValidator(new RegisterUserPayloadValidator())
             .OverridePropertyName(string.Empty);
     }

@@ -9,6 +9,8 @@ public static class DomainEvent
     public record UserRegistered(Guid Id, string FirstName, string LastName, string Email, string Password) : Message(CorrelationId: Id), IEventWithId;
 
     public record PasswordChanged(Guid Id, string NewPassword) : Message(CorrelationId: Id), IEventWithId;
-    
+
     public record EmailConfirmed(Guid Id, string Email) : Message(CorrelationId: Id), IEventWithId;
+
+    public record PrimaryEmailDefined(Guid Id, string Email) : Message(CorrelationId: Id), IEventWithId;
 }

@@ -6,10 +6,10 @@ public class LoginValidator : AbstractValidator<Requests.Login>
 {
     public LoginValidator()
     {
-        RuleFor(user => user.Email)
+        RuleFor(request => request.Email)
             .EmailAddress();
 
-        RuleFor(user => user.Password)
+        RuleFor(request => request.Password)
             .NotNull()
             .NotEmpty();
     }

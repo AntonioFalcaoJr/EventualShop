@@ -5,7 +5,7 @@ using Contracts.Services.Identity;
 using Domain.Aggregates;
 using DomainEvent = Contracts.Services.Account.DomainEvent;
 
-namespace Application.UseCases.Events;
+namespace Application.UseCases.Events.Integrations;
 
 public class DeactivateUserWhenAccountDeactivatedInteractor : EventInteractor<User, DomainEvent.AccountDeactivated>
 {

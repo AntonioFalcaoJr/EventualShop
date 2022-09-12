@@ -13,6 +13,7 @@ public class User : AggregateRoot<UserValidator>
     public string FirstName { get; private set; }
     public string LastName { get; private set; }
     public string Password { get; private set; }
+    public string PrimaryEmail { get; private set; }
 
     public IEnumerable<Email> Emails
         => _emails;
@@ -24,13 +25,28 @@ public class User : AggregateRoot<UserValidator>
         => RaiseEvent(new DomainEvent.UserRegistered(cmd.Id, cmd.FirstName, cmd.LastName, cmd.Email, cmd.Password));
 
     private void Handle(Command.ChangePassword cmd)
-        => RaiseEvent(new DomainEvent.PasswordChanged(cmd.Id, cmd.NewPassword));
+    {
+        if (cmd.NewPassword == Password) return;
+        RaiseEvent(new DomainEvent.PasswordChanged(cmd.Id, cmd.NewPassword));
+    }
 
     private void Handle(Command.DeleteUser cmd)
-        => RaiseEvent(new DomainEvent.UserDeleted(cmd.Id));
+    {
+        if (IsDeleted) return;
+        RaiseEvent(new DomainEvent.UserDeleted(cmd.Id));
+    }
 
     private void Handle(Command.ConfirmEmail cmd)
-        => RaiseEvent(new DomainEvent.EmailConfirmed(cmd.Id, cmd.Email));
+    {
+        if (_emails.Exists(email => email == cmd.Email && email.Status == EmailStatus.Unverified))
+            RaiseEvent(new DomainEvent.EmailConfirmed(cmd.Id, cmd.Email));
+    }
+
+    private void Handle(Command.DefinePrimaryEmail cmd)
+    {
+        if (cmd.Email == PrimaryEmail) return;
+        RaiseEvent(new DomainEvent.PrimaryEmailDefined(cmd.Id, cmd.Email));
+    }
 
     protected override void Apply(IEvent @event)
         => Apply(@event as dynamic);
@@ -52,4 +68,7 @@ public class User : AggregateRoot<UserValidator>
         var indexOf = _emails.IndexOf(@event.Email);
         _emails[indexOf] = new(@event.Email, EmailStatus.Verified);
     }
+
+    private void Apply(DomainEvent.PrimaryEmailDefined @event)
+        => PrimaryEmail = @event.Email;
 }
