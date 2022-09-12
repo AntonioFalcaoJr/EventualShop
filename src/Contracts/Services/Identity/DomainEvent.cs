@@ -4,9 +4,11 @@ namespace Contracts.Services.Identity;
 
 public static class DomainEvent
 {
-    public record UserDeleted(Guid UserId) : Message(CorrelationId: UserId), IEvent;
+    public record UserDeleted(Guid Id) : Message(CorrelationId: Id), IEventWithId;
 
-    public record UserRegistered(Guid UserId, string FirstName, string LastName, string Email, string Password) : Message(CorrelationId: UserId), IEvent;
+    public record UserRegistered(Guid Id, string FirstName, string LastName, string Email, string Password) : Message(CorrelationId: Id), IEventWithId;
 
-    public record UserPasswordChanged(Guid UserId, string NewPassword, string NewPasswordConfirmation) : Message(CorrelationId: UserId), IEvent;
+    public record PasswordChanged(Guid Id, string NewPassword) : Message(CorrelationId: Id), IEventWithId;
+    
+    public record EmailConfirmed(Guid Id, string Email) : Message(CorrelationId: Id), IEventWithId;
 }
