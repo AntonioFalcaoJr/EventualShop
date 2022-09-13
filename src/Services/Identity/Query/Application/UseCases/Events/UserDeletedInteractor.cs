@@ -14,5 +14,5 @@ public class UserDeletedInteractor : IInteractor<DomainEvent.UserDeleted>
     }
 
     public Task InteractAsync(DomainEvent.UserDeleted @event, CancellationToken ct)
-        => _repository.DeleteAsync(@event.UserId, ct);
+        => _repository.DeleteAsync(@event.Id, ct);
 }

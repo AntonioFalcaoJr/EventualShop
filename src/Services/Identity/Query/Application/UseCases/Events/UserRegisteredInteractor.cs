@@ -16,7 +16,7 @@ public class UserRegisteredInteractor : IInteractor<DomainEvent.UserRegistered>
     public Task InteractAsync(DomainEvent.UserRegistered @event, CancellationToken ct)
     {
         Projection.UserDetails userDetails = 
-            new(@event.UserId, @event.FirstName, @event.LastName, @event.Email, @event.Password, false);
+            new(@event.Id, @event.FirstName, @event.LastName, @event.Email, @event.Password, false);
 
         return _repository.InsertAsync(userDetails, ct);
     }
