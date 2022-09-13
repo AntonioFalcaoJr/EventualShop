@@ -25,7 +25,13 @@ public abstract class Address : Entity<Guid, AddressValidator>
 
     public void Prefer()
         => IsPreferred = true;
-    
-    public void Unprefer() 
+
+    public void Unprefer()
         => IsPreferred = false;
+
+    public void Delete()
+        => IsDeleted = true;
+
+    public void Restore()
+        => IsDeleted = false;
 }
