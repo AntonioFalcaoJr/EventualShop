@@ -4,7 +4,7 @@ using Application.Abstractions.Interactors;
 using Contracts.Services.Identity;
 using Domain.Aggregates;
 
-namespace Application.UseCases.Events.Behaviors;
+namespace Application.UseCases.Events;
 
 public class DefinePrimaryEmailWhenVerifiedInteractor : EventInteractor<User, DomainEvent.EmailVerified>
 {

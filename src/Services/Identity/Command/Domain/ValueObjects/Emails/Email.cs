@@ -2,19 +2,13 @@
 
 namespace Domain.ValueObjects.Emails;
 
-public record Email(string Address, DateTimeOffset ExpirationTime, EmailStatus Status)
+public record Email(string Address, EmailStatus Status)
 {
-    private Email(string address, DateTimeOffset expirationTime)
-        : this(address, expirationTime, EmailStatus.Unverified) { }
-
     private Email(string address)
-        : this(address, DateTimeOffset.Now.AddMinutes(15)) { }
+        : this(address, EmailStatus.Unverified) { }
 
-    public bool IsVerified
-        => Status == EmailStatus.Verified;
-
-    public bool IsExpired
-        => DateTimeOffset.Now > ExpirationTime;
+    public bool IsUnverified
+        => Status == EmailStatus.Unverified;
 
     public static implicit operator Email(string address)
         => new(address);

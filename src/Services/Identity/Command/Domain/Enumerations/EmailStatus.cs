@@ -11,6 +11,7 @@ public class EmailStatus : SmartEnum<EmailStatus>
 
     public static readonly EmailStatus Unverified = new(nameof(Unverified), 1);
     public static readonly EmailStatus Verified = new(nameof(Verified), 2);
+    public static readonly EmailStatus Expired = new(nameof(Expired), 3);
 
     public static implicit operator EmailStatus(string name)
         => FromName(name);

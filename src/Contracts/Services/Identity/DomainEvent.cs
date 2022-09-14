@@ -14,5 +14,7 @@ public static class DomainEvent
 
     public record EmailVerified(Guid Id, string Email) : Message(CorrelationId: Id), IEventWithId;
 
+    public record EmailExpired(Guid Id, string Email) : Message(CorrelationId: Id), IEventWithId;
+
     public record PrimaryEmailDefined(Guid Id, string Email) : Message(CorrelationId: Id), IEventWithId;
 }

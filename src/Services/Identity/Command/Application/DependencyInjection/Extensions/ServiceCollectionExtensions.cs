@@ -1,7 +1,6 @@
 using Application.Abstractions.Interactors;
 using Application.UseCases.Commands;
-using Application.UseCases.Events.Behaviors;
-using Application.UseCases.Events.Integrations;
+using Application.UseCases.Events;
 using Contracts.Services.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using AccountDomainEvent = Contracts.Services.Account.DomainEvent;
@@ -18,6 +17,8 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddEventInteractors(this IServiceCollection services)
         => services
+            .AddScoped<IInteractor<DomainEvent.UserRegistered>, ScheduleEmailConfirmationInteractor>()
+            .AddScoped<IInteractor<DomainEvent.EmailChanged>, ScheduleEmailConfirmationInteractor>()
             .AddScoped<IInteractor<DomainEvent.EmailVerified>, DefinePrimaryEmailWhenVerifiedInteractor>()
             .AddScoped<IInteractor<AccountDomainEvent.AccountDeactivated>, DeactivateUserWhenAccountDeactivatedInteractor>()
             .AddScoped<IInteractor<AccountDomainEvent.AccountDeleted>, DeleteUserWhenAccountDeletedInteractor>();
