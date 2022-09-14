@@ -17,6 +17,6 @@ public class UserPasswordChangedInteractor : IInteractor<DomainEvent.PasswordCha
         => _repository.UpdateFieldAsync(
             id: @event.Id,
             field: user => user.Password,
-            value: @event.NewPassword,
+            value: @event.Password,
             cancellationToken: ct);
 }

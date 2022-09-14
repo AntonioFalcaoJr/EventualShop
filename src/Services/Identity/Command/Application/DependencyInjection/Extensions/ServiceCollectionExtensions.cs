@@ -13,11 +13,12 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddCommandInteractors(this IServiceCollection services)
         => services
             .AddScoped<IInteractor<Command.RegisterUser>, RegisterUserInteractor>()
+            .AddScoped<IInteractor<Command.ChangeEmail>, ChangeEmailInteractor>()
             .AddScoped<IInteractor<Command.ChangePassword>, ChangePasswordInteractor>();
 
     public static IServiceCollection AddEventInteractors(this IServiceCollection services)
         => services
-            .AddScoped<IInteractor<DomainEvent.EmailConfirmed>, DefinePrimaryEmailWhenConfirmedInteractor>()
+            .AddScoped<IInteractor<DomainEvent.EmailVerified>, DefinePrimaryEmailWhenVerifiedInteractor>()
             .AddScoped<IInteractor<AccountDomainEvent.AccountDeactivated>, DeactivateUserWhenAccountDeactivatedInteractor>()
             .AddScoped<IInteractor<AccountDomainEvent.AccountDeleted>, DeleteUserWhenAccountDeletedInteractor>();
 }

@@ -4,8 +4,8 @@ using Infrastructure.MessageBus.Abstractions;
 
 namespace Infrastructure.MessageBus.Consumers.Commands;
 
-public class ConfirmEmailConsumer : Consumer<Command.ConfirmEmail>
+public class VerifyEmailConsumer : Consumer<Command.VerifyEmail>
 {
-    public ConfirmEmailConsumer(IInteractor<Command.ConfirmEmail> interactor)
+    public VerifyEmailConsumer(IInteractor<Command.VerifyEmail> interactor)
         : base(interactor) { }
 }

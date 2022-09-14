@@ -6,8 +6,8 @@ using Domain.Aggregates;
 
 namespace Application.UseCases.Commands;
 
-public class AddEmailInteractor : CommandInteractor<User, Command.ChangePassword>
+public class ChangeEmailInteractor : CommandInteractor<User, Command.ChangeEmail>
 {
-    public AddEmailInteractor(IEventStoreGateway eventStoreGateway, IEventBusGateway eventBusGateway, IUnitOfWork unitOfWork)
+    public ChangeEmailInteractor(IEventStoreGateway eventStoreGateway, IEventBusGateway eventBusGateway, IUnitOfWork unitOfWork)
         : base(eventStoreGateway, eventBusGateway, unitOfWork) { }
 }

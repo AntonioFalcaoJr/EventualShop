@@ -24,10 +24,16 @@ public class User : AggregateRoot<UserValidator>
     private void Handle(Command.RegisterUser cmd)
         => RaiseEvent(new DomainEvent.UserRegistered(cmd.Id, cmd.FirstName, cmd.LastName, cmd.Email, cmd.Password));
 
+    private void Handle(Command.ChangeEmail cmd)
+    {
+        if (PrimaryEmail.Equals(cmd.Email, StringComparison.OrdinalIgnoreCase)) return;
+        RaiseEvent(new DomainEvent.EmailChanged(cmd.Id, cmd.Email));
+    }
+
     private void Handle(Command.ChangePassword cmd)
     {
-        if (cmd.NewPassword == Password) return;
-        RaiseEvent(new DomainEvent.PasswordChanged(cmd.Id, cmd.NewPassword));
+        if (cmd.Password == Password) return;
+        RaiseEvent(new DomainEvent.PasswordChanged(cmd.Id, cmd.Password));
     }
 
     private void Handle(Command.DeleteUser cmd)
@@ -36,10 +42,10 @@ public class User : AggregateRoot<UserValidator>
         RaiseEvent(new DomainEvent.UserDeleted(cmd.Id));
     }
 
-    private void Handle(Command.ConfirmEmail cmd)
+    private void Handle(Command.VerifyEmail cmd)
     {
-        if (_emails.Exists(email => email == cmd.Email && email.Status == EmailStatus.Unverified))
-            RaiseEvent(new DomainEvent.EmailConfirmed(cmd.Id, cmd.Email));
+        if (_emails.SingleOrDefault(email => email == cmd.Email) is { IsVerified: false, IsExpired: false })
+            RaiseEvent(new DomainEvent.EmailVerified(cmd.Id, cmd.Email));
     }
 
     private void Handle(Command.DefinePrimaryEmail cmd)
@@ -58,15 +64,22 @@ public class User : AggregateRoot<UserValidator>
     }
 
     private void Apply(DomainEvent.PasswordChanged @event)
-        => Password = @event.NewPassword;
+        => Password = @event.Password;
 
     private void Apply(DomainEvent.UserDeleted _)
         => IsDeleted = true;
 
-    private void Apply(DomainEvent.EmailConfirmed @event)
+    private void Apply(DomainEvent.EmailChanged @event)
+        => _emails.Add(@event.Email);
+
+    private void Apply(DomainEvent.EmailVerified @event)
     {
-        var indexOf = _emails.IndexOf(@event.Email);
-        _emails[indexOf] = new(@event.Email, EmailStatus.Verified);
+        var (email, index) = _emails
+            .Where(email => email == @event.Email)
+            .Select((email, index) => (email, index))
+            .First();
+
+        _emails[index] = email with { Status = EmailStatus.Verified };
     }
 
     private void Apply(DomainEvent.PrimaryEmailDefined @event)

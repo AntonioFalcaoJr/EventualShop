@@ -4,8 +4,8 @@ using Infrastructure.MessageBus.Abstractions;
 
 namespace Infrastructure.MessageBus.Consumers.Events;
 
-public class EmailConfirmedConsumer : Consumer<DomainEvent.EmailConfirmed>
+public class EmailVerifiedConsumer : Consumer<DomainEvent.EmailVerified>
 {
-    public EmailConfirmedConsumer(IInteractor<DomainEvent.EmailConfirmed> interactor)
+    public EmailVerifiedConsumer(IInteractor<DomainEvent.EmailVerified> interactor)
         : base(interactor) { }
 }
