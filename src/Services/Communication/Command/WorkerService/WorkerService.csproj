@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+    <PropertyGroup>
+        <UserSecretsId>4c278827-641d-4986-8d9a-61534db0cfdd</UserSecretsId>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Serilog.Extensions.Hosting" Version="$(Serilog_Extensions_Version)" />
+        <PackageReference Include="Serilog.AspNetCore" Version="$(Serilog_AspNetCore_Version)" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Infrastructure.EventStore\Infrastructure.EventStore.csproj" />
+        <ProjectReference Include="..\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj" />
+    </ItemGroup>
+</Project>
