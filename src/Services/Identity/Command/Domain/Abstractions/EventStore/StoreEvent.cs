@@ -5,6 +5,6 @@ namespace Domain.Abstractions.EventStore;
 
 public record StoreEvent(long Version, Guid AggregateId, string AggregateName, IEvent DomainEvent, string DomainEventName)
 {
-    public StoreEvent(IEvent domainEvent, IAggregateRoot aggregate)
-        : this(aggregate.Version, aggregate.Id, aggregate.Name, domainEvent, domainEvent.Name) { }
+    public StoreEvent(IAggregateRoot aggregate, (long version, IEvent @event) tuple)
+        : this(tuple.version, aggregate.Id, aggregate.Name, tuple.@event, tuple.@event.Name) { }
 };

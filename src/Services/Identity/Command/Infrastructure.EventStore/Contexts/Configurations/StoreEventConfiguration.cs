@@ -9,7 +9,7 @@ public class StoreEventConfiguration : IEntityTypeConfiguration<StoreEvent>
 {
     public void Configure(EntityTypeBuilder<StoreEvent> builder)
     {
-        builder.HasKey(storeEvent => new {storeEvent.Version, storeEvent.AggregateId});
+        builder.HasKey(storeEvent => new { storeEvent.Version, storeEvent.AggregateId });
 
         builder
             .Property(storeEvent => storeEvent.Version)
