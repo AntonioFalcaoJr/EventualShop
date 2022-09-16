@@ -26,7 +26,7 @@ public class User : AggregateRoot<UserValidator>
 
     private void Handle(Command.ChangeEmail cmd)
     {
-        if (PrimaryEmail.Equals(cmd.Email, StringComparison.OrdinalIgnoreCase)) return;
+        if (cmd.Email.Equals(PrimaryEmail, StringComparison.OrdinalIgnoreCase)) return;
         RaiseEvent(new DomainEvent.EmailChanged(cmd.Id, cmd.Email));
     }
 

@@ -2,4 +2,8 @@
 
 namespace Domain.Abstractions.EventStore;
 
-public record Snapshot(Guid AggregateId, string AggregateName, IAggregateRoot Aggregate, long AggregateVersion);
+public record Snapshot(long AggregateVersion, IAggregateRoot Aggregate)
+{
+    public string AggregateName { get; } = Aggregate.Name;
+    public Guid AggregateId { get; } = Aggregate.Id;
+}

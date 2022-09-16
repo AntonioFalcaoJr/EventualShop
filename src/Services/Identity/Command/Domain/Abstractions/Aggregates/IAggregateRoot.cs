@@ -5,6 +5,7 @@ namespace Domain.Abstractions.Aggregates;
 
 public interface IAggregateRoot : IEntity
 {
+    string Name => GetType().Name;
     long Version { get; }
     IEnumerable<IEvent> Events { get; }
     IAggregateRoot Load(List<IEvent> events);
