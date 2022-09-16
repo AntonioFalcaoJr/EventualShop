@@ -10,8 +10,8 @@ public class PayPalHttpClient : ApplicationHttpClient, IPayPalHttpClient
 {
     private readonly PayPalHttpClientOptions _options;
 
-    public PayPalHttpClient(IOptionsMonitor<PayPalHttpClientOptions> optionsMonitor, HttpClient client) : base(client) 
-        => _options = optionsMonitor.CurrentValue;
+    public PayPalHttpClient(IOptionsSnapshot<PayPalHttpClientOptions> options, HttpClient client) : base(client) 
+        => _options = options.Value;
 
     public Task<HttpResponse<PaypalPaymentResult>> AuthorizeAsync(Requests.PaypalAuthorizePayment request, CancellationToken cancellationToken)
         => PostAsync<Requests.PaypalAuthorizePayment, PaypalPaymentResult>(_options.AuthorizeEndpoint, request, cancellationToken);

@@ -30,13 +30,13 @@ public static class ServiceCollectionExtensions
             .AddHttpClient<IPayPalHttpClient, PayPalHttpClient>()
             .ConfigureHttpClient((provider, client) =>
             {
-                var options = provider.GetRequiredService<IOptionsMonitor<PayPalHttpClientOptions>>().CurrentValue;
+                var options = provider.GetRequiredService<IOptionsSnapshot<PayPalHttpClientOptions>>().Value;
                 client.BaseAddress = new(options.BaseAddress);
                 client.Timeout = options.OverallTimeout;
             })
             .AddPolicyHandler((provider, _) =>
             {
-                var options = provider.GetRequiredService<IOptionsMonitor<PayPalHttpClientOptions>>().CurrentValue;
+                var options = provider.GetRequiredService<IOptionsSnapshot<PayPalHttpClientOptions>>().Value;
 
                 return Policy.WrapAsync(
                     HttpPolicy.GetRetryPolicyAsync(options.RetryCount, options.SleepDurationPower, options.EachRetryTimeout),
@@ -52,13 +52,13 @@ public static class ServiceCollectionExtensions
             .AddHttpClient<ICreditCardHttpClient, CreditCardHttpClient>()
             .ConfigureHttpClient((provider, client) =>
             {
-                var options = provider.GetRequiredService<IOptionsMonitor<CreditCardHttpClientOptions>>().CurrentValue;
+                var options = provider.GetRequiredService<IOptionsSnapshot<CreditCardHttpClientOptions>>().Value;
                 client.BaseAddress = new(options.BaseAddress);
                 client.Timeout = options.OverallTimeout;
             })
             .AddPolicyHandler((provider, _) =>
             {
-                var options = provider.GetRequiredService<IOptionsMonitor<CreditCardHttpClientOptions>>().CurrentValue;
+                var options = provider.GetRequiredService<IOptionsSnapshot<CreditCardHttpClientOptions>>().Value;
 
                 return Policy.WrapAsync(
                     HttpPolicy.GetRetryPolicyAsync(options.RetryCount, options.SleepDurationPower, options.EachRetryTimeout),
@@ -74,13 +74,13 @@ public static class ServiceCollectionExtensions
             .AddHttpClient<IDebitCardHttpClient, DebitCardHttpClient>()
             .ConfigureHttpClient((provider, client) =>
             {
-                var options = provider.GetRequiredService<IOptionsMonitor<DebitCardHttpClientOptions>>().CurrentValue;
+                var options = provider.GetRequiredService<IOptionsSnapshot<DebitCardHttpClientOptions>>().Value;
                 client.BaseAddress = new(options.BaseAddress);
                 client.Timeout = options.OverallTimeout;
             })
             .AddPolicyHandler((provider, _) =>
             {
-                var options = provider.GetRequiredService<IOptionsMonitor<DebitCardHttpClientOptions>>().CurrentValue;
+                var options = provider.GetRequiredService<IOptionsSnapshot<DebitCardHttpClientOptions>>().Value;
 
                 return Policy.WrapAsync(
                     HttpPolicy.GetRetryPolicyAsync(options.RetryCount, options.SleepDurationPower, options.EachRetryTimeout),

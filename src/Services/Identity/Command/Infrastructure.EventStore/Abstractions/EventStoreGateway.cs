@@ -13,26 +13,22 @@ public class EventStoreGateway : IEventStoreGateway
 
     public EventStoreGateway(
         IEventStoreRepository repository,
-        IOptionsMonitor<EventStoreOptions> optionsMonitor)
+        IOptionsSnapshot<EventStoreOptions> options)
     {
-        _options = optionsMonitor.CurrentValue;
+        _options = options.Value;
         _repository = repository;
     }
 
     private async Task AppendSnapshotAsync(IAggregateRoot aggregate, long version, CancellationToken cancellationToken)
     {
         if (version % _options.SnapshotInterval is not 0) return;
-        Snapshot snapshot = new(aggregate.Id, aggregate.GetType().Name, aggregate, version);
+        Snapshot snapshot = new(version, aggregate);
         await _repository.AppendSnapshotAsync(snapshot, cancellationToken);
     }
 
-    private static IEnumerable<StoreEvent> ToStoreEvents(IAggregateRoot aggregate)
-        => aggregate.Events.Select(@event 
-            => new StoreEvent(aggregate.Version, aggregate.Id, aggregate.GetType().Name, @event, @event.GetType().Name));
-
     public Task AppendAsync(IAggregateRoot aggregate, CancellationToken cancellationToken)
         => _repository.AppendEventsAsync(
-            events: ToStoreEvents(aggregate),
+            events: aggregate.Events.Select(@event => new StoreEvent(aggregate, @event)),
             onEventStored: (version, ct) => AppendSnapshotAsync(aggregate, version, ct),
             cancellationToken: cancellationToken);
 

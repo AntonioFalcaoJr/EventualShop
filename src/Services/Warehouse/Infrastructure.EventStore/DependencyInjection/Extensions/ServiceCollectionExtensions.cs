@@ -20,7 +20,7 @@ public static class ServiceCollectionExtensions
         services.AddDbContextPool<EventStoreDbContext>((provider, builder) =>
         {
             var configuration = provider.GetRequiredService<IConfiguration>();
-            var options = provider.GetRequiredService<IOptionsMonitor<SqlServerRetryOptions>>();
+            var options = provider.GetRequiredService<IOptionsSnapshot<SqlServerRetryOptions>>();
 
             builder
                 .EnableDetailedErrors()
@@ -31,9 +31,9 @@ public static class ServiceCollectionExtensions
                         => optionsBuilder.ExecutionStrategy(
                                 dependencies => new SqlServerRetryingExecutionStrategy(
                                     dependencies: dependencies,
-                                    maxRetryCount: options.CurrentValue.MaxRetryCount,
-                                    maxRetryDelay: options.CurrentValue.MaxRetryDelay,
-                                    errorNumbersToAdd: options.CurrentValue.ErrorNumbersToAdd))
+                                    maxRetryCount: options.Value.MaxRetryCount,
+                                    maxRetryDelay: options.Value.MaxRetryDelay,
+                                    errorNumbersToAdd: options.Value.ErrorNumbersToAdd))
                             .MigrationsAssembly(typeof(EventStoreDbContext).Assembly.GetName().Name));
         });
     }

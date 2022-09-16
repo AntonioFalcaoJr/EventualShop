@@ -25,7 +25,7 @@ public static class ServiceCollectionExtensions
 
                 cfg.UsingRabbitMq((context, bus) =>
                 {
-                    var options = context.GetRequiredService<IOptionsMonitor<CommandBusOptions>>().CurrentValue;
+                    var options = context.GetRequiredService<IOptionsSnapshot<CommandBusOptions>>().Value;
 
                     bus.Host(options.ConnectionString);
 
@@ -69,6 +69,7 @@ public static class ServiceCollectionExtensions
                     bus.ConnectConsumeObserver(new LoggingConsumeObserver());
                     bus.ConnectPublishObserver(new LoggingPublishObserver());
                     bus.ConnectSendObserver(new LoggingSendObserver());
+                    bus.ConfigureEventReceiveEndpoints(context);
                     bus.ConfigureEndpoints(context);
                 });
             })

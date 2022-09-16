@@ -10,8 +10,8 @@ public class CreditCardHttpClient : ApplicationHttpClient, ICreditCardHttpClient
 {
     private readonly CreditCardHttpClientOptions _options;
 
-    public CreditCardHttpClient(IOptionsMonitor<CreditCardHttpClientOptions> optionsMonitor, HttpClient client) : base(client) 
-        => _options = optionsMonitor.CurrentValue;
+    public CreditCardHttpClient(IOptionsSnapshot<CreditCardHttpClientOptions> options, HttpClient client) : base(client) 
+        => _options = options.Value;
 
     public Task<HttpResponse<CreditCardPaymentResult>> AuthorizeAsync(Requests.CreditCardAuthorizePayment request, CancellationToken cancellationToken)
         => PostAsync<Requests.CreditCardAuthorizePayment, CreditCardPaymentResult>(_options.AuthorizeEndpoint, request, cancellationToken);

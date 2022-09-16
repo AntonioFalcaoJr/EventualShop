@@ -17,7 +17,7 @@ public static class ServiceCollectionExtensions
 
             cfg.UsingRabbitMq((context, bus) =>
             {
-                var options = context.GetRequiredService<IOptionsMonitor<MessageBusOptions>>().CurrentValue;
+                var options = context.GetRequiredService<IOptionsSnapshot<MessageBusOptions>>().Value;
 
                 bus.Host(options.ConnectionString);
 
@@ -55,7 +55,7 @@ public static class ServiceCollectionExtensions
     public static void AddIdentityGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<IdentityService.IdentityServiceClient>((provider, client) =>
             {
-                var options = provider.GetRequiredService<IOptionsMonitor<IdentityGrpcClientOptions>>().CurrentValue;
+                var options = provider.GetRequiredService<IOptionsSnapshot<IdentityGrpcClientOptions>>().Value;
                 client.Address = new(options.BaseAddress);
             })
             .EnableCallContextPropagation(options
