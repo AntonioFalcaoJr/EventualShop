@@ -25,11 +25,12 @@ public static class ServiceCollectionExtensions
 
                 cfg.UsingRabbitMq((context, bus) =>
                 {
-                    var options = context.GetRequiredService<IOptionsSnapshot<CommandBusOptions>>().Value;
+                    var options = context.GetRequiredService<IOptionsMonitor<CommandBusOptions>>().CurrentValue;
 
                     bus.Host(options.ConnectionString);
 
                     cfg.AddMessageScheduler(new($"queue:{options.SchedulerQueueName}"));
+                    bus.UseMessageScheduler(new($"queue:{options.SchedulerQueueName}"));
 
                     bus.UseInMemoryScheduler(
                         schedulerFactory: context.GetRequiredService<ISchedulerFactory>(),

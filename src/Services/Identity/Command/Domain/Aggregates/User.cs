@@ -51,7 +51,7 @@ public class User : AggregateRoot<UserValidator>
     private void Handle(Command.ExpiryEmail cmd)
     {
         if (_emails.SingleOrDefault(email => email == cmd.Email) is { IsUnverified: true })
-            RaiseEvent(new DomainEvent.EmailVerified(cmd.Id, cmd.Email));
+            RaiseEvent(new DomainEvent.EmailExpired(cmd.Id, cmd.Email));
     }
 
     private void Handle(Command.DefinePrimaryEmail cmd)
