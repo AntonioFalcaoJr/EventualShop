@@ -3,7 +3,10 @@
 namespace Contracts.Abstractions.Messages;
 
 [ExcludeFromTopology]
-public interface IEvent : IMessage { }
+public interface IEvent : IMessage
+{
+    string Name => GetType().Name;
+}
 
 // TODO - Remove it!
 [ExcludeFromTopology]
