@@ -14,3 +14,10 @@ jobs:
     with:
       project: ./src/Services/Account/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
+      
+  account-codeql:
+    needs: 
+      - account-build-and-test
+    uses: ./.github/workflows/_codeql.yaml
+    with:
+      path: ./src/Services/Account    
