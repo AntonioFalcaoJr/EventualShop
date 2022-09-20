@@ -7,7 +7,7 @@ public static class Command
     public record ChangeEmail(Guid Id, string Email) : Message(CorrelationId: Id), ICommandWithId;
 
     public record VerifyEmail(Guid Id, string Email) : Message(CorrelationId: Id), ICommandWithId;
-    
+
     public record ExpiryEmail(Guid Id, string Email) : Message(CorrelationId: Id), ICommandWithId;
 
     public record RegisterUser(Guid Id, string FirstName, string LastName, string Email, string Password) : Message(CorrelationId: Id), ICommandWithId;
