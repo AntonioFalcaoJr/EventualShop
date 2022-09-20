@@ -22,6 +22,6 @@ public static class ServiceCollectionExtensions
             .AddScoped<IInteractor<Identity.DomainEvent.EmailChanged>, ScheduleEmailConfirmationInteractor>()
             .AddScoped<IInteractor<Identity.DomainEvent.EmailVerified>, DefinePrimaryEmailWhenVerifiedInteractor>()
             .AddScoped<IInteractor<Identity.DelayedEvent.EmailConfirmationExpired>, ExpireEmailInteractor>()
-            .AddScoped<IInteractor<Account.DomainEvent.AccountDeactivated>, DeactivateUserWhenAccountDeactivatedInteractor>()
+            .AddScoped<IInteractor<Account.DomainEvent.AccountDeactivated>, DeactivateUserInteractor>()
             .AddScoped<IInteractor<Account.DomainEvent.AccountDeleted>, DeleteUserWhenAccountDeletedInteractor>();
 }
