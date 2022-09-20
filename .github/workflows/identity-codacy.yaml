@@ -6,9 +6,10 @@ on:
       - src/Services/Identity/**.cs
       - src/Services/Identity/**.csproj
       - Directory.Build.props
+      - .github/workflows/**
 
 jobs:
   identity-codacy:
     uses: ./.github/workflows/codacy.yaml
     with:
-      path: ./src/Services/Identity
+      path: /src/Services/Identity
