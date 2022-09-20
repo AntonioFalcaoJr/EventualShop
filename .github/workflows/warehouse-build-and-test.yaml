@@ -1,4 +1,4 @@
-name: Warehouse - Build & Test
+name: Warehouse - Build/Test
 
 on:
   push:

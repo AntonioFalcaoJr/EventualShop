@@ -1,4 +1,4 @@
-name: Account - Build & Test
+name: Account - Build/Test
 
 on:
   push:

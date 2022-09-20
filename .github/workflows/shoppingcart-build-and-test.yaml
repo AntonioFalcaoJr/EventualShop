@@ -1,4 +1,4 @@
-name: Shopping Cart - Build & Test
+name: Shopping Cart - Build/Test
 
 on:
   push:
