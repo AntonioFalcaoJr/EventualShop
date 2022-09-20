@@ -1,4 +1,4 @@
-name: CodeQL config
+name: Identity CodeQL
 
 on:
   push:
@@ -6,7 +6,6 @@ on:
       - src/Services/Identity/**.cs
       - src/Services/Identity/**.csproj
       - Directory.Build.props
-      - .github/workflows/**
 
 jobs:
   identity-codeql:
