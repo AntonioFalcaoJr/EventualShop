@@ -1,4 +1,4 @@
-name: Identity - Build/Test
+name: Identity - Build and Test
 
 on:
   push:

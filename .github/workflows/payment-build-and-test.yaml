@@ -1,4 +1,4 @@
-name: Payment - Build/Test
+name: Payment - Build and Test
 
 on:
   push:

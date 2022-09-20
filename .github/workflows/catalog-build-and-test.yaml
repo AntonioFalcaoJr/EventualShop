@@ -1,4 +1,4 @@
-name: Catalog - Build/Test
+name: Catalog - Build and Test
 
 on:
   push:

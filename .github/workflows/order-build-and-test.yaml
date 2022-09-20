@@ -1,4 +1,4 @@
-name: Order - Build/Test
+name: Order - Build and Test
 
 on:
   push:
