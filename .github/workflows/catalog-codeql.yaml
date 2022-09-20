@@ -6,7 +6,6 @@ on:
       - src/Services/Catalog/**.cs
       - src/Services/Catalog/**.csproj
       - Directory.Build.props
-      - .github/workflows/**
 
 jobs:
   catalog-codeql:

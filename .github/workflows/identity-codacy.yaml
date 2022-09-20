@@ -1,4 +1,4 @@
-name: Identity CodeQL
+name: Identity Codacy
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
       - Directory.Build.props
 
 jobs:
-  identity-codeql:
-    uses: ./.github/workflows/codeql.yaml
+  identity-codacy:
+    uses: ./.github/workflows/codacy.yaml
     with:
       path: ./src/Services/Identity

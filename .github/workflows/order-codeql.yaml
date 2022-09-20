@@ -6,7 +6,6 @@ on:
       - src/Services/Order/**.cs
       - src/Services/Order/**.csproj
       - Directory.Build.props
-      - .github/workflows/**
 
 jobs:
   order-codeql:
