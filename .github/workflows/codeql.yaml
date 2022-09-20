@@ -1,12 +1,11 @@
 name: CodeQL config
 
 on:
-  workflow_call:
-    inputs:
-      path:
-        description: 'The path of project passed from the caller workflow'
-        required: true
-        type: string
+  push:
+    paths:
+      - src/Services/Identity/**.cs
+      - src/Services/Identity/**.csproj
+      - Directory.Build.props
 
 jobs:
   analyze:

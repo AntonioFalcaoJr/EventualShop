@@ -20,7 +20,7 @@ public static class ServiceCollectionExtensions
         => services
             .AddScoped<IInteractor<Identity.DomainEvent.UserRegistered>, ScheduleEmailConfirmationInteractor>()
             .AddScoped<IInteractor<Identity.DomainEvent.EmailChanged>, ScheduleEmailConfirmationInteractor>()
-            .AddScoped<IInteractor<Identity.DomainEvent.EmailVerified>, DefinePrimaryEmailWhenVerifiedInteractor>()
+            .AddScoped<IInteractor<Identity.DomainEvent.EmailVerified>, DefinePrimaryEmailInteractor>()
             .AddScoped<IInteractor<Identity.DelayedEvent.EmailConfirmationExpired>, ExpireEmailInteractor>()
             .AddScoped<IInteractor<Account.DomainEvent.AccountDeactivated>, DeactivateUserInteractor>()
             .AddScoped<IInteractor<Account.DomainEvent.AccountDeleted>, DeleteUserWhenAccountDeletedInteractor>();

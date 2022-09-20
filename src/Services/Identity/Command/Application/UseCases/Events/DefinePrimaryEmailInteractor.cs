@@ -6,9 +6,9 @@ using Domain.Aggregates;
 
 namespace Application.UseCases.Events;
 
-public class DefinePrimaryEmailWhenVerifiedInteractor : EventInteractor<User, DomainEvent.EmailVerified>
+public class DefinePrimaryEmailInteractor : EventInteractor<User, DomainEvent.EmailVerified>
 {
-    public DefinePrimaryEmailWhenVerifiedInteractor(IEventStoreGateway eventStoreGateway, IEventBusGateway eventBusGateway, IUnitOfWork unitOfWork)
+    public DefinePrimaryEmailInteractor(IEventStoreGateway eventStoreGateway, IEventBusGateway eventBusGateway, IUnitOfWork unitOfWork)
         : base(eventStoreGateway, eventBusGateway, unitOfWork) { }
 
     public override Task InteractAsync(DomainEvent.EmailVerified @event, CancellationToken cancellationToken)
