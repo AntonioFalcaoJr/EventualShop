@@ -1,4 +1,4 @@
-name: Identity build and test
+name: Identity - Build & Test
 
 on:
   push:
@@ -6,10 +6,11 @@ on:
       - src/Services/Identity/**.cs
       - src/Services/Identity/**.csproj
       - Directory.Build.props
+      - .github/workflows/**
 
 jobs:
   identity-build-and-test:
-    uses: ./.github/workflows/build-and-test.yaml
+    uses: ./.github/workflows/_build-and-test.yaml
     with:
       project: ./src/Services/Identity/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests

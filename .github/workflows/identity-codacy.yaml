@@ -1,4 +1,4 @@
-name: Identity Codacy
+name: Identity - Quality Gate
 
 on:
   push:
@@ -10,6 +10,6 @@ on:
 
 jobs:
   identity-codacy:
-    uses: ./.github/workflows/codacy.yaml
+    uses: ./.github/workflows/_codacy.yaml
     with:
       path: /src/Services/Identity

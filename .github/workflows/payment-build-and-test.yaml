@@ -1,4 +1,4 @@
-name: Payment build and test
+name: Payment - Build & Test
 
 on:
   push:
@@ -6,10 +6,11 @@ on:
       - src/Services/Payment/**.cs
       - src/Services/Payment/**.csproj
       - Directory.Build.props
+      - .github/workflows/**
 
 jobs:
   payment-build-and-test:
-    uses: ./.github/workflows/build-and-test.yaml
+    uses: ./.github/workflows/_build-and-test.yaml
     with:
       project: ./src/Services/Payment/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests

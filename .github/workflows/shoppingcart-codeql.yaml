@@ -1,4 +1,4 @@
-name: Shopping Cart CodeQL
+name: Shopping Cart - Security Gate
 
 on:
   push:
@@ -6,9 +6,10 @@ on:
       - src/Services/ShoppingCart/**.cs
       - src/Services/ShoppingCart/**.csproj
       - Directory.Build.props
+      - .github/workflows/**
 
 jobs:
   shoppingcart-codeql:
-    uses: ./.github/workflows/codeql.yaml
+    uses: ./.github/workflows/_codeql.yaml
     with:
       path: ./src/Services/ShoppingCart

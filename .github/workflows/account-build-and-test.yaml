@@ -1,4 +1,4 @@
-name: Account build and test
+name: Account - Build & Test
 
 on:
   push:
@@ -6,10 +6,11 @@ on:
       - src/Services/Account/**.cs
       - src/Services/Account/**.csproj
       - Directory.Build.props
+      - .github/workflows/**
 
 jobs:
   account-build-and-test:
-    uses: ./.github/workflows/build-and-test.yaml
+    uses: ./.github/workflows/_build-and-test.yaml
     with:
       project: ./src/Services/Account/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests

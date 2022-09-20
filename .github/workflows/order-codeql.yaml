@@ -1,4 +1,4 @@
-name: Order CodeQL
+name: Order - Security Gate
 
 on:
   push:
@@ -6,9 +6,10 @@ on:
       - src/Services/Order/**.cs
       - src/Services/Order/**.csproj
       - Directory.Build.props
+      - .github/workflows/**
 
 jobs:
   order-codeql:
-    uses: ./.github/workflows/codeql.yaml
+    uses: ./.github/workflows/_codeql.yaml
     with:
       path: ./src/Services/Order

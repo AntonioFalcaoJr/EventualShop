@@ -1,4 +1,4 @@
-name: Catalog build and test
+name: Catalog - Build & Test
 
 on:
   push:
@@ -6,10 +6,11 @@ on:
       - src/Services/Catalog/**.cs
       - src/Services/Catalog/**.csproj
       - Directory.Build.props
+      - .github/workflows/**
 
 jobs:
   catalog-build-and-test:
-    uses: ./.github/workflows/build-and-test.yaml
+    uses: ./.github/workflows/_build-and-test.yaml
     with:
       project: ./src/Services/Catalog/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
