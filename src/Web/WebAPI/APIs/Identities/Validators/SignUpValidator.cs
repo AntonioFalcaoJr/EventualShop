@@ -2,12 +2,12 @@ using FluentValidation;
 
 namespace WebAPI.APIs.Identities.Validators;
 
-public class RegisterUserValidator : AbstractValidator<Requests.RegisterUser>
+public class SignUpValidator : AbstractValidator<Requests.SignUp>
 {
-    public RegisterUserValidator()
+    public SignUpValidator()
     {
         RuleFor(request => request.Payload)
-            .SetValidator(new RegisterUserPayloadValidator())
+            .SetValidator(new SignUpPayloadValidator())
             .OverridePropertyName(string.Empty);
     }
 }

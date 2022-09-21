@@ -7,7 +7,7 @@ namespace WebAPI.APIs.Catalogs;
 
 public static class CatalogApi
 {
-    public static void MapCatalogApi(this RouteGroupBuilder group)
+    public static RouteGroupBuilder MapCatalogApi(this RouteGroupBuilder group)
     {
         group.MapGet("/", (IBus bus, ushort? limit, ushort? offset, CancellationToken ct)
             => ApplicationApi.GetPagedProjectionAsync<Query.GetCatalogs, Projection.Catalog>(bus, new(limit ?? 0, offset ?? 0), ct));
@@ -45,6 +45,6 @@ public static class CatalogApi
         group.MapDelete("/{catalogId:guid}/items/{itemId:guid}", ([AsParameters] Requests.RemoveCatalogItem request)
             => ApplicationApi.SendCommandAsync<Command.RemoveCatalogItem>(request));
 
-        group.WithMetadata(new TagsAttribute("Catalogs"));
+        return group.WithMetadata(new TagsAttribute("Catalogs"));
     }
 }

@@ -9,15 +9,15 @@ namespace WebAPI.APIs.Identities;
 
 public static class Requests
 {
-    public record Login(IdentityService.IdentityServiceClient Client, string Email, string Password, CancellationToken CancellationToken)
-        : Validatable<LoginValidator>, IQueryRequest<IdentityService.IdentityServiceClient>
+    public record SignIn(IdentityService.IdentityServiceClient Client, string Email, string Password, CancellationToken CancellationToken)
+        : Validatable<SignInValidator>, IQueryRequest<IdentityService.IdentityServiceClient>
     {
-        public static implicit operator LoginRequest(Login request)
+        public static implicit operator LoginRequest(SignIn request)
             => new() { Email = request.Email, Password = request.Password };
     }
 
-    public record RegisterUser(IBus Bus, Payloads.RegisterUser Payload, CancellationToken CancellationToken)
-        : Validatable<RegisterUserValidator>, ICommandRequest
+    public record SignUp(IBus Bus, Payloads.SignUp Payload, CancellationToken CancellationToken)
+        : Validatable<SignUpValidator>, ICommandRequest
     {
         public ICommand Command
             => new Command.RegisterUser(Guid.NewGuid(), Payload.FirstName, Payload.LastName, Payload.Email, Payload.Password);

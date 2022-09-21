@@ -5,17 +5,17 @@ namespace WebAPI.APIs.Identities;
 
 public static class IdentityApi
 {
-    public static void MapIdentityApi(this RouteGroupBuilder group)
+    public static RouteGroupBuilder MapIdentityApi(this RouteGroupBuilder group)
     {
-        group.MapGet("/login", ([AsParameters] Requests.Login request)
+        group.MapGet("/sign-in", ([AsParameters] Requests.SignIn request)
             => ApplicationApi.QueryAsync(request, (client, ct) => client.LoginAsync(request, cancellationToken: ct)));
 
-        group.MapPost("/", ([AsParameters] Requests.RegisterUser request)
+        group.MapPost("/sign-up", ([AsParameters] Requests.SignUp request)
             => ApplicationApi.SendCommandAsync<Command.RegisterUser>(request));
 
         group.MapPost("/{userId:guid}/email", ([AsParameters] Requests.ChangeEmail request)
             => ApplicationApi.SendCommandAsync<Command.ChangeEmail>(request));
 
-        group.WithMetadata(new TagsAttribute("IdentitiesV2"));
+        return group.WithMetadata(new TagsAttribute("Identities"));
     }
 }

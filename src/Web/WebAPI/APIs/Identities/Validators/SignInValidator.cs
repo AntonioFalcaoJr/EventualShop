@@ -2,9 +2,9 @@ using FluentValidation;
 
 namespace WebAPI.APIs.Identities.Validators;
 
-public class LoginValidator : AbstractValidator<Requests.Login>
+public class SignInValidator : AbstractValidator<Requests.SignIn>
 {
-    public LoginValidator()
+    public SignInValidator()
     {
         RuleFor(request => request.Email)
             .EmailAddress();

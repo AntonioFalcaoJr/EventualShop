@@ -5,7 +5,7 @@ namespace WebAPI.APIs.Accounts;
 
 public static class AccountApi
 {
-    public static void MapAccountApi(this RouteGroupBuilder group)
+    public static RouteGroupBuilder MapAccountApi(this RouteGroupBuilder group)
     {
         group.MapGet("/", ([AsParameters] Requests.ListAccounts request)
             => ApplicationApi.GetPagedProjectionAsync<Query.ListAccounts, Projection.AccountDetails>(request.Bus, request, request.CancellationToken));
@@ -25,6 +25,6 @@ public static class AccountApi
         group.MapPut("/{accountId:guid}/profiles/shipping-address", ([AsParameters] Requests.AddShippingAddress request)
             => ApplicationApi.SendCommandAsync<Command.AddShippingAddress>(request));
 
-       group.WithMetadata(new TagsAttribute("Accounts"));
+       return group.WithMetadata(new TagsAttribute("Accounts"));
     }
 }
