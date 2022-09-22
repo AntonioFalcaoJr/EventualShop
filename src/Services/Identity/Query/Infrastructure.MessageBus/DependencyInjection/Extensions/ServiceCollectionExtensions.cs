@@ -23,7 +23,7 @@ public static class ServiceCollectionExtensions
 
             cfg.UsingRabbitMq((context, bus) =>
             {
-                var options = context.GetRequiredService<IOptionsSnapshot<EventBusOptions>>().Value;
+                var options = context.GetRequiredService<IOptionsMonitor<EventBusOptions>>().CurrentValue;
 
                 bus.Host(options.ConnectionString);
 
