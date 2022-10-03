@@ -1,0 +1,30 @@
+name: Communication - Command Stack
+
+on:
+  push:
+    paths:
+      - src/Services/Communication/Command/**.cs
+      - src/Services/Communication/Command/**.csproj
+      - Directory.Build.props
+      - .github/workflows/**
+
+jobs:
+  build-and-test:
+    uses: ./.github/workflows/_build-and-test.yaml
+    with:
+      project: ./src/Services/Communication/Command/WorkerService
+      test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
+  
+  codacy:
+    needs:
+      - build-and-test
+    uses: ./.github/workflows/_codacy.yaml
+    with:
+      path: /src/Services/Communication/Command
+  
+  codeql:
+    needs:
+      - codacy
+    uses: ./.github/workflows/_codeql.yaml
+    with:
+      path: ./src/Services/Communication/Command
