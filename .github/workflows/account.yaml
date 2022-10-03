@@ -1,8 +1,5 @@
 name: Account
 
-env:
-  PATH: "src/Services/Account"
-
 on:
   push:
     paths:
@@ -10,6 +7,9 @@ on:
       - $PATH/**.csproj
       - Directory.Build.props
       - .github/workflows/*
+
+env:
+  PATH: src/Services/Account
 
 jobs:
   build-and-test:
