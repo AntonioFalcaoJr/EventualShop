@@ -4,7 +4,7 @@ using Contracts.Services.Identity;
 
 namespace Application.UseCases.Events;
 
-public class UserPasswordChangedInteractor : IInteractor<DomainEvent.UserPasswordChanged>
+public class UserPasswordChangedInteractor : IInteractor<DomainEvent.PasswordChanged>
 {
     private readonly IProjectionRepository<Projection.UserDetails> _repository;
 
@@ -13,10 +13,10 @@ public class UserPasswordChangedInteractor : IInteractor<DomainEvent.UserPasswor
         _repository = repository;
     }
 
-    public Task InteractAsync(DomainEvent.UserPasswordChanged @event, CancellationToken ct)
+    public Task InteractAsync(DomainEvent.PasswordChanged @event, CancellationToken ct)
         => _repository.UpdateFieldAsync(
-            id: @event.UserId,
+            id: @event.Id,
             field: user => user.Password,
-            value: @event.NewPassword,
+            value: @event.Password,
             cancellationToken: ct);
 }

@@ -1,4 +1,4 @@
-name: Account CodeQL
+name: Account - Security Gate
 
 on:
   push:
@@ -10,6 +10,6 @@ on:
 
 jobs:
   account-codeql:
-    uses: ./.github/workflows/codeql.yaml
+    uses: ./.github/workflows/_codeql.yaml
     with:
       path: ./src/Services/Account

@@ -1,4 +1,4 @@
-name: Warehouse build and test
+name: Warehouse - Build and Test
 
 on:
   push:
@@ -6,10 +6,11 @@ on:
       - src/Services/Warehouse/**.cs
       - src/Services/Warehouse/**.csproj
       - Directory.Build.props
+      - .github/workflows/**
 
 jobs:
   warehouse-build-and-test:
-    uses: ./.github/workflows/build-and-test.yaml
+    uses: ./.github/workflows/_build-and-test.yaml
     with:
       project: ./src/Services/Warehouse/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests

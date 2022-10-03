@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Domain.ValueObjects.Emails;
+using FluentValidation;
 
 namespace Domain.Aggregates;
 
@@ -6,6 +7,9 @@ public class UserValidator : AbstractValidator<User>
 {
     public UserValidator()
     {
+        RuleFor(user => user.Id)
+            .NotEmpty();
+        
         RuleFor(user => user.FirstName)
             .Length(4, 30);
 
@@ -13,8 +17,9 @@ public class UserValidator : AbstractValidator<User>
             .Length(4, 30)
             .NotEqual(user => user.FirstName);
 
-        RuleFor(user => user.Email)
-            .EmailAddress();
+        RuleForEach(user => user.Emails)
+            .NotEmpty()
+            .SetValidator(new EmailValidator());
 
         RuleFor(user => user.Password)
             .MinimumLength(8)

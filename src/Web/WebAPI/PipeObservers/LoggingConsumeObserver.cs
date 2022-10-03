@@ -9,8 +9,7 @@ public class LoggingConsumeObserver : IConsumeObserver
         where T : class
     {
         await Task.Yield();
-        var messageType = context.Message.GetType();
-        Log.Information("Consuming {Message} message from {Namespace}, CorrelationId: {CorrelationId}", messageType.Name, messageType.Namespace, context.CorrelationId);
+        Log.Information("Consuming {Message} message from {Namespace}, CorrelationId: {CorrelationId}", typeof(T).Name, typeof(T).Namespace, context.CorrelationId);
     }
 
     public Task PostConsume<T>(ConsumeContext<T> context)

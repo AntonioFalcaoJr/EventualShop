@@ -12,6 +12,6 @@ namespace Infrastructure.EventStore;
 
 public class WarehouseEventStoreService : EventStoreService<Inventory, InventoryStoreEvent, InventorySnapshot, Guid>, IWarehouseEventStoreService
 {
-    public WarehouseEventStoreService(IPublishEndpoint publishEndpoint, IWarehouseEventStoreRepository repository, INotificationContext notificationContext, IOptionsMonitor<EventStoreOptions> optionsMonitor, IUnitOfWork unitOfWork)
-        : base(publishEndpoint, repository, notificationContext, optionsMonitor, unitOfWork) { }
+    public WarehouseEventStoreService(IPublishEndpoint publishEndpoint, IWarehouseEventStoreRepository repository, INotificationContext notificationContext, IOptionsSnapshot<EventStoreOptions> options, IUnitOfWork unitOfWork)
+        : base(publishEndpoint, repository, notificationContext, options, unitOfWork) { }
 }

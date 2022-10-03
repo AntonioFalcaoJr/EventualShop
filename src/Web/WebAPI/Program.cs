@@ -84,8 +84,8 @@ builder.Host.ConfigureServices((context, services) =>
         .AddEndpointsApiExplorer()
         .AddSwaggerGen(options =>
         {
-            options.SwaggerDoc("v1", new() {Title = builder.Environment.ApplicationName, Version = "v1"});
-            options.MapType<DateOnly>(() => new() {Format = "date", Example = new OpenApiString(DateOnly.MinValue.ToString())});
+            options.SwaggerDoc("v1", new() { Title = builder.Environment.ApplicationName, Version = "v1" });
+            options.MapType<DateOnly>(() => new() { Format = "date", Example = new OpenApiString(DateOnly.MinValue.ToString()) });
             options.CustomSchemaIds(type => type.ToString().Replace("+", "."));
         });
 
@@ -133,8 +133,7 @@ app.UseApplicationExceptionHandler();
 
 app.MapGroup("/api/v1/accounts/").MapAccountApi();
 app.MapGroup("/api/v1/catalogs/").MapCatalogApi();
-app.MapGroup("/api/v2/identities/").MapIdentityApi();
-
+app.MapGroup("/api/v1/identities/").MapIdentityApi();
 
 try
 {

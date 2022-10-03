@@ -1,4 +1,4 @@
-name: Identity CodeQL
+name: Identity - Security Gate
 
 on:
   push:
@@ -10,6 +10,6 @@ on:
 
 jobs:
   identity-codeql:
-    uses: ./.github/workflows/codeql.yaml
+    uses: ./.github/workflows/_codeql.yaml
     with:
       path: ./src/Services/Identity

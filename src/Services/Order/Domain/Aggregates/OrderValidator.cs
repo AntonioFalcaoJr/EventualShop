@@ -8,12 +8,15 @@ public class OrderValidator : EntityValidator<Order, Guid>
 {
     public OrderValidator()
     {
-        RuleForEach(cart => cart.Items)
+        RuleFor(order => order.Id)
+            .NotEmpty();
+        
+        RuleForEach(order => order.Items)
             .SetValidator(new OrderItemValidator());
 
-        When(cart => cart.Items.Any(), () =>
+        When(order => order.Items.Any(), () =>
         {
-            RuleFor(cart => cart.Total)
+            RuleFor(order => order.Total)
                 .GreaterThan(0);
         });
     }

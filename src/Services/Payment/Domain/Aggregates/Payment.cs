@@ -29,46 +29,46 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
 
     public void Handle(Command.ProceedWithPayment cmd)
         => RaiseEvent(AmountDue is 0
-            ? new DomainEvent.PaymentCompleted(cmd.PaymentId, cmd.OrderId)
-            : new DomainEvent.PaymentNotCompleted(cmd.PaymentId, cmd.OrderId));
+            ? new DomainEvent.PaymentCompleted(cmd.Id, cmd.OrderId)
+            : new DomainEvent.PaymentNotCompleted(cmd.Id, cmd.OrderId));
 
     public void Handle(Command.CancelPayment cmd)
-        => RaiseEvent(new DomainEvent.PaymentCanceled(cmd.PaymentId, cmd.OrderId));
+        => RaiseEvent(new DomainEvent.PaymentCanceled(cmd.Id, cmd.OrderId));
 
     public void Handle(Command.AuthorizePaymentMethod cmd)
     {
         if (_paymentMethods.Exists(method => method.Id == cmd.PaymentMethodId))
-            RaiseEvent(new DomainEvent.PaymentMethodAuthorized(cmd.PaymentId, cmd.PaymentMethodId, cmd.TransactionId));
+            RaiseEvent(new DomainEvent.PaymentMethodAuthorized(cmd.Id, cmd.PaymentMethodId, cmd.TransactionId));
     }
 
     public void Handle(Command.DenyPaymentMethod cmd)
     {
         if (_paymentMethods.Exists(method => method.Id == cmd.PaymentMethodId))
-            RaiseEvent(new DomainEvent.PaymentMethodDenied(cmd.PaymentId, cmd.PaymentMethodId, cmd.TransactionId));
+            RaiseEvent(new DomainEvent.PaymentMethodDenied(cmd.Id, cmd.PaymentMethodId, cmd.TransactionId));
     }
 
     public void Handle(Command.CancelPaymentMethod cmd)
     {
         if (_paymentMethods.Exists(method => method.Id == cmd.PaymentMethodId))
-            RaiseEvent(new DomainEvent.PaymentMethodCanceled(cmd.PaymentId, cmd.PaymentMethodId, cmd.TransactionId));
+            RaiseEvent(new DomainEvent.PaymentMethodCanceled(cmd.Id, cmd.PaymentMethodId, cmd.TransactionId));
     }
 
     public void Handle(Command.DenyPaymentMethodCancellation cmd)
     {
         if (_paymentMethods.Exists(method => method.Id == cmd.PaymentMethodId))
-            RaiseEvent(new DomainEvent.PaymentMethodCancellationDenied(cmd.PaymentId, cmd.PaymentMethodId, cmd.TransactionId));
+            RaiseEvent(new DomainEvent.PaymentMethodCancellationDenied(cmd.Id, cmd.PaymentMethodId, cmd.TransactionId));
     }
 
     public void Handle(Command.RefundPaymentMethod cmd)
     {
         if (_paymentMethods.Exists(method => method.Id == cmd.PaymentMethodId))
-            RaiseEvent(new DomainEvent.PaymentMethodRefunded(cmd.PaymentId, cmd.PaymentMethodId, cmd.TransactionId));
+            RaiseEvent(new DomainEvent.PaymentMethodRefunded(cmd.Id, cmd.PaymentMethodId, cmd.TransactionId));
     }
 
     public void Handle(Command.DenyPaymentMethodRefund cmd)
     {
         if (_paymentMethods.Exists(method => method.Id == cmd.PaymentMethodId))
-            RaiseEvent(new DomainEvent.PaymentMethodRefundDenied(cmd.PaymentId, cmd.PaymentMethodId, cmd.TransactionId));
+            RaiseEvent(new DomainEvent.PaymentMethodRefundDenied(cmd.Id, cmd.PaymentMethodId, cmd.TransactionId));
     }
 
     protected override void ApplyEvent(IEvent @event)

@@ -1,4 +1,4 @@
-name: Shopping Cart build and test
+name: Shopping Cart - Build and Test
 
 on:
   push:
@@ -6,10 +6,11 @@ on:
       - src/Services/ShoppingCart/**.cs
       - src/Services/ShoppingCart/**.csproj
       - Directory.Build.props
+      - .github/workflows/**
 
 jobs:
   shoppingcart-build-and-test:
-    uses: ./.github/workflows/build-and-test.yaml
+    uses: ./.github/workflows/_build-and-test.yaml
     with:
       project: ./src/Services/ShoppingCart/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests

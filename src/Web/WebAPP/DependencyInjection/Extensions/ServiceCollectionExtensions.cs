@@ -14,13 +14,13 @@ public static class ServiceCollectionExtensions
             .AddHttpClient<ICatalogHttpClient, CatalogHttpClient>()
             .ConfigureHttpClient((provider, client) =>
             {
-                var options = provider.GetRequiredService<IOptionsMonitor<ECommerceHttpClientOptions>>().CurrentValue;
+                var options = provider.GetRequiredService<IOptionsSnapshot<ECommerceHttpClientOptions>>().Value;
                 client.BaseAddress = new(options.BaseAddress);
                 client.Timeout = options.OverallTimeout;
             })
             .AddPolicyHandler((provider, _) =>
             {
-                var options = provider.GetRequiredService<IOptionsMonitor<ECommerceHttpClientOptions>>().CurrentValue;
+                var options = provider.GetRequiredService<IOptionsSnapshot<ECommerceHttpClientOptions>>().Value;
 
                 return Policy.WrapAsync(
                     HttpPolicy.GetRetryPolicyAsync(options.RetryCount, options.SleepDurationPower, options.EachRetryTimeout),

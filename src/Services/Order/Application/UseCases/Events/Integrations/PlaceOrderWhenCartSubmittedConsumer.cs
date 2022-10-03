@@ -20,7 +20,8 @@ public class PlaceOrderWhenCartSubmittedConsumer : IConsumer<IntegrationEvent.Ca
         Order order = new();
 
         order.Handle(new Command.PlaceOrder(
-            context.Message.CartId,
+            Guid.NewGuid(), 
+            context.Message.Id,
             context.Message.CustomerId,
             context.Message.Total,
             context.Message.BillingAddress,

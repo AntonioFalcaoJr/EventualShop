@@ -8,7 +8,7 @@
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Infrastructure.EventStore\Infrastructure.EventStore.csproj"/>
-        <ProjectReference Include="..\Infrastructure.HttpClients\Infrastructure.HttpClients.csproj"/>
+        <ProjectReference Include="..\Infrastructure.HTTP\Infrastructure.HTTP.csproj"/>
         <ProjectReference Include="..\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj"/>
         <ProjectReference Include="..\Infrastructure.Projections\Infrastructure.Projections.csproj"/>
     </ItemGroup>

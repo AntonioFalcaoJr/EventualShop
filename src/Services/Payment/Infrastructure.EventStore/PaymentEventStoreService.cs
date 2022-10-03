@@ -12,6 +12,6 @@ namespace Infrastructure.EventStore;
 
 public class PaymentEventStoreService : EventStoreService<Payment, PaymentStoreEvent, PaymentSnapshot, Guid>, IPaymentEventStoreService
 {
-    public PaymentEventStoreService(IPublishEndpoint publishEndpoint, IPaymentEventStoreRepository repository, INotificationContext notificationContext, IOptionsMonitor<EventStoreOptions> optionsMonitor, IUnitOfWork unitOfWork)
-        : base(publishEndpoint, repository, notificationContext, optionsMonitor, unitOfWork) { }
+    public PaymentEventStoreService(IPublishEndpoint publishEndpoint, IPaymentEventStoreRepository repository, INotificationContext notificationContext, IOptionsSnapshot<EventStoreOptions> options, IUnitOfWork unitOfWork)
+        : base(publishEndpoint, repository, notificationContext, options, unitOfWork) { }
 }

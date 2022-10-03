@@ -40,7 +40,7 @@ public class ProjectInventoryItemWhenChangedConsumer :
     {
         Projection.InventoryItem inventoryItem = new(
             context.Message.InventoryItemId,
-            context.Message.InventoryId,
+            context.Message.Id,
             context.Message.Product,
             context.Message.Quantity,
             context.Message.Sku,

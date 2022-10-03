@@ -31,6 +31,6 @@ public abstract class Interactor<TAggregate, TMessage> : IInteractor<TMessage>
         => _unitOfWork.ExecuteAsync(async ct =>
         {
             await _eventStoreGateway.AppendAsync(aggregate, ct);
-            await _eventBusGateway.PublishAsync(aggregate.Events, ct);
+            await _eventBusGateway.PublishAsync(aggregate.Events.Select(tuple => tuple.@event), ct);
         }, cancellationToken);
 }

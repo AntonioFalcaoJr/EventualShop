@@ -1,4 +1,4 @@
-name: Catalog CodeQL
+name: Catalog - Security Gate
 
 on:
   push:
@@ -10,6 +10,6 @@ on:
 
 jobs:
   catalog-codeql:
-    uses: ./.github/workflows/codeql.yaml
+    uses: ./.github/workflows/_codeql.yaml
     with:
       path: ./src/Services/Catalog
