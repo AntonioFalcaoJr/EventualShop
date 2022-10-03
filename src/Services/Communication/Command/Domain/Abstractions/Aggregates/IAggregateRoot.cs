@@ -7,5 +7,5 @@ public interface IAggregateRoot : IEntity
 {
     IEnumerable<(long version, IEvent @event)> Events { get; }
     IAggregateRoot Load(List<IEvent> events);
-    void Handle(ICommandWithId command);
+    void Handle(ICommand command);
 }

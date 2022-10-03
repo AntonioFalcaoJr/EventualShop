@@ -28,7 +28,7 @@ public abstract class AggregateRoot<TValidator> : Entity<TValidator>, IAggregate
         return this;
     }
 
-    public abstract void Handle(ICommandWithId command);
+    public abstract void Handle(ICommand command);
 
     protected void RaiseEvent(IEvent @event)
     {
