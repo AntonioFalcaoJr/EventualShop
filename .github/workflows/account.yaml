@@ -6,7 +6,7 @@ on:
       - src/Services/Account/**.cs
       - src/Services/Account/**.csproj
       - Directory.Build.props
-      - .github/workflows/%account%
+      - .github/workflows/%account%.yaml
 
 jobs:
   build-and-test:
