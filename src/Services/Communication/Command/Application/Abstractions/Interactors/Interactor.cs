@@ -25,12 +25,12 @@ public abstract class Interactor<TAggregate, TMessage> : IInteractor<TMessage>
     public abstract Task InteractAsync(TMessage message, CancellationToken cancellationToken);
 
     protected Task<IAggregateRoot> LoadAggregateAsync(Guid id, CancellationToken cancellationToken)
-        => _eventStoreGateway.LoadAsync<TAggregate>(id, cancellationToken);
+        => _eventStoreGateway.LoadAggregateAsync<TAggregate>(id, cancellationToken);
 
     protected Task AppendEventsAsync(IAggregateRoot aggregate, CancellationToken cancellationToken)
         => _unitOfWork.ExecuteAsync(async ct =>
         {
-            await _eventStoreGateway.AppendAsync(aggregate, ct);
+            await _eventStoreGateway.AppendEventsAsync(aggregate, ct);
             await _eventBusGateway.PublishAsync(aggregate.Events.Select(tuple => tuple.@event), ct);
         }, cancellationToken);
 }

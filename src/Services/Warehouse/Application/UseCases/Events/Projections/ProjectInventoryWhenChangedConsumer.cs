@@ -14,7 +14,7 @@ public class ProjectInventoryWhenChangedConsumer : IConsumer<DomainEvent.Invento
     public async Task Consume(ConsumeContext<DomainEvent.InventoryCreated> context)
     {
         Projection.Inventory inventory = new(
-            context.Message.InventoryId,
+            context.Message.Id,
             context.Message.OwnerId,
             false);
 

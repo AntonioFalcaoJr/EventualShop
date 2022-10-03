@@ -24,7 +24,7 @@ public class ProjectPaymentMethodWhenChangedConsumer :
         var methods = context.Message.PaymentMethods.Select(method
             => new Projection.PaymentMethod(
                 method.Id,
-                context.Message.PaymentId,
+                context.Message.Id,
                 method.Amount,
                 method.Option,
                 PaymentMethodStatus.Ready,

@@ -18,18 +18,6 @@ public class EventStoreRepository : IEventStoreRepository
         _snapshots = dbContext.Set<Snapshot>();
     }
 
-    public async Task AppendEventsAsync(
-        IEnumerable<StoreEvent> events,
-        Func<long, CancellationToken, Task> onEventStored,
-        CancellationToken ct)
-    {
-        foreach (var @event in events)
-        {
-            await AppendEventAsync(@event, ct);
-            await onEventStored(@event.Version, ct);
-        }
-    }
-
     public async Task AppendEventAsync(StoreEvent storeEvent, CancellationToken ct)
     {
         await _storeEvents.AddAsync(storeEvent, ct);

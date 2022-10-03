@@ -15,7 +15,7 @@ public class AddCatalogItemConsumer : IConsumer<Command.AddCatalogItem>
 
     public async Task Consume(ConsumeContext<Command.AddCatalogItem> context)
     {
-        var catalog = await _eventStore.LoadAsync(context.Message.CatalogId, context.CancellationToken);
+        var catalog = await _eventStore.LoadAsync(context.Message.Id, context.CancellationToken);
         catalog.Handle(context.Message);
         await _eventStore.AppendAsync(catalog, context.CancellationToken);
     }

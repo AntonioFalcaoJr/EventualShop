@@ -308,7 +308,7 @@ IF OBJECT_ID(N'[dbo].[QRTZ_CALENDARS]', N'U') IS NULL
     END
 GO
 
-USE [IdentityEventStore];", true);
+USE [CommunicationEventStore];", true);
 
         }
 

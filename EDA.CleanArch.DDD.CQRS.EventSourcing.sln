@@ -105,7 +105,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.MessageBus",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Projections", "src\Services\Payment\Infrastructure.Projections\Infrastructure.Projections.csproj", "{3B4F0688-2981-4837-8ABF-9A907E175271}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.HttpClients", "src\Services\Payment\Infrastructure.HttpClients\Infrastructure.HttpClients.csproj", "{B978272C-C3E3-47A4-900B-699ACD26A493}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.HTTP", "src\Services\Payment\Infrastructure.HTTP\Infrastructure.HTTP.csproj", "{B978272C-C3E3-47A4-900B-699ACD26A493}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPP", "src\Web\WebAPP\WebAPP.csproj", "{DE79ECD2-2C45-4439-A150-50BC8FBC2F87}"
 EndProject
@@ -148,6 +148,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.MessageBus", "src\Services\Communication\Command\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj", "{F878F7F9-1571-49DE-8F10-A0494259D470}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerService", "src\Services\Communication\Command\WorkerService\WorkerService.csproj", "{D3586EB5-1909-43DC-9D59-CA2E52DBE95C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.SMTP", "src\Services\Communication\Command\Infrastructure.SMTP\Infrastructure.SMTP.csproj", "{22021471-4C50-41A9-AF00-EE55414F122B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -382,6 +384,10 @@ Global
 		{D3586EB5-1909-43DC-9D59-CA2E52DBE95C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3586EB5-1909-43DC-9D59-CA2E52DBE95C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3586EB5-1909-43DC-9D59-CA2E52DBE95C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22021471-4C50-41A9-AF00-EE55414F122B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22021471-4C50-41A9-AF00-EE55414F122B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22021471-4C50-41A9-AF00-EE55414F122B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22021471-4C50-41A9-AF00-EE55414F122B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4E404E16-E8CB-4A01-B42E-C1E624D12A49} = {A8107F9C-AC86-4467-8685-A17633E86715}
@@ -455,5 +461,6 @@ Global
 		{FFC24FB6-1ED5-49D0-8D11-63C5CCAFA801} = {E62C6B98-B9BF-42EA-A0D1-2CE6255095C7}
 		{F878F7F9-1571-49DE-8F10-A0494259D470} = {E62C6B98-B9BF-42EA-A0D1-2CE6255095C7}
 		{D3586EB5-1909-43DC-9D59-CA2E52DBE95C} = {E62C6B98-B9BF-42EA-A0D1-2CE6255095C7}
+		{22021471-4C50-41A9-AF00-EE55414F122B} = {E62C6B98-B9BF-42EA-A0D1-2CE6255095C7}
 	EndGlobalSection
 EndGlobal

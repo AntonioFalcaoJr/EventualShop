@@ -5,6 +5,7 @@ using Infrastructure.EventStore.DependencyInjection.Extensions;
 using Infrastructure.EventStore.DependencyInjection.Options;
 using Infrastructure.MessageBus.DependencyInjection.Extensions;
 using Infrastructure.MessageBus.DependencyInjection.Options;
+using Infrastructure.SMTP;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Quartz;
@@ -44,6 +45,8 @@ builder.ConfigureServices((context, services) =>
     services.AddCommandInteractors();
     services.AddEventInteractors();
     services.AddMessageValidators();
+
+    services.AddSmtp();
 
     services.ConfigureEventStoreOptions(
         context.Configuration.GetSection(nameof(EventStoreOptions)));

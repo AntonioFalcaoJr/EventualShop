@@ -9,5 +9,6 @@
     <ItemGroup>
         <ProjectReference Include="..\Infrastructure.EventStore\Infrastructure.EventStore.csproj" />
         <ProjectReference Include="..\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj" />
+        <ProjectReference Include="..\Infrastructure.SMTP\Infrastructure.SMTP.csproj" />
     </ItemGroup>
 </Project>

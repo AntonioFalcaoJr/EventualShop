@@ -5,11 +5,11 @@ namespace Contracts.Services.Payment;
 
 public static class Command
 {
-    public record RequestPayment(Guid Id, decimal AmountDue, Dto.Address BillingAddress, IEnumerable<Dto.PaymentMethod> PaymentMethods) : Message(CorrelationId: Id), ICommand;
+    public record RequestPayment(Guid Id, Guid OrderId, decimal AmountDue, Dto.Address BillingAddress, IEnumerable<Dto.PaymentMethod> PaymentMethods) : Message(CorrelationId: Id), ICommand;
 
     public record ProceedWithPayment(Guid Id, Guid OrderId) : Message(CorrelationId: Id), ICommand;
 
-    public record CancelPayment(Guid Id) : Message(CorrelationId: Id), ICommand;
+    public record CancelPayment(Guid Id, Guid OrderId) : Message(CorrelationId: Id), ICommand;
 
     public record AuthorizePaymentMethod(Guid Id, Guid PaymentMethodId, Guid TransactionId) : Message(CorrelationId: Id), ICommand;
 
