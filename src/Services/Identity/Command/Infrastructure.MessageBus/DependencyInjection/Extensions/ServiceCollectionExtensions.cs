@@ -30,7 +30,6 @@ public static class ServiceCollectionExtensions
                     bus.Host(options.ConnectionString);
 
                     cfg.AddMessageScheduler(new($"queue:{options.SchedulerQueueName}"));
-                    bus.UseMessageScheduler(new($"queue:{options.SchedulerQueueName}"));
 
                     bus.UseInMemoryScheduler(
                         schedulerFactory: context.GetRequiredService<ISchedulerFactory>(),
