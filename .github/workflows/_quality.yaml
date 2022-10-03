@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  quality:
+  analyze:
     runs-on: ubuntu-latest
     permissions:
       actions: read
