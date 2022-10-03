@@ -32,6 +32,7 @@ jobs:
           verbose: false
           output: results.sarif
           format: sarif
+          tool: sonarscharp
           gh-code-scanning-compat: false
           max-allowed-issues: 2147483647
 
