@@ -131,9 +131,9 @@ app.UseCors();
 app.UseSerilogRequestLogging();
 app.UseApplicationExceptionHandler();
 
-app.MapGroup("/api/v1/accounts/").MapAccountApi()
-    .MapGroup("/api/v1/catalogs/").MapCatalogApi()
-    .MapGroup("/api/v1/identities/").MapIdentityApi();
+app.MapGroup("/api/v1/accounts/").MapAccountApi();
+app.MapGroup("/api/v1/catalogs/").MapCatalogApi();
+app.MapGroup("/api/v1/identities/").MapIdentityApi();
 
 try
 {
