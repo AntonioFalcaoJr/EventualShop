@@ -55,7 +55,7 @@ public static class ServiceCollectionExtensions
     public static void AddIdentityGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<IdentityService.IdentityServiceClient>((provider, client) =>
             {
-                var options = provider.GetRequiredService<IOptionsSnapshot<IdentityGrpcClientOptions>>().Value;
+                var options = provider.GetRequiredService<IOptionsMonitor<IdentityGrpcClientOptions>>().CurrentValue;
                 client.Address = new(options.BaseAddress);
             })
             .EnableCallContextPropagation(options
