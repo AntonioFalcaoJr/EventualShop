@@ -1,4 +1,4 @@
-name: Account - Build and Test
+name: Account
 
 on:
   push:
@@ -14,6 +14,11 @@ jobs:
     with:
       project: ./src/Services/Account/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
+      
+  account-codacy:
+    uses: ./.github/workflows/_codacy.yaml
+    with:
+      path: /src/Services/Account    
       
   account-codeql:
     needs: 

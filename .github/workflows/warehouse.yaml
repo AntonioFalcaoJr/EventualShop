@@ -1,4 +1,4 @@
-name: Warehouse - Build and Test
+name: Warehouse
 
 on:
   push:
@@ -14,3 +14,13 @@ jobs:
     with:
       project: ./src/Services/Warehouse/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
+  
+  warehouse-codacy:
+    uses: ./.github/workflows/_codacy.yaml
+    with:
+      path: /src/Services/Warehouse
+  
+  warehouse-codeql:
+    uses: ./.github/workflows/_codeql.yaml
+    with:
+      path: ./src/Services/Warehouse    

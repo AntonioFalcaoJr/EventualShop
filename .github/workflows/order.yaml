@@ -1,4 +1,4 @@
-name: Order - Build and Test
+name: Order
 
 on:
   push:
@@ -14,3 +14,13 @@ jobs:
     with:
       project: ./src/Services/Order/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
+  
+  order-codacy:
+    uses: ./.github/workflows/_codacy.yaml
+    with:
+      path: /src/Services/Order
+  
+  order-codeql:
+    uses: ./.github/workflows/_codeql.yaml
+    with:
+      path: ./src/Services/Order

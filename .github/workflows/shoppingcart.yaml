@@ -1,0 +1,26 @@
+name: ShoppingCart
+
+on:
+  push:
+    paths:
+      - src/Services/ShoppingCart/**.cs
+      - src/Services/ShoppingCart/**.csproj
+      - Directory.Build.props
+      - .github/workflows/**
+
+jobs:
+  shoppingcart-build-and-test:
+    uses: ./.github/workflows/_build-and-test.yaml
+    with:
+      project: ./src/Services/ShoppingCart/WorkerService
+      test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
+  
+  shoppingcart-codacy:
+    uses: ./.github/workflows/_codacy.yaml
+    with:
+      path: /src/Services/ShoppingCart
+        
+  shoppingcart-codeql:
+    uses: ./.github/workflows/_codeql.yaml
+    with:
+      path: ./src/Services/ShoppingCart

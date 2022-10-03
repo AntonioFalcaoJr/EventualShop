@@ -1,4 +1,4 @@
-name: Payment - Build and Test
+name: Payment
 
 on:
   push:
@@ -14,3 +14,13 @@ jobs:
     with:
       project: ./src/Services/Payment/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
+  
+  payment-codacy:
+    uses: ./.github/workflows/_codacy.yaml
+    with:
+      path: /src/Services/Payment
+      
+  payment-codeql:
+    uses: ./.github/workflows/_codeql.yaml
+    with:
+      path: ./src/Services/Payment

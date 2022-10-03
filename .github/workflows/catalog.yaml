@@ -1,4 +1,4 @@
-name: Catalog - Build and Test
+name: Catalog
 
 on:
   push:
@@ -14,3 +14,13 @@ jobs:
     with:
       project: ./src/Services/Catalog/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
+  
+  catalog-codacy:
+    uses: ./.github/workflows/_codacy.yaml
+    with:
+      path: /src/Services/Catalog
+  
+  catalog-codeql:
+    uses: ./.github/workflows/_codeql.yaml
+    with:
+      path: ./src/Services/Catalog
