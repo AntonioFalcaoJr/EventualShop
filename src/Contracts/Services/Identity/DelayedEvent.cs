@@ -4,5 +4,5 @@ namespace Contracts.Services.Identity;
 
 public static class DelayedEvent
 {
-    public record EmailConfirmationExpired(Guid Id, string Email) : Message(CorrelationId: Id), IEventWithId;
+    public record EmailConfirmationExpired(Guid Id, string Email) : Message(CorrelationId: Id), IEvent;
 }
