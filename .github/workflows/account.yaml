@@ -9,7 +9,7 @@ on:
       - $PATH/**.cs
       - $PATH/**.csproj
       - Directory.Build.props
-      #- .github/workflows/*
+      - .github/workflows/*
 
 jobs:
   build-and-test:
