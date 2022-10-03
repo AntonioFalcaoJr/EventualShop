@@ -1,10 +1,10 @@
-name: Order
+name: Identity - Query Stack
 
 on:
   push:
     paths:
-      - src/Services/Order/**.cs
-      - src/Services/Order/**.csproj
+      - src/Services/Identity/Query/**.cs
+      - src/Services/Identity/Query/**.csproj
       - Directory.Build.props
       - .github/workflows/**
 
@@ -12,7 +12,7 @@ jobs:
   build-and-test:
     uses: ./.github/workflows/_build-and-test.yaml
     with:
-      project: ./src/Services/Order/WorkerService
+      project: ./src/Services/Identity/Query/GrpcService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
   
   codacy:
@@ -20,11 +20,11 @@ jobs:
       - build-and-test
     uses: ./.github/workflows/_codacy.yaml
     with:
-      path: /src/Services/Order
+      path: /src/Services/Identity/Query
   
   codeql:
     needs:
       - codacy
     uses: ./.github/workflows/_codeql.yaml
     with:
-      path: ./src/Services/Order
+      path: ./src/Services/Identity/Query

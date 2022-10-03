@@ -12,7 +12,7 @@ jobs:
   build-and-test:
     uses: ./.github/workflows/_build-and-test.yaml
     with:
-      project: /src/Services/Catalog/WorkerService
+      project: ./src/Services/Catalog/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
   
   codacy:

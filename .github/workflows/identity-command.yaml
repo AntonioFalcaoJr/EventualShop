@@ -1,10 +1,10 @@
-name: Identity
+name: Identity - Command Stack
 
 on:
   push:
     paths:
-      - src/Services/Identity/**.cs
-      - src/Services/Identity/**.csproj
+      - src/Services/Identity/Command/**.cs
+      - src/Services/Identity/Command/**.csproj
       - Directory.Build.props
       - .github/workflows/**
 
@@ -12,7 +12,7 @@ jobs:
   build-and-test:
     uses: ./.github/workflows/_build-and-test.yaml
     with:
-      project: /src/Services/Identity/WorkerService
+      project: ./src/Services/Identity/Command/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
   
   codacy:
@@ -20,11 +20,11 @@ jobs:
       - build-and-test
     uses: ./.github/workflows/_codacy.yaml
     with:
-      path: /src/Services/Identity
+      path: /src/Services/Identity/Command
   
   codeql:
     needs:
       - codacy
     uses: ./.github/workflows/_codeql.yaml
     with:
-      path: ./src/Services/Identity
+      path: ./src/Services/Identity/Command
