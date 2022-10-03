@@ -10,7 +10,7 @@ on:
       test:
         description: 'The test path passed from the caller workflow'
         required: true
-        type: string  
+        type: string
 
 jobs:
   build-and-test:
@@ -19,16 +19,16 @@ jobs:
       project: ./${{ inputs.project }}/WorkerService
       test: ./${{ inputs.test }}
   
-  codacy:
+  quality:
     needs:
       - build-and-test
     uses: ./.github/workflows/_quality-gate.yaml
     with:
       path: ${{ inputs.project }}
   
-  codeql:
+  security:
     needs:
-      - codacy
+      - quality
     uses: ./.github/workflows/_security-gate.yaml
     with:
       path: ./${{ inputs.project }}

@@ -1,5 +1,3 @@
-name: build and test
-
 on:
   workflow_call:
     inputs:
