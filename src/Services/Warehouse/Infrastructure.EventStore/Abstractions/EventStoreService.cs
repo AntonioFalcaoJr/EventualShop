@@ -26,13 +26,13 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
         IPublishEndpoint publishEndpoint,
         IEventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId> repository,
         INotificationContext notificationContext,
-        IOptionsMonitor<EventStoreOptions> optionsMonitor,
+        IOptionsSnapshot<EventStoreOptions> options,
         IUnitOfWork unitOfWork)
     {
         _publishEndpoint = publishEndpoint;
         _notificationContext = notificationContext;
         _unitOfWork = unitOfWork;
-        _options = optionsMonitor.CurrentValue;
+        _options = options.Value;
         _repository = repository;
     }
 

@@ -23,7 +23,7 @@ public class WarehousesController : ApplicationController
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> CreateAsync(Request.CreateInventory request, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.CreateInventory>(new(request.OwnerId), cancellationToken);
+        => SendCommandAsync<Command.CreateInventory>(new(Guid.NewGuid(), request.OwnerId), cancellationToken);
 
     [HttpGet("{inventoryId:guid}/items")]
     [ProducesResponseType(typeof(IPagedResult<Projection.InventoryItem>), StatusCodes.Status200OK)]

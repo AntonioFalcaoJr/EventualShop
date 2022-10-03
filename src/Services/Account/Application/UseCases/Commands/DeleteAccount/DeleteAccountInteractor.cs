@@ -15,7 +15,7 @@ public class DeleteAccountInteractor : IInteractor<Command.DeleteAccount>
 
     public async Task InteractAsync(Command.DeleteAccount command, CancellationToken ct)
     {
-        var account = await _eventStore.LoadAsync(command.AccountId, ct);
+        var account = await _eventStore.LoadAsync(command.Id, ct);
         account.Handle(command);
         await _eventStore.AppendAsync(account, ct);
     }

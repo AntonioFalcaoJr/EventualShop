@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Reflection;
 using Application.DependencyInjection.Extensions;
 using GrpcService;
@@ -69,20 +68,6 @@ var app = builder.Build();
 app.UseCors();
 app.UseSerilogRequestLogging();
 app.MapGrpcService<IdentityGrpcService>();
-
-var applicationLifetime = app.Services.GetRequiredService<IHostApplicationLifetime>();
-
-applicationLifetime.ApplicationStopping.Register(() =>
-{
-    Log.Information("Waiting 20s for a graceful termination...");
-    Thread.Sleep(20000);
-});
-
-applicationLifetime.ApplicationStopped.Register(() =>
-{
-    Log.Information("Application completely stopped");
-    Process.GetCurrentProcess().Kill();
-});
 
 try
 {

@@ -10,6 +10,10 @@ namespace WebAPI.Abstractions;
 
 public static class ApplicationApi
 {
+    public static async Task<Results<Ok<TResponse>, ValidationProblem>> QueryAsync<TClient, TResponse>(IQueryRequest<TClient> request, Func<TClient, CancellationToken, AsyncUnaryCall<TResponse>> query)
+        where TClient : ClientBase<TClient>
+        => request.IsValid(out var errors) ? Ok(await query(request.Client, request.CancellationToken)) : ValidationProblem(errors);
+
     public static async Task<Results<Accepted, ValidationProblem>> SendCommandAsync<TCommand>(ICommandRequest request)
         where TCommand : class, ICommand
     {
@@ -18,14 +22,13 @@ public static class ApplicationApi
         async Task<Accepted> AcceptAsync()
         {
             var endpoint = await request.Bus.GetSendEndpoint(Address<TCommand>());
-            await endpoint.Send((TCommand) request.Command, request.CancellationToken);
+            await endpoint.Send((TCommand)request.Command, request.CancellationToken);
             return Accepted("");
         }
     }
 
-    public static async Task<Results<Ok<TResponse>, ValidationProblem>> QueryAsync<TClient, TResponse>(IQueryRequest<TClient> request, Func<TClient, CancellationToken, AsyncUnaryCall<TResponse>> query)
-        where TClient : ClientBase<TClient>
-        => request.IsValid(out var errors) ? Ok(await query(request.Client, request.CancellationToken)) : ValidationProblem(errors);
+    private static Uri Address<T>()
+        => new($"exchange:{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}");
 
     public static Task<Results<Ok<TProjection>, NoContent, NotFound, Problem>> GetProjectionAsync<TQuery, TProjection>
         (IBus bus, TQuery query, CancellationToken cancellationToken)
@@ -56,7 +59,4 @@ public static class ApplicationApi
             _ => new Problem()
         };
     }
-
-    private static Uri Address<T>()
-        => new($"exchange:{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}");
 }

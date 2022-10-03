@@ -13,7 +13,7 @@ public class ProjectOrderDetailsWhenOrderChangedConsumer : IConsumer<DomainEvent
 
     public async Task Consume(ConsumeContext<DomainEvent.OrderPlaced> context)
     {
-        Projection.Order order = new(context.Message.OrderId, false);
+        Projection.Order order = new(context.Message.Id, false);
         await _repository.InsertAsync(order, context.CancellationToken);
     }
 }

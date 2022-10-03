@@ -15,7 +15,7 @@ public class DiscardCartConsumer : IConsumer<Command.DiscardCart>
 
     public async Task Consume(ConsumeContext<Command.DiscardCart> context)
     {
-        var shoppingCart = await _eventStore.LoadAsync(context.Message.CartId, context.CancellationToken);
+        var shoppingCart = await _eventStore.LoadAsync(context.Message.Id, context.CancellationToken);
         shoppingCart.Handle(context.Message);
         await _eventStore.AppendAsync(shoppingCart, context.CancellationToken);
     }

@@ -12,7 +12,7 @@ public static class ServiceCollectionExtensions
         => services
             .AddScoped<IInteractor<DomainEvent.UserDeleted>, UserDeletedInteractor>()
             .AddScoped<IInteractor<DomainEvent.UserRegistered>, UserRegisteredInteractor>()
-            .AddScoped<IInteractor<DomainEvent.UserPasswordChanged>, UserPasswordChangedInteractor>();
+            .AddScoped<IInteractor<DomainEvent.PasswordChanged>, UserPasswordChangedInteractor>();
 
     public static IServiceCollection AddQueryInteractors(this IServiceCollection services)
         => services.AddScoped<IInteractor<Query.Login, Projection.UserDetails>, LoginInteractor>();

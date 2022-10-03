@@ -1,4 +1,4 @@
-name: Order build and test
+name: Order - Build and Test
 
 on:
   push:
@@ -6,10 +6,11 @@ on:
       - src/Services/Order/**.cs
       - src/Services/Order/**.csproj
       - Directory.Build.props
+      - .github/workflows/**
 
 jobs:
   order-build-and-test:
-    uses: ./.github/workflows/build-and-test.yaml
+    uses: ./.github/workflows/_build-and-test.yaml
     with:
       project: ./src/Services/Order/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests

@@ -12,6 +12,6 @@ namespace Infrastructure.EventStore;
 
 public class OrderEventStoreService : EventStoreService<Order, OrderStoreEvent, OrderSnapshot, Guid>, IOrderEventStoreService
 {
-    public OrderEventStoreService(IPublishEndpoint publishEndpoint, IOrderEventStoreRepository repository, INotificationContext notificationContext, IOptionsMonitor<EventStoreOptions> optionsMonitor, IUnitOfWork unitOfWork)
-        : base(publishEndpoint, repository, notificationContext, optionsMonitor, unitOfWork) { }
+    public OrderEventStoreService(IPublishEndpoint publishEndpoint, IOrderEventStoreRepository repository, INotificationContext notificationContext, IOptionsSnapshot<EventStoreOptions> options, IUnitOfWork unitOfWork)
+        : base(publishEndpoint, repository, notificationContext, options, unitOfWork) { }
 }

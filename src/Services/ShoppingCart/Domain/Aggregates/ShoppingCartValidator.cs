@@ -10,6 +10,9 @@ public class ShoppingCartValidator : EntityValidator<ShoppingCart, Guid>
 {
     public ShoppingCartValidator()
     {
+        RuleFor(cart => cart.Id)
+            .NotEmpty();
+        
         RuleForEach(cart => cart.Items)
             .NotNull()
             .SetValidator(new CartItemValidator());

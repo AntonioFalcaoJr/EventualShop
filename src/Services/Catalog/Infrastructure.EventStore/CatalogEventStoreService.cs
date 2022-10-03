@@ -12,6 +12,6 @@ namespace Infrastructure.EventStore;
 
 public class CatalogEventStoreService : EventStoreService<Catalog, CatalogStoreEvent, CatalogSnapshot, Guid>, ICatalogEventStoreService
 {
-    public CatalogEventStoreService(IPublishEndpoint publishEndpoint, ICatalogEventStoreRepository repository, INotificationContext notificationContext, IOptionsMonitor<EventStoreOptions> optionsMonitor, IUnitOfWork unitOfWork)
-        : base(publishEndpoint, repository, notificationContext, optionsMonitor, unitOfWork) { }
+    public CatalogEventStoreService(IPublishEndpoint publishEndpoint, ICatalogEventStoreRepository repository, INotificationContext notificationContext, IOptionsSnapshot<EventStoreOptions> options, IUnitOfWork unitOfWork)
+        : base(publishEndpoint, repository, notificationContext, options, unitOfWork) { }
 }

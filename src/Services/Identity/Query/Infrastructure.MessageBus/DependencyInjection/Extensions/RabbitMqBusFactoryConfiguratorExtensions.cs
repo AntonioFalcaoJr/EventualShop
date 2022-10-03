@@ -11,7 +11,7 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
     {
         cfg.ConfigureEventReceiveEndpoint<UserDeletedConsumer, DomainEvent.UserDeleted>(context);
         cfg.ConfigureEventReceiveEndpoint<UserRegisteredConsumer, DomainEvent.UserRegistered>(context);
-        cfg.ConfigureEventReceiveEndpoint<UserPasswordChangedConsumer, DomainEvent.UserPasswordChanged>(context);
+        cfg.ConfigureEventReceiveEndpoint<UserPasswordChangedConsumer, DomainEvent.PasswordChanged>(context);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistrationContext context)

@@ -1,4 +1,4 @@
-name: Warehouse CodeQL
+name: Warehouse - Security Gate
 
 on:
   push:
@@ -10,6 +10,6 @@ on:
 
 jobs:
   warehouse-codeql:
-    uses: ./.github/workflows/codeql.yaml
+    uses: ./.github/workflows/_codeql.yaml
     with:
       path: ./src/Services/Warehouse

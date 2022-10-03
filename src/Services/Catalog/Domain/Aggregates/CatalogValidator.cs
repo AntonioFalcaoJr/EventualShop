@@ -8,6 +8,9 @@ public class CatalogValidator : EntityValidator<Catalog, Guid>
 {
     public CatalogValidator()
     {
+        RuleFor(catalog => catalog.Id)
+            .NotEmpty();
+        
         RuleFor(catalog => catalog.Title)
             .NotNull()
             .NotEmpty();
