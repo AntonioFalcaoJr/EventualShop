@@ -36,7 +36,7 @@ public class Order : AggregateRoot<Guid, OrderValidator>
             cmd.PaymentMethods));
 
     public void Handle(Command.ConfirmOrder cmd)
-        => RaiseEvent(new DomainEvent.OrderConfirmed(cmd.OrderId));
+        => RaiseEvent(new DomainEvent.OrderConfirmed(cmd.Id));
 
     protected override void ApplyEvent(IEvent @event)
         => When(@event as dynamic);
