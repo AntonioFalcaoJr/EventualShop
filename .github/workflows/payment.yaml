@@ -6,7 +6,7 @@ on:
       - src/Services/Payment/**.cs
       - src/Services/Payment/**.csproj
       - Directory.Build.props
-      - .github/workflows/**
+      #- .github/workflows/*
 
 jobs:
   build-and-test:
