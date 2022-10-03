@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  quality-gate:
+  quality:
     name: Quality Gate
     runs-on: ubuntu-latest
     permissions:

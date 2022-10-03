@@ -20,15 +20,13 @@ jobs:
       test: ./${{ inputs.test }}
   
   quality:
-    needs:
-      - build-and-test
-    uses: ./.github/workflows/_quality-gate.yaml
+    needs: [ build-and-test ]
+    uses: ./.github/workflows/_quality.yaml
     with:
       path: ${{ inputs.project }}
   
   security:
-    needs:
-      - quality
-    uses: ./.github/workflows/_security-gate.yaml
+    needs: [ quality ]
+    uses: ./.github/workflows/_security.yaml
     with:
       path: ./${{ inputs.project }}
