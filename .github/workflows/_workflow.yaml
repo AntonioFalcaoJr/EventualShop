@@ -23,7 +23,7 @@ jobs:
     needs: [ build-and-test ]
     uses: ./.github/workflows/_quality.yaml
     with:
-      path: ./${{ inputs.project }}
+      path: /${{ inputs.project }}
   
   security:
     needs: [ quality ]
