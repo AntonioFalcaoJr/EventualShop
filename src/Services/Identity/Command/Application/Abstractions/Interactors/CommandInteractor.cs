@@ -6,7 +6,7 @@ namespace Application.Abstractions.Interactors;
 
 public abstract class CommandInteractor<TAggregate, TCommand> : Interactor<TAggregate, TCommand>
     where TAggregate : IAggregateRoot, new()
-    where TCommand : ICommandWithId
+    where TCommand : ICommand
 {
     protected CommandInteractor(IEventStoreGateway eventStoreGateway, IEventBusGateway eventBusGateway, IUnitOfWork unitOfWork)
         : base(eventStoreGateway, eventBusGateway, unitOfWork) { }
