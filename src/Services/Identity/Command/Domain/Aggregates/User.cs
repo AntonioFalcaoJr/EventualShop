@@ -18,7 +18,7 @@ public class User : AggregateRoot<UserValidator>
     public IEnumerable<Email> Emails
         => _emails;
 
-    public override void Handle(ICommandWithId command)
+    public override void Handle(ICommand command)
         => Handle(command as dynamic);
 
     private void Handle(Command.RegisterUser cmd)
