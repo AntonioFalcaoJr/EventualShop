@@ -34,7 +34,6 @@ jobs:
           format: sarif
           gh-code-scanning-compat: false
           max-allowed-issues: 2147483647
-          tool: duplication,complexity,style
 
       - name: Upload SARIF results
         uses: github/codeql-action/upload-sarif@main
