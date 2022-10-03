@@ -29,11 +29,12 @@ jobs:
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           directory: ${{ inputs.path }}
-          verbose: true
+          verbose: false
           output: results.sarif
           format: sarif
           gh-code-scanning-compat: false
           max-allowed-issues: 2147483647
+          tool: all
 
       - name: Upload SARIF results
         uses: github/codeql-action/upload-sarif@main
