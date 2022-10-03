@@ -25,17 +25,16 @@ jobs:
         uses: actions/setup-dotnet@v1
 
       - name: Run Analysis
-        uses: codacy/codacy-analysis-cli-action@v4.2.0
+        uses: codacy/codacy-analysis-cli-action@master
         with:
-          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           directory: ${{ inputs.path }}
           verbose: true
           output: results.sarif
           format: sarif
-          gh-code-scanning-compat: true
+          gh-code-scanning-compat: false
           max-allowed-issues: 2147483647
 
       - name: Upload SARIF results
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@main
         with:
           sarif_file: results.sarif
