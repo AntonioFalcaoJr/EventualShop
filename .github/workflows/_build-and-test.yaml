@@ -35,11 +35,11 @@ jobs:
             ${{ runner.os }}-nuget  
 
       - name: Install dependencies
-        working-directory: ${{ PATH }}
+        working-directory: $PATH
         run: dotnet restore
 
       - name: Build
-        working-directory: ${{ PATH }}
+        working-directory: $PATH
         run: dotnet build --configuration Release --no-restore
 
       - name: Test
