@@ -6,7 +6,7 @@ on:
       - src/Services/Communication/Command/**.cs
       - src/Services/Communication/Command/**.csproj
       - Directory.Build.props
-      #- .github/workflows/*
+      - .github/workflows/communication-command.yaml
 
 jobs:
   build-and-test:

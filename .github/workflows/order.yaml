@@ -6,7 +6,7 @@ on:
       - src/Services/Order/**.cs
       - src/Services/Order/**.csproj
       - Directory.Build.props
-      #- .github/workflows/*
+      - .github/workflows/order.yaml
 
 jobs:
   build-and-test:

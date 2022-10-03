@@ -6,7 +6,7 @@ on:
       - src/Services/Catalog/**.cs
       - src/Services/Catalog/**.csproj
       - Directory.Build.props
-      #- .github/workflows/*
+      - .github/workflows/catalog.yaml
 
 jobs:
   build-and-test:

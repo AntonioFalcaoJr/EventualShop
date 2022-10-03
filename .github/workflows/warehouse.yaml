@@ -6,7 +6,7 @@ on:
       - src/Services/Warehouse/**.cs
       - src/Services/Warehouse/**.csproj
       - Directory.Build.props
-      #- .github/workflows/*
+      - .github/workflows/warehouse.yaml
 
 jobs:
   build-and-test:

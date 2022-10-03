@@ -6,7 +6,7 @@ on:
       - src/Services/Identity/Query/**.cs
       - src/Services/Identity/Query/**.csproj
       - Directory.Build.props
-      #- .github/workflows/*
+      - .github/workflows/identity-query.yaml
 
 jobs:
   build-and-test:
