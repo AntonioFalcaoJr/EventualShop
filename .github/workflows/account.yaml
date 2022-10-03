@@ -1,7 +1,7 @@
 name: Account
 
 env:
-  PATH: src/Services/Account
+  PATH: "src/Services/Account"
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
   build-and-test:
     uses: ./.github/workflows/_build-and-test.yaml
     with:
-      project: ./${{PATH}}/WorkerService
+      project: ./$PATH/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
   
   codacy:
