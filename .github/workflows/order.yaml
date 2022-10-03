@@ -16,11 +16,15 @@ jobs:
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
   
   order-codacy:
+    needs:
+      - order-build-and-test
     uses: ./.github/workflows/_codacy.yaml
     with:
       path: /src/Services/Order
   
   order-codeql:
+    needs: 
+      - order-codacy
     uses: ./.github/workflows/_codeql.yaml
     with:
       path: ./src/Services/Order

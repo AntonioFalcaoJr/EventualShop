@@ -16,11 +16,15 @@ jobs:
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
   
   payment-codacy:
+    needs:
+      - payment-build-and-test
     uses: ./.github/workflows/_codacy.yaml
     with:
       path: /src/Services/Payment
       
   payment-codeql:
+    needs: 
+      - payment-codacy
     uses: ./.github/workflows/_codeql.yaml
     with:
       path: ./src/Services/Payment

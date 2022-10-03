@@ -16,11 +16,15 @@ jobs:
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
   
   shoppingcart-codacy:
+    needs:
+      - shoppingcart-build-and-test
     uses: ./.github/workflows/_codacy.yaml
     with:
       path: /src/Services/ShoppingCart
         
   shoppingcart-codeql:
+    needs: 
+      - shoppingcart-codacy
     uses: ./.github/workflows/_codeql.yaml
     with:
       path: ./src/Services/ShoppingCart

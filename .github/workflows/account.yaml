@@ -16,13 +16,15 @@ jobs:
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
       
   account-codacy:
+    needs:
+      - account-build-and-test
     uses: ./.github/workflows/_codacy.yaml
     with:
       path: /src/Services/Account    
       
   account-codeql:
     needs: 
-      - account-build-and-test
+      - account-codacy
     uses: ./.github/workflows/_codeql.yaml
     with:
       path: ./src/Services/Account    
