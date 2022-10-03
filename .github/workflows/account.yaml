@@ -9,22 +9,8 @@ on:
       - .github/workflows/account.yaml
 
 jobs:
-  build-and-test:
-    uses: ./.github/workflows/_build-and-test.yaml
+  workflow:
+    uses: ./.github/workflows/_workflow.yaml
     with:
-      project: ./src/Services/Account/WorkerService
-      test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
-  
-  codacy:
-    needs:
-      - build-and-test
-    uses: ./.github/workflows/_codacy.yaml
-    with:
-      path: src/Services/Account
-  
-  codeql:
-    needs:
-      - codacy
-    uses: ./.github/workflows/_codeql.yaml
-    with:
-      path: ./src/Services/Account
+      project: src/Services/Account
+      test: test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests

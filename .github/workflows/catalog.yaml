@@ -9,22 +9,8 @@ on:
       - .github/workflows/catalog.yaml
 
 jobs:
-  build-and-test:
-    uses: ./.github/workflows/_build-and-test.yaml
+  workflow:
+    uses: ./.github/workflows/_workflow.yaml
     with:
-      project: ./src/Services/Catalog/WorkerService
-      test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
-  
-  codacy:
-    needs:
-      - build-and-test
-    uses: ./.github/workflows/_codacy.yaml
-    with:
-      path: /src/Services/Catalog
-  
-  codeql:
-    needs:
-      - codacy
-    uses: ./.github/workflows/_codeql.yaml
-    with:
-      path: ./src/Services/Catalog
+      project: src/Services/Catalog
+      test: test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests

@@ -1,4 +1,4 @@
-name: Codacy Quality Gate
+name: Quality Gate
 
 on:
   workflow_call:
@@ -12,8 +12,8 @@ permissions:
   contents: read
 
 jobs:
-  codacy-quality-gate:
-    name: Codacy Quality Gate
+  quality-gate:
+    name: Quality Gate
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -27,7 +27,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
 
-      - name: Run Codacy Analysis CLI
+      - name: Run Analysis
         uses: codacy/codacy-analysis-cli-action@v4.2.0
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
@@ -38,7 +38,7 @@ jobs:
           gh-code-scanning-compat: true
           max-allowed-issues: 2147483647
 
-      - name: Upload SARIF results file
+      - name: Upload SARIF results
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: results.sarif

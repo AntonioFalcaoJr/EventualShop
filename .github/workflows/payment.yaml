@@ -9,22 +9,8 @@ on:
       - .github/workflows/payment.yaml
 
 jobs:
-  build-and-test:
-    uses: ./.github/workflows/_build-and-test.yaml
+  workflow:
+    uses: ./.github/workflows/_workflow.yaml
     with:
-      project: ./src/Services/Payment/WorkerService
-      test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
-  
-  codacy:
-    needs:
-      - build-and-test
-    uses: ./.github/workflows/_codacy.yaml
-    with:
-      path: /src/Services/Payment
-  
-  codeql:
-    needs:
-      - codacy
-    uses: ./.github/workflows/_codeql.yaml
-    with:
-      path: ./src/Services/Payment
+      project: src/Services/Payment
+      test: test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests

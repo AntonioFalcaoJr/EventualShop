@@ -9,22 +9,8 @@ on:
       - .github/workflows/warehouse.yaml
 
 jobs:
-  build-and-test:
-    uses: ./.github/workflows/_build-and-test.yaml
+  workflow:
+    uses: ./.github/workflows/_workflow.yaml
     with:
-      project: ./src/Services/Warehouse/WorkerService
-      test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
-  
-  codacy:
-    needs:
-      - build-and-test
-    uses: ./.github/workflows/_codacy.yaml
-    with:
-      path: /src/Services/Warehouse
-  
-  codeql:
-    needs:
-      - codacy
-    uses: ./.github/workflows/_codeql.yaml
-    with:
-      path: ./src/Services/Warehouse    
+      project: src/Services/Warehouse
+      test: test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests

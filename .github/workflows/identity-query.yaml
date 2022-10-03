@@ -9,22 +9,8 @@ on:
       - .github/workflows/identity-query.yaml
 
 jobs:
-  build-and-test:
-    uses: ./.github/workflows/_build-and-test.yaml
+  workflow:
+    uses: ./.github/workflows/_workflow.yaml
     with:
-      project: ./src/Services/Identity/Query/GrpcService
-      test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
-  
-  codacy:
-    needs:
-      - build-and-test
-    uses: ./.github/workflows/_codacy.yaml
-    with:
-      path: /src/Services/Identity/Query
-  
-  codeql:
-    needs:
-      - codacy
-    uses: ./.github/workflows/_codeql.yaml
-    with:
-      path: ./src/Services/Identity/Query
+      project: src/Services/Identity/Query
+      test: test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests

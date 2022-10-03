@@ -22,13 +22,13 @@ jobs:
   codacy:
     needs:
       - build-and-test
-    uses: ./.github/workflows/_codacy.yaml
+    uses: ./.github/workflows/_quality-gate.yaml
     with:
       path: ${{ inputs.project }}
   
   codeql:
     needs:
       - codacy
-    uses: ./.github/workflows/_codeql.yaml
+    uses: ./.github/workflows/_security-gate.yaml
     with:
       path: ./${{ inputs.project }}

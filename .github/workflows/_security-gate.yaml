@@ -1,4 +1,4 @@
-name: CodeQL config
+name: Security Gate
 
 on:
   workflow_call:

@@ -9,22 +9,8 @@ on:
       - .github/workflows/identity-command.yaml
 
 jobs:
-  build-and-test:
-    uses: ./.github/workflows/_build-and-test.yaml
+  workflow:
+    uses: ./.github/workflows/_workflow.yaml
     with:
-      project: ./src/Services/Identity/Command/WorkerService
-      test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
-  
-  codacy:
-    needs:
-      - build-and-test
-    uses: ./.github/workflows/_codacy.yaml
-    with:
-      path: /src/Services/Identity/Command
-  
-  codeql:
-    needs:
-      - codacy
-    uses: ./.github/workflows/_codeql.yaml
-    with:
-      path: ./src/Services/Identity/Command
+      project: src/Services/Identity/Command
+      test: test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests  
