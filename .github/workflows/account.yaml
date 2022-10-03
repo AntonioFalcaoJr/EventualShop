@@ -6,8 +6,8 @@ env:
 on:
   push:
     paths:
-      - {{PATH}}/**.cs
-      - {{PATH}}/**.csproj
+      - $PATH/**.cs
+      - $PATH/**.csproj
       - Directory.Build.props
       - .github/workflows/**
 
@@ -15,7 +15,7 @@ jobs:
   build-and-test:
     uses: ./.github/workflows/_build-and-test.yaml
     with:
-      project: ./{{PATH}}/WorkerService
+      project: ./$PATH/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
   
   codacy:
@@ -23,11 +23,11 @@ jobs:
       - build-and-test
     uses: ./.github/workflows/_codacy.yaml
     with:
-      path: {{PATH}}
+      path: $PATH
   
   codeql:
     needs:
       - codacy
     uses: ./.github/workflows/_codeql.yaml
     with:
-      path: ./{{PATH}}   
+      path: ./$PATH
