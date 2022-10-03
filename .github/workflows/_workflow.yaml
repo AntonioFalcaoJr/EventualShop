@@ -1,0 +1,34 @@
+name: Workflow
+
+on:
+  workflow_call:
+    inputs:
+      project:
+        description: 'The path of project passed from the caller workflow'
+        required: true
+        type: string
+      test:
+        description: 'The test path passed from the caller workflow'
+        required: true
+        type: string  
+
+jobs:
+  build-and-test:
+    uses: ./.github/workflows/_build-and-test.yaml
+    with:
+      project: ./${{ inputs.project }}/WorkerService
+      test: ./${{ inputs.test }}
+  
+  codacy:
+    needs:
+      - build-and-test
+    uses: ./.github/workflows/_codacy.yaml
+    with:
+      path: ${{ inputs.project }}
+  
+  codeql:
+    needs:
+      - codacy
+    uses: ./.github/workflows/_codeql.yaml
+    with:
+      path: ./${{ inputs.project }}
