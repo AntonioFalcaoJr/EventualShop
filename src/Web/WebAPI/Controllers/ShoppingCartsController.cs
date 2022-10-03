@@ -24,7 +24,7 @@ public class ShoppingCartsController : ApplicationController
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public Task<IActionResult> CreateAsync(Request.CreateCart request, CancellationToken cancellationToken)
-        => SendCommandAsync<Command.CreateCart>(new(request.CustomerId), cancellationToken);
+        => SendCommandAsync<Command.CreateCart>(new(Guid.NewGuid(), request.CustomerId), cancellationToken);
 
     [HttpGet("{cartId:guid}")]
     [ProducesResponseType(typeof(Projection.ShoppingCart), StatusCodes.Status200OK)]
