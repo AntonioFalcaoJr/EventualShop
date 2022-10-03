@@ -1,10 +1,13 @@
 name: Account
 
+env:
+  PATH: src/Services/Account
+
 on:
   push:
     paths:
-      - src/Services/Account/**.cs
-      - src/Services/Account/**.csproj
+      - {{PATH}}/**.cs
+      - {{PATH}}/**.csproj
       - Directory.Build.props
       - .github/workflows/**
 
@@ -12,7 +15,7 @@ jobs:
   build-and-test:
     uses: ./.github/workflows/_build-and-test.yaml
     with:
-      project: ./src/Services/Account/WorkerService
+      project: ./{{PATH}}/WorkerService
       test: ./test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
   
   codacy:
@@ -20,11 +23,11 @@ jobs:
       - build-and-test
     uses: ./.github/workflows/_codacy.yaml
     with:
-      path: /src/Services/Account
+      path: {{PATH}}
   
   codeql:
     needs:
       - codacy
     uses: ./.github/workflows/_codeql.yaml
     with:
-      path: ./src/Services/Account    
+      path: ./{{PATH}}   
