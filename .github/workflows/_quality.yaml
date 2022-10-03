@@ -27,6 +27,7 @@ jobs:
       - name: Run Analysis
         uses: codacy/codacy-analysis-cli-action@master
         with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           directory: ${{ inputs.path }}
           verbose: true
           output: results.sarif
