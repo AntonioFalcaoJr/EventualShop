@@ -27,12 +27,12 @@ jobs:
       - name: Run Analysis
         uses: codacy/codacy-analysis-cli-action@master
         with:
-          directory: ${{ inputs.path }}
+          directory: ${{ inputs.path }}/WorkerService
           verbose: false
           output: results.sarif
           format: sarif
           tool: sonarscharp
-          gh-code-scanning-compat: false
+          gh-code-scanning-compat: true
           max-allowed-issues: 2147483647
 
       - name: Get results
