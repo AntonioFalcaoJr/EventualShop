@@ -20,10 +20,10 @@ public static class WarehouseApi
         group.MapPost("/{inventoryId:guid}/items", ([AsParameters] Requests.ReceiveInventoryItem request)
             => ApplicationApi.SendCommandAsync<Command.ReceiveInventoryItem>(request));
 
-        group.MapGet("/{inventoryId:guid}/items/{itemId:guid}/increase-adjust", ([AsParameters] Requests.IncreaseInventoryAdjust request)
+        group.MapPut("/{inventoryId:guid}/items/{itemId:guid}/increase-adjust", ([AsParameters] Requests.IncreaseInventoryAdjust request)
             => ApplicationApi.SendCommandAsync<Command.IncreaseInventoryAdjust>(request));
 
-        group.MapGet("/{inventoryId:guid}/items/{itemId:guid}/decrease-adjust", ([AsParameters] Requests.DecreaseInventoryAdjust request)
+        group.MapPut("/{inventoryId:guid}/items/{itemId:guid}/decrease-adjust", ([AsParameters] Requests.DecreaseInventoryAdjust request)
             => ApplicationApi.SendCommandAsync<Command.DecreaseInventoryAdjust>(request));
 
         return group.WithMetadata(new TagsAttribute("Warehouses"));

@@ -13,7 +13,7 @@ public static class IdentityApi
         group.MapPost("/sign-up", ([AsParameters] Requests.SignUp request)
             => ApplicationApi.SendCommandAsync<Command.RegisterUser>(request));
 
-        group.MapPost("/{userId:guid}/email", ([AsParameters] Requests.ChangeEmail request)
+        group.MapPut("/{userId:guid}/email", ([AsParameters] Requests.ChangeEmail request)
             => ApplicationApi.SendCommandAsync<Command.ChangeEmail>(request));
 
         return group.WithMetadata(new TagsAttribute("Identities"));
