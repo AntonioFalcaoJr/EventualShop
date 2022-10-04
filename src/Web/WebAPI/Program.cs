@@ -15,6 +15,7 @@ using Serilog;
 using WebAPI.APIs.Accounts;
 using WebAPI.APIs.Catalogs;
 using WebAPI.APIs.Identities;
+using WebAPI.APIs.Orders;
 using WebAPI.DependencyInjection.Extensions;
 using WebAPI.DependencyInjection.Options;
 using WebAPI.Extensions;
@@ -120,20 +121,13 @@ if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
 }
 
 app.UseCors();
-
-// TODO - It should be removed when migration to Minimal API completed 
-// app.UseRouting();
-// app.UseEndpoints(endpoints
-//     => endpoints.MapControllerRoute(
-//         name: "default",
-//         pattern: "{controller:slugify}/{action:slugify}"));
-
 app.UseSerilogRequestLogging();
 app.UseApplicationExceptionHandler();
 
 app.MapGroup("/api/v1/accounts/").MapAccountApi();
 app.MapGroup("/api/v1/catalogs/").MapCatalogApi();
 app.MapGroup("/api/v1/identities/").MapIdentityApi();
+app.MapGroup("/api/v1/identities/").MapOrderApi();
 
 try
 {
