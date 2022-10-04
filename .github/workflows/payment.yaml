@@ -7,7 +7,6 @@ on:
       - src/Services/Payment/**.csproj
       - Directory.Build.props
       - .github/workflows/payment.yaml
-
 jobs:
   workflow:
     uses: ./.github/workflows/_workflow.yaml

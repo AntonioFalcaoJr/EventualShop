@@ -7,7 +7,6 @@ on:
       - src/Services/Order/**.csproj
       - Directory.Build.props
       - .github/workflows/order.yaml
-
 jobs:
   workflow:
     uses: ./.github/workflows/_workflow.yaml

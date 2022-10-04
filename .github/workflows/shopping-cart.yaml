@@ -7,7 +7,6 @@ on:
       - src/Services/ShoppingCart/**.csproj
       - Directory.Build.props
       - .github/workflows/shopping-cart.yaml
-
 jobs:
   workflow:
     uses: ./.github/workflows/_workflow.yaml

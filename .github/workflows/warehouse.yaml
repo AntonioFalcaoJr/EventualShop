@@ -7,7 +7,6 @@ on:
       - src/Services/Warehouse/**.csproj
       - Directory.Build.props
       - .github/workflows/warehouse.yaml
-
 jobs:
   workflow:
     uses: ./.github/workflows/_workflow.yaml

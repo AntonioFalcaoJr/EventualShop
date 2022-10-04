@@ -7,7 +7,6 @@ on:
       - src/Services/Catalog/**.csproj
       - Directory.Build.props
       - .github/workflows/catalog.yaml
-
 jobs:
   workflow:
     uses: ./.github/workflows/_workflow.yaml

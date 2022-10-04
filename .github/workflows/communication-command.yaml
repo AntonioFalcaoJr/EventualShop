@@ -7,7 +7,6 @@ on:
       - src/Services/Communication/Command/**.csproj
       - Directory.Build.props
       - .github/workflows/communication-command.yaml
-
 jobs:
   workflow:
     uses: ./.github/workflows/_workflow.yaml

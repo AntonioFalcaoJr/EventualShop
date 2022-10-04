@@ -7,7 +7,6 @@ on:
       - src/Services/Identity/Command/**.csproj
       - Directory.Build.props
       - .github/workflows/identity-command.yaml
-
 jobs:
   workflow:
     uses: ./.github/workflows/_workflow.yaml
