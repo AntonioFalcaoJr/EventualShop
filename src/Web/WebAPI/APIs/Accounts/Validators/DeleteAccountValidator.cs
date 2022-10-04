@@ -6,7 +6,7 @@ public class DeleteAccountValidator : AbstractValidator<Requests.DeleteAccount>
 {
     public DeleteAccountValidator()
     {
-        RuleFor(account => account.AccountId)
+        RuleFor(request => request.AccountId)
             .NotNull()
             .NotEmpty();
     }

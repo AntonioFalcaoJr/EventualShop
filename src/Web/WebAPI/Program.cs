@@ -16,6 +16,8 @@ using WebAPI.APIs.Accounts;
 using WebAPI.APIs.Catalogs;
 using WebAPI.APIs.Identities;
 using WebAPI.APIs.Orders;
+using WebAPI.APIs.Payments;
+using WebAPI.APIs.ShoppingCarts;
 using WebAPI.DependencyInjection.Extensions;
 using WebAPI.DependencyInjection.Options;
 using WebAPI.Extensions;
@@ -127,7 +129,9 @@ app.UseApplicationExceptionHandler();
 app.MapGroup("/api/v1/accounts/").MapAccountApi();
 app.MapGroup("/api/v1/catalogs/").MapCatalogApi();
 app.MapGroup("/api/v1/identities/").MapIdentityApi();
-app.MapGroup("/api/v1/identities/").MapOrderApi();
+app.MapGroup("/api/v1/orders/").MapOrderApi();
+app.MapGroup("/api/v1/payments/").MapPaymentApi();
+app.MapGroup("/api/v1/shopping-carts/").MapShoppingCartApi();
 
 try
 {

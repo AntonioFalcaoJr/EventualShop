@@ -24,7 +24,7 @@ public static class CatalogApi
         group.MapPut("/{catalogId:guid}/activate", ([AsParameters] Requests.ActivateCatalog request)
             => ApplicationApi.SendCommandAsync<Command.ActivateCatalog>(request));
 
-        group.MapPut("/{catalogId:guid}deactivate", ([AsParameters] Requests.DeactivateCatalog request)
+        group.MapPut("/{catalogId:guid}/deactivate", ([AsParameters] Requests.DeactivateCatalog request)
             => ApplicationApi.SendCommandAsync<Command.DeactivateCatalog>(request));
 
         group.MapPut("/{catalogId:guid}/description", ([AsParameters] Requests.ChangeCatalogDescription request)

@@ -21,7 +21,7 @@ public static class DomainEvent
 
     public record ShippingAddressAdded(Guid Id, Dto.Address Address) : Message(CorrelationId: Id), IEvent;
 
-    public record BillingAddressChanged(Guid Id, Dto.Address Address) : Message(CorrelationId: Id), IEvent;
+    public record BillingAddressAdded(Guid Id, Dto.Address Address) : Message(CorrelationId: Id), IEvent;
 
     public record PaymentMethodAdded(Guid Id, Guid MethodId, decimal Amount, Dto.IPaymentOption Option) : Message(CorrelationId: Id), IEvent;
 
