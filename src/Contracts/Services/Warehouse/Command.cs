@@ -7,9 +7,9 @@ public static class Command
 {
     public record ReceiveInventoryItem(Guid Id, Dto.Product Product, decimal Cost, int Quantity) : Message, ICommand;
 
-    public record IncreaseInventoryAdjust(Guid Id, Guid InventoryItemId, int Quantity, string Reason) : Message(CorrelationId: Id), ICommand;
+    public record IncreaseInventoryAdjust(Guid Id, Guid ItemId, int Quantity, string Reason) : Message(CorrelationId: Id), ICommand;
 
-    public record DecreaseInventoryAdjust(Guid Id, Guid InventoryItemId, int Quantity, string Reason) : Message(CorrelationId: Id), ICommand;
+    public record DecreaseInventoryAdjust(Guid Id, Guid ItemId, int Quantity, string Reason) : Message(CorrelationId: Id), ICommand;
 
     public record ReserveInventoryItem(Guid Id, Guid CatalogId, Guid CartId, int Quantity, string Sku) : Message(CorrelationId: Id), ICommand;
 
