@@ -18,19 +18,19 @@ on:
 
 jobs:
   build-and-test:
-    uses: ./.github/workflows/Templates/_build-and-test.yaml
+    uses: ./.github/workflows/_build-and-test.yaml
     with:
       project: ./${{ inputs.path }}/${{ inputs.project }}
       test: ./${{ inputs.test }}
   
   quality:
     needs: [ build-and-test ]
-    uses: ./.github/workflows/Templates/_quality.yaml
+    uses: ./.github/workflows/_quality.yaml
     with:
       path: /${{ inputs.path }}
   
   security:
     needs: [ quality ]
-    uses: ./.github/workflows/Templates/_security.yaml
+    uses: ./.github/workflows/_security.yaml
     with:
       path: ./${{ inputs.path }}
