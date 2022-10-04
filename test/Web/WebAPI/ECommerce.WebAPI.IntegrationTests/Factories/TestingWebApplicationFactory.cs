@@ -8,13 +8,11 @@ public class TestingWebApplicationFactory<TEntryPoint> : WebApplicationFactory<T
     where TEntryPoint : class
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
-    {
-        builder.ConfigureServices(services =>
+        => builder.ConfigureServices(services =>
         {
             services.Where(descriptor => descriptor.ServiceType.Assembly.FullName?.Contains(nameof(MassTransit), StringComparison.OrdinalIgnoreCase) ?? default).ToList()
                 .ForEach(descriptor => services.Remove(descriptor));
 
             services.AddMassTransit(configurator => configurator.UsingInMemory());
         });
-    }
 }
