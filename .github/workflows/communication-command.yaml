@@ -1,5 +1,4 @@
 name: Communication - Command Stack
-
 on:
   push:
     paths:

@@ -5,13 +5,8 @@ on:
         description: 'The *csproj project path passed from the caller workflow'
         required: true
         type: string
-      test:
-        description: 'The *csproj test path passed from the caller workflow'
-        required: true
-        type: string
-
 jobs:
-  build-and-test:
+  build:
     name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -39,7 +34,3 @@ jobs:
       - name: Build
         working-directory: ${{ inputs.project }}
         run: dotnet build --configuration Release --no-restore
-
-      - name: Test
-        working-directory: ${{ inputs.test }}
-        run: dotnet test --no-restore --verbosity normal

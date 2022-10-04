@@ -1,5 +1,4 @@
 name: Payment
-
 on:
   push:
     paths:

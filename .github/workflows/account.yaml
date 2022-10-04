@@ -1,5 +1,4 @@
 name: Account
-
 on:
   push:
     paths:

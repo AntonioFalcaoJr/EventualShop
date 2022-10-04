@@ -17,14 +17,19 @@ on:
         type: string
 
 jobs:
-  build-and-test:
-    uses: ./.github/workflows/_build-and-test.yaml
+  build:
+    uses: ./.github/workflows/_build.yaml
     with:
       project: ./${{ inputs.path }}/${{ inputs.project }}
+  
+  test:
+    needs: [ build ]
+    uses: ./.github/workflows/_test.yaml
+    with:
       test: ./${{ inputs.test }}
   
   quality:
-    needs: [ build-and-test ]
+    needs: [ test ]
     uses: ./.github/workflows/_quality.yaml
     with:
       path: /${{ inputs.path }}

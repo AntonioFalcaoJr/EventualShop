@@ -1,5 +1,4 @@
 name: Catalog
-
 on:
   push:
     paths:

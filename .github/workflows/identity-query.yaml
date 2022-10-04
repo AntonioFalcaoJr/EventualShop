@@ -1,5 +1,4 @@
 name: Identity - Query Stack
-
 on:
   push:
     paths:

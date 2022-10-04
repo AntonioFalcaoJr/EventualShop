@@ -1,5 +1,4 @@
 name: ShoppingCart
-
 on:
   push:
     paths:

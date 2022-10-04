@@ -1,5 +1,4 @@
 name: Warehouse
-
 on:
   push:
     paths:
