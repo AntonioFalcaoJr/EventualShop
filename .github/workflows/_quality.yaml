@@ -35,7 +35,10 @@ jobs:
           gh-code-scanning-compat: false
           max-allowed-issues: 2147483647
 
+      - name: Cat results
+        run: cat results.sarif
+
       - name: Upload SARIF results
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@main
         with:
           sarif_file: results.sarif
