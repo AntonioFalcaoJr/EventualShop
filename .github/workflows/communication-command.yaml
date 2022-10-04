@@ -10,7 +10,7 @@ on:
 
 jobs:
   workflow:
-    uses: ./.github/workflows/_workflow.yaml
+    uses: ./.github/workflows/Templates/_workflow.yaml
     with:
       path: src/Services/Communication/Command
       project: WorkerService
