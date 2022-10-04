@@ -1,0 +1,17 @@
+name: Payment
+
+on:
+  push:
+    paths:
+      - src/Services/Payment/**.cs
+      - src/Services/Payment/**.csproj
+      - Directory.Build.props
+      - .github/workflows/payment.yaml
+
+jobs:
+  workflow:
+    uses: ./.github/workflows/_workflow.yaml
+    with:
+      path: src/Services/Payment
+      project: WorkerService
+      test: test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests

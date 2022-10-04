@@ -1,0 +1,17 @@
+name: Catalog
+
+on:
+  push:
+    paths:
+      - src/Services/Catalog/**.cs
+      - src/Services/Catalog/**.csproj
+      - Directory.Build.props
+      - .github/workflows/catalog.yaml
+
+jobs:
+  workflow:
+    uses: ./.github/workflows/_workflow.yaml
+    with:
+      path: src/Services/Catalog
+      project: WorkerService
+      test: test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
