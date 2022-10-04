@@ -35,8 +35,11 @@ jobs:
           gh-code-scanning-compat: false
           max-allowed-issues: 2147483647
 
-      - name: Cat results
-        run: cat results.sarif
+      - name: Get results
+        id: vars
+        run: echo ::set-output name=result::$(cat results.sarif)
+      - name: Test output
+        run: echo ${{ steps.vars.outputs.result }}
 
       - name: Upload SARIF results
         uses: github/codeql-action/upload-sarif@main
