@@ -15,7 +15,6 @@ public class GetAccountConsumer : IConsumer<Query.GetAccount>
     public async Task Consume(ConsumeContext<Query.GetAccount> context)
     {
         var account = await _repository.GetAsync(context.Message.AccountId, context.CancellationToken);
-
         
         await (account is null
             ? context.RespondAsync<Reply.NotFound>(new())
