@@ -1,0 +1,16 @@
+name: Order
+
+on:
+  push:
+    paths:
+      - src/Services/Order/**.cs
+      - src/Services/Order/**.csproj
+      - Directory.Build.props
+      - .github/workflows/order.yaml
+
+jobs:
+  workflow:
+    uses: ./.github/workflows/_workflow.yaml
+    with:
+      project: src/Services/Order
+      test: test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
