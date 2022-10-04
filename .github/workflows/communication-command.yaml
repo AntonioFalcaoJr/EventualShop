@@ -12,5 +12,6 @@ jobs:
   workflow:
     uses: ./.github/workflows/_workflow.yaml
     with:
-      project: src/Services/Communication/Command
+      path: src/Services/Communication/Command
+      project: WorkerService
       test: test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests

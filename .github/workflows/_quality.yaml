@@ -7,14 +7,14 @@ on:
         type: string
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   analyze:
     runs-on: ubuntu-latest
     permissions:
-      actions: read
-      contents: read
+      actions: write
+      contents: write
       security-events: write
     
     steps:
@@ -32,10 +32,14 @@ jobs:
           output: results.sarif
           format: sarif
           tool: sonarscharp
-          gh-code-scanning-compat: false
-          max-allowed-issues: 2147483647
+          gh-code-scanning-compat: true
+          max-allowed-issues: 10
+          fail-if-incomplete: true
+
+      - name: cat results.sarif
+        run: cat results.sarif
 
       - name: Upload SARIF results
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@main
         with:
           sarif_file: results.sarif

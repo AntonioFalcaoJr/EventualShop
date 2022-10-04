@@ -3,8 +3,12 @@ name: Workflow
 on:
   workflow_call:
     inputs:
+      path:
+        description: 'The path passed from the caller workflow'
+        required: true
+        type: string
       project:
-        description: 'The path of project passed from the caller workflow'
+        description: 'The project passed from the caller workflow'
         required: true
         type: string
       test:
@@ -16,17 +20,17 @@ jobs:
   build-and-test:
     uses: ./.github/workflows/_build-and-test.yaml
     with:
-      project: ./${{ inputs.project }}/WorkerService
+      project: ./${{ inputs.path }}/${{ inputs.project }}
       test: ./${{ inputs.test }}
   
   quality:
     needs: [ build-and-test ]
     uses: ./.github/workflows/_quality.yaml
     with:
-      path: /${{ inputs.project }}
+      path: /${{ inputs.path }}
   
   security:
     needs: [ quality ]
     uses: ./.github/workflows/_security.yaml
     with:
-      path: ./${{ inputs.project }}
+      path: ./${{ inputs.path }}
