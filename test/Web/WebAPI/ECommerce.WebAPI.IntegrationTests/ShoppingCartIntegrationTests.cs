@@ -1,4 +1,5 @@
 ﻿using ECommerce.WebAPI.IntegrationTests.Factories;
+using Microsoft.AspNetCore.Mvc.Testing;
 using WebAPI;
 using Xunit;
 
@@ -8,15 +9,8 @@ public class ShoppingCartIntegrationTests : IClassFixture<TestingWebApplicationF
 {
     private readonly HttpClient _client;
 
-    public ShoppingCartIntegrationTests(TestingWebApplicationFactory<Program> factory)
+    public ShoppingCartIntegrationTests(WebApplicationFactory<Program> factory)
     {
         _client = factory.CreateClient();
-    }
-
-    [Fact]
-    public async Task Test1()
-    {
-        var httpResponseMessage = await _client.PutAsync($"api/v1/shopping-carts/{Guid.NewGuid()}/check-out", default);
-        httpResponseMessage.EnsureSuccessStatusCode();
     }
 }
