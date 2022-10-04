@@ -1,0 +1,16 @@
+name: ShoppingCart
+
+on:
+  push:
+    paths:
+      - src/Services/ShoppingCart/**.cs
+      - src/Services/ShoppingCart/**.csproj
+      - Directory.Build.props
+      - .github/workflows/shopping-cart.yaml
+
+jobs:
+  workflow:
+    uses: ./.github/workflows/_workflow.yaml
+    with:
+      project: src/Services/ShoppingCart
+      test: test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests

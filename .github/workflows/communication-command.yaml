@@ -1,0 +1,16 @@
+name: Communication - Command Stack
+
+on:
+  push:
+    paths:
+      - src/Services/Communication/Command/**.cs
+      - src/Services/Communication/Command/**.csproj
+      - Directory.Build.props
+      - .github/workflows/communication-command.yaml
+
+jobs:
+  workflow:
+    uses: ./.github/workflows/_workflow.yaml
+    with:
+      project: src/Services/Communication/Command
+      test: test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
