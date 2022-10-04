@@ -6,11 +6,12 @@ on:
       - src/Services/Account/**.cs
       - src/Services/Account/**.csproj
       - Directory.Build.props
-      - .github/workflows/account.yaml 
+      - .github/workflows/account.yaml
 
 jobs:
   workflow:
     uses: ./.github/workflows/_workflow.yaml
     with:
-      project: src/Services/Account
+      path: src/Services/Account
+      project: WorkerService
       test: test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests

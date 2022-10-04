@@ -33,7 +33,8 @@ jobs:
           format: sarif
           tool: sonarscharp
           gh-code-scanning-compat: true
-          max-allowed-issues: 2147483647
+          max-allowed-issues: 1
+          fail-if-incomplete: true
 
       - name: Get results
         id: vars
