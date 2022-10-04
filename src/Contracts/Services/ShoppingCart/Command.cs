@@ -11,7 +11,7 @@ public static class Command
 
     public record AddShippingAddress(Guid Id, Dto.Address Address) : Message(CorrelationId: Id), ICommand;
 
-    public record ChangeBillingAddress(Guid Id, Dto.Address Address) : Message(CorrelationId: Id), ICommand;
+    public record AddBillingAddress(Guid Id, Dto.Address Address) : Message(CorrelationId: Id), ICommand;
 
     public record CreateCart(Guid Id, Guid CustomerId) : Message(CorrelationId: Id), ICommand;
 

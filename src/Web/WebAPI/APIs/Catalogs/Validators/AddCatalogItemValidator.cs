@@ -8,13 +8,10 @@ public class AddCatalogItemValidator : AbstractValidator<Requests.AddCatalogItem
     public AddCatalogItemValidator()
     {
         RuleFor(request => request.CatalogId)
-            .NotNull()
             .NotEmpty();
 
         RuleFor(request => request.InventoryId)
-            .NotNull()
-            .NotEmpty()
-            .NotEqual(request => request.CatalogId);
+            .NotEmpty();
 
         RuleFor(request => request.Quantity)
             .GreaterThan(0);

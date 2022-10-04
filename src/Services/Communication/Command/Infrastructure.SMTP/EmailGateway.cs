@@ -15,18 +15,17 @@ public class EmailGateway : IEmailGateway
     {
         _options = options.Value;
 
-        _smtpClient
-            = new();
-        // {
-        //     Host = _options.Host,
-        //     Port = _options.Port,
-        //     EnableSsl = true,
-        //     DeliveryMethod = SmtpDeliveryMethod.Network,
-        //     UseDefaultCredentials = false,
-        //     Credentials = new NetworkCredential(_options.Username, _options.Password)
-        // };
+        _smtpClient = new()
+        {
+            Host = _options.Host,
+            Port = _options.Port,
+            EnableSsl = true,
+            DeliveryMethod = SmtpDeliveryMethod.Network,
+            UseDefaultCredentials = false,
+            Credentials = new NetworkCredential(_options.Username, _options.Password)
+        };
     }
-    
+
     public Task SendHtmlEmailAsync(string to, string subject, string body, CancellationToken cancellationToken)
         => _smtpClient.SendMailAsync(new(_options.Username, to, subject, body) { IsBodyHtml = true }, cancellationToken);
 

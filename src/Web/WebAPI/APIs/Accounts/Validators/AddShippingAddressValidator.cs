@@ -7,12 +7,11 @@ public class AddShippingAddressValidator : AbstractValidator<Requests.AddShippin
 {
     public AddShippingAddressValidator()
     {
-        RuleFor(x => x.AccountId)
-            .NotNull()
+        RuleFor(request => request.AccountId)
             .NotEmpty();
 
-        RuleFor(x => x.Address)
+        RuleFor(request => request.Address)
             .SetValidator(new AddressValidator())
-            .OverridePropertyName(string.Empty);;
+            .OverridePropertyName(string.Empty);
     }
 }

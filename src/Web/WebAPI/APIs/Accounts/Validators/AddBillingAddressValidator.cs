@@ -7,11 +7,10 @@ public class AddBillingAddressValidator : AbstractValidator<Requests.AddBillingA
 {
     public AddBillingAddressValidator()
     {
-        RuleFor(account => account.AccountId)
-            .NotNull()
+        RuleFor(request => request.AccountId)
             .NotEmpty();
 
-        RuleFor(account => account.Address)
+        RuleFor(request => request.Address)
             .SetValidator(new AddressValidator())
             .OverridePropertyName(string.Empty);
     }

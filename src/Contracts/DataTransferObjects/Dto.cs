@@ -13,13 +13,13 @@ public static class Dto
     public record CreditCard(
             [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
             [property: BsonSerializer(typeof(ExpirationDateOnlyBsonSerializer))]
-            DateOnly Expiration, string Number, string HolderName, string SecurityNumber)
+            DateOnly Expiration, string Number, string HolderName, ushort SecurityNumber)
         : IPaymentOption;
 
     public record DebitCard(
             [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
             [property: BsonSerializer(typeof(ExpirationDateOnlyBsonSerializer))]
-            DateOnly Expiration, string Number, string HolderName, string SecurityNumber)
+            DateOnly Expiration, string Number, string HolderName, ushort SecurityNumber)
         : IPaymentOption;
 
     public record PayPal(string UserName, string Password) : IPaymentOption;

@@ -78,10 +78,10 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
             RaiseEvent(new DomainEvent.ShippingAddressAdded(cmd.Id, cmd.Address));
     }
 
-    public void Handle(Command.ChangeBillingAddress cmd)
+    public void Handle(Command.AddBillingAddress cmd)
     {
         if (BillingAddress != cmd.Address)
-            RaiseEvent(new DomainEvent.BillingAddressChanged(cmd.Id, cmd.Address));
+            RaiseEvent(new DomainEvent.BillingAddressAdded(cmd.Id, cmd.Address));
     }
 
     public void Handle(Command.ConfirmCartItem cmd)
@@ -138,7 +138,7 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
             _ => default
         }));
 
-    private void When(DomainEvent.BillingAddressChanged @event)
+    private void When(DomainEvent.BillingAddressAdded @event)
     {
         ShippingAddress = @event.Address;
 

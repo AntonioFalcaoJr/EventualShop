@@ -6,10 +6,10 @@ public class ChangeCatalogTitleValidator : AbstractValidator<Requests.ChangeCata
 {
     public ChangeCatalogTitleValidator()
     {
-        RuleFor(x => x.Title)
+        RuleFor(request => request.Title)
             .NotEmpty();
         
-        RuleFor(x => x.CatalogId)
+        RuleFor(request => request.CatalogId)
             .NotEmpty();
     }
 }
