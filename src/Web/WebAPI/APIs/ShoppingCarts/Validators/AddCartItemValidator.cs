@@ -1,12 +1,15 @@
 using Contracts.DataTransferObjects.Validators;
 using FluentValidation;
 
-namespace WebAPI.APIs.Catalogs.Validators;
+namespace WebAPI.APIs.ShoppingCarts.Validators;
 
-public class AddCatalogItemValidator : AbstractValidator<Requests.AddCatalogItem>
+public class AddCartItemValidator : AbstractValidator<Requests.AddCartItem>
 {
-    public AddCatalogItemValidator()
+    public AddCartItemValidator()
     {
+        RuleFor(request => request.CartId)
+            .NotEmpty();
+        
         RuleFor(request => request.CatalogId)
             .NotEmpty();
 

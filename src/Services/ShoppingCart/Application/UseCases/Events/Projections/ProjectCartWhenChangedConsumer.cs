@@ -6,7 +6,7 @@ using MassTransit;
 namespace Application.UseCases.Events.Projections;
 
 public class ProjectCartWhenChangedConsumer :
-    IConsumer<DomainEvent.BillingAddressChanged>,
+    IConsumer<DomainEvent.BillingAddressAdded>,
     IConsumer<DomainEvent.CartCreated>,
     IConsumer<DomainEvent.CartItemAdded>,
     IConsumer<DomainEvent.CartItemRemoved>,
@@ -21,7 +21,7 @@ public class ProjectCartWhenChangedConsumer :
     public ProjectCartWhenChangedConsumer(IProjectionRepository<Projection.ShoppingCart> repository)
         => _repository = repository;
 
-    public Task Consume(ConsumeContext<DomainEvent.BillingAddressChanged> context)
+    public Task Consume(ConsumeContext<DomainEvent.BillingAddressAdded> context)
         => _repository.UpdateFieldAsync(
             id: context.Message.Id,
             field: cart => cart.BillingAddress,

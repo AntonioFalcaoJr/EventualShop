@@ -9,16 +9,18 @@ using MassTransit;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.AspNetCore.HttpLogging;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.OpenApi.Any;
 using Serilog;
 using WebAPI.APIs.Accounts;
 using WebAPI.APIs.Catalogs;
 using WebAPI.APIs.Identities;
+using WebAPI.APIs.Orders;
+using WebAPI.APIs.Payments;
+using WebAPI.APIs.ShoppingCarts;
+using WebAPI.APIs.Warehouses;
 using WebAPI.DependencyInjection.Extensions;
 using WebAPI.DependencyInjection.Options;
 using WebAPI.Extensions;
-using WebAPI.ParameterTransformers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,19 +68,6 @@ builder.Host.ConfigureServices((context, services) =>
     });
 
     services
-        .AddRouting(options => options.LowercaseUrls = true)
-        .AddControllers(options =>
-        {
-            options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
-            options.SuppressAsyncSuffixInActionNames = true;
-        })
-        .AddNewtonsoftJson(options =>
-        {
-            options.SerializerSettings.Converters.Add(new DateOnlyJsonConverter());
-            options.SerializerSettings.Converters.Add(new ExpirationDateOnlyJsonConverter());
-        });
-
-    services
         .AddSwaggerGenNewtonsoftSupport()
         .AddFluentValidationRulesToSwagger()
         .AddEndpointsApiExplorer()
@@ -120,20 +109,16 @@ if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
 }
 
 app.UseCors();
-
-// TODO - It should be removed when migration to Minimal API completed 
-// app.UseRouting();
-// app.UseEndpoints(endpoints
-//     => endpoints.MapControllerRoute(
-//         name: "default",
-//         pattern: "{controller:slugify}/{action:slugify}"));
-
 app.UseSerilogRequestLogging();
 app.UseApplicationExceptionHandler();
 
 app.MapGroup("/api/v1/accounts/").MapAccountApi();
 app.MapGroup("/api/v1/catalogs/").MapCatalogApi();
 app.MapGroup("/api/v1/identities/").MapIdentityApi();
+app.MapGroup("/api/v1/orders/").MapOrderApi();
+app.MapGroup("/api/v1/payments/").MapPaymentApi();
+app.MapGroup("/api/v1/shopping-carts/").MapShoppingCartApi();
+app.MapGroup("/api/v1/warehouses/").MapWarehouseApi();
 
 try
 {

@@ -35,16 +35,16 @@ public class Inventory : AggregateRoot<Guid, InventoryValidator>
 
     public void Handle(Command.DecreaseInventoryAdjust cmd)
     {
-        if (_items.SingleOrDefault(inventoryItem => inventoryItem.Id == cmd.InventoryItemId) is { IsDeleted: false } item)
+        if (_items.SingleOrDefault(inventoryItem => inventoryItem.Id == cmd.ItemId) is { IsDeleted: false } item)
             RaiseEvent(item.QuantityAvailable >= cmd.Quantity
-                ? new DomainEvent.InventoryAdjustmentDecreased(cmd.Id, cmd.InventoryItemId, cmd.Reason, cmd.Quantity)
-                : new DomainEvent.InventoryAdjustmentNotDecreased(cmd.Id, cmd.InventoryItemId, cmd.Reason, cmd.Quantity, item.QuantityAvailable));
+                ? new DomainEvent.InventoryAdjustmentDecreased(cmd.Id, cmd.ItemId, cmd.Reason, cmd.Quantity)
+                : new DomainEvent.InventoryAdjustmentNotDecreased(cmd.Id, cmd.ItemId, cmd.Reason, cmd.Quantity, item.QuantityAvailable));
     }
 
     public void Handle(Command.IncreaseInventoryAdjust cmd)
     {
-        if (_items.SingleOrDefault(item => item.Id == cmd.InventoryItemId) is { IsDeleted: false })
-            RaiseEvent(new DomainEvent.InventoryAdjustmentIncreased(cmd.Id, cmd.InventoryItemId, cmd.Reason, cmd.Quantity));
+        if (_items.SingleOrDefault(item => item.Id == cmd.ItemId) is { IsDeleted: false })
+            RaiseEvent(new DomainEvent.InventoryAdjustmentIncreased(cmd.Id, cmd.ItemId, cmd.Reason, cmd.Quantity));
     }
 
     public void Handle(Command.ReserveInventoryItem cmd)

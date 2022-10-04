@@ -1,9 +1,9 @@
 ﻿using Contracts.DataTransferObjects.Validators;
 using FluentValidation;
 
-namespace WebAPI.APIs.Accounts.Validators;
+namespace WebAPI.APIs.ShoppingCarts.Validators;
 
-public class AddShippingAddressValidator : AbstractValidator<Requests.AddShippingAddress>
+public class AddShippingAddressValidator : AbstractValidator<Accounts.Requests.AddShippingAddress>
 {
     public AddShippingAddressValidator()
     {
