@@ -12,5 +12,6 @@ jobs:
   workflow:
     uses: ./.github/workflows/_workflow.yaml
     with:
-      project: src/Services/Identity/Query
+      path: src/Services/Identity/Query
+      project: GrpcService
       test: test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
