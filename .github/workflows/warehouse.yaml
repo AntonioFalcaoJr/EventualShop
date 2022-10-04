@@ -10,7 +10,7 @@ on:
 
 jobs:
   workflow:
-    uses: ./.github/workflows/Templates/_workflow.yaml@main
+    uses: ./.github/Templates/_workflow.yaml
     with:
       path: src/Services/Warehouse
       project: WorkerService
