@@ -1,4 +1,5 @@
-﻿using Domain.Abstractions.Aggregates;
+﻿using System.Collections.ObjectModel;
+using Domain.Abstractions.Aggregates;
 using Contracts.Abstractions.Messages;
 using Contracts.Services.Warehouse;
 using Domain.Entities.Adjustments;
@@ -21,7 +22,7 @@ public class Inventory : AggregateRoot<Guid, InventoryValidator>
         => Items.Sum(item => item.Quantity);
 
     public IEnumerable<InventoryItem> Items
-        => _items;
+        => new ReadOnlyCollection<InventoryItem>(_items);
 
     public void Handle(Command.CreateInventory cmd)
         => RaiseEvent(new DomainEvent.InventoryCreated(Guid.NewGuid(), cmd.OwnerId));

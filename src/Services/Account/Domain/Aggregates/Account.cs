@@ -1,4 +1,5 @@
-﻿using Domain.Abstractions.Aggregates;
+﻿using System.Collections.ObjectModel;
+using Domain.Abstractions.Aggregates;
 using Contracts.Abstractions.Messages;
 using Contracts.Services.Account;
 using Domain.Entities.Addresses;
@@ -17,7 +18,7 @@ public class Account : AggregateRoot<Guid, AccountValidator>
     public bool AcceptedPolicies { get; private set; }
 
     public IEnumerable<Address> Addresses
-        => _addresses;
+        => new ReadOnlyCollection<Address>(_addresses);
 
     public void Handle(Command.CreateAccount cmd)
         => RaiseEvent(new DomainEvent.AccountCreated(cmd.Id, cmd.FirstName, cmd.LastName, cmd.Email));
@@ -82,8 +83,8 @@ public class Account : AggregateRoot<Guid, AccountValidator>
             RaiseEvent(new DomainEvent.ShippingAddressDeleted(cmd.Id, cmd.AddressId));
     }
 
-    protected override void ApplyEvent(IEvent domainEvent)
-        => When(domainEvent as dynamic);
+    protected override void ApplyEvent(IEvent @event)
+        => When(@event as dynamic);
 
     private void When(DomainEvent.AccountCreated @event)
     {
