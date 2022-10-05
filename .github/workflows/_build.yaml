@@ -1,4 +1,5 @@
 name: _Build
+run-name: test
 on:
   workflow_call:
     inputs:
