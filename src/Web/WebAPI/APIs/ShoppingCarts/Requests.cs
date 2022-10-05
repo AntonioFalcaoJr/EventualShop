@@ -78,4 +78,11 @@ public static class Requests
         public ICommand Command
             => new Command.AddPaymentMethod(CartId, Amount, PayPal);
     }
+    
+    public record RemovePaymentMethod(IBus Bus, Guid CartId, Guid MethodId, CancellationToken CancellationToken)
+        : Validatable<RemovePaymentMethodValidator>, ICommandRequest
+    {
+        public ICommand Command
+            => new Command.RemovePaymentMethod(CartId, MethodId);
+    }
 }
