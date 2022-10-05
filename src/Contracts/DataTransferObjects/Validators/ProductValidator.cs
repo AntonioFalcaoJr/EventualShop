@@ -29,5 +29,9 @@ public class ProductValidator : AbstractValidator<Dto.Product>
         RuleFor(product => product.PictureUrl)
             .NotNull()
             .NotEmpty();
+        
+        RuleFor(request => request.Sku)
+            .NotNull()
+            .NotEmpty();
     }
 }

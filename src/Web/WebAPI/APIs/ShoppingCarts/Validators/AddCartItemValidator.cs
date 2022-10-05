@@ -17,11 +17,7 @@ public class AddCartItemValidator : AbstractValidator<Requests.AddCartItem>
             .NotEmpty();
 
         RuleFor(request => request.Quantity)
-            .GreaterThan(0);
-
-        RuleFor(request => request.Sku)
-            .NotNull()
-            .NotEmpty();
+            .GreaterThan(ushort.MinValue);
 
         RuleFor(request => request.UnitPrice)
             .GreaterThan(0);

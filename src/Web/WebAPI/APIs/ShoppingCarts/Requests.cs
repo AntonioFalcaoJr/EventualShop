@@ -16,11 +16,11 @@ public static class Requests
             => new Command.CreateCart(Guid.NewGuid(), CustomerId);
     }
 
-    public record AddCartItem(IBus Bus, Guid CartId, Guid CatalogId, Guid InventoryId, Dto.Product Product, int Quantity, string Sku, decimal UnitPrice, CancellationToken CancellationToken)
+    public record AddCartItem(IBus Bus, Guid CartId, Guid CatalogId, Guid InventoryId, Dto.Product Product, ushort Quantity, decimal UnitPrice, CancellationToken CancellationToken)
         : Validatable<AddCartItemValidator>, ICommandRequest
     {
         public ICommand Command
-            => new Command.AddCartItem(CartId, CatalogId, InventoryId, Product, Quantity, Sku, UnitPrice);
+            => new Command.AddCartItem(CartId, Guid.NewGuid(), CatalogId, InventoryId, Product, Quantity, UnitPrice);
     }
 
     public record CheckOut(IBus Bus, Guid CartId, CancellationToken CancellationToken)

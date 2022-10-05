@@ -8,6 +8,6 @@ public class CartItemValidator : EntityValidator<CartItem, Guid>
     public CartItemValidator()
     {
         RuleFor(item => item.Quantity)
-            .GreaterThan(0);
+            .GreaterThan(ushort.MinValue);
     }
 }

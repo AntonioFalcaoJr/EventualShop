@@ -29,8 +29,6 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
         cfg.ConfigureEventReceiveEndpoint<ProjectCartPaymentMethodsWhenChangedConsumer, DomainEvent.PaymentMethodAdded>(context);
 
         cfg.ConfigureEventReceiveEndpoint<PublishCartSubmittedWhenCheckedOutConsumer, DomainEvent.CartCheckedOut>(context);
-        
-        cfg.ConfigureEventReceiveEndpoint<ConfirmItemWhenInventoryReservedConsumer, Contracts.Services.Warehouse.DomainEvent.InventoryReserved>(context);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistrationContext context)
