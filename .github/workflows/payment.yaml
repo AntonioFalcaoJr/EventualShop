@@ -1,4 +1,5 @@
 name: Payment
+run-name: Payment Workflow
 on:
   push:
     paths:

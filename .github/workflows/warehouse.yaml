@@ -1,4 +1,5 @@
 name: Warehouse
+run-name: Warehouse Workflow
 on:
   push:
     paths:
