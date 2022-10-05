@@ -488,7 +488,7 @@ To cover this topic was
 prepared [this presentation](https://www.canva.com/design/DAEY9ttmPgY/F_lh7TXQEdG-su-qojEjdw/view?utm_content=DAEY9ttmPgY&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
 with some different strategies and ways to implement projections.
 
-![](.assets/img/projections.svg)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/projections.svg)
 
 ## CQRS + Event Sourcing
 
@@ -605,7 +605,7 @@ with some different strategies and ways to implement projections.
 
 #### Authentication flow
 
-![](.assets/img/authentication.jpg)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/authentication.jpg)
 
 ### From EventStorming to Event Sourcing
 
