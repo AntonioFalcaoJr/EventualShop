@@ -30,18 +30,11 @@ public static class Requests
             => new Command.CheckOutCart(CartId);
     }
 
-    public record IncreaseCartItem(IBus Bus, Guid CartId, Guid ItemId, CancellationToken CancellationToken)
-        : Validatable<IncreaseCartItemValidator>, ICommandRequest
+    public record ChangeCartItemQuantity(IBus Bus, Guid CartId, Guid ItemId, ushort Quantity, CancellationToken CancellationToken)
+        : Validatable<ChangeCartItemQuantityValidator>, ICommandRequest
     {
         public ICommand Command
-            => new Command.IncreaseCartItem(CartId, ItemId);
-    }
-
-    public record DecreaseCartItem(IBus Bus, Guid CartId, Guid ItemId, CancellationToken CancellationToken)
-        : Validatable<DecreaseCartItemValidator>, ICommandRequest
-    {
-        public ICommand Command
-            => new Command.DecreaseCartItem(CartId, ItemId);
+            => new Command.ChangeCartItemQuantity(CartId, ItemId, Quantity);
     }
 
     public record RemoveCartItem(IBus Bus, Guid CartId, Guid ItemId, CancellationToken CancellationToken)

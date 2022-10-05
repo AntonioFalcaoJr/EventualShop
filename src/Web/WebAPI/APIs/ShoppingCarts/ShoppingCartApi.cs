@@ -33,11 +33,8 @@ public static class ShoppingCartApi
         group.MapDelete("/{cartId:guid}/items/{itemId:guid}", ([AsParameters] Requests.RemoveCartItem request)
             => ApplicationApi.SendCommandAsync<Command.RemoveCartItem>(request));
 
-        group.MapPut("/{cartId:guid}/items/{itemId:guid}/increase", ([AsParameters] Requests.IncreaseCartItem request)
-            => ApplicationApi.SendCommandAsync<Command.IncreaseCartItem>(request));
-
-        group.MapPut("/{cartId:guid}/items/{itemId:guid}/decrease", ([AsParameters] Requests.DecreaseCartItem request)
-            => ApplicationApi.SendCommandAsync<Command.DecreaseCartItem>(request));
+        group.MapPut("/{cartId:guid}/items/{itemId:guid}/change-quantity", ([AsParameters] Requests.ChangeCartItemQuantity request)
+            => ApplicationApi.SendCommandAsync<Command.ChangeCartItemQuantity>(request));
 
         group.MapPut("/{cartId:guid}/customers/shipping-address", ([AsParameters] Requests.AddShippingAddress request)
             => ApplicationApi.SendCommandAsync<Command.AddShippingAddress>(request));

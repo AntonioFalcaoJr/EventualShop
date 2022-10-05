@@ -43,58 +43,60 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
         => RaiseEvent(new DomainEvent.CartCreated(Guid.NewGuid(), cmd.CustomerId, CartStatus.Confirmed));
 
     public void Handle(Command.AddCartItem cmd)
-        => RaiseEvent(_items
-            .Where(inventoryItem => inventoryItem.Product == cmd.Product)
-            .SingleOrDefault(inventoryItem => inventoryItem.UnitPrice == cmd.UnitPrice) is { IsDeleted: false } item
+    {
+        if (_items.SingleOrDefault(cartItem => cartItem.Product == cmd.Product) is not { IsDeleted: true } item) return;
+
+        RaiseEvent(cmd.UnitPrice == item.UnitPrice
             ? new DomainEvent.CartItemIncreased(Id, item.Id, item.UnitPrice)
             : new DomainEvent.CartItemAdded(cmd.Id, Guid.NewGuid(), cmd.InventoryId, cmd.CatalogId, cmd.Product, cmd.Quantity, cmd.Sku, cmd.UnitPrice));
-
-    public void Handle(Command.IncreaseCartItem cmd)
-    {
-        if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is { IsDeleted: false } item)
-            RaiseEvent(new DomainEvent.CartItemIncreased(cmd.Id, cmd.ItemId, item.UnitPrice));
     }
 
-    public void Handle(Command.DecreaseCartItem cmd)
+    public void Handle(Command.ChangeCartItemQuantity cmd)
     {
-        if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is { IsDeleted: false } item)
-            RaiseEvent(new DomainEvent.CartItemDecreased(cmd.Id, cmd.ItemId, item.UnitPrice));
+        if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is not { IsDeleted: true } item) return;
+
+        if (cmd.Quantity > item.Quantity)
+            RaiseEvent(new DomainEvent.CartItemIncreased(Id, item.Id, item.UnitPrice));
+
+        if (cmd.Quantity < item.Quantity)
+            RaiseEvent(new DomainEvent.CartItemDecreased(Id, item.Id, item.UnitPrice));
     }
 
     public void Handle(Command.RemoveCartItem cmd)
     {
-        if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is { IsDeleted: false } item)
-            RaiseEvent(new DomainEvent.CartItemRemoved(cmd.Id, cmd.ItemId, item.UnitPrice, item.Quantity));
+        if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is not { IsDeleted: false } item) return;
+        RaiseEvent(new DomainEvent.CartItemRemoved(cmd.Id, cmd.ItemId, item.UnitPrice, item.Quantity));
     }
 
     public void Handle(Command.AddPaymentMethod cmd)
     {
-        if (AmountDue >= cmd.Amount)
-            RaiseEvent(new DomainEvent.PaymentMethodAdded(cmd.Id, Guid.NewGuid(), cmd.Amount, cmd.Option));
+        // TODO - Should cmd.Amount be subtracted from AmountDue?
+        if (cmd.Amount > AmountDue) return;
+        RaiseEvent(new DomainEvent.PaymentMethodAdded(cmd.Id, Guid.NewGuid(), cmd.Amount, cmd.Option));
     }
 
     public void Handle(Command.AddShippingAddress cmd)
     {
-        if (ShippingAddress != cmd.Address)
-            RaiseEvent(new DomainEvent.ShippingAddressAdded(cmd.Id, cmd.Address));
+        if (ShippingAddress == cmd.Address) return;
+        RaiseEvent(new DomainEvent.ShippingAddressAdded(cmd.Id, cmd.Address));
     }
 
     public void Handle(Command.AddBillingAddress cmd)
     {
-        if (BillingAddress != cmd.Address)
-            RaiseEvent(new DomainEvent.BillingAddressAdded(cmd.Id, cmd.Address));
+        if (BillingAddress == cmd.Address) return;
+        RaiseEvent(new DomainEvent.BillingAddressAdded(cmd.Id, cmd.Address));
     }
 
     public void Handle(Command.ConfirmCartItem cmd)
     {
-        if (_items.SingleOrDefault(cartItem => cartItem.Sku == cmd.Sku) is { IsDeleted: false } item)
-            RaiseEvent(new DomainEvent.CartItemConfirmed(cmd.Id, item.Id, item.CatalogId, cmd.Sku, cmd.Quantity));
+        if (_items.SingleOrDefault(cartItem => cartItem.Sku == cmd.Sku) is not { IsDeleted: false } item) return;
+        RaiseEvent(new DomainEvent.CartItemConfirmed(cmd.Id, item.Id, item.CatalogId, cmd.Sku, cmd.Quantity));
     }
 
     public void Handle(Command.CheckOutCart cmd)
     {
-        if (_items.Any() && AmountDue is 0)
-            RaiseEvent(new DomainEvent.CartCheckedOut(cmd.Id));
+        if (_items.Any() is false || AmountDue > 0) return;
+        RaiseEvent(new DomainEvent.CartCheckedOut(cmd.Id));
     }
 
     public void Handle(Command.DiscardCart cmd)
