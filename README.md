@@ -603,6 +603,10 @@ with some different strategies and ways to implement projections.
 
 ![](./.assets/img/event-storming-wip.jpg)
 
+#### Authentication flow
+
+![](.assets/img/authentication.jpg)
+
 ### From EventStorming to Event Sourcing
 
 ![](./.assets/img/from-eventstorming-to-eventsourcing.png)
