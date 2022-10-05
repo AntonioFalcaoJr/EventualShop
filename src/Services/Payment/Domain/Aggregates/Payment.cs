@@ -1,4 +1,5 @@
-﻿using Domain.Abstractions.Aggregates;
+﻿using System.Collections.ObjectModel;
+using Domain.Abstractions.Aggregates;
 using Domain.Entities.PaymentMethods;
 using Domain.Enumerations;
 using Domain.ValueObjects.Addresses;
@@ -22,7 +23,7 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
             .Sum(method => method.Amount);
 
     public IEnumerable<PaymentMethod> PaymentMethods
-        => _paymentMethods;
+        => new ReadOnlyCollection<PaymentMethod>(_paymentMethods);
 
     public void Handle(Command.RequestPayment cmd)
         => RaiseEvent(new DomainEvent.PaymentRequested(Guid.NewGuid(), cmd.OrderId, cmd.AmountDue, cmd.BillingAddress, cmd.PaymentMethods, PaymentStatus.Ready));
@@ -77,7 +78,7 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
     private void When(DomainEvent.PaymentRequested @event)
     {
         (Id, OrderId, Amount, BillingAddress, var methods, Status) = @event;
-        _paymentMethods.AddRange(methods.Select(method => (PaymentMethod) method));
+        _paymentMethods.AddRange(methods.Select(method => (PaymentMethod)method));
     }
 
     private void When(DomainEvent.PaymentMethodAuthorized @event)

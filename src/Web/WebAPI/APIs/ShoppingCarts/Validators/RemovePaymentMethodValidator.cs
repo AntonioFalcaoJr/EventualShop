@@ -2,14 +2,14 @@
 
 namespace WebAPI.APIs.ShoppingCarts.Validators;
 
-public class DecreaseCartItemValidator : AbstractValidator<Requests.DecreaseCartItem>
+public class RemovePaymentMethodValidator : AbstractValidator<Requests.RemovePaymentMethod>
 {
-    public DecreaseCartItemValidator()
+    public RemovePaymentMethodValidator()
     {
         RuleFor(request => request.CartId)
             .NotEmpty();
 
-        RuleFor(request => request.ItemId)
+        RuleFor(request => request.MethodId)
             .NotEmpty();
     }
 }

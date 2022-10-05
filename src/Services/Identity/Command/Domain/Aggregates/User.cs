@@ -1,4 +1,5 @@
-﻿using Domain.Abstractions.Aggregates;
+﻿using System.Collections.ObjectModel;
+using Domain.Abstractions.Aggregates;
 using Contracts.Abstractions.Messages;
 using Contracts.Services.Identity;
 using Domain.Enumerations;
@@ -16,7 +17,7 @@ public class User : AggregateRoot<UserValidator>
     public string PrimaryEmail { get; private set; }
 
     public IEnumerable<Email> Emails
-        => _emails;
+        => new ReadOnlyCollection<Email>(_emails);
 
     public override void Handle(ICommand command)
         => Handle(command as dynamic);

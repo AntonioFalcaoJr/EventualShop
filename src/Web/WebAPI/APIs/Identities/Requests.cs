@@ -30,6 +30,20 @@ public static class Requests
             => new Command.ChangeEmail(UserId, Email);
     }
 
+    public record ChangePassword(IBus Bus, Guid UserId, string Password, string PasswordConfirmation, CancellationToken CancellationToken)
+        : Validatable<ChangePasswordValidator>, ICommandRequest
+    {
+        public ICommand Command
+            => new Command.ChangePassword(UserId, Password, PasswordConfirmation);
+    }
+
+    public record VerifyEmail(IBus Bus, Guid UserId, string Email, CancellationToken CancellationToken)
+        : Validatable<VerifyEmailValidator>, ICommandRequest
+    {
+        public ICommand Command
+            => new Command.VerifyEmail(UserId, Email);
+    }
+
     // public record RefreshToken(IdentityService.IdentityServiceClient Client, string Token, string RefreshToken, CancellationToken CancellationToken)
     //     : Validatable<RefreshTokenValidator>, IQueryRequest<IdentityService.IdentityServiceClient>
     // {

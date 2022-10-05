@@ -1,4 +1,5 @@
 name: Identity - Query Stack
+run-name: Identity Query Stack Workflow
 on:
   push:
     paths:

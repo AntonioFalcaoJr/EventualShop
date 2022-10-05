@@ -17,21 +17,21 @@ public class ProjectInventoryItemWhenChangedConsumer :
 
     public Task Consume(ConsumeContext<DomainEvent.InventoryAdjustmentDecreased> context)
         => _repository.IncreaseFieldAsync(
-            id: context.Message.InventoryItemId,
+            id: context.Message.ItemId,
             field: item => item.Quantity,
             value: context.Message.Quantity * -1,
             cancellationToken: context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.InventoryAdjustmentIncreased> context)
         => _repository.IncreaseFieldAsync(
-            id: context.Message.InventoryItemId,
+            id: context.Message.ItemId,
             field: item => item.Quantity,
             value: context.Message.Quantity,
             cancellationToken: context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.InventoryItemIncreased> context)
         => _repository.IncreaseFieldAsync(
-            id: context.Message.InventoryItemId,
+            id: context.Message.ItemId,
             field: item => item.Quantity,
             value: context.Message.Quantity,
             cancellationToken: context.CancellationToken);
@@ -39,7 +39,7 @@ public class ProjectInventoryItemWhenChangedConsumer :
     public Task Consume(ConsumeContext<DomainEvent.InventoryItemReceived> context)
     {
         Projection.InventoryItem inventoryItem = new(
-            context.Message.InventoryItemId,
+            context.Message.ItemId,
             context.Message.Id,
             context.Message.Product,
             context.Message.Quantity,

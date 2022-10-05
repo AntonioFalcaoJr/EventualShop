@@ -16,11 +16,11 @@ public static class Requests
             => new Command.CreateCart(Guid.NewGuid(), CustomerId);
     }
 
-    public record AddCartItem(IBus Bus, Guid CartId, Guid CatalogId, Guid InventoryId, Dto.Product Product, int Quantity, string Sku, decimal UnitPrice, CancellationToken CancellationToken)
+    public record AddCartItem(IBus Bus, Guid CartId, Guid CatalogId, Guid InventoryId, Dto.Product Product, ushort Quantity, decimal UnitPrice, CancellationToken CancellationToken)
         : Validatable<AddCartItemValidator>, ICommandRequest
     {
         public ICommand Command
-            => new Command.AddCartItem(CartId, CatalogId, InventoryId, Product, Quantity, Sku, UnitPrice);
+            => new Command.AddCartItem(CartId, Guid.NewGuid(), CatalogId, InventoryId, Product, Quantity, UnitPrice);
     }
 
     public record CheckOut(IBus Bus, Guid CartId, CancellationToken CancellationToken)
@@ -30,18 +30,11 @@ public static class Requests
             => new Command.CheckOutCart(CartId);
     }
 
-    public record IncreaseCartItem(IBus Bus, Guid CartId, Guid ItemId, CancellationToken CancellationToken)
-        : Validatable<IncreaseCartItemValidator>, ICommandRequest
+    public record ChangeCartItemQuantity(IBus Bus, Guid CartId, Guid ItemId, ushort Quantity, CancellationToken CancellationToken)
+        : Validatable<ChangeCartItemQuantityValidator>, ICommandRequest
     {
         public ICommand Command
-            => new Command.IncreaseCartItem(CartId, ItemId);
-    }
-
-    public record DecreaseCartItem(IBus Bus, Guid CartId, Guid ItemId, CancellationToken CancellationToken)
-        : Validatable<DecreaseCartItemValidator>, ICommandRequest
-    {
-        public ICommand Command
-            => new Command.DecreaseCartItem(CartId, ItemId);
+            => new Command.ChangeCartItemQuantity(CartId, ItemId, Quantity);
     }
 
     public record RemoveCartItem(IBus Bus, Guid CartId, Guid ItemId, CancellationToken CancellationToken)
@@ -84,5 +77,12 @@ public static class Requests
     {
         public ICommand Command
             => new Command.AddPaymentMethod(CartId, Amount, PayPal);
+    }
+    
+    public record RemovePaymentMethod(IBus Bus, Guid CartId, Guid MethodId, CancellationToken CancellationToken)
+        : Validatable<RemovePaymentMethodValidator>, ICommandRequest
+    {
+        public ICommand Command
+            => new Command.RemovePaymentMethod(CartId, MethodId);
     }
 }

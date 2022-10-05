@@ -1,4 +1,5 @@
 name: Order
+run-name: Order Workflow
 on:
   push:
     paths:

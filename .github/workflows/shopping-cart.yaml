@@ -1,4 +1,5 @@
 name: ShoppingCart
+run-name: ShoppingCart Workflow
 on:
   push:
     paths:

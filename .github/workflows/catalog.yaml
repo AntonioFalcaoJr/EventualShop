@@ -1,4 +1,5 @@
 name: Catalog
+run-name: Catalog Workflow
 on:
   push:
     paths:

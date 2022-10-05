@@ -21,6 +21,12 @@ public static class ShoppingCartApi
         group.MapPut("/{cartId:guid}/check-out", ([AsParameters] Requests.CheckOut request)
             => ApplicationApi.SendCommandAsync<Command.CheckOutCart>(request));
 
+        group.MapPut("/{cartId:guid}/add-shipping-address", ([AsParameters] Requests.AddShippingAddress request)
+            => ApplicationApi.SendCommandAsync<Command.AddShippingAddress>(request));
+
+        group.MapPut("/{cartId:guid}/add-billing-address", ([AsParameters] Requests.AddBillingAddress request)
+            => ApplicationApi.SendCommandAsync<Command.AddBillingAddress>(request));
+
         group.MapGet("/{cartId:guid}/items", (IBus bus, Guid cartId, ushort? limit, ushort? offset, CancellationToken ct)
             => ApplicationApi.GetPagedProjectionAsync<Query.GetShoppingCartItems, Projection.ShoppingCartItem>(bus, new(cartId, limit ?? 0, offset ?? 0), ct));
 
@@ -33,17 +39,8 @@ public static class ShoppingCartApi
         group.MapDelete("/{cartId:guid}/items/{itemId:guid}", ([AsParameters] Requests.RemoveCartItem request)
             => ApplicationApi.SendCommandAsync<Command.RemoveCartItem>(request));
 
-        group.MapPut("/{cartId:guid}/items/{itemId:guid}/increase", ([AsParameters] Requests.IncreaseCartItem request)
-            => ApplicationApi.SendCommandAsync<Command.IncreaseCartItem>(request));
-
-        group.MapPut("/{cartId:guid}/items/{itemId:guid}/decrease", ([AsParameters] Requests.DecreaseCartItem request)
-            => ApplicationApi.SendCommandAsync<Command.DecreaseCartItem>(request));
-
-        group.MapPut("/{cartId:guid}/customers/shipping-address", ([AsParameters] Requests.AddShippingAddress request)
-            => ApplicationApi.SendCommandAsync<Command.AddShippingAddress>(request));
-
-        group.MapPut("/{cartId:guid}/customers/billing-address", ([AsParameters] Requests.AddBillingAddress request)
-            => ApplicationApi.SendCommandAsync<Command.AddBillingAddress>(request));
+        group.MapPut("/{cartId:guid}/items/{itemId:guid}/change-quantity", ([AsParameters] Requests.ChangeCartItemQuantity request)
+            => ApplicationApi.SendCommandAsync<Command.ChangeCartItemQuantity>(request));
 
         group.MapGet("/{cartId:guid}/payment-methods", (IBus bus, [NotEmpty] Guid cartId, ushort limit, ushort offset, CancellationToken ct)
             => ApplicationApi.GetPagedProjectionAsync<Query.GetCartPaymentMethods, Projection.PaymentMethod>(bus, new(cartId, limit, offset), ct));
@@ -51,13 +48,16 @@ public static class ShoppingCartApi
         group.MapGet("/{cartId:guid}/payment-methods/{methodId:guid}", (IBus bus, [NotEmpty] Guid cartId, [NotEmpty] Guid methodId, CancellationToken ct)
             => ApplicationApi.GetProjectionAsync<Query.GetCartPaymentMethod, Projection.PaymentMethod>(bus, new(cartId, methodId), ct));
 
-        group.MapPut("/{cartId:guid}/payment-methods/credit-card", ([AsParameters] Requests.AddCreditCard request)
+        group.MapDelete("/{cartId:guid}/payment-methods/{methodId:guid}", ([AsParameters] Requests.RemovePaymentMethod request)
+            => ApplicationApi.SendCommandAsync<Command.RemovePaymentMethod>(request));
+
+        group.MapPost("/{cartId:guid}/payment-methods/credit-card", ([AsParameters] Requests.AddCreditCard request)
             => ApplicationApi.SendCommandAsync<Command.AddPaymentMethod>(request));
 
-        group.MapPut("/{cartId:guid}/payment-methods/debit-card", ([AsParameters] Requests.AddDebitCard request)
+        group.MapPost("/{cartId:guid}/payment-methods/debit-card", ([AsParameters] Requests.AddDebitCard request)
             => ApplicationApi.SendCommandAsync<Command.AddPaymentMethod>(request));
 
-        group.MapPut("/{cartId:guid}/payment-methods/pay-pal", ([AsParameters] Requests.AddPayPal request)
+        group.MapPost("/{cartId:guid}/payment-methods/pay-pal", ([AsParameters] Requests.AddPayPal request)
             => ApplicationApi.SendCommandAsync<Command.AddPaymentMethod>(request));
 
         return group.WithMetadata(new TagsAttribute("ShoppingCarts"));

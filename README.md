@@ -114,7 +114,7 @@ If this project helped you in some way, please **give it a star**. Thanks!
 
 - **Outbox pattern** to provide distributed resilient publishing:
     - Wrap publisher to persist just in case of failure;
-    - ![](./.assets/img/outbox.jpg)
+    - ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/outbox.jpg)
 
 - **RPC Read Stack** (gRPC)
     - V2 BFF/Gateway route;
@@ -125,7 +125,7 @@ If this project helped you in some way, please **give it a star**. Thanks!
 
 ## The Solution Architecture
 
-![](./.assets/img/solution_architecture.png)    
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/solution_architecture.png)    
 Fig. 1: Falcão Jr., Antônio. _An EDA solution architecture_.
 
 ## Reactive Domain Driven Design
@@ -136,7 +136,7 @@ Fig. 1: Falcão Jr., Antônio. _An EDA solution architecture_.
 >
 > [Vernon, Vaughn. "Modeling Uncertainty with Reactive DDD", _www.infoq.com_, last edited on 29 Set 2018](https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/)
 
-![](./.assets/img/reactive-system.jpg)  
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/reactive-system.jpg)  
 [Fig. 3: Vernon, V. (2018), "Modeling Uncertainty with Reactive DDD", _Reactive Systems_, www.infoq.com](https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/)
 
 ### Reactive Process
@@ -153,12 +153,12 @@ Fig. 1: Falcão Jr., Antônio. _An EDA solution architecture_.
 >
 > [Vernon, Vaughn. "Modeling Uncertainty with Reactive DDD", _www.infoq.com_, last edited on 29 Set 2018](https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/)
 
-![](./.assets/img/reactive_process.jpg)     
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/reactive_process.jpg)     
 [Fig. 4: Vernon, V. (2018), "Modeling Uncertainty with Reactive DDD", _Process Manager_, www.infoq.com](https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/)
 
 ### Messaging - Making good use of Context Mapping
 
-![](./.assets/img/messaging_context_mapping.png)    
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/messaging_context_mapping.png)    
 Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed, p65.
 
 > When using asynchronous messaging to integrate, much can be accomplished by a client Bounded Context subscribing to the Domain Events published by your own or another Bounded Context. Using
@@ -188,7 +188,7 @@ Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed
 
 <br>
 
-![](./.assets/img/event-sourcing-overview.png)      
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/event-sourcing-overview.png)      
 [Fig. 11: MSDN. _Event Sourcing pattern_](https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing#solution)
 
 ### Updating entities
@@ -213,7 +213,7 @@ Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed
 >
 > -- <cite>@gregyoung</cite>
 
-![](./.assets/img/event-sourcing-state-transition.png)  
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/event-sourcing-state-transition.png)  
 [Fig. 12: Battermann, Leif. _12 Things You Should Know About Event Sourcing_](http://blog.leifbattermann.de/2017/04/21/12-things-you-should-know-about-event-sourcing)
 
 The mantra of event sourcing and cover the four steps in slightly more details:
@@ -240,12 +240,12 @@ The mantra of event sourcing and cover the four steps in slightly more details:
 
 State transition during events applying:
 
-![](./.assets/img/applyTo_event-sourcing.png)   
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/applyTo_event-sourcing.png)   
 [Fig. 13: Reitzammer, Benjamin & Seitz, Johannes. _Event Sourcingin practice_](https://ookami86.github.io/event-sourcing-in-practice/#making-eventsourcing-work/18-concurrent-modifictations.md)
 
 <br>
 
-![](./.assets/img/eventsourcingrequestflow.png)     
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/eventsourcingrequestflow.png)     
 [Fig. 14: Eventuate. _Event Sourcing_](https://eventuate.io/whyeventsourcing.html)
 
 ### Event Store
@@ -256,12 +256,12 @@ State transition during events applying:
 >
 > [Zimarev, Alexey. "What is Event Sourcing?", _Event Store blog_, last edited on 03 June 2020](https://www.eventstore.com/blog/what-is-event-sourcing)
 
-![](./.assets/img/event-store.png)  
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/event-store.png)  
 [Fig. 15: Shilkov, Mikhail. _Event Sourcing and IO Complexity_](https://mikhail.io/2016/11/event-sourcing-and-io-complexity)
 
 The following picture shows the difference between approaches:
 
-![](./.assets/img/event-sourcing.png)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/event-sourcing.png)
 [Fig. 16: Richardson, Chris. _Pattern: Event sourcing_](https://microservices.io/patterns/data/event-sourcing.html)
 
 #### Snapshot
@@ -278,12 +278,12 @@ The following picture shows the difference between approaches:
 >
 > [Gunia, Kacper. "Event Sourcing: Snapshotting", _domaincentric.net_, last edited on 5 Jun 2020](https://domaincentric.net/blog/event-sourcing-snapshotting)
 
-![](./.assets/img/snapshot.png)       
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/snapshot.png)       
 [Fig. 17: Comartin, Derek. _Snapshots in Event Sourcing for Rehydrating Aggregates_](https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates)
 
 Snapshot stream:
 
-![](./.assets/img/stream_snapshot.png)        
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/stream_snapshot.png)        
 [Fig. 18: Comartin, Derek. _Snapshots in Event Sourcing for Rehydrating Aggregates_](https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates)
 
 ## Event-Driven Architecture (EDA)
@@ -298,7 +298,7 @@ Snapshot stream:
 >
 > [Jansen, Grace & Saladas, Johanna. "Advantages of the event-driven architecture pattern." _developer.ibm.com_, IBM Developer, last edited on 12 May 2021](https://developer.ibm.com/articles/advantages-of-an-event-driven-architecture)
 
-![](./.assets/img/eda.png)  
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/eda.png)  
 [Fig. 5: Uit de Bos, Oskar. _A simple illustration of events using the publish/subscribe messagingmodel_](https://medium.com/swlh/the-engineers-guide-to-event-driven-architectures-benefits-and-challenges-3e96ded8568b)
 
 ### Topologies
@@ -320,7 +320,7 @@ Snapshot stream:
 >
 > [Richards, Mark. "Broker Topology." _Software Architecture Patterns by Mark Richards_, O'Reilly](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch02.html)
 
-![](./.assets/img/broker_topology_eda.png)      
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/broker_topology_eda.png)      
 [Fig. 7: Richards, Mark. "Broker Topology." _Software Architecture Patterns by Mark Richards_, O'Reilly](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch02.html)
 
 #### Choreography-based SAGA
@@ -330,7 +330,7 @@ Snapshot stream:
 >
 > [Richardson, Chris. "Implementing a choreography-based saga." _Managing data consistency in a microservice architecture using Sagas_, chrisrichardson.net](https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html#:%7E:text=In%20a%20choreography%2Dbased%20saga,and%20publishes%20a%20domain%20event.&text=The%20step%20of%20the%20saga,data%20and%20emits%20an%20event)
 
-![](./.assets/img/Saga.png)     
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/Saga.png)     
 [Fig. 8: Richardson, Chris. "Implementing a choreography-based saga." _Managing data consistency in a microservice architecture using Sagas_, chrisrichardson.net](https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html#:%7E:text=In%20a%20choreography%2Dbased%20saga,and%20publishes%20a%20domain%20event.&text=The%20step%20of%20the%20saga,data%20and%20emits%20an%20event)
 
 #### Orchestration vs Choreography
@@ -344,7 +344,7 @@ _SAGA - A long story about past events over a long period of time._
 
 #### Orchestration
 
-![](./.assets/img/orchestration.png)    
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/orchestration.png)    
 Fig. 9: Falcão, Antônio. "Order orchestration-based saga".
 
 Benefits & drawbacks of Orchestration
@@ -358,7 +358,7 @@ Benefits & drawbacks of Orchestration
 
 #### Choreography
 
-![](./.assets/img/choreography.png)     
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/choreography.png)     
 Fig. 10: Falcão, Antônio. "Order choreography-based saga".
 
 Benefits & drawbacks of Choreography
@@ -449,7 +449,7 @@ Comparison overview:
 
 <br>
 
-![](./.assets/img/EventSourcing_EDA.jpeg)   
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/EventSourcing_EDA.jpeg)   
 [Fig. 19: Nowak, Aleksander. _Understanding Event-Driven Design Patterns for Microservices_](https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-microservices-659b3c9fb51f)
 
 ## CQRS
@@ -479,7 +479,7 @@ Comparison overview:
 
 ### Command's pipeline
 
-![](./.assets/img/add-ha-message-queue.png)     
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/add-ha-message-queue.png)     
 [Fig. 6: MSDN. _Use message queues (out-of-proc) in the command's pipeline_](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/microservice-application-layer-implementation-web-api#use-message-queues-out-of-proc-in-the-commands-pipeline)
 
 ### Projections
@@ -488,7 +488,7 @@ To cover this topic was
 prepared [this presentation](https://www.canva.com/design/DAEY9ttmPgY/F_lh7TXQEdG-su-qojEjdw/view?utm_content=DAEY9ttmPgY&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
 with some different strategies and ways to implement projections.
 
-![](.assets/img/projections.svg)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/projections.svg)
 
 ## CQRS + Event Sourcing
 
@@ -504,12 +504,12 @@ with some different strategies and ways to implement projections.
 >
 > ["Event Sourcing and CQRS pattern" _MSDN_, Microsoft Docs, last edited on 02 Nov 2020](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs#event-sourcing-and-cqrs-pattern)
 
-![](./.assets/img/cqrs-eventsourcing-diagram.png)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/cqrs-eventsourcing-diagram.png)
 [Fig. 22: Whittaker, Daniel. _CQRS + Event Sourcing – Step by Step_](https://danielwhittaker.me/2020/02/20/cqrs-step-step-guide-flow-typical-application)
 
 <br>
 
-![](./.assets/img/cqrs-eventsourcing-flow.png)  
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/cqrs-eventsourcing-flow.png)  
 [Fig. 23: Katwatka, Piotr. _Event Sourcing with CQRS_](https://www.divante.com/blog/event-sourcing-open-loyalty-engineering)
 
 ### Commands vs Events
@@ -596,16 +596,20 @@ with some different strategies and ways to implement projections.
 >
 > [Brandolini, Alberto. "EventStorming", _EventStorming.com_, last edited on 2020](https://www.eventstorming.com)
 
-![](./.assets/img/event-storming.jpg)  
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/event-storming.jpg)  
 [Fig. 24: Baas-Schwegler, Kenny & Richardson, Chris. _Picture that explains "Almost" Everything_](https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet)
 
 ### EventStorming (WIP)
 
-![](./.assets/img/event-storming-wip.jpg)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/event-storming-wip.jpg)
+
+#### Authentication flow
+
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/authentication.jpg)
 
 ### From EventStorming to Event Sourcing
 
-![](./.assets/img/from-eventstorming-to-eventsourcing.png)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/from-eventstorming-to-eventsourcing.png)
 
 ## Domain Driven Design (DDD)
 
@@ -626,7 +630,7 @@ with some different strategies and ways to implement projections.
 >
 > [Vernon, Vaughn. "Modeling Uncertainty with Reactive DDD", _www.infoq.com_, last edited on 29 Set 2018](https://martinfowler.com/bliki/BoundedContext.html)
 
-![](./.assets/img/BoundedContext.jpg)  
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/BoundedContext.jpg)  
 [Fig. 26: Martin, Fowler. _BoundedContext_](https://martinfowler.com/bliki/BoundedContext.html)
 
 > First, a Bounded Context is a semantic contextual boundary. This means that within the boundary each component of the software model has a specific meaning and does specific things. The components
@@ -649,7 +653,7 @@ with some different strategies and ways to implement projections.
 > I think a model is a set of related concepts that can be applied to solve a problem.
 > -- <cite> Eric Evans </cite>
 
-![](./.assets/img/aggregate.png)  
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/aggregate.png)  
 Fig. 25: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st ed, p78.
 
 > Each Aggregate forms a transactional consistency boundary. This means that within a single Aggregate, all composed parts must be consistent, according to business rules, when the controlling
@@ -674,7 +678,7 @@ Fig. 25: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st 
 >
 > ["Clean Architecture." _Whatis_, last edited on 10 Mar 2019](https://whatis.techtarget.com/definition/clean-architecture)
 
-![](./.assets/img/CleanArchitecture.jpg)  
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/CleanArchitecture.jpg)  
 [Fig. 27: C. Martin, Robert. _The Clean Architecture_](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
 ## Performance
@@ -929,7 +933,7 @@ CREATE TABLE [Events] (
 );
 ```
 
-![](./.assets/img/store-event.png)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/store-event.png)
 
 ```json
 {
@@ -955,7 +959,7 @@ CREATE TABLE [Snapshots] (
 );
 ```
 
-![](./.assets/img/store-snapshot.png)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/store-snapshot.png)
 
 ```json
 {

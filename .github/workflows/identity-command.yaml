@@ -1,4 +1,5 @@
 name: Identity - Command Stack
+run-name: Identity Command Stack Workflow
 on:
   push:
     paths:
