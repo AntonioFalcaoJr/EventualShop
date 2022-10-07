@@ -2,9 +2,9 @@ using FluentValidation;
 
 namespace WebAPI.APIs.Identities.Validators;
 
-public class VerifyEmailValidator : AbstractValidator<Requests.VerifyEmail>
+public class ConfirmEmailValidator : AbstractValidator<Requests.ConfirmEmail>
 {
-    public VerifyEmailValidator()
+    public ConfirmEmailValidator()
     {
         RuleFor(request => request.UserId)
             .NotEmpty();

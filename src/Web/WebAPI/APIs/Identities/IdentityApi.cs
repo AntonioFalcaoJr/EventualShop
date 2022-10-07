@@ -16,8 +16,8 @@ public static class IdentityApi
         group.MapPut("/{userId:guid}/change-email", ([AsParameters] Requests.ChangeEmail request)
             => ApplicationApi.SendCommandAsync<Command.ChangeEmail>(request));
 
-        group.MapPut("/{userId:guid}/verify-email", ([AsParameters] Requests.VerifyEmail request)
-            => ApplicationApi.SendCommandAsync<Command.VerifyEmail>(request));
+        group.MapPut("/{userId:guid}/confirm-email", ([AsParameters] Requests.ConfirmEmail request)
+            => ApplicationApi.SendCommandAsync<Command.ConfirmEmail>(request));
 
         group.MapPut("/{userId:guid}/change-password", ([AsParameters] Requests.ChangePassword request)
             => ApplicationApi.SendCommandAsync<Command.ChangePassword>(request));

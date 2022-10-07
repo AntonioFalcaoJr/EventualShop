@@ -43,16 +43,16 @@ public class User : AggregateRoot<UserValidator>
         RaiseEvent(new DomainEvent.UserDeleted(cmd.Id));
     }
 
-    private void Handle(Command.VerifyEmail cmd)
+    private void Handle(Command.ConfirmEmail cmd)
     {
-        if (_emails.SingleOrDefault(email => email == cmd.Email) is { IsUnverified: true })
-            RaiseEvent(new DomainEvent.EmailVerified(cmd.Id, cmd.Email));
+        if (_emails.SingleOrDefault(email => email == cmd.Email) is not { IsUnverified: true }) return;
+        RaiseEvent(new DomainEvent.EmailConfirmed(cmd.Id, cmd.Email));
     }
 
     private void Handle(Command.ExpiryEmail cmd)
     {
-        if (_emails.SingleOrDefault(email => email == cmd.Email) is { IsUnverified: true })
-            RaiseEvent(new DomainEvent.EmailExpired(cmd.Id, cmd.Email));
+        if (_emails.SingleOrDefault(email => email == cmd.Email) is not { IsUnverified: true }) return;
+        RaiseEvent(new DomainEvent.EmailExpired(cmd.Id, cmd.Email));
     }
 
     private void Handle(Command.DefinePrimaryEmail cmd)
@@ -79,7 +79,7 @@ public class User : AggregateRoot<UserValidator>
     private void Apply(DomainEvent.EmailChanged @event)
         => _emails.Add(@event.Email);
 
-    private void Apply(DomainEvent.EmailVerified @event)
+    private void Apply(DomainEvent.EmailConfirmed @event)
     {
         var (email, index) = _emails
             .Where(email => email == @event.Email)

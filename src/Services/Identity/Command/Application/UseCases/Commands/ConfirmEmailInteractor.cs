@@ -6,8 +6,8 @@ using Domain.Aggregates;
 
 namespace Application.UseCases.Commands;
 
-public class VerifyEmailInteractor : CommandInteractor<User, Command.VerifyEmail>
+public class ConfirmEmailInteractor : CommandInteractor<User, Command.ConfirmEmail>
 {
-    public VerifyEmailInteractor(IEventStoreGateway eventStoreGateway, IEventBusGateway eventBusGateway, IUnitOfWork unitOfWork)
+    public ConfirmEmailInteractor(IEventStoreGateway eventStoreGateway, IEventBusGateway eventBusGateway, IUnitOfWork unitOfWork)
         : base(eventStoreGateway, eventBusGateway, unitOfWork) { }
 }
