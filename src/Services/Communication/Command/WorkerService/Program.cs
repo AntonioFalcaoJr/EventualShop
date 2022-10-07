@@ -5,7 +5,8 @@ using Infrastructure.EventStore.DependencyInjection.Extensions;
 using Infrastructure.EventStore.DependencyInjection.Options;
 using Infrastructure.MessageBus.DependencyInjection.Extensions;
 using Infrastructure.MessageBus.DependencyInjection.Options;
-using Infrastructure.SMTP;
+using Infrastructure.SMTP.DependencyInjection.Extensions;
+using Infrastructure.SMTP.DependencyInjection.Options;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Quartz;
@@ -40,12 +41,11 @@ builder.ConfigureLogging((context, logging) =>
 builder.ConfigureServices((context, services) =>
 {
     services.AddEventStore();
-    services.AddCommandBus();
+    services.AddMessageBus();
     services.AddEventBusGateway();
     services.AddCommandInteractors();
     services.AddEventInteractors();
     services.AddMessageValidators();
-
     services.AddSmtp();
 
     services.ConfigureEventStoreOptions(
@@ -54,14 +54,17 @@ builder.ConfigureServices((context, services) =>
     services.ConfigureSqlServerRetryOptions(
         context.Configuration.GetSection(nameof(SqlServerRetryOptions)));
 
-    services.ConfigureCommandBusOptions(
-        context.Configuration.GetSection(nameof(CommandBusOptions)));
+    services.ConfigureMessageBusOptions(
+        context.Configuration.GetSection(nameof(MessageBusOptions)));
 
     services.ConfigureQuartzOptions(
         context.Configuration.GetSection(nameof(QuartzOptions)));
 
     services.ConfigureMassTransitHostOptions(
         context.Configuration.GetSection(nameof(MassTransitHostOptions)));
+    
+    services.ConfigureSmtpOptions(
+        context.Configuration.GetSection(nameof(SmtpOptions)));
 });
 
 using var host = builder.Build();
