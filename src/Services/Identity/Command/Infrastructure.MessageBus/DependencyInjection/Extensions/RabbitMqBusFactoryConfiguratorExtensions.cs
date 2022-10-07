@@ -13,7 +13,7 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
         ConfigureEventReceiveEndpoint<AccountDeactivatedConsumer, Account.DomainEvent.AccountDeactivated>(cfg, context);
         ConfigureEventReceiveEndpoint<AccountDeletedConsumer, Account.DomainEvent.AccountDeleted>(cfg, context);
         ConfigureEventReceiveEndpoint<EmailConfirmationExpiredConsumer, Identity.DelayedEvent.EmailConfirmationExpired>(cfg, context);
-        ConfigureEventReceiveEndpoint<EmailVerifiedConsumer, Identity.DomainEvent.EmailVerified>(cfg, context);
+        ConfigureEventReceiveEndpoint<EmailConfirmedConsumer, Identity.DomainEvent.EmailConfirmed>(cfg, context);
         ConfigureEventReceiveEndpoint<UserRegisteredConsumer, Identity.DomainEvent.UserRegistered>(cfg, context);
     }
 

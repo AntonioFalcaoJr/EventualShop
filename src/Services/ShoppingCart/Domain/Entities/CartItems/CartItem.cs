@@ -1,6 +1,5 @@
 ﻿using Contracts.DataTransferObjects;
 using Domain.Abstractions.Entities;
-using Domain.Enumerations;
 using Domain.ValueObjects.Products;
 
 namespace Domain.Entities.CartItems;

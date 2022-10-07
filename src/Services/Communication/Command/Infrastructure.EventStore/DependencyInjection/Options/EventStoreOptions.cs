@@ -2,8 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Infrastructure.EventStore.DependencyInjection.Options;
 
-public class EventStoreOptions
+public record EventStoreOptions
 {
-    [Required, Range(3, 100)] 
-    public int SnapshotInterval { get; init; }
+    [Required, Range(3, 100)] public int SnapshotInterval { get; init; }
 }
