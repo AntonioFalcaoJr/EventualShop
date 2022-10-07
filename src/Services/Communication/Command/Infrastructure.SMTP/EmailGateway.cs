@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Net.Mail;
 using Application.Abstractions.Gateways;
-using Application.DependencyInjection.Options;
+using Infrastructure.SMTP.DependencyInjection.Options;
 using Microsoft.Extensions.Options;
 
 namespace Infrastructure.SMTP;
@@ -19,7 +19,7 @@ public class EmailGateway : IEmailGateway
         {
             Host = _options.Host,
             Port = _options.Port,
-            EnableSsl = true,
+            EnableSsl = _options.EnableSsl,
             DeliveryMethod = SmtpDeliveryMethod.Network,
             UseDefaultCredentials = false,
             Credentials = new NetworkCredential(_options.Username, _options.Password)
