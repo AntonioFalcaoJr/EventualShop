@@ -10,6 +10,7 @@ public class ConfirmEmailValidator : AbstractValidator<Requests.ConfirmEmail>
             .NotEmpty();
 
         RuleFor(request => request.Email)
+            .NotEmpty()
             .EmailAddress();
     }
 }
