@@ -9,9 +9,9 @@ public static class DomainEvent
 
     public record CartItemAdded(Guid Id, Guid ItemId, Guid InventoryId, Guid CatalogId, Dto.Product Product, ushort Quantity, decimal UnitPrice) : Message(CorrelationId: Id), IEvent;
 
-    public record CartItemIncreased(Guid Id, Guid ItemId, ushort Quantity, decimal UnitPrice) : Message(CorrelationId: Id), IEvent;
+    public record CartItemIncreased(Guid Id, Guid ItemId, ushort NewQuantity, decimal UnitPrice) : Message(CorrelationId: Id), IEvent;
 
-    public record CartItemDecreased(Guid Id, Guid ItemId, ushort Quantity, decimal UnitPrice) : Message(CorrelationId: Id), IEvent;
+    public record CartItemDecreased(Guid Id, Guid ItemId, ushort NewQuantity, decimal UnitPrice) : Message(CorrelationId: Id), IEvent;
 
     public record CartItemRemoved(Guid Id, Guid ItemId, decimal UnitPrice, int Quantity) : Message(CorrelationId: Id), IEvent;
 
