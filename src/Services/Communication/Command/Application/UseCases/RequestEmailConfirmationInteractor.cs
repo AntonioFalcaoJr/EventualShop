@@ -23,7 +23,7 @@ public class RequestEmailConfirmationInteractor : EventInteractor<Notification, 
     public override async Task InteractAsync(DomainEvent.UserRegistered @event, CancellationToken cancellationToken)
     {
         // TODO - Put de confirmation URL in some injectable Option
-        var email = string.Format(EmailResource.EmailConfirmationHtml, @event.FirstName, $"localhost:5001/confirm-email?id={@event.Id}");
+        var email = string.Format(EmailResource.EmailConfirmationHtml, @event.FirstName, $"http://localhost:5000/api/v1/identities/{@event.Id}/confirm-email?Email={@event.Email}");
         await _emailGateway.SendHtmlEmailAsync(@event.Email, "Email Confirmation", email, cancellationToken);
         await OnInteractAsync(@event.Id, _ => new Command.RequestEmailConfirmation(@event.Id, @event.Email), cancellationToken);
     }
