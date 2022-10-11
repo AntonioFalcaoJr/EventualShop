@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using Domain.Abstractions.Aggregates;
+﻿using Domain.Abstractions.Aggregates;
 using Contracts.Abstractions.Messages;
 using Contracts.Services.Account;
 using Domain.Entities.Addresses;
@@ -18,7 +17,7 @@ public class Account : AggregateRoot<Guid, AccountValidator>
     public bool AcceptedPolicies { get; private set; }
 
     public IEnumerable<Address> Addresses
-        => new ReadOnlyCollection<Address>(_addresses);
+        => _addresses;
 
     public void Handle(Command.CreateAccount cmd)
         => RaiseEvent(new DomainEvent.AccountCreated(cmd.Id, cmd.FirstName, cmd.LastName, cmd.Email));

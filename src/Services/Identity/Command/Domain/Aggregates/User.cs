@@ -17,7 +17,7 @@ public class User : AggregateRoot<UserValidator>
     public string PrimaryEmail { get; private set; }
 
     public IEnumerable<Email> Emails
-        => new ReadOnlyCollection<Email>(_emails);
+        => _emails;
 
     public override void Handle(ICommand command)
         => Handle(command as dynamic);
