@@ -22,7 +22,7 @@ public class Inventory : AggregateRoot<Guid, InventoryValidator>
         => Items.Sum(item => item.Quantity);
 
     public IEnumerable<InventoryItem> Items
-        => new ReadOnlyCollection<InventoryItem>(_items);
+        => _items;
 
     public void Handle(Command.CreateInventory cmd)
         => RaiseEvent(new DomainEvent.InventoryCreated(Guid.NewGuid(), cmd.OwnerId));

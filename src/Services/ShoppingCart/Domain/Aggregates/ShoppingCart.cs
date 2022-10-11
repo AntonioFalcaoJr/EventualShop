@@ -34,10 +34,10 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
         => Total - TotalPayment;
 
     public IEnumerable<CartItem> Items
-        => new ReadOnlyCollection<CartItem>(_items);
+        => _items;
 
     public IEnumerable<PaymentMethod> PaymentMethods
-        => new ReadOnlyCollection<PaymentMethod>(_paymentMethods);
+        => _paymentMethods;
 
     public void Handle(Command.CreateCart cmd)
         => RaiseEvent(new DomainEvent.CartCreated(Guid.NewGuid(), cmd.CustomerId, CartStatus.Confirmed));
