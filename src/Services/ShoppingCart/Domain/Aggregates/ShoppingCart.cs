@@ -89,7 +89,7 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
 
     public void Handle(Command.CheckOutCart cmd)
     {
-        if (_items.Any() is false || AmountDue > 0) return;
+        if (_items is { Count: 0 } || AmountDue > 0) return;
         RaiseEvent(new DomainEvent.CartCheckedOut(cmd.Id));
     }
 
