@@ -23,7 +23,7 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
             .Sum(method => method.Amount);
 
     public IEnumerable<PaymentMethod> PaymentMethods
-        => new ReadOnlyCollection<PaymentMethod>(_paymentMethods);
+        => _paymentMethods;
 
     public void Handle(Command.RequestPayment cmd)
         => RaiseEvent(new DomainEvent.PaymentRequested(Guid.NewGuid(), cmd.OrderId, cmd.AmountDue, cmd.BillingAddress, cmd.PaymentMethods, PaymentStatus.Ready));
