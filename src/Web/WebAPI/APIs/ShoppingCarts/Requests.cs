@@ -16,11 +16,11 @@ public static class Requests
             => new Command.CreateCart(Guid.NewGuid(), CustomerId);
     }
 
-    public record AddCartItem(IBus Bus, Guid CartId, Guid CatalogId, Guid InventoryId, Dto.Product Product, ushort Quantity, decimal UnitPrice, CancellationToken CancellationToken)
+    public record AddCartItem(IBus Bus, Guid CartId, Payloads.AddCartItemPayload Payload, CancellationToken CancellationToken)
         : Validatable<AddCartItemValidator>, ICommandRequest
     {
         public ICommand Command
-            => new Command.AddCartItem(CartId, Guid.NewGuid(), CatalogId, InventoryId, Product, Quantity, UnitPrice);
+            => new Command.AddCartItem(CartId, Guid.NewGuid(), Payload.CatalogId, Payload.InventoryId, Payload.Product, Payload.Quantity, Payload.UnitPrice);
     }
 
     public record CheckOut(IBus Bus, Guid CartId, CancellationToken CancellationToken)
@@ -78,7 +78,7 @@ public static class Requests
         public ICommand Command
             => new Command.AddPaymentMethod(CartId, Amount, PayPal);
     }
-    
+
     public record RemovePaymentMethod(IBus Bus, Guid CartId, Guid MethodId, CancellationToken CancellationToken)
         : Validatable<RemovePaymentMethodValidator>, ICommandRequest
     {

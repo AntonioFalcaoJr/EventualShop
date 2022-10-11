@@ -1,4 +1,3 @@
-using Contracts.DataTransferObjects.Validators;
 using FluentValidation;
 
 namespace WebAPI.APIs.ShoppingCarts.Validators;
@@ -9,21 +8,9 @@ public class AddCartItemValidator : AbstractValidator<Requests.AddCartItem>
     {
         RuleFor(request => request.CartId)
             .NotEmpty();
-        
-        RuleFor(request => request.CatalogId)
-            .NotEmpty();
 
-        RuleFor(request => request.InventoryId)
-            .NotEmpty();
-
-        RuleFor(request => request.Quantity)
-            .GreaterThan(ushort.MinValue);
-
-        RuleFor(request => request.UnitPrice)
-            .GreaterThan(0);
-
-        RuleFor(request => request.Product)
-            .SetValidator(new ProductValidator())
+        RuleFor(request => request.Payload)
+            .SetValidator(new AddCartItemPayloadValidator())
             .OverridePropertyName(string.Empty);
     }
 }
