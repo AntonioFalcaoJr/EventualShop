@@ -55,11 +55,11 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     {
         if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is not { IsDeleted: false } item) return;
 
-        if (cmd.Quantity > item.Quantity)
-            RaiseEvent(new DomainEvent.CartItemIncreased(Id, item.Id, cmd.Quantity, item.UnitPrice));
+        if (cmd.NewQuantity > item.Quantity)
+            RaiseEvent(new DomainEvent.CartItemIncreased(Id, item.Id, cmd.NewQuantity, item.UnitPrice));
 
-        else if (cmd.Quantity < item.Quantity)
-            RaiseEvent(new DomainEvent.CartItemDecreased(Id, item.Id, cmd.Quantity, item.UnitPrice));
+        else if (cmd.NewQuantity < item.Quantity)
+            RaiseEvent(new DomainEvent.CartItemDecreased(Id, item.Id, cmd.NewQuantity, item.UnitPrice));
     }
 
     public void Handle(Command.RemoveCartItem cmd)
