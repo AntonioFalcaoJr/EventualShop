@@ -37,11 +37,11 @@ public static class Requests
             => new Command.ChangePassword(UserId, Password, PasswordConfirmation);
     }
 
-    public record VerifyEmail(IBus Bus, Guid UserId, string Email, CancellationToken CancellationToken)
-        : Validatable<VerifyEmailValidator>, ICommandRequest
+    public record ConfirmEmail(IBus Bus, Guid UserId, string Email, CancellationToken CancellationToken)
+        : Validatable<ConfirmEmailValidator>, ICommandRequest
     {
         public ICommand Command
-            => new Command.VerifyEmail(UserId, Email);
+            => new Command.ConfirmEmail(UserId, Email);
     }
 
     // public record RefreshToken(IdentityService.IdentityServiceClient Client, string Token, string RefreshToken, CancellationToken CancellationToken)

@@ -60,7 +60,7 @@ namespace Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;html lang=&quot;en&quot;&gt; &lt;head&gt; &lt;meta charset=&quot;utf-8&quot; /&gt; &lt;title&gt;Confirm your email!&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;h1&gt;Confirm your email&lt;/h1&gt; &lt;p&gt;Hi {0},&lt;/p&gt; &lt;p&gt;Thanks for signing up! Please confirm your email address by clicking the link below:&lt;/p&gt; &lt;p&gt;&lt;a href=&quot;{1}&quot;&gt;Confirm my email&lt;/a&gt;&lt;/p&gt; &lt;p&gt;Thanks!&lt;/p&gt; &lt;/body&gt; &lt;/html&gt;.
+        ///   Looks up a localized string similar to &lt;html lang=&quot;en&quot;&gt; &lt;head&gt; &lt;meta charset=&quot;utf-8&quot; /&gt; &lt;title&gt;Confirm your email!&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;h1&gt;Confirm your email&lt;/h1&gt; &lt;p&gt;Hi {0},&lt;/p&gt; &lt;p&gt;Thanks for signing up! Please confirm your email address by clicking the link below:&lt;/p&gt; &lt;form action=&quot;{1}&quot; method=&quot;post&quot;&gt; &lt;input type=&quot;submit&quot; value=&quot;Confirm my email&quot;&gt; &lt;/form&gt; &lt;p&gt;Thanks!&lt;/p&gt; &lt;/body&gt; &lt;/html&gt;.
         /// </summary>
         internal static string EmailConfirmationHtml {
             get {

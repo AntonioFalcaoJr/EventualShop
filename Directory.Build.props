@@ -14,18 +14,18 @@
     <PropertyGroup Label="Packages dependency versions">
 
         <!--Microsoft-->
-        <Microsoft_Extensions_Version>7.0.0-rc.1.22426.10</Microsoft_Extensions_Version>
+        <Microsoft_Extensions_Version>7.0.0-rc.2.22472.3</Microsoft_Extensions_Version>
 
         <!--Blazor-->
         <BlazorStrap_Version>5.1.100-Preview1</BlazorStrap_Version>
-        <Microsoft_AspNetCore_WebAssembly_Version>7.0.0-rc.1.22427.2</Microsoft_AspNetCore_WebAssembly_Version>
+        <Microsoft_AspNetCore_WebAssembly_Version>7.0.0-rc.2.22476.2</Microsoft_AspNetCore_WebAssembly_Version>
 
         <!--EF Core-->
-        <EntityFrameworkCore_Version>7.0.0-rc.1.22426.7</EntityFrameworkCore_Version>
+        <EntityFrameworkCore_Version>7.0.0-rc.2.22472.11</EntityFrameworkCore_Version>
 
         <!--gRPC-->
         <Grpc_Version>2.41.0-pre1</Grpc_Version>
-        <Grpc_Tools_Version>2.49.1</Grpc_Tools_Version>
+        <Grpc_Tools_Version>2.50.0-pre1</Grpc_Tools_Version>
         <Google_Protobuf_Version>3.21.7</Google_Protobuf_Version>
         <Grpc_Net_Client_Version>2.49.0</Grpc_Net_Client_Version>
         <Grpc_AspNetCore_Version>2.49.0</Grpc_AspNetCore_Version>
@@ -36,13 +36,13 @@
         <MongoDb_Version>2.17.1</MongoDb_Version>
 
         <!--MassTransit-->
-        <MassTransit_Version>8.0.7-develop.600</MassTransit_Version>
+        <MassTransit_Version>8.0.8-develop.607</MassTransit_Version>
         <Quartz_Version>3.5.0</Quartz_Version>
 
         <!--Newtonsoft-->
         <Newtonsoft_Version>13.0.2-beta2</Newtonsoft_Version>
         <ContractResolvers_Version>2.0.0</ContractResolvers_Version>
-        <Microsoft_Mvc_NewtonsoftJso_Version>7.0.0-rc.1.22427.2</Microsoft_Mvc_NewtonsoftJso_Version>
+        <Microsoft_Mvc_NewtonsoftJso_Version>7.0.0-rc.2.22476.2</Microsoft_Mvc_NewtonsoftJso_Version>
 
         <!--Serilog-->
         <Serilog_Version>2.12.0</Serilog_Version>
@@ -59,10 +59,10 @@
         <Swashbuckle_FluentValidation_Version>6.0.0-beta.1</Swashbuckle_FluentValidation_Version>
 
         <!--Polly-->
-        <Polly_Version>7.0.0-rc.1.22427.2</Polly_Version>
+        <Polly_Version>7.0.0-rc.2.22476.2</Polly_Version>
 
         <!--Test-->
-        <Microsoft_Mvc_Testing_Version>7.0.0-rc.1.22427.2</Microsoft_Mvc_Testing_Version>
+        <Microsoft_Mvc_Testing_Version>7.0.0-rc.2.22476.2</Microsoft_Mvc_Testing_Version>
         <Microsoft_Test_SDK_Version>17.5.0-preview-20221003-04</Microsoft_Test_SDK_Version>
 
     </PropertyGroup>

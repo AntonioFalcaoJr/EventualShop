@@ -1,6 +1,5 @@
 ﻿using Contracts.DataTransferObjects;
 using Domain.Abstractions.Entities;
-using Domain.Enumerations;
 using Domain.ValueObjects.Products;
 
 namespace Domain.Entities.CartItems;
@@ -21,11 +20,11 @@ public class CartItem : Entity<Guid, CartItemValidator>
     public ushort Quantity { get; private set; }
     public decimal UnitPrice { get; }
 
-    public void Increase(ushort quantity)
-        => Quantity += quantity;
+    public void SetQuantity(ushort quantity)
+        => Quantity = quantity;
 
-    public void Decrease(ushort quantity)
-        => Quantity -= quantity;
+    public void Delete()
+        => IsDeleted = true;
 
     public static implicit operator CartItem(Dto.CartItem item)
         => new(item.Id, item.CatalogId, item.Product, item.Quantity, item.UnitPrice);

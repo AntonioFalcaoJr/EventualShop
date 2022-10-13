@@ -17,7 +17,7 @@ namespace Infrastructure.MessageBus.DependencyInjection.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddCommandBus(this IServiceCollection services)
+    public static IServiceCollection AddMessageBus(this IServiceCollection services)
         => services.AddMassTransit(cfg =>
             {
                 cfg.SetKebabCaseEndpointNameFormatter();
@@ -25,7 +25,7 @@ public static class ServiceCollectionExtensions
 
                 cfg.UsingRabbitMq((context, bus) =>
                 {
-                    var options = context.GetRequiredService<IOptionsMonitor<CommandBusOptions>>().CurrentValue;
+                    var options = context.GetRequiredService<IOptionsMonitor<MessageBusOptions>>().CurrentValue;
 
                     bus.Host(options.ConnectionString);
 
@@ -81,9 +81,9 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddMessageValidators(this IServiceCollection services)
         => services.AddValidatorsFromAssemblyContaining(typeof(IMessage));
 
-    public static OptionsBuilder<CommandBusOptions> ConfigureCommandBusOptions(this IServiceCollection services, IConfigurationSection section)
+    public static OptionsBuilder<MessageBusOptions> ConfigureMessageBusOptions(this IServiceCollection services, IConfigurationSection section)
         => services
-            .AddOptions<CommandBusOptions>()
+            .AddOptions<MessageBusOptions>()
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();

@@ -39,7 +39,7 @@ builder.ConfigureLogging((context, logging) =>
 builder.ConfigureServices((context, services) =>
 {
     services.AddEventStore();
-    services.AddCommandBus();
+    services.AddMessageBus();
     services.AddEventBusGateway();
     services.AddCommandInteractors();
     services.AddEventInteractors();
@@ -51,8 +51,8 @@ builder.ConfigureServices((context, services) =>
     services.ConfigureSqlServerRetryOptions(
         context.Configuration.GetSection(nameof(SqlServerRetryOptions)));
 
-    services.ConfigureCommandBusOptions(
-        context.Configuration.GetSection(nameof(CommandBusOptions)));
+    services.ConfigureMessageBusOptions(
+        context.Configuration.GetSection(nameof(MessageBusOptions)));
 
     services.ConfigureQuartzOptions(
         context.Configuration.GetSection(nameof(QuartzOptions)));

@@ -6,7 +6,7 @@ public static class Command
 {
     public record ChangeEmail(Guid Id, string Email) : Message(CorrelationId: Id), ICommand;
 
-    public record VerifyEmail(Guid Id, string Email) : Message(CorrelationId: Id), ICommand;
+    public record ConfirmEmail(Guid Id, string Email) : Message(CorrelationId: Id), ICommand;
 
     public record ExpiryEmail(Guid Id, string Email) : Message(CorrelationId: Id), ICommand;
 

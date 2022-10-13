@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using Domain.Abstractions.Aggregates;
+﻿using Domain.Abstractions.Aggregates;
 using Domain.Entities.OrderItems;
 using Domain.Entities.PaymentMethods;
 using Domain.Enumerations;
@@ -21,10 +20,10 @@ public class Order : AggregateRoot<Guid, OrderValidator>
     public decimal Total { get; private set; }
 
     public IEnumerable<OrderItem> Items
-        => new ReadOnlyCollection<OrderItem>(_items);
+        => _items;
 
     public IEnumerable<PaymentMethod> PaymentMethods
-        => new ReadOnlyCollection<PaymentMethod>(_paymentMethods);
+        => _paymentMethods;
 
     public void Handle(Command.PlaceOrder cmd)
         => RaiseEvent(new DomainEvent.OrderPlaced(

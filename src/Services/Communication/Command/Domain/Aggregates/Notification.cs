@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using Contracts.Abstractions.Messages;
+﻿using Contracts.Abstractions.Messages;
 using Contracts.Services.Communication;
 using Domain.Abstractions.Aggregates;
 using Domain.Entities;
@@ -12,7 +11,7 @@ public class Notification : AggregateRoot<NotificationValidator>
     private readonly List<NotificationMethod> _methods = new();
 
     public IEnumerable<NotificationMethod> Methods
-        => new ReadOnlyCollection<NotificationMethod>(_methods);
+        => _methods;
 
     public override void Handle(ICommand command)
         => Handle(command as dynamic);

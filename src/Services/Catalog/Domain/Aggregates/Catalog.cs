@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using Domain.Abstractions.Aggregates;
+﻿using Domain.Abstractions.Aggregates;
 using Domain.Entities.CatalogItems;
 using Contracts.Abstractions.Messages;
 using Contracts.Services.Catalog;
@@ -14,7 +13,7 @@ public class Catalog : AggregateRoot<Guid, CatalogValidator>
     public string Description { get; private set; }
 
     public IEnumerable<CatalogItem> Items
-        => new ReadOnlyCollection<CatalogItem>(_items);
+        => _items;
 
     public void Handle(Command.CreateCatalog cmd)
         => RaiseEvent(new DomainEvent.CatalogCreated(cmd.Id, cmd.Title, cmd.Description));

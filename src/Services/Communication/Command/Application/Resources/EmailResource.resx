@@ -20,6 +20,6 @@
     </resheader>
 
     <data name="EmailConfirmationHtml" xml:space="preserve">
-        <value><![CDATA[<html lang="en"> <head> <meta charset="utf-8" /> <title>Confirm your email!</title> </head> <body> <h1>Confirm your email</h1> <p>Hi {0},</p> <p>Thanks for signing up! Please confirm your email address by clicking the link below:</p> <p><a href="{1}">Confirm my email</a></p> <p>Thanks!</p> </body> </html>]]></value>
+        <value><![CDATA[<html lang="en"> <head> <meta charset="utf-8" /> <title>Confirm your email!</title> </head> <body> <h1>Confirm your email</h1> <p>Hi {0},</p> <p>Thanks for signing up! Please confirm your email address by clicking the link below:</p> <form action="{1}" method="post"> <input type="submit" value="Confirm my email"> </form> <p>Thanks!</p> </body> </html>]]></value>
     </data>
 </root>

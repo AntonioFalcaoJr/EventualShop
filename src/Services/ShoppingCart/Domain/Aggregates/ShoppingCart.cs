@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using Contracts.Abstractions.Messages;
+﻿using Contracts.Abstractions.Messages;
 using Contracts.DataTransferObjects;
 using Contracts.Services.ShoppingCart;
 using Domain.Abstractions.Aggregates;
@@ -34,10 +33,10 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
         => Total - TotalPayment;
 
     public IEnumerable<CartItem> Items
-        => new ReadOnlyCollection<CartItem>(_items);
+        => _items;
 
     public IEnumerable<PaymentMethod> PaymentMethods
-        => new ReadOnlyCollection<PaymentMethod>(_paymentMethods);
+        => _paymentMethods;
 
     public void Handle(Command.CreateCart cmd)
         => RaiseEvent(new DomainEvent.CartCreated(Guid.NewGuid(), cmd.CustomerId, CartStatus.Confirmed));
@@ -46,24 +45,20 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     {
         if (_items.Exists(cartItem => cartItem.Id == cmd.ItemId)) return;
 
-        var item = _items.SingleOrDefault(cartItem => cartItem.Product == cmd.Product);
-
-        if (item is null or { IsDeleted: true })
-            RaiseEvent(new DomainEvent.CartItemAdded(cmd.Id, cmd.ItemId, cmd.InventoryId, cmd.CatalogId, cmd.Product, cmd.Quantity, cmd.UnitPrice));
-
-        if (item is { IsDeleted: false })
-            RaiseEvent(new DomainEvent.CartItemIncreased(Id, item.Id, cmd.Quantity, item.UnitPrice));
+        RaiseEvent(_items.SingleOrDefault(cartItem => cartItem.Product == cmd.Product) is { IsDeleted: false } item
+            ? new DomainEvent.CartItemIncreased(Id, item.Id, cmd.Quantity, item.UnitPrice)
+            : new DomainEvent.CartItemAdded(cmd.Id, cmd.ItemId, cmd.InventoryId, cmd.CatalogId, cmd.Product, cmd.Quantity, cmd.UnitPrice));
     }
 
     public void Handle(Command.ChangeCartItemQuantity cmd)
     {
-        if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is not { IsDeleted: true } item) return;
+        if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is not { IsDeleted: false } item) return;
 
-        if (cmd.Quantity > item.Quantity)
-            RaiseEvent(new DomainEvent.CartItemIncreased(Id, item.Id, cmd.Quantity, item.UnitPrice));
+        if (cmd.NewQuantity > item.Quantity)
+            RaiseEvent(new DomainEvent.CartItemIncreased(Id, item.Id, cmd.NewQuantity, item.UnitPrice));
 
-        if (cmd.Quantity < item.Quantity)
-            RaiseEvent(new DomainEvent.CartItemDecreased(Id, item.Id, cmd.Quantity, item.UnitPrice));
+        else if (cmd.NewQuantity < item.Quantity)
+            RaiseEvent(new DomainEvent.CartItemDecreased(Id, item.Id, cmd.NewQuantity, item.UnitPrice));
     }
 
     public void Handle(Command.RemoveCartItem cmd)
@@ -93,7 +88,7 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
 
     public void Handle(Command.CheckOutCart cmd)
     {
-        if (_items.Any() is false || AmountDue > 0) return;
+        if (_items is { Count: 0 } || AmountDue > 0) return;
         RaiseEvent(new DomainEvent.CartCheckedOut(cmd.Id));
     }
 
@@ -116,13 +111,17 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     }
 
     private void When(DomainEvent.CartItemIncreased @event)
-        => _items.Single(item => item.Id == @event.ItemId).Increase(@event.Quantity);
+        => _items
+            .First(item => item.Id == @event.ItemId)
+            .SetQuantity(@event.NewQuantity);
 
     private void When(DomainEvent.CartItemDecreased @event)
-        => _items.Single(item => item.Id == @event.ItemId).Decrease(@event.Quantity);
+        => _items
+            .First(item => item.Id == @event.ItemId)
+            .SetQuantity(@event.NewQuantity);
 
     private void When(DomainEvent.CartItemRemoved @event)
-        => _items.RemoveAll(item => item.Id == @event.ItemId);
+        => _items.First(item => item.Id == @event.ItemId).Delete();
 
     private void When(DomainEvent.CartItemAdded @event)
         => _items.Add(new(@event.ItemId, @event.CatalogId, @event.Product, @event.Quantity, @event.UnitPrice));
