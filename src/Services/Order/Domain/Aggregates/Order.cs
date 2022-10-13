@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using Domain.Abstractions.Aggregates;
+﻿using Domain.Abstractions.Aggregates;
 using Domain.Entities.OrderItems;
 using Domain.Entities.PaymentMethods;
 using Domain.Enumerations;

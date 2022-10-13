@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using Contracts.Abstractions.Messages;
+﻿using Contracts.Abstractions.Messages;
 using Contracts.DataTransferObjects;
 using Contracts.Services.ShoppingCart;
 using Domain.Abstractions.Aggregates;

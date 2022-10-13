@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using Domain.Abstractions.Aggregates;
+﻿using Domain.Abstractions.Aggregates;
 using Domain.Entities.CatalogItems;
 using Contracts.Abstractions.Messages;
 using Contracts.Services.Catalog;

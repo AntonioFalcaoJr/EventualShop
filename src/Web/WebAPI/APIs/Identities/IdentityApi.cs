@@ -13,11 +13,11 @@ public static class IdentityApi
         group.MapPost("/sign-up", ([AsParameters] Requests.SignUp request)
             => ApplicationApi.SendCommandAsync<Command.RegisterUser>(request));
 
+        group.MapPost("/{userId:guid}/confirm-email", ([AsParameters] Requests.ConfirmEmail request)
+            => ApplicationApi.SendCommandAsync<Command.ConfirmEmail>(request));
+
         group.MapPut("/{userId:guid}/change-email", ([AsParameters] Requests.ChangeEmail request)
             => ApplicationApi.SendCommandAsync<Command.ChangeEmail>(request));
-
-        group.MapPut("/{userId:guid}/confirm-email", ([AsParameters] Requests.ConfirmEmail request)
-            => ApplicationApi.SendCommandAsync<Command.ConfirmEmail>(request));
 
         group.MapPut("/{userId:guid}/change-password", ([AsParameters] Requests.ChangePassword request)
             => ApplicationApi.SendCommandAsync<Command.ChangePassword>(request));
