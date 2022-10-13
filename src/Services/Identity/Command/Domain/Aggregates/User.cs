@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using Domain.Abstractions.Aggregates;
+﻿using Domain.Abstractions.Aggregates;
 using Contracts.Abstractions.Messages;
 using Contracts.Services.Identity;
 using Domain.Enumerations;
