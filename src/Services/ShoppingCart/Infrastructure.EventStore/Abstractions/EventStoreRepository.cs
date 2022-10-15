@@ -62,4 +62,10 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
             .Where(snapshot => snapshot.AggregateId.Equals(aggregateId))
             .OrderByDescending(snapshot => snapshot.AggregateVersion)
             .FirstOrDefaultAsync(ct);
+
+    public IAsyncEnumerable<TId> GetAggregateIdsAsync(CancellationToken cancellationToken)
+        => _storeEvents
+            .AsNoTracking()
+            .Select(@event => @event.AggregateId)
+            .AsAsyncEnumerable();
 }

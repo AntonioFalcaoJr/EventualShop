@@ -14,12 +14,29 @@ public class ProjectCartWhenChangedConsumer :
     IConsumer<DomainEvent.ShippingAddressAdded>,
     IConsumer<DomainEvent.CartItemIncreased>,
     IConsumer<DomainEvent.CartItemDecreased>,
-    IConsumer<DomainEvent.CartDiscarded>
+    IConsumer<DomainEvent.CartDiscarded>,
+    IConsumer<IntegrationEvent.ProjectionRebuilt>
 {
     private readonly IProjectionRepository<Projection.ShoppingCart> _repository;
 
     public ProjectCartWhenChangedConsumer(IProjectionRepository<Projection.ShoppingCart> repository)
-        => _repository = repository;
+    {
+        _repository = repository;
+    }
+    
+    public Task Consume(ConsumeContext<IntegrationEvent.ProjectionRebuilt> context)
+    {
+        Projection.ShoppingCart shoppingCart = new(
+            context.Message.Cart.Id,
+            context.Message.Cart.CustomerId,
+            context.Message.Cart.BillingAddress,
+            context.Message.Cart.ShippingAddress,
+            context.Message.Cart.Status,
+            context.Message.Cart.Total,
+            false);
+
+        return _repository.ReplaceAsync(shoppingCart, context.CancellationToken);
+    }
 
     public Task Consume(ConsumeContext<DomainEvent.BillingAddressAdded> context)
         => _repository.UpdateFieldAsync(

@@ -22,6 +22,8 @@ public static class Command
     public record ChangeCartItemQuantity(Guid Id, Guid ItemId, ushort NewQuantity) : Message(CorrelationId: Id), ICommand;
 
     public record DiscardCart(Guid Id) : Message(CorrelationId: Id), ICommand;
-    
+
     public record RemovePaymentMethod(Guid Id, Guid MethodId) : Message(CorrelationId: Id), ICommand;
+
+    public record RebuildProjection(string Name, Guid Id = default) : Message, ICommand;
 }
