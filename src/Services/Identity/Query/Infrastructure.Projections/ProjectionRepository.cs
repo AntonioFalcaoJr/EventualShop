@@ -15,7 +15,9 @@ public class ProjectionRepository<TProjection> : IProjectionRepository<TProjecti
     private readonly IMongoCollection<TProjection> _collection;
 
     public ProjectionRepository(IMongoDbContext context)
-        => _collection = context.GetCollection<TProjection>();
+    {
+        _collection = context.GetCollection<TProjection>();
+    }
 
     public Task<TProjection> GetAsync<TId>(TId id, CancellationToken ct)
         where TId : struct
@@ -37,20 +39,20 @@ public class ProjectionRepository<TProjection> : IProjectionRepository<TProjecti
         => _collection.ReplaceOneAsync(
             filter: projection => projection.Id == replacement.Id,
             replacement: replacement,
-            options: new ReplaceOptions {IsUpsert = true},
+            options: new ReplaceOptions { IsUpsert = true },
             cancellationToken: ct);
 
     public Task UpsertManyAsync(IEnumerable<TProjection> replacements, CancellationToken ct)
     {
         var requests = replacements.Select(replacement => new ReplaceOneModel<TProjection>(
             filter: new ExpressionFilterDefinition<TProjection>(projection => projection.Id == replacement.Id),
-            replacement: replacement) {IsUpsert = true});
+            replacement: replacement) { IsUpsert = true });
 
         return _collection
             .WithWriteConcern(WriteConcern.Unacknowledged)
             .BulkWriteAsync(
                 requests: requests,
-                options: new BulkWriteOptions {IsOrdered = false},
+                options: new BulkWriteOptions { IsOrdered = false },
                 cancellationToken: ct);
     }
 
@@ -66,5 +68,6 @@ public class ProjectionRepository<TProjection> : IProjectionRepository<TProjecti
         => _collection.UpdateOneAsync(
             filter: projection => projection.Id.Equals(id),
             update: new ObjectUpdateDefinition<TProjection>(new()).Set(field, value),
+            options: new() { IsUpsert = true },
             cancellationToken: ct);
 }

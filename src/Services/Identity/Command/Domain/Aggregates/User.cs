@@ -24,6 +24,12 @@ public class User : AggregateRoot<UserValidator>
     private void Handle(Command.RegisterUser cmd)
         => RaiseEvent(new DomainEvent.UserRegistered(cmd.Id, cmd.FirstName, cmd.LastName, cmd.Email, cmd.Password));
 
+    private void Handle(Command.ConfirmEmail cmd)
+    {
+        if (_emails.SingleOrDefault(email => email == cmd.Email) is not { IsVerified: false }) return;
+        RaiseEvent(new DomainEvent.EmailConfirmed(cmd.Id, cmd.Email));
+    }
+
     private void Handle(Command.ChangeEmail cmd)
     {
         if (cmd.Email.Equals(PrimaryEmail, StringComparison.OrdinalIgnoreCase)) return;
