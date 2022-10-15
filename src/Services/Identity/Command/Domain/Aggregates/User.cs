@@ -48,15 +48,9 @@ public class User : AggregateRoot<UserValidator>
         RaiseEvent(new DomainEvent.UserDeleted(cmd.Id));
     }
 
-    private void Handle(Command.ConfirmEmail cmd)
-    {
-        if (_emails.SingleOrDefault(email => email == cmd.Email) is not { IsUnverified: true }) return;
-        RaiseEvent(new DomainEvent.EmailConfirmed(cmd.Id, cmd.Email));
-    }
-
     private void Handle(Command.ExpiryEmail cmd)
     {
-        if (_emails.SingleOrDefault(email => email == cmd.Email) is not { IsUnverified: true }) return;
+        if (_emails.SingleOrDefault(email => email == cmd.Email) is not { IsVerified: true }) return;
         RaiseEvent(new DomainEvent.EmailExpired(cmd.Id, cmd.Email));
     }
 
