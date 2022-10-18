@@ -25,7 +25,7 @@
 
         <!--gRPC-->
         <Grpc_Version>2.41.0-pre1</Grpc_Version>
-        <Grpc_Tools_Version>2.50.0-pre1</Grpc_Tools_Version>
+        <Grpc_Tools_Version>2.50.0</Grpc_Tools_Version>
         <Google_Protobuf_Version>3.21.7</Google_Protobuf_Version>
         <Grpc_Net_Client_Version>2.49.0</Grpc_Net_Client_Version>
         <Grpc_AspNetCore_Version>2.49.0</Grpc_AspNetCore_Version>
