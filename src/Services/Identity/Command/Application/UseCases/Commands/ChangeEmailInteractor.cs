@@ -1,13 +1,23 @@
-﻿using Application.Abstractions;
-using Application.Abstractions.Gateways;
-using Application.Abstractions.Interactors;
+﻿using Application.Abstractions.Interactors;
+using Application.Services;
 using Contracts.Services.Identity;
 using Domain.Aggregates;
 
 namespace Application.UseCases.Commands;
 
-public class ChangeEmailInteractor : CommandInteractor<User, Command.ChangeEmail>
+public class ChangeEmailInteractor : IInteractor<Command.ChangeEmail>
 {
-    public ChangeEmailInteractor(IEventStoreGateway eventStoreGateway, IEventBusGateway eventBusGateway, IUnitOfWork unitOfWork)
-        : base(eventStoreGateway, eventBusGateway, unitOfWork) { }
+    private readonly IApplicationService _applicationService;
+
+    public ChangeEmailInteractor(IApplicationService applicationService)
+    {
+        _applicationService = applicationService;
+    }
+
+    public async Task InteractAsync(Command.ChangeEmail message, CancellationToken cancellationToken)
+    {
+        var aggregate = await _applicationService.LoadAggregateAsync<User>(message.Id, cancellationToken);
+        aggregate.Handle(message);
+        await _applicationService.AppendEventsAsync(aggregate, cancellationToken);
+    }
 }
