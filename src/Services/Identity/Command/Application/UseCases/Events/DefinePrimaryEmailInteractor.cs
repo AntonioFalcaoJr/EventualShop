@@ -1,16 +1,23 @@
-﻿using Application.Abstractions;
-using Application.Abstractions.Gateways;
-using Application.Abstractions.Interactors;
+﻿using Application.Abstractions.Interactors;
+using Application.Services;
 using Contracts.Services.Identity;
 using Domain.Aggregates;
 
 namespace Application.UseCases.Events;
 
-public class DefinePrimaryEmailInteractor : EventInteractor<User, DomainEvent.EmailConfirmed>
+public class DefinePrimaryEmailInteractor : IInteractor<DomainEvent.EmailConfirmed>
 {
-    public DefinePrimaryEmailInteractor(IEventStoreGateway eventStoreGateway, IEventBusGateway eventBusGateway, IUnitOfWork unitOfWork)
-        : base(eventStoreGateway, eventBusGateway, unitOfWork) { }
+    private readonly IApplicationService _applicationService;
 
-    public override Task InteractAsync(DomainEvent.EmailConfirmed @event, CancellationToken cancellationToken)
-        => OnInteractAsync(@event.Id, user => new Command.DefinePrimaryEmail(user.Id, @event.Email), cancellationToken);
+    public DefinePrimaryEmailInteractor(IApplicationService applicationService)
+    {
+        _applicationService = applicationService;
+    }
+
+    public async Task InteractAsync(DomainEvent.EmailConfirmed message, CancellationToken cancellationToken)
+    {
+        var aggregate = await _applicationService.LoadAggregateAsync<User>(message.Id, cancellationToken);
+        aggregate.Handle(new Command.DefinePrimaryEmail(aggregate.Id, message.Email));
+        await _applicationService.AppendEventsAsync(aggregate, cancellationToken);
+    }
 }

@@ -1,13 +1,23 @@
-﻿using Application.Abstractions;
-using Application.Abstractions.Gateways;
-using Application.Abstractions.Interactors;
+﻿using Application.Abstractions.Interactors;
+using Application.Services;
 using Contracts.Services.Identity;
 using Domain.Aggregates;
 
 namespace Application.UseCases.Commands;
 
-public class RegisterUserInteractor : CommandInteractor<User, Command.RegisterUser>
+public class RegisterUserInteractor : IInteractor<Command.RegisterUser>
 {
-    public RegisterUserInteractor(IEventStoreGateway eventStoreGateway, IEventBusGateway eventBusGateway, IUnitOfWork unitOfWork)
-        : base(eventStoreGateway, eventBusGateway, unitOfWork) { }
+    private readonly IApplicationService _applicationService;
+
+    public RegisterUserInteractor(IApplicationService applicationService)
+    {
+        _applicationService = applicationService;
+    }
+
+    public async Task InteractAsync(Command.RegisterUser message, CancellationToken cancellationToken)
+    {
+        var aggregate = await _applicationService.LoadAggregateAsync<User>(message.Id, cancellationToken);
+        aggregate.Handle(message);
+        await _applicationService.AppendEventsAsync(aggregate, cancellationToken);
+    }
 }
