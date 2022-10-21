@@ -33,22 +33,6 @@ If this project helped you in some way, please **give it a star**. Thanks!
 
 ---
 
-## Roadmap
-
-- **Context Mapping** considering different types of relationships (upstream/downstream):
-    - partnership;
-    - customer-supplier;
-    - conformist.
-
-- **Idempotent Consumer Filter** to prevent intentions from being expressed repeatedly:
-    - Do not consider duplicate messages;
-    - Do not consider naturally idempotent intentions;
-    - Consider the business expected interval in idempotence hash calculation.
-
-- **Outbox pattern** to provide distributed resilient publishing:
-    - Wrap publisher to persist just in case of failure;
-    - ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/outbox.jpg)
-
 ## The Solution Architecture
 
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/solution_architecture.png)    
@@ -851,6 +835,12 @@ dotnet ef migrations add "First Migration" -s .\WorkerService\ -p .\Infrastructu
 - [Event Sourcing: Aggregates Vs Projections - Kacper Gunia](https://domaincentric.net/blog/event-sourcing-aggregates-vs-projections)
 - [Event Sourcing: Projections - Kacper Gunia](https://domaincentric.net/blog/event-sourcing-projections)
 - [Advantages of the event-driven architecture pattern - Grace Jansen & Johanna Saladas](https://developer.ibm.com/articles/advantages-of-an-event-driven-architecture/)
+
+### Videos
+
+[![Vaughn Vernon - GOTO, Berlin 2017 • DDD Today "Modeling Uncertainty"](https://i.ytimg.com/vi/uhZx7Pim_tc/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCP7QptcJD1hzlNOlZnV2M_L5e7rQ)](https://www.youtube.com/watch?v=4JqzXQXjYzY)
+
+[![Event Sourcing You are doing it wrong by David Schmitz - YouTube](https://i.ytimg.com/vi/YUjO1wM0PZM/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB4f49rCWZ0lBXVsTMIIkBJPqLNtQ)](https://www.youtube.com/watch?v=YUjO1wM0PZM&t=2880s)
 
 ## Built With
 
