@@ -5,13 +5,13 @@ namespace Contracts.Services.Warehouse;
 
 public static class Command
 {
-    public record ReceiveInventoryItem(Guid Id, Dto.Product Product, decimal Cost, int Quantity) : Message, ICommand;
+    public record ReceiveInventoryItem(Guid InventoryId, Dto.Product Product, decimal Cost, int Quantity) : Message, ICommand;
 
-    public record IncreaseInventoryAdjust(Guid Id, Guid ItemId, int Quantity, string Reason) : Message, ICommand;
+    public record IncreaseInventoryAdjust(Guid InventoryId, Guid ItemId, int Quantity, string Reason) : Message, ICommand;
 
-    public record DecreaseInventoryAdjust(Guid Id, Guid ItemId, int Quantity, string Reason) : Message, ICommand;
+    public record DecreaseInventoryAdjust(Guid InventoryId, Guid ItemId, int Quantity, string Reason) : Message, ICommand;
 
-    public record ReserveInventoryItem(Guid Id, Guid CatalogId, Guid CartId, Dto.Product Product, int Quantity) : Message, ICommand;
+    public record ReserveInventoryItem(Guid InventoryId, Guid CatalogId, Guid CartId, Dto.Product Product, int Quantity) : Message, ICommand;
 
-    public record CreateInventory(Guid Id, Guid OwnerId) : Message, ICommand;
+    public record CreateInventory(Guid InventoryId, Guid OwnerId) : Message, ICommand;
 }
