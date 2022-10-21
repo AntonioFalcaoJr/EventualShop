@@ -4,5 +4,5 @@ namespace Contracts.Services.Communication;
 
 public static class DomainEvent
 {
-    public record EmailConfirmationRequested(Guid Id, Guid MethodId, string Email) : Message(CorrelationId: Id), IEvent;
+    public record EmailConfirmationRequested(Guid Id, Guid MethodId, string Email) : Message, IEvent;
 }

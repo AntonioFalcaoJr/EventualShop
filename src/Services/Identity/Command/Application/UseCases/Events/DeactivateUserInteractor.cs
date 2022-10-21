@@ -17,7 +17,7 @@ public class DeactivateUserInteractor : IInteractor<DomainEvent.AccountDeactivat
 
     public async Task InteractAsync(DomainEvent.AccountDeactivated message, CancellationToken cancellationToken)
     {
-        var aggregate = await _applicationService.LoadAggregateAsync<User>(message.Id, cancellationToken);
+        var aggregate = await _applicationService.LoadAggregateAsync<User>(message.AccountId, cancellationToken);
         aggregate.Handle(new Command.DeleteUser(aggregate.Id));
         await _applicationService.AppendEventsAsync(aggregate, cancellationToken);
     }

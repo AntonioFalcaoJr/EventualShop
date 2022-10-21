@@ -15,7 +15,7 @@ public class ProjectListItemWhenBillingAddressAddedInteractor : IInteractor<Doma
 
     public async Task InteractAsync(DomainEvent.BillingAddressAdded @event, CancellationToken ct)
     {
-        Projection.BillingAddressListItem addressListItem = new(@event.AddressId, @event.Id, @event.Address, false);
+        Projection.BillingAddressListItem addressListItem = new(@event.AddressId, @event.AccountId, @event.Address, false);
         await _repository.InsertAsync(addressListItem, ct);
     }
 }
