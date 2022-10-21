@@ -1,5 +1,4 @@
 ﻿using Domain.StoreEvents;
-using Infrastructure.EventStore.Contexts.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -30,8 +29,6 @@ public class ShoppingCartStoreEventConfiguration : IEntityTypeConfiguration<Shop
             .IsRequired();
 
         builder
-            .Property(storeEvent => storeEvent.DomainEvent)
-            .HasConversion<EventConverter>()
-            .IsRequired();
+            .OwnsOne(storeEvent => storeEvent.DomainEvent, navigationBuilder => navigationBuilder.ToJson());
     }
 }

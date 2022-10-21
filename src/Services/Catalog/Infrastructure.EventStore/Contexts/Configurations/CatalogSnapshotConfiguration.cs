@@ -1,5 +1,4 @@
 using Domain.StoreEvents;
-using Infrastructure.EventStore.Contexts.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -25,8 +24,6 @@ public class CatalogSnapshotConfiguration : IEntityTypeConfiguration<CatalogSnap
             .IsRequired();
 
         builder
-            .Property(snapshot => snapshot.AggregateState)
-            .HasConversion<CatalogConverter>()
-            .IsRequired();
+            .OwnsOne(snapshot => snapshot.AggregateState, navigationBuilder => navigationBuilder.ToJson());
     }
 }
