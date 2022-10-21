@@ -25,7 +25,8 @@ jobs:
         uses: github/codeql-action/init@v2
         with:
           languages: ${{ matrix.language }}
-          source-root: ${{ inputs.path }}
+          source-root: ${{ inputs.path }}/
+          debug: true
 
       - name: Autobuild
         uses: github/codeql-action/autobuild@v2
