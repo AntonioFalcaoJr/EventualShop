@@ -83,7 +83,7 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     public void Handle(Command.AddBillingAddress cmd)
     {
         if (BillingAddress == cmd.Address) return;
-        RaiseEvent(new DomainEvent.BillingAddressAdded(cmd.Id, cmd.Address));
+        RaiseEvent(new DomainEvent.BillingAddressAdded(cmd.CartId, cmd.Address));
     }
 
     public void Handle(Command.CheckOutCart cmd)
