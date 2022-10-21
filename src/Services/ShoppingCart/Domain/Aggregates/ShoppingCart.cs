@@ -47,7 +47,7 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
 
         RaiseEvent(_items.SingleOrDefault(cartItem => cartItem.Product == cmd.Product) is { IsDeleted: false } item
             ? new DomainEvent.CartItemIncreased(Id, item.Id, cmd.Quantity, item.UnitPrice)
-            : new DomainEvent.CartItemAdded(cmd.Id, cmd.ItemId, cmd.InventoryId, cmd.CatalogId, cmd.Product, cmd.Quantity, cmd.UnitPrice));
+            : new DomainEvent.CartItemAdded(cmd.CartId, cmd.ItemId, cmd.InventoryId, cmd.CatalogId, cmd.Product, cmd.Quantity, cmd.UnitPrice));
     }
 
     public void Handle(Command.ChangeCartItemQuantity cmd)
@@ -64,20 +64,20 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     public void Handle(Command.RemoveCartItem cmd)
     {
         if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is not { IsDeleted: false } item) return;
-        RaiseEvent(new DomainEvent.CartItemRemoved(cmd.Id, cmd.ItemId, item.UnitPrice, item.Quantity));
+        RaiseEvent(new DomainEvent.CartItemRemoved(cmd.CartId, cmd.ItemId, item.UnitPrice, item.Quantity));
     }
 
     public void Handle(Command.AddPaymentMethod cmd)
     {
         // TODO - Should cmd.Amount be subtracted from AmountDue?
         if (cmd.Amount > AmountDue) return;
-        RaiseEvent(new DomainEvent.PaymentMethodAdded(cmd.Id, Guid.NewGuid(), cmd.Amount, cmd.Option));
+        RaiseEvent(new DomainEvent.PaymentMethodAdded(cmd.CartId, Guid.NewGuid(), cmd.Amount, cmd.Option));
     }
 
     public void Handle(Command.AddShippingAddress cmd)
     {
         if (ShippingAddress == cmd.Address) return;
-        RaiseEvent(new DomainEvent.ShippingAddressAdded(cmd.Id, cmd.Address));
+        RaiseEvent(new DomainEvent.ShippingAddressAdded(cmd.CartId, cmd.Address));
     }
 
     public void Handle(Command.AddBillingAddress cmd)
@@ -89,11 +89,11 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     public void Handle(Command.CheckOutCart cmd)
     {
         if (_items is { Count: 0 } || AmountDue > 0) return;
-        RaiseEvent(new DomainEvent.CartCheckedOut(cmd.Id));
+        RaiseEvent(new DomainEvent.CartCheckedOut(cmd.CartId));
     }
 
     public void Handle(Command.DiscardCart cmd)
-        => RaiseEvent(new DomainEvent.CartDiscarded(cmd.Id));
+        => RaiseEvent(new DomainEvent.CartDiscarded(cmd.CartId));
 
     protected override void ApplyEvent(IEvent @event)
         => When(@event as dynamic);
