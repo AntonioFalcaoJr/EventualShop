@@ -16,7 +16,7 @@ public class ConfirmEmailInteractor : IInteractor<Command.ConfirmEmail>
 
     public async Task InteractAsync(Command.ConfirmEmail message, CancellationToken cancellationToken)
     {
-        var aggregate = await _applicationService.LoadAggregateAsync<User>(message.Id, cancellationToken);
+        var aggregate = await _applicationService.LoadAggregateAsync<User>(message.UserId, cancellationToken);
         aggregate.Handle(message);
         await _applicationService.AppendEventsAsync(aggregate, cancellationToken);
     }

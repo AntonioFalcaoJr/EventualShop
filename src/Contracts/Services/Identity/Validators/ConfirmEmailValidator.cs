@@ -6,7 +6,7 @@ public class ConfirmEmailValidator : AbstractValidator<Command.ConfirmEmail>
 {
     public ConfirmEmailValidator()
     {
-        RuleFor(user => user.Id)
+        RuleFor(user => user.UserId)
             .NotEmpty();
 
         RuleFor(user => user.Email)

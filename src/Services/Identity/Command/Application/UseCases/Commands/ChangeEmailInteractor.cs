@@ -16,7 +16,7 @@ public class ChangeEmailInteractor : IInteractor<Command.ChangeEmail>
 
     public async Task InteractAsync(Command.ChangeEmail message, CancellationToken cancellationToken)
     {
-        var aggregate = await _applicationService.LoadAggregateAsync<User>(message.Id, cancellationToken);
+        var aggregate = await _applicationService.LoadAggregateAsync<User>(message.UserId, cancellationToken);
         aggregate.Handle(message);
         await _applicationService.AppendEventsAsync(aggregate, cancellationToken);
     }
