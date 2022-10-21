@@ -25,6 +25,14 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3.0.2
 
+      - name: Cache dependencies
+        uses: actions/cache@v3.0.11
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget 
+            
       - name: Run Analysis
         uses: codacy/codacy-analysis-cli-action@v4.2.0
         with:
