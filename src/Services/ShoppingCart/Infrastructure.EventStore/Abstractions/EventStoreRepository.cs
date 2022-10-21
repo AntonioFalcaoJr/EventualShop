@@ -7,7 +7,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.EventStore.Abstractions;
 
-public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId> : IEventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId>
+public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId> 
+    : IEventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId>
     where TAggregate : IAggregateRoot<TId>, new()
     where TStoreEvent : StoreEvent<TId, TAggregate>
     where TSnapshot : Snapshot<TId, TAggregate>

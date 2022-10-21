@@ -85,7 +85,7 @@ public static class Requests
         public ICommand Command
             => new Command.RemovePaymentMethod(CartId, MethodId);
     }
-    
+
     public record RebuildProjection(IBus Bus, string Name, CancellationToken CancellationToken)
         : Validatable<RebuildProjectionValidator>, ICommandRequest
     {

@@ -13,4 +13,3 @@ public class ChangeCatalogDescriptionValidator : AbstractValidator<Requests.Chan
             .NotEmpty();
     }
 }
-
