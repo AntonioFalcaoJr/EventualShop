@@ -38,15 +38,18 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     public IEnumerable<PaymentMethod> PaymentMethods
         => _paymentMethods;
 
+    public override void Handle(ICommand command)
+        => Handle(command as dynamic);
+
     public void Handle(Command.CreateCart cmd)
-        => RaiseEvent(new DomainEvent.CartCreated(Guid.NewGuid(), cmd.CustomerId, CartStatus.Confirmed));
+        => RaiseEvent(new DomainEvent.CartCreated(cmd.Id, cmd.CustomerId, CartStatus.Active));
 
     public void Handle(Command.AddCartItem cmd)
     {
         if (_items.Exists(cartItem => cartItem.Id == cmd.ItemId)) return;
 
         RaiseEvent(_items.SingleOrDefault(cartItem => cartItem.Product == cmd.Product) is { IsDeleted: false } item
-            ? new DomainEvent.CartItemIncreased(Id, item.Id, cmd.Quantity, item.UnitPrice)
+            ? new DomainEvent.CartItemIncreased(Id, item.Id, (ushort)(item.Quantity + cmd.Quantity), item.UnitPrice)
             : new DomainEvent.CartItemAdded(cmd.Id, cmd.ItemId, cmd.InventoryId, cmd.CatalogId, cmd.Product, cmd.Quantity, cmd.UnitPrice));
     }
 
