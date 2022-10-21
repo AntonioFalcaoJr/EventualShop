@@ -35,8 +35,8 @@ jobs:
           format: sarif
           tool: sonarscharp
           gh-code-scanning-compat: true
-          max-allowed-issues: 10
-          fail-if-incomplete: true
+#          max-allowed-issues: 10
+#          fail-if-incomplete: false
 
       - name: cat results.sarif
         run: cat results.sarif
