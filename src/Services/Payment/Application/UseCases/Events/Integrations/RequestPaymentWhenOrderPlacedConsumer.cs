@@ -21,7 +21,7 @@ public class RequestPaymentWhenOrderPlacedConsumer : IConsumer<DomainEvent.Order
 
         payment.Handle(new Command.RequestPayment(
             Guid.NewGuid(), 
-            context.Message.Id,
+            context.Message.OrderId,
             context.Message.Total,
             context.Message.BillingAddress,
             context.Message.PaymentMethods));

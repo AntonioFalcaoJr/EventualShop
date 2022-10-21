@@ -6,7 +6,7 @@ public class RemoveCartItemValidator : AbstractValidator<Command.RemoveCartItem>
 {
     public RemoveCartItemValidator()
     {
-        RuleFor(cart => cart.Id)
+        RuleFor(cart => cart.CartId)
             .NotEmpty();
 
         RuleFor(cart => cart.ItemId)

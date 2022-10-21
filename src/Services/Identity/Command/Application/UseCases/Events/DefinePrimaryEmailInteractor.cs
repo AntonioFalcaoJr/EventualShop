@@ -16,7 +16,7 @@ public class DefinePrimaryEmailInteractor : IInteractor<DomainEvent.EmailConfirm
 
     public async Task InteractAsync(DomainEvent.EmailConfirmed message, CancellationToken cancellationToken)
     {
-        var aggregate = await _applicationService.LoadAggregateAsync<User>(message.Id, cancellationToken);
+        var aggregate = await _applicationService.LoadAggregateAsync<User>(message.UserId, cancellationToken);
         aggregate.Handle(new Command.DefinePrimaryEmail(aggregate.Id, message.Email));
         await _applicationService.AppendEventsAsync(aggregate, cancellationToken);
     }
