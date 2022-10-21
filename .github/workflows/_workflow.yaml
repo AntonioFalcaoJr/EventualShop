@@ -28,7 +28,7 @@ jobs:
     needs: [ test ]
     uses: ./.github/workflows/_quality.yaml
     with:
-      path: ./${{ inputs.path }}
+      path: ${{ GITHUB_REPOSITORY }}/${{ inputs.path }}
   security:
     needs: [ quality ]
     uses: ./.github/workflows/_security.yaml
