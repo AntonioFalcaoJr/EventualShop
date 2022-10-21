@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        language: [ csharp, javascript, sql ]
+        language: [ csharp ]
 
     steps:
       - name: Initialize CodeQL
@@ -27,6 +27,7 @@ jobs:
           languages: ${{ matrix.language }}
           source-root: ${{ inputs.path }}/
           debug: true
+          setup-python-dependencies: false
 
       - name: Autobuild
         uses: github/codeql-action/autobuild@v2
