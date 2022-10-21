@@ -5,21 +5,21 @@ namespace Contracts.Services.Payment;
 
 public static class Command
 {
-    public record RequestPayment(Guid Id, Guid OrderId, decimal AmountDue, Dto.Address BillingAddress, IEnumerable<Dto.PaymentMethod> PaymentMethods) : Message, ICommand;
+    public record RequestPayment(Guid PaymentId, Guid OrderId, decimal AmountDue, Dto.Address BillingAddress, IEnumerable<Dto.PaymentMethod> PaymentMethods) : Message, ICommand;
 
-    public record ProceedWithPayment(Guid Id, Guid OrderId) : Message, ICommand;
+    public record ProceedWithPayment(Guid PaymentId, Guid OrderId) : Message, ICommand;
 
-    public record CancelPayment(Guid Id, Guid OrderId) : Message, ICommand;
+    public record CancelPayment(Guid PaymentId, Guid OrderId) : Message, ICommand;
 
-    public record AuthorizePaymentMethod(Guid Id, Guid PaymentMethodId, Guid TransactionId) : Message, ICommand;
+    public record AuthorizePaymentMethod(Guid PaymentId, Guid PaymentMethodId, Guid TransactionId) : Message, ICommand;
 
-    public record DenyPaymentMethod(Guid Id, Guid PaymentMethodId, Guid TransactionId) : Message, ICommand;
+    public record DenyPaymentMethod(Guid PaymentId, Guid PaymentMethodId, Guid TransactionId) : Message, ICommand;
 
-    public record CancelPaymentMethod(Guid Id, Guid PaymentMethodId, Guid TransactionId) : Message, ICommand;
+    public record CancelPaymentMethod(Guid PaymentId, Guid PaymentMethodId, Guid TransactionId) : Message, ICommand;
 
-    public record RefundPaymentMethod(Guid Id, Guid PaymentMethodId, Guid TransactionId) : Message, ICommand;
+    public record RefundPaymentMethod(Guid PaymentId, Guid PaymentMethodId, Guid TransactionId) : Message, ICommand;
 
-    public record DenyPaymentMethodRefund(Guid Id, Guid PaymentMethodId, Guid TransactionId) : Message, ICommand;
+    public record DenyPaymentMethodRefund(Guid PaymentId, Guid PaymentMethodId, Guid TransactionId) : Message, ICommand;
 
-    public record DenyPaymentMethodCancellation(Guid Id, Guid PaymentMethodId, Guid TransactionId) : Message, ICommand;
+    public record DenyPaymentMethodCancellation(Guid PaymentId, Guid PaymentMethodId, Guid TransactionId) : Message, ICommand;
 }
