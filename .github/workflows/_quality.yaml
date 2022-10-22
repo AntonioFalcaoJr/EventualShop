@@ -20,13 +20,21 @@ jobs:
     
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.1.0
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v3.0.2
 
+      - name: Cache dependencies
+        uses: actions/cache@v3.0.11
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget 
+            
       - name: Run Analysis
-        uses: codacy/codacy-analysis-cli-action@master
+        uses: codacy/codacy-analysis-cli-action@v4.2.0
         with:
           directory: ${{ inputs.path }}
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
@@ -35,13 +43,10 @@ jobs:
           format: sarif
           tool: sonarscharp
           gh-code-scanning-compat: true
-          max-allowed-issues: 10
-          fail-if-incomplete: true
-
-      - name: cat results.sarif
-        run: cat results.sarif
+          #max-allowed-issues: 10
+          #fail-if-incomplete: false
 
       - name: Upload SARIF results
-        uses: github/codeql-action/upload-sarif@main
+        uses: github/codeql-action/upload-sarif@v2.1.28
         with:
           sarif_file: results.sarif
