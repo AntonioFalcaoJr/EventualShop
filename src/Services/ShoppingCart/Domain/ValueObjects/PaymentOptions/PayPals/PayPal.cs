@@ -1,9 +1,8 @@
 ﻿using Contracts.DataTransferObjects;
-using Domain.Abstractions.ValueObjects;
 
 namespace Domain.ValueObjects.PaymentOptions.PayPals;
 
-public record PayPal(string UserName, string Password) : ValueObject<PayPalValidator>, IPaymentOption
+public record PayPal(string UserName, string Password) : IPaymentOption
 {
     public static implicit operator PayPal(Dto.PayPal creditCard) 
         => new(creditCard.UserName, creditCard.Password);

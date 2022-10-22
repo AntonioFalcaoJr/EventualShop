@@ -20,7 +20,7 @@ public class ProjectCatalogWhenChangedConsumer :
     public Task Consume(ConsumeContext<DomainEvent.CatalogCreated> context)
     {
         Projection.Catalog catalog = new(
-            context.Message.Id,
+            context.Message.CatalogId,
             context.Message.Title,
             context.Message.Description,
             false,
@@ -30,32 +30,32 @@ public class ProjectCatalogWhenChangedConsumer :
     }
 
     public Task Consume(ConsumeContext<DomainEvent.CatalogDeleted> context)
-        => _repository.DeleteAsync(context.Message.Id, context.CancellationToken);
+        => _repository.DeleteAsync(context.Message.CatalogId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.CatalogActivated> context)
         => _repository.UpdateFieldAsync(
-            id: context.Message.Id,
+            id: context.Message.CatalogId,
             field: catalog => catalog.IsActive,
             value: true,
             cancellationToken: context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.CatalogDeactivated> context)
         => _repository.UpdateFieldAsync(
-            id: context.Message.Id,
+            id: context.Message.CatalogId,
             field: catalog => catalog.IsActive,
             value: false,
             cancellationToken: context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.CatalogDescriptionChanged> context)
         => _repository.UpdateFieldAsync(
-            id: context.Message.Id,
+            id: context.Message.CatalogId,
             field: catalog => catalog.Description,
             value: context.Message.Description,
             cancellationToken: context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.CatalogTitleChanged> context)
         => _repository.UpdateFieldAsync(
-            id: context.Message.Id,
+            id: context.Message.CatalogId,
             field: catalog => catalog.Title,
             value: context.Message.Title,
             cancellationToken: context.CancellationToken);

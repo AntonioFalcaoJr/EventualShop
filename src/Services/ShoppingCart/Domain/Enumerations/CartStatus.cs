@@ -10,7 +10,7 @@ public sealed class CartStatus : SmartEnum<CartStatus>
         : base(name, value) { }
 
     public static readonly CartStatus Abandoned = new(nameof(Abandoned), 1);
-    public static readonly CartStatus Confirmed = new(nameof(Confirmed), 2);
+    public static readonly CartStatus Active = new(nameof(Active), 2);
     public static readonly CartStatus CheckedOut = new(nameof(CheckedOut), 3);
 
     public static implicit operator CartStatus(string name)

@@ -15,7 +15,7 @@ public class ProjectCatalogItemsWhenChangedConsumer :
         => _repository = repository;
 
     public Task Consume(ConsumeContext<DomainEvent.CatalogDeleted> context)
-        => _repository.DeleteAsync(item => item.CatalogId == context.Message.Id, context.CancellationToken);
+        => _repository.DeleteAsync(item => item.CatalogId == context.Message.CatalogId, context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.CatalogItemRemoved> context)
         => _repository.DeleteAsync(context.Message.ItemId, context.CancellationToken);
@@ -23,9 +23,9 @@ public class ProjectCatalogItemsWhenChangedConsumer :
     public Task Consume(ConsumeContext<DomainEvent.CatalogItemAdded> context)
     {
         Projection.CatalogItem catalogItem = new(
-            context.Message.Id,
+            context.Message.CatalogId,
             context.Message.ItemId,
-            context.Message.Id,
+            context.Message.CatalogId,
             context.Message.Product,
             false);
 

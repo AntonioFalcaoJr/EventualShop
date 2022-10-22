@@ -34,6 +34,6 @@ public class PagedResult<T> : IPagedResult<T>
         return new PagedResult<T>(items, paging);
     }
 
-    private static IMongoQueryable<T> ApplyPagination(Paging paging, IQueryable<T> source)
+    private static IMongoQueryable<T>? ApplyPagination(Paging paging, IQueryable<T> source)
         => source.Skip(paging.Limit * paging.Offset).Take(paging.Limit + 1) as IMongoQueryable<T>;
 }

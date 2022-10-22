@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Infrastructure.EventStore.Contexts.Converters;
 
-public class PaymentConverter : ValueConverter<Payment, string>
+public class PaymentConverter : ValueConverter<Payment?, string>
 {
     public PaymentConverter()
         : base(

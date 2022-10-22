@@ -14,5 +14,5 @@ public class ProjectDetailsWhenAccountCreatedInteractor : IInteractor<DomainEven
     }
 
     public Task InteractAsync(DomainEvent.AccountCreated @event, CancellationToken ct)
-        => _repository.InsertAsync(new(@event.Id, false), ct);
+        => _repository.InsertAsync(new(@event.AccountId, false), ct);
 }

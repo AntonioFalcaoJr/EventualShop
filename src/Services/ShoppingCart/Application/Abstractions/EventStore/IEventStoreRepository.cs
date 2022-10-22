@@ -4,7 +4,7 @@ using Domain.Abstractions.StoreEvents;
 
 namespace Application.Abstractions.EventStore;
 
-public interface IEventStoreRepository<in TAggregate, in TStoreEvent, TSnapshot, in TId>
+public interface IEventStoreRepository<out TAggregate, in TStoreEvent, TSnapshot, TId>
     where TAggregate : IAggregateRoot<TId>, new()
     where TStoreEvent : StoreEvent<TId, TAggregate>
     where TSnapshot : Snapshot<TId, TAggregate>
@@ -14,5 +14,6 @@ public interface IEventStoreRepository<in TAggregate, in TStoreEvent, TSnapshot,
     Task AppendEventAsync(TStoreEvent storeEvent, CancellationToken cancellationToken);
     Task AppendSnapshotAsync(TSnapshot snapshot, CancellationToken cancellationToken);
     Task<List<IEvent>> GetStreamAsync(TId aggregateId, long version, CancellationToken cancellationToken);
-    Task<TSnapshot> GetSnapshotAsync(TId aggregateId, CancellationToken cancellationToken);
+    Task<TSnapshot?> GetSnapshotAsync(TId aggregateId, CancellationToken cancellationToken);
+    IAsyncEnumerable<TId> GetAggregateIdsAsync(CancellationToken cancellationToken);
 }

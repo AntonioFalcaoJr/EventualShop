@@ -10,6 +10,6 @@ public class NotEmptyAttribute : ValidationAttribute
     public NotEmptyAttribute()
         : base(DefaultErrorMessage) { }
 
-    public override bool IsValid(object value)
+    public override bool IsValid(object? value)
         => value is Guid guid && guid != Guid.Empty;
 }

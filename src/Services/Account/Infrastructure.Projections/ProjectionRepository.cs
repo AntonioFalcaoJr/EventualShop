@@ -50,7 +50,7 @@ public class ProjectionRepository<TProjection> : IProjectionRepository<TProjecti
             .WithWriteConcern(WriteConcern.Unacknowledged)
             .BulkWriteAsync(
                 requests: requests,
-                options: new BulkWriteOptions {IsOrdered = false},
+                options: new () {IsOrdered = false},
                 cancellationToken: ct);
     }
 

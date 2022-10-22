@@ -22,42 +22,42 @@ public class User : AggregateRoot<UserValidator>
         => Handle(command as dynamic);
 
     private void Handle(Command.RegisterUser cmd)
-        => RaiseEvent(new DomainEvent.UserRegistered(cmd.Id, cmd.FirstName, cmd.LastName, cmd.Email, cmd.Password));
+        => RaiseEvent(new DomainEvent.UserRegistered(cmd.UserId, cmd.FirstName, cmd.LastName, cmd.Email, cmd.Password));
 
     private void Handle(Command.ConfirmEmail cmd)
     {
         if (_emails.SingleOrDefault(email => email == cmd.Email) is not { IsVerified: false }) return;
-        RaiseEvent(new DomainEvent.EmailConfirmed(cmd.Id, cmd.Email));
+        RaiseEvent(new DomainEvent.EmailConfirmed(cmd.UserId, cmd.Email));
     }
 
     private void Handle(Command.ChangeEmail cmd)
     {
         if (cmd.Email.Equals(PrimaryEmail, StringComparison.OrdinalIgnoreCase)) return;
-        RaiseEvent(new DomainEvent.EmailChanged(cmd.Id, cmd.Email));
+        RaiseEvent(new DomainEvent.EmailChanged(cmd.UserId, cmd.Email));
     }
 
     private void Handle(Command.ChangePassword cmd)
     {
         if (cmd.Password == Password) return;
-        RaiseEvent(new DomainEvent.PasswordChanged(cmd.Id, cmd.Password));
+        RaiseEvent(new DomainEvent.PasswordChanged(cmd.UserId, cmd.Password));
     }
 
     private void Handle(Command.DeleteUser cmd)
     {
         if (IsDeleted) return;
-        RaiseEvent(new DomainEvent.UserDeleted(cmd.Id));
+        RaiseEvent(new DomainEvent.UserDeleted(cmd.UserId));
     }
 
     private void Handle(Command.ExpiryEmail cmd)
     {
         if (_emails.SingleOrDefault(email => email == cmd.Email) is not { IsVerified: true }) return;
-        RaiseEvent(new DomainEvent.EmailExpired(cmd.Id, cmd.Email));
+        RaiseEvent(new DomainEvent.EmailExpired(cmd.UserId, cmd.Email));
     }
 
     private void Handle(Command.DefinePrimaryEmail cmd)
     {
         if (cmd.Email == PrimaryEmail) return;
-        RaiseEvent(new DomainEvent.PrimaryEmailDefined(cmd.Id, cmd.Email));
+        RaiseEvent(new DomainEvent.PrimaryEmailDefined(cmd.UserId, cmd.Email));
     }
 
     protected override void Apply(IEvent @event)

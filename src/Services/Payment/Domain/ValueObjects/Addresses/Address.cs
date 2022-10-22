@@ -11,4 +11,10 @@ public record Address(string City, string Country, int? Number, string State, st
 
     public static implicit operator Dto.Address(Address address) 
         => new(address.City, address.Country, address.Number, address.State, address.Street, address.ZipCode);
+    
+    public static bool operator ==(Address? address, Dto.Address dto)
+        => address is not null && dto == (Dto.Address)address;
+
+    public static bool operator !=(Address? address, Dto.Address dto)
+        => address is null || dto != (Dto.Address)address;
 }

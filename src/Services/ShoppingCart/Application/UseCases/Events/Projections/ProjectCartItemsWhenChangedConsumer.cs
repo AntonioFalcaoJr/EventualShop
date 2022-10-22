@@ -19,7 +19,7 @@ public class ProjectCartItemsWhenChangedConsumer :
     public Task Consume(ConsumeContext<DomainEvent.CartItemAdded> context)
     {
         Projection.ShoppingCartItem item = new(
-            context.Message.Id,
+            context.Message.CartId,
             context.Message.ItemId,
             context.Message.Product,
             context.Message.Quantity,
@@ -47,6 +47,6 @@ public class ProjectCartItemsWhenChangedConsumer :
 
     public Task Consume(ConsumeContext<DomainEvent.CartDiscarded> context)
         => _repository.DeleteAsync(
-            filter: item => item.Id == context.Message.Id,
+            filter: item => item.Id == context.Message.CartId,
             cancellationToken: context.CancellationToken);
 }

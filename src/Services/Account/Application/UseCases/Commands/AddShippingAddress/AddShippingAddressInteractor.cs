@@ -15,7 +15,7 @@ public class AddShippingAddressInteractor : IInteractor<Command.AddShippingAddre
 
     public async Task InteractAsync(Command.AddShippingAddress command, CancellationToken ct)
     {
-        var account = await _eventStore.LoadAsync(command.Id, ct);
+        var account = await _eventStore.LoadAsync(command.AccountId, ct);
         account.Handle(command);
         await _eventStore.AppendAsync(account, ct);
     }

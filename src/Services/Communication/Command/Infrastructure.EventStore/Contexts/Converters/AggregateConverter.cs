@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Infrastructure.EventStore.Contexts.Converters;
 
-public class AggregateConverter : ValueConverter<IAggregateRoot, string>
+public class AggregateConverter : ValueConverter<IAggregateRoot?, string>
 {
     public AggregateConverter()
         : base(

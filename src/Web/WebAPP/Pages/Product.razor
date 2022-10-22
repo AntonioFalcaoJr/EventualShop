@@ -1,6 +1,6 @@
 ﻿@inject IBlazorStrap BlazorStrap
 
-<BSModal DataId="model9" OnShow="@(() => NewEmployee(new ViewModels.ProductViewModel()))">
+<BSModal DataId="model9" OnShow="@(() => NewEmployee(new()))">
     <BSForm Model="_model" OnValidSubmit="@Update">
         <BSModalHeader>New ProductViewModel</BSModalHeader>
         <BSModalContent>
@@ -38,7 +38,7 @@
 
     // BSModal refModal;
 
-    private ViewModels.ProductViewModel _model = default;
+    private ViewModels.ProductViewModel _model = new();
 
     private async Task NewEmployee(ViewModels.ProductViewModel e)
     {

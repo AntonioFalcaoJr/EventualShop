@@ -56,7 +56,7 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
             .Select(@event => @event.DomainEvent)
             .ToListAsync(ct);
 
-    public Task<TSnapshot> GetSnapshotAsync(TId aggregateId, CancellationToken ct)
+    public Task<TSnapshot?> GetSnapshotAsync(TId aggregateId, CancellationToken ct)
         => _snapshots
             .AsNoTracking()
             .Where(snapshot => snapshot.AggregateId.Equals(aggregateId))

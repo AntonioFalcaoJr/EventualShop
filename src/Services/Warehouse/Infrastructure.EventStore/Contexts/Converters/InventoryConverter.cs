@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Infrastructure.EventStore.Contexts.Converters;
 
-public class InventoryConverter : ValueConverter<Inventory, string>
+public class InventoryConverter : ValueConverter<Inventory?, string>
 {
     public InventoryConverter()
         : base(

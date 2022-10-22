@@ -15,15 +15,19 @@ public abstract class AggregateRoot<TId, TValidator> : Entity<TId, TValidator>, 
     public long Version { get; private set; }
 
     [JsonIgnore]
-    public IEnumerable<IEvent> Events
+    public IEnumerable<IEvent> UncommittedEvents
         => _events;
 
-    public void LoadEvents(List<IEvent> events)
-        => events.ForEach(@event =>
+    public void LoadEvents(IEnumerable<IEvent> events)
+    {
+        foreach (var @event in events)
         {
             ApplyEvent(@event);
             Version += 1;
-        });
+        }
+    }
+
+    public abstract void Handle(ICommand? command);
 
     private void AddEvent(IEvent @event)
         => _events.Add(@event);

@@ -9,11 +9,11 @@ public class CreateCatalogValidator : AbstractValidator<Requests.CreateCatalog>
         RuleFor(request => request.Description)
             .NotNull()
             .NotEmpty();
-        
+
         RuleFor(request => request.Title)
             .NotNull()
             .NotEmpty();
-        
+
         RuleFor(request => request.CatalogId)
             .NotNull()
             .NotEmpty();

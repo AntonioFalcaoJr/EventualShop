@@ -5,19 +5,19 @@ namespace Contracts.Services.Account;
 
 public static class Command
 {
-    public record CreateAccount(Guid Id, string FirstName, string LastName, string Email) : Message(CorrelationId: Id), ICommand;
+    public record CreateAccount(Guid AccountId, string FirstName, string LastName, string Email) : Message, ICommand;
 
-    public record AddShippingAddress(Guid Id, Dto.Address Address) : Message(CorrelationId: Id), ICommand;
+    public record AddShippingAddress(Guid AccountId, Dto.Address Address) : Message, ICommand;
 
-    public record AddBillingAddress(Guid Id, Dto.Address Address) : Message(CorrelationId: Id), ICommand;
+    public record AddBillingAddress(Guid AccountId, Dto.Address Address) : Message, ICommand;
 
-    public record DeleteAccount(Guid Id) : Message(CorrelationId: Id), ICommand;
+    public record DeleteAccount(Guid AccountId) : Message, ICommand;
 
-    public record DeleteShippingAddress(Guid Id, Guid AddressId) : Message(CorrelationId: Id), ICommand;
+    public record DeleteShippingAddress(Guid AccountId, Guid AddressId) : Message, ICommand;
 
-    public record DeleteBillingAddress(Guid Id, Guid AddressId) : Message(CorrelationId: Id), ICommand;
+    public record DeleteBillingAddress(Guid AccountId, Guid AddressId) : Message, ICommand;
 
-    public record PreferShippingAddress(Guid Id, Guid AddressId) : Message(CorrelationId: Id), ICommand;
+    public record PreferShippingAddress(Guid AccountId, Guid AddressId) : Message, ICommand;
 
-    public record PreferBillingAddress(Guid Id, Guid AddressId) : Message(CorrelationId: Id), ICommand;
+    public record PreferBillingAddress(Guid AccountId, Guid AddressId) : Message, ICommand;
 }

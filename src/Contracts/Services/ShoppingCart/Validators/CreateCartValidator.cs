@@ -6,7 +6,7 @@ public class CreateCartValidator : AbstractValidator<Command.CreateCart>
 {
     public CreateCartValidator()
     {
-        RuleFor(cart => cart.Id)
+        RuleFor(cart => cart.CartId)
             .NotEmpty();
 
         RuleFor(cart => cart.CustomerId)

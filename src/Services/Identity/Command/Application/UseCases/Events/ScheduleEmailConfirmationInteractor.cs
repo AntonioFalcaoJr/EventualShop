@@ -16,10 +16,10 @@ public class ScheduleEmailConfirmationInteractor :
     }
 
     public Task InteractAsync(DomainEvent.EmailChanged @event, CancellationToken cancellationToken)
-        => SchedulePublishAsync(@event.Id, @event.Email, cancellationToken);
+        => SchedulePublishAsync(@event.UserId, @event.Email, cancellationToken);
 
     public Task InteractAsync(DomainEvent.UserRegistered @event, CancellationToken cancellationToken)
-        => SchedulePublishAsync(@event.Id, @event.Email, cancellationToken);
+        => SchedulePublishAsync(@event.UserId, @event.Email, cancellationToken);
 
     private Task SchedulePublishAsync(Guid aggregateId, string email, CancellationToken cancellationToken)
         => _eventBusGateway.SchedulePublishAsync(

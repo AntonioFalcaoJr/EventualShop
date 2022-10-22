@@ -22,7 +22,7 @@ public static class Dto
 
     public record PayPal(string UserName, string Password) : IPaymentOption;
 
-    public record PaymentMethod(Guid Id, decimal Amount, IPaymentOption Option);
+    public record PaymentMethod(Guid Id, decimal Amount, IPaymentOption? Option);
 
     public interface IPaymentOption { }
 
@@ -37,4 +37,6 @@ public static class Dto
     public record OrderItem(Guid Id, Guid OrderId, Guid CartId, Guid CatalogId, Guid InventoryId, Product Product, int Quantity, decimal UnitPrice);
 
     public record Profile(string FirstName, string LastName, string Email, DateOnly? Birthdate, string Gender);
+
+    public record ShoppingCart(Guid Id, Guid CustomerId, string Status, Address BillingAddress, Address ShippingAddress, decimal Total, decimal TotalPayment, decimal AmountDue, IEnumerable<CartItem> Items, IEnumerable<PaymentMethod> PaymentMethods);
 }

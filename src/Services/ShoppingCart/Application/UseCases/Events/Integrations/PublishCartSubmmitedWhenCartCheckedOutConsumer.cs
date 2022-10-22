@@ -16,7 +16,7 @@ public class PublishCartSubmittedWhenCheckedOutConsumer : IConsumer<DomainEvent.
 
     public async Task Consume(ConsumeContext<DomainEvent.CartCheckedOut> context)
     {
-        var shoppingCart = await _eventStore.LoadAsync(context.Message.Id, context.CancellationToken);
+        var shoppingCart = await _eventStore.LoadAsync(context.Message.CartId, context.CancellationToken);
 
         IntegrationEvent.CartSubmitted cartSubmittedEvent = new(
             shoppingCart.Id,
