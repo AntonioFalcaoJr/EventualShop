@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Infrastructure.EventStore.Contexts.Converters;
 
-public class EventConverter : ValueConverter<IEvent, string>
+public class EventConverter : ValueConverter<IEvent?, string>
 {
     public EventConverter()
         : base(

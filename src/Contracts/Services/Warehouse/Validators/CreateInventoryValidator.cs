@@ -6,7 +6,7 @@ public class CreateInventoryValidator : AbstractValidator<Command.CreateInventor
 {
     public CreateInventoryValidator()
     {
-        RuleFor(inventory => inventory.Id)
+        RuleFor(inventory => inventory.InventoryId)
             .NotEmpty();
 
         RuleFor(inventory => inventory.OwnerId)

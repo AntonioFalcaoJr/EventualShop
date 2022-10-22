@@ -9,7 +9,7 @@ namespace Domain.Entities.PaymentMethods;
 
 public class PaymentMethod : Entity<Guid, PaymentMethodValidator>
 {
-    public PaymentMethod(Guid id, decimal amount, IPaymentOption option)
+    public PaymentMethod(Guid id, decimal amount, IPaymentOption? option)
     {
         Id = id;
         Amount = amount;
@@ -17,7 +17,7 @@ public class PaymentMethod : Entity<Guid, PaymentMethodValidator>
     }
 
     public decimal Amount { get; }
-    public IPaymentOption Option { get; }
+    public IPaymentOption? Option { get; }
 
     public static implicit operator PaymentMethod(Dto.PaymentMethod method)
         => new(method.Id, method.Amount, method.Option switch

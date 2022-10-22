@@ -16,7 +16,7 @@ public class ProjectPaymentWhenChangedConsumer :
 
     public Task Consume(ConsumeContext<DomainEvent.PaymentCanceled> context)
         => _repository.UpdateFieldAsync(
-            id: context.Message.Id,
+            id: context.Message.PaymentId,
             field: payment => payment.Status,
             value: PaymentStatus.Canceled.Name,
             cancellationToken: context.CancellationToken);
@@ -24,7 +24,7 @@ public class ProjectPaymentWhenChangedConsumer :
     public Task Consume(ConsumeContext<DomainEvent.PaymentRequested> context)
     {
         Projection.Payment payment = new(
-            context.Message.Id,
+            context.Message.PaymentId,
             context.Message.OrderId,
             context.Message.Amount,
             context.Message.BillingAddress,

@@ -20,6 +20,7 @@ public class Profile : Entity<Guid, ProfileValidator>
         Email = email;
         FirstName = firstName;
         LastName = lastName;
+        Gender = Gender.Undefined;
     }
 
     public DateOnly? Birthdate { get; private set; }

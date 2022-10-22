@@ -60,6 +60,9 @@ public static class ShoppingCartApi
         group.MapPost("/{cartId:guid}/payment-methods/pay-pal", ([AsParameters] Requests.AddPayPal request)
             => ApplicationApi.SendCommandAsync<Command.AddPaymentMethod>(request));
 
+        group.MapPost("/admin/rebuild-projection", ([AsParameters] Requests.RebuildProjection request)
+            => ApplicationApi.SendCommandAsync<Command.RebuildProjection>(request));
+
         return group.WithMetadata(new TagsAttribute("ShoppingCarts"));
     }
 }

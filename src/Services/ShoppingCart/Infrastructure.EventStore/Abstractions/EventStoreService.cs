@@ -1,4 +1,5 @@
-﻿using Application.Abstractions.EventStore;
+﻿using System.Runtime.CompilerServices;
+using Application.Abstractions.EventStore;
 using Application.Abstractions.Notifications;
 using Contracts.Abstractions.Messages;
 using Domain.Abstractions.Aggregates;
@@ -50,12 +51,18 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
         return snapshot.AggregateState;
     }
 
+    public async IAsyncEnumerable<TAggregate> LoadAggregatesAsync([EnumeratorCancellation] CancellationToken cancellationToken)
+    {
+        await foreach (var aggregateId in _repository.GetAggregateIdsAsync(cancellationToken))
+            yield return await LoadAsync(aggregateId, cancellationToken);
+    }
+
     private Task OnAppendEventsAsync(TAggregate aggregate, CancellationToken cancellationToken)
         => _unitOfWork.ExecuteAsync(
             operationAsync: async ct =>
             {
                 await AppendEventsWithSnapshotControlAsync(aggregate, ct);
-                await PublishEventsAsync(aggregate.Events, ct);
+                await PublishEventsAsync(aggregate.UncommittedEvents, ct);
             },
             cancellationToken: cancellationToken);
 
@@ -83,7 +90,7 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
         => Task.WhenAll(events.Select(@event => _publishEndpoint.Publish(@event, @event.GetType(), ct)));
 
     private static IEnumerable<TStoreEvent> ToStoreEvents(TAggregate aggregate)
-        => aggregate.Events.Select(@event
+        => aggregate.UncommittedEvents.Select(@event
             => new TStoreEvent
             {
                 Version = aggregate.Version,

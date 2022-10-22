@@ -14,5 +14,5 @@ public class ProjectDetailsWhenAccountDeletedInteractor : IInteractor<DomainEven
     }
 
     public Task InteractAsync(DomainEvent.AccountDeleted @event, CancellationToken ct)
-        => _repository.DeleteAsync(@event.Id, ct);
+        => _repository.DeleteAsync(@event.AccountId, ct);
 }

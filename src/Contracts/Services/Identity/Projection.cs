@@ -6,7 +6,7 @@ namespace Contracts.Services.Identity;
 
 public static class Projection
 {
-    public record UserDetails(Guid Id, string FirstName, string LastName, string Email, string Password, bool IsDeleted, [property: BsonIgnore] string Token = default) : IProjection
+    public record UserDetails(Guid Id, string FirstName, string LastName, string Email, string Password, bool IsDeleted, [property: BsonIgnore] string? Token = default) : IProjection
     {
         public static implicit operator LoginResponse(UserDetails userDetails)
             => new()

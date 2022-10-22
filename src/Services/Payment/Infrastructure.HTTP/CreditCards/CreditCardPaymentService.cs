@@ -13,7 +13,7 @@ public class CreditCardPaymentService : PaymentService, ICreditCardPaymentServic
     public CreditCardPaymentService(ICreditCardHttpClient client) 
         => _client = client;
 
-    public override Task<IPaymentResult> HandleAsync(Func<IPaymentService, PaymentMethod, CancellationToken, Task<IPaymentResult>> behaviorProcessor, PaymentMethod method, CancellationToken cancellationToken)
+    public override Task<IPaymentResult>? HandleAsync(Func<IPaymentService, PaymentMethod, CancellationToken, Task<IPaymentResult>> behaviorProcessor, PaymentMethod method, CancellationToken cancellationToken)
         => method.Option is CreditCard
             ? behaviorProcessor(this, method, cancellationToken)
             : base.HandleAsync(behaviorProcessor, method, cancellationToken);

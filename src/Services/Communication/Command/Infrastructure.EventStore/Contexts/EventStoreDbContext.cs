@@ -8,8 +8,8 @@ public class EventStoreDbContext : DbContext
     public EventStoreDbContext(DbContextOptions options)
         : base(options) { }
 
-    public DbSet<StoreEvent> Events { get; set; }
-    public DbSet<Snapshot> Snapshots { get; set; }
+    public DbSet<StoreEvent>? Events { get; set; }
+    public DbSet<Snapshot>? Snapshots { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
         => modelBuilder.ApplyConfigurationsFromAssembly(typeof(EventStoreDbContext).Assembly);

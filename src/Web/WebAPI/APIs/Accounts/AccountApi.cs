@@ -25,6 +25,6 @@ public static class AccountApi
         group.MapPut("/{accountId:guid}/profiles/shipping-address", ([AsParameters] Requests.AddShippingAddress request)
             => ApplicationApi.SendCommandAsync<Command.AddShippingAddress>(request));
 
-       return group.WithMetadata(new TagsAttribute("Accounts"));
+        return group.WithMetadata(new TagsAttribute("Accounts"));
     }
 }

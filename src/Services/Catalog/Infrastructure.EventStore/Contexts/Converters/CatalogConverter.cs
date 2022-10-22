@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Infrastructure.EventStore.Contexts.Converters;
 
-public class CatalogConverter : ValueConverter<Catalog, string>
+public class CatalogConverter : ValueConverter<Catalog?, string>
 {
     public CatalogConverter()
         : base(

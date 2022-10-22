@@ -18,7 +18,7 @@ public class PaymentGateway : IPaymentGateway
     {
         creditCardPaymentService
             .SetNext(debitCardPaymentService)
-            .SetNext(payPalPaymentService);
+            ?.SetNext(payPalPaymentService);
 
         _paymentService = creditCardPaymentService;
     }

@@ -9,9 +9,9 @@
         <PackageReference Include="Quartz.Serialization.Json" Version="$(Quartz_Version)"/>
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="$(FluentValidation_Version)"/>
         <PackageReference Include="Serilog" Version="$(Serilog_Version)"/>
-        <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.0.0-rc9.7"/>
-        <PackageReference Include="OpenTelemetry.Exporter.Jaeger" Version="1.4.0-beta.1"/>
-        <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.0.0-rc9.7"/>
+        <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.0.0-rc9.8"/>
+        <PackageReference Include="OpenTelemetry.Exporter.Jaeger" Version="1.4.0-beta.2"/>
+        <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.0.0-rc9.8"/>
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\..\Contracts\Contracts.csproj"/>

@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Infrastructure.EventStore.Contexts.Converters;
 
-public class OrderConverter : ValueConverter<Order, string>
+public class OrderConverter : ValueConverter<Order?, string>
 {
     public OrderConverter()
         : base(
