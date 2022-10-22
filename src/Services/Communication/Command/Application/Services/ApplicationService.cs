@@ -1,18 +1,16 @@
+﻿using Application.Abstractions;
 using Application.Abstractions.Gateways;
-using Contracts.Abstractions.Messages;
 using Domain.Abstractions.Aggregates;
 
-namespace Application.Abstractions.Interactors;
+namespace Application.Services;
 
-public abstract class Interactor<TAggregate, TMessage> : IInteractor<TMessage>
-    where TAggregate : IAggregateRoot, new()
-    where TMessage : IMessage
+public class ApplicationService : IApplicationService
 {
     private readonly IEventStoreGateway _eventStoreGateway;
     private readonly IEventBusGateway _eventBusGateway;
     private readonly IUnitOfWork _unitOfWork;
 
-    protected Interactor(
+    public ApplicationService(
         IEventStoreGateway eventStoreGateway,
         IEventBusGateway eventBusGateway,
         IUnitOfWork unitOfWork)
@@ -22,12 +20,10 @@ public abstract class Interactor<TAggregate, TMessage> : IInteractor<TMessage>
         _unitOfWork = unitOfWork;
     }
 
-    public abstract Task InteractAsync(TMessage message, CancellationToken cancellationToken);
-
-    protected Task<IAggregateRoot> LoadAggregateAsync(Guid id, CancellationToken cancellationToken)
+    public Task<IAggregateRoot> LoadAggregateAsync<TAggregate>(Guid id, CancellationToken cancellationToken) where TAggregate : IAggregateRoot, new() 
         => _eventStoreGateway.LoadAggregateAsync<TAggregate>(id, cancellationToken);
 
-    protected Task AppendEventsAsync(IAggregateRoot aggregate, CancellationToken cancellationToken)
+    public Task AppendEventsAsync(IAggregateRoot aggregate, CancellationToken cancellationToken)
         => _unitOfWork.ExecuteAsync(async ct =>
         {
             await _eventStoreGateway.AppendEventsAsync(aggregate, ct);

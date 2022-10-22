@@ -27,7 +27,7 @@ public abstract class AggregateRoot<TId, TValidator> : Entity<TId, TValidator>, 
         }
     }
 
-    public abstract void Handle(ICommand command);
+    public abstract void Handle(ICommand? command);
 
     private void AddEvent(IEvent @event)
         => _events.Add(@event);

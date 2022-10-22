@@ -15,7 +15,7 @@ public class AddBillingAddressConsumer : IConsumer<Command.AddBillingAddress>
 
     public async Task Consume(ConsumeContext<Command.AddBillingAddress> context)
     {
-        var shoppingCart = await _eventStore.LoadAsync(context.Message.Id, context.CancellationToken);
+        var shoppingCart = await _eventStore.LoadAsync(context.Message.CartId, context.CancellationToken);
         shoppingCart.Handle(context.Message);
         await _eventStore.AppendAsync(shoppingCart, context.CancellationToken);
     }

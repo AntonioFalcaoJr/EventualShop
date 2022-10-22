@@ -7,7 +7,7 @@ public class ReceiveInventoryItemValidator : AbstractValidator<Command.ReceiveIn
 {
     public ReceiveInventoryItemValidator()
     {
-        RuleFor(request => request.Id)
+        RuleFor(request => request.InventoryId)
             .NotEmpty();
 
         RuleFor(request => request.Cost)

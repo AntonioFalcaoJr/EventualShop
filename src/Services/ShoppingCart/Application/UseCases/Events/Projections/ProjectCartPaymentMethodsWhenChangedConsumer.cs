@@ -15,14 +15,14 @@ public class ProjectCartPaymentMethodsWhenChangedConsumer :
 
     public Task Consume(ConsumeContext<DomainEvent.CartDiscarded> context)
         => _repository.DeleteAsync(
-            filter: item => item.CartId == context.Message.Id,
+            filter: item => item.CartId == context.Message.CartId,
             cancellationToken: context.CancellationToken);
 
     public async Task Consume(ConsumeContext<DomainEvent.PaymentMethodAdded> context)
     {
         Projection.PaymentMethod creditCard = new(
             context.Message.MethodId,
-            context.Message.Id,
+            context.Message.CartId,
             context.Message.Amount,
             context.Message.Option,
             false);

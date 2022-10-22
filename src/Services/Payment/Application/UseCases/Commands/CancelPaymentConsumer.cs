@@ -15,7 +15,7 @@ public class CancelPaymentConsumer : IConsumer<Command.CancelPayment>
 
     public async Task Consume(ConsumeContext<Command.CancelPayment> context)
     {
-        var payment = await _eventStore.LoadAsync(context.Message.Id, context.CancellationToken);
+        var payment = await _eventStore.LoadAsync(context.Message.PaymentId, context.CancellationToken);
         payment.Handle(context.Message);
         await _eventStore.AppendAsync(payment, context.CancellationToken);
     }
