@@ -22,7 +22,7 @@ public static class Dto
 
     public record PayPal(string UserName, string Password) : IPaymentOption;
 
-    public record PaymentMethod(Guid Id, decimal Amount, IPaymentOption Option);
+    public record PaymentMethod(Guid Id, decimal Amount, IPaymentOption? Option);
 
     public interface IPaymentOption { }
 

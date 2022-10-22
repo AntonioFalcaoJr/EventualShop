@@ -18,7 +18,7 @@ public class LoginInteractor : IInteractor<Query.Login, Projection.UserDetails>
         _tokenGenerator = tokenGenerator;
     }
 
-    public async Task<Projection.UserDetails> InteractAsync(Query.Login query, CancellationToken ct)
+    public async Task<Projection.UserDetails?> InteractAsync(Query.Login query, CancellationToken ct)
     {
         var userDetails = await _repository.FindAsync(user => user.Email == query.Email, ct);
 

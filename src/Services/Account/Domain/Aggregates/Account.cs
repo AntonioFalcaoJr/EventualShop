@@ -12,7 +12,7 @@ public class Account : AggregateRoot<Guid, AccountValidator>
 
     // TODO - Implement Wallet capability. Interesting in Payment Methods business facts
     // public Wallet Wallet { get; private set; }
-    public Profile Profile { get; private set; }
+    public Profile? Profile { get; private set; }
     public bool WishToReceiveNews { get; private set; }
     public bool AcceptedPolicies { get; private set; }
 

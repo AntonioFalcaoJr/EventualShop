@@ -5,7 +5,7 @@ namespace Contracts.Services.ShoppingCart;
 
 public static class Command
 {
-    public record AddCartItem(Guid Id, Guid ItemId, Guid CatalogId, Guid InventoryId, Dto.Product Product, ushort Quantity, decimal UnitPrice) : Message(CorrelationId: Id), ICommand;
+    public record AddCartItem(Guid Id, Guid CatalogId, Guid InventoryId, Dto.Product Product, ushort Quantity, decimal UnitPrice) : Message(CorrelationId: Id), ICommand;
 
     public record AddPaymentMethod(Guid Id, decimal Amount, Dto.IPaymentOption Option) : Message(CorrelationId: Id), ICommand;
 

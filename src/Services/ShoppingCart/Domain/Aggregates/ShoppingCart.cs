@@ -18,9 +18,9 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     private readonly List<PaymentMethod> _paymentMethods = new();
 
     public Guid CustomerId { get; private set; }
-    public CartStatus Status { get; private set; }
-    public Address BillingAddress { get; private set; }
-    public Address ShippingAddress { get; private set; }
+    public CartStatus? Status { get; private set; }
+    public Address? BillingAddress { get; private set; }
+    public Address? ShippingAddress { get; private set; }
     private bool ShippingAndBillingAddressesAreSame { get; set; } = true;
 
     public decimal Total
@@ -45,13 +45,9 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
         => RaiseEvent(new DomainEvent.CartCreated(cmd.Id, cmd.CustomerId, CartStatus.Active));
 
     public void Handle(Command.AddCartItem cmd)
-    {
-        if (_items.Exists(cartItem => cartItem.Id == cmd.ItemId)) return;
-
-        RaiseEvent(_items.SingleOrDefault(cartItem => cartItem.Product == cmd.Product) is { IsDeleted: false } item
+        => RaiseEvent(_items.SingleOrDefault(cartItem => cartItem.Product == cmd.Product) is { IsDeleted: false } item
             ? new DomainEvent.CartItemIncreased(Id, item.Id, (ushort)(item.Quantity + cmd.Quantity), item.UnitPrice)
-            : new DomainEvent.CartItemAdded(cmd.Id, cmd.ItemId, cmd.InventoryId, cmd.CatalogId, cmd.Product, cmd.Quantity, cmd.UnitPrice));
-    }
+            : new DomainEvent.CartItemAdded(cmd.Id, Guid.NewGuid(), cmd.InventoryId, cmd.CatalogId, cmd.Product, cmd.Quantity, cmd.UnitPrice));
 
     public void Handle(Command.ChangeCartItemQuantity cmd)
     {

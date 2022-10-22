@@ -8,9 +8,9 @@ namespace Infrastructure.MessageBus.PipeFilters;
 public class ContractValidatorFilter<T> : IFilter<ConsumeContext<T>>
     where T : class
 {
-    private readonly IValidator<T> _validator;
+    private readonly IValidator<T>? _validator;
 
-    public ContractValidatorFilter(IValidator<T> validator = null) 
+    public ContractValidatorFilter(IValidator<T>? validator) 
         => _validator = validator;
 
     public async Task Send(ConsumeContext<T> context, IPipe<ConsumeContext<T>> next)

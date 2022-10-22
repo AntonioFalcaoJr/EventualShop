@@ -8,8 +8,8 @@ public class EventStoreDbContext : DbContext
     public EventStoreDbContext(DbContextOptions options)
         : base(options) { }
 
-    public DbSet<PaymentStoreEvent> Events { get; set; }
-    public DbSet<PaymentSnapshot> Snapshots { get; set; }
+    public DbSet<PaymentStoreEvent>? Events { get; set; }
+    public DbSet<PaymentSnapshot>? Snapshots { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
         => modelBuilder.ApplyConfigurationsFromAssembly(typeof(EventStoreDbContext).Assembly);

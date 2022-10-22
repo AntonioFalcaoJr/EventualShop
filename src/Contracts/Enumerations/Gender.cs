@@ -11,6 +11,7 @@ public class Gender : SmartEnum<Gender>
     public static readonly Gender Male = new(nameof(Male), 1);
     public static readonly Gender Female = new(nameof(Female), 2);
     public static readonly Gender NonBinary = new(nameof(NonBinary), 3);
+    public static readonly Gender Undefined = new(nameof(Undefined), 4);
 
     public static implicit operator Gender(string name)
         => FromName(name);
