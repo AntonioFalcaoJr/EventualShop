@@ -14,7 +14,7 @@ namespace ShoppingCartTests;
 public class ShoppingCartTests : AggregateTests
 {
     private readonly Fixture _fixture;
-    
+
     private readonly Guid _cartId;
     private readonly Guid _itemId;
     private readonly Guid _customerId;
@@ -88,11 +88,12 @@ public class ShoppingCartTests : AggregateTests
     [Fact]
     public void ChangeCartItemQuantityForDownShouldRaiseCartItemDecreased()
     {
-        var newQuantity = (ushort)(_quantity - 1);
+        const ushort quantity = 10;
+        const ushort newQuantity = quantity - 1;
 
         Given<ShoppingCart>(
                 new DomainEvent.CartCreated(_cartId, _customerId, CartStatus.Active),
-                new DomainEvent.CartItemAdded(_cartId, _itemId, _catalogId, _inventoryId, _product, _quantity, _unitPrice))
+                new DomainEvent.CartItemAdded(_cartId, _itemId, _catalogId, _inventoryId, _product, quantity, _unitPrice))
             .When<Command.ChangeCartItemQuantity>(new(_cartId, _itemId, newQuantity))
             .Then<DomainEvent.CartItemDecreased>(
                 @event => @event.CartId.Should().Be(_cartId),
@@ -131,7 +132,7 @@ public class ShoppingCartTests : AggregateTests
                 @event => @event.ItemId.Should().Be(_itemId),
                 @event => @event.NewQuantity.Should().Be(newQuantity));
     }
-    
+
     [Fact]
     public void AddCartItemWithDifferentProductShouldRaiseCartItemAdded()
     {
@@ -146,7 +147,7 @@ public class ShoppingCartTests : AggregateTests
                 @event => @event.ItemId.Should().NotBe(_itemId),
                 @event => @event.Quantity.Should().Be(_quantity));
     }
-    
+
     [Fact]
     public void AddBillingAddressShouldRaiseBillingAddressAdded()
     {
@@ -156,9 +157,9 @@ public class ShoppingCartTests : AggregateTests
             .When<Command.AddBillingAddress>(new(_cartId, address))
             .Then<DomainEvent.BillingAddressAdded>(
                 @event => @event.CartId.Should().Be(_cartId),
-                @event => @event.Address.Should().Be(address));
+                @event => @event.Address.Should().BeEquivalentTo(address));
     }
-    
+
     [Fact]
     public void AddShippingAddressShouldRaiseShippingAddressAdded()
     {
@@ -168,6 +169,6 @@ public class ShoppingCartTests : AggregateTests
             .When<Command.AddShippingAddress>(new(_cartId, address))
             .Then<DomainEvent.ShippingAddressAdded>(
                 @event => @event.CartId.Should().Be(_cartId),
-                @event => @event.Address.Should().Be(address));
+                @event => @event.Address.Should().BeEquivalentTo(address));
     }
 }
