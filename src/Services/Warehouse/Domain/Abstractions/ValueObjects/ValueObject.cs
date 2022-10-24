@@ -1,6 +1,6 @@
-﻿using FluentValidation;
+﻿using System.Text.Json.Serialization;
+using FluentValidation;
 using FluentValidation.Results;
-using Newtonsoft.Json;
 
 namespace Domain.Abstractions.ValueObjects;
 

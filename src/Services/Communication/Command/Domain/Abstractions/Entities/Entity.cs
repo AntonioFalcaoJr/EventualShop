@@ -1,5 +1,5 @@
-﻿using FluentValidation;
-using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
+using FluentValidation;
 
 namespace Domain.Abstractions.Entities;
 

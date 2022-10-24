@@ -1,15 +1,16 @@
 ﻿using System.Globalization;
-using Newtonsoft.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Contracts.JsonConverters;
 
 public class DateOnlyJsonConverter : JsonConverter<DateOnly>
 {
     private const string Format = "dd/MM/yyyy";
-    
-    public override void WriteJson(JsonWriter writer, DateOnly value, JsonSerializer serializer)
-        => writer.WriteValue(value.ToString(Format, CultureInfo.InvariantCulture));
 
-    public override DateOnly ReadJson(JsonReader reader, Type objectType, DateOnly existingValue, bool hasExistingValue, JsonSerializer serializer) 
-        => DateOnly.ParseExact(reader.Value as string ?? string.Empty, Format, CultureInfo.InvariantCulture);
+    public override DateOnly Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) 
+        => DateOnly.ParseExact(reader.GetString() ?? string.Empty, Format, CultureInfo.InvariantCulture);
+
+    public override void Write(Utf8JsonWriter writer, DateOnly value, JsonSerializerOptions options) 
+        => writer.WriteStringValue(value.ToString(Format, CultureInfo.InvariantCulture));
 }

@@ -1,6 +1,6 @@
-﻿using Contracts.JsonConverters;
+﻿using System.Text.Json.Serialization;
+using Contracts.JsonConverters;
 using MongoDB.Bson.Serialization.Attributes;
-using Newtonsoft.Json;
 
 namespace Contracts.DataTransferObjects;
 
@@ -24,6 +24,10 @@ public static class Dto
 
     public record PaymentMethod(Guid Id, decimal Amount, IPaymentOption Option);
 
+    [JsonDerivedType(typeof(PayPal), nameof(PayPal))]
+    [JsonDerivedType(typeof(DebitCard), nameof(DebitCard))]
+    [JsonDerivedType(typeof(CreditCard), nameof(CreditCard))]
+    [JsonPolymorphic(UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FailSerialization)]
     public interface IPaymentOption { }
 
     public record Product(string Description, string Name, string PictureUrl, string Brand, string Category, string Unit, string Sku);

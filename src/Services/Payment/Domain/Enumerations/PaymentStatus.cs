@@ -1,5 +1,5 @@
-﻿using Ardalis.SmartEnum;
-using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
+using Ardalis.SmartEnum;
 
 namespace Domain.Enumerations;
 

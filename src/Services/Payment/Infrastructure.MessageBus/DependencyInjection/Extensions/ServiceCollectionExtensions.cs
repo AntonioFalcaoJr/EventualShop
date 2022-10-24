@@ -44,17 +44,8 @@ public static class ServiceCollectionExtensions
 
                     bus.UseNewtonsoftJsonSerializer();
 
-                    bus.ConfigureNewtonsoftJsonSerializer(settings =>
+                    bus.ConfigureJsonSerializerOptions(settings =>
                     {
-                        settings.Converters.Add(new TypeNameHandlingConverter(TypeNameHandling.Objects));
-                        settings.Converters.Add(new DateOnlyJsonConverter());
-                        settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
-                        return settings;
-                    });
-
-                    bus.ConfigureNewtonsoftJsonDeserializer(settings =>
-                    {
-                        settings.Converters.Add(new TypeNameHandlingConverter(TypeNameHandling.Objects));
                         settings.Converters.Add(new DateOnlyJsonConverter());
                         settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
                         return settings;

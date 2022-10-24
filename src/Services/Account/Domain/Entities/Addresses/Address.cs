@@ -1,7 +1,11 @@
-﻿using Domain.Abstractions.Entities;
+﻿using System.Text.Json.Serialization;
+using Domain.Abstractions.Entities;
 
 namespace Domain.Entities.Addresses;
 
+[JsonDerivedType(typeof(BillingAddress), nameof(BillingAddress))]
+[JsonDerivedType(typeof(ShippingAddress), nameof(ShippingAddress))]
+[JsonPolymorphic(UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FailSerialization)]
 public abstract class Address : Entity<Guid, AddressValidator>
 {
     protected Address(Guid id, string city, string country, int? number, string state, string street, string zipCode)

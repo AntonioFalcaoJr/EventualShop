@@ -1,7 +1,7 @@
-﻿using Contracts.Abstractions.Messages;
+﻿using System.Text.Json.Serialization;
+using Contracts.Abstractions.Messages;
 using Domain.Abstractions.Entities;
 using FluentValidation;
-using Newtonsoft.Json;
 
 namespace Domain.Abstractions.Aggregates;
 

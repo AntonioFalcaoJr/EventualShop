@@ -6,7 +6,6 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EntityFrameworkCore_Version)" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="$(Microsoft_Extensions_Version)" />
         <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="$(Microsoft_Extensions_Version)" />
-        <PackageReference Include="JsonNet.ContractResolvers" Version="$(ContractResolvers_Version)" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\..\..\Contracts\Contracts.csproj" />

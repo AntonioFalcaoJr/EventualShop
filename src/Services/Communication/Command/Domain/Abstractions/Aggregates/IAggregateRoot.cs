@@ -1,8 +1,12 @@
+using System.Text.Json.Serialization;
 using Contracts.Abstractions.Messages;
 using Domain.Abstractions.Entities;
+using Domain.Aggregates;
 
 namespace Domain.Abstractions.Aggregates;
 
+[JsonDerivedType(typeof(Notification), nameof(Notification))]
+[JsonPolymorphic(UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FailSerialization)]
 public interface IAggregateRoot : IEntity
 {
     IEnumerable<(long version, IEvent @event)> Events { get; }

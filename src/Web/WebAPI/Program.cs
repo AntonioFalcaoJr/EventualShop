@@ -62,7 +62,7 @@ builder.Host.ConfigureServices((context, services) =>
     // TODO - Review it!
     builder.Services.Configure<JsonOptions>(options =>
     {
-        options.SerializerOptions.Converters.Add(new DateOnlyTextJsonConverter());
+        options.SerializerOptions.Converters.Add(new DateOnlyJsonConverter());
         options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
         options.SerializerOptions.Converters.Add(new SmartEnumNameConverter<Gender, int>());
     });
