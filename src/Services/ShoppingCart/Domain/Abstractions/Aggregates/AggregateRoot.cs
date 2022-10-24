@@ -5,9 +5,8 @@ using FluentValidation;
 
 namespace Domain.Abstractions.Aggregates;
 
-public abstract class AggregateRoot<TId, TValidator> : Entity<TId, TValidator>, IAggregateRoot<TId>
+public abstract class AggregateRoot<TValidator> : Entity<TValidator>, IAggregateRoot
     where TValidator : IValidator, new()
-    where TId : struct
 {
     [JsonIgnore]
     private readonly List<IEvent> _events = new();

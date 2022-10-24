@@ -4,4 +4,4 @@ using Domain.StoreEvents;
 
 namespace Application.EventStore;
 
-public interface IWarehouseEventStoreRepository : IEventStoreRepository<Inventory, InventoryStoreEvent, InventorySnapshot, Guid> { }
+public interface IWarehouseEventStoreRepository : IEventStoreRepository<Inventory, InventoryStoreEvent, InventorySnapshot> { }

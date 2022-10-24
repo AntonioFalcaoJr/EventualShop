@@ -3,4 +3,4 @@ using Domain.Aggregates;
 
 namespace Domain.StoreEvents;
 
-public record AccountStoreEvent : StoreEvent<Guid, Account>;
+public record AccountStoreEvent : StoreEvent<Account>;

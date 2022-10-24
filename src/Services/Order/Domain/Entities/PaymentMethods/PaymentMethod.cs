@@ -7,7 +7,7 @@ using Domain.ValueObjects.PaymentOptions.DebitCards;
 
 namespace Domain.Entities.PaymentMethods;
 
-public class PaymentMethod : Entity<Guid, PaymentMethodValidator>
+public class PaymentMethod : Entity<PaymentMethodValidator>
 {
     public PaymentMethod(Guid id, decimal amount, IPaymentOption? option)
     {

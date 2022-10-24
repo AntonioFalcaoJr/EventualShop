@@ -7,11 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.EventStore.Abstractions;
 
-public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId> : IEventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId>
-    where TAggregate : IAggregateRoot<TId>, new()
-    where TStoreEvent : StoreEvent<TId, TAggregate>
-    where TSnapshot : Snapshot<TId, TAggregate>
-    where TId : struct
+public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot> : IEventStoreRepository<TAggregate, TStoreEvent, TSnapshot>
+    where TAggregate : IAggregateRoot, new()
+    where TStoreEvent : StoreEvent<TAggregate>
+    where TSnapshot : Snapshot<TAggregate>
 {
     private readonly EventStoreDbContext _dbContext;
     private readonly DbSet<TSnapshot> _snapshots;
@@ -48,7 +47,7 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
         await _dbContext.SaveChangesAsync(ct);
     }
 
-    public Task<List<IEvent>> GetStreamAsync(TId aggregateId, long version, CancellationToken ct)
+    public Task<List<IEvent>> GetStreamAsync(Guid aggregateId, long version, CancellationToken ct)
         => _storeEvents
             .AsNoTracking()
             .Where(@event => @event.AggregateId.Equals(aggregateId))
@@ -56,7 +55,7 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
             .Select(@event => @event.DomainEvent)
             .ToListAsync(ct);
 
-    public Task<TSnapshot?> GetSnapshotAsync(TId aggregateId, CancellationToken ct)
+    public Task<TSnapshot?> GetSnapshotAsync(Guid aggregateId, CancellationToken ct)
         => _snapshots
             .AsNoTracking()
             .Where(snapshot => snapshot.AggregateId.Equals(aggregateId))

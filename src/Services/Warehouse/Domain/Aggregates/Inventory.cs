@@ -7,7 +7,7 @@ using Domain.ValueObjects.Products;
 
 namespace Domain.Aggregates;
 
-public class Inventory : AggregateRoot<Guid, InventoryValidator>
+public class Inventory : AggregateRoot<InventoryValidator>
 {
     private readonly List<InventoryItem> _items = new();
     private static DateTimeOffset Expiration => DateTimeOffset.Now.AddMinutes(5);

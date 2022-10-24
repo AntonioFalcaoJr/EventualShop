@@ -10,21 +10,20 @@ using Microsoft.Extensions.Options;
 
 namespace Infrastructure.EventStore.Abstractions;
 
-public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId> : IEventStoreService<TId, TAggregate>
-    where TAggregate : IAggregateRoot<TId>, new()
-    where TStoreEvent : StoreEvent<TId, TAggregate>, new()
-    where TSnapshot : Snapshot<TId, TAggregate>, new()
-    where TId : struct
+public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot> : IEventStoreService<TAggregate>
+    where TAggregate : IAggregateRoot, new()
+    where TStoreEvent : StoreEvent<TAggregate>, new()
+    where TSnapshot : Snapshot<TAggregate>, new()
 {
     private readonly INotificationContext _notificationContext;
     private readonly EventStoreOptions _options;
     private readonly IPublishEndpoint _publishEndpoint;
-    private readonly IEventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId> _repository;
+    private readonly IEventStoreRepository<TAggregate, TStoreEvent, TSnapshot> _repository;
     private readonly IUnitOfWork _unitOfWork;
 
     protected EventStoreService(
         IPublishEndpoint publishEndpoint,
-        IEventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId> repository,
+        IEventStoreRepository<TAggregate, TStoreEvent, TSnapshot> repository,
         INotificationContext notificationContext,
         IOptionsSnapshot<EventStoreOptions> options,
         IUnitOfWork unitOfWork)
@@ -42,7 +41,7 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
         else _notificationContext.AddErrors(aggregate.Errors);
     }
 
-    public async Task<TAggregate> LoadAsync(TId aggregateId, CancellationToken ct)
+    public async Task<TAggregate> LoadAsync(Guid aggregateId, CancellationToken ct)
     {
         var snapshot = await _repository.GetSnapshotAsync(aggregateId, ct) ?? new();
         var events = await _repository.GetStreamAsync(aggregateId, snapshot.AggregateVersion, ct);

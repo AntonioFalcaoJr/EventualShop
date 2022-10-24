@@ -6,7 +6,7 @@ using Infrastructure.EventStore.Contexts;
 
 namespace Infrastructure.EventStore;
 
-public class AccountEventStoreRepository : EventStoreRepository<Account, AccountStoreEvent, AccountSnapshot, Guid>, IAccountEventStoreRepository
+public class AccountEventStoreRepository : EventStoreRepository<Account, AccountStoreEvent, AccountSnapshot>, IAccountEventStoreRepository
 {
     public AccountEventStoreRepository(EventStoreDbContext dbContext)
         : base(dbContext) { }

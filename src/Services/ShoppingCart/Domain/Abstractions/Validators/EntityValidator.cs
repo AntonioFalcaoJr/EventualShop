@@ -3,13 +3,12 @@ using FluentValidation;
 
 namespace Domain.Abstractions.Validators;
 
-public abstract class EntityValidator<TEntity, TId> : AbstractValidator<TEntity>
-    where TEntity : IEntity<TId>
-    where TId : struct
+public abstract class EntityValidator<TEntity> : AbstractValidator<TEntity>
+    where TEntity : IEntity
 {
     protected EntityValidator()
     {
         RuleFor(entity => entity.Id)
-            .NotEqual(default(TId));
+            .NotEmpty();
     }
 }

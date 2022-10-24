@@ -4,7 +4,7 @@ using Domain.ValueObjects.Products;
 
 namespace Domain.Entities.CartItems;
 
-public class CartItem : Entity<Guid, CartItemValidator>
+public class CartItem : Entity<CartItemValidator>
 {
     public CartItem(Guid id, Guid catalogId, Product product, ushort quantity, decimal unitPrice)
     {

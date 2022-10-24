@@ -6,11 +6,11 @@ namespace ShoppingCartTests.Abstractions;
 
 public abstract class AggregateTests
 {
-    private IAggregateRoot<Guid>? _aggregateRoot;
+    private IAggregateRoot? _aggregateRoot;
     private ICommand? _command;
 
     protected AggregateTests Given<TAggregate>(params IEvent[] events)
-        where TAggregate : IAggregateRoot<Guid>, new()
+        where TAggregate : IAggregateRoot, new()
     {
         _aggregateRoot = new TAggregate();
         _aggregateRoot.LoadEvents(events);

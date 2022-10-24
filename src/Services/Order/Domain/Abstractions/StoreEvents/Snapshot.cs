@@ -2,12 +2,11 @@
 
 namespace Domain.Abstractions.StoreEvents;
 
-public abstract record Snapshot<TId, TAggregate>
-    where TAggregate : IAggregateRoot<TId>, new()
-    where TId : struct
+public abstract record Snapshot<TAggregate>
+    where TAggregate : IAggregateRoot, new()
 {
     public long AggregateVersion { get; init; }
-    public TId AggregateId { get; init; }
+    public Guid AggregateId { get; init; }
     public string AggregateName { get; } = typeof(TAggregate).Name;
     public TAggregate AggregateState { get; init; } = new();
 }

@@ -1,4 +1,5 @@
 using Domain.Abstractions.EventStore;
+using Infrastructure.EventStore.Contexts.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -23,7 +24,9 @@ public class SnapshotConfiguration : IEntityTypeConfiguration<Snapshot>
             .HasMaxLength(30)
             .IsRequired();
 
-        builder
-            .OwnsOne(snapshot => snapshot.Aggregate, navigationBuilder => navigationBuilder.ToJson());
+        builder            
+            .Property(snapshot => snapshot.Aggregate)
+            .HasConversion<AggregateConverter>()
+            .IsRequired();
     }
 }

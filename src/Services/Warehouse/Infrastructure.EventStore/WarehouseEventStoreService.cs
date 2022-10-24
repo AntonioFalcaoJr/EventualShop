@@ -10,7 +10,7 @@ using Microsoft.Extensions.Options;
 
 namespace Infrastructure.EventStore;
 
-public class WarehouseEventStoreService : EventStoreService<Inventory, InventoryStoreEvent, InventorySnapshot, Guid>, IWarehouseEventStoreService
+public class WarehouseEventStoreService : EventStoreService<Inventory, InventoryStoreEvent, InventorySnapshot>, IWarehouseEventStoreService
 {
     public WarehouseEventStoreService(IPublishEndpoint publishEndpoint, IWarehouseEventStoreRepository repository, INotificationContext notificationContext, IOptionsSnapshot<EventStoreOptions> options, IUnitOfWork unitOfWork)
         : base(publishEndpoint, repository, notificationContext, options, unitOfWork) { }

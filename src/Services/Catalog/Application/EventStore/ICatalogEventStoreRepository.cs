@@ -4,4 +4,4 @@ using Domain.StoreEvents;
 
 namespace Application.EventStore;
 
-public interface ICatalogEventStoreRepository : IEventStoreRepository<Catalog, CatalogStoreEvent, CatalogSnapshot, Guid> { }
+public interface ICatalogEventStoreRepository : IEventStoreRepository<Catalog, CatalogStoreEvent, CatalogSnapshot> { }

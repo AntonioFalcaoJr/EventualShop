@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Domain.Entities.CartItems;
 
-public class CartItemValidator : EntityValidator<CartItem, Guid>
+public class CartItemValidator : EntityValidator<CartItem>
 {
     public CartItemValidator()
     {

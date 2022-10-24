@@ -4,7 +4,7 @@ using Domain.ValueObjects.Products;
 
 namespace Domain.Entities.OrderItems;
 
-public class OrderItem : Entity<Guid, OrderItemValidator>
+public class OrderItem : Entity<OrderItemValidator>
 {
     public OrderItem(Guid id, Product product, int quantity)
     {

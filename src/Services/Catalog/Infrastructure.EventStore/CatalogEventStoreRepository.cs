@@ -6,7 +6,7 @@ using Infrastructure.EventStore.Contexts;
 
 namespace Infrastructure.EventStore;
 
-public class CatalogEventStoreRepository : EventStoreRepository<Catalog, CatalogStoreEvent, CatalogSnapshot, Guid>, ICatalogEventStoreRepository
+public class CatalogEventStoreRepository : EventStoreRepository<Catalog, CatalogStoreEvent, CatalogSnapshot>, ICatalogEventStoreRepository
 {
     public CatalogEventStoreRepository(EventStoreDbContext dbContext)
         : base(dbContext) { }

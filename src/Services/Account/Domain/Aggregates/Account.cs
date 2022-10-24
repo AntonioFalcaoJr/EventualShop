@@ -6,7 +6,7 @@ using Domain.Entities.Profiles;
 
 namespace Domain.Aggregates;
 
-public class Account : AggregateRoot<Guid, AccountValidator>
+public class Account : AggregateRoot<AccountValidator>
 {
     private readonly List<Address> _addresses = new();
 

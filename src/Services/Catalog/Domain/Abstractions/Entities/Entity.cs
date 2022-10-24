@@ -4,9 +4,8 @@ using FluentValidation.Results;
 
 namespace Domain.Abstractions.Entities;
 
-public abstract class Entity<TId, TValidator> : IEntity<TId>
+public abstract class Entity<TValidator> : IEntity
     where TValidator : IValidator, new()
-    where TId : struct
 {
     [JsonIgnore]
     private readonly TValidator _validator = new();
@@ -15,7 +14,7 @@ public abstract class Entity<TId, TValidator> : IEntity<TId>
     private ValidationResult _validationResult = new();
 
     [JsonIgnore]
-    private ValidationContext<IEntity<TId>> ValidationContext
+    private ValidationContext<IEntity> ValidationContext
         => new(this);
 
     [JsonIgnore]
@@ -30,7 +29,7 @@ public abstract class Entity<TId, TValidator> : IEntity<TId>
     public Task<bool> IsValidAsync
         => ValidateAsync();
 
-    public TId Id { get; protected set; }
+    public Guid Id { get; protected set; }
     public bool IsDeleted { get; protected set; }
 
     private bool Validate()

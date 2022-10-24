@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
-        <PackageReference Include="FluentValidation" Version="$(FluentValidation_Version)"/>
+        <PackageReference Include="FluentValidation" Version="$(FluentValidation_Version)" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Contracts\Contracts.csproj"/>
+        <ProjectReference Include="..\..\..\Contracts\Contracts.csproj" />
     </ItemGroup>
 </Project>

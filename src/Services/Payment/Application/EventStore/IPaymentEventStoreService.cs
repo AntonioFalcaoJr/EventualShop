@@ -3,4 +3,4 @@ using Domain.Aggregates;
 
 namespace Application.EventStore;
 
-public interface IPaymentEventStoreService : IEventStoreService<Guid, Payment> { }
+public interface IPaymentEventStoreService : IEventStoreService<Payment> { }

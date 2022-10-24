@@ -7,7 +7,7 @@ using Contracts.Services.Payment;
 
 namespace Domain.Aggregates;
 
-public class Payment : AggregateRoot<Guid, PaymentValidator>
+public class Payment : AggregateRoot<PaymentValidator>
 {
     private readonly List<PaymentMethod> _paymentMethods = new();
 

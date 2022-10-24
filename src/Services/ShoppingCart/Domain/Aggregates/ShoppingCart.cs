@@ -12,7 +12,7 @@ using Domain.ValueObjects.PaymentOptions.PayPals;
 
 namespace Domain.Aggregates;
 
-public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
+public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
 {
     private readonly List<CartItem> _items = new();
     private readonly List<PaymentMethod> _paymentMethods = new();

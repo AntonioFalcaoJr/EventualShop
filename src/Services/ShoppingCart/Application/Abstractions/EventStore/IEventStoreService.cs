@@ -2,11 +2,10 @@
 
 namespace Application.Abstractions.EventStore;
 
-public interface IEventStoreService<in TId, TAggregate>
-    where TAggregate : IAggregateRoot<TId>
-    where TId : struct
+public interface IEventStoreService<TAggregate>
+    where TAggregate : IAggregateRoot
 {
     Task AppendAsync(TAggregate aggregate, CancellationToken cancellationToken);
-    Task<TAggregate> LoadAsync(TId aggregateId, CancellationToken cancellationToken);
+    Task<TAggregate> LoadAsync(Guid aggregateId, CancellationToken cancellationToken);
     IAsyncEnumerable<TAggregate> LoadAggregatesAsync(CancellationToken cancellationToken);
 }

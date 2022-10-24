@@ -10,7 +10,7 @@ using Microsoft.Extensions.Options;
 
 namespace Infrastructure.EventStore;
 
-public class AccountEventStoreService : EventStoreService<Account, AccountStoreEvent, AccountSnapshot, Guid>, IAccountEventStoreService
+public class AccountEventStoreService : EventStoreService<Account, AccountStoreEvent, AccountSnapshot>, IAccountEventStoreService
 {
     public AccountEventStoreService(IPublishEndpoint publishEndpoint, IAccountEventStoreRepository repository, INotificationContext notificationContext, IOptionsSnapshot<EventStoreOptions> options, IUnitOfWork unitOfWork)
         : base(publishEndpoint, repository, notificationContext, options, unitOfWork) { }

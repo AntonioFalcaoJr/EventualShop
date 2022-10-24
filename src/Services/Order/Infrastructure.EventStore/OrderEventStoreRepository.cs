@@ -6,7 +6,7 @@ using Infrastructure.EventStore.Contexts;
 
 namespace Infrastructure.EventStore;
 
-public class OrderEventStoreRepository : EventStoreRepository<Order, OrderStoreEvent, OrderSnapshot, Guid>, IOrderEventStoreRepository
+public class OrderEventStoreRepository : EventStoreRepository<Order, OrderStoreEvent, OrderSnapshot>, IOrderEventStoreRepository
 {
     public OrderEventStoreRepository(EventStoreDbContext dbContext)
         : base(dbContext) { }

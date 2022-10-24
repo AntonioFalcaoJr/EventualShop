@@ -3,7 +3,7 @@ using Domain.ValueObjects.Products;
 
 namespace Domain.Entities.CatalogItems;
 
-public class CatalogItem : Entity<Guid, CatalogItemValidator>
+public class CatalogItem : Entity<CatalogItemValidator>
 {
     public CatalogItem(Guid id, Guid inventoryId, Product product, decimal unitPrice, string sku, int quantity)
     {

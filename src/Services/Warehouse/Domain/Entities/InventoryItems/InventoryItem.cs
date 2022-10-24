@@ -4,7 +4,7 @@ using Domain.ValueObjects.Products;
 
 namespace Domain.Entities.InventoryItems;
 
-public class InventoryItem : Entity<Guid, InventoryItemValidator>
+public class InventoryItem : Entity<InventoryItemValidator>
 {
     private readonly List<Reserve> _reserves = new();
     private readonly List<IAdjustment> _adjustments = new();

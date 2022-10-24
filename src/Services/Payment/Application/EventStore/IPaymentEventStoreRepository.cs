@@ -4,4 +4,4 @@ using Domain.StoreEvents;
 
 namespace Application.EventStore;
 
-public interface IPaymentEventStoreRepository : IEventStoreRepository<Payment, PaymentStoreEvent, PaymentSnapshot, Guid> { }
+public interface IPaymentEventStoreRepository : IEventStoreRepository<Payment, PaymentStoreEvent, PaymentSnapshot> { }

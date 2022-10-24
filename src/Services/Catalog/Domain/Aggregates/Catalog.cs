@@ -5,7 +5,7 @@ using Contracts.Services.Catalog;
 
 namespace Domain.Aggregates;
 
-public class Catalog : AggregateRoot<Guid, CatalogValidator>
+public class Catalog : AggregateRoot<CatalogValidator>
 {
     private readonly List<CatalogItem> _items = new();
     public bool IsActive { get; private set; }

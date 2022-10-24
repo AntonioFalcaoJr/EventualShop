@@ -1,4 +1,5 @@
 ﻿using Domain.StoreEvents;
+using Infrastructure.EventStore.Contexts.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -28,7 +29,9 @@ public class PaymentStoreEventConfiguration : IEntityTypeConfiguration<PaymentSt
             .HasMaxLength(50)
             .IsRequired();
 
-        builder
-            .OwnsOne(storeEvent => storeEvent.DomainEvent, navigationBuilder => navigationBuilder.ToJson());
+        builder            
+            .Property(storeEvent => storeEvent.DomainEvent)
+            .HasConversion<EventConverter>()
+            .IsRequired();
     }
 }

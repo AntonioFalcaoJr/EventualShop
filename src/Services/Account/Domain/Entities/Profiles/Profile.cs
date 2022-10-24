@@ -4,7 +4,7 @@ using Domain.Abstractions.Entities;
 
 namespace Domain.Entities.Profiles;
 
-public class Profile : Entity<Guid, ProfileValidator>
+public class Profile : Entity<ProfileValidator>
 {
     private Profile(string firstName, string lastName, string email, DateOnly? birthdate, Gender gender)
     {

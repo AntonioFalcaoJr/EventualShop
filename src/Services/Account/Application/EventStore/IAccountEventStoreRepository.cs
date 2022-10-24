@@ -4,4 +4,4 @@ using Domain.StoreEvents;
 
 namespace Application.EventStore;
 
-public interface IAccountEventStoreRepository : IEventStoreRepository<Account, AccountStoreEvent, AccountSnapshot, Guid> { }
+public interface IAccountEventStoreRepository : IEventStoreRepository<Account, AccountStoreEvent, AccountSnapshot> { }

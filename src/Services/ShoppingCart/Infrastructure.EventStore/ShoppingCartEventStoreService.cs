@@ -10,7 +10,7 @@ using Microsoft.Extensions.Options;
 
 namespace Infrastructure.EventStore;
 
-public class ShoppingCartEventStoreService : EventStoreService<ShoppingCart, ShoppingCartStoreEvent, ShoppingCartSnapshot, Guid>, IShoppingCartEventStoreService
+public class ShoppingCartEventStoreService : EventStoreService<ShoppingCart, ShoppingCartStoreEvent, ShoppingCartSnapshot>, IShoppingCartEventStoreService
 {
     public ShoppingCartEventStoreService(IPublishEndpoint publishEndpoint, IShoppingCartEventStoreRepository repository, INotificationContext notificationContext, IOptionsSnapshot<EventStoreOptions> options, IUnitOfWork unitOfWork)
         : base(publishEndpoint, repository, notificationContext, options, unitOfWork) { }

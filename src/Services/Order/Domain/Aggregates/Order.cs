@@ -8,7 +8,7 @@ using Domain.ValueObjects.Addresses;
 
 namespace Domain.Aggregates;
 
-public class Order : AggregateRoot<Guid, OrderValidator>
+public class Order : AggregateRoot<OrderValidator>
 {
     private readonly List<OrderItem> _items = new();
     private readonly List<PaymentMethod> _paymentMethods = new();

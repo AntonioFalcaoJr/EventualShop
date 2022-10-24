@@ -5,7 +5,7 @@ using FluentValidation;
 
 namespace Domain.Aggregates;
 
-public class AccountValidator : EntityValidator<Account, Guid>
+public class AccountValidator : EntityValidator<Account>
 {
     public AccountValidator()
     {
