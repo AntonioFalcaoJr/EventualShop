@@ -14,6 +14,6 @@ public interface IEventStoreRepository<out TAggregate, in TStoreEvent, TSnapshot
     Task AppendEventAsync(TStoreEvent storeEvent, CancellationToken cancellationToken);
     Task AppendSnapshotAsync(TSnapshot snapshot, CancellationToken cancellationToken);
     Task<List<IEvent>> GetStreamAsync(TId aggregateId, long version, CancellationToken cancellationToken);
-    Task<TSnapshot> GetSnapshotAsync(TId aggregateId, CancellationToken cancellationToken);
+    Task<TSnapshot?> GetSnapshotAsync(TId aggregateId, CancellationToken cancellationToken);
     IAsyncEnumerable<TId> GetAggregateIdsAsync(CancellationToken cancellationToken);
 }

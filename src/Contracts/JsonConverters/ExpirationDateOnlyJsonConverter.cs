@@ -14,4 +14,3 @@ public class ExpirationDateOnlyJsonConverter : JsonConverter<DateOnly>
     public override void Write(Utf8JsonWriter writer, DateOnly value, JsonSerializerOptions options) 
         => writer.WriteStringValue(value.ToString(Format, CultureInfo.InvariantCulture));
 }
-

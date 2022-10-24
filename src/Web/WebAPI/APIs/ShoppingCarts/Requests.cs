@@ -20,7 +20,7 @@ public static class Requests
         : Validatable<AddCartItemValidator>, ICommandRequest
     {
         public ICommand Command
-            => new Command.AddCartItem(CartId, Guid.NewGuid(), Payload.CatalogId, Payload.InventoryId, Payload.Product, Payload.Quantity, Payload.UnitPrice);
+            => new Command.AddCartItem(CartId, Payload.CatalogId, Payload.InventoryId, Payload.Product, Payload.Quantity, Payload.UnitPrice);
     }
 
     public record CheckOut(IBus Bus, Guid CartId, CancellationToken CancellationToken)
@@ -85,7 +85,7 @@ public static class Requests
         public ICommand Command
             => new Command.RemovePaymentMethod(CartId, MethodId);
     }
-    
+
     public record RebuildProjection(IBus Bus, string Name, CancellationToken CancellationToken)
         : Validatable<RebuildProjectionValidator>, ICommandRequest
     {

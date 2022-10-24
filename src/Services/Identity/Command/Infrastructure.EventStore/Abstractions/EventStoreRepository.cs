@@ -32,7 +32,7 @@ public class EventStoreRepository : IEventStoreRepository
             .Select(@event => @event.DomainEvent)
             .ToListAsync(ct);
 
-    public Task<Snapshot> GetSnapshotAsync(Guid aggregateId, CancellationToken ct)
+    public Task<Snapshot?> GetSnapshotAsync(Guid aggregateId, CancellationToken ct)
         => _dbContext.Set<Snapshot>()
             .AsNoTracking()
             .Where(snapshot => snapshot.AggregateId.Equals(aggregateId))

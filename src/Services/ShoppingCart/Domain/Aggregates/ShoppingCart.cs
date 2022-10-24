@@ -18,9 +18,9 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     private readonly List<PaymentMethod> _paymentMethods = new();
 
     public Guid CustomerId { get; private set; }
-    public CartStatus Status { get; private set; }
-    public Address BillingAddress { get; private set; }
-    public Address ShippingAddress { get; private set; }
+    public CartStatus? Status { get; private set; }
+    public Address? BillingAddress { get; private set; }
+    public Address? ShippingAddress { get; private set; }
     private bool ShippingAndBillingAddressesAreSame { get; set; } = true;
 
     public decimal Total
@@ -38,17 +38,16 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     public IEnumerable<PaymentMethod> PaymentMethods
         => _paymentMethods;
 
+    public override void Handle(ICommand? command)
+        => Handle(command as dynamic);
+
     public void Handle(Command.CreateCart cmd)
-        => RaiseEvent(new DomainEvent.CartCreated(Guid.NewGuid(), cmd.CustomerId, CartStatus.Confirmed));
+        => RaiseEvent(new DomainEvent.CartCreated(cmd.CartId, cmd.CustomerId, CartStatus.Active));
 
     public void Handle(Command.AddCartItem cmd)
-    {
-        if (_items.Exists(cartItem => cartItem.Id == cmd.ItemId)) return;
-
-        RaiseEvent(_items.SingleOrDefault(cartItem => cartItem.Product == cmd.Product) is { IsDeleted: false } item
-            ? new DomainEvent.CartItemIncreased(Id, item.Id, cmd.Quantity, item.UnitPrice)
-            : new DomainEvent.CartItemAdded(cmd.CartId, cmd.ItemId, cmd.InventoryId, cmd.CatalogId, cmd.Product, cmd.Quantity, cmd.UnitPrice));
-    }
+        => RaiseEvent(_items.SingleOrDefault(cartItem => cartItem.Product == cmd.Product) is { IsDeleted: false } item
+            ? new DomainEvent.CartItemIncreased(Id, item.Id, (ushort)(item.Quantity + cmd.Quantity), item.UnitPrice)
+            : new DomainEvent.CartItemAdded(cmd.CartId, Guid.NewGuid(), cmd.InventoryId, cmd.CatalogId, cmd.Product, cmd.Quantity, cmd.UnitPrice));
 
     public void Handle(Command.ChangeCartItemQuantity cmd)
     {

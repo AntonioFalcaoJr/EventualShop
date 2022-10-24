@@ -7,7 +7,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.EventStore.Abstractions;
 
-public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId> : IEventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId>
+public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId> 
+    : IEventStoreRepository<TAggregate, TStoreEvent, TSnapshot, TId>
     where TAggregate : IAggregateRoot<TId>, new()
     where TStoreEvent : StoreEvent<TId, TAggregate>
     where TSnapshot : Snapshot<TId, TAggregate>
@@ -56,7 +57,7 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
             .Select(@event => @event.DomainEvent)
             .ToListAsync(ct);
 
-    public Task<TSnapshot> GetSnapshotAsync(TId aggregateId, CancellationToken ct)
+    public Task<TSnapshot?> GetSnapshotAsync(TId aggregateId, CancellationToken ct)
         => _snapshots
             .AsNoTracking()
             .Where(snapshot => snapshot.AggregateId.Equals(aggregateId))

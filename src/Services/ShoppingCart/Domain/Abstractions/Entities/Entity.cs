@@ -35,7 +35,10 @@ public abstract class Entity<TId, TValidator> : IEntity<TId>
 
     private bool Validate()
     {
-        _validationResult = _validator.Validate(ValidationContext);
+        _validator.Validate(ValidationContext<IEntity<TId>>
+            .CreateWithOptions(this, strategy
+                => strategy.ThrowOnFailures()));
+
         return _validationResult.IsValid;
     }
 
