@@ -15,7 +15,7 @@ public class AddBillingAddressInteractor : IInteractor<Command.AddBillingAddress
 
     public async Task InteractAsync(Command.AddBillingAddress command, CancellationToken ct)
     {
-        var account = await _eventStore.LoadAsync(command.Id, ct);
+        var account = await _eventStore.LoadAsync(command.AccountId, ct);
         account.Handle(command);
         await _eventStore.AppendAsync(account, ct);
     }

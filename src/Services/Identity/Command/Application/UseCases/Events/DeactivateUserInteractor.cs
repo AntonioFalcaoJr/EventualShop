@@ -1,17 +1,24 @@
-using Application.Abstractions;
-using Application.Abstractions.Gateways;
 using Application.Abstractions.Interactors;
+using Application.Services;
 using Contracts.Services.Identity;
 using Domain.Aggregates;
 using DomainEvent = Contracts.Services.Account.DomainEvent;
 
 namespace Application.UseCases.Events;
 
-public class DeactivateUserInteractor : EventInteractor<User, DomainEvent.AccountDeactivated>
+public class DeactivateUserInteractor : IInteractor<DomainEvent.AccountDeactivated>
 {
-    public DeactivateUserInteractor(IEventStoreGateway eventStoreGateway, IEventBusGateway eventBusGateway, IUnitOfWork unitOfWork)
-        : base(eventStoreGateway, eventBusGateway, unitOfWork) { }
+    private readonly IApplicationService _applicationService;
 
-    public override Task InteractAsync(DomainEvent.AccountDeactivated @event, CancellationToken cancellationToken)
-        => OnInteractAsync(@event.Id, user => new Command.DeleteUser(user.Id), cancellationToken);
+    public DeactivateUserInteractor(IApplicationService applicationService)
+    {
+        _applicationService = applicationService;
+    }
+
+    public async Task InteractAsync(DomainEvent.AccountDeactivated message, CancellationToken cancellationToken)
+    {
+        var aggregate = await _applicationService.LoadAggregateAsync<User>(message.AccountId, cancellationToken);
+        aggregate.Handle(new Command.DeleteUser(aggregate.Id));
+        await _applicationService.AppendEventsAsync(aggregate, cancellationToken);
+    }
 }

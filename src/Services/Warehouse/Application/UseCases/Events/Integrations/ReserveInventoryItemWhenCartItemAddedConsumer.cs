@@ -21,7 +21,7 @@ public class ReserveInventoryItemWhenCartItemAddedConsumer : IConsumer<DomainEve
         inventory.Handle(new Command.ReserveInventoryItem(
             context.Message.InventoryId,
             context.Message.CatalogId,
-            context.Message.Id,
+            context.Message.CartId,
             context.Message.Product,
             context.Message.Quantity));
 

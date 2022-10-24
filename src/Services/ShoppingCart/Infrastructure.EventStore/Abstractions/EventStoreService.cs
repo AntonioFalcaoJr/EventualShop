@@ -1,4 +1,5 @@
-﻿using Application.Abstractions.EventStore;
+﻿using System.Runtime.CompilerServices;
+using Application.Abstractions.EventStore;
 using Application.Abstractions.Notifications;
 using Contracts.Abstractions.Messages;
 using Domain.Abstractions.Aggregates;
@@ -48,6 +49,12 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
         var events = await _repository.GetStreamAsync(aggregateId, snapshot.AggregateVersion, ct);
         snapshot.AggregateState.LoadEvents(events);
         return snapshot.AggregateState;
+    }
+
+    public async IAsyncEnumerable<TAggregate> LoadAggregatesAsync([EnumeratorCancellation] CancellationToken cancellationToken)
+    {
+        await foreach (var aggregateId in _repository.GetAggregateIdsAsync(cancellationToken))
+            yield return await LoadAsync(aggregateId, cancellationToken);
     }
 
     private Task OnAppendEventsAsync(TAggregate aggregate, CancellationToken cancellationToken)
