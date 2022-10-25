@@ -10,7 +10,7 @@ public class ContractValidatorFilter<T> : IFilter<ConsumeContext<T>>
 {
     private readonly IValidator<T>? _validator;
 
-    public ContractValidatorFilter(IValidator<T>? validator) 
+    public ContractValidatorFilter(IValidator<T>? validator = null) 
         => _validator = validator;
 
     public async Task Send(ConsumeContext<T> context, IPipe<ConsumeContext<T>> next)

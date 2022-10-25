@@ -10,7 +10,9 @@ public class EventConverter : ValueConverter<IEvent?, string>
     public EventConverter()
         : base(
             @event => JsonSerializer.Serialize(@event, typeof(IEvent), SerializerOptions()),
-            jsonString => JsonSerializer.Deserialize<IEvent>(jsonString, SerializerOptions())) { }
+            jsonString => JsonSerializer.Deserialize<IEvent>(jsonString, SerializerOptions()))
+    {
+    }
 
     private static JsonSerializerOptions SerializerOptions()
     {
