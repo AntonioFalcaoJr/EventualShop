@@ -1,4 +1,5 @@
 using Domain.Abstractions.EventStore;
+using Domain.Aggregates;
 using Infrastructure.EventStore.Contexts.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

@@ -5,8 +5,8 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["src/Services/Identity/GrpcService/GrpcService.csproj", "GrpcService/"]
-RUN dotnet restore "src/Services/Identity/GrpcService/GrpcService.csproj"
+COPY ["src/Services/Identity/Query/GrpcService/GrpcService.csproj", "GrpcService/"]
+RUN dotnet restore "src/GrpcService/GrpcService.csproj"
 COPY . .
 WORKDIR "/src/GrpcService"
 RUN dotnet build "GrpcService.csproj" -c Release -o /app/build

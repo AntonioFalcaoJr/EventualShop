@@ -1,3 +1,4 @@
+using Domain.Aggregates;
 using Domain.StoreEvents;
 using Infrastructure.EventStore.Contexts.Converters;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +27,7 @@ public class AccountSnapshotConfiguration : IEntityTypeConfiguration<AccountSnap
 
         builder            
             .Property(snapshot => snapshot.AggregateState)
-            .HasConversion<AggregateConverter>()
+            .HasConversion<AggregateConverter<Account>>()
             .IsRequired();
     }
 }

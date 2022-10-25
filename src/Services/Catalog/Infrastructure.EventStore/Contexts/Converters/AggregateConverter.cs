@@ -5,12 +5,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.EventStore.Contexts.Converters;
 
-public class AggregateConverter : ValueConverter<IAggregateRoot?, string>
+public class AggregateConverter<TAggregate> : ValueConverter<TAggregate, string>
+    where TAggregate : IAggregateRoot
 {
     public AggregateConverter()
         : base(
             @event => JsonSerializer.Serialize(@event, typeof(IAggregateRoot), SerializerOptions()),
-            jsonString => JsonSerializer.Deserialize<IAggregateRoot>(jsonString, SerializerOptions())) { }
+            jsonString => JsonSerializer.Deserialize<TAggregate>(jsonString, SerializerOptions())) { }
 
     private static JsonSerializerOptions SerializerOptions()
     {

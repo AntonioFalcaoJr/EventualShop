@@ -1,4 +1,5 @@
-﻿using Domain.StoreEvents;
+﻿using Domain.Aggregates;
+using Domain.StoreEvents;
 using Infrastructure.EventStore.Contexts.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -26,7 +27,7 @@ public class WarehouseSnapshotConfiguration : IEntityTypeConfiguration<Inventory
 
         builder            
             .Property(snapshot => snapshot.AggregateState)
-            .HasConversion<AggregateConverter>()
+            .HasConversion<AggregateConverter<Inventory>>()
             .IsRequired();
     }
 }
