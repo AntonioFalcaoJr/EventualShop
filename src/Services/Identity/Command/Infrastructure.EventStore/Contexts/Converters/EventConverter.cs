@@ -17,6 +17,7 @@ public class EventConverter : ValueConverter<IEvent?, string>
     private static JsonSerializerOptions SerializerOptions()
     {
         JsonSerializerOptions jsonSerializerOptions = new();
+        jsonSerializerOptions.Converters.Add(new EventJsonConverter());
         jsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
         jsonSerializerOptions.Converters.Add(new ExpirationDateOnlyJsonConverter());
         return jsonSerializerOptions;

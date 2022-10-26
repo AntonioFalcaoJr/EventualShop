@@ -43,6 +43,7 @@ public static class ServiceCollectionExtensions
 
                     bus.ConfigureJsonSerializerOptions(settings =>
                     {
+                        settings.Converters.Add(new EventJsonConverter());
                         settings.Converters.Add(new DateOnlyJsonConverter());
                         settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
                         return settings;
