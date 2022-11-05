@@ -49,7 +49,7 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
         await _dbContext.SaveChangesAsync(ct);
     }
 
-    public Task<List<IEvent>> GetStreamAsync(TId aggregateId, long version, CancellationToken ct)
+    public Task<List<IEvent?>> GetStreamAsync(TId aggregateId, long version, CancellationToken ct)
         => _storeEvents
             .AsNoTracking()
             .Where(@event => @event.AggregateId.Equals(aggregateId))

@@ -13,8 +13,8 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
 
     public Guid OrderId { get; private set; }
     public decimal Amount { get; private set; }
-    public PaymentStatus Status { get; private set; }
-    public Address BillingAddress { get; private set; }
+    public PaymentStatus? Status { get; private set; }
+    public Address? BillingAddress { get; private set; }
 
     public decimal AmountDue
         => _paymentMethods

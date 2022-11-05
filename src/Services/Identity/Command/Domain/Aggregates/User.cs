@@ -10,10 +10,10 @@ public class User : AggregateRoot<UserValidator>
 {
     private readonly List<Email> _emails = new();
 
-    public string FirstName { get; private set; }
-    public string LastName { get; private set; }
-    public string Password { get; private set; }
-    public string PrimaryEmail { get; private set; }
+    public string? FirstName { get; private set; }
+    public string? LastName { get; private set; }
+    public string? Password { get; private set; }
+    public string? PrimaryEmail { get; private set; }
 
     public IEnumerable<Email> Emails
         => _emails;

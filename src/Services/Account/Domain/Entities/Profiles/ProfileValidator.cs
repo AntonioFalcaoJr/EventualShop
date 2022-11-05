@@ -14,9 +14,9 @@ public class ProfileValidator : AbstractValidator<Profile?>
             RuleFor(profile => profile!.FirstName)
                 .NotNull()
                 .NotEmpty()
-                .NotEqual(profile => profile.LastName);
+                .NotEqual(profile => profile!.LastName);
 
-            When(profile => profile.Birthdate is not null, () =>
+            When(profile => profile!.Birthdate is not null, () =>
             {
                 RuleFor(profile => profile!.Birthdate)
                     .LessThan(DateOnly.FromDateTime(DateTimeOffset.Now.AddYears(-18).DateTime));
@@ -24,7 +24,7 @@ public class ProfileValidator : AbstractValidator<Profile?>
 
             RuleFor(profile => profile!.LastName)
                 .NotEmpty()
-                .NotEqual(profile => profile.FirstName);
+                .NotEqual(profile => profile!.FirstName);
         });
     }
 }

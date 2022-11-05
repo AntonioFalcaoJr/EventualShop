@@ -9,6 +9,7 @@ using Domain.ValueObjects.Addresses;
 using Domain.ValueObjects.PaymentOptions.CreditCards;
 using Domain.ValueObjects.PaymentOptions.DebitCards;
 using Domain.ValueObjects.PaymentOptions.PayPals;
+using MassTransit;
 
 namespace Domain.Aggregates;
 

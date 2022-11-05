@@ -5,10 +5,10 @@ namespace WebAPP.DependencyInjection.Options;
 public record ECommerceHttpClientOptions
 {
     [Required, Url]
-    public string BaseAddress { get; init; }
+    public string? BaseAddress { get; init; }
 
     [Required, MinLength(5)]
-    public string CatalogEndpoint { get; init; }
+    public string? CatalogEndpoint { get; init; }
 
     [Required, Timestamp]
     public TimeSpan OverallTimeout { get; init; }

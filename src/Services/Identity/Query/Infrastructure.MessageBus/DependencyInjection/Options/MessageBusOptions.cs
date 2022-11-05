@@ -7,13 +7,13 @@ public record EventBusOptions : MessageBusOptions;
 public record CommandBusOptions : MessageBusOptions
 {
     [Required, MinLength(5)]
-    public string SchedulerQueueName { get; init; }
+    public string? SchedulerQueueName { get; init; }
 }
 
 public abstract record MessageBusOptions
 {
     [Required]
-    public Uri ConnectionString { get; init; }
+    public Uri? ConnectionString { get; init; }
 
     [Required, Range(1, 10)]
     public int RetryLimit { get; init; }
