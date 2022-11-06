@@ -1,7 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
-    <PropertyGroup>
-        <UserSecretsId>9dd2b411-4283-4720-9fe7-a1b14f95d3ee</UserSecretsId>
-    </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Serilog.Extensions.Hosting" Version="$(Serilog_Extensions_Version)"/>
         <PackageReference Include="Serilog.AspNetCore" Version="$(Serilog_AspNetCore_Version)"/>
