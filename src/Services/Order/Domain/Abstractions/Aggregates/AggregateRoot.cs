@@ -18,7 +18,7 @@ public abstract class AggregateRoot<TId, TValidator> : Entity<TId, TValidator>, 
     public IEnumerable<IEvent> Events
         => _events;
 
-    public void LoadEvents(List<IEvent> events)
+    public void LoadEvents(List<IEvent?> events)
         => events.ForEach(@event =>
         {
             ApplyEvent(@event);

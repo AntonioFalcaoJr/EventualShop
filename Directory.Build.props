@@ -9,7 +9,7 @@
         <Nullable>enable</Nullable>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 <!--        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>-->
-<!--        <NoWarn>8981, CS0660, CS0661</NoWarn>-->
+        <NoWarn>8981, CS0660, CS0661</NoWarn>
     </PropertyGroup>
 
     <PropertyGroup Label="Packages dependency versions">

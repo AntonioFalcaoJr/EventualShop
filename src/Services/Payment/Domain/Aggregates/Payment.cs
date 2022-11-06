@@ -71,7 +71,7 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
             RaiseEvent(new DomainEvent.PaymentMethodRefundDenied(cmd.PaymentId, cmd.PaymentMethodId, cmd.TransactionId));
     }
 
-    protected override void ApplyEvent(IEvent @event)
+    protected override void ApplyEvent(IEvent? @event)
         => When(@event as dynamic);
 
     private void When(DomainEvent.PaymentRequested @event)

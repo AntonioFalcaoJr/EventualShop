@@ -15,8 +15,8 @@ public class Order : AggregateRoot<Guid, OrderValidator>
 
     public Guid CustomerId { get; private set; }
     public OrderStatus Status { get; private set; }
-    public Address? BillingAddress { get; private set; }
-    public Address? ShippingAddress { get; private set; }
+    public Address BillingAddress { get; private set; }
+    public Address ShippingAddress { get; private set; }
     public decimal Total { get; private set; }
 
     public IEnumerable<OrderItem> Items

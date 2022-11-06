@@ -18,7 +18,7 @@ public class CreditCardPaymentService : PaymentService, ICreditCardPaymentServic
             ? behaviorProcessor(this, method, cancellationToken)
             : base.HandleAsync(behaviorProcessor, method, cancellationToken);
 
-    public override async Task<IPaymentResult> AuthorizeAsync(PaymentMethod method, CancellationToken cancellationToken)
+    public override async Task<IPaymentResult?> AuthorizeAsync(PaymentMethod method, CancellationToken cancellationToken)
     {
         // TODO - Use method to hydrate  
         Requests.CreditCardAuthorizePayment request = new();

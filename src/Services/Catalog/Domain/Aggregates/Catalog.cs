@@ -49,7 +49,7 @@ public class Catalog : AggregateRoot<Guid, CatalogValidator>
     public void Handle(Command.RemoveCatalogItem cmd)
         => RaiseEvent(new DomainEvent.CatalogItemRemoved(cmd.CatalogId, cmd.ItemId));
 
-    protected override void ApplyEvent(IEvent @event)
+    protected override void ApplyEvent(IEvent? @event)
         => When(@event as dynamic);
 
     private void When(DomainEvent.CatalogCreated @event)

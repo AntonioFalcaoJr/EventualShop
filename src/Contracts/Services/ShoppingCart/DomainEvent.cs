@@ -5,7 +5,7 @@ namespace Contracts.Services.ShoppingCart;
 
 public static class DomainEvent
 {
-    public record CartCreated(Guid CartId, Guid CustomerId, string? Status) : Message, IEvent;
+    public record CartCreated(Guid CartId, Guid CustomerId, string Status) : Message, IEvent;
 
     public record CartItemAdded(Guid CartId, Guid ItemId, Guid InventoryId, Guid CatalogId, Dto.Product Product, ushort Quantity, decimal UnitPrice) : Message, IEvent;
 

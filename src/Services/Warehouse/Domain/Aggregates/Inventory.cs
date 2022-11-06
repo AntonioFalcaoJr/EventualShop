@@ -58,7 +58,7 @@ public class Inventory : AggregateRoot<Guid, InventoryValidator>
             });
     }
 
-    protected override void ApplyEvent(IEvent @event)
+    protected override void ApplyEvent(IEvent? @event)
         => When(@event as dynamic);
 
     private void When(DomainEvent.InventoryCreated @event)

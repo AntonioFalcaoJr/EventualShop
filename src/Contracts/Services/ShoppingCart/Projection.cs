@@ -5,7 +5,7 @@ namespace Contracts.Services.ShoppingCart;
 
 public static class Projection
 {
-    public record ShoppingCart(Guid Id, Guid CustomerId, Dto.Address BillingAddress, Dto.Address ShippingAddress, string Status, decimal Total, bool IsDeleted) : IProjection;
+    public record ShoppingCart(Guid Id, Guid CustomerId, Dto.Address? BillingAddress, Dto.Address? ShippingAddress, string Status, decimal Total, bool IsDeleted) : IProjection;
 
     public record ShoppingCartItem(Guid CartId, Guid Id, Dto.Product Product, int Quantity, bool IsDeleted) : IProjection;
 

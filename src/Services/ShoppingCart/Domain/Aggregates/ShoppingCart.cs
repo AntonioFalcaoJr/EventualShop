@@ -19,9 +19,9 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     private readonly List<PaymentMethod> _paymentMethods = new();
 
     public Guid CustomerId { get; private set; }
-    public CartStatus? Status { get; private set; }
-    public Address? BillingAddress { get; private set; }
-    public Address? ShippingAddress { get; private set; }
+    public CartStatus Status { get; private set; } = CartStatus.Active;
+    public Address BillingAddress { get; private set; } = default!;
+    public Address ShippingAddress { get; private set; } = default!;
     private bool ShippingAndBillingAddressesAreSame { get; set; } = true;
 
     public decimal Total

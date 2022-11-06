@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions.Projections;
+using Contracts.DataTransferObjects;
 using Contracts.Services.ShoppingCart;
 using Domain.Enumerations;
 using MassTransit;
@@ -64,8 +65,8 @@ public class ProjectCartWhenChangedConsumer :
         Projection.ShoppingCart shoppingCart = new(
             context.Message.CartId,
             context.Message.CustomerId,
-            default,
-            default,
+            null,
+            null,
             context.Message.Status,
             default,
             false);
