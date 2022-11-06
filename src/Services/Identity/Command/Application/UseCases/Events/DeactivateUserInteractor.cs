@@ -1,4 +1,4 @@
-using Application.Abstractions.Interactors;
+using Application.Abstractions;
 using Application.Services;
 using Contracts.Services.Identity;
 using Domain.Aggregates;
@@ -8,17 +8,17 @@ namespace Application.UseCases.Events;
 
 public class DeactivateUserInteractor : IInteractor<DomainEvent.AccountDeactivated>
 {
-    private readonly IApplicationService _applicationService;
+    private readonly IApplicationService _service;
 
-    public DeactivateUserInteractor(IApplicationService applicationService)
+    public DeactivateUserInteractor(IApplicationService service)
     {
-        _applicationService = applicationService;
+        _service = service;
     }
 
-    public async Task InteractAsync(DomainEvent.AccountDeactivated message, CancellationToken cancellationToken)
+    public async Task InteractAsync(DomainEvent.AccountDeactivated @event, CancellationToken cancellationToken)
     {
-        var aggregate = await _applicationService.LoadAggregateAsync<User>(message.AccountId, cancellationToken);
+        var aggregate = await _service.LoadAggregateAsync<User>(@event.AccountId, cancellationToken);
         aggregate.Handle(new Command.DeleteUser(aggregate.Id));
-        await _applicationService.AppendEventsAsync(aggregate, cancellationToken);
+        await _service.AppendEventsAsync(aggregate, cancellationToken);
     }
 }

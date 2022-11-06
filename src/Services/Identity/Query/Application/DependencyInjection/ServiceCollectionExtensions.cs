@@ -1,10 +1,10 @@
-using Application.Abstractions.UseCases;
+using Application.Abstractions;
 using Application.UseCases.Events;
 using Application.UseCases.Queries;
 using Contracts.Services.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Application.DependencyInjection.Extensions;
+namespace Application.DependencyInjection;
 
 public static class ServiceCollectionExtensions
 {

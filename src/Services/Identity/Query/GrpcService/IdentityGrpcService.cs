@@ -1,4 +1,4 @@
-using Application.Abstractions.UseCases;
+using Application.Abstractions;
 using Contracts.Query;
 using Contracts.Services.Identity;
 using Grpc.Core;

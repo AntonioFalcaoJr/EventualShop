@@ -1,5 +1,5 @@
 using System.Reflection;
-using Application.DependencyInjection.Extensions;
+using Application.DependencyInjection;
 using GrpcService;
 using Infrastructure.Authentication.DependencyInjection.Extensions;
 using Infrastructure.Authentication.DependencyInjection.Options;

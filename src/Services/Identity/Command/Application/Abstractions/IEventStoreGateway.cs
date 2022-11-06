@@ -1,6 +1,6 @@
 using Domain.Abstractions.Aggregates;
 
-namespace Application.Abstractions.Gateways;
+namespace Application.Abstractions;
 
 public interface IEventStoreGateway
 {

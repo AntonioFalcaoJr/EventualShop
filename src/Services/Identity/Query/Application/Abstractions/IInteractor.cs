@@ -1,7 +1,7 @@
 using Contracts.Abstractions;
 using Contracts.Abstractions.Messages;
 
-namespace Application.Abstractions.UseCases;
+namespace Application.Abstractions;
 
 public interface IInteractor<in TEvent>
     where TEvent : IEvent

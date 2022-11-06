@@ -1,4 +1,4 @@
-using Application.Abstractions.Interactors;
+using Application.Abstractions;
 using Application.Services;
 using Application.UseCases.Commands;
 using Application.UseCases.Events;
@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Account = Contracts.Services.Account;
 using Identity = Contracts.Services.Identity;
 
-namespace Application.DependencyInjection.Extensions;
+namespace Application.DependencyInjection;
 
 public static class ServiceCollectionExtensions
 {

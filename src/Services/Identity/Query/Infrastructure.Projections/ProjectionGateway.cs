@@ -1,5 +1,5 @@
 using System.Linq.Expressions;
-using Application.Abstractions.Projections;
+using Application.Abstractions;
 using Contracts.Abstractions;
 using Contracts.Abstractions.Paging;
 using Infrastructure.Projections.Abstractions.Contexts;
@@ -9,12 +9,12 @@ using MongoDB.Driver.Linq;
 
 namespace Infrastructure.Projections;
 
-public class ProjectionRepository<TProjection> : IProjectionRepository<TProjection>
+public class ProjectionGateway<TProjection> : IProjectionGateway<TProjection>
     where TProjection : IProjection
 {
     private readonly IMongoCollection<TProjection> _collection;
 
-    public ProjectionRepository(IMongoDbContext context)
+    public ProjectionGateway(IMongoDbContext context)
     {
         _collection = context.GetCollection<TProjection>();
     }

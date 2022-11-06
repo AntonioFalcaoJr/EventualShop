@@ -1,4 +1,4 @@
-using Application.Abstractions.Projections;
+using Application.Abstractions;
 using Infrastructure.Projections.Abstractions.Contexts;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson;
@@ -11,7 +11,7 @@ public static class ServiceCollectionExtensions
 {
     public static void AddProjections(this IServiceCollection services)
     {
-        services.AddScoped(typeof(IProjectionRepository<>), typeof(ProjectionRepository<>));
+        services.AddScoped(typeof(IProjectionGateway<>), typeof(ProjectionGateway<>));
         services.AddScoped<IMongoDbContext, ProjectionDbContext>();
         BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.CSharpLegacy));
     }

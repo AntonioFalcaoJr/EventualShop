@@ -1,4 +1,4 @@
-﻿using Application.Abstractions.Interactors;
+﻿using Application.Abstractions;
 using Application.Services;
 using Contracts.Services.Identity;
 using Domain.Aggregates;
@@ -7,17 +7,17 @@ namespace Application.UseCases.Events;
 
 public class ExpireEmailInteractor : IInteractor<DelayedEvent.EmailConfirmationExpired>
 {
-    private readonly IApplicationService _applicationService;
+    private readonly IApplicationService _service;
 
-    public ExpireEmailInteractor(IApplicationService applicationService)
+    public ExpireEmailInteractor(IApplicationService service)
     {
-        _applicationService = applicationService;
+        _service = service;
     }
 
-    public async Task InteractAsync(DelayedEvent.EmailConfirmationExpired message, CancellationToken cancellationToken)
+    public async Task InteractAsync(DelayedEvent.EmailConfirmationExpired @event, CancellationToken cancellationToken)
     {
-        var aggregate = await _applicationService.LoadAggregateAsync<User>(message.UserId, cancellationToken);
-        aggregate.Handle(new Command.ExpiryEmail(aggregate.Id, message.Email));
-        await _applicationService.AppendEventsAsync(aggregate, cancellationToken);
+        var aggregate = await _service.LoadAggregateAsync<User>(@event.UserId, cancellationToken);
+        aggregate.Handle(new Command.ExpiryEmail(aggregate.Id, @event.Email));
+        await _service.AppendEventsAsync(aggregate, cancellationToken);
     }
 }

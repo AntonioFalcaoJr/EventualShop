@@ -2,9 +2,9 @@ using System.Linq.Expressions;
 using Contracts.Abstractions;
 using Contracts.Abstractions.Paging;
 
-namespace Application.Abstractions.Projections;
+namespace Application.Abstractions;
 
-public interface IProjectionRepository<TProjection>
+public interface IProjectionGateway<TProjection>
     where TProjection : IProjection
 {
     Task<TProjection> FindAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken);

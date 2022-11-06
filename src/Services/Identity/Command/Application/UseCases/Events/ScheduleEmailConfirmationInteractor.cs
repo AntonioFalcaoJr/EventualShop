@@ -1,5 +1,4 @@
-﻿using Application.Abstractions.Gateways;
-using Application.Abstractions.Interactors;
+﻿using Application.Abstractions;
 using Contracts.Services.Identity;
 
 namespace Application.UseCases.Events;
