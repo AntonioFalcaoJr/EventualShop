@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package Contracts.Services.Account.Grpc;
+
+service AccountService {
+  rpc GetAccount(GetAccountRequest) returns (AccountResponse);
+}
+
+message GetAccountRequest {
+  string Id = 1;
+}
+
+message AccountResponse {
+  string Id = 1;
+}

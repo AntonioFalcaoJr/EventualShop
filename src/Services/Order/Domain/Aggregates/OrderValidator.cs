@@ -1,10 +1,9 @@
-﻿using Domain.Abstractions.Validators;
-using Domain.Entities.OrderItems;
+﻿using Domain.Entities.OrderItems;
 using FluentValidation;
 
 namespace Domain.Aggregates;
 
-public class OrderValidator : EntityValidator<Order, Guid>
+public class OrderValidator : AbstractValidator<Order>
 {
     public OrderValidator()
     {

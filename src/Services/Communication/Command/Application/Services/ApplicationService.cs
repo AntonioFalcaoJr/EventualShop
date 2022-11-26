@@ -26,7 +26,7 @@ public class ApplicationService : IApplicationService
     public Task AppendEventsAsync(IAggregateRoot aggregate, CancellationToken cancellationToken)
         => _unitOfWork.ExecuteAsync(async ct =>
         {
-            await _eventStoreGateway.AppendEventsAsync(aggregate, ct);
-            await _eventBusGateway.PublishAsync(aggregate.Events.Select(tuple => tuple.@event), ct);
+            await _eventStoreGateway.AppendEventsAsync(aggregate, cancellationToken);
+            await _eventBusGateway.PublishAsync(aggregate.Events.Select(tuple => tuple.@event), cancellationToken);
         }, cancellationToken);
 }

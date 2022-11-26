@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package contracts.query;
+package Contracts.Services.Identity.Grpc;
 
 service IdentityService {
   rpc Login(LoginRequest) returns (LoginResponse);

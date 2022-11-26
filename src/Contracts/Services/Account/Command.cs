@@ -5,7 +5,7 @@ namespace Contracts.Services.Account;
 
 public static class Command
 {
-    public record CreateAccount(Guid AccountId, string FirstName, string LastName, string Email) : Message, ICommand;
+    public record CreateAccount(string FirstName, string LastName, string Email) : Message, ICommand;
 
     public record AddShippingAddress(Guid AccountId, Dto.Address Address) : Message, ICommand;
 

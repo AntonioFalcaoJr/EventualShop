@@ -1,5 +1,5 @@
 ﻿using Contracts.JsonConverters;
-using Contracts.Query;
+using Contracts.Services.Identity.Grpc;
 using MassTransit;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;

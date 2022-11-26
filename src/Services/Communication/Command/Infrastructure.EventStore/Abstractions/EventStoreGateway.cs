@@ -26,11 +26,11 @@ public class EventStoreGateway : IEventStoreGateway
         }
     }
 
-    public async Task<IAggregateRoot> LoadAggregateAsync<TAggregate>(Guid aggregateId, CancellationToken ct)
+    public async Task<IAggregateRoot> LoadAggregateAsync<TAggregate>(Guid aggregateId, CancellationToken cancellationToken)
         where TAggregate : IAggregateRoot, new()
     {
-        var snapshot = await _repository.GetSnapshotAsync(aggregateId, ct);
-        var events = await _repository.GetStreamAsync(aggregateId, snapshot?.AggregateVersion ?? default, ct);
+        var snapshot = await _repository.GetSnapshotAsync(aggregateId, cancellationToken);
+        var events = await _repository.GetStreamAsync(aggregateId, snapshot?.AggregateVersion ?? default, cancellationToken);
         return snapshot?.Aggregate?.Load(events) ?? new TAggregate().Load(events);
     }
 

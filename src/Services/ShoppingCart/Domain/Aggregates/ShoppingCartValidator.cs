@@ -1,12 +1,11 @@
-﻿using Domain.Abstractions.Validators;
-using Domain.Entities.CartItems;
+﻿using Domain.Entities.CartItems;
 using Domain.Entities.PaymentMethods;
 using Domain.ValueObjects.Addresses;
 using FluentValidation;
 
 namespace Domain.Aggregates;
 
-public class ShoppingCartValidator : EntityValidator<ShoppingCart, Guid>
+public class ShoppingCartValidator : AbstractValidator<ShoppingCart>
 {
     public ShoppingCartValidator()
     {

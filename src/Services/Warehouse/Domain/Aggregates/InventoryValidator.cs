@@ -1,9 +1,8 @@
-﻿using Domain.Abstractions.Validators;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Domain.Aggregates;
 
-public class InventoryValidator : EntityValidator<Inventory, Guid>
+public class InventoryValidator : AbstractValidator<Inventory>
 {
     public InventoryValidator()
     {

@@ -43,13 +43,13 @@ public static class ApplicationApi
         => GetResponseAsync<TQuery, IPagedResult<TProjection>>(bus, query, cancellationToken);
 
     private static async Task<Results<Ok<TProjection>, NoContent, NotFound, Problem>> GetResponseAsync<TQuery, TProjection>
-        (IBus bus, TQuery query, CancellationToken ct)
+        (IBus bus, TQuery query, CancellationToken cancellationToken)
         where TQuery : class, IQuery
         where TProjection : class
     {
         var response = await bus
             .CreateRequestClient<TQuery>(Address<TQuery>())
-            .GetResponse<TProjection, Reply.NoContent, Reply.NotFound>(query, ct);
+            .GetResponse<TProjection, Reply.NoContent, Reply.NotFound>(query, cancellationToken);
 
         return response.Message switch
         {

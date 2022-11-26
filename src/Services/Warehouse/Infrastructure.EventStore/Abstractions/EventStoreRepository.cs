@@ -27,39 +27,39 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
     public async Task AppendEventsAsync(
         IEnumerable<TStoreEvent> events,
         Func<long, CancellationToken, Task> onEventStored,
-        CancellationToken ct)
+        CancellationToken cancellationToken)
     {
         foreach (var @event in events)
         {
-            await AppendEventAsync(@event, ct);
-            await onEventStored(@event.Version, ct);
+            await AppendEventAsync(@event, cancellationToken);
+            await onEventStored(@event.Version, cancellationToken);
         }
     }
 
-    public async Task AppendEventAsync(TStoreEvent storeEvent, CancellationToken ct)
+    public async Task AppendEventAsync(TStoreEvent storeEvent, CancellationToken cancellationToken)
     {
-        await _storeEvents.AddAsync(storeEvent, ct);
-        await _dbContext.SaveChangesAsync(ct);
+        await _storeEvents.AddAsync(storeEvent, cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task AppendSnapshotAsync(TSnapshot snapshot, CancellationToken ct)
+    public async Task AppendSnapshotAsync(TSnapshot snapshot, CancellationToken cancellationToken)
     {
-        await _snapshots.AddAsync(snapshot, ct);
-        await _dbContext.SaveChangesAsync(ct);
+        await _snapshots.AddAsync(snapshot, cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public Task<List<IEvent?>> GetStreamAsync(TId aggregateId, long version, CancellationToken ct)
+    public Task<List<IEvent?>> GetStreamAsync(TId aggregateId, long version, CancellationToken cancellationToken)
         => _storeEvents
             .AsNoTracking()
             .Where(@event => @event.AggregateId.Equals(aggregateId))
             .Where(@event => @event.Version > version)
             .Select(@event => @event.DomainEvent)
-            .ToListAsync(ct);
+            .ToListAsync(cancellationToken);
 
-    public Task<TSnapshot?> GetSnapshotAsync(TId aggregateId, CancellationToken ct)
+    public Task<TSnapshot?> GetSnapshotAsync(TId aggregateId, CancellationToken cancellationToken)
         => _snapshots
             .AsNoTracking()
             .Where(snapshot => snapshot.AggregateId.Equals(aggregateId))
             .OrderByDescending(snapshot => snapshot.AggregateVersion)
-            .FirstOrDefaultAsync(ct);
+            .FirstOrDefaultAsync(cancellationToken);
 }

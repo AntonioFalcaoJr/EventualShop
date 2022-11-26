@@ -12,20 +12,20 @@ public class UnitOfWork : IUnitOfWork
         => _dbContext = dbContext;
 
     public Task ExecuteAsync(Func<CancellationToken, Task> operationAsync, CancellationToken cancellationToken)
-        => CreateExecutionStrategy().ExecuteAsync(ct => ExecuteTransactionAsync(operationAsync, ct), cancellationToken);
+        => CreateExecutionStrategy().ExecuteAsync(ct => ExecuteTransactionAsync(operationAsync, cancellationToken), cancellationToken);
 
-    public Task CommitAsync(CancellationToken ct)
-        => _dbContext.SaveChangesAsync(ct);
+    public Task CommitAsync(CancellationToken cancellationToken)
+        => _dbContext.SaveChangesAsync(cancellationToken);
 
-    private async Task ExecuteTransactionAsync(Func<CancellationToken, Task> operationAsync, CancellationToken ct)
+    private async Task ExecuteTransactionAsync(Func<CancellationToken, Task> operationAsync, CancellationToken cancellationToken)
     {
-        await using var transaction = await BeginTransactionAsync(ct);
-        await operationAsync(ct);
-        await transaction.CommitAsync(ct);
+        await using var transaction = await BeginTransactionAsync(cancellationToken);
+        await operationAsync(cancellationToken);
+        await transaction.CommitAsync(cancellationToken);
     }
 
-    private Task<IDbContextTransaction> BeginTransactionAsync(CancellationToken ct)
-        => _dbContext.Database.BeginTransactionAsync(ct);
+    private Task<IDbContextTransaction> BeginTransactionAsync(CancellationToken cancellationToken)
+        => _dbContext.Database.BeginTransactionAsync(cancellationToken);
 
     private IExecutionStrategy CreateExecutionStrategy()
         => _dbContext.Database.CreateExecutionStrategy();
