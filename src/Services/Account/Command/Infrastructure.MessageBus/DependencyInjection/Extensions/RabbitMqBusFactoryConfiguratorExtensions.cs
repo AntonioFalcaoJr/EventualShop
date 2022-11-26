@@ -10,10 +10,6 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistrationContext context)
     {
-        ConfigureEventReceiveEndpoint<AccountDeactivatedConsumer, Account.DomainEvent.AccountDeactivated>(cfg, context);
-        ConfigureEventReceiveEndpoint<AccountDeletedConsumer, Account.DomainEvent.AccountDeleted>(cfg, context);
-        ConfigureEventReceiveEndpoint<EmailConfirmationExpiredConsumer, Identity.DelayedEvent.EmailConfirmationExpired>(cfg, context);
-        ConfigureEventReceiveEndpoint<EmailConfirmedConsumer, Identity.DomainEvent.EmailConfirmed>(cfg, context);
         ConfigureEventReceiveEndpoint<UserRegisteredConsumer, Identity.DomainEvent.UserRegistered>(cfg, context);
     }
 
@@ -21,7 +17,7 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
         where TConsumer : class, IConsumer
         where TEvent : class, IEvent
         => bus.ReceiveEndpoint(
-            queueName: $"identity.{typeof(TConsumer).ToKebabCaseString()}.{typeof(TEvent).ToKebabCaseString()}",
+            queueName: $"account.command.{typeof(TConsumer).ToKebabCaseString()}.{typeof(TEvent).ToKebabCaseString()}",
             configureEndpoint: endpoint =>
             {
                 endpoint.ConfigureConsumeTopology = false;

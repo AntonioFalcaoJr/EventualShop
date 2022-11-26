@@ -7,17 +7,17 @@ namespace Application.UseCases.Commands;
 
 public class AddShippingAddressInteractor : IInteractor<Command.AddShippingAddress>
 {
-    private readonly IApplicationService _service;
+    private readonly IApplicationService _applicationService;
 
-    public AddShippingAddressInteractor(IApplicationService service)
+    public AddShippingAddressInteractor(IApplicationService applicationService)
     {
-        _service = service;
+        _applicationService = applicationService;
     }
 
     public async Task InteractAsync(Command.AddShippingAddress command, CancellationToken cancellationToken)
     {
-        var account = await _service.LoadAggregateAsync<Account>(command.AccountId, cancellationToken);
+        var account = await _applicationService.LoadAggregateAsync<Account>(command.AccountId, cancellationToken);
         account.Handle(command);
-        await _service.AppendEventsAsync(account, cancellationToken);
+        await _applicationService.AppendEventsAsync(account, cancellationToken);
     }
 }

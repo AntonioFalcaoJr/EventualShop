@@ -3,6 +3,8 @@ using Application.DependencyInjection.Extensions;
 using Infrastructure.EventStore.Contexts;
 using Infrastructure.EventStore.DependencyInjection.Extensions;
 using Infrastructure.EventStore.DependencyInjection.Options;
+using Infrastructure.MessageBus.DependencyInjection.Extensions;
+using Infrastructure.MessageBus.DependencyInjection.Options;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -36,12 +38,12 @@ builder.ConfigureLogging((context, logging) =>
 builder.ConfigureServices((context, services) =>
 {
     services.AddEventStore();
-    // services.AddMessageBus();
-    // services.AddEventBusGateway();
-    //services.AddApplicationServices();
+    services.AddMessageBus();
+    services.AddEventBusGateway();
+    services.AddApplicationServices();
     services.AddCommandInteractors();
-    //services.AddEventInteractors();
-    // services.AddMessageValidators();
+    services.AddEventInteractors();
+    services.AddMessageValidators();
 
     services.ConfigureEventStoreOptions(
         context.Configuration.GetSection(nameof(EventStoreOptions)));
@@ -49,11 +51,11 @@ builder.ConfigureServices((context, services) =>
     services.ConfigureSqlServerRetryOptions(
         context.Configuration.GetSection(nameof(SqlServerRetryOptions)));
 
-    // services.ConfigureMessageBusOptions(
-    //     context.Configuration.GetSection(nameof(MessageBusOptions)));
-    //
-    // services.ConfigureMassTransitHostOptions(
-    //     context.Configuration.GetSection(nameof(MassTransitHostOptions)));
+    services.ConfigureMessageBusOptions(
+        context.Configuration.GetSection(nameof(MessageBusOptions)));
+    
+    services.ConfigureMassTransitHostOptions(
+        context.Configuration.GetSection(nameof(MassTransitHostOptions)));
 });
 
 using var host = builder.Build();
