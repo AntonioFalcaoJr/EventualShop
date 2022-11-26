@@ -5,7 +5,7 @@
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\..\..\Contracts\Contracts.csproj" />
-        <ProjectReference Include="..\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj" />
+        <ProjectReference Include="..\Infrastructure.EventBus\Infrastructure.EventBus.csproj" />
         <ProjectReference Include="..\Infrastructure.Projections\Infrastructure.Projections.csproj" />
     </ItemGroup>
 </Project>

@@ -1,8 +1,8 @@
 using System.Reflection;
 using Application.DependencyInjection;
 using GrpcService;
-using Infrastructure.MessageBus.DependencyInjection.Extensions;
-using Infrastructure.MessageBus.DependencyInjection.Options;
+using Infrastructure.EventBus.DependencyInjection.Extensions;
+using Infrastructure.EventBus.DependencyInjection.Options;
 using Infrastructure.Projections.DependencyInjection.Extensions;
 using MassTransit;
 using Microsoft.AspNetCore.HttpLogging;

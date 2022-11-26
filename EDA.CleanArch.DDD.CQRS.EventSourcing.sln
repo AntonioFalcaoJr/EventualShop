@@ -121,8 +121,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.MessageBus", "src\Services\Identity\Command\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj", "{DBFCE440-70FC-4486-B8D3-30EBD99AB3BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.MessageBus", "src\Services\Identity\Query\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj", "{0BC5FDCB-AC39-4D65-AFB9-39E6786280A2}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Communication", "Communication", "{1AB6524D-1F2A-4BE1-BC48-DA1B107A7A50}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Command", "Command", "{E62C6B98-B9BF-42EA-A0D1-2CE6255095C7}"
@@ -157,7 +155,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcService", "src\Services\Account\Query\GrpcService\GrpcService.csproj", "{2C34D768-992D-47E1-8738-BAE5D77D2F57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.MessageBus", "src\Services\Account\Query\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj", "{79953D9C-1175-4A98-87A9-FAF35EC2C9E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventBus", "src\Services\Account\Query\Infrastructure.EventBus\Infrastructure.EventBus.csproj", "{79953D9C-1175-4A98-87A9-FAF35EC2C9E3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Projections", "src\Services\Account\Query\Infrastructure.Projections\Infrastructure.Projections.csproj", "{6096FB68-664E-42ED-A34F-D2C486B493B6}"
 EndProject
@@ -166,6 +164,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventStore", "src\Services\Account\Command\Infrastructure.EventStore\Infrastructure.EventStore.csproj", "{B5085BB2-0639-493C-9778-A2BC531B7B57}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.MessageBus", "src\Services\Account\Command\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj", "{A870AAA9-D01D-46A7-B5F4-997D248AD867}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventBus", "src\Services\Identity\Query\Infrastructure.EventBus\Infrastructure.EventBus.csproj", "{BB30A256-761A-403B-8FDC-C8E23F0A7880}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -352,10 +352,6 @@ Global
 		{DBFCE440-70FC-4486-B8D3-30EBD99AB3BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBFCE440-70FC-4486-B8D3-30EBD99AB3BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBFCE440-70FC-4486-B8D3-30EBD99AB3BD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0BC5FDCB-AC39-4D65-AFB9-39E6786280A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0BC5FDCB-AC39-4D65-AFB9-39E6786280A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0BC5FDCB-AC39-4D65-AFB9-39E6786280A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0BC5FDCB-AC39-4D65-AFB9-39E6786280A2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6A3E02DE-93E1-4FB2-8053-2B2AB09F63B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6A3E02DE-93E1-4FB2-8053-2B2AB09F63B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A3E02DE-93E1-4FB2-8053-2B2AB09F63B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -420,6 +416,10 @@ Global
 		{A870AAA9-D01D-46A7-B5F4-997D248AD867}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A870AAA9-D01D-46A7-B5F4-997D248AD867}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A870AAA9-D01D-46A7-B5F4-997D248AD867}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB30A256-761A-403B-8FDC-C8E23F0A7880}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB30A256-761A-403B-8FDC-C8E23F0A7880}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB30A256-761A-403B-8FDC-C8E23F0A7880}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB30A256-761A-403B-8FDC-C8E23F0A7880}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4E404E16-E8CB-4A01-B42E-C1E624D12A49} = {A8107F9C-AC86-4467-8685-A17633E86715}
@@ -479,7 +479,6 @@ Global
 		{31CF2B68-25D6-4297-A096-A4ADE022B935} = {85BCE38C-1558-40E2-A4B8-580FD4505D07}
 		{4EF1866F-BB93-465C-B721-6CF35970E6DB} = {85BCE38C-1558-40E2-A4B8-580FD4505D07}
 		{DBFCE440-70FC-4486-B8D3-30EBD99AB3BD} = {168698C8-1497-48A1-98B0-DAB157D5250E}
-		{0BC5FDCB-AC39-4D65-AFB9-39E6786280A2} = {85BCE38C-1558-40E2-A4B8-580FD4505D07}
 		{1AB6524D-1F2A-4BE1-BC48-DA1B107A7A50} = {4E404E16-E8CB-4A01-B42E-C1E624D12A49}
 		{E62C6B98-B9BF-42EA-A0D1-2CE6255095C7} = {1AB6524D-1F2A-4BE1-BC48-DA1B107A7A50}
 		{6A3E02DE-93E1-4FB2-8053-2B2AB09F63B0} = {E62C6B98-B9BF-42EA-A0D1-2CE6255095C7}
@@ -502,5 +501,6 @@ Global
 		{FC499A86-54E6-4645-A9B0-B3E04078A57A} = {4BF940D9-CC56-4B57-ADE3-C1A5C28BB0DD}
 		{B5085BB2-0639-493C-9778-A2BC531B7B57} = {4BF940D9-CC56-4B57-ADE3-C1A5C28BB0DD}
 		{A870AAA9-D01D-46A7-B5F4-997D248AD867} = {4BF940D9-CC56-4B57-ADE3-C1A5C28BB0DD}
+		{BB30A256-761A-403B-8FDC-C8E23F0A7880} = {85BCE38C-1558-40E2-A4B8-580FD4505D07}
 	EndGlobalSection
 EndGlobal
