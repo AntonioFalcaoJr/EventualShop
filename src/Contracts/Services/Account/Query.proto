@@ -4,6 +4,8 @@ package Contracts.Services.Account.Grpc;
 
 service AccountService {
   rpc GetAccount(GetAccountRequest) returns (AccountResponse);
+  rpc ListAccounts(ListAccountsRequest) returns (ListAccountsResponse);
+  rpc ListAddresses(ListAddressesRequest) returns (ListAddressesResponse);
 }
 
 message GetAccountRequest {
@@ -12,4 +14,28 @@ message GetAccountRequest {
 
 message AccountResponse {
   string Id = 1;
+}
+
+message ListAccountsRequest {
+  uint64 Limit = 1;
+  uint64 Offset = 2;
+}
+
+message ListAccountsResponse {
+  repeated AccountResponse Accounts = 1;
+}
+
+message ListAddressesRequest {
+  string AccountId = 1;
+  uint64 Limit = 2;
+  uint64 Offset = 3;
+}
+
+message AddressResponse {
+  string Id = 1;
+  string AccountId = 2;
+}
+
+message ListAddressesResponse {
+  repeated AddressResponse Addresses = 1;
 }

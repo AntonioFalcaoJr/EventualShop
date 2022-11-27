@@ -26,10 +26,11 @@ public static class Requests
             => new Command.AddBillingAddress(AccountId, Address);
     }
 
-    public record struct ListAddresses(IBus Bus, Guid AccountId, ushort? Limit, ushort? Offset, CancellationToken CancellationToken)
+    public record ListAddresses(AccountService.AccountServiceClient Client, Guid AccountId, ushort? Limit, ushort? Offset, CancellationToken CancellationToken)
+        : Validatable<ListAddressesValidator>, IQueryRequest<AccountService.AccountServiceClient>
     {
-        public static implicit operator Query.ListAddresses(ListAddresses request)
-            => new(request.AccountId, request.Limit ?? 0, request.Offset ?? 0);
+        public static implicit operator ListAddressesRequest(ListAddresses request)
+            => new() { AccountId = request.AccountId.ToString(), Limit = request.Limit ?? default, Offset = request.Offset ?? default };
     }
 
     public record DeleteAccount(IBus Bus, Guid AccountId, CancellationToken CancellationToken)
@@ -40,15 +41,16 @@ public static class Requests
     }
 
     public record GetAccount(AccountService.AccountServiceClient Client, Guid AccountId, CancellationToken CancellationToken)
-        : Validatable<SignInValidator>, IQueryRequest<AccountService.AccountServiceClient>
+        : Validatable<GetAccountValidator>, IQueryRequest<AccountService.AccountServiceClient>
     {
         public static implicit operator GetAccountRequest(GetAccount request)
             => new() { Id = request.AccountId.ToString() };
     }
 
-    public record struct ListAccounts(IBus Bus, ushort? Limit, ushort? Offset, CancellationToken CancellationToken)
+    public record ListAccounts(AccountService.AccountServiceClient Client, ushort? Limit, ushort? Offset, CancellationToken CancellationToken)
+        : Validatable<ListAccountsValidator>, IQueryRequest<AccountService.AccountServiceClient>
     {
-        public static implicit operator Query.ListAccounts(ListAccounts request)
-            => new(request.Limit ?? 0, request.Offset ?? 0);
+        public static implicit operator ListAccountsRequest(ListAccounts request)
+            => new() { Limit = request.Limit ?? default, Offset = request.Offset ?? default };
     }
 }

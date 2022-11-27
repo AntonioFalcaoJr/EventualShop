@@ -8,16 +8,16 @@ public static class AccountApi
     public static RouteGroupBuilder MapAccountApi(this RouteGroupBuilder group)
     {
         group.MapGet("/", ([AsParameters] Requests.ListAccounts request)
-            => ApplicationApi.GetPagedProjectionAsync<Query.ListAccounts, Projection.AccountDetails>(request.Bus, request, request.CancellationToken));
+            => ApplicationApi.QueryAsync(request, (client, cancellationToken) => client.ListAccountsAsync(request, cancellationToken: cancellationToken)));
 
         group.MapGet("/{accountId:guid}", ([AsParameters] Requests.GetAccount request)
             => ApplicationApi.QueryAsync(request, (client, cancellationToken) => client.GetAccountAsync(request, cancellationToken: cancellationToken)));
-        
+
         group.MapDelete("/{accountId:guid}", ([AsParameters] Requests.DeleteAccount request)
             => ApplicationApi.SendCommandAsync<Command.DeleteAccount>(request));
 
         group.MapGet("/{accountId:guid}/profiles/address", ([AsParameters] Requests.ListAddresses request)
-            => ApplicationApi.GetPagedProjectionAsync<Query.ListAddresses, Projection.AddressListItem>(request.Bus, request, request.CancellationToken));
+            => ApplicationApi.QueryAsync(request, (client, cancellationToken) => client.ListAddressesAsync(request, cancellationToken: cancellationToken)));
 
         group.MapPut("/{accountId:guid}/profiles/billing-address", ([AsParameters] Requests.AddBillingAddress request)
             => ApplicationApi.SendCommandAsync<Command.AddBillingAddress>(request));
