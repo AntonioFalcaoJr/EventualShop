@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Infrastructure.EventBus.DependencyInjection.Options;
 
-public abstract record EventBusOptions
+public record EventBusOptions
 {
     [Required] public Uri? ConnectionString { get; init; }
     [Required, Range(1, 10)] public int RetryLimit { get; init; }

@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions;
+using Contracts.Abstractions.Messages;
 using Domain.Abstractions.Aggregates;
 
 namespace Application.Services;
@@ -27,8 +28,11 @@ public class ApplicationService : IApplicationService
         => _unitOfWork.ExecuteAsync(
             operationAsync: async ct =>
             {
-                await _eventStoreGateway.AppendEventsAsync(aggregate, cancellationToken);
-                await _eventBusGateway.PublishAsync(aggregate.Events.Select(tuple => tuple.@event), cancellationToken);
+                await _eventStoreGateway.AppendEventsAsync(aggregate, ct);
+                await _eventBusGateway.PublishAsync(aggregate.Events.Select(tuple => tuple.@event), ct);
             },
             cancellationToken: cancellationToken);
+
+    public Task SchedulePublishAsync(DateTimeOffset scheduledTime, IEvent @event, CancellationToken cancellationToken)
+        => _eventBusGateway.SchedulePublishAsync(scheduledTime, @event, cancellationToken);
 }

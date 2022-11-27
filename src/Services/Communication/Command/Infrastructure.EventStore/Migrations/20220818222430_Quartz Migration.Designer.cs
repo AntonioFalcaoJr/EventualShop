@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.EventStore.Migrations
 {
     [DbContext(typeof(EventStoreDbContext))]
-    [Migration("20220818222428_Quartz Migration")]
+    [Migration("20220818222430_Quartz Migration")]
     partial class QuartzMigration
     {
         /// <inheritdoc />

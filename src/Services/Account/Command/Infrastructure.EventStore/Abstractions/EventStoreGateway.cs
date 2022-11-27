@@ -31,7 +31,7 @@ public class EventStoreGateway : IEventStoreGateway
     {
         var snapshot = await _repository.GetSnapshotAsync(aggregateId, cancellationToken);
         var events = await _repository.GetStreamAsync(aggregateId, snapshot?.AggregateVersion ?? default, cancellationToken);
-        return snapshot?.Aggregate?.Load(events) ?? new TAggregate().Load(events);
+        return snapshot?.Aggregate.Load(events) ?? new TAggregate().Load(events);
     }
 
     private async Task AppendSnapshotAsync(IAggregateRoot aggregate, long version, CancellationToken cancellationToken)

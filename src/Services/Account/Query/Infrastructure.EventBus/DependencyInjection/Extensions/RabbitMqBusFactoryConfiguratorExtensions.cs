@@ -1,5 +1,5 @@
 ﻿using Contracts.Abstractions.Messages;
-using Contracts.Services.Identity;
+using Contracts.Services.Account;
 using Infrastructure.EventBus.Consumers;
 using MassTransit;
 
@@ -9,9 +9,10 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistrationContext context)
     {
-        cfg.ConfigureEventReceiveEndpoint<UserDeletedConsumer, DomainEvent.UserDeleted>(context);
-        cfg.ConfigureEventReceiveEndpoint<UserRegisteredConsumer, DomainEvent.UserRegistered>(context);
-        cfg.ConfigureEventReceiveEndpoint<UserPasswordChangedConsumer, DomainEvent.PasswordChanged>(context);
+        cfg.ConfigureEventReceiveEndpoint<AccountCreatedConsumer, DomainEvent.AccountCreated>(context);
+        cfg.ConfigureEventReceiveEndpoint<AccountDeletedConsumer, DomainEvent.AccountDeleted>(context);
+        cfg.ConfigureEventReceiveEndpoint<BillingAddressAddedConsumer, DomainEvent.BillingAddressAdded>(context);
+        cfg.ConfigureEventReceiveEndpoint<ShippingAddressAddedConsumer, DomainEvent.ShippingAddressAdded>(context);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistrationContext context)

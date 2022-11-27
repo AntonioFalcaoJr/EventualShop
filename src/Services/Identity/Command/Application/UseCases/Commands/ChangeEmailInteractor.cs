@@ -7,17 +7,17 @@ namespace Application.UseCases.Commands;
 
 public class ChangeEmailInteractor : IInteractor<Command.ChangeEmail>
 {
-    private readonly IApplicationService _service;
+    private readonly IApplicationService _applicationService;
 
-    public ChangeEmailInteractor(IApplicationService service)
+    public ChangeEmailInteractor(IApplicationService applicationService)
     {
-        _service = service;
+        _applicationService = applicationService;
     }
 
     public async Task InteractAsync(Command.ChangeEmail command, CancellationToken cancellationToken)
     {
-        var aggregate = await _service.LoadAggregateAsync<User>(command.UserId, cancellationToken);
+        var aggregate = await _applicationService.LoadAggregateAsync<User>(command.UserId, cancellationToken);
         aggregate.Handle(command);
-        await _service.AppendEventsAsync(aggregate, cancellationToken);
+        await _applicationService.AppendEventsAsync(aggregate, cancellationToken);
     }
 }
