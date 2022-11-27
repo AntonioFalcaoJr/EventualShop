@@ -13,23 +13,23 @@ COPY ./Directory.Build.props ./
 
 WORKDIR /src
 
-COPY ./src/Services/Identity/Command/Application/*.csproj ./Services/Identity/Command/Application/
-COPY ./src/Services/Identity/Command/Domain/*.csproj ./Services/Identity/Command/Domain/
-COPY ./src/Services/Identity/Command/Infrastructure.EventStore/*.csproj ./Services/Identity/Command/Infrastructure.EventStore/
-COPY ./src/Services/Identity/Command/Infrastructure.MessageBus/*.csproj ./Services/Identity/Command/Infrastructure.MessageBus/
-COPY ./src/Services/Identity/Command/WorkerService/*.csproj ./Services/Identity/Command/WorkerService/
+COPY ./src/Services/Account/Command/Application/*.csproj ./Services/Account/Command/Application/
+COPY ./src/Services/Account/Command/Domain/*.csproj ./Services/Account/Command/Domain/
+COPY ./src/Services/Account/Command/Infrastructure.EventStore/*.csproj ./Services/Account/Command/Infrastructure.EventStore/
+COPY ./src/Services/Account/Command/Infrastructure.MessageBus/*.csproj ./Services/Account/Command/Infrastructure.MessageBus/
+COPY ./src/Services/Account/Command/WorkerService/*.csproj ./Services/Account/Command/WorkerService/
 COPY ./src/Contracts/*.csproj ./Contracts/
 
-RUN dotnet restore -v m ./Services/Identity/Command/WorkerService
+RUN dotnet restore -v m ./Services/Account/Command/WorkerService
 
-COPY ./src/Services/Identity/Command/Application/. ./Services/Identity/Command/Application/
-COPY ./src/Services/Identity/Command/Domain/. ./Services/Identity/Command/Domain/
-COPY ./src/Services/Identity/Command/Infrastructure.EventStore/. ./Services/Identity/Command/Infrastructure.EventStore/
-COPY ./src/Services/Identity/Command/Infrastructure.MessageBus/. ./Services/Identity/Command/Infrastructure.MessageBus/
-COPY ./src/Services/Identity/Command/WorkerService/. ./Services/Identity/Command/WorkerService/
+COPY ./src/Services/Account/Command/Application/. ./Services/Account/Command/Application/
+COPY ./src/Services/Account/Command/Domain/. ./Services/Account/Command/Domain/
+COPY ./src/Services/Account/Command/Infrastructure.EventStore/. ./Services/Account/Command/Infrastructure.EventStore/
+COPY ./src/Services/Account/Command/Infrastructure.MessageBus/. ./Services/Account/Command/Infrastructure.MessageBus/
+COPY ./src/Services/Account/Command/WorkerService/. ./Services/Account/Command/WorkerService/
 COPY ./src/Contracts/. ./Contracts/
 
-WORKDIR /src/Services/Identity/Command/WorkerService
+WORKDIR /src/Services/Account/Command/WorkerService
 
 RUN dotnet build -c Release --no-restore -v m -o /app/build 
 

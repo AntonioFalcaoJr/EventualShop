@@ -12,6 +12,6 @@ public class GetAccountInteractor : IInteractor<Query.GetAccount, Projection.Acc
         _projectionGateway = projectionGateway;
     }
 
-    public Task<Projection.AccountDetails?> InteractAsync(Query.GetAccount query, CancellationToken cancellationToken)
+    public Task<Projection.AccountDetails> InteractAsync(Query.GetAccount query, CancellationToken cancellationToken)
         => _projectionGateway.GetAsync(query.AccountId, cancellationToken);
 }

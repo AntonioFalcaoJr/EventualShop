@@ -11,5 +11,5 @@ public interface IInteractor<in TEvent>
 public interface IInteractor<in TQuery, TProjection>
     where TQuery : IQuery
 {
-    Task<TProjection?> InteractAsync(TQuery query, CancellationToken cancellationToken);
+    Task<TProjection> InteractAsync(TQuery query, CancellationToken cancellationToken);
 }

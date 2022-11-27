@@ -13,6 +13,6 @@ public class ListAddressesInteractor : IInteractor<Query.ListAddresses, IPagedRe
         _projectionGateway = projectionGateway;
     }
 
-    public Task<IPagedResult<Projection.AddressListItem>?> InteractAsync(Query.ListAddresses query, CancellationToken cancellationToken)
+    public Task<IPagedResult<Projection.AddressListItem>> InteractAsync(Query.ListAddresses query, CancellationToken cancellationToken)
         => _projectionGateway.GetAllAsync(query.Limit, query.Offset, cancellationToken);
 }
