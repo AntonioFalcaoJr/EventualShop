@@ -1,9 +1,12 @@
 ﻿using Contracts.Abstractions.Messages;
 using Contracts.DataTransferObjects;
 using Contracts.Services.Account;
+using Contracts.Services.Account.Grpc;
+using Contracts.Services.Identity.Grpc;
 using MassTransit;
 using WebAPI.Abstractions;
 using WebAPI.APIs.Accounts.Validators;
+using WebAPI.APIs.Identities.Validators;
 
 namespace WebAPI.APIs.Accounts;
 
@@ -36,10 +39,11 @@ public static class Requests
             => new Command.DeleteAccount(AccountId);
     }
 
-    public record struct GetAccount(IBus Bus, Guid AccountId, CancellationToken CancellationToken)
+    public record GetAccount(AccountService.AccountServiceClient Client, Guid AccountId, CancellationToken CancellationToken)
+        : Validatable<SignInValidator>, IQueryRequest<AccountService.AccountServiceClient>
     {
-        public static implicit operator Query.GetAccount(GetAccount request)
-            => new(request.AccountId);
+        public static implicit operator GetAccountRequest(GetAccount request)
+            => new() { Id = request.AccountId.ToString() };
     }
 
     public record struct ListAccounts(IBus Bus, ushort? Limit, ushort? Offset, CancellationToken CancellationToken)

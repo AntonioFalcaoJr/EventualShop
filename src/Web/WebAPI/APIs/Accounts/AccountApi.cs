@@ -11,8 +11,8 @@ public static class AccountApi
             => ApplicationApi.GetPagedProjectionAsync<Query.ListAccounts, Projection.AccountDetails>(request.Bus, request, request.CancellationToken));
 
         group.MapGet("/{accountId:guid}", ([AsParameters] Requests.GetAccount request)
-            => ApplicationApi.GetProjectionAsync<Query.GetAccount, Projection.AccountDetails>(request.Bus, request, request.CancellationToken));
-
+            => ApplicationApi.QueryAsync(request, (client, cancellationToken) => client.GetAccountAsync(request, cancellationToken: cancellationToken)));
+        
         group.MapDelete("/{accountId:guid}", ([AsParameters] Requests.DeleteAccount request)
             => ApplicationApi.SendCommandAsync<Command.DeleteAccount>(request));
 

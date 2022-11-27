@@ -1,5 +1,7 @@
 ﻿using Contracts.JsonConverters;
+using Contracts.Services.Account.Grpc;
 using Contracts.Services.Identity.Grpc;
+using Grpc.Core;
 using MassTransit;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -53,9 +55,17 @@ public static class ServiceCollectionExtensions
         });
 
     public static void AddIdentityGrpcClient(this IServiceCollection services)
-        => services.AddGrpcClient<IdentityService.IdentityServiceClient>((provider, client) =>
+        => services.AddGrpcClient<IdentityService.IdentityServiceClient, IdentityGrpcClientOptions>();
+
+    public static void AddAccountGrpcClient(this IServiceCollection services)
+        => services.AddGrpcClient<AccountService.AccountServiceClient, AccountGrpcClientOptions>();
+
+    private static void AddGrpcClient<TClient, TOptions>(this IServiceCollection services)
+        where TClient : ClientBase
+        where TOptions : class
+        => services.AddGrpcClient<TClient>((provider, client) =>
             {
-                var options = provider.GetRequiredService<IOptionsMonitor<IdentityGrpcClientOptions>>().CurrentValue;
+                var options = provider.GetRequiredService<IOptionsMonitor<TOptions>>().CurrentValue as dynamic;
                 client.Address = new(options.BaseAddress);
             })
             .EnableCallContextPropagation(options
