@@ -87,6 +87,9 @@ builder.Host.ConfigureServices((context, services) =>
 
     services.ConfigureIdentityGrpcClientOptions(
         context.Configuration.GetSection(nameof(IdentityGrpcClientOptions)));
+    
+    services.ConfigureAccountGrpcClientOptions(
+        context.Configuration.GetSection(nameof(AccountGrpcClientOptions)));
 
     services.ConfigureMassTransitHostOptions(
         context.Configuration.GetSection(nameof(MassTransitHostOptions)));
