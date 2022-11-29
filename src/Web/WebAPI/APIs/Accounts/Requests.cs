@@ -2,11 +2,9 @@
 using Contracts.DataTransferObjects;
 using Contracts.Services.Account;
 using Contracts.Services.Account.Grpc;
-using Contracts.Services.Identity.Grpc;
 using MassTransit;
 using WebAPI.Abstractions;
 using WebAPI.APIs.Accounts.Validators;
-using WebAPI.APIs.Identities.Validators;
 
 namespace WebAPI.APIs.Accounts;
 
@@ -26,11 +24,16 @@ public static class Requests
             => new Command.AddBillingAddress(AccountId, Address);
     }
 
-    public record ListAddresses(AccountService.AccountServiceClient Client, Guid AccountId, ushort? Limit, ushort? Offset, CancellationToken CancellationToken)
-        : Validatable<ListAddressesValidator>, IQueryRequest<AccountService.AccountServiceClient>
+    public record ListShippingAddresses(AccountService.AccountServiceClient Client, Guid AccountId, int? Limit, int? Offset, CancellationToken CancellationToken)
+        : Validatable<ListShippingAddressesValidator>, IQueryRequest<AccountService.AccountServiceClient>
     {
-        public static implicit operator ListAddressesRequest(ListAddresses request)
-            => new() { AccountId = request.AccountId.ToString(), Limit = request.Limit ?? default, Offset = request.Offset ?? default };
+        public static implicit operator ListShippingAddressesRequest(ListShippingAddresses request)
+            => new()
+            {
+                AccountId = request.AccountId.ToString(),
+                Limit = request.Limit ?? default,
+                Offset = request.Offset ?? default
+            };
     }
 
     public record DeleteAccount(IBus Bus, Guid AccountId, CancellationToken CancellationToken)
@@ -47,7 +50,7 @@ public static class Requests
             => new() { Id = request.AccountId.ToString() };
     }
 
-    public record ListAccounts(AccountService.AccountServiceClient Client, ushort? Limit, ushort? Offset, CancellationToken CancellationToken)
+    public record ListAccounts(AccountService.AccountServiceClient Client, int? Limit, int? Offset, CancellationToken CancellationToken)
         : Validatable<ListAccountsValidator>, IQueryRequest<AccountService.AccountServiceClient>
     {
         public static implicit operator ListAccountsRequest(ListAccounts request)

@@ -14,7 +14,12 @@ public class BillingAddressAddedInteractor : IInteractor<DomainEvent.BillingAddr
 
     public async Task InteractAsync(DomainEvent.BillingAddressAdded @event, CancellationToken cancellationToken)
     {
-        Projection.BillingAddressListItem addressListItem = new(@event.AddressId, @event.AccountId, @event.Address, false);
+        Projection.BillingAddressListItem addressListItem =
+            new(@event.AddressId,
+                @event.AccountId,
+                @event.Address,
+                false);
+
         await _projectionGateway.InsertAsync(addressListItem, cancellationToken);
     }
 }

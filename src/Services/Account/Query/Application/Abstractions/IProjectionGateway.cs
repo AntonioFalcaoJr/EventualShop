@@ -1,7 +1,6 @@
 using System.Linq.Expressions;
 using Contracts.Abstractions;
 using Contracts.Abstractions.Paging;
-using Contracts.Services.Account;
 
 namespace Application.Abstractions;
 

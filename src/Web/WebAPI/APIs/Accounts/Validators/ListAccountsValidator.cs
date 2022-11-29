@@ -7,9 +7,10 @@ public class ListAccountsValidator : AbstractValidator<Requests.ListAccounts>
     public ListAccountsValidator()
     {
         RuleFor(request => request.Limit)
-            .GreaterThan(ushort.MinValue);
-        
+            .GreaterThan(0)
+            .LessThanOrEqualTo(100);
+
         RuleFor(request => request.Offset)
-            .GreaterThan(ushort.MinValue);
+            .GreaterThan(0);
     }
 }

@@ -16,13 +16,13 @@ public static class AccountApi
         group.MapDelete("/{accountId:guid}", ([AsParameters] Requests.DeleteAccount request)
             => ApplicationApi.SendCommandAsync<Command.DeleteAccount>(request));
 
-        group.MapGet("/{accountId:guid}/profiles/address", ([AsParameters] Requests.ListAddresses request)
-            => ApplicationApi.QueryAsync(request, (client, cancellationToken) => client.ListAddressesAsync(request, cancellationToken: cancellationToken)));
+        group.MapGet("/{accountId:guid}/profiles/shipping-addresses", ([AsParameters] Requests.ListShippingAddresses request)
+            => ApplicationApi.QueryAsync(request, (client, cancellationToken) => client.ListShippingAddressesAsync(request, cancellationToken: cancellationToken)));
 
-        group.MapPut("/{accountId:guid}/profiles/billing-address", ([AsParameters] Requests.AddBillingAddress request)
+        group.MapPost("/{accountId:guid}/profiles/billing-addresses", ([AsParameters] Requests.AddBillingAddress request)
             => ApplicationApi.SendCommandAsync<Command.AddBillingAddress>(request));
 
-        group.MapPut("/{accountId:guid}/profiles/shipping-address", ([AsParameters] Requests.AddShippingAddress request)
+        group.MapPost("/{accountId:guid}/profiles/shipping-addresses", ([AsParameters] Requests.AddShippingAddress request)
             => ApplicationApi.SendCommandAsync<Command.AddShippingAddress>(request));
 
         return group.WithMetadata(new TagsAttribute("Accounts"));

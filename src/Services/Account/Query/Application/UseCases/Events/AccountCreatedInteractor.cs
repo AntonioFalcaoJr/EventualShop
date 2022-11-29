@@ -12,6 +12,15 @@ public class AccountCreatedInteractor : IInteractor<DomainEvent.AccountCreated>
         _projectionGateway = projectionGateway;
     }
 
-    public Task InteractAsync(DomainEvent.AccountCreated @event, CancellationToken cancellationToken)
-        => _projectionGateway.InsertAsync(new(@event.AccountId, false), cancellationToken);
+    public async Task InteractAsync(DomainEvent.AccountCreated @event, CancellationToken cancellationToken)
+    {
+        Projection.AccountDetails accountDetails =
+            new(@event.AccountId,
+                @event.FirstName,
+                @event.LastName,
+                @event.Email,
+                false);
+
+        await _projectionGateway.InsertAsync(accountDetails, cancellationToken);
+    }
 }

@@ -14,7 +14,12 @@ public class ShippingAddressAddedInteractor : IInteractor<DomainEvent.ShippingAd
 
     public async Task InteractAsync(DomainEvent.ShippingAddressAdded @event, CancellationToken cancellationToken)
     {
-        Projection.ShippingAddressListItem addressListItem = new(@event.AddressId, @event.AccountId, @event.Address, false);
+        Projection.ShippingAddressListItem addressListItem =
+            new(@event.AddressId,
+                @event.AccountId,
+                @event.Address,
+                false);
+
         await _projectionGateway.InsertAsync(addressListItem, cancellationToken);
     }
 }

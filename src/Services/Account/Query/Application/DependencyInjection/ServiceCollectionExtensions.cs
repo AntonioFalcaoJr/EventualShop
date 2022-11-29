@@ -20,5 +20,5 @@ public static class ServiceCollectionExtensions
         => services
             .AddScoped<IInteractor<Query.GetAccount, Projection.AccountDetails>, GetAccountInteractor>()
             .AddScoped<IInteractor<Query.ListAccounts, IPagedResult<Projection.AccountDetails>>, ListAccountsInteractor>()
-            .AddScoped<IInteractor<Query.ListAddresses, IPagedResult<Projection.AddressListItem>>, ListAddressesInteractor>();
+            .AddScoped<IInteractor<Query.ListShippingAddresses, IPagedResult<Projection.ShippingAddressListItem>>, ListShippingAddressesInteractor>();
 }

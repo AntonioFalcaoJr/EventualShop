@@ -2,7 +2,6 @@ using System.Linq.Expressions;
 using Application.Abstractions;
 using Contracts.Abstractions;
 using Contracts.Abstractions.Paging;
-using Contracts.Services.Account;
 using Infrastructure.Projections.Abstractions.Contexts;
 using Infrastructure.Projections.Abstractions.Pagination;
 using MongoDB.Driver;
