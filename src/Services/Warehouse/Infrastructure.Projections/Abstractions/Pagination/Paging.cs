@@ -1,6 +1,6 @@
 namespace Infrastructure.Projections.Abstractions.Pagination;
 
-public record Paging
+public record struct Paging
 {
     private const ushort UpperLimit = 100;
     private const ushort DefaultLimit = 10;
@@ -15,7 +15,7 @@ public record Paging
         {
             < 1 => DefaultLimit,
             > UpperLimit => UpperLimit,
-            _ => _limit
+            _ => value
         };
     }
 
