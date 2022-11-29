@@ -1,12 +1,12 @@
 using Application.Abstractions;
 using Application.Services;
-using Contracts.Services.Identity;
 using Domain.Aggregates;
-using Command = Contracts.Services.Account.Command;
+using Contracts.Services.Account;
+using Identity = Contracts.Services.Identity;
 
 namespace Application.UseCases.Events;
 
-public class UserRegisteredInteractor : IInteractor<DomainEvent.UserRegistered>
+public class UserRegisteredInteractor : IInteractor<Identity.DomainEvent.UserRegistered>
 {
     private readonly IApplicationService _applicationService;
 
@@ -15,7 +15,7 @@ public class UserRegisteredInteractor : IInteractor<DomainEvent.UserRegistered>
         _applicationService = applicationService;
     }
 
-    public async Task InteractAsync(DomainEvent.UserRegistered @event, CancellationToken cancellationToken)
+    public async Task InteractAsync(Identity.DomainEvent.UserRegistered @event, CancellationToken cancellationToken)
     {
         Account account = new();
 
