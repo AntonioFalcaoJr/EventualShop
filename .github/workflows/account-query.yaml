@@ -1,0 +1,16 @@
+name: Account - Query Stack
+run-name: Account Query Stack Workflow
+on:
+  push:
+    paths:
+      - src/Services/Account/Query/**.cs
+      - src/Services/Account/Query/**.csproj
+      - Directory.Build.props
+      - .github/workflows/account-query.yaml
+jobs:
+  workflow:
+    uses: ./.github/workflows/_workflow.yaml
+    with:
+      path: src/Services/Account/Query
+      project: GrpcService
+      test: test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests

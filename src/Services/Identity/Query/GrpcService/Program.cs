@@ -1,10 +1,10 @@
 using System.Reflection;
-using Application.DependencyInjection.Extensions;
+using Application.DependencyInjection;
 using GrpcService;
 using Infrastructure.Authentication.DependencyInjection.Extensions;
 using Infrastructure.Authentication.DependencyInjection.Options;
-using Infrastructure.MessageBus.DependencyInjection.Extensions;
-using Infrastructure.MessageBus.DependencyInjection.Options;
+using Infrastructure.EventBus.DependencyInjection.Extensions;
+using Infrastructure.EventBus.DependencyInjection.Options;
 using Infrastructure.Projections.DependencyInjection.Extensions;
 using MassTransit;
 using Microsoft.AspNetCore.HttpLogging;
@@ -45,8 +45,8 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddGrpc();
     services.AddEventBus();
     services.AddEventInteractors();
-    services.AddMessageValidators();
     services.AddQueryInteractors();
+    services.AddMessageValidators();
     services.AddProjections();
     services.AddJwtAuthentication();
 

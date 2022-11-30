@@ -64,8 +64,8 @@ public class ProjectCartWhenChangedConsumer :
         Projection.ShoppingCart shoppingCart = new(
             context.Message.CartId,
             context.Message.CustomerId,
-            default,
-            default,
+            null,
+            null,
             context.Message.Status,
             default,
             false);

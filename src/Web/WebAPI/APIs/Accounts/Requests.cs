@@ -1,6 +1,7 @@
 ﻿using Contracts.Abstractions.Messages;
 using Contracts.DataTransferObjects;
 using Contracts.Services.Account;
+using Contracts.Services.Account.Grpc;
 using MassTransit;
 using WebAPI.Abstractions;
 using WebAPI.APIs.Accounts.Validators;
@@ -23,10 +24,16 @@ public static class Requests
             => new Command.AddBillingAddress(AccountId, Address);
     }
 
-    public record struct ListAddresses(IBus Bus, Guid AccountId, ushort? Limit, ushort? Offset, CancellationToken CancellationToken)
+    public record ListShippingAddresses(AccountService.AccountServiceClient Client, Guid AccountId, int? Limit, int? Offset, CancellationToken CancellationToken)
+        : Validatable<ListShippingAddressesValidator>, IQueryRequest<AccountService.AccountServiceClient>
     {
-        public static implicit operator Query.ListAddresses(ListAddresses request)
-            => new(request.AccountId, request.Limit ?? 0, request.Offset ?? 0);
+        public static implicit operator ListShippingAddressesRequest(ListShippingAddresses request)
+            => new()
+            {
+                AccountId = request.AccountId.ToString(),
+                Limit = request.Limit ?? default,
+                Offset = request.Offset ?? default
+            };
     }
 
     public record DeleteAccount(IBus Bus, Guid AccountId, CancellationToken CancellationToken)
@@ -36,15 +43,17 @@ public static class Requests
             => new Command.DeleteAccount(AccountId);
     }
 
-    public record struct GetAccount(IBus Bus, Guid AccountId, CancellationToken CancellationToken)
+    public record GetAccount(AccountService.AccountServiceClient Client, Guid AccountId, CancellationToken CancellationToken)
+        : Validatable<GetAccountValidator>, IQueryRequest<AccountService.AccountServiceClient>
     {
-        public static implicit operator Query.GetAccount(GetAccount request)
-            => new(request.AccountId);
+        public static implicit operator GetAccountRequest(GetAccount request)
+            => new() { Id = request.AccountId.ToString() };
     }
 
-    public record struct ListAccounts(IBus Bus, ushort? Limit, ushort? Offset, CancellationToken CancellationToken)
+    public record ListAccounts(AccountService.AccountServiceClient Client, int? Limit, int? Offset, CancellationToken CancellationToken)
+        : Validatable<ListAccountsValidator>, IQueryRequest<AccountService.AccountServiceClient>
     {
-        public static implicit operator Query.ListAccounts(ListAccounts request)
-            => new(request.Limit ?? 0, request.Offset ?? 0);
+        public static implicit operator ListAccountsRequest(ListAccounts request)
+            => new() { Limit = request.Limit ?? default, Offset = request.Offset ?? default };
     }
 }

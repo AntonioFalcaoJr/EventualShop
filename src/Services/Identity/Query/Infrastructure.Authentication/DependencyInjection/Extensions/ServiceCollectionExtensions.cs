@@ -1,4 +1,4 @@
-using Application.Abstractions.Authentication;
+using Application.Abstractions;
 using Infrastructure.Authentication.DependencyInjection.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

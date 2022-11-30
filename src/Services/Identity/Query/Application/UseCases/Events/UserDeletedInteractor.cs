@@ -1,18 +1,17 @@
-using Application.Abstractions.Projections;
-using Application.Abstractions.UseCases;
+using Application.Abstractions;
 using Contracts.Services.Identity;
 
 namespace Application.UseCases.Events;
 
 public class UserDeletedInteractor : IInteractor<DomainEvent.UserDeleted>
 {
-    private readonly IProjectionRepository<Projection.UserDetails> _repository;
+    private readonly IProjectionGateway<Projection.UserDetails> _gateway;
 
-    public UserDeletedInteractor(IProjectionRepository<Projection.UserDetails> repository)
+    public UserDeletedInteractor(IProjectionGateway<Projection.UserDetails> gateway)
     {
-        _repository = repository;
+        _gateway = gateway;
     }
 
-    public Task InteractAsync(DomainEvent.UserDeleted @event, CancellationToken ct)
-        => _repository.DeleteAsync(@event.UserId, ct);
+    public Task InteractAsync(DomainEvent.UserDeleted @event, CancellationToken cancellationToken)
+        => _gateway.DeleteAsync(@event.UserId, cancellationToken);
 }

@@ -8,7 +8,7 @@ public static class IdentityApi
     public static RouteGroupBuilder MapIdentityApi(this RouteGroupBuilder group)
     {
         group.MapGet("/sign-in", ([AsParameters] Requests.SignIn request)
-            => ApplicationApi.QueryAsync(request, (client, ct) => client.LoginAsync(request, cancellationToken: ct)));
+            => ApplicationApi.QueryAsync(request, (client, cancellationToken) => client.LoginAsync(request, cancellationToken: cancellationToken)));
 
         group.MapPost("/sign-up", ([AsParameters] Requests.SignUp request)
             => ApplicationApi.SendCommandAsync<Command.RegisterUser>(request));

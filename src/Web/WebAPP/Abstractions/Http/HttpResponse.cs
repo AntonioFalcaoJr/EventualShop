@@ -3,10 +3,10 @@
 public class HttpResponse
 {
     public bool Success { get; init; }
-    public string Message { get; init; }
+    public string? Message { get; init; }
 }
 
 public class HttpResponse<T> : HttpResponse
 {
-    public T ActionResult { get; init; }
+    public T? ActionResult { get; init; }
 }

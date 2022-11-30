@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using Application.DependencyInjection.Extensions;
+using Application.DependencyInjection;
 using Infrastructure.EventStore.Contexts;
 using Infrastructure.EventStore.DependencyInjection.Extensions;
 using Infrastructure.EventStore.DependencyInjection.Options;

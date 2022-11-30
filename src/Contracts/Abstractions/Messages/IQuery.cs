@@ -1,6 +1,3 @@
-﻿using MassTransit;
+﻿namespace Contracts.Abstractions.Messages;
 
-namespace Contracts.Abstractions.Messages;
-
-[ExcludeFromTopology]
-public interface IQuery : IMessage { }
+public interface IQuery { }

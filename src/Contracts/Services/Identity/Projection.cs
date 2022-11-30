@@ -1,5 +1,5 @@
 ﻿using Contracts.Abstractions;
-using Contracts.Query;
+using Contracts.Services.Identity.Grpc;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Contracts.Services.Identity;

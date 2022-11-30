@@ -43,10 +43,10 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
         else _notificationContext.AddErrors(aggregate.Errors);
     }
 
-    public async Task<TAggregate> LoadAsync(TId aggregateId, CancellationToken ct)
+    public async Task<TAggregate> LoadAsync(TId aggregateId, CancellationToken cancellationToken)
     {
-        var snapshot = await _repository.GetSnapshotAsync(aggregateId, ct) ?? new();
-        var events = await _repository.GetStreamAsync(aggregateId, snapshot.AggregateVersion, ct);
+        var snapshot = await _repository.GetSnapshotAsync(aggregateId, cancellationToken) ?? new();
+        var events = await _repository.GetStreamAsync(aggregateId, snapshot.AggregateVersion, cancellationToken);
         snapshot.AggregateState.LoadEvents(events);
         return snapshot.AggregateState;
     }
@@ -61,15 +61,15 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
         => _unitOfWork.ExecuteAsync(
             operationAsync: async ct =>
             {
-                await AppendEventsWithSnapshotControlAsync(aggregate, ct);
-                await PublishEventsAsync(aggregate.UncommittedEvents, ct);
+                await AppendEventsWithSnapshotControlAsync(aggregate, cancellationToken);
+                await PublishEventsAsync(aggregate.UncommittedEvents, cancellationToken);
             },
             cancellationToken: cancellationToken);
 
     private Task AppendEventsWithSnapshotControlAsync(TAggregate aggregate, CancellationToken cancellationToken)
         => _repository.AppendEventsAsync(
             events: ToStoreEvents(aggregate),
-            onEventStored: (version, ct) => AppendSnapshotAsync(aggregate, version, ct),
+            onEventStored: (version, cancellationToken) => AppendSnapshotAsync(aggregate, version, cancellationToken),
             cancellationToken: cancellationToken);
 
     private async Task AppendSnapshotAsync(TAggregate aggregate, long version, CancellationToken cancellationToken)
@@ -86,8 +86,8 @@ public abstract class EventStoreService<TAggregate, TStoreEvent, TSnapshot, TId>
         await _repository.AppendSnapshotAsync(snapshot, cancellationToken);
     }
 
-    private Task PublishEventsAsync(IEnumerable<IEvent> events, CancellationToken ct)
-        => Task.WhenAll(events.Select(@event => _publishEndpoint.Publish(@event, @event.GetType(), ct)));
+    private Task PublishEventsAsync(IEnumerable<IEvent> events, CancellationToken cancellationToken)
+        => Task.WhenAll(events.Select(@event => _publishEndpoint.Publish(@event, @event.GetType(), cancellationToken)));
 
     private static IEnumerable<TStoreEvent> ToStoreEvents(TAggregate aggregate)
         => aggregate.UncommittedEvents.Select(@event

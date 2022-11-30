@@ -1,9 +1,8 @@
-﻿using Domain.Abstractions.Validators;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Domain.Entities.CartItems;
 
-public class CartItemValidator : EntityValidator<CartItem, Guid>
+public class CartItemValidator : AbstractValidator<CartItem>
 {
     public CartItemValidator()
     {

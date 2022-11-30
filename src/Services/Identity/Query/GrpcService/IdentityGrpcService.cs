@@ -1,6 +1,6 @@
-using Application.Abstractions.UseCases;
-using Contracts.Query;
+using Application.Abstractions;
 using Contracts.Services.Identity;
+using Contracts.Services.Identity.Grpc;
 using Grpc.Core;
 
 namespace GrpcService;

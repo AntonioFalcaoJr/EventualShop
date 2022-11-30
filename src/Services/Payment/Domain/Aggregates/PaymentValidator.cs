@@ -1,9 +1,8 @@
-﻿using Domain.Abstractions.Validators;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Domain.Aggregates;
 
-public class PaymentValidator : EntityValidator<Payment, Guid>
+public class PaymentValidator : AbstractValidator<Payment>
 {
     public PaymentValidator()
     {

@@ -1,9 +1,8 @@
-﻿using Domain.Abstractions.Validators;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Domain.Entities.CatalogItems;
 
-public class CatalogItemValidator : EntityValidator<CatalogItem, Guid>
+public class CatalogItemValidator : AbstractValidator<CatalogItem>
 {
     public CatalogItemValidator()
     {

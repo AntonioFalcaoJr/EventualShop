@@ -20,7 +20,7 @@ public class PayPalPaymentService : PaymentService, IPayPalPaymentService
             ? behaviorProcessor(this, method, cancellationToken)
             : base.HandleAsync(behaviorProcessor, method, cancellationToken);
 
-    public override async Task<IPaymentResult> AuthorizeAsync(PaymentMethod method, CancellationToken cancellationToken)
+    public override async Task<IPaymentResult?> AuthorizeAsync(PaymentMethod method, CancellationToken cancellationToken)
     {
         // TODO - Use method to hydrate
         Requests.PaypalAuthorizePayment request = new();

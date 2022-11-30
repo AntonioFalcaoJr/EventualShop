@@ -1,5 +1,5 @@
-﻿using Domain.Abstractions.Validators;
+﻿using FluentValidation;
 
 namespace Domain.Entities.InventoryItems;
 
-public class InventoryItemValidator : EntityValidator<InventoryItem, Guid> { }
+public class InventoryItemValidator : AbstractValidator<InventoryItem> { }
