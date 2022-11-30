@@ -80,12 +80,16 @@ builder.Host.ConfigureServices((context, services) =>
 
     services.AddMessageBus();
     services.AddIdentityGrpcClient();
+    services.AddAccountGrpcClient();
 
     services.ConfigureMessageBusOptions(
         context.Configuration.GetSection(nameof(MessageBusOptions)));
 
     services.ConfigureIdentityGrpcClientOptions(
         context.Configuration.GetSection(nameof(IdentityGrpcClientOptions)));
+    
+    services.ConfigureAccountGrpcClientOptions(
+        context.Configuration.GetSection(nameof(AccountGrpcClientOptions)));
 
     services.ConfigureMassTransitHostOptions(
         context.Configuration.GetSection(nameof(MassTransitHostOptions)));

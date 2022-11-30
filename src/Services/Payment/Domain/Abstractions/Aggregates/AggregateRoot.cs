@@ -10,27 +10,27 @@ public abstract class AggregateRoot<TId, TValidator> : Entity<TId, TValidator>, 
     where TId : struct
 {
     [JsonIgnore]
-    private readonly List<IEvent> _events = new();
+    private readonly List<IEvent?> _events = new();
 
     public long Version { get; private set; }
 
     [JsonIgnore]
-    public IEnumerable<IEvent> Events
+    public IEnumerable<IEvent?> Events
         => _events;
 
-    public void LoadEvents(List<IEvent> events)
+    public void LoadEvents(List<IEvent?> events)
         => events.ForEach(@event =>
         {
             ApplyEvent(@event);
             Version += 1;
         });
 
-    private void AddEvent(IEvent @event)
+    private void AddEvent(IEvent? @event)
         => _events.Add(@event);
 
-    protected abstract void ApplyEvent(IEvent @event);
+    protected abstract void ApplyEvent(IEvent? @event);
 
-    protected void RaiseEvent(IEvent @event)
+    protected void RaiseEvent(IEvent? @event)
     {
         ApplyEvent(@event);
 

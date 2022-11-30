@@ -29,7 +29,7 @@ public class PaymentGateway : IPaymentGateway
         {
             if (payment.AmountDue <= 0) break;
 
-            var paymentResult = await _paymentService.HandleAsync((srv, mtd, ct) => srv.AuthorizeAsync(mtd, ct), method, cancellationToken);
+            var paymentResult = await _paymentService.HandleAsync((srv, mtd, cancellationToken) => srv.AuthorizeAsync(mtd, cancellationToken), method, cancellationToken);
 
             payment.Handle(paymentResult.Success
                 ? new Command.AuthorizePaymentMethod(payment.Id, method.Id, paymentResult.TransactionId)
@@ -43,7 +43,7 @@ public class PaymentGateway : IPaymentGateway
         {
             if (payment.AmountDue <= 0) break;
 
-            var paymentResult = await _paymentService.HandleAsync((srv, mtd, ct) => srv.CancelAsync(mtd, ct), method, cancellationToken);
+            var paymentResult = await _paymentService.HandleAsync((srv, mtd, cancellationToken) => srv.CancelAsync(mtd, cancellationToken), method, cancellationToken);
 
             payment.Handle(paymentResult.Success
                 ? new Command.CancelPaymentMethod(payment.Id, method.Id, paymentResult.TransactionId)
@@ -57,7 +57,7 @@ public class PaymentGateway : IPaymentGateway
         {
             if (payment.AmountDue <= 0) break;
 
-            var paymentResult = await _paymentService.HandleAsync((srv, mtd, ct) => srv.RefundAsync(mtd, ct), method, cancellationToken);
+            var paymentResult = await _paymentService.HandleAsync((srv, mtd, cancellationToken) => srv.RefundAsync(mtd, cancellationToken), method, cancellationToken);
 
             payment.Handle(paymentResult.Success
                 ? new Command.RefundPaymentMethod(payment.Id, method.Id, paymentResult.TransactionId)

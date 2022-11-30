@@ -8,6 +8,6 @@ public interface IAggregateRoot<out TId> : IEntity<TId>
 {
     long Version { get; }
     IEnumerable<IEvent> UncommittedEvents { get; }
-    public void LoadEvents(IEnumerable<IEvent> events);
+    void LoadEvents(IEnumerable<IEvent> events);
     void Handle(ICommand? command);
 }

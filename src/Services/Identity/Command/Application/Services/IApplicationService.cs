@@ -1,4 +1,5 @@
-﻿using Domain.Abstractions.Aggregates;
+﻿using Contracts.Abstractions.Messages;
+using Domain.Abstractions.Aggregates;
 
 namespace Application.Services;
 
@@ -8,4 +9,6 @@ public interface IApplicationService
         where TAggregate : IAggregateRoot, new();
 
     Task AppendEventsAsync(IAggregateRoot aggregate, CancellationToken cancellationToken);
+
+    Task SchedulePublishAsync(DateTimeOffset scheduledTime, IEvent @event, CancellationToken cancellationToken);
 }

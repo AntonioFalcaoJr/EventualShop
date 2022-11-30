@@ -1,4 +1,4 @@
-﻿using Application.Abstractions.Interactors;
+﻿using Application.Abstractions;
 using Application.Services;
 using Contracts.Services.Identity;
 using Domain.Aggregates;
@@ -14,10 +14,10 @@ public class ConfirmEmailInteractor : IInteractor<Command.ConfirmEmail>
         _applicationService = applicationService;
     }
 
-    public async Task InteractAsync(Command.ConfirmEmail message, CancellationToken cancellationToken)
+    public async Task InteractAsync(Command.ConfirmEmail command, CancellationToken cancellationToken)
     {
-        var aggregate = await _applicationService.LoadAggregateAsync<User>(message.UserId, cancellationToken);
-        aggregate.Handle(message);
+        var aggregate = await _applicationService.LoadAggregateAsync<User>(command.UserId, cancellationToken);
+        aggregate.Handle(command);
         await _applicationService.AppendEventsAsync(aggregate, cancellationToken);
     }
 }

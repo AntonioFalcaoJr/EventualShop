@@ -12,7 +12,7 @@ public static class Command
 
     public record RegisterUser(Guid UserId, string FirstName, string LastName, string Email, string Password) : Message, ICommand;
 
-    public record ChangePassword(Guid UserId, string Password, string PasswordConfirmation) : Message, ICommand;
+    public record ChangePassword(Guid UserId, string NewPassword, string NewPasswordConfirmation) : Message, ICommand;
 
     public record DefinePrimaryEmail(Guid UserId, string Email) : Message, ICommand;
 

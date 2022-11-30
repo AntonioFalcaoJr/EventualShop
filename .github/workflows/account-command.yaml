@@ -1,0 +1,16 @@
+name: Account - Command Stack
+run-name: Account Command Stack Workflow
+on:
+  push:
+    paths:
+      - src/Services/Account/Command/**.cs
+      - src/Services/Account/Command/**.csproj
+      - Directory.Build.props
+      - .github/workflows/account-command.yaml
+jobs:
+  workflow:
+    uses: ./.github/workflows/_workflow.yaml
+    with:
+      path: src/Services/Account/Command
+      project: WorkerService
+      test: test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests  

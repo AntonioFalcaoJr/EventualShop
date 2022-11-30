@@ -1,5 +1,8 @@
 ﻿using Contracts.JsonConverters;
-using Contracts.Query;
+using Contracts.Services.Account.Grpc;
+using Contracts.Services.Identity.Grpc;
+using Grpc.Core;
+using Grpc.Net.Client.Configuration;
 using MassTransit;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -53,11 +56,33 @@ public static class ServiceCollectionExtensions
         });
 
     public static void AddIdentityGrpcClient(this IServiceCollection services)
-        => services.AddGrpcClient<IdentityService.IdentityServiceClient>((provider, client) =>
+        => services.AddGrpcClient<IdentityService.IdentityServiceClient, IdentityGrpcClientOptions>();
+
+    public static void AddAccountGrpcClient(this IServiceCollection services)
+        => services.AddGrpcClient<AccountService.AccountServiceClient, AccountGrpcClientOptions>();
+
+    private static void AddGrpcClient<TClient, TOptions>(this IServiceCollection services)
+        where TClient : ClientBase
+        where TOptions : class
+        => services.AddGrpcClient<TClient>((provider, client) =>
             {
-                var options = provider.GetRequiredService<IOptionsMonitor<IdentityGrpcClientOptions>>().CurrentValue;
+                var options = provider.GetRequiredService<IOptionsMonitor<TOptions>>().CurrentValue as dynamic;
                 client.Address = new(options.BaseAddress);
             })
+            .ConfigureChannel(options =>
+                {
+                    options.Credentials = ChannelCredentials.Insecure;
+                    options.ServiceConfig = new() { LoadBalancingConfigs = { new RoundRobinConfig() } };
+                }
+            )
+            .ConfigurePrimaryHttpMessageHandler(() =>
+                new SocketsHttpHandler
+                {
+                    PooledConnectionIdleTimeout = Timeout.InfiniteTimeSpan,
+                    KeepAlivePingDelay = TimeSpan.FromSeconds(60),
+                    KeepAlivePingTimeout = TimeSpan.FromSeconds(30),
+                    EnableMultipleHttp2Connections = true
+                })
             .EnableCallContextPropagation(options
                 => options.SuppressContextNotFoundErrors = true);
 
@@ -85,6 +110,13 @@ public static class ServiceCollectionExtensions
     public static OptionsBuilder<IdentityGrpcClientOptions> ConfigureIdentityGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<IdentityGrpcClientOptions>()
+            .Bind(section)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+
+    public static OptionsBuilder<AccountGrpcClientOptions> ConfigureAccountGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
+        => services
+            .AddOptions<AccountGrpcClientOptions>()
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();

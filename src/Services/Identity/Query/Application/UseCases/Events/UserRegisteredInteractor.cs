@@ -1,23 +1,22 @@
-using Application.Abstractions.Projections;
-using Application.Abstractions.UseCases;
+using Application.Abstractions;
 using Contracts.Services.Identity;
 
 namespace Application.UseCases.Events;
 
 public class UserRegisteredInteractor : IInteractor<DomainEvent.UserRegistered>
 {
-    private readonly IProjectionRepository<Projection.UserDetails> _repository;
+    private readonly IProjectionGateway<Projection.UserDetails> _gateway;
 
-    public UserRegisteredInteractor(IProjectionRepository<Projection.UserDetails> repository)
+    public UserRegisteredInteractor(IProjectionGateway<Projection.UserDetails> gateway)
     {
-        _repository = repository;
+        _gateway = gateway;
     }
 
-    public Task InteractAsync(DomainEvent.UserRegistered @event, CancellationToken ct)
+    public Task InteractAsync(DomainEvent.UserRegistered @event, CancellationToken cancellationToken)
     {
         Projection.UserDetails userDetails = 
             new(@event.UserId, @event.FirstName, @event.LastName, @event.Email, @event.Password, false);
 
-        return _repository.InsertAsync(userDetails, ct);
+        return _gateway.InsertAsync(userDetails, cancellationToken);
     }
 }

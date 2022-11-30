@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package Contracts.Services.Account.Grpc;
+
+service AccountService {
+  rpc GetAccount(GetAccountRequest) returns (Account);
+  rpc ListAccounts(ListAccountsRequest) returns (Accounts);
+  rpc ListShippingAddresses(ListShippingAddressesRequest) returns (Addresses);
+}
+
+message GetAccountRequest {
+  string Id = 1;
+}
+
+message Account {
+  string Id = 1;
+  string FirstName = 2;
+  string LastName = 3;
+  string Email = 4;
+}
+
+message ListAccountsRequest {
+  sint32 Limit = 1;
+  sint32 Offset = 2;
+}
+
+message Accounts {
+  repeated Account Items = 1;
+  Page Page = 2;
+}
+
+message ListShippingAddressesRequest {
+  string AccountId = 1;
+  sint32 Limit = 2;
+  sint32 Offset = 3;
+}
+
+message Addresses {
+  repeated Address Items = 1;
+  Page Page = 2;
+}
+
+message Address {
+  string Id = 1;
+  string AccountId = 2;
+  string City = 3;
+  string Country = 4;
+  sint32 Number = 5;
+  string State = 6;
+  string Street = 7;
+  string ZipCode = 8;
+}
+
+message Page{
+  int32 Current = 1;
+  int32 Size = 2;
+  bool HasNext = 3;
+  bool HasPrevious = 4;
+}

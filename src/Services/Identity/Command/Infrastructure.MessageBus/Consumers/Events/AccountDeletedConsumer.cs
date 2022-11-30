@@ -1,4 +1,4 @@
-using Application.Abstractions.Interactors;
+using Application.Abstractions;
 using Infrastructure.MessageBus.Abstractions;
 using Contracts.Services.Account;
 

@@ -10,6 +10,6 @@ public abstract record StoreEvent<TId, TAggregate>
     public long Version { get; init; }
     public TId AggregateId { get; init; }
     public string AggregateName { get; } = typeof(TAggregate).Name;
-    public string DomainEventName { get; init; }
-    public IEvent DomainEvent { get; init; }
+    public string? DomainEventName { get; init; }
+    public IEvent? DomainEvent { get; init; }
 }

@@ -11,7 +11,7 @@ public abstract class AggregateRoot<TValidator> : Entity<TValidator>, IAggregate
     [JsonIgnore]
     private readonly List<(long version, IEvent @event)> _events = new();
 
-    private long Version { get; set; }
+    public long Version { get; private set; }
 
     [JsonIgnore]
     public IEnumerable<(long version, IEvent @event)> Events

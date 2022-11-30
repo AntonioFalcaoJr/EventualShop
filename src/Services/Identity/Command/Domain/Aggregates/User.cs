@@ -10,10 +10,10 @@ public class User : AggregateRoot<UserValidator>
 {
     private readonly List<Email> _emails = new();
 
-    public string FirstName { get; private set; }
-    public string LastName { get; private set; }
-    public string Password { get; private set; }
-    public string PrimaryEmail { get; private set; }
+    public string? FirstName { get; private set; }
+    public string? LastName { get; private set; }
+    public string? Password { get; private set; }
+    public string? PrimaryEmail { get; private set; }
 
     public IEnumerable<Email> Emails
         => _emails;
@@ -38,8 +38,8 @@ public class User : AggregateRoot<UserValidator>
 
     private void Handle(Command.ChangePassword cmd)
     {
-        if (cmd.Password == Password) return;
-        RaiseEvent(new DomainEvent.PasswordChanged(cmd.UserId, cmd.Password));
+        if (cmd.NewPassword == Password) return;
+        RaiseEvent(new DomainEvent.PasswordChanged(cmd.UserId, cmd.NewPassword));
     }
 
     private void Handle(Command.DeleteUser cmd)

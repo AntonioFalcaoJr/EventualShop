@@ -10,7 +10,7 @@ public abstract record Validatable<TValidator>
     public bool IsValid(out IDictionary<string, string[]> errors)
     {
         var result = _validator.Validate(new ValidationContext<Validatable<TValidator>>(this));
-        errors = result.IsValid ? default : result.ToDictionary();
+        errors = result.ToDictionary();
         return result.IsValid;
     }
 }

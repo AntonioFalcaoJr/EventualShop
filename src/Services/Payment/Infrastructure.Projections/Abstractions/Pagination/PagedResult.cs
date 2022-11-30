@@ -27,10 +27,10 @@ public class PagedResult<T> : IPagedResult<T>
             HasPrevious = _paging.Offset > 0
         };
 
-    public static async Task<IPagedResult<T>> CreateAsync(ushort limit, ushort offset, IQueryable<T> source, CancellationToken ct)
+    public static async Task<IPagedResult<T>> CreateAsync(ushort limit, ushort offset, IQueryable<T> source, CancellationToken cancellationToken)
     {
         Paging paging = new() {Limit = limit, Offset = offset};
-        var items = await ApplyPagination(paging, source).ToListAsync(ct);
+        var items = await ApplyPagination(paging, source).ToListAsync(cancellationToken);
         return new PagedResult<T>(items, paging);
     }
 

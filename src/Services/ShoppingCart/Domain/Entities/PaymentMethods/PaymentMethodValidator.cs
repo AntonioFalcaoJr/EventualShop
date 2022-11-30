@@ -1,5 +1,5 @@
-﻿using Domain.Abstractions.Validators;
+﻿using FluentValidation;
 
 namespace Domain.Entities.PaymentMethods;
 
-public class PaymentMethodValidator : EntityValidator<PaymentMethod, Guid> { }
+public class PaymentMethodValidator : AbstractValidator<PaymentMethod> { }
