@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
     <ItemGroup>
-        <PackageReference Include="Grpc.AspNetCore" Version="2.50.0-pre1" />
+        <PackageReference Include="Grpc.AspNetCore" Version="$(Grpc_AspNetCore_Version)" />
         <PackageReference Include="Serilog.AspNetCore" Version="$(Serilog_AspNetCore_Version)" />
     </ItemGroup>
     <ItemGroup>

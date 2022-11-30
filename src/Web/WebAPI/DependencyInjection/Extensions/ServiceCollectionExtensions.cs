@@ -2,6 +2,7 @@
 using Contracts.Services.Account.Grpc;
 using Contracts.Services.Identity.Grpc;
 using Grpc.Core;
+using Grpc.Net.Client.Configuration;
 using MassTransit;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -68,6 +69,20 @@ public static class ServiceCollectionExtensions
                 var options = provider.GetRequiredService<IOptionsMonitor<TOptions>>().CurrentValue as dynamic;
                 client.Address = new(options.BaseAddress);
             })
+            .ConfigureChannel(options =>
+                {
+                    options.Credentials = ChannelCredentials.Insecure;
+                    options.ServiceConfig = new() { LoadBalancingConfigs = { new RoundRobinConfig() } };
+                }
+            )
+            .ConfigurePrimaryHttpMessageHandler(() =>
+                new SocketsHttpHandler
+                {
+                    PooledConnectionIdleTimeout = Timeout.InfiniteTimeSpan,
+                    KeepAlivePingDelay = TimeSpan.FromSeconds(60),
+                    KeepAlivePingTimeout = TimeSpan.FromSeconds(30),
+                    EnableMultipleHttp2Connections = true
+                })
             .EnableCallContextPropagation(options
                 => options.SuppressContextNotFoundErrors = true);
 
