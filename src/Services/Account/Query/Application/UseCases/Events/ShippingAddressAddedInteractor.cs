@@ -5,9 +5,9 @@ namespace Application.UseCases.Events;
 
 public class ShippingAddressAddedInteractor : IInteractor<DomainEvent.ShippingAddressAdded>
 {
-    private readonly IProjectionGateway<Projection.AddressListItem> _projectionGateway;
+    private readonly IProjectionGateway<Projection.ShippingAddressListItem> _projectionGateway;
 
-    public ShippingAddressAddedInteractor(IProjectionGateway<Projection.AddressListItem> projectionGateway)
+    public ShippingAddressAddedInteractor(IProjectionGateway<Projection.ShippingAddressListItem> projectionGateway)
     {
         _projectionGateway = projectionGateway;
     }

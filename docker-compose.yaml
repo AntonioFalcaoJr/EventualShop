@@ -331,7 +331,7 @@ services:
     networks:
       - internal
     deploy:
-      replicas: 1
+      replicas: 2
       resources:
         limits:
           cpus: '0.25'
@@ -350,7 +350,7 @@ services:
       webapp:
         condition: service_started
     ports:
-      - "8080:80"
+      - "8080:8080"
       - "5000:5000"
     networks:
       - internal

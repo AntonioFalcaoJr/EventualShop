@@ -5,9 +5,9 @@ namespace Application.UseCases.Events;
 
 public class BillingAddressAddedInteractor : IInteractor<DomainEvent.BillingAddressAdded>
 {
-    private readonly IProjectionGateway<Projection.AddressListItem> _projectionGateway;
+    private readonly IProjectionGateway<Projection.BillingAddressListItem> _projectionGateway;
 
-    public BillingAddressAddedInteractor(IProjectionGateway<Projection.AddressListItem> projectionGateway)
+    public BillingAddressAddedInteractor(IProjectionGateway<Projection.BillingAddressListItem> projectionGateway)
     {
         _projectionGateway = projectionGateway;
     }
