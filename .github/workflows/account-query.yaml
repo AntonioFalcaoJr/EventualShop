@@ -6,7 +6,7 @@ on:
       - src/Services/Account/Query/**.cs
       - src/Services/Account/Query/**.csproj
       - Directory.Build.props
-      - .github/workflows/Account-query.yaml
+      - .github/workflows/account-query.yaml
 jobs:
   workflow:
     uses: ./.github/workflows/_workflow.yaml
