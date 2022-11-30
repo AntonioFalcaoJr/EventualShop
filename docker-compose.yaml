@@ -53,7 +53,7 @@ services:
 
   mongodb:
     container_name: mongodb
-    image: mongo:latest
+    image: mongo:5.0.14
     ports:
       - "27017"
     environment:
@@ -74,17 +74,38 @@ services:
         condition: any
     networks:
       - internal
-  
-  account:
-    image: account:latest
+
+  account-command:
+    image: account-command:latest
     build:
       context: .
-      dockerfile: ./src/Services/Account/WorkerService/Dockerfile
+      dockerfile: ./src/Services/Account/Command/WorkerService/Dockerfile
     environment:
       DOTNET_ENVIRONMENT: Staging
     depends_on:
       mssql:
         condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - internal
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.20'
+          memory: 200M
+      restart_policy:
+        condition: any
+
+  account-query:
+    image: account-query:latest
+    build:
+      context: .
+      dockerfile: ./src/Services/Account/Query/GrpcService/Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: Staging
+    depends_on:
       rabbitmq:
         condition: service_healthy
       mongodb:
@@ -124,17 +145,38 @@ services:
           memory: 200M
       restart_policy:
         condition: any
-  
-  identity:
-    image: identity:latest
+
+  identity-command:
+    image: identity-command:latest
     build:
       context: .
-      dockerfile: ./src/Services/Identity/WorkerService/Dockerfile
+      dockerfile: ./src/Services/Identity/Command/WorkerService/Dockerfile
     environment:
       DOTNET_ENVIRONMENT: Staging
     depends_on:
       mssql:
         condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - internal
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.20'
+          memory: 200M
+      restart_policy:
+        condition: any
+
+  identity-query:
+    image: identity-query:latest
+    build:
+      context: .
+      dockerfile: ./src/Services/Identity/Query/GrpcService/Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: Staging
+    depends_on:
       rabbitmq:
         condition: service_healthy
       mongodb:
@@ -199,9 +241,9 @@ services:
           memory: 200M
       restart_policy:
         condition: any
-  
-  shoppingcart:
-    image: shoppingcart:latest
+
+  shopping-cart:
+    image: shopping-cart:latest
     build:
       context: .
       dockerfile: ./src/Services/ShoppingCart/WorkerService/Dockerfile
