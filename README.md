@@ -3,12 +3,12 @@
 **WIP - work in progress**
 
 The main objective of this **cloud-native** project is to represent the **state of the art** of a **distributed**, **reliable**, and **highly scalable** system by interpreting the most relevant
-principles of **Reactive Domain Driven Design** in an Event-driven architecture (EDA).
+principles of **Reactive Domain Driven Design**.
 
 > Domain-Driven Design can aid with managing uncertainty through the use of good modeling.  
 > -- Vaughn Vernon
 
-Scalability and resiliency require **low coupling** and **high cohesion**, strongly linked to the proper understanding of the business through **well-defined boundaries**.
+Scalability and resiliency require **low coupling** and **high cohesion**, strongly linked to the proper understanding of the business through **well-defined boundaries** in an Event-driven architecture (EDA).
 
 The **EventStorming** workshop provides a practical strategy for **decomposition by subdomain**, aggregating correlated business capabilities in respective boundaries via the **Pivotal Domain Events**
 (business facts) that offer an efficient and healthy integration between **Bounded Contexts**.
