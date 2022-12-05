@@ -27,7 +27,7 @@ public static class ConfigureOpenTelemetryExtensions
                         MaxQueueSize = 2048,
                         ScheduledDelayMilliseconds = 5000,
                         ExporterTimeoutMilliseconds = 30000,
-                        MaxExportBatchSize = 512,
+                        MaxExportBatchSize = 512
                     };
                 });
         });

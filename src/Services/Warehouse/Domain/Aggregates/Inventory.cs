@@ -54,7 +54,7 @@ public class Inventory : AggregateRoot<Guid, InventoryValidator>
             {
                 < 1 => new DomainEvent.StockDepleted(cmd.InventoryId, item.Id, item.Product),
                 var availability when availability >= cmd.Quantity => new DomainEvent.InventoryReserved(cmd.InventoryId, item.Id, cmd.CatalogId, cmd.CartId, cmd.Product, cmd.Quantity, Expiration),
-                _ => new DomainEvent.InventoryNotReserved(cmd.InventoryId, item.Id, cmd.CartId, cmd.Quantity, item.QuantityAvailable),
+                _ => new DomainEvent.InventoryNotReserved(cmd.InventoryId, item.Id, cmd.CartId, cmd.Quantity, item.QuantityAvailable)
             });
     }
 
