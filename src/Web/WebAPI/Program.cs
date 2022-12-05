@@ -13,6 +13,7 @@ using Microsoft.OpenApi.Any;
 using Serilog;
 using WebAPI.APIs.Accounts;
 using WebAPI.APIs.Catalogs;
+using WebAPI.APIs.Communications;
 using WebAPI.APIs.Identities;
 using WebAPI.APIs.Orders;
 using WebAPI.APIs.Payments;
@@ -81,6 +82,7 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddMessageBus();
     services.AddIdentityGrpcClient();
     services.AddAccountGrpcClient();
+    services.AddCommunicationGrpcClient();
 
     services.ConfigureMessageBusOptions(
         context.Configuration.GetSection(nameof(MessageBusOptions)));
@@ -118,6 +120,7 @@ app.UseApplicationExceptionHandler();
 
 app.MapGroup("/api/v1/accounts/").MapAccountApi();
 app.MapGroup("/api/v1/catalogs/").MapCatalogApi();
+app.MapGroup("/api/v1/communications/").MapCommunicationApi();
 app.MapGroup("/api/v1/identities/").MapIdentityApi();
 app.MapGroup("/api/v1/orders/").MapOrderApi();
 app.MapGroup("/api/v1/payments/").MapPaymentApi();
@@ -140,6 +143,7 @@ finally
     await app.DisposeAsync();
 }
 
+// TODO - Review it! Integration tests need it, at this time.
 namespace WebAPI
 {
     public partial class Program { }
