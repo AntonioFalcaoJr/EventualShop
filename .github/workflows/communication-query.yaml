@@ -1,5 +1,5 @@
-name: Identity - Query Stack
-run-name: Identity Query Stack Workflow
+name: Communication - Query Stack
+run-name: Communication Query Stack Workflow
 on:
   push:
     paths:
