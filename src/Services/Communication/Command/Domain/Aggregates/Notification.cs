@@ -17,7 +17,7 @@ public class Notification : AggregateRoot<NotificationValidator>
         => Handle(command as dynamic);
 
     private void Handle(Command.RequestEmailConfirmation cmd)
-        => RaiseEvent(new DomainEvent.EmailConfirmationRequested(cmd.Id, Guid.NewGuid(), cmd.Email));
+        => RaiseEvent(new DomainEvent.EmailConfirmationRequested(Guid.NewGuid(), cmd.UserId, Guid.NewGuid(), cmd.Email));
 
     protected override void Apply(IEvent @event)
         => Apply(@event as dynamic);
