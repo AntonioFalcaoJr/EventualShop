@@ -92,6 +92,9 @@ builder.Host.ConfigureServices((context, services) =>
     
     services.ConfigureAccountGrpcClientOptions(
         context.Configuration.GetSection(nameof(AccountGrpcClientOptions)));
+    
+    services.ConfigureCommunicationGrpcClientOptions(
+        context.Configuration.GetSection(nameof(CommunicationGrpcClientOptions)));
 
     services.ConfigureMassTransitHostOptions(
         context.Configuration.GetSection(nameof(MassTransitHostOptions)));
