@@ -14,7 +14,8 @@
         </PackageReference>
     </ItemGroup>
     <ItemGroup>
-        <Protobuf Include="Services\Account\Query.proto" GrpcServices="Both" />
-        <Protobuf Include="Services\Identity\Query.proto" GrpcServices="Both" />
+        <Protobuf Include="Services\Account\Account.proto" GrpcServices="Both" />
+        <Protobuf Include="Services\Communication\Communication.proto" GrpcServices="Both" />
+        <Protobuf Include="Services\Identity\Identity.proto" GrpcServices="Both" />
     </ItemGroup>
 </Project>

@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package Contracts.Services.Communication.Protobuf;
+
+service CommunicationService {
+  rpc ListEmails(ListEmailsRequest) returns (Emails);
+}
+
+message Email {
+  string Id = 1;
+  string Email = 2;
+}
+
+message ListEmailsRequest {
+  sint32 Limit = 1;
+  sint32 Offset = 2;
+}
+
+message Emails {
+  repeated Email Items = 1;
+  Page Page = 2;
+}
+
+message Page{
+  int32 Current = 1;
+  int32 Size = 2;
+  bool HasNext = 3;
+  bool HasPrevious = 4;
+}
