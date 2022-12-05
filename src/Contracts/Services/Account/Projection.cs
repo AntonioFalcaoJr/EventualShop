@@ -1,6 +1,6 @@
 ﻿using Contracts.Abstractions;
 using Contracts.DataTransferObjects;
-using Contracts.Services.Account.Grpc;
+using Contracts.Services.Account.Protobuf;
 
 namespace Contracts.Services.Account;
 
@@ -8,7 +8,7 @@ public static class Projection
 {
     public record AccountDetails(Guid Id, string FirstName, string LastName, string Email, bool IsDeleted) : IProjection
     {
-        public static implicit operator Grpc.Account(AccountDetails accountDetails)
+        public static implicit operator Protobuf.Account(AccountDetails accountDetails)
             => new()
             {
                 Id = accountDetails.Id.ToString(),

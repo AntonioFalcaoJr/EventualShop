@@ -1,6 +1,6 @@
 using Application.Abstractions;
 using Contracts.Services.Identity;
-using Contracts.Services.Identity.Grpc;
+using Contracts.Services.Identity.Protobuf;
 using Grpc.Core;
 
 namespace GrpcService;
@@ -15,5 +15,5 @@ public class IdentityGrpcService : IdentityService.IdentityServiceBase
     }
 
     public override async Task<LoginResponse> Login(LoginRequest request, ServerCallContext context)
-        => await _interactor.InteractAsync(new(request.Email, request.Password), context.CancellationToken);
+        => await _interactor.InteractAsync(request, context.CancellationToken);
 }

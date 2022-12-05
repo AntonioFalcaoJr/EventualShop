@@ -1,6 +1,6 @@
 ﻿using Contracts.JsonConverters;
-using Contracts.Services.Account.Grpc;
-using Contracts.Services.Identity.Grpc;
+using Contracts.Services.Account.Protobuf;
+using Contracts.Services.Identity.Protobuf;
 using Grpc.Core;
 using Grpc.Net.Client.Configuration;
 using MassTransit;

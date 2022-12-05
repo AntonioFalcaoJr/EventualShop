@@ -1,7 +1,7 @@
 using Application.Abstractions;
 using Contracts.Abstractions.Paging;
 using Contracts.Services.Account;
-using Contracts.Services.Account.Grpc;
+using Contracts.Services.Account.Protobuf;
 using Grpc.Core;
 
 namespace GrpcService;
@@ -23,11 +23,11 @@ public class AccountGrpcService : AccountService.AccountServiceBase
     }
 
     public override async Task<Account> GetAccount(GetAccountRequest request, ServerCallContext context)
-        => await _getAccountInteractor.InteractAsync(new(new(request.Id)), context.CancellationToken);
+        => await _getAccountInteractor.InteractAsync(request, context.CancellationToken);
 
     public override async Task<Accounts> ListAccounts(ListAccountsRequest request, ServerCallContext context)
     {
-        var pagedResult = await _listAccountsInteractor.InteractAsync(new((ushort)request.Limit, (ushort)request.Offset), context.CancellationToken);
+        var pagedResult = await _listAccountsInteractor.InteractAsync(request, context.CancellationToken);
 
         return new()
         {
@@ -44,7 +44,7 @@ public class AccountGrpcService : AccountService.AccountServiceBase
 
     public override async Task<Addresses> ListShippingAddresses(ListShippingAddressesRequest request, ServerCallContext context)
     {
-        var pagedResult = await _listAddressesInteractor.InteractAsync(new(new(request.AccountId), (ushort)request.Limit, (ushort)request.Offset), context.CancellationToken);
+        var pagedResult = await _listAddressesInteractor.InteractAsync(request, context.CancellationToken);
 
         return new()
         {

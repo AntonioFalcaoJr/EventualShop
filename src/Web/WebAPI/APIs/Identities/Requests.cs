@@ -1,6 +1,6 @@
 using Contracts.Abstractions.Messages;
 using Contracts.Services.Identity;
-using Contracts.Services.Identity.Grpc;
+using Contracts.Services.Identity.Protobuf;
 using MassTransit;
 using WebAPI.Abstractions;
 using WebAPI.APIs.Identities.Validators;

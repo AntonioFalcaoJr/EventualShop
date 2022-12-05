@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package Contracts.Services.Identity.Grpc;
+package Contracts.Services.Identity.Protobuf;
 
 service IdentityService {
   rpc Login(LoginRequest) returns (LoginResponse);
