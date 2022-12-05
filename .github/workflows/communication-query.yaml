@@ -1,0 +1,16 @@
+name: Identity - Query Stack
+run-name: Identity Query Stack Workflow
+on:
+  push:
+    paths:
+      - src/Services/Communication/Query/**.cs
+      - src/Services/Communication/Query/**.csproj
+      - Directory.Build.props
+      - .github/workflows/communication-query.yaml
+jobs:
+  workflow:
+    uses: ./.github/workflows/_workflow.yaml
+    with:
+      path: src/Services/Communication/Query
+      project: GrpcService
+      test: test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests
