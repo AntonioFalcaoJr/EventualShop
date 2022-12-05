@@ -8,7 +8,8 @@ service CommunicationService {
 
 message Email {
   string Id = 1;
-  string Email = 2;
+  string UserId = 2;
+  string Email = 3;
 }
 
 message ListEmailsRequest {

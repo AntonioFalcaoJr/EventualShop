@@ -5,13 +5,14 @@ namespace Contracts.Services.Communication;
 
 public static class Projection
 {
-    public record EmailSent(Guid Id, string Email, bool IsDeleted) : IProjection
+    public record EmailSent(Guid Id, Guid UserId, string Email, bool IsDeleted) : IProjection
     {
         public static implicit operator Email(EmailSent emailSent)
             => new()
             {
                 Id = emailSent.Id.ToString(),
-                Email_ = emailSent.Email,
+                UserId = emailSent.UserId.ToString(),
+                Email_ = emailSent.Email
             };
     }
 }
