@@ -1,5 +1,6 @@
 ﻿using Contracts.JsonConverters;
 using Contracts.Services.Account.Protobuf;
+using Contracts.Services.Communication.Protobuf;
 using Contracts.Services.Identity.Protobuf;
 using Grpc.Core;
 using Grpc.Net.Client.Configuration;
@@ -60,6 +61,9 @@ public static class ServiceCollectionExtensions
 
     public static void AddAccountGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<AccountService.AccountServiceClient, AccountGrpcClientOptions>();
+    
+    public static void AddCommunicationGrpcClient(this IServiceCollection services)
+        => services.AddGrpcClient<CommunicationService.CommunicationServiceClient, CommunicationGrpcClientOptions>();
 
     private static void AddGrpcClient<TClient, TOptions>(this IServiceCollection services)
         where TClient : ClientBase
@@ -117,6 +121,13 @@ public static class ServiceCollectionExtensions
     public static OptionsBuilder<AccountGrpcClientOptions> ConfigureAccountGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<AccountGrpcClientOptions>()
+            .Bind(section)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+    
+    public static OptionsBuilder<CommunicationGrpcClientOptions> ConfigureCommunicationGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
+        => services
+            .AddOptions<CommunicationGrpcClientOptions>()
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();
