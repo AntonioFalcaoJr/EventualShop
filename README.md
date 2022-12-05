@@ -2,14 +2,28 @@
 
 **WIP - work in progress**
 
-Note. _Greg Young takes the next steps beyond the DDD principles and best practices introduced by Eric Evans in **Domain-Driven Design: Tackling Complexity in the Heart of Software**, using DDD
-with **Command-Query Responsibility Segregation** (CQRS) and **event sourcing** to simplify construction, decentralize decision-making, and make system development more flexible and responsive._
-Adapted from "Event Centric: Finding Simplicity in Complex Systems" by Y. Greg, 2012.
+The main objective of this **cloud-native** project is to represent the **state of the art** of a **distributed**, **reliable**, and **highly scalable** system by interpreting the most relevant
+principles of **Reactive Domain Driven Design**.
 
-This project applies the **EventStorming** workshop to decompose and aggregate correlated business capabilities in **Bounded Contexts** of a simple e-commerce, as well as the **Domain Events**
-(business facts) that provide integration between them. In addition to demonstrating implementation under a reactive **Event-driven architecture** (EDA), through the **event-sourcing** design,
-supported by
-the **CQRS** pattern, in a **Clean Architecture**.
+> Domain-Driven Design can aid with managing uncertainty through the use of good modeling.  
+> -- Vaughn Vernon
+
+Scalability and resiliency require **low coupling** and **high cohesion**, strongly linked to the proper understanding of the business through **well-defined boundaries** in an Event-driven architecture (EDA).
+
+The **EventStorming** workshop provides a practical strategy for **decomposition by subdomain**, aggregating correlated business capabilities in respective boundaries via the **Pivotal Domain Events**
+(business facts) that offer an efficient and healthy integration between **Bounded Contexts**.
+
+> Independence, as the main characteristic of a microservice, can only be found in a Bounded Context.
+
+The **event-sourcing** is a proprietary implementation, which in addition to being **naturally auditable and data-driven**, represents the most efficient persistence mechanism ever. An **eventual state transition** Aggregate design is essential at this point. The Event Store comprises EF Core (ORM) + MSSQL (Database).
+
+**Projections** are asynchronously denormalized and stored on a NoSQL Database(MongoDB); nested documents should be avoided here. Each projection has its index and **fits perfectly into a view or
+component**, mitigating unnecessary data traffic and making reading as efficient as possible.
+
+The splitting between **Command** and **Query** stacks occurs logically through the **CQRS** pattern and fiscally via a **Microservices** architecture. Each stack is an individual deployable unit and has its own
+database.
+
+As a Domain-centric approach, **Clean architecture** provides the appropriate isolation from Core Domain.
 
 > State transitions are an important part of our problem space and should be modelled within our domain.   
 > -- <cite> Greg Young </cite>
@@ -20,16 +34,25 @@ If this project helped you in some way, please **give it a star**. Thanks!
 
 ---
 
-| Service        |                                                                                                                                      Command Stack                                                                                                                                       |                                                                                                                             Query Stack                                                                                                                             |
-|----------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
-| Account        |          [![Account - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-command.yaml)          |  [![Account - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-query.yaml)   |
-| Catalog        |                          [![Catalog](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/catalog.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/catalog.yaml)                          |                                                                                                                                                                                                                                                                     |
-| Communication  | [![Communication - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-command.yaml) |                                                                                                                                                                                                                                                                     |
-| Identity       |        [![Identity - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-command.yaml)         | [![Identity - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-query.yaml) |
-| Order          |                             [![Order](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/order.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/order.yaml)                             |                                                                                                                                                                                                                                                                     |
-| Payment        |                          [![Payment](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment.yaml)                          |                                                                                                                                                                                                                                                                     |
-| ShoppingCart   |                 [![ShoppingCart](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart.yaml)                  |                                                                                                                                                                                                                                                                     |
-| Warehouse      |                       [![Warehouse](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse.yaml)                       |                                                                                                                                                                                                                                                                     |
+New approach/design
+
+| Service        |                                                                                                                                      Command Stack                                                                                                                                       |                                                                                                                                     Query Stack                                                                                                                                     |
+|----------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| Account        |          [![Account - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-command.yaml)          |          [![Account - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-query.yaml)           |
+| Communication  | [![Communication - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-command.yaml) | [![Communication - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-query.yaml)  |
+| Identity       |        [![Identity - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-command.yaml)         |         [![Identity - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-query.yaml)         |
+
+---
+
+Old approach/design
+
+| Service        |                                                                                                                                                                                                                                                                             |
+|----------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| Catalog        |                          [![Catalog](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/catalog.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/catalog.yaml)                          |
+| Order          |                             [![Order](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/order.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/order.yaml)                             |
+| Payment        |                          [![Payment](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment.yaml)                          |
+| ShoppingCart   |                 [![ShoppingCart](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart.yaml)                  |
+| Warehouse      |                       [![Warehouse](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse.yaml)                       |
 
 ---
 
@@ -81,6 +104,10 @@ Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed
 > Vernon, V. (2016) Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional, p65-67.
 
 ## Event Sourcing
+
+Note. _Greg Young takes the next steps beyond the DDD principles and best practices introduced by Eric Evans in **Domain-Driven Design: Tackling Complexity in the Heart of Software**, using DDD
+with **Command-Query Responsibility Segregation** (CQRS) and **event sourcing** to simplify construction, decentralize decision-making, and make system development more flexible and responsive._
+Adapted from "Event Centric: Finding Simplicity in Complex Systems" by Y. Greg, 2012.
 
 > Instead of storing just the current state of the data in a domain, use an append-only store to record the full series of actions taken on that data. The store acts as the system of record and can be
 > used to materialize the domain objects. This can simplify tasks in complex domains, by avoiding the need to synchronize the data model and the business domain, while improving performance,

@@ -1,5 +1,5 @@
 ﻿using Contracts.Abstractions;
-using Contracts.Services.Identity.Grpc;
+using Contracts.Services.Identity.Protobuf;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Contracts.Services.Identity;

@@ -1,7 +1,7 @@
 ﻿using Contracts.Abstractions.Messages;
 using Contracts.DataTransferObjects;
 using Contracts.Services.Account;
-using Contracts.Services.Account.Grpc;
+using Contracts.Services.Account.Protobuf;
 using MassTransit;
 using WebAPI.Abstractions;
 using WebAPI.APIs.Accounts.Validators;

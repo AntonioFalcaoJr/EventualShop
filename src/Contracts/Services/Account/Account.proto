@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package Contracts.Services.Account.Grpc;
+package Contracts.Services.Account.Protobuf;
 
 service AccountService {
   rpc GetAccount(GetAccountRequest) returns (Account);

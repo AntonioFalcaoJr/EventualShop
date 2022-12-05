@@ -68,7 +68,7 @@ public abstract class ApplicationHttpClient
             return new()
             {
                 Success = true,
-                Message = response.ReasonPhrase,
+                Message = response.ReasonPhrase
             };
         }
 
