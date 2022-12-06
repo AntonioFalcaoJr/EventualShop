@@ -1,4 +1,4 @@
-# EDA.CleanArch.DDD.CQRS.EventSourcing
+<img src="./.assets/img/logo.png" width="100%" style="border-radius: 10px" alt=""/>
 
 **WIP - work in progress**
 
