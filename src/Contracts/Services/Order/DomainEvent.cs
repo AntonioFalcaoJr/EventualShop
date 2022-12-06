@@ -5,7 +5,8 @@ namespace Contracts.Services.Order;
 
 public static class DomainEvent
 {
-    public record OrderPlaced(Guid OrderId, Guid CustomerId, decimal Total, Dto.Address BillingAddress, Dto.Address ShippingAddress, IEnumerable<Dto.CartItem> Items, IEnumerable<Dto.PaymentMethod> PaymentMethods) : Message, IEvent;
+    public record OrderPlaced(Guid OrderId, Guid CustomerId, decimal Total, Dto.Address BillingAddress, Dto.Address ShippingAddress, IEnumerable<Dto.OrderItem> Items, 
+        IEnumerable<Dto.PaymentMethod> PaymentMethods, string Status) : Message, IEvent;
 
-    public record OrderConfirmed(Guid OrderId) : Message, IEvent;
+    public record OrderConfirmed(Guid OrderId, string Status) : Message, IEvent;
 }
