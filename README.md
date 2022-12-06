@@ -1,4 +1,4 @@
-<img src="./.assets/img/logo.png" width="100%" style="border-radius: 10px" alt=""/>
+![](.assets/img/Logo_EventualShop_Roxo_Sombra.png)
 
 **WIP - work in progress**
 
