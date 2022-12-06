@@ -47,7 +47,7 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     public void Handle(Command.AddCartItem cmd)
         => RaiseEvent(_items.SingleOrDefault(cartItem => cartItem.Product == cmd.Product) is { IsDeleted: false } item
             ? new DomainEvent.CartItemIncreased(Id, item.Id, (ushort)(item.Quantity + cmd.Quantity), item.UnitPrice)
-            : new DomainEvent.CartItemAdded(cmd.CartId, Guid.NewGuid(), cmd.InventoryId, cmd.CatalogId, cmd.Product, cmd.Quantity, cmd.UnitPrice));
+            : new DomainEvent.CartItemAdded(cmd.CartId, Guid.NewGuid(), cmd.InventoryId, cmd.Product, cmd.Quantity, cmd.UnitPrice));
 
     public void Handle(Command.ChangeCartItemQuantity cmd)
     {
@@ -123,7 +123,7 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
         => _items.First(item => item.Id == @event.ItemId).Delete();
 
     private void When(DomainEvent.CartItemAdded @event)
-        => _items.Add(new(@event.ItemId, @event.CatalogId, @event.Product, @event.Quantity, @event.UnitPrice));
+        => _items.Add(new(@event.ItemId, @event.Product, @event.Quantity, @event.UnitPrice));
 
     private void When(DomainEvent.PaymentMethodAdded @event)
         => _paymentMethods.Add(new(@event.MethodId, @event.Amount, @event.Option switch

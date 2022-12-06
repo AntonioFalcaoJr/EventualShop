@@ -145,6 +145,53 @@ services:
           memory: 200M
       restart_policy:
         condition: any
+        
+        
+  communication-command:
+    image: communication-command:latest
+    build:
+      context: .
+      dockerfile: ./src/Services/Communication/Command/WorkerService/Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: Staging
+    depends_on:
+      mssql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - internal
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.20'
+          memory: 200M
+      restart_policy:
+        condition: any
+
+  communication-query:
+    image: communication-query:latest
+    build:
+      context: .
+      dockerfile: ./src/Services/Communication/Query/GrpcService/Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: Staging
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    networks:
+      - internal
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.20'
+          memory: 200M
+      restart_policy:
+        condition: any      
 
   identity-command:
     image: identity-command:latest
@@ -192,16 +239,37 @@ services:
       restart_policy:
         condition: any
   
-  order:
-    image: order:latest
+  order-command:
+    image: order-command:latest
     build:
       context: .
-      dockerfile: ./src/Services/Order/WorkerService/Dockerfile
+      dockerfile: ./src/Services/Order/Command/WorkerService/Dockerfile
     environment:
       DOTNET_ENVIRONMENT: Staging
     depends_on:
       mssql:
         condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - internal
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.20'
+          memory: 200M
+      restart_policy:
+        condition: any
+  
+  order-query:
+    image: order-query:latest
+    build:
+      context: .
+      dockerfile: ./src/Services/Order/Query/GrpcService/Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: Staging
+    depends_on:
       rabbitmq:
         condition: service_healthy
       mongodb:

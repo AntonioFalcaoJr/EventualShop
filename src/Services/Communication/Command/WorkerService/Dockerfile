@@ -17,6 +17,7 @@ COPY ./src/Services/Communication/Command/Application/*.csproj ./Services/Commun
 COPY ./src/Services/Communication/Command/Domain/*.csproj ./Services/Communication/Command/Domain/
 COPY ./src/Services/Communication/Command/Infrastructure.EventStore/*.csproj ./Services/Communication/Command/Infrastructure.EventStore/
 COPY ./src/Services/Communication/Command/Infrastructure.MessageBus/*.csproj ./Services/Communication/Command/Infrastructure.MessageBus/
+COPY ./src/Services/Communication/Command/Infrastructure.SMTP/*.csproj ./Services/Communication/Command/Infrastructure.SMTP/
 COPY ./src/Services/Communication/Command/WorkerService/*.csproj ./Services/Communication/Command/WorkerService/
 COPY ./src/Contracts/*.csproj ./Contracts/
 
@@ -26,6 +27,7 @@ COPY ./src/Services/Communication/Command/Application/. ./Services/Communication
 COPY ./src/Services/Communication/Command/Domain/. ./Services/Communication/Command/Domain/
 COPY ./src/Services/Communication/Command/Infrastructure.EventStore/. ./Services/Communication/Command/Infrastructure.EventStore/
 COPY ./src/Services/Communication/Command/Infrastructure.MessageBus/. ./Services/Communication/Command/Infrastructure.MessageBus/
+COPY ./src/Services/Communication/Command/Infrastructure.SMTP/. ./Services/Communication/Command/Infrastructure.SMTP/
 COPY ./src/Services/Communication/Command/WorkerService/. ./Services/Communication/Command/WorkerService/
 COPY ./src/Contracts/. ./Contracts/
 

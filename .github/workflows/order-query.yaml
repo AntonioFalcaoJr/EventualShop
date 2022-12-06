@@ -1,0 +1,16 @@
+name: Order - Query Stack
+run-name: Order Query Stack Workflow
+on:
+  push:
+    paths:
+      - src/Services/Order/Query/**.cs
+      - src/Services/Order/Query/**.csproj
+      - Directory.Build.props
+      - .github/workflows/order-query.yaml
+jobs:
+  workflow:
+    uses: ./.github/workflows/_workflow.yaml
+    with:
+      path: src/Services/Order/Query
+      project: GrpcService
+      test: test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests

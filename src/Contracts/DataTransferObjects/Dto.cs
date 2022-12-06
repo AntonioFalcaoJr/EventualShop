@@ -32,11 +32,16 @@ public static class Dto
 
     public record CatalogItem(Guid Id, Guid CatalogId, Guid InventoryId, Product Product, decimal Cost, decimal Markup, int Quantity);
 
-    public record CartItem(Guid Id, Guid CatalogId, Product Product, ushort Quantity, decimal UnitPrice);
+    public record CartItem(Guid Id, Product Product, ushort Quantity, decimal UnitPrice);
 
-    public record OrderItem(Guid Id, Guid OrderId, Guid CartId, Guid CatalogId, Guid InventoryId, Product Product, int Quantity, decimal UnitPrice);
+    public record OrderItem(Guid Id, Product Product, ushort Quantity, decimal UnitPrice)
+    {
+        public static implicit operator OrderItem(CartItem item)
+            => new(Guid.NewGuid(), item.Product, item.Quantity, item.UnitPrice);
+    }
 
     public record Profile(string FirstName, string LastName, string Email, DateOnly? Birthdate, string Gender);
 
-    public record ShoppingCart(Guid Id, Guid CustomerId, string Status, Address BillingAddress, Address ShippingAddress, decimal Total, decimal TotalPayment, decimal AmountDue, IEnumerable<CartItem> Items, IEnumerable<PaymentMethod> PaymentMethods);
+    public record ShoppingCart(Guid Id, Guid CustomerId, string Status, Address BillingAddress, Address ShippingAddress, decimal Total, decimal TotalPayment, decimal AmountDue,
+        IEnumerable<CartItem> Items, IEnumerable<PaymentMethod> PaymentMethods);
 }
