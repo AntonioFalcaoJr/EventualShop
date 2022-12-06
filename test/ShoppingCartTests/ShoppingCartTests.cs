@@ -57,7 +57,6 @@ public class ShoppingCartTests : AggregateTests
                 //@event => @event.Product.Should().Be(product),
                 @event => @event.Quantity.Should().Be(_quantity),
                 @event => @event.UnitPrice.Should().Be(_unitPrice),
-                @event => @event.CatalogId.Should().Be(_catalogId),
                 @event => @event.InventoryId.Should().Be(_inventoryId));
 
     [Fact]
@@ -77,7 +76,7 @@ public class ShoppingCartTests : AggregateTests
 
         Given<ShoppingCart>(
                 new DomainEvent.CartCreated(_cartId, _customerId, CartStatus.Active),
-                new DomainEvent.CartItemAdded(_cartId, _itemId, _catalogId, _inventoryId, _product, _quantity, _unitPrice))
+                new DomainEvent.CartItemAdded(_cartId, _itemId, _inventoryId, _product, _quantity, _unitPrice))
             .When<Command.ChangeCartItemQuantity>(new(_cartId, _itemId, newQuantity))
             .Then<DomainEvent.CartItemIncreased>(
                 @event => @event.CartId.Should().Be(_cartId),
@@ -93,7 +92,7 @@ public class ShoppingCartTests : AggregateTests
 
         Given<ShoppingCart>(
                 new DomainEvent.CartCreated(_cartId, _customerId, CartStatus.Active),
-                new DomainEvent.CartItemAdded(_cartId, _itemId, _catalogId, _inventoryId, _product, quantity, _unitPrice))
+                new DomainEvent.CartItemAdded(_cartId, _itemId, _inventoryId, _product, quantity, _unitPrice))
             .When<Command.ChangeCartItemQuantity>(new(_cartId, _itemId, newQuantity))
             .Then<DomainEvent.CartItemDecreased>(
                 @event => @event.CartId.Should().Be(_cartId),
@@ -108,7 +107,7 @@ public class ShoppingCartTests : AggregateTests
 
         Given<ShoppingCart>(
                 new DomainEvent.CartCreated(_cartId, _customerId, CartStatus.Active),
-                new DomainEvent.CartItemAdded(_cartId, _itemId, _catalogId, _inventoryId, _product, _quantity, _unitPrice),
+                new DomainEvent.CartItemAdded(_cartId, _itemId, _inventoryId, _product, _quantity, _unitPrice),
                 new DomainEvent.CartItemIncreased(_cartId, _itemId, newQuantity, _unitPrice))
             .When<Command.RemoveCartItem>(new(_cartId, _itemId))
             .Then<DomainEvent.CartItemRemoved>(
@@ -125,7 +124,7 @@ public class ShoppingCartTests : AggregateTests
 
         Given<ShoppingCart>(
                 new DomainEvent.CartCreated(_cartId, _customerId, CartStatus.Active),
-                new DomainEvent.CartItemAdded(_cartId, _itemId, _catalogId, _inventoryId, _product, _quantity, _unitPrice))
+                new DomainEvent.CartItemAdded(_cartId, _itemId, _inventoryId, _product, _quantity, _unitPrice))
             .When<Command.AddCartItem>(new(_cartId, _catalogId, _inventoryId, _product, _quantity, _unitPrice))
             .Then<DomainEvent.CartItemIncreased>(
                 @event => @event.CartId.Should().Be(_cartId),
@@ -140,7 +139,7 @@ public class ShoppingCartTests : AggregateTests
 
         Given<ShoppingCart>(
                 new DomainEvent.CartCreated(_cartId, _customerId, CartStatus.Active),
-                new DomainEvent.CartItemAdded(_cartId, _itemId, _catalogId, _inventoryId, _product, _quantity, _unitPrice))
+                new DomainEvent.CartItemAdded(_cartId, _itemId, _inventoryId, _product, _quantity, _unitPrice))
             .When<Command.AddCartItem>(new(_cartId, _catalogId, _inventoryId, product, _quantity, _unitPrice))
             .Then<DomainEvent.CartItemAdded>(
                 @event => @event.CartId.Should().Be(_cartId),

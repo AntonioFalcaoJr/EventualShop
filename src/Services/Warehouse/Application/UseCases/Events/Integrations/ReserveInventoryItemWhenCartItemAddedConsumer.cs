@@ -20,7 +20,7 @@ public class ReserveInventoryItemWhenCartItemAddedConsumer : IConsumer<DomainEve
 
         inventory.Handle(new Command.ReserveInventoryItem(
             context.Message.InventoryId,
-            context.Message.CatalogId,
+            Guid.NewGuid(), // TODO - solve relationship
             context.Message.CartId,
             context.Message.Product,
             context.Message.Quantity));
