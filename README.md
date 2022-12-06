@@ -1,5 +1,4 @@
 ![](.assets/img/Logo_EventualShop_Roxo_Sombra.png)
-
 **WIP - work in progress**
 
 The main objective of this **cloud-native** project is to represent the **state of the art** of a **distributed**, **reliable**, and **highly scalable** system by interpreting the most relevant
