@@ -15,8 +15,7 @@ The **EventStorming** workshop provides a practical strategy for **decomposition
 
 > Independence, as the main characteristic of a microservice, can only be found in a Bounded Context.
 
-The **event-sourcing** is a proprietary implementation, which in addition to being **naturally auditable and data-driven**, represents the most efficient persistence mechanism ever. An **eventual state
-transition** Aggregate Design is essential at this point. The Event Store comprises EF Core (ORM) + MSSQL (Database).
+The **event-sourcing** is a proprietary implementation, which in addition to being **naturally auditable and data-driven**, represents the most efficient persistence mechanism ever. An **eventual state transition** Aggregate design is essential at this point. The Event Store comprises EF Core (ORM) + MSSQL (Database).
 
 **Projections** are asynchronously denormalized and stored on a NoSQL Database(MongoDB); nested documents should be avoided here. Each projection has its index and **fits perfectly into a view or
 component**, mitigating unnecessary data traffic and making reading as efficient as possible.
