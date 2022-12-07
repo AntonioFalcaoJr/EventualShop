@@ -3,22 +3,46 @@ syntax = "proto3";
 package Contracts.Services.Communication.Protobuf;
 
 service CommunicationService {
-  rpc ListEmails(ListEmailsRequest) returns (Emails);
+  rpc ListEmails(ListNotificationsRequest) returns (Notifications);
+}
+
+message Notification {
+  string id = 1;
+  repeated NotificationMethod methods = 2;
+}
+
+message NotificationMethod{
+  oneof option {
+    Email email = 2;
+    Sms sms = 3;
+    PushMobile pushMobile = 4;
+    PushWeb pushWeb = 5;
+  }
 }
 
 message Email {
-  string Id = 1;
-  string UserId = 2;
-  string Email = 3;
+  string Address = 1;
 }
 
-message ListEmailsRequest {
+message Sms {
+  string Number = 1;
+}
+
+message PushWeb {
+  string UserId = 1;
+}
+
+message PushMobile {
+  string DeviceId = 1;
+}
+
+message ListNotificationsRequest {
   sint32 Limit = 1;
   sint32 Offset = 2;
 }
 
-message Emails {
-  repeated Email Items = 1;
+message Notifications {
+  repeated Notification Items = 1;
   Page Page = 2;
 }
 
