@@ -1,4 +1,5 @@
-﻿using Domain.Abstractions.Entities;
+﻿using Contracts.DataTransferObjects;
+using Domain.Abstractions.Entities;
 using Domain.Enumerations;
 using Domain.ValueObject;
 
@@ -6,14 +7,14 @@ namespace Domain.Entities;
 
 public class NotificationMethod : Entity<NotificationMethodValidator>
 {
-    public NotificationMethod(Guid id, NotificationOption option)
+    public NotificationMethod(Guid id, INotificationOption? option)
     {
         Id = id;
         Option = option;
         Status = NotificationMethodStatus.Ready;
     }
 
-    public NotificationOption Option { get; }
+    public INotificationOption? Option { get; }
     public NotificationMethodStatus Status { get; private set; }
 
     public void Complete()
@@ -27,4 +28,14 @@ public class NotificationMethod : Entity<NotificationMethodValidator>
 
     public void Reset()
         => Status = NotificationMethodStatus.Ready;
+
+    public static implicit operator NotificationMethod(Dto.NotificationMethod method)
+        => new(method.MethodId, method.Option switch
+        {
+            Dto.Email email => (Email)email,
+            Dto.Sms sms => (Sms)sms,
+            Dto.PushMobile pushMobile => (PushMobile)pushMobile,
+            Dto.PushWeb pushWeb => (PushWeb)pushWeb,
+            _ => default
+        });
 }

@@ -5,9 +5,9 @@ namespace Contracts.Services.Communication;
 
 public static class Query
 {
-    public record ListEmails(ushort Limit, ushort Offset) : IQuery
+    public record ListNotifications(ushort Limit, ushort Offset) : IQuery
     {
-        public static implicit operator ListEmails(ListEmailsRequest request)
+        public static implicit operator ListNotifications(ListNotificationsRequest request)
             => new((ushort)request.Limit, (ushort)request.Offset);
     }
 }

@@ -1,8 +1,9 @@
 ﻿using Contracts.Abstractions.Messages;
+using Contracts.DataTransferObjects;
 
 namespace Contracts.Services.Communication;
 
 public static class Command
 {
-    public record RequestEmailConfirmation(Guid UserId, string Email) : Message, ICommand;
+    public record RequestNotification(IEnumerable<Dto.NotificationMethod> Methods) : Message, ICommand;
 }

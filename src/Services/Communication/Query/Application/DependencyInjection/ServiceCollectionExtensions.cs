@@ -11,9 +11,9 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddEventInteractors(this IServiceCollection services)
         => services
-            .AddScoped<IInteractor<DomainEvent.EmailConfirmationRequested>, EmailConfirmationRequestedInteractor>();
+            .AddScoped<IInteractor<DomainEvent.NotificationRequested>, NotificationRequestedInteractor>();
 
     public static IServiceCollection AddQueryInteractors(this IServiceCollection services)
         => services
-            .AddScoped<IInteractor<Query.ListEmails, IPagedResult<Projection.EmailSent>>, ListEmailsInteractor>();
+            .AddScoped<IInteractor<Query.ListNotifications, IPagedResult<Projection.NotificationDetails>>, ListNotificationsInteractor>();
 }

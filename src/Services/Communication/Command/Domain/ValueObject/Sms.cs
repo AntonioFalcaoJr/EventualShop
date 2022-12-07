@@ -1,7 +1,12 @@
-﻿namespace Domain.ValueObject;
+﻿using Contracts.DataTransferObjects;
 
-public sealed record Sms(string Number) : NotificationOption
+namespace Domain.ValueObject;
+
+public record struct Sms(string Number) : INotificationOption
 {
     public static implicit operator Sms(string number)
         => new(number);
+
+    public static implicit operator Sms(Dto.Sms sms)
+        => new(sms.Number);
 }
