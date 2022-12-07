@@ -1,12 +1,15 @@
 ﻿using Contracts.JsonConverters;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
+using Protobuf = Contracts.Services.Communication.Protobuf;
 
 namespace Contracts.DataTransferObjects;
 
 public static class Dto
 {
     public record Address(string City, string Country, int? Number, string State, string Street, string ZipCode);
+
+    public interface IPaymentOption { }
 
     public record CreditCard(
             [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
@@ -24,7 +27,44 @@ public static class Dto
 
     public record PaymentMethod(Guid Id, decimal Amount, IPaymentOption? Option);
 
-    public interface IPaymentOption { }
+    public interface INotificationOption { }
+
+    public record struct NotificationMethod(Guid MethodId, INotificationOption? Option)
+    {
+        public static implicit operator Protobuf.NotificationMethod(NotificationMethod method)
+            => method.Option switch
+            {
+                Email email => new() { Email = email },
+                Sms sms => new() { Sms = sms },
+                PushMobile pushMobile => new() { PushMobile = pushMobile },
+                PushWeb pushWeb => new() { PushWeb = pushWeb },
+                _ => default
+            };
+    }
+
+    public record struct Email(string Address, string Body) : INotificationOption
+    {
+        public static implicit operator Protobuf.Email(Email email)
+            => new() { Address = email.Address };
+    }
+
+    public record struct Sms(string Number, string Body) : INotificationOption
+    {
+        public static implicit operator Protobuf.Sms(Sms sms)
+            => new() { Number = sms.Number };
+    }
+
+    public record struct PushWeb(Guid UserId, string Body) : INotificationOption
+    {
+        public static implicit operator Protobuf.PushWeb(PushWeb pushWeb)
+            => new() { UserId = pushWeb.UserId.ToString() };
+    }
+
+    public record struct PushMobile(Guid DeviceId, string Body) : INotificationOption
+    {
+        public static implicit operator Protobuf.PushMobile(PushMobile pushMobile)
+            => new() { DeviceId = pushMobile.DeviceId.ToString() };
+    }
 
     public record Product(string Description, string Name, string PictureUrl, string Brand, string Category, string Unit, string Sku);
 
