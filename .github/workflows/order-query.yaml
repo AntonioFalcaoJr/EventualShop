@@ -1,5 +1,5 @@
 name: Order - Query
-run-name: Order Query Stack Workflow
+run-name: Order Query Workflow
 on:
   push:
     paths:

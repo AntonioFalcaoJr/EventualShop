@@ -1,5 +1,5 @@
 name: Account - Query
-run-name: Account Query Stack Workflow
+run-name: Account Query Workflow
 on:
   push:
     paths:

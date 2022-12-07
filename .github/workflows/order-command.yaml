@@ -1,5 +1,5 @@
 name: Order - Command
-run-name: Order Command Stack Workflow
+run-name: Order Command Workflow
 on:
   push:
     paths:
