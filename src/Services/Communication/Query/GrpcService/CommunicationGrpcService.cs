@@ -8,20 +8,20 @@ namespace GrpcService;
 
 public class CommunicationGrpcService : CommunicationService.CommunicationServiceBase
 {
-    private readonly IInteractor<Query.ListEmails, IPagedResult<Projection.EmailSent>> _listEmailsInteractor;
+    private readonly IInteractor<Query.ListNotifications, IPagedResult<Projection.NotificationDetails>> _listEmailsInteractor;
 
-    public CommunicationGrpcService(IInteractor<Query.ListEmails, IPagedResult<Projection.EmailSent>> listEmailsInteractor)
+    public CommunicationGrpcService(IInteractor<Query.ListNotifications, IPagedResult<Projection.NotificationDetails>> listEmailsInteractor)
     {
         _listEmailsInteractor = listEmailsInteractor;
     }
 
-    public override async Task<Emails> ListEmails(ListEmailsRequest request, ServerCallContext context)
+    public override async Task<Notifications> ListEmails(ListNotificationsRequest request, ServerCallContext context)
     {
         var pagedResult = await _listEmailsInteractor.InteractAsync(request, context.CancellationToken);
 
         return new()
         {
-            Items = { pagedResult.Items.Select(details => (Email)details) },
+            Items = { pagedResult.Items.Select(details => (Notification)details) },
             Page = new()
             {
                 Current = pagedResult.Page.Current,

@@ -15,5 +15,9 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>EmailResource.resx</DependentUpon>
       </Compile>
+      <Compile Remove="UseCases\Events\UserRegisteredInteractor.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="UseCases\Events" />
     </ItemGroup>
 </Project>
