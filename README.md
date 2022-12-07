@@ -1,4 +1,4 @@
-<br> ![](.assets/img/Logo_EventualShop_Roxo_Sombra.png) <br>
+<br><img src=".assets\img\Logo_EventualShop_Roxo_Sombra.png"/><br><br>
 
 <p align="center">
   <a href="#the-eventual-shop">The Eventual Shop</a> &nbsp;&bull;&nbsp;
