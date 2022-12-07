@@ -2,7 +2,6 @@
 using Contracts.Services.Communication;
 using Domain.Abstractions.Aggregates;
 using Domain.Entities;
-using Domain.ValueObject;
 
 namespace Domain.Aggregates;
 
@@ -16,15 +15,15 @@ public class Notification : AggregateRoot<NotificationValidator>
     public override void Handle(ICommand command)
         => Handle(command as dynamic);
 
-    private void Handle(Command.RequestEmailConfirmation cmd)
-        => RaiseEvent(new DomainEvent.EmailConfirmationRequested(Guid.NewGuid(), cmd.UserId, Guid.NewGuid(), cmd.Email));
+    private void Handle(Command.RequestNotification cmd)
+        => RaiseEvent(new DomainEvent.NotificationRequested(Guid.NewGuid(), cmd.Methods));
 
     protected override void Apply(IEvent @event)
         => Apply(@event as dynamic);
 
-    private void Apply(DomainEvent.EmailConfirmationRequested @event)
+    private void Apply(DomainEvent.NotificationRequested @event)
     {
-        Id = @event.Id;
-        _methods.Add(new(@event.MethodId, (Email)@event.Email));
+        Id = @event.NotificationId;
+        _methods.AddRange(@event.Methods.Select(method => (NotificationMethod)method));
     }
 }

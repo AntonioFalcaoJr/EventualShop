@@ -19,7 +19,7 @@ services:
       resources:
         limits:
           cpus: 1
-          memory: 1500M
+          memory: 2G
       restart_policy:
         condition: any
     networks:
@@ -145,8 +145,7 @@ services:
           memory: 200M
       restart_policy:
         condition: any
-        
-        
+  
   communication-command:
     image: communication-command:latest
     build:
@@ -185,14 +184,14 @@ services:
     networks:
       - internal
     deploy:
-      replicas: 2
+      replicas: 1
       resources:
         limits:
           cpus: '0.20'
           memory: 200M
       restart_policy:
-        condition: any      
-
+        condition: any
+  
   identity-command:
     image: identity-command:latest
     build:
