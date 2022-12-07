@@ -1,4 +1,4 @@
-name: Communication - Command Stack
+name: Communication - Command
 run-name: Communication Command Stack Workflow
 on:
   push:

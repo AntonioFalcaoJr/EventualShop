@@ -1,4 +1,4 @@
-name: Account - Command Stack
+name: Account - Command
 run-name: Account Command Stack Workflow
 on:
   push:

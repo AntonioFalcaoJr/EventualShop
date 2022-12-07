@@ -1,4 +1,4 @@
-name: Order - Command Stack
+name: Order - Command
 run-name: Order Command Stack Workflow
 on:
   push:

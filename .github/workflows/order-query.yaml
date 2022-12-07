@@ -1,4 +1,4 @@
-name: Order - Query Stack
+name: Order - Query
 run-name: Order Query Stack Workflow
 on:
   push:

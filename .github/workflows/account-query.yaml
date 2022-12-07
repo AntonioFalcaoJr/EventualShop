@@ -1,4 +1,4 @@
-name: Account - Query Stack
+name: Account - Query
 run-name: Account Query Stack Workflow
 on:
   push:

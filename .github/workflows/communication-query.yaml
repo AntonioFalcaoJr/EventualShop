@@ -1,4 +1,4 @@
-name: Communication - Query Stack
+name: Communication - Query
 run-name: Communication Query Stack Workflow
 on:
   push:
