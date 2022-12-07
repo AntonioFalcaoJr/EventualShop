@@ -1,6 +1,4 @@
-# ![](.assets/img/Logo_EventualShop_Roxo_Sombra.png)
-
-<div align="center">
+<br> ![](.assets/img/Logo_EventualShop_Roxo_Sombra.png) <br>
 
 <p align="center">
   <a href="#the-eventual-shop">The Eventual Shop</a> &nbsp;&bull;&nbsp;
@@ -10,10 +8,9 @@
   <a href="#issue">Issue?</a>
 </p>
 
----
-<center>
+<br>
 
-<table align="center"><tr><th>New Approach</th><th>Old Approach</th></tr><tr><td>
+<table><tr><th>New Approach</th><th>Old Approach</th></tr><tr><td>
 
 | Service       |                                                                                                                                      Command Stack                                                                                                                                       |                                                                                                                                    Query Stack                                                                                                                                     | 
 |---------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
@@ -33,11 +30,7 @@
 
 </td></tr></table>
 
-</center>
-
-</div>
-
----
+<br>
 
 ## The Eventual Shop
 
