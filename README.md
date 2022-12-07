@@ -11,6 +11,7 @@
 </p>
 
 ---
+<center>
 
 <table align="center"><tr><th>New Approach</th><th>Old Approach</th></tr><tr><td>
 
@@ -31,6 +32,8 @@
 | Warehouse    |      [![Warehouse](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse.yaml)       |
 
 </td></tr></table>
+
+</center>
 
 </div>
 
