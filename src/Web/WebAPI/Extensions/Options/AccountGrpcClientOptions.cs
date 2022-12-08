@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace WebAPI.DependencyInjection.Options;
+namespace WebAPI.Extensions.Options;
 
-public record CommunicationGrpcClientOptions
+public record AccountGrpcClientOptions
 {
     [Required, Url] public string BaseAddress { get; init; } = default!;
 }
