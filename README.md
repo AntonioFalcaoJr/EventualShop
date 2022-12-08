@@ -74,6 +74,8 @@ Fig. 1: Falcão Jr., Antônio. _An EDA solution architecture_.
 
 ## Research
 
+<details><summary> Reactive Domain Driven Design </summary>
+
 ### Reactive Domain Driven Design
 
 > I have been seeing, at least in my world, a trend towards reactive systems. Not just reactive within a microservice, but building entire systems that are reactive. In DDD, reactive behavior is also
@@ -115,6 +117,65 @@ Fig. 1: Falcão Jr., Antônio. _An EDA solution architecture_.
 
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/messaging_context_mapping.png)    
 Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed, p65.
+
+### Domain Driven Design (DDD)
+
+> Domain-Driven Design is an approach to software development that centers the development on programming a domain model that has a rich understanding of the processes and rules of a domain. The name
+> comes from a 2003 book by Eric Evans that describes the approach through a catalog of patterns. Since then a community of practitioners have further developed the ideas, spawning various other books
+> and training courses. The approach is particularly suited to complex domains, where a lot of often-messy logic needs to be organized.
+>
+> [Fowler, Martin. "DomainDrivenDesign", _martinfowler.com_, last edited on 22 April 2020](https://martinfowler.com/bliki/DomainDrivenDesign.html)
+
+#### Bounded Context
+
+> Basically, the idea behind bounded context is to put a clear delineation between one model and another model. This delineation and boundary that's put around a domain model, makes the model that is
+> inside the boundary very explicit with very clear meaning as to the concepts, the elements of the model, and the way that the team, including domain experts, think about the model.
+>
+> You'll find a ubiquitous language that is spoken by the team and that is modeled in software by the team. In scenarios and discussions where somebody says, for example, "product," they know in that
+> context exactly what product means. In another context, product can have a different meaning, one that was defined by another team. The product may share identities across bounded contexts, but,
+> generally speaking, the product in another context has at least a slightly different meaning, and possibly even a vastly different meaning.
+>
+> [Vernon, Vaughn. "Modeling Uncertainty with Reactive DDD", _www.infoq.com_, last edited on 29 Set 2018](https://martinfowler.com/bliki/BoundedContext.html)
+
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/BoundedContext.jpg)  
+[Fig. 26: Martin, Fowler. _BoundedContext_](https://martinfowler.com/bliki/BoundedContext.html)
+
+> First, a Bounded Context is a semantic contextual boundary. This means that within the boundary each component of the software model has a specific meaning and does specific things. The components
+> inside a Bounded Context are context specific and semantically motivated. That’s simple enough.
+>
+> When you are just getting started in your software modeling efforts, your Bounded Context is somewhat conceptual. You could think of it as part of your problem space. However, as your model starts
+> to take on deeper meaning and clarity, your Bounded Context will quickly transition to your solution space , with your software model being reflected as project source code. Remember that a Bounded
+> Context is where a model is implemented, and you will have separate software artifacts for each Bounded Context.
+>
+> Vernon, V. (2016). "Strategic Design with Bounded Contexts and the Ubiquitous Language", Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional.
+
+> Explicitly define the context within which a model applies. Explicitly set boundaries in terms of team organization, usage within specific parts of the application, and physical manifestations such
+> as code bases and database schemas. Apply Continuous Integration to keep model concepts and terms strictly consistent within these bounds, but don’t be distracted or confused by issues outside.
+> Standardize a single development process within the context, which need not be used elsewhere.
+>
+> [Evans, Eric. (2015). "Bounded Context", Domain-Driven Design Reference](https://www.domainlanguage.com/ddd/reference)
+
+#### Aggregate
+
+> I think a model is a set of related concepts that can be applied to solve a problem.
+> -- <cite> Eric Evans </cite>
+
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/aggregate.png)  
+Fig. 25: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st ed, p78.
+
+> Each Aggregate forms a transactional consistency boundary. This means that within a single Aggregate, all composed parts must be consistent, according to business rules, when the controlling
+> transaction is committed to the database. This doesn't necessarily mean that you are not supposed to compose other elements within an Aggregate that don't need to be consistent after a transaction.
+> After all, an Aggregate also models a conceptual whole. But you should be first and foremost concerned with transactional consistency. The outer boundary drawn around Aggregate Type 1 and Aggregate
+> Type 2 represents a separate transaction that will be in control of atomically persisting each object cluster.
+>
+> Vernon, V. (2016) Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional, p78.
+
+> Aggregate is a pattern in Domain-Driven Design. A DDD aggregate is a cluster of domain objects that can be treated as a single unit. An example may be an order and its line-items, these will be
+> separate objects, but it's useful to treat the order (together with its line items) as a single aggregate.
+>
+> [Fowler, Martin. "DDD_Aggregate", _martinfowler.com_, last edited on 08 Jun 2015](https://martinfowler.com/bliki/DomainDrivenDesign.html)
+
+</details><details><summary> Event Sourcing </summary>
 
 ### Event Sourcing
 
@@ -210,7 +271,7 @@ The following picture shows the difference between approaches:
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/event-sourcing.png)
 [Fig. 16: Richardson, Chris. _Pattern: Event sourcing_](https://microservices.io/patterns/data/event-sourcing.html)
 
-#### Snapshot
+### Snapshot
 
 > Once you understand how Event Sourcing works, the most common thought is: “What happens when you have a lot of Events? Won’t it be inefficient to fetch every event from the event stream and replay
 > all of them to get to the current state?”. It might be. But to combat this, you can use snapshots in event sourcing to rehydrate aggregates. Snapshots give you a representation of your aggregates
@@ -232,7 +293,9 @@ Snapshot stream:
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/stream_snapshot.png)        
 [Fig. 18: Comartin, Derek. _Snapshots in Event Sourcing for Rehydrating Aggregates_](https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates)
 
-## Event-Driven Architecture (EDA)
+</details><details><summary>Event-Driven Architecture (EDA)</summary>
+
+### Event-Driven Architecture (EDA)
 
 > Event-driven architecture (EDA) is a software architecture paradigm promoting the production, detection, consumption of, and reaction to events. An event can be defined as "a significant change in
 > state".
@@ -334,21 +397,6 @@ The following table shows how EDA and Microservices architectural styles complim
 
 [Table 1: Ambre, Tanmay. _Architectural styles compliment_, Architectural considerations for event-driven microservices-based systems](https://developer.ibm.com/articles/eda-and-microservices-architecture-best-practices)
 
-#### Microservices
-
-> The term "Microservice Architecture" has sprung up over the last few years to describe a particular way of designing software applications as suites of independently deployable services. While there
-> is no precise definition of this architectural style, there are certain common characteristics around organization around business capability, automated deployment, intelligence in the endpoints,
-> and decentralized control of languages and data.
->
-> [Fowler, Martin. "Microservices", _martinfowler.com_, last edited on 25 Mar 2014](https://martinfowler.com/articles/microservices.html)
-
-#### Temporal Coupling and Autonomous Decisions
-
-> Temporal coupling is where you have a dependency on time where one service or one component cannot complete its operation until the other party is done with work. In order to get rid of this
-> temporal coupling, what you can do is you can use events.
->
-> [Alagarsamy, Indu. "Practical DDD: Bounded Contexts + Events => Microservices", _www.infoq.com_, last edited on 03 Set 2019](https://www.infoq.com/presentations/microservices-ddd-bounded-contexts)
-
 ### EDA vs SOA
 
 > Compared to SOA, the essence of an EDA is that the services involved communicate through the capture, propagation, processing and persistence of events. This resulting pattern of communicating
@@ -398,7 +446,26 @@ Comparison overview:
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/EventSourcing_EDA.jpeg)   
 [Fig. 19: Nowak, Aleksander. _Understanding Event-Driven Design Patterns for Microservices_](https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-microservices-659b3c9fb51f)
 
-## CQRS
+</details><details><summary>Microservices</summary>
+
+### Microservices
+
+> The term "Microservice Architecture" has sprung up over the last few years to describe a particular way of designing software applications as suites of independently deployable services. While there
+> is no precise definition of this architectural style, there are certain common characteristics around organization around business capability, automated deployment, intelligence in the endpoints,
+> and decentralized control of languages and data.
+>
+> [Fowler, Martin. "Microservices", _martinfowler.com_, last edited on 25 Mar 2014](https://martinfowler.com/articles/microservices.html)
+
+#### Temporal Coupling and Autonomous Decisions
+
+> Temporal coupling is where you have a dependency on time where one service or one component cannot complete its operation until the other party is done with work. In order to get rid of this
+> temporal coupling, what you can do is you can use events.
+>
+> [Alagarsamy, Indu. "Practical DDD: Bounded Contexts + Events => Microservices", _www.infoq.com_, last edited on 03 Set 2019](https://www.infoq.com/presentations/microservices-ddd-bounded-contexts)
+
+</details><details><summary>CQRS</summary>
+
+### CQRS
 
 > CQRS stands for Command and Query Responsibility Segregation, a pattern that separates read and update operations for a data store. Implementing CQRS in your application can maximize its
 > performance, scalability, and security. The flexibility created by migrating to CQRS allows a system to better evolve over time and prevents update commands from causing merge conflicts at the
@@ -436,7 +503,7 @@ with some different strategies and ways to implement projections.
 
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/projections.svg)
 
-## CQRS + Event Sourcing
+### CQRS + Event Sourcing
 
 > CQRS and Event Sourcing have a symbiotic relationship. CQRS allows Event Sourcing to be used as the data storage mechanism for the domain.
 >
@@ -526,7 +593,9 @@ with some different strategies and ways to implement projections.
 >
 > [Balachandran, Arvind. "Event Notification vs. Event-Carried State Transfer", _Start it up_, last edited on 27 Oct 2019](https://medium.com/swlh/event-notification-vs-event-carried-state-transfer-2e4fdf8f6662)
 
-## EventStorming
+</details><details><summary>EventStorming</summary>
+
+### EventStorming
 
 > EventStorming is a flexible workshop format for collaborative exploration of complex business domains.
 >
@@ -557,64 +626,9 @@ with some different strategies and ways to implement projections.
 
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/from-eventstorming-to-eventsourcing.png)
 
-## Domain Driven Design (DDD)
+</details><details><summary>Clean Architecture</summary>
 
-> Domain-Driven Design is an approach to software development that centers the development on programming a domain model that has a rich understanding of the processes and rules of a domain. The name
-> comes from a 2003 book by Eric Evans that describes the approach through a catalog of patterns. Since then a community of practitioners have further developed the ideas, spawning various other books
-> and training courses. The approach is particularly suited to complex domains, where a lot of often-messy logic needs to be organized.
->
-> [Fowler, Martin. "DomainDrivenDesign", _martinfowler.com_, last edited on 22 April 2020](https://martinfowler.com/bliki/DomainDrivenDesign.html)
-
-### Bounded Context
-
-> Basically, the idea behind bounded context is to put a clear delineation between one model and another model. This delineation and boundary that's put around a domain model, makes the model that is
-> inside the boundary very explicit with very clear meaning as to the concepts, the elements of the model, and the way that the team, including domain experts, think about the model.
->
-> You'll find a ubiquitous language that is spoken by the team and that is modeled in software by the team. In scenarios and discussions where somebody says, for example, "product," they know in that
-> context exactly what product means. In another context, product can have a different meaning, one that was defined by another team. The product may share identities across bounded contexts, but,
-> generally speaking, the product in another context has at least a slightly different meaning, and possibly even a vastly different meaning.
->
-> [Vernon, Vaughn. "Modeling Uncertainty with Reactive DDD", _www.infoq.com_, last edited on 29 Set 2018](https://martinfowler.com/bliki/BoundedContext.html)
-
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/BoundedContext.jpg)  
-[Fig. 26: Martin, Fowler. _BoundedContext_](https://martinfowler.com/bliki/BoundedContext.html)
-
-> First, a Bounded Context is a semantic contextual boundary. This means that within the boundary each component of the software model has a specific meaning and does specific things. The components
-> inside a Bounded Context are context specific and semantically motivated. That’s simple enough.
->
-> When you are just getting started in your software modeling efforts, your Bounded Context is somewhat conceptual. You could think of it as part of your problem space. However, as your model starts
-> to take on deeper meaning and clarity, your Bounded Context will quickly transition to your solution space , with your software model being reflected as project source code. Remember that a Bounded
-> Context is where a model is implemented, and you will have separate software artifacts for each Bounded Context.
->
-> Vernon, V. (2016). "Strategic Design with Bounded Contexts and the Ubiquitous Language", Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional.
-
-> Explicitly define the context within which a model applies. Explicitly set boundaries in terms of team organization, usage within specific parts of the application, and physical manifestations such
-> as code bases and database schemas. Apply Continuous Integration to keep model concepts and terms strictly consistent within these bounds, but don’t be distracted or confused by issues outside.
-> Standardize a single development process within the context, which need not be used elsewhere.
->
-> [Evans, Eric. (2015). "Bounded Context", Domain-Driven Design Reference](https://www.domainlanguage.com/ddd/reference)
-
-### Aggregate
-
-> I think a model is a set of related concepts that can be applied to solve a problem.
-> -- <cite> Eric Evans </cite>
-
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/aggregate.png)  
-Fig. 25: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st ed, p78.
-
-> Each Aggregate forms a transactional consistency boundary. This means that within a single Aggregate, all composed parts must be consistent, according to business rules, when the controlling
-> transaction is committed to the database. This doesn't necessarily mean that you are not supposed to compose other elements within an Aggregate that don't need to be consistent after a transaction.
-> After all, an Aggregate also models a conceptual whole. But you should be first and foremost concerned with transactional consistency. The outer boundary drawn around Aggregate Type 1 and Aggregate
-> Type 2 represents a separate transaction that will be in control of atomically persisting each object cluster.
->
-> Vernon, V. (2016) Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional, p78.
-
-> Aggregate is a pattern in Domain-Driven Design. A DDD aggregate is a cluster of domain objects that can be treated as a single unit. An example may be an order and its line-items, these will be
-> separate objects, but it's useful to treat the order (together with its line items) as a single aggregate.
->
-> [Fowler, Martin. "DDD_Aggregate", _martinfowler.com_, last edited on 08 Jun 2015](https://martinfowler.com/bliki/DomainDrivenDesign.html)
-
-## Clean Architecture
+### Clean Architecture
 
 > Clean architecture is a software design philosophy that separates the elements of a design into ring levels. An important goal of clean architecture is to provide developers with a way to organize
 > code in such a way that it encapsulates the business logic but keeps it separate from the delivery mechanism.
@@ -627,9 +641,11 @@ Fig. 25: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st 
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/CleanArchitecture.jpg)  
 [Fig. 27: C. Martin, Robert. _The Clean Architecture_](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
-### Diagram
+#### Diagram
 
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/CleanArchitectureDiagram.png)
+
+</details>
 
 ## Performance
 
@@ -843,7 +859,7 @@ CREATE TABLE [Snapshots] (
 dotnet ef migrations add "First Migration" -s .\WorkerService\ -p .\Infrastructure.EventStore\
 ```
 
-## Main References
+## References
 
 - [Evans, Eric (2003), Domain-Driven Design: Tackling Complexity in the Heart of Software.](https://www.amazon.com/dp-0321125215/dp/0321125215/ref=mt_other?_encoding=UTF8&me=&qid=1641385448)
 - [Hohpe, Gregor (2003), Enterprise Integration Patterns: Designing, Building, and Deploying Messaging Solutions](https://www.enterpriseintegrationpatterns.com/)
@@ -875,12 +891,6 @@ dotnet ef migrations add "First Migration" -s .\WorkerService\ -p .\Infrastructu
 - [Event Sourcing: Aggregates Vs Projections - Kacper Gunia](https://domaincentric.net/blog/event-sourcing-aggregates-vs-projections)
 - [Event Sourcing: Projections - Kacper Gunia](https://domaincentric.net/blog/event-sourcing-projections)
 - [Advantages of the event-driven architecture pattern - Grace Jansen & Johanna Saladas](https://developer.ibm.com/articles/advantages-of-an-event-driven-architecture/)
-
-### Videos
-
-[![Vaughn Vernon - GOTO, Berlin 2017 • DDD Today "Modeling Uncertainty"](https://i.ytimg.com/vi/uhZx7Pim_tc/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCP7QptcJD1hzlNOlZnV2M_L5e7rQ)](https://www.youtube.com/watch?v=4JqzXQXjYzY)
-
-[![Event Sourcing You are doing it wrong by David Schmitz - YouTube](https://i.ytimg.com/vi/YUjO1wM0PZM/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB4f49rCWZ0lBXVsTMIIkBJPqLNtQ)](https://www.youtube.com/watch?v=YUjO1wM0PZM&t=2880s)
 
 ## Tech Stack
 
