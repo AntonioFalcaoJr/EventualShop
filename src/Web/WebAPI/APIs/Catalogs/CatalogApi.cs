@@ -1,4 +1,5 @@
-﻿using Contracts.Services.Catalog;
+﻿using Asp.Versioning.Builder;
+using Contracts.Services.Catalog;
 using MassTransit;
 using WebAPI.Abstractions;
 using WebAPI.Validations;
@@ -7,8 +8,12 @@ namespace WebAPI.APIs.Catalogs;
 
 public static class CatalogApi
 {
-    public static RouteGroupBuilder MapCatalogApi(this RouteGroupBuilder group)
+    private const string BaseUrl = "/api/v{version:apiVersion}/catalogs/";
+
+    public static IVersionedEndpointRouteBuilder MapCatalogApiV1(this IVersionedEndpointRouteBuilder builder)
     {
+        var group = builder.MapGroup(BaseUrl).HasApiVersion(1);
+
         group.MapGet("/", (IBus bus, ushort? limit, ushort? offset, CancellationToken cancellationToken)
             => ApplicationApi.GetPagedProjectionAsync<Query.GetCatalogs, Projection.Catalog>(bus, new(limit ?? 0, offset ?? 0), cancellationToken));
 
@@ -45,6 +50,16 @@ public static class CatalogApi
         group.MapDelete("/{catalogId:guid}/items/{itemId:guid}", ([AsParameters] Requests.RemoveCatalogItem request)
             => ApplicationApi.SendCommandAsync<Command.RemoveCatalogItem>(request));
 
-        return group.WithMetadata(new TagsAttribute("Catalogs"));
+        return builder;
+    }
+
+    public static IVersionedEndpointRouteBuilder MapCatalogApiV2(this IVersionedEndpointRouteBuilder builder)
+    {
+        var group = builder.MapGroup(BaseUrl).HasApiVersion(2);
+
+        group.MapGet("/", (IBus bus, ushort? limit, ushort? offset, CancellationToken cancellationToken)
+            => ApplicationApi.GetPagedProjectionAsync<Query.GetCatalogs, Projection.Catalog>(bus, new(limit ?? 0, offset ?? 0), cancellationToken));
+
+        return builder;
     }
 }

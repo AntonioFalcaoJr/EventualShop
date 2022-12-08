@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
-namespace WebAPI.Extensions;
+namespace WebAPI.DependencyInjection.Extensions;
 
 public static class ExceptionHandlerExtensions
 {
