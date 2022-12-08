@@ -1,7 +1,7 @@
-<br><img src=".assets\img\Logo_EventualShop_Roxo_Sombra.png"/><br><br>
+<br><img src=".assets\img\Logo_EventualShop_Roxo_Sombra.png"/><br>
 
 <p align="center">
-  <a href="#the-eventual-shop">The Eventual Shop</a> &nbsp;&bull;&nbsp;
+  <a href="#about">About</a> &nbsp;&bull;&nbsp;
   <a href="#research">Research</a> &nbsp;&bull;&nbsp;
   <a href="#usage">Usage</a> &nbsp;&bull;&nbsp;
   <a href="#tech-stack">Tech Stack</a> &nbsp;&bull;&nbsp;
@@ -32,7 +32,7 @@
 
 <br>
 
-## The Eventual Shop
+## About
 
 The main objective of this **cloud-native** project is to represent the **state of the art** of a **distributed**, **reliable**, and **highly scalable** system by interpreting the most relevant
 principles of **Reactive Domain Driven Design**.
@@ -69,7 +69,9 @@ If this project helped you in some way, please **give it a star**. Thanks!
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/solution_architecture.png)    
 Fig. 1: Falcão Jr., Antônio. _An EDA solution architecture_.
 
-## Reactive Domain Driven Design
+## Research
+
+### Reactive Domain Driven Design
 
 > I have been seeing, at least in my world, a trend towards reactive systems. Not just reactive within a microservice, but building entire systems that are reactive. In DDD, reactive behavior is also
 > happening within the bounded context. Being reactive isn't entirely new, and Eric Evans was far ahead of the industry when he introduced eventing. Using domain events means we have to react to
@@ -99,9 +101,6 @@ Fig. 1: Falcão Jr., Antônio. _An EDA solution architecture_.
 
 ### Messaging - Making good use of Context Mapping
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/messaging_context_mapping.png)    
-Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed, p65.
-
 > When using asynchronous messaging to integrate, much can be accomplished by a client Bounded Context subscribing to the Domain Events published by your own or another Bounded Context. Using
 > messaging is one of the most robust forms of integration because you remove much of the temporal coupling associated with blocking forms such as RPC and REST. Since you already anticipate the
 > latency of message exchange, you tend to build more robust systems because you never expect immediate results.
@@ -111,7 +110,10 @@ Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed
 >
 > Vernon, V. (2016) Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional, p65-67.
 
-## Event Sourcing
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/messaging_context_mapping.png)    
+Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed, p65.
+
+### Event Sourcing
 
 Note. _Greg Young takes the next steps beyond the DDD principles and best practices introduced by Eric Evans in **Domain-Driven Design: Tackling Complexity in the Heart of Software**, using DDD
 with **Command-Query Responsibility Segregation** (CQRS) and **event sourcing** to simplify construction, decentralize decision-making, and make system development more flexible and responsive._
@@ -131,8 +133,6 @@ Adapted from "Event Centric: Finding Simplicity in Complex Systems" by Y. Greg, 
 >
 > [Fowler, Martin. "Eventsourcing", _martinfowler.com_, last edited on 12 Dec 2005](https://martinfowler.com/eaaDev/EventSourcing.html)
 
-<br>
-
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/event-sourcing-overview.png)      
 [Fig. 11: MSDN. _Event Sourcing pattern_](https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing#solution)
 
@@ -141,11 +141,11 @@ Adapted from "Event Centric: Finding Simplicity in Complex Systems" by Y. Greg, 
 > To update an entity’s state we use commands from the outside and events on the inside:
 >
 > - Commands: The state of the entity can be changed only by sending commands to it. The commands are the "external" API of an entity. Commands request state changes. The current state may reject the
-    > command, or it may accept it producing zero, one or many events (depending on the command and the current state).
+> command, or it may accept it producing zero, one or many events (depending on the command and the current state).
 >
 >
 > - Events: The events represent changes of the entity’s state and are the only way to change it. The entity creates events from commands. Events are an internal mechanism for the entity to mutate the
-    > state, other parties can’t send events. Other parts of the application may listen to the created events. Summing up, events are facts new tab.
+> state, other parties can’t send events. Other parts of the application may listen to the created events. Summing up, events are facts.
 >
 > The events are persisted to the datastore, while the entity state is kept in memory. In case of a restart the latest state gets rebuilt by replaying the events from the Event Journal.
 >
@@ -160,6 +160,9 @@ Adapted from "Event Centric: Finding Simplicity in Complex Systems" by Y. Greg, 
 
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/event-sourcing-state-transition.png)  
 [Fig. 12: Battermann, Leif. _12 Things You Should Know About Event Sourcing_](http://blog.leifbattermann.de/2017/04/21/12-things-you-should-know-about-event-sourcing)
+
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/eventsourcingrequestflow.png)     
+[Fig. 13: Eventuate. _Event Sourcing_](https://eventuate.io/whyeventsourcing.html)
 
 The mantra of event sourcing and cover the four steps in slightly more details:
 
@@ -186,12 +189,7 @@ The mantra of event sourcing and cover the four steps in slightly more details:
 State transition during events applying:
 
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/applyTo_event-sourcing.png)   
-[Fig. 13: Reitzammer, Benjamin & Seitz, Johannes. _Event Sourcingin practice_](https://ookami86.github.io/event-sourcing-in-practice/#making-eventsourcing-work/18-concurrent-modifictations.md)
-
-<br>
-
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/eventsourcingrequestflow.png)     
-[Fig. 14: Eventuate. _Event Sourcing_](https://eventuate.io/whyeventsourcing.html)
+[Fig. 14: Reitzammer, Benjamin & Seitz, Johannes. _Event Sourcingin practice_](https://ookami86.github.io/event-sourcing-in-practice/#making-eventsourcing-work/18-concurrent-modifictations.md)
 
 ### Event Store
 
