@@ -1,4 +1,8 @@
-<br><img src=".assets\img\Logo_EventualShop_Roxo_Sombra.png"/><br>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/696d45c3dce12a975c90f12bf485ef990565e1b4/.assets/img/Logo_EventualShop_Roxo_Sombra.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/696d45c3dce12a975c90f12bf485ef990565e1b4/.assets/img/Logo_EventualShop_Roxo_Sombra.png">
+  <img alt="Shows an illustrated sun in light mode and a moon with stars in dark mode." src="https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/696d45c3dce12a975c90f12bf485ef990565e1b4/.assets/img/Logo_EventualShop_Roxo_Sombra.png">
+</picture>
 
 <p align="center">
   <a href="#about">About</a> &nbsp;&bull;&nbsp;
