@@ -7,9 +7,8 @@
 <p align="center">
   <a href="#about">About</a> &nbsp;&bull;&nbsp;
   <a href="#research">Research</a> &nbsp;&bull;&nbsp;
-  <a href="#usage">Usage</a> &nbsp;&bull;&nbsp;
-  <a href="#tech-stack">Tech Stack</a> &nbsp;&bull;&nbsp;
-  <a href="#issue">Issue?</a>
+  <a href="#running">Running</a> &nbsp;&bull;&nbsp;
+  <a href="#tech-stack">Tech Stack</a>
 </p>
 
 <br>
@@ -883,7 +882,7 @@ dotnet ef migrations add "First Migration" -s .\WorkerService\ -p .\Infrastructu
 
 [![Event Sourcing You are doing it wrong by David Schmitz - YouTube](https://i.ytimg.com/vi/YUjO1wM0PZM/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB4f49rCWZ0lBXVsTMIIkBJPqLNtQ)](https://www.youtube.com/watch?v=YUjO1wM0PZM&t=2880s)
 
-## Built With
+## Tech Stack
 
 ### Worker Services
 
