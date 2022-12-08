@@ -7,10 +7,10 @@ using Grpc.Net.Client.Configuration;
 using MassTransit;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using WebAPI.Extensions.Options;
+using WebAPI.DependencyInjection.Options;
 using WebAPI.PipeObservers;
 
-namespace WebAPI.Extensions;
+namespace WebAPI.DependencyInjection.Extensions;
 
 public static class ServiceCollectionExtensions
 {

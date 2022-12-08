@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "WebAPI": {
+    "ECommerce.WebAPI": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

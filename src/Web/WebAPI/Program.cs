@@ -18,8 +18,8 @@ using WebAPI.APIs.Orders;
 using WebAPI.APIs.Payments;
 using WebAPI.APIs.ShoppingCarts;
 using WebAPI.APIs.Warehouses;
-using WebAPI.Extensions;
-using WebAPI.Extensions.Options;
+using WebAPI.DependencyInjection.Extensions;
+using WebAPI.DependencyInjection.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using WebAPI.Extensions.Options;
+using WebAPI.DependencyInjection.Options;
 
-namespace WebAPI.Extensions;
+namespace WebAPI.DependencyInjection.Extensions;
 
 public static class SwaggerExtensions
 {

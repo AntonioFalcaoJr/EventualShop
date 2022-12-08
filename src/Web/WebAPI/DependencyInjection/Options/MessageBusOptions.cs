@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebAPI.Extensions.Options;
+namespace WebAPI.DependencyInjection.Options;
 
 public record MessageBusOptions
 {
