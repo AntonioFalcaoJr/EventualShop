@@ -1,4 +1,4 @@
-<br><img src=".assets\img\Logo_EventualShop_Roxo_Sombra.png" wi/><br>
+<br><img src=".assets\img\Logo_EventualShop_Roxo_Sombra.png"/><br>
 
 <p align="center">
   <a href="#about">About</a> &nbsp;&bull;&nbsp;
