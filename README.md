@@ -33,8 +33,6 @@
 
 </td></tr></table>
 
-<br>
-
 ## About
 
 The main objective of this **cloud-native** project is to represent the **state of the art** of a **distributed**, **reliable**, and **highly scalable** system by interpreting the most relevant
@@ -271,6 +269,67 @@ The following picture shows the difference between approaches:
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/event-sourcing.png)
 [Fig. 16: Richardson, Chris. _Pattern: Event sourcing_](https://microservices.io/patterns/data/event-sourcing.html)
 
+#### Exemplifying
+
+##### Store Event
+
+```sql
+CREATE TABLE [Events] (
+    [Version] bigint NOT NULL,
+    [AggregateId] uniqueidentifier NOT NULL,
+    [AggregateName] varchar(30) NOT NULL,
+    [DomainEventName] varchar(50) NOT NULL,
+    [DomainEvent] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Events] PRIMARY KEY ([Version], [AggregateId])
+);
+```
+
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/store-event.png)
+
+```json
+{
+  "$type": "Contracts.Services.Account.DomainEvent+AccountCreated, Contracts",
+  "Id": "b7450a4c-5749-4131-830c-28dcfd7e5dea",
+  "FirstName": "Antônio Roque",
+  "LastName": "Falcão Júnior",
+  "Email": "arfj@edu.univali.br",
+  "Timestamp": "2022-08-31T19:27:41.7810008-03:00",
+  "CorrelationId": "b7450a4c-5749-4131-830c-28dcfd7e5dea"
+}
+```
+
+##### Snapshot
+
+```sql
+CREATE TABLE [Snapshots] (
+    [AggregateVersion] bigint NOT NULL,
+    [AggregateId] uniqueidentifier NOT NULL,
+    [AggregateName] varchar(30) NOT NULL,
+    [AggregateState] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Snapshots] PRIMARY KEY ([AggregateVersion], [AggregateId])
+);
+```
+
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/store-snapshot.png)
+
+```json
+{
+  "CustomerId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "Status": {
+    "Name": "Confirmed",
+    "Value": 2
+  },
+  "BillingAddress": null,
+  "ShippingAddress": null,
+  "Total": 0.0,
+  "TotalPayment": 0.0,
+  "AmountDue": 0.0,
+  "Items": [],
+  "PaymentMethods": [],
+  "Id": "de2ec981-24c1-4c27-abbb-dd50d99a1e16",
+  "IsDeleted": false
+}
+```
 ### Snapshot
 
 > Once you understand how Event Sourcing works, the most common thought is: “What happens when you have a lot of Events? Won’t it be inefficient to fetch every event from the event stream and replay
@@ -649,7 +708,9 @@ with some different strategies and ways to implement projections.
 
 ## Performance
 
-### Minimize exceptions
+<details><summary>Minimize Exceptions</summary>
+
+### Minimize Exceptions
 
 > Exceptions should be rare. Throwing and catching exceptions is slow relative to other code flow patterns. Because of this, exceptions shouldn't be used to control normal program flow.
 >
@@ -661,6 +722,8 @@ with some different strategies and ways to implement projections.
 > - App diagnostic tools, such as Application Insights, can help to identify common exceptions in an app that may affect performance.
 >
 > ["ASP.NET Core Performance Best Practices" _MSDN_, Microsoft Docs, last edited on 18 Fev 2022](https://docs.microsoft.com/en-us/aspnet/core/performance/performance-best-practices?view=aspnetcore-6.0#minimize-exceptions)
+
+</details><details><summary>Pool HTTP connections with HttpClientFactory</summary>
 
 ### Pool HTTP connections with HttpClientFactory
 
@@ -674,7 +737,9 @@ with some different strategies and ways to implement projections.
 >
 > ["ASP.NET Core Performance Best Practices" _MSDN_, Microsoft Docs, last edited on 18 Fev 2022](https://docs.microsoft.com/en-us/aspnet/core/performance/performance-best-practices?view=aspnetcore-6.0#pool-http-connections-with-httpclientfactory)
 
-### DbContext pooling
+</details><details><summary>DbContext Pooling</summary>
+
+### DbContext Pooling
 
 > The basic pattern for using EF Core in an ASP.NET Core application usually involves registering a custom DbContext type into the dependency injection system and later obtaining instances of that
 > type through constructor parameters in controllers. This means a new instance of the DbContext is created for each request.
@@ -684,6 +749,8 @@ with some different strategies and ways to implement projections.
 >
 > ["New features in EF Core 2.0" _MSDN_, Microsoft Docs, last edited on 11 Oct 2020](https://docs.microsoft.com/en-us/ef/core/what-is-new/ef-core-2.0/#dbcontext-pooling)
 
+</details><details><summary>Snapshotting</summary>
+
 ### Snapshotting
 
 > Snapshotting is an optimisation that reduces time spent on reading event from an event store.
@@ -692,7 +759,11 @@ with some different strategies and ways to implement projections.
 
 More details in [snapshot](#snapshot) section.
 
+</details>
+
 ## Running
+
+<details><summary>Development</summary>
 
 ### Development
 
@@ -744,6 +815,13 @@ docker run -d \
 --name rabbitmq \
 rabbitmq:3-management
 ```
+### Migrations
+
+```bash
+dotnet ef migrations add "First Migration" -s .\WorkerService\ -p .\Infrastructure.EventStore\
+```
+
+</details><details><summary>Staging</summary>
 
 ### Staging
 
@@ -782,82 +860,49 @@ deploy:
       cpus: '0.20'
       memory: 120M
 ```
+</details><details><summary>Production</summary>
 
-## Test
+### Production
 
-K6
+// TODO
+
+</details>
+
+## Tests
+
+<details><summary>Unit Tests</summary>
+
+### Unit Tests
+
+To unit-test an event-sourced aggregate, it's to verify that the Aggregate produces the expected event as output given a specific set of input Events and a Command. This involves creating an Aggregate
+instance, applying the input events to it, handling the command, and verifying the expected event output.
+
+```csharp
+[Fact]
+public void CreateCartShouldRaiseCartCreated()
+    => Given<ShoppingCart>()
+        .When<Command.CreateCart>(new(_cartId, _customerId))
+        .Then<DomainEvent.CartCreated>(
+            @event => @event.CartId.Should().Be(_cartId),
+            @event => @event.CustomerId.Should().Be(_customerId),
+            @event => @event.Status.Should().Be(CartStatus.Active));
+```
+
+</details><details><summary>Integration Tests</summary>
+
+### Integration Tests
+
+// TODO
+
+</details><details><summary>Load Tests</summary>
+
+### Load Testing (K6)
 
 ```bash
 docker run --network=internal --name k6 --rm -i grafana/k6 run - <test.js
 ```
 
-## Event Store
-
-### Store event
-
-```sql
-CREATE TABLE [Events] (
-    [Version] bigint NOT NULL,
-    [AggregateId] uniqueidentifier NOT NULL,
-    [AggregateName] varchar(30) NOT NULL,
-    [DomainEventName] varchar(50) NOT NULL,
-    [DomainEvent] nvarchar(max) NOT NULL,
-    CONSTRAINT [PK_Events] PRIMARY KEY ([Version], [AggregateId])
-);
-```
-
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/store-event.png)
-
-```json
-{
-  "$type": "Contracts.Services.Account.DomainEvent+AccountCreated, Contracts",
-  "Id": "b7450a4c-5749-4131-830c-28dcfd7e5dea",
-  "FirstName": "Antônio Roque",
-  "LastName": "Falcão Júnior",
-  "Email": "arfj@edu.univali.br",
-  "Timestamp": "2022-08-31T19:27:41.7810008-03:00",
-  "CorrelationId": "b7450a4c-5749-4131-830c-28dcfd7e5dea"
-}
-```
-
-### Snapshot
-
-```sql
-CREATE TABLE [Snapshots] (
-    [AggregateVersion] bigint NOT NULL,
-    [AggregateId] uniqueidentifier NOT NULL,
-    [AggregateName] varchar(30) NOT NULL,
-    [AggregateState] nvarchar(max) NOT NULL,
-    CONSTRAINT [PK_Snapshots] PRIMARY KEY ([AggregateVersion], [AggregateId])
-);
-```
-
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/store-snapshot.png)
-
-```json
-{
-  "CustomerId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "Status": {
-    "Name": "Confirmed",
-    "Value": 2
-  },
-  "BillingAddress": null,
-  "ShippingAddress": null,
-  "Total": 0.0,
-  "TotalPayment": 0.0,
-  "AmountDue": 0.0,
-  "Items": [],
-  "PaymentMethods": [],
-  "Id": "de2ec981-24c1-4c27-abbb-dd50d99a1e16",
-  "IsDeleted": false
-}
-```
-
-### Migrations
-
-```bash
-dotnet ef migrations add "First Migration" -s .\WorkerService\ -p .\Infrastructure.EventStore\
-```
+</details>
 
 ## References
 
