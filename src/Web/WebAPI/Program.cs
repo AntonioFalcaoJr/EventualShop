@@ -9,7 +9,6 @@ using MassTransit;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.AspNetCore.HttpLogging;
-using Microsoft.OpenApi.Any;
 using Serilog;
 using WebAPI.APIs.Accounts;
 using WebAPI.APIs.Catalogs;
@@ -21,7 +20,6 @@ using WebAPI.APIs.ShoppingCarts;
 using WebAPI.APIs.Warehouses;
 using WebAPI.DependencyInjection.Extensions;
 using WebAPI.DependencyInjection.Options;
-using WebAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -72,11 +70,14 @@ builder.Host.ConfigureServices((context, services) =>
         .AddSwaggerGenNewtonsoftSupport()
         .AddFluentValidationRulesToSwagger()
         .AddEndpointsApiExplorer()
-        .AddSwaggerGen(options =>
+        .AddSwagger();
+    
+    services
+        .AddApiVersioning(options => options.ReportApiVersions = true)
+        .AddApiExplorer(options =>
         {
-            options.SwaggerDoc("v1", new() { Title = builder.Environment.ApplicationName, Version = "v1" });
-            options.MapType<DateOnly>(() => new() { Format = "date", Example = new OpenApiString(DateOnly.MinValue.ToString()) });
-            options.CustomSchemaIds(type => type.ToString().Replace("+", "."));
+            options.GroupNameFormat = "'v'VVV";
+            options.SubstituteApiVersionInUrl = true;
         });
 
     services.AddMessageBus();
@@ -111,24 +112,30 @@ var app = builder.Build();
 if (builder.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 
-if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(options => options.EnableTryItOutByDefault());
-}
-
 app.UseCors();
 app.UseSerilogRequestLogging();
 app.UseApplicationExceptionHandler();
 
-app.MapGroup("/api/v1/accounts/").MapAccountApi();
-app.MapGroup("/api/v1/catalogs/").MapCatalogApi();
-app.MapGroup("/api/v1/communications/").MapCommunicationApi();
-app.MapGroup("/api/v1/identities/").MapIdentityApi();
-app.MapGroup("/api/v1/orders/").MapOrderApi();
-app.MapGroup("/api/v1/payments/").MapPaymentApi();
-app.MapGroup("/api/v1/shopping-carts/").MapShoppingCartApi();
-app.MapGroup("/api/v1/warehouses/").MapWarehouseApi();
+app.MapApiGroup("Accounts").MapAccountApiV1().MapAccountApiV2();
+app.MapApiGroup("Catalogs").MapCatalogApiV1().MapCatalogApiV2();
+app.MapApiGroup("Communications").MapCommunicationApiV1().MapCommunicationApiV2();
+app.MapApiGroup("Identities").MapIdentityApiV1().MapIdentityApiV2();
+app.MapApiGroup("Orders").MapOrderApiV1().MapOrderApiV2();
+app.MapApiGroup("Payments").MapPaymentApiV1().MapPaymentApiV2();
+app.MapApiGroup("ShoppingCarts").MapShoppingCartApiV1().MapShoppingCartApiV2();
+app.MapApiGroup("Warehouses").MapWarehouseApiV1().MapWarehouseApiV2();
+
+if (builder.Environment.IsProduction() is false)
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(options =>
+    {
+        foreach (var version in app.DescribeApiVersions().Select(version => version.GroupName))
+            options.SwaggerEndpoint($"/swagger/{version}/swagger.json", version);
+
+        options.EnableTryItOutByDefault();
+    });
+}
 
 try
 {

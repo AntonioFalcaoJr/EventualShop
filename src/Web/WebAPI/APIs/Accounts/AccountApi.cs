@@ -1,12 +1,17 @@
-﻿using Contracts.Services.Account;
+﻿using Asp.Versioning.Builder;
+using Contracts.Services.Account;
 using WebAPI.Abstractions;
 
 namespace WebAPI.APIs.Accounts;
 
 public static class AccountApi
 {
-    public static RouteGroupBuilder MapAccountApi(this RouteGroupBuilder group)
+    private const string BaseUrl = "/api/v{version:apiVersion}/accounts/";
+    
+    public static IVersionedEndpointRouteBuilder MapAccountApiV1(this IVersionedEndpointRouteBuilder builder)
     {
+        var group = builder.MapGroup(BaseUrl).HasApiVersion(1);
+
         group.MapGet("/", ([AsParameters] Requests.ListAccounts request)
             => ApplicationApi.QueryAsync(request, (client, cancellationToken) => client.ListAccountsAsync(request, cancellationToken: cancellationToken)));
 
@@ -25,6 +30,16 @@ public static class AccountApi
         group.MapPost("/{accountId:guid}/profiles/shipping-addresses", ([AsParameters] Requests.AddShippingAddress request)
             => ApplicationApi.SendCommandAsync<Command.AddShippingAddress>(request));
 
-        return group.WithMetadata(new TagsAttribute("Accounts"));
+        return builder;
+    }
+
+    public static IVersionedEndpointRouteBuilder MapAccountApiV2(this IVersionedEndpointRouteBuilder builder)
+    {
+        var group = builder.MapGroup(BaseUrl).HasApiVersion(2);
+
+        group.MapGet("/", ([AsParameters] Requests.ListAccounts request)
+            => ApplicationApi.QueryAsync(request, (client, cancellationToken) => client.ListAccountsAsync(request, cancellationToken: cancellationToken)));
+
+        return builder;
     }
 }

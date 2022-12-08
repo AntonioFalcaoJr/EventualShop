@@ -1,3 +1,4 @@
+using Asp.Versioning.Builder;
 using Contracts.Services.Identity;
 using WebAPI.Abstractions;
 
@@ -5,8 +6,12 @@ namespace WebAPI.APIs.Identities;
 
 public static class IdentityApi
 {
-    public static RouteGroupBuilder MapIdentityApi(this RouteGroupBuilder group)
+    private const string BaseUrl = "/api/v{version:apiVersion}/identities/";
+
+    public static IVersionedEndpointRouteBuilder MapIdentityApiV1(this IVersionedEndpointRouteBuilder builder)
     {
+        var group = builder.MapGroup(BaseUrl).HasApiVersion(1);
+
         group.MapGet("/sign-in", ([AsParameters] Requests.SignIn request)
             => ApplicationApi.QueryAsync(request, (client, cancellationToken) => client.LoginAsync(request, cancellationToken: cancellationToken)));
 
@@ -22,6 +27,16 @@ public static class IdentityApi
         group.MapPut("/{userId:guid}/change-password", ([AsParameters] Requests.ChangePassword request)
             => ApplicationApi.SendCommandAsync<Command.ChangePassword>(request));
 
-        return group.WithMetadata(new TagsAttribute("Identities"));
+        return builder;
+    }
+
+    public static IVersionedEndpointRouteBuilder MapIdentityApiV2(this IVersionedEndpointRouteBuilder builder)
+    {
+        var group = builder.MapGroup(BaseUrl).HasApiVersion(2);
+
+        group.MapGet("/sign-in", ([AsParameters] Requests.SignIn request)
+            => ApplicationApi.QueryAsync(request, (client, cancellationToken) => client.LoginAsync(request, cancellationToken: cancellationToken)));
+
+        return builder;
     }
 }
