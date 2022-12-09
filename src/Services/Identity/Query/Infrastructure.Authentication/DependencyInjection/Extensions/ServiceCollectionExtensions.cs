@@ -1,4 +1,4 @@
-using Application.Abstractions;
+using Infrastructure.Authentication.Abstractions;
 using Infrastructure.Authentication.DependencyInjection.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +10,9 @@ public static class ServiceCollectionExtensions
 {
     public static void AddJwtAuthentication(this IServiceCollection services)
         => services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+
+    public static void AddPasswordHasher(this IServiceCollection services)
+        => services.AddScoped<IPasswordHasher, PasswordHasher>();
 
     public static OptionsBuilder<JwtOptions> ConfigureJwtOptions(this IServiceCollection services, IConfigurationSection section)
         => services

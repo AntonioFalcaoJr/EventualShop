@@ -49,6 +49,7 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddMessageValidators();
     services.AddProjections();
     services.AddJwtAuthentication();
+    services.AddPasswordHasher();
 
     services.ConfigureEventBusOptions(
         context.Configuration.GetSection(nameof(EventBusOptions)));

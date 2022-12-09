@@ -1,4 +1,5 @@
 using Application.DependencyInjection;
+using Infrastructure.Authentication.DependencyInjection.Extensions;
 using Infrastructure.EventStore.Contexts;
 using Infrastructure.EventStore.DependencyInjection.Extensions;
 using Infrastructure.EventStore.DependencyInjection.Options;
@@ -44,6 +45,7 @@ builder.ConfigureServices((context, services) =>
     services.AddCommandInteractors();
     services.AddEventInteractors();
     services.AddMessageValidators();
+    services.AddPasswordHasher();
 
     services.ConfigureEventStoreOptions(
         context.Configuration.GetSection(nameof(EventStoreOptions)));
