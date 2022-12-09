@@ -46,6 +46,8 @@ builder.Host.UseSerilog();
 
 builder.Host.ConfigureServices((context, services) =>
 {
+    services.AddProblemDetails();
+    
     services.AddCors(options
         => options.AddDefaultPolicy(policyBuilder
             => policyBuilder
@@ -114,16 +116,15 @@ if (builder.Environment.IsDevelopment())
 
 app.UseCors();
 app.UseSerilogRequestLogging();
-app.UseApplicationExceptionHandler();
 
-app.MapApiGroup("Accounts").MapAccountApiV1().MapAccountApiV2();
-app.MapApiGroup("Catalogs").MapCatalogApiV1().MapCatalogApiV2();
-app.MapApiGroup("Communications").MapCommunicationApiV1().MapCommunicationApiV2();
-app.MapApiGroup("Identities").MapIdentityApiV1().MapIdentityApiV2();
-app.MapApiGroup("Orders").MapOrderApiV1().MapOrderApiV2();
-app.MapApiGroup("Payments").MapPaymentApiV1().MapPaymentApiV2();
-app.MapApiGroup("ShoppingCarts").MapShoppingCartApiV1().MapShoppingCartApiV2();
-app.MapApiGroup("Warehouses").MapWarehouseApiV1().MapWarehouseApiV2();
+app.NewVersionedApi("Accounts").MapAccountApiV1().MapAccountApiV2();
+app.NewVersionedApi("Catalogs").MapCatalogApiV1().MapCatalogApiV2();
+app.NewVersionedApi("Communications").MapCommunicationApiV1().MapCommunicationApiV2();
+app.NewVersionedApi("Identities").MapIdentityApiV1().MapIdentityApiV2();
+app.NewVersionedApi("Orders").MapOrderApiV1().MapOrderApiV2();
+app.NewVersionedApi("Payments").MapPaymentApiV1().MapPaymentApiV2();
+app.NewVersionedApi("ShoppingCarts").MapShoppingCartApiV1().MapShoppingCartApiV2();
+app.NewVersionedApi("Warehouses").MapWarehouseApiV1().MapWarehouseApiV2();
 
 if (builder.Environment.IsProduction() is false)
 {
