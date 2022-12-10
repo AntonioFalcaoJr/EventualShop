@@ -1,4 +1,6 @@
-# ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/Logo_EventualShop_Roxo.png)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/Logo_EventualShop_Roxo.png)
+
+---
 
 <p align="center">
   <a href="#about">About</a> &nbsp;&bull;&nbsp;
