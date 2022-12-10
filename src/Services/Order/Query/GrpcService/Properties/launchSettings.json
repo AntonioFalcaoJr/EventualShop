@@ -1,6 +1,6 @@
 ﻿{
   "profiles": {
-    "Account.GrpcService": {
+    "Order.GrpcService": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,
