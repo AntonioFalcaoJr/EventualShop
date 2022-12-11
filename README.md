@@ -2,8 +2,6 @@
 
 ---
 
-The Solution Architecture
-
 <p align="center">
   <a href="#about">About</a> &nbsp;&bull;&nbsp;
   <a href="#the-solution-architecture">The Solution Architecture</a> &nbsp;&bull;&nbsp;
