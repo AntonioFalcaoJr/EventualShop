@@ -76,6 +76,9 @@ Fig. 1: Falcão Jr., Antônio. _An EDA solution architecture_.
 
 ### Reactive Domain Driven Design
 
+Reactive DDD aims to create software that is responsive, resilient, and scalable, by applying the principles of reactive programming to domain-driven design. This involves using asynchronous and
+non-blocking communication between the different components of the system, and using events and streams to model the domain concepts and relationships.
+
 > I have been seeing, at least in my world, a trend towards reactive systems. Not just reactive within a microservice, but building entire systems that are reactive. In DDD, reactive behavior is also
 > happening within the bounded context. Being reactive isn't entirely new, and Eric Evans was far ahead of the industry when he introduced eventing. Using domain events means we have to react to
 > events that happened in the past, and bring our system into harmony.
@@ -703,6 +706,28 @@ with some different strategies and ways to implement projections.
 #### Diagram
 
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/CleanArchitectureDiagram.png)
+
+</details><details><summary>Task Based UI + CQRS</summary>
+
+In a standard user interface (UI), the user typically edits or manipulates data directly. This allows the user to enter or modify the data synchronously, enabling the UI to respond to
+the user's actions in real-time (blocking the operation until the return).
+
+In a task-based UI, on the other hand, the user typically expresses their intentions rather than editing the data directly. Task-based UIs provide users with the information and tools to
+complete specific tasks. They generally are organized around the steps or stages of the task, and give the user instructions, prompts, and input fields to enter or modify a specific piece of data.
+
+Task Based UI can use asynchronous communication mechanisms to enable users to express their intentions asynchronously, without the need for the UI to wait for a response or confirmation from the system.
+For example, the UI may use a message queue or event bus to send commands or messages to the system, and the system may use the same mechanism to send updates or notifications back to the UI. This
+enable the UI to continue with other operations, such as querying the system for updated data or displaying a progress indicator to the user without waiting for a response from the system.
+
+However, even though a way command does not require a return value or confirmation, it can still be validated and accepted by the CQRS system. When a way command is received by the write side of the
+CQRS system, it can be validated to ensure that it is well-formed and conforms to the rules and constraints of the system. If the command is valid, it can be accepted and processed, and the data can
+be updated or modified according to the instructions in the command. If the command is not valid, it can be rejected or ignored, and the data can be left unchanged.
+
+Task-based UIs and CQRS can be used together to provide users with a flexible and efficient way to interact with a system and complete specific tasks. This can make them more efficient and
+user-friendly than more general-purpose UIs. 
+
+![](.assets/img/task_based_ui.png)  
+[Fig. 29: Murali, Bala. _What is Task Based UI_](https://medium.com/@baladotcom/what-is-task-based-ui-60a44ddfd968)
 
 </details>
 
