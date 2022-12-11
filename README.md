@@ -2,8 +2,11 @@
 
 ---
 
+The Solution Architecture
+
 <p align="center">
   <a href="#about">About</a> &nbsp;&bull;&nbsp;
+  <a href="#the-solution-architecture">The Solution Architecture</a> &nbsp;&bull;&nbsp;
   <a href="#research">Research</a> &nbsp;&bull;&nbsp;
   <a href="#running">Running</a> &nbsp;&bull;&nbsp;
   <a href="#tech-stack">Tech Stack</a>
