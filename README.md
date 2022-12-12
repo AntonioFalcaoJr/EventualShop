@@ -73,7 +73,36 @@ Fig. 1: Falcão Jr., Antônio. _An EDA solution architecture_.
 
 ## Research
 
-<details><summary> Reactive Domain Driven Design </summary>
+<details>
+    <summary> Agnostic Obsession </summary>
+
+### Agnostic Obsession
+
+Agnostic obsession is a design approach that focuses on creating software unrelated to any specific domain, application, or technology. Some strategies adopted in this project are related to
+particular principles, such as the domain-centric to support the business (DDD and Clean Arch), event-sourcing + ORM for persistence mechanism, containers for immutable environments, and Kubernetes (
+K8s) for cloud deployment.
+
+The domain-centric approach is a design pattern that separates the core business logic of an application from other concerns, such as the user interface or infrastructure.,making it easier to maintain
+and extend the application, as the core domain is isolated from other system components. Additionally, the ability to move the core domain to different applications while keeping the essence of the
+business can be helpful for organizations that need to support multiple applications or platforms.
+
+A key aspect of agnostic obsession is event-sourcing and object-relational mapping (ORM) as a persistence mechanism. Event sourcing involves storing the history of events occurring within a system
+rather than the system's current state, avoiding advanced database capabilities such as Joins, Triggers, Procedures, and more. On the other hand, ORM is a technique that maps objects in a program to
+data stored in a database, making it easier and more abstract to manage data.
+
+Another essential aspect of agnostic obsession is using containers to create immutable environments. Containers are a lightweight virtualization form that allows packaging an application and its
+dependencies into a single, self-contained unit, making it easy to deploy and run the application in any environment without worrying about the underlying infrastructure or platform.
+
+Finally, agnostic obsession often involves using Kubernetes (K8s) for cloud deployment. K8s is an open-source platform for managing and deploying containerized applications. It is widely used in the
+industry and supported by most cloud providers, making it a natural choice for agnostic obsession.
+
+In summary, agnostic obsession is a powerful approach that allows for creating highly flexible and adaptable software that can be easily moved and deployed in different environments. Using
+event-sourcing, ORM, Containers, and K8s, it is possible to build resilient, scalable, and easy-to-maintain systems.
+
+</details>
+
+<details>
+    <summary> Reactive Domain Driven Design </summary>
 
 ### Reactive Domain Driven Design
 
@@ -177,7 +206,10 @@ Fig. 25: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st 
 >
 > [Fowler, Martin. "DDD_Aggregate", _martinfowler.com_, last edited on 08 Jun 2015](https://martinfowler.com/bliki/DomainDrivenDesign.html)
 
-</details><details><summary> Event Sourcing </summary>
+</details>
+
+<details>
+    <summary> Event Sourcing </summary>
 
 ### Event Sourcing
 
@@ -356,7 +388,10 @@ Snapshot stream:
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/stream_snapshot.png)        
 [Fig. 18: Comartin, Derek. _Snapshots in Event Sourcing for Rehydrating Aggregates_](https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates)
 
-</details><details><summary>Event-Driven Architecture (EDA)</summary>
+</details>
+
+<details>
+    <summary>Event-Driven Architecture (EDA)</summary>
 
 ### Event-Driven Architecture (EDA)
 
@@ -509,7 +544,10 @@ Comparison overview:
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/EventSourcing_EDA.jpeg)   
 [Fig. 19: Nowak, Aleksander. _Understanding Event-Driven Design Patterns for Microservices_](https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-microservices-659b3c9fb51f)
 
-</details><details><summary>Microservices</summary>
+</details>
+
+<details>
+    <summary>Microservices</summary>
 
 ### Microservices
 
@@ -526,7 +564,10 @@ Comparison overview:
 >
 > [Alagarsamy, Indu. "Practical DDD: Bounded Contexts + Events => Microservices", _www.infoq.com_, last edited on 03 Set 2019](https://www.infoq.com/presentations/microservices-ddd-bounded-contexts)
 
-</details><details><summary>CQRS</summary>
+</details>
+
+<details>
+    <summary>CQRS</summary>
 
 ### CQRS
 
@@ -656,7 +697,10 @@ with some different strategies and ways to implement projections.
 >
 > [Balachandran, Arvind. "Event Notification vs. Event-Carried State Transfer", _Start it up_, last edited on 27 Oct 2019](https://medium.com/swlh/event-notification-vs-event-carried-state-transfer-2e4fdf8f6662)
 
-</details><details><summary>Task Based UI + CQRS</summary>
+</details>
+
+<details>
+    <summary>Task Based UI + CQRS</summary>
 
 In a standard user interface (UI), the user typically edits or manipulates data directly. This allows the user to enter or modify the data synchronously, enabling the UI to respond to
 the user's actions in real-time (blocking the operation until the return).
@@ -678,7 +722,10 @@ user-friendly than more general-purpose UIs.
 ![](.assets/img/task_based_ui.png)  
 [Fig. 29: Murali, Bala. _What is Task Based UI_](https://medium.com/@baladotcom/what-is-task-based-ui-60a44ddfd968)
 
-</details><details><summary>EventStorming</summary>
+</details>
+
+<details>
+    <summary>EventStorming</summary>
 
 ### EventStorming
 
@@ -711,7 +758,10 @@ user-friendly than more general-purpose UIs.
 
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/from-eventstorming-to-eventsourcing.png)
 
-</details><details><summary>Clean Architecture</summary>
+</details>
+
+<details>
+    <summary>Clean Architecture</summary>
 
 ### Clean Architecture
 
@@ -734,7 +784,8 @@ user-friendly than more general-purpose UIs.
 
 ## Performance
 
-<details><summary>Minimize Exceptions</summary>
+<details>
+    <summary>Minimize Exceptions</summary>
 
 ### Minimize Exceptions
 
@@ -749,7 +800,10 @@ user-friendly than more general-purpose UIs.
 >
 > ["ASP.NET Core Performance Best Practices" _MSDN_, Microsoft Docs, last edited on 18 Fev 2022](https://docs.microsoft.com/en-us/aspnet/core/performance/performance-best-practices?view=aspnetcore-6.0#minimize-exceptions)
 
-</details><details><summary>Pool HTTP connections with HttpClientFactory</summary>
+</details>
+
+<details>
+    <summary>Pool HTTP connections with HttpClientFactory</summary>
 
 ### Pool HTTP connections with HttpClientFactory
 
@@ -763,7 +817,10 @@ user-friendly than more general-purpose UIs.
 >
 > ["ASP.NET Core Performance Best Practices" _MSDN_, Microsoft Docs, last edited on 18 Fev 2022](https://docs.microsoft.com/en-us/aspnet/core/performance/performance-best-practices?view=aspnetcore-6.0#pool-http-connections-with-httpclientfactory)
 
-</details><details><summary>DbContext Pooling</summary>
+</details>
+
+<details>
+    <summary>DbContext Pooling</summary>
 
 ### DbContext Pooling
 
@@ -775,7 +832,10 @@ user-friendly than more general-purpose UIs.
 >
 > ["New features in EF Core 2.0" _MSDN_, Microsoft Docs, last edited on 11 Oct 2020](https://docs.microsoft.com/en-us/ef/core/what-is-new/ef-core-2.0/#dbcontext-pooling)
 
-</details><details><summary>Snapshotting</summary>
+</details>
+
+<details>
+    <summary>Snapshotting</summary>
 
 ### Snapshotting
 
@@ -789,7 +849,8 @@ More details in [snapshot](#snapshot) section.
 
 ## Running
 
-<details><summary>Development</summary>
+<details>
+    <summary>Development</summary>
 
 ### Development
 
@@ -847,7 +908,10 @@ rabbitmq:3-management
 dotnet ef migrations add "First Migration" -s .\WorkerService\ -p .\Infrastructure.EventStore\
 ```
 
-</details><details><summary>Staging</summary>
+</details>
+
+<details>
+    <summary>Staging</summary>
 
 ### Staging
 
@@ -886,7 +950,10 @@ deploy:
       cpus: '0.20'
       memory: 120M
 ```
-</details><details><summary>Production</summary>
+</details>
+
+<details>
+    <summary>Production</summary>
 
 ### Production
 
@@ -896,7 +963,8 @@ deploy:
 
 ## Tests
 
-<details><summary>Unit Tests</summary>
+<details>
+    <summary>Unit Tests</summary>
 
 ### Unit Tests
 
@@ -914,13 +982,19 @@ public void CreateCartShouldRaiseCartCreated()
             @event => @event.Status.Should().Be(CartStatus.Active));
 ```
 
-</details><details><summary>Integration Tests</summary>
+</details>
+
+<details>
+    <summary>Integration Tests</summary>
 
 ### Integration Tests
 
 // TODO
 
-</details><details><summary>Load Tests</summary>
+</details>
+
+<details>
+    <summary>Load Tests</summary>
 
 ### Load Testing (K6)
 
