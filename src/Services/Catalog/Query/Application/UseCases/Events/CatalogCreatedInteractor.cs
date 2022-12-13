@@ -8,7 +8,9 @@ public class CatalogCreatedInteractor : IInteractor<DomainEvent.CatalogCreated>
     private readonly IProjectionGateway<Projection.Catalog> _projectionGateway;
 
     public CatalogCreatedInteractor(IProjectionGateway<Projection.Catalog> projectionGateway)
-        => _projectionGateway = projectionGateway;
+    {
+        _projectionGateway = projectionGateway;
+    }
 
     public async Task InteractAsync(DomainEvent.CatalogCreated @event, CancellationToken cancellationToken)
     {

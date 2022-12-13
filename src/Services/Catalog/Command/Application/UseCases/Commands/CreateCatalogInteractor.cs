@@ -11,8 +11,10 @@ public class CreateCatalogInteractor : IInteractor<Command.CreateCatalog>
     private readonly IApplicationService _applicationService;
 
     public CreateCatalogInteractor(IApplicationService applicationService)
-        => _applicationService = applicationService;
-    
+    {
+        _applicationService = applicationService;
+    }
+
     public async Task InteractAsync(Command.CreateCatalog command, CancellationToken cancellationToken)
     {
         Catalog catalog = new();

@@ -9,8 +9,10 @@ public class ChangeCatalogDescriptionInteractor : IInteractor<Command.ChangeCata
 {
     private readonly IApplicationService _applicationService;
 
-    public ChangeCatalogDescriptionInteractor( IApplicationService applicationService)
-        => _applicationService = applicationService;
+    public ChangeCatalogDescriptionInteractor(IApplicationService applicationService)
+    {
+        _applicationService = applicationService;
+    }
 
     public async Task InteractAsync(Command.ChangeCatalogDescription command, CancellationToken cancellationToken)
     {

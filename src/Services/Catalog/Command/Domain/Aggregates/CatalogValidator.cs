@@ -9,7 +9,7 @@ public class CatalogValidator : AbstractValidator<Catalog>
     {
         RuleFor(catalog => catalog.Id)
             .NotEmpty();
-        
+
         RuleFor(catalog => catalog.Title)
             .NotNull()
             .NotEmpty();

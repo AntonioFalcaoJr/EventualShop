@@ -5,12 +5,14 @@ using Domain.Aggregates;
 
 namespace Application.UseCases.Commands;
 
-public class DeactivateCatalogInteractor  : IInteractor<Command.DeactivateCatalog>
+public class DeactivateCatalogInteractor : IInteractor<Command.DeactivateCatalog>
 {
     private readonly IApplicationService _applicationService;
 
     public DeactivateCatalogInteractor(IApplicationService applicationService)
-        =>  _applicationService = applicationService;
+    {
+        _applicationService = applicationService;
+    }
 
     public async Task InteractAsync(Command.DeactivateCatalog command, CancellationToken cancellationToken)
     {

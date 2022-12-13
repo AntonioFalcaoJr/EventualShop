@@ -18,7 +18,7 @@ public class CatalogItem : Entity<CatalogItemValidator>
     public Guid InventoryId { get; }
     public Product Product { get; }
     public decimal UnitPrice { get; }
-    public string  Sku { get; }
+    public string Sku { get; }
     public int Quantity { get; private set; }
 
     public void Increase(int quantity)

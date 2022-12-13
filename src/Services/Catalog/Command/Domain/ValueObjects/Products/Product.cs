@@ -11,8 +11,8 @@ public record Product(string Description, string Name, string PictureUrl, string
         => new(product.Description, product.Name, product.PictureUrl, product.Brand, product.Category, product.Unit, product.Sku);
 
     public static bool operator ==(Product product, Dto.Product dto)
-        => dto == (Dto.Product) product;
+        => dto == (Dto.Product)product;
 
     public static bool operator !=(Product product, Dto.Product dto)
-        => dto != (Dto.Product) product;
+        => dto != (Dto.Product)product;
 }

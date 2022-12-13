@@ -8,7 +8,9 @@ public class CatalogItemAddedInteractor : IInteractor<DomainEvent.CatalogItemAdd
     private readonly IProjectionGateway<Projection.CatalogItem> _projectionGateway;
 
     public CatalogItemAddedInteractor(IProjectionGateway<Projection.CatalogItem> projectionGateway)
-        => _projectionGateway = projectionGateway;
+    {
+        _projectionGateway = projectionGateway;
+    }
 
     public async Task InteractAsync(DomainEvent.CatalogItemAdded @event, CancellationToken cancellationToken)
     {
@@ -21,5 +23,4 @@ public class CatalogItemAddedInteractor : IInteractor<DomainEvent.CatalogItemAdd
 
         await _projectionGateway.InsertAsync(catalogItem, cancellationToken);
     }
-      
 }

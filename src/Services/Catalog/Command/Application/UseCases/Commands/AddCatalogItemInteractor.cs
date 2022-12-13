@@ -10,7 +10,9 @@ public class AddCatalogItemInteractor : IInteractor<Command.AddCatalogItem>
     private readonly IApplicationService _applicationService;
 
     public AddCatalogItemInteractor(IApplicationService applicationService)
-        => _applicationService = applicationService;
+    {
+        _applicationService = applicationService;
+    }
 
     public async Task InteractAsync(Command.AddCatalogItem command, CancellationToken cancellationToken)
     {

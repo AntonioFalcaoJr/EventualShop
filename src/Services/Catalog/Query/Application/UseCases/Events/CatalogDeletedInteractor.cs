@@ -3,12 +3,15 @@ using Contracts.Services.Catalog;
 
 namespace Application.UseCases.Events;
 
+// TODO -  Solve it!
 public class CatalogDeletedInteractor : IInteractor<DomainEvent.CatalogDeleted>
 {
     private readonly IProjectionGateway<Projection.Catalog> _projectionGateway;
     private readonly IProjectionGateway<Projection.CatalogItem> _projectionGatewayCatalogItem;
 
-    public CatalogDeletedInteractor(IProjectionGateway<Projection.Catalog> projectionGateway, IProjectionGateway<Projection.CatalogItem> projectionGatewayCatalogItem)
+    public CatalogDeletedInteractor(
+        IProjectionGateway<Projection.Catalog> projectionGateway, 
+        IProjectionGateway<Projection.CatalogItem> projectionGatewayCatalogItem)
     {
         _projectionGateway = projectionGateway;
         _projectionGatewayCatalogItem = projectionGatewayCatalogItem;

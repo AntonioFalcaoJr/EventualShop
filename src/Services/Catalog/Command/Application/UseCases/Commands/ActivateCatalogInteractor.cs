@@ -9,11 +9,13 @@ public class ActivateCatalogInteractor : IInteractor<Command.ActivateCatalog>
 {
     private readonly IApplicationService _applicationService;
 
-    public ActivateCatalogInteractor( IApplicationService applicationService)
-     => _applicationService = applicationService;
+    public ActivateCatalogInteractor(IApplicationService applicationService)
+    {
+        _applicationService = applicationService;
+    }
 
 
-    public async  Task InteractAsync(Command.ActivateCatalog command, CancellationToken cancellationToken)
+    public async Task InteractAsync(Command.ActivateCatalog command, CancellationToken cancellationToken)
     {
         var catalog = await _applicationService.LoadAggregateAsync<Catalog>(command.CatalogId, cancellationToken);
         catalog.Handle(command);

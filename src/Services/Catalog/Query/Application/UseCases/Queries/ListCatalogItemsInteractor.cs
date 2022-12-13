@@ -9,7 +9,9 @@ public class ListCatalogItemsInteractor : IInteractor<Query.GetAllItems, IPagedR
     private readonly IProjectionGateway<Projection.CatalogItem> _projectionGateway;
 
     public ListCatalogItemsInteractor(IProjectionGateway<Projection.CatalogItem> projectionGateway)
-        => _projectionGateway = projectionGateway;
+    {
+        _projectionGateway = projectionGateway;
+    }
 
     public Task<IPagedResult<Projection.CatalogItem>> InteractAsync(Query.GetAllItems query, CancellationToken cancellationToken)
         => _projectionGateway.GetAllAsync(query.Limit, query.Offset, cancellationToken);

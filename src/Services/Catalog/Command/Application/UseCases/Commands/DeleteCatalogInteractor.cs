@@ -10,7 +10,9 @@ public class DeleteCatalogInteractor : IInteractor<Command.DeleteCatalog>
     private readonly IApplicationService _applicationService;
 
     public DeleteCatalogInteractor(IApplicationService applicationService)
-        =>  _applicationService = applicationService;
+    {
+        _applicationService = applicationService;
+    }
 
     public async Task InteractAsync(Command.DeleteCatalog command, CancellationToken cancellationToken)
     {

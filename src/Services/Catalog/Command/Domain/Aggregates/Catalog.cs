@@ -15,39 +15,45 @@ public class Catalog : AggregateRoot<CatalogValidator>
     public IEnumerable<CatalogItem> Items
         => _items;
 
+    public override void Handle(ICommand command)
+        => Handle(command as dynamic);
+
     public void Handle(Command.CreateCatalog cmd)
         => RaiseEvent(new DomainEvent.CatalogCreated(cmd.CatalogId, cmd.Title, cmd.Description));
 
-    public void Handle(Command.DeleteCatalog cmd)
+    private void Handle(Command.DeleteCatalog cmd)
         => RaiseEvent(new DomainEvent.CatalogDeleted(cmd.CatalogId));
 
-    public void Handle(Command.ActivateCatalog cmd)
+    private void Handle(Command.ActivateCatalog cmd)
     {
         if (Items.Any() && IsActive is false)
             RaiseEvent(new DomainEvent.CatalogActivated(cmd.CatalogId));
     }
 
-    public void Handle(Command.DeactivateCatalog cmd)
+    private void Handle(Command.DeactivateCatalog cmd)
     {
         if (IsActive)
             RaiseEvent(new DomainEvent.CatalogDeactivated(cmd.CatalogId));
     }
 
-    public void Handle(Command.ChangeCatalogDescription cmd)
+    private void Handle(Command.ChangeCatalogDescription cmd)
         => RaiseEvent(new DomainEvent.CatalogDescriptionChanged(cmd.CatalogId, cmd.Description));
 
-    public void Handle(Command.ChangeCatalogTitle cmd)
+    private void Handle(Command.ChangeCatalogTitle cmd)
         => RaiseEvent(new DomainEvent.CatalogTitleChanged(cmd.CatalogId, cmd.Title));
 
-    public void Handle(Command.AddCatalogItem cmd)
+    private void Handle(Command.AddCatalogItem cmd)
         => RaiseEvent(_items
             .Where(catalogItem => catalogItem.Product == cmd.Product)
-            .SingleOrDefault(catalogItem => catalogItem.UnitPrice == cmd.UnitPrice) is {IsDeleted: false} item
+            .SingleOrDefault(catalogItem => catalogItem.UnitPrice == cmd.UnitPrice) is { IsDeleted: false } item
             ? new DomainEvent.CatalogItemIncreased(cmd.CatalogId, item.Id, cmd.InventoryId, cmd.Quantity)
             : new DomainEvent.CatalogItemAdded(cmd.CatalogId, Guid.NewGuid(), cmd.InventoryId, cmd.Product, cmd.UnitPrice, cmd.Sku, cmd.Quantity));
 
-    public void Handle(Command.RemoveCatalogItem cmd)
+    private void Handle(Command.RemoveCatalogItem cmd)
         => RaiseEvent(new DomainEvent.CatalogItemRemoved(cmd.CatalogId, cmd.ItemId));
+
+    protected override void Apply(IEvent @event)
+        => Apply(@event as dynamic);
 
     private void Apply(DomainEvent.CatalogCreated @event)
         => (Id, Title, Description) = @event;
@@ -75,10 +81,4 @@ public class Catalog : AggregateRoot<CatalogValidator>
 
     private void Apply(DomainEvent.CatalogItemRemoved @event)
         => _items.RemoveAll(item => item.Id == @event.ItemId);
-
-    public override void Handle(ICommand command)
-        => Handle(command as dynamic);
-
-    protected override void Apply(IEvent @event)
-        => Apply(@event as dynamic);
 }

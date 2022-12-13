@@ -8,12 +8,14 @@ public class CatalogDeactivatedInteractor : IInteractor<DomainEvent.CatalogDeact
     private readonly IProjectionGateway<Projection.Catalog> _projectionGateway;
 
     public CatalogDeactivatedInteractor(IProjectionGateway<Projection.Catalog> projectionGateway)
-        => _projectionGateway = projectionGateway;
+    {
+        _projectionGateway = projectionGateway;
+    }
 
     public async Task InteractAsync(DomainEvent.CatalogDeactivated @event, CancellationToken cancellationToken)
-      => await _projectionGateway.UpdateFieldAsync(
-          id: @event.CatalogId,
-          field: catalog => catalog.IsActive,
-          value: false,
-          cancellationToken);
+        => await _projectionGateway.UpdateFieldAsync(
+            id: @event.CatalogId,
+            field: catalog => catalog.IsActive,
+            value: false,
+            cancellationToken);
 }

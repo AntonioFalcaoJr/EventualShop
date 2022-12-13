@@ -1,6 +1,7 @@
 ﻿using Contracts.Abstractions.Messages;
 using Contracts.Services.Catalog;
 using Infrastructure.EventBus.Consumers;
+using Infrastructure.EventBus.Consumers.Events;
 using MassTransit;
 
 namespace Infrastructure.EventBus.DependencyInjection.Extensions;

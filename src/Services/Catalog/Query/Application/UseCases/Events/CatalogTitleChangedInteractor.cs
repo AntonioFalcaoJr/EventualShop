@@ -8,12 +8,14 @@ public class CatalogTitleChangedInteractor : IInteractor<DomainEvent.CatalogTitl
     private readonly IProjectionGateway<Projection.Catalog> _projectionGateway;
 
     public CatalogTitleChangedInteractor(IProjectionGateway<Projection.Catalog> projectionGateway)
-        => _projectionGateway = projectionGateway;
+    {
+        _projectionGateway = projectionGateway;
+    }
 
     public async Task InteractAsync(DomainEvent.CatalogTitleChanged @event, CancellationToken cancellationToken)
-      => await _projectionGateway.UpdateFieldAsync(
-          id: @event.CatalogId,
-          field: catalog => catalog.Title,
-          value: @event.Title,
-          cancellationToken);
+        => await _projectionGateway.UpdateFieldAsync(
+            id: @event.CatalogId,
+            field: catalog => catalog.Title,
+            value: @event.Title,
+            cancellationToken);
 }

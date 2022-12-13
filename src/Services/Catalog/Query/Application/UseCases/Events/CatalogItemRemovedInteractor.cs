@@ -8,9 +8,10 @@ public class CatalogItemRemovedInteractor : IInteractor<DomainEvent.CatalogItemR
     private readonly IProjectionGateway<Projection.CatalogItem> _projectionGateway;
 
     public CatalogItemRemovedInteractor(IProjectionGateway<Projection.CatalogItem> projectionGateway)
-        => _projectionGateway = projectionGateway;
+    {
+        _projectionGateway = projectionGateway;
+    }
 
     public async Task InteractAsync(DomainEvent.CatalogItemRemoved @event, CancellationToken cancellationToken)
         => await _projectionGateway.DeleteAsync(@event.ItemId, cancellationToken);
-
 }
