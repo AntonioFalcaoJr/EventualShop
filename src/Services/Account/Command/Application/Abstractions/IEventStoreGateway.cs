@@ -8,4 +8,6 @@ public interface IEventStoreGateway
 
     Task<IAggregateRoot> LoadAggregateAsync<TAggregate>(Guid aggregateId, CancellationToken cancellationToken)
         where TAggregate : IAggregateRoot, new();
+
+    IAsyncEnumerable<Guid> GetAggregateIdsAsync(CancellationToken cancellationToken);
 }

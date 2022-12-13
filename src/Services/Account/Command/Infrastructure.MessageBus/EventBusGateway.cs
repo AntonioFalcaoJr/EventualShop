@@ -18,6 +18,9 @@ public class EventBusGateway : IEventBusGateway
     public Task PublishAsync(IEnumerable<IEvent> events, CancellationToken cancellationToken)
         => Task.WhenAll(events.Select(@event => _publishEndpoint.Publish(@event, @event.GetType(), cancellationToken)));
 
+    public Task PublishAsync(IEvent @event, CancellationToken cancellationToken)
+        => _publishEndpoint.Publish(@event, @event.GetType(), cancellationToken);
+
     public Task SchedulePublishAsync(DateTimeOffset scheduledTime, IEvent @event, CancellationToken cancellationToken)
         => _publishEndpoint.CreateMessageScheduler(_bus.Topology).SchedulePublish(scheduledTime.UtcDateTime, @event, @event.GetType(), cancellationToken);
 }

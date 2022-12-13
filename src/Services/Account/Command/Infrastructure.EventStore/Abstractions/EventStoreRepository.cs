@@ -38,4 +38,11 @@ public class EventStoreRepository : IEventStoreRepository
             .Where(snapshot => snapshot.AggregateId.Equals(aggregateId))
             .OrderByDescending(snapshot => snapshot.AggregateVersion)
             .FirstOrDefaultAsync(cancellationToken);
+
+    public IAsyncEnumerable<Guid> GetAggregateIdsAsync(CancellationToken cancellationToken)
+        => _dbContext.Set<StoreEvent>()
+            .AsNoTracking()
+            .Select(@event => @event.AggregateId)
+            .Distinct()
+            .AsAsyncEnumerable();
 }

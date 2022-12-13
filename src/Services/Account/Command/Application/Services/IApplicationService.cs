@@ -8,4 +8,6 @@ public interface IApplicationService
         where TAggregate : IAggregateRoot, new();
 
     Task AppendEventsAsync(IAggregateRoot aggregate, CancellationToken cancellationToken);
+
+    Task StreamReplayAsync(string name, Guid? id, CancellationToken cancellationToken);
 }

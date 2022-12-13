@@ -3,6 +3,7 @@ using Domain.Abstractions.Aggregates;
 using Domain.Abstractions.EventStore;
 using Infrastructure.EventStore.DependencyInjection.Options;
 using Microsoft.Extensions.Options;
+using System.Runtime.CompilerServices;
 
 namespace Infrastructure.EventStore.Abstractions;
 
@@ -33,6 +34,9 @@ public class EventStoreGateway : IEventStoreGateway
         var events = await _repository.GetStreamAsync(aggregateId, snapshot?.AggregateVersion ?? default, cancellationToken);
         return snapshot?.Aggregate.Load(events) ?? new TAggregate().Load(events);
     }
+
+    public IAsyncEnumerable<Guid> GetAggregateIdsAsync(CancellationToken cancellationToken)
+        => _repository.GetAggregateIdsAsync(cancellationToken);
 
     private async Task AppendSnapshotAsync(IAggregateRoot aggregate, long version, CancellationToken cancellationToken)
     {

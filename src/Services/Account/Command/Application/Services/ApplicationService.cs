@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions;
+using Contracts.Services.Account;
 using Domain.Abstractions.Aggregates;
 
 namespace Application.Services;
@@ -31,4 +32,13 @@ public class ApplicationService : IApplicationService
                 await _eventBusGateway.PublishAsync(aggregate.Events.Select(tuple => tuple.@event), ct);
             },
             cancellationToken: cancellationToken);
+
+    public async Task StreamReplayAsync(string name, Guid? id, CancellationToken cancellationToken)
+    {
+        if (id.HasValue)
+            await _eventBusGateway.PublishAsync(new NotificationEvent.RebuildProjectionRequested(id.Value, name), cancellationToken);
+        else
+            await foreach (var accountId in _eventStoreGateway.GetAggregateIdsAsync(cancellationToken))
+                await _eventBusGateway.PublishAsync(new NotificationEvent.RebuildProjectionRequested(accountId, name), cancellationToken);
+    }
 }
