@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package Contracts.Services.Catalog.Protobuf;
+
+service CatalogService {
+  rpc GetCatalog(GetCatalogRequest) returns (Catalog);
+  rpc GetCatalogItems(GetCatalogItemsRequest) returns (CatalogItem);
+  rpc ListCatalogs(ListCatalogsRequest) returns (Catalogs);
+  rpc ListCatalogItems(ListCatalogItemsRequest) returns (CatalogItems);
+}
+
+message GetCatalogRequest {
+  string Id = 1;
+}
+
+message GetCatalogItemsRequest {
+  string Id = 1;
+  sint32 Limit = 2;
+  sint32 Offset = 3;
+}
+
+message Catalog {
+  string Id = 1;
+  string Title = 2;
+  string Description = 3;
+  bool IsActive = 4;
+  bool IsDeleted = 5;
+}
+
+message CatalogItem {
+  string CatalogId = 1;
+  string Id = 2;
+  string InventoryId = 3;
+  Product Product = 4;
+  bool IsDeleted = 5;
+}
+
+message Product {
+  string Description = 1;
+  string Name = 2;
+  string PictureUrl = 3;
+  string Brand = 4;
+  string Category = 5;
+  string Unit = 6;
+  string Sku = 7;
+}
+
+message ListCatalogsRequest {
+  sint32 Limit = 1;
+  sint32 Offset = 2;
+}
+
+message ListCatalogItemsRequest {
+  sint32 Limit = 1;
+  sint32 Offset = 2;
+}
+
+message Catalogs {
+  repeated Catalog Items = 1;
+  Page Page = 2;
+}
+
+message CatalogItems {
+  repeated CatalogItem Items = 1;
+  Page Page = 2;
+}
+
+message Page{
+  int32 Current = 1;
+  int32 Size = 2;
+  bool HasNext = 3;
+  bool HasPrevious = 4;
+}
