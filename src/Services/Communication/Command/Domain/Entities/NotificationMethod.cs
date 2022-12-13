@@ -11,14 +11,14 @@ public class NotificationMethod : Entity<NotificationMethodValidator>
     {
         Id = id;
         Option = option;
-        Status = NotificationMethodStatus.Ready;
+        Status = NotificationMethodStatus.Pending;
     }
 
     public INotificationOption? Option { get; }
     public NotificationMethodStatus Status { get; private set; }
 
-    public void Complete()
-        => Status = NotificationMethodStatus.Completed;
+    public void Send()
+        => Status = NotificationMethodStatus.Sent;
 
     public void Fail()
         => Status = NotificationMethodStatus.Failed;
@@ -27,7 +27,7 @@ public class NotificationMethod : Entity<NotificationMethodValidator>
         => Status = NotificationMethodStatus.Canceled;
 
     public void Reset()
-        => Status = NotificationMethodStatus.Ready;
+        => Status = NotificationMethodStatus.Pending;
 
     public static implicit operator NotificationMethod(Dto.NotificationMethod method)
         => new(method.MethodId, method.Option switch
