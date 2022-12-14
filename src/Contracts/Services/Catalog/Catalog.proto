@@ -24,7 +24,6 @@ message Catalog {
   string Title = 2;
   string Description = 3;
   bool IsActive = 4;
-  bool IsDeleted = 5;
 }
 
 message CatalogItem {
@@ -32,7 +31,6 @@ message CatalogItem {
   string Id = 2;
   string InventoryId = 3;
   Product Product = 4;
-  bool IsDeleted = 5;
 }
 
 message Product {

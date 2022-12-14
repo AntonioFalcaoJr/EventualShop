@@ -14,8 +14,7 @@ public static class Projection
                 Id = catalog.Id.ToString(),
                 Title = catalog.Title,
                 Description = catalog.Description,
-                IsActive = catalog.IsActive,
-                IsDeleted = catalog.IsDeleted
+                IsActive = catalog.IsActive
             };
     }
 
@@ -27,8 +26,7 @@ public static class Projection
                 Id = item.Id.ToString(),
                 CatalogId = item.CatalogId.ToString(),
                 InventoryId = item.InventoryId.ToString(),
-                Product = (Product)item.Product,
-                IsDeleted = item.IsDeleted
+                Product = (Product)item.Product
             };
     }
 }

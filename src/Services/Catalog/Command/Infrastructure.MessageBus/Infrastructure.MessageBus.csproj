@@ -14,8 +14,6 @@
         <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.0.0-rc9.9" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\Contracts\Contracts.csproj" />
-        <ProjectReference Include="..\..\Query\Infrastructure.EventBus\Infrastructure.EventBus.csproj" />
         <ProjectReference Include="..\Application\Application.csproj" />
     </ItemGroup>
 </Project>
