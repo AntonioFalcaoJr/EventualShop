@@ -1,7 +1,8 @@
 ﻿using Contracts.JsonConverters;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
-using Protobuf = Contracts.Services.Communication.Protobuf;
+using CommunicationProtobuf = Contracts.Services.Communication.Protobuf;
+using CatalogProtobuf = Contracts.Services.Catalog.Protobuf;
 
 namespace Contracts.DataTransferObjects;
 
@@ -31,7 +32,7 @@ public static class Dto
 
     public record struct NotificationMethod(Guid MethodId, INotificationOption? Option)
     {
-        public static implicit operator Protobuf.NotificationMethod(NotificationMethod method)
+        public static implicit operator CommunicationProtobuf.NotificationMethod(NotificationMethod method)
             => method.Option switch
             {
                 Email email => new() { Email = email },
@@ -44,29 +45,42 @@ public static class Dto
 
     public record struct Email(string Address, string Body) : INotificationOption
     {
-        public static implicit operator Protobuf.Email(Email email)
+        public static implicit operator CommunicationProtobuf.Email(Email email)
             => new() { Address = email.Address };
     }
 
     public record struct Sms(string Number, string Body) : INotificationOption
     {
-        public static implicit operator Protobuf.Sms(Sms sms)
+        public static implicit operator CommunicationProtobuf.Sms(Sms sms)
             => new() { Number = sms.Number };
     }
 
     public record struct PushWeb(Guid UserId, string Body) : INotificationOption
     {
-        public static implicit operator Protobuf.PushWeb(PushWeb pushWeb)
+        public static implicit operator CommunicationProtobuf.PushWeb(PushWeb pushWeb)
             => new() { UserId = pushWeb.UserId.ToString() };
     }
 
     public record struct PushMobile(Guid DeviceId, string Body) : INotificationOption
     {
-        public static implicit operator Protobuf.PushMobile(PushMobile pushMobile)
+        public static implicit operator CommunicationProtobuf.PushMobile(PushMobile pushMobile)
             => new() { DeviceId = pushMobile.DeviceId.ToString() };
     }
 
-    public record Product(string Description, string Name, string PictureUrl, string Brand, string Category, string Unit, string Sku);
+    public record Product(string Description, string Name, string PictureUrl, string Brand, string Category, string Unit, string Sku)
+    {
+        public static implicit operator CatalogProtobuf.Product(Product product)
+            => new()
+            {
+                Description = product.Description,
+                Name = product.Name,
+                PictureUrl = product.PictureUrl,
+                Brand = product.Brand,
+                Category = product.Category,
+                Unit = product.Unit,
+                Sku = product.Sku
+            };
+    }
 
     public record InventoryItem(Guid Id, Guid InventoryId, Product Product, decimal Cost, int Quantity);
 

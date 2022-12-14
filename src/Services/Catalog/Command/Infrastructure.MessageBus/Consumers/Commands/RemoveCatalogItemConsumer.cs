@@ -1,5 +1,4 @@
-﻿using Application.Abstractions;
-using Application.UseCases.Commands;
+﻿using Application.UseCases.Commands;
 using Contracts.Services.Catalog;
 using Infrastructure.MessageBus.Abstractions;
 

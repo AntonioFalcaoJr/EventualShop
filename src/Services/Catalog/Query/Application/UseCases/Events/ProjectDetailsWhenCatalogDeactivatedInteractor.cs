@@ -3,13 +3,13 @@ using Contracts.Services.Catalog;
 
 namespace Application.UseCases.Events;
 
-public interface IDeactivateCatalogWhenDeactivatedInteractor : IInteractor<DomainEvent.CatalogDeactivated> { }
+public interface IProjectDetailsWhenCatalogDeactivatedInteractor : IInteractor<DomainEvent.CatalogDeactivated> { }
 
-public class DeactivateCatalogWhenDeactivatedInteractor : IDeactivateCatalogWhenDeactivatedInteractor
+public class ProjectDetailsWhenCatalogDeactivatedInteractor : IProjectDetailsWhenCatalogDeactivatedInteractor
 {
-    private readonly IProjectionGateway<Projection.Catalog> _projectionGateway;
+    private readonly IProjectionGateway<Projection.CatalogDetails> _projectionGateway;
 
-    public DeactivateCatalogWhenDeactivatedInteractor(IProjectionGateway<Projection.Catalog> projectionGateway)
+    public ProjectDetailsWhenCatalogDeactivatedInteractor(IProjectionGateway<Projection.CatalogDetails> projectionGateway)
     {
         _projectionGateway = projectionGateway;
     }

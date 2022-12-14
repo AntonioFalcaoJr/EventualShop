@@ -8,16 +8,16 @@ namespace GrpcService;
 
 public class CatalogGrpcService : CatalogService.CatalogServiceBase
 {
-    private readonly IInteractor<Query.GetCatalog, Projection.Catalog> _getCatalogInteractor;
-    private readonly IInteractor<Query.GetCatalogItems, Projection.CatalogItem> _getCatalogItemInteractor;
-    private readonly IInteractor<Query.GetCatalogs, IPagedResult<Projection.Catalog>> _listCatalogsInteractor;
-    private readonly IInteractor<Query.GetAllItems, IPagedResult<Projection.CatalogItem>> _listCatalogItemsInteractor;
+    private readonly IInteractor<Query.GetCatalog, Projection.CatalogDetails> _getCatalogInteractor;
+    private readonly IInteractor<Query.GetCatalogItems, Projection.CatalogItemListItem> _getCatalogItemInteractor;
+    private readonly IInteractor<Query.GetCatalogs, IPagedResult<Projection.CatalogDetails>> _listCatalogsInteractor;
+    private readonly IInteractor<Query.GetAllItems, IPagedResult<Projection.CatalogItemListItem>> _listCatalogItemsInteractor;
 
     public CatalogGrpcService(
-        IInteractor<Query.GetCatalog, Projection.Catalog> getCatalogInteractor,
-        IInteractor<Query.GetCatalogItems, Projection.CatalogItem> getCatalogItemInteractor,
-        IInteractor<Query.GetCatalogs, IPagedResult<Projection.Catalog>> listCatalogsInteractor,
-        IInteractor<Query.GetAllItems, IPagedResult<Projection.CatalogItem>> lstCatalogItemsInteractor
+        IInteractor<Query.GetCatalog, Projection.CatalogDetails> getCatalogInteractor,
+        IInteractor<Query.GetCatalogItems, Projection.CatalogItemListItem> getCatalogItemInteractor,
+        IInteractor<Query.GetCatalogs, IPagedResult<Projection.CatalogDetails>> listCatalogsInteractor,
+        IInteractor<Query.GetAllItems, IPagedResult<Projection.CatalogItemListItem>> lstCatalogItemsInteractor
         )
     {
         _getCatalogInteractor = getCatalogInteractor;

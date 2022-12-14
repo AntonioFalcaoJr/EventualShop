@@ -4,8 +4,8 @@ using Infrastructure.EventBus.Abstractions;
 
 namespace Infrastructure.EventBus.Consumers.Events;
 
-public class ActivateCatalogWhenActivatedConsumer : Consumer<DomainEvent.CatalogActivated>
+public class ProjectDetailsWhenCatalogCreatedConsumer : Consumer<DomainEvent.CatalogCreated>
 {
-    public ActivateCatalogWhenActivatedConsumer(IActivateCatalogWhenActivatedInteractor interactor)
+    public ProjectDetailsWhenCatalogCreatedConsumer(IProjectDetailsWhenCatalogCreatedInteractor interactor)
         : base(interactor) { }
 }

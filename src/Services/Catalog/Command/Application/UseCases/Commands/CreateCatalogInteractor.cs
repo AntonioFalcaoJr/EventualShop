@@ -2,7 +2,6 @@
 using Application.Services;
 using Contracts.Services.Catalog;
 using Domain.Aggregates;
-using MassTransit;
 
 namespace Application.UseCases.Commands;
 

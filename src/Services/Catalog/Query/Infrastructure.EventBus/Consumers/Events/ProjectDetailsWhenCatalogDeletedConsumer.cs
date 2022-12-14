@@ -4,8 +4,8 @@ using Infrastructure.EventBus.Abstractions;
 
 namespace Infrastructure.EventBus.Consumers.Events;
 
-public class TitleChangeCatalogWhenChangedConsumer : Consumer<DomainEvent.CatalogTitleChanged>
+public class ProjectDetailsWhenCatalogDeletedConsumer : Consumer<DomainEvent.CatalogDeleted>
 {
-    public TitleChangeCatalogWhenChangedConsumer(ITitleChangeCatalogWhenChangedInteractor interactor)
+    public ProjectDetailsWhenCatalogDeletedConsumer(IProjectDetailsWhenCatalogDeletedInteractor interactor)
         : base(interactor) { }
 }

@@ -2,7 +2,6 @@
 using Contracts.Services.Catalog;
 using MassTransit;
 using WebAPI.Abstractions;
-using WebAPI.Validations;
 
 namespace WebAPI.APIs.Catalogs;
 
@@ -58,7 +57,7 @@ public static class CatalogApi
         var group = builder.MapGroup(BaseUrl).HasApiVersion(2);
 
         group.MapGet("/", (IBus bus, ushort? limit, ushort? offset, CancellationToken cancellationToken)
-            => ApplicationApi.GetPagedProjectionAsync<Query.GetCatalogs, Projection.Catalog>(bus, new(limit ?? 0, offset ?? 0), cancellationToken));
+            => ApplicationApi.GetPagedProjectionAsync<Query.GetCatalogs, Projection.CatalogDetails>(bus, new(limit ?? 0, offset ?? 0), cancellationToken));
 
         return builder;
     }
