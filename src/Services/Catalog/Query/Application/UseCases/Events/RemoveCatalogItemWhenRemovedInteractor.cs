@@ -3,11 +3,13 @@ using Contracts.Services.Catalog;
 
 namespace Application.UseCases.Events;
 
-public class CatalogItemRemovedInteractor : IInteractor<DomainEvent.CatalogItemRemoved>
+public interface IRemoveCatalogItemWhenRemovedInteractor : IInteractor<DomainEvent.CatalogItemRemoved> { }
+
+public class RemoveCatalogItemWhenRemovedInteractor : IRemoveCatalogItemWhenRemovedInteractor
 {
     private readonly IProjectionGateway<Projection.CatalogItem> _projectionGateway;
 
-    public CatalogItemRemovedInteractor(IProjectionGateway<Projection.CatalogItem> projectionGateway)
+    public RemoveCatalogItemWhenRemovedInteractor(IProjectionGateway<Projection.CatalogItem> projectionGateway)
     {
         _projectionGateway = projectionGateway;
     }

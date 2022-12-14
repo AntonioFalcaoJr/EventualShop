@@ -46,21 +46,24 @@ public class CatalogGrpcService : CatalogService.CatalogServiceBase
             }
         };
     }
-    //
-    // public override async Task<Addresses> ListShippingAddresses(ListShippingAddressesRequest request, ServerCallContext context)
-    // {
-    //     var pagedResult = await _listAddressesInteractor.InteractAsync(request, context.CancellationToken);
-    //
-    //     return new()
-    //     {
-    //         Items = { pagedResult.Items.Select(details => (Address)details) },
-    //         Page = new()
-    //         {
-    //             Current = pagedResult.Page.Current,
-    //             Size = pagedResult.Page.Size,
-    //             HasNext = pagedResult.Page.HasNext,
-    //             HasPrevious = pagedResult.Page.HasPrevious
-    //         }
-    //     };
-    // }
+    
+    public override async Task<CatalogItems> ListCatalogItems(ListCatalogItemsRequest request, ServerCallContext context)
+    {
+        var pagedResult = await _listCatalogItemsInteractor.InteractAsync(request, context.CancellationToken);
+    
+        return new()
+        {
+            Items = { pagedResult.Items.Select(details => (CatalogItem) details) },
+            Page = new()
+            {
+                Current = pagedResult.Page.Current,
+                Size = pagedResult.Page.Size,
+                HasNext = pagedResult.Page.HasNext,
+                HasPrevious = pagedResult.Page.HasPrevious
+            }
+        };
+    }
+    
+    public override async Task<CatalogItem> GetCatalogItems(GetCatalogItemsRequest request, ServerCallContext context)
+        => await _getCatalogItemInteractor.InteractAsync(request, context.CancellationToken);
 }

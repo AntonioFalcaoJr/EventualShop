@@ -5,7 +5,9 @@ using Domain.Aggregates;
 
 namespace Application.UseCases.Commands;
 
-public class ActivateCatalogInteractor : IInteractor<Command.ActivateCatalog>
+public interface IActivateCatalogInteractor : IInteractor<Command.ActivateCatalog> { }
+
+public class ActivateCatalogInteractor : IActivateCatalogInteractor
 {
     private readonly IApplicationService _applicationService;
 
@@ -13,7 +15,6 @@ public class ActivateCatalogInteractor : IInteractor<Command.ActivateCatalog>
     {
         _applicationService = applicationService;
     }
-
 
     public async Task InteractAsync(Command.ActivateCatalog command, CancellationToken cancellationToken)
     {

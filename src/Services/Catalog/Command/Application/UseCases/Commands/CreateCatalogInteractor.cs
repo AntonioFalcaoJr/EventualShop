@@ -6,7 +6,9 @@ using MassTransit;
 
 namespace Application.UseCases.Commands;
 
-public class CreateCatalogInteractor : IInteractor<Command.CreateCatalog>
+public interface ICreateCatalogInteractor : IInteractor<Command.CreateCatalog> { }
+
+public class CreateCatalogInteractor : ICreateCatalogInteractor
 {
     private readonly IApplicationService _applicationService;
 

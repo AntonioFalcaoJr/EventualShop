@@ -17,7 +17,15 @@ public static class Query
             => new((ushort)request.Limit, (ushort)request.Offset);
     }
 
-    public record GetCatalogItems(Guid CatalogId, ushort Limit, ushort Offset) : Message, IQuery;
+    public record GetCatalogItems(Guid CatalogId, ushort Limit, ushort Offset) : Message, IQuery
+    {
+        public static implicit operator GetCatalogItems(GetCatalogItemsRequest request)
+            => new(new Guid(request.Id), (ushort)request.Limit, (ushort)request.Offset);
+    }
 
-    public record GetAllItems(ushort Limit, ushort Offset) : Message, IQuery;
+    public record GetAllItems(ushort Limit, ushort Offset) : Message, IQuery
+    {
+        public static implicit operator GetAllItems(ListCatalogItemsRequest request)
+            => new((ushort)request.Limit, (ushort)request.Offset);
+    }
 }

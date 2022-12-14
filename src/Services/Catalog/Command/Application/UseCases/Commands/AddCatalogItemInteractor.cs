@@ -5,7 +5,9 @@ using Domain.Aggregates;
 
 namespace Application.UseCases.Commands;
 
-public class AddCatalogItemInteractor : IInteractor<Command.AddCatalogItem>
+public interface IAddCatalogItemInteractor : IInteractor<Command.AddCatalogItem> { }
+
+public class AddCatalogItemInteractor : IAddCatalogItemInteractor
 {
     private readonly IApplicationService _applicationService;
 

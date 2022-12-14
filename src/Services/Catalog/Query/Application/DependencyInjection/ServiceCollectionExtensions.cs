@@ -11,14 +11,15 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddEventInteractors(this IServiceCollection services)
         => services
-            .AddScoped<IInteractor<DomainEvent.CatalogCreated>, CatalogCreatedInteractor>()
-            .AddScoped<IInteractor<DomainEvent.CatalogDeleted>, CatalogDeletedInteractor>()
-            .AddScoped<IInteractor<DomainEvent.CatalogActivated>, CatalogActivatedInteractor>()
-            .AddScoped<IInteractor<DomainEvent.CatalogDeactivated>, CatalogDeactivatedInteractor>()
-            .AddScoped<IInteractor<DomainEvent.CatalogDescriptionChanged>, CatalogDescriptionChangedInteractor>()
-            .AddScoped<IInteractor<DomainEvent.CatalogTitleChanged>, CatalogTitleChangedInteractor>()
-            .AddScoped<IInteractor<DomainEvent.CatalogItemAdded>, CatalogItemAddedInteractor>()
-            .AddScoped<IInteractor<DomainEvent.CatalogItemRemoved>, CatalogItemRemovedInteractor>();
+            .AddScoped<ICreateCatalogWhenCreatedInteractor, CreateCatalogWhenCreatedInteractor>()
+            .AddScoped<IDeleteCatalogWhenDeletedInteractor, DeleteCatalogWhenDeletedInteractor>()
+            .AddScoped<IActivateCatalogWhenActivatedInteractor, ActivateCatalogWhenActivatedInteractor>()
+            .AddScoped<IDeactivateCatalogWhenDeactivatedInteractor, DeactivateCatalogWhenDeactivatedInteractor>()
+            .AddScoped<IDescriptionChangeCatalogWhenChangedInteractor, DescriptionChangeCatalogWhenChangedInteractor>()
+            .AddScoped<ITitleChangeCatalogWhenChangedInteractor, TitleChangeCatalogWhenChangedInteractor>()
+            .AddScoped<IAddCatalogItemWhenAddedInteractor, AddCatalogItemWhenAddedInteractor>()
+            .AddScoped<IRemoveCatalogItemWhenRemovedInteractor, RemoveCatalogItemWhenRemovedInteractor>()
+            .AddScoped<IDeleteCatalogItemWhenCatalogDeletedInteractor, DeleteCatalogItemWhenCatalogDeletedInteractor>();
 
     public static IServiceCollection AddQueryInteractors(this IServiceCollection services)
         => services

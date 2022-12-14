@@ -3,11 +3,13 @@ using Contracts.Services.Catalog;
 
 namespace Application.UseCases.Events;
 
-public class CatalogCreatedInteractor : IInteractor<DomainEvent.CatalogCreated>
+public interface ICreateCatalogWhenCreatedInteractor : IInteractor<DomainEvent.CatalogCreated> { }
+
+public class CreateCatalogWhenCreatedInteractor : ICreateCatalogWhenCreatedInteractor
 {
     private readonly IProjectionGateway<Projection.Catalog> _projectionGateway;
 
-    public CatalogCreatedInteractor(IProjectionGateway<Projection.Catalog> projectionGateway)
+    public CreateCatalogWhenCreatedInteractor(IProjectionGateway<Projection.Catalog> projectionGateway)
     {
         _projectionGateway = projectionGateway;
     }
