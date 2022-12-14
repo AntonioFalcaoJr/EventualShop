@@ -18,6 +18,5 @@
         <Protobuf Include="Services\Catalog\Catalog.proto" GrpcServices="Both" />
         <Protobuf Include="Services\Communication\Communication.proto" GrpcServices="Both" />
         <Protobuf Include="Services\Identity\Identity.proto" GrpcServices="Both" />
-        <Protobuf Include="Services\Identity\Identity.proto" GrpcServices="Both" />
     </ItemGroup>
 </Project>
