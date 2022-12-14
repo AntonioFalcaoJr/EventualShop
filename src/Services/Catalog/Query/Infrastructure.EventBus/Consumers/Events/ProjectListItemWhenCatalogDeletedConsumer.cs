@@ -6,6 +6,6 @@ namespace Infrastructure.EventBus.Consumers.Events;
 
 public class ProjectListItemWhenCatalogDeletedConsumer : Consumer<DomainEvent.CatalogDeleted>
 {
-    public ProjectListItemWhenCatalogDeletedConsumer(IProjectListItemWhenCatalogDeletedInteractor interactor)
+    public ProjectListItemWhenCatalogDeletedConsumer(IProjectCatalogItemListItemWhenCatalogDeletedInteractor interactor)
         : base(interactor) { }
 }

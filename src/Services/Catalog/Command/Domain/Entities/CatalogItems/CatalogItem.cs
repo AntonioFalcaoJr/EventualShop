@@ -20,6 +20,8 @@ public class CatalogItem : Entity<CatalogItemValidator>
     public decimal UnitPrice { get; }
     public string Sku { get; }
     public int Quantity { get; private set; }
+    
+    public Uri ImageUri => new Uri($"https://localhost:5001/images/{Sku}.jpg");
 
     public void Increase(int quantity)
         => Quantity += quantity;

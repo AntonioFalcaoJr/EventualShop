@@ -3,13 +3,13 @@ using Contracts.Services.Catalog;
 
 namespace Application.UseCases.Events;
 
-public interface IProjectListItemWhenCatalogItemRemovedInteractor : IInteractor<DomainEvent.CatalogItemRemoved> { }
+public interface IProjectCatalogItemListItemWhenCatalogItemRemovedInteractor : IInteractor<DomainEvent.CatalogItemRemoved> { }
 
-public class ProjectListItemWhenCatalogItemRemovedInteractor : IProjectListItemWhenCatalogItemRemovedInteractor
+public class ProjectCatalogItemListItemWhenCatalogItemRemovedInteractor : IProjectCatalogItemListItemWhenCatalogItemRemovedInteractor
 {
     private readonly IProjectionGateway<Projection.CatalogItemListItem> _projectionGateway;
 
-    public ProjectListItemWhenCatalogItemRemovedInteractor(IProjectionGateway<Projection.CatalogItemListItem> projectionGateway)
+    public ProjectCatalogItemListItemWhenCatalogItemRemovedInteractor(IProjectionGateway<Projection.CatalogItemListItem> projectionGateway)
     {
         _projectionGateway = projectionGateway;
     }

@@ -3,13 +3,13 @@ using Contracts.Services.Catalog;
 
 namespace Application.UseCases.Events;
 
-public interface IProjectListItemWhenCatalogItemAddedInteractor : IInteractor<DomainEvent.CatalogItemAdded> { }
+public interface IProjectCatalogItemListItemWhenCatalogItemAddedInteractor : IInteractor<DomainEvent.CatalogItemAdded> { }
 
-public class ProjectListItemWhenCatalogItemAddedInteractor : IProjectListItemWhenCatalogItemAddedInteractor
+public class ProjectCatalogItemListItemWhenCatalogItemAddedInteractor : IProjectCatalogItemListItemWhenCatalogItemAddedInteractor
 {
     private readonly IProjectionGateway<Projection.CatalogItemListItem> _projectionGateway;
 
-    public ProjectListItemWhenCatalogItemAddedInteractor(IProjectionGateway<Projection.CatalogItemListItem> projectionGateway)
+    public ProjectCatalogItemListItemWhenCatalogItemAddedInteractor(IProjectionGateway<Projection.CatalogItemListItem> projectionGateway)
     {
         _projectionGateway = projectionGateway;
     }
@@ -17,11 +17,10 @@ public class ProjectListItemWhenCatalogItemAddedInteractor : IProjectListItemWhe
     public async Task InteractAsync(DomainEvent.CatalogItemAdded @event, CancellationToken cancellationToken)
     {
         Projection.CatalogItemListItem listItem = new(
-            @event.CatalogId,
             @event.ItemId,
             @event.CatalogId,
             @event.Product,
-            default);
+            false);
 
         await _projectionGateway.InsertAsync(listItem, cancellationToken);
     }

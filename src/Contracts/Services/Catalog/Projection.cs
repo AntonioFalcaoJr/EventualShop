@@ -1,32 +1,60 @@
-﻿using Contracts.Abstractions;
+﻿using System.Globalization;
+using Contracts.Abstractions;
 using Contracts.DataTransferObjects;
-using Contracts.Services.Catalog.Protobuf;
 
 namespace Contracts.Services.Catalog;
 
 public static class Projection
 {
-    public record CatalogDetails(Guid Id, string Title, string Description, bool IsActive, bool IsDeleted) : IProjection
+    public record CatalogGridItem(Guid Id, string Title, string Description, string ImageUrl, bool IsActive, bool IsDeleted) : IProjection
     {
-        public static implicit operator Protobuf.Catalog(CatalogDetails catalog)
+        public static implicit operator Protobuf.CatalogGridItem(CatalogGridItem catalog)
             => new()
             {
-                Id = catalog.Id.ToString(),
+                CatalogId = catalog.Id.ToString(),
                 Title = catalog.Title,
                 Description = catalog.Description,
+                ImageUrl = catalog.ImageUrl,
                 IsActive = catalog.IsActive
             };
     }
 
-    public record CatalogItemListItem(Guid CatalogId, Guid Id, Guid InventoryId, Dto.Product Product, bool IsDeleted) : IProjection
+    public record CatalogItemListItem(Guid Id, Guid CatalogId, Dto.Product Product, bool IsDeleted) : IProjection
     {
-        public static implicit operator CatalogItem(CatalogItemListItem item)
+        public static implicit operator Protobuf.CatalogItemListItem(CatalogItemListItem item)
             => new()
             {
-                Id = item.Id.ToString(),
                 CatalogId = item.CatalogId.ToString(),
-                InventoryId = item.InventoryId.ToString(),
-                Product = (Product)item.Product
+                ItemId = item.Id.ToString(),
+                ProductName = item.Product.Name
+            };
+    }
+
+    public record CatalogItemCard(Guid Id, Guid CatalogId, Dto.Product Product, decimal Price, string ImageUrl, bool IsDeleted) : IProjection
+    {
+        public static implicit operator Protobuf.CatalogItemCard(CatalogItemCard item)
+            => new()
+            {
+                CatalogId = item.CatalogId.ToString(),
+                ItemId = item.Id.ToString(),
+                Product = item.Product,
+                Description = item.Product.Description,
+                ImageUrl = item.ImageUrl,
+                Price = item.Price.ToString(CultureInfo.InvariantCulture) // TODO -  Solve it!
+            };
+    }
+
+    public record CatalogItemDetails(Guid Id, Guid CatalogId, Dto.Product Product, decimal Price, string ImageUrl, bool IsDeleted) : IProjection
+    {
+        public static implicit operator Protobuf.CatalogItemDetails(CatalogItemDetails item)
+            => new()
+            {
+                CatalogId = item.CatalogId.ToString(),
+                ItemId = item.Id.ToString(),
+                Product = item.Product,
+                Description = item.Product.Description,
+                ImageUrl = item.ImageUrl,
+                Price = item.Price.ToString(CultureInfo.InvariantCulture) // TODO -  Solve it!
             };
     }
 }

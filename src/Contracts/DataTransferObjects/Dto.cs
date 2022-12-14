@@ -67,14 +67,13 @@ public static class Dto
             => new() { DeviceId = pushMobile.DeviceId.ToString() };
     }
 
-    public record Product(string Description, string Name, string PictureUrl, string Brand, string Category, string Unit, string Sku)
+    public record Product(string Description, string Name, string Brand, string Category, string Unit, string Sku)
     {
         public static implicit operator CatalogProtobuf.Product(Product product)
             => new()
             {
                 Description = product.Description,
                 Name = product.Name,
-                PictureUrl = product.PictureUrl,
                 Brand = product.Brand,
                 Category = product.Category,
                 Unit = product.Unit,

@@ -3,64 +3,88 @@ syntax = "proto3";
 package Contracts.Services.Catalog.Protobuf;
 
 service CatalogService {
-  rpc GetCatalog(GetCatalogRequest) returns (Catalog);
-  rpc GetCatalogItems(GetCatalogItemsRequest) returns (CatalogItem);
-  rpc ListCatalogs(ListCatalogsRequest) returns (Catalogs);
-  rpc ListCatalogItems(ListCatalogItemsRequest) returns (CatalogItems);
+  rpc ListCatalogsGridItems(ListCatalogsGridItemsRequest) returns (CatalogsGridItems);
+  rpc ListCatalogItemsListItems(ListCatalogItemsListItemsRequest) returns (CatalogItemsListItems);
+  rpc ListCatalogItemsCards(ListCatalogItemsCardsRequest) returns (CatalogItemsCards);
+  rpc GetCatalogItemDetails(GetCatalogItemDetailsRequest) returns (CatalogItemDetails);
 }
 
-message GetCatalogRequest {
-  string Id = 1;
+message ListCatalogsGridItemsRequest {
+  sint32 Limit = 1;
+  sint32 Offset = 2;
 }
 
-message GetCatalogItemsRequest {
-  string Id = 1;
+message ListCatalogItemsListItemsRequest {
+  string CatalogId = 1;
   sint32 Limit = 2;
   sint32 Offset = 3;
 }
 
-message Catalog {
-  string Id = 1;
-  string Title = 2;
-  string Description = 3;
-  bool IsActive = 4;
+message ListCatalogItemsCardsRequest {
+  string CatalogId = 1;
+  sint32 Limit = 2;
+  sint32 Offset = 3;
 }
 
-message CatalogItem {
+message GetCatalogItemDetailsRequest {
   string CatalogId = 1;
-  string Id = 2;
-  string InventoryId = 3;
-  Product Product = 4;
+  string ItemId = 2;
+}
+
+message CatalogsGridItems {
+  repeated CatalogGridItem Items = 1;
+  Page Page = 2;
+}
+
+message CatalogGridItem {
+  string CatalogId = 1;
+  string Title = 2;
+  string Description = 3;
+  string ImageUrl = 4;
+  bool IsActive = 5;
+}
+
+message CatalogItemsListItems {
+  repeated CatalogItemListItem Items = 1;
+  Page Page = 2;
+}
+
+message CatalogItemListItem {
+  string CatalogId = 1;
+  string ItemId = 2;
+  string ProductName = 3;
+}
+
+message CatalogItemsCards {
+  repeated CatalogItemCard Items = 1;
+  Page Page = 2;
+}
+
+message CatalogItemCard {
+  string CatalogId = 1;
+  string ItemId = 2;
+  Product Product = 3;
+  string Description = 4;
+  string ImageUrl = 5;
+  string Price = 6;
+}
+
+message CatalogItemDetails {
+  string CatalogId = 1;
+  string ItemId = 2;
+  string Description = 3;
+  string ImageUrl = 4;
+  Product Product = 5;
+  string Price = 6;
 }
 
 message Product {
   string Description = 1;
   string Name = 2;
-  string PictureUrl = 3;
   string Brand = 4;
   string Category = 5;
   string Unit = 6;
   string Sku = 7;
-}
-
-message ListCatalogsRequest {
-  sint32 Limit = 1;
-  sint32 Offset = 2;
-}
-
-message ListCatalogItemsRequest {
-  sint32 Limit = 1;
-  sint32 Offset = 2;
-}
-
-message Catalogs {
-  repeated Catalog Items = 1;
-  Page Page = 2;
-}
-
-message CatalogItems {
-  repeated CatalogItem Items = 1;
-  Page Page = 2;
 }
 
 message Page{

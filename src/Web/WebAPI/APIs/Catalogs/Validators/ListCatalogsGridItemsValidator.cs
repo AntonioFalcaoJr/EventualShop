@@ -2,9 +2,9 @@
 
 namespace WebAPI.APIs.Catalogs.Validators;
 
-public class ListCatalogItemsValidator : AbstractValidator<Requests.ListCatalogItems>
+public class ListCatalogsGridItemsValidator : AbstractValidator<Requests.ListCatalogsGridItems>
 {
-    public ListCatalogItemsValidator()
+    public ListCatalogsGridItemsValidator()
     {
         RuleFor(request => request.Limit)
             .GreaterThan(0)

@@ -19,8 +19,8 @@ public class CatalogHttpClient : ApplicationHttpClient, ICatalogHttpClient
     public Task<HttpResponse<PagedResult<Projection.CatalogItemListItem>>> GetAllItemsAsync(int limit, int offset, CancellationToken cancellationToken)
         => GetAsync<PagedResult<Projection.CatalogItemListItem>>($"{_options.CatalogEndpoint}/items?limit={limit}&offset={offset}", cancellationToken);
 
-    public Task<HttpResponse<PagedResult<Projection.CatalogDetails>>> GetAsync(int limit, int offset, CancellationToken cancellationToken)
-        => GetAsync<PagedResult<Projection.CatalogDetails>>($"{_options.CatalogEndpoint}?limit={limit}&offset={offset}", cancellationToken);
+    public Task<HttpResponse<PagedResult<Projection.CatalogGridItem>>> GetAsync(int limit, int offset, CancellationToken cancellationToken)
+        => GetAsync<PagedResult<Projection.CatalogGridItem>>($"{_options.CatalogEndpoint}?limit={limit}&offset={offset}", cancellationToken);
 
     public Task<HttpResponse> CreateAsync(Requests.CreateCatalog request, CancellationToken cancellationToken)
         => PostAsync($"{_options.CatalogEndpoint}", request, cancellationToken);

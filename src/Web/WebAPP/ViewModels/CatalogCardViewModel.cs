@@ -11,14 +11,14 @@ public class CatalogCardViewModel
     public bool IsActive { get; set; }
     public bool IsDeleted { get; set; }
 
-    public static implicit operator CatalogCardViewModel(Projection.CatalogDetails catalogDetails)
+    public static implicit operator CatalogCardViewModel(Projection.CatalogGridItem catalogGridItem)
         => new()
         {
-            Description = catalogDetails.Description,
-            Id = catalogDetails.Id,
-            Title = catalogDetails.Title,
-            IsActive = catalogDetails.IsActive,
-            IsDeleted = catalogDetails.IsDeleted
+            Description = catalogGridItem.Description,
+            Id = catalogGridItem.Id,
+            Title = catalogGridItem.Title,
+            IsActive = catalogGridItem.IsActive,
+            IsDeleted = catalogGridItem.IsDeleted
         };
 
     public static implicit operator CatalogCardViewModel(Requests.CreateCatalog request)

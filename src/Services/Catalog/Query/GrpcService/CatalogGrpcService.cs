@@ -1,6 +1,4 @@
-using Application.Abstractions;
-using Contracts.Abstractions.Paging;
-using Contracts.Services.Catalog;
+using Application.UseCases.Queries;
 using Contracts.Services.Catalog.Protobuf;
 using Grpc.Core;
 
@@ -8,35 +6,33 @@ namespace GrpcService;
 
 public class CatalogGrpcService : CatalogService.CatalogServiceBase
 {
-    private readonly IInteractor<Query.GetCatalog, Projection.CatalogDetails> _getCatalogInteractor;
-    private readonly IInteractor<Query.GetCatalogItems, Projection.CatalogItemListItem> _getCatalogItemInteractor;
-    private readonly IInteractor<Query.GetCatalogs, IPagedResult<Projection.CatalogDetails>> _listCatalogsInteractor;
-    private readonly IInteractor<Query.GetAllItems, IPagedResult<Projection.CatalogItemListItem>> _listCatalogItemsInteractor;
+    private readonly IGetCatalogItemDetailsInteractor _getCatalogItemDetailsInteractor;
+    private readonly IListCatalogItemsCardsInteractor _listCatalogItemsCardsInteractor;
+    private readonly IListCatalogsGridItemsInteractor _listCatalogsGridItemsInteractor;
+    private readonly IListCatalogItemsListItemsInteractor _listCatalogItemsListItemsInteractor;
 
     public CatalogGrpcService(
-        IInteractor<Query.GetCatalog, Projection.CatalogDetails> getCatalogInteractor,
-        IInteractor<Query.GetCatalogItems, Projection.CatalogItemListItem> getCatalogItemInteractor,
-        IInteractor<Query.GetCatalogs, IPagedResult<Projection.CatalogDetails>> listCatalogsInteractor,
-        IInteractor<Query.GetAllItems, IPagedResult<Projection.CatalogItemListItem>> lstCatalogItemsInteractor
-        )
+        IGetCatalogItemDetailsInteractor getCatalogItemDetailsInteractor,
+        IListCatalogItemsCardsInteractor listCatalogItemsCardsInteractor,
+        IListCatalogsGridItemsInteractor listCatalogsGridItemsInteractor,
+        IListCatalogItemsListItemsInteractor lstCatalogItemsListItemsInteractor)
     {
-        _getCatalogInteractor = getCatalogInteractor;
-        _getCatalogItemInteractor = getCatalogItemInteractor;
-        _listCatalogsInteractor = listCatalogsInteractor;
-        _listCatalogItemsInteractor = lstCatalogItemsInteractor;
+        _getCatalogItemDetailsInteractor = getCatalogItemDetailsInteractor;
+        _listCatalogItemsCardsInteractor = listCatalogItemsCardsInteractor;
+        _listCatalogsGridItemsInteractor = listCatalogsGridItemsInteractor;
+        _listCatalogItemsListItemsInteractor = lstCatalogItemsListItemsInteractor;
     }
 
+    public override async Task<CatalogItemDetails> GetCatalogItemDetails(GetCatalogItemDetailsRequest request, ServerCallContext context)
+        => await _getCatalogItemDetailsInteractor.InteractAsync(request, context.CancellationToken);
 
-    public override async Task<Catalog> GetCatalog(GetCatalogRequest request, ServerCallContext context)
-        => await _getCatalogInteractor.InteractAsync(request, context.CancellationToken);
-    
-    public override async Task<Catalogs> ListCatalogs(ListCatalogsRequest request, ServerCallContext context)
+    public override async Task<CatalogsGridItems> ListCatalogsGridItems(ListCatalogsGridItemsRequest request, ServerCallContext context)
     {
-        var pagedResult = await _listCatalogsInteractor.InteractAsync(request, context.CancellationToken);
-    
+        var pagedResult = await _listCatalogsGridItemsInteractor.InteractAsync(request, context.CancellationToken);
+
         return new()
         {
-            Items = { pagedResult.Items.Select(details => (Catalog)details) },
+            Items = { pagedResult.Items.Select(gridItem => (CatalogGridItem)gridItem) },
             Page = new()
             {
                 Current = pagedResult.Page.Current,
@@ -46,14 +42,14 @@ public class CatalogGrpcService : CatalogService.CatalogServiceBase
             }
         };
     }
-    
-    public override async Task<CatalogItems> ListCatalogItems(ListCatalogItemsRequest request, ServerCallContext context)
+
+    public override async Task<CatalogItemsListItems> ListCatalogItemsListItems(ListCatalogItemsListItemsRequest request, ServerCallContext context)
     {
-        var pagedResult = await _listCatalogItemsInteractor.InteractAsync(request, context.CancellationToken);
-    
+        var pagedResult = await _listCatalogItemsListItemsInteractor.InteractAsync(request, context.CancellationToken);
+
         return new()
         {
-            Items = { pagedResult.Items.Select(details => (CatalogItem) details) },
+            Items = { pagedResult.Items.Select(listItem => (CatalogItemListItem)listItem) },
             Page = new()
             {
                 Current = pagedResult.Page.Current,
@@ -63,7 +59,21 @@ public class CatalogGrpcService : CatalogService.CatalogServiceBase
             }
         };
     }
-    
-    public override async Task<CatalogItem> GetCatalogItems(GetCatalogItemsRequest request, ServerCallContext context)
-        => await _getCatalogItemInteractor.InteractAsync(request, context.CancellationToken);
+
+    public override async Task<CatalogItemsCards> ListCatalogItemsCards(ListCatalogItemsCardsRequest request, ServerCallContext context)
+    {
+        var pagedResult = await _listCatalogItemsCardsInteractor.InteractAsync(request, context.CancellationToken);
+
+        return new()
+        {
+            Items = { pagedResult.Items.Select(card => (CatalogItemCard)card) },
+            Page = new()
+            {
+                Current = pagedResult.Page.Current,
+                Size = pagedResult.Page.Size,
+                HasNext = pagedResult.Page.HasNext,
+                HasPrevious = pagedResult.Page.HasPrevious
+            }
+        };
+    }
 }

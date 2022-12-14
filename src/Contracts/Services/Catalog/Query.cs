@@ -5,27 +5,27 @@ namespace Contracts.Services.Catalog;
 
 public static class Query
 {
-    public record GetCatalog(Guid CatalogId) : Message, IQuery
+    public record struct ListCatalogsGridItems(ushort Limit, ushort Offset) : IQuery
     {
-        public static implicit operator GetCatalog(GetCatalogRequest request)
-            => new(new Guid(request.Id));
-    };
-
-    public record GetCatalogs(ushort Limit, ushort Offset) : Message, IQuery
-    {
-        public static implicit operator GetCatalogs(ListCatalogsRequest request)
+        public static implicit operator ListCatalogsGridItems(ListCatalogsGridItemsRequest request)
             => new((ushort)request.Limit, (ushort)request.Offset);
     }
 
-    public record GetCatalogItems(Guid CatalogId, ushort Limit, ushort Offset) : Message, IQuery
+    public record struct ListCatalogItemsListItems(Guid CatalogId, ushort Limit, ushort Offset) : IQuery
     {
-        public static implicit operator GetCatalogItems(GetCatalogItemsRequest request)
-            => new(new Guid(request.Id), (ushort)request.Limit, (ushort)request.Offset);
+        public static implicit operator ListCatalogItemsListItems(ListCatalogItemsListItemsRequest request)
+            => new(new(request.CatalogId), (ushort)request.Limit, (ushort)request.Offset);
     }
 
-    public record GetAllItems(ushort Limit, ushort Offset) : Message, IQuery
+    public record struct ListCatalogItemsCards(Guid CatalogId, ushort Limit, ushort Offset) : IQuery
     {
-        public static implicit operator GetAllItems(ListCatalogItemsRequest request)
-            => new((ushort)request.Limit, (ushort)request.Offset);
+        public static implicit operator ListCatalogItemsCards(ListCatalogItemsCardsRequest request)
+            => new(new(request.CatalogId), (ushort)request.Limit, (ushort)request.Offset);
+    }
+
+    public record struct GetCatalogItemDetails(Guid CatalogId, Guid ItemId) : IQuery
+    {
+        public static implicit operator GetCatalogItemDetails(GetCatalogItemDetailsRequest request)
+            => new(new(request.CatalogId), new(request.ItemId));
     }
 }

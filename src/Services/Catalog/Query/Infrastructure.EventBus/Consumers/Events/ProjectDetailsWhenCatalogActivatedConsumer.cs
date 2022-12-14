@@ -6,6 +6,6 @@ namespace Infrastructure.EventBus.Consumers.Events;
 
 public class ProjectDetailsWhenCatalogActivatedConsumer : Consumer<DomainEvent.CatalogActivated>
 {
-    public ProjectDetailsWhenCatalogActivatedConsumer(IProjectDetailsWhenCatalogActivatedInteractor interactor)
+    public ProjectDetailsWhenCatalogActivatedConsumer(IProjectCatalogDetailsWhenCatalogActivatedInteractor interactor)
         : base(interactor) { }
 }
