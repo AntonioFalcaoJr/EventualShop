@@ -60,7 +60,7 @@
         <Swashbuckle_FluentValidation_Version>6.0.0-beta.1</Swashbuckle_FluentValidation_Version>
 
         <!--Polly-->
-        <Polly_Version>7.0.0</Polly_Version>
+        <Polly_Version>7.0.1</Polly_Version>
 
         <!--Test-->
         <Microsoft_Mvc_Testing_Version>7.0.0</Microsoft_Mvc_Testing_Version>
