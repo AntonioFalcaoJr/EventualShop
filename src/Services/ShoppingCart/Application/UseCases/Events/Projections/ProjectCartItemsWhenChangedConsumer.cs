@@ -29,17 +29,17 @@ public class ProjectCartItemsWhenChangedConsumer :
     }
 
     public Task Consume(ConsumeContext<DomainEvent.CartItemIncreased> context)
-        => _repository.IncreaseFieldAsync(
+        => _repository.UpdateFieldAsync(
             id: context.Message.ItemId,
             field: item => item.Quantity,
-            value: 1,
+            value: context.Message.NewQuantity,
             cancellationToken: context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.CartItemDecreased> context)
-        => _repository.IncreaseFieldAsync(
+        => _repository.UpdateFieldAsync(
             id: context.Message.ItemId,
             field: item => item.Quantity,
-            value: -1,
+            value: context.Message.NewQuantity,
             cancellationToken: context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.CartItemRemoved> context)

@@ -12,7 +12,7 @@ public static class Projection
             => new()
             {
                 Id = notification.Id.ToString(),
-                Methods = { notification.Methods.Select(method => (NotificationMethod)method) },
+                Methods = { notification.Methods.Select(method => (NotificationMethod)method) }
             };
     }
 }
