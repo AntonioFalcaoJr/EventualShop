@@ -18,7 +18,7 @@
         <Microsoft_Extensions_Version>7.0.0</Microsoft_Extensions_Version>
 
         <!--Blazor-->
-        <BlazorStrap_Version>5.1.100-Preview6</BlazorStrap_Version>
+        <BlazorStrap_Version>5.1.100-Preview7</BlazorStrap_Version>
         <Microsoft_AspNetCore_WebAssembly_Version>7.0.0</Microsoft_AspNetCore_WebAssembly_Version>
 
         <!--EF Core-->
