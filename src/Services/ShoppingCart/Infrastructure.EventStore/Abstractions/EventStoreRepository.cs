@@ -68,5 +68,6 @@ public abstract class EventStoreRepository<TAggregate, TStoreEvent, TSnapshot, T
         => _storeEvents
             .AsNoTracking()
             .Select(@event => @event.AggregateId)
+            .Distinct()
             .AsAsyncEnumerable();
 }
