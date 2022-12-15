@@ -1,6 +1,5 @@
 ﻿using Application.Abstractions;
 using Contracts.Services.Catalog;
-using MassTransit;
 
 namespace Application.UseCases.Events;
 

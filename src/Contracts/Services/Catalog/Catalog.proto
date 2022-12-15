@@ -12,20 +12,17 @@ service CatalogService {
 }
 
 message ListCatalogsGridItemsRequest {
-  google.protobuf.Int32Value Limit = 1;
-  google.protobuf.Int32Value Offset = 2;
+  Paging Paging = 1;
 }
 
 message ListCatalogItemsListItemsRequest {
   string CatalogId = 1;
-  google.protobuf.Int32Value Limit = 2;
-  google.protobuf.Int32Value Offset = 3;
+  Paging Paging = 2;
 }
 
 message ListCatalogItemsCardsRequest {
   string CatalogId = 1;
-  google.protobuf.Int32Value Limit = 2;
-  google.protobuf.Int32Value Offset = 3;
+  Paging Paging = 2;
 }
 
 message GetCatalogItemDetailsRequest {
@@ -98,4 +95,9 @@ message Page{
   int32 Size = 2;
   bool HasNext = 3;
   bool HasPrevious = 4;
+}
+
+message Paging {
+  google.protobuf.Int32Value Limit = 1;
+  google.protobuf.Int32Value Offset = 2;
 }

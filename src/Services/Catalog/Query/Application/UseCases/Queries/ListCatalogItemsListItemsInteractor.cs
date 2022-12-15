@@ -16,5 +16,5 @@ public class ListCatalogItemsListItemsInteractor : IListCatalogItemsListItemsInt
     }
 
     public Task<IPagedResult<Projection.CatalogItemListItem>> InteractAsync(Query.ListCatalogItemsListItems query, CancellationToken cancellationToken)
-        => _projectionGateway.GetAllAsync(query.Limit, query.Offset, listItem => listItem.CatalogId == query.CatalogId, cancellationToken);
+        => _projectionGateway.ListAsync(query.Paging, listItem => listItem.CatalogId == query.CatalogId, cancellationToken);
 }

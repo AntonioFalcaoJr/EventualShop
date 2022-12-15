@@ -70,21 +70,21 @@ public static class Requests
         : Validatable<ListCatalogsGridItemsValidator>, IQueryRequest<CatalogService.CatalogServiceClient>
     {
         public static implicit operator ListCatalogsGridItemsRequest(ListCatalogsGridItems request)
-            => new() { Limit = request.Limit, Offset = request.Offset };
+            => new() { Paging = new() { Limit = request.Limit, Offset = request.Offset } };
     }
 
     public record ListCatalogItemsListItems(CatalogService.CatalogServiceClient Client, Guid CatalogId, int? Limit, int? Offset, CancellationToken CancellationToken)
         : Validatable<ListCatalogItemsListItemsRequestValidator>, IQueryRequest<CatalogService.CatalogServiceClient>
     {
         public static implicit operator ListCatalogItemsListItemsRequest(ListCatalogItemsListItems request)
-            => new() { CatalogId = request.CatalogId.ToString(), Limit = request.Limit, Offset = request.Offset };
+            => new() { CatalogId = request.CatalogId.ToString(), Paging = new() { Limit = request.Limit, Offset = request.Offset } };
     }
 
     public record ListCatalogItemsCards(CatalogService.CatalogServiceClient Client, Guid CatalogId, int? Limit, int? Offset, CancellationToken CancellationToken)
         : Validatable<ListCatalogItemsCardsValidator>, IQueryRequest<CatalogService.CatalogServiceClient>
     {
         public static implicit operator ListCatalogItemsCardsRequest(ListCatalogItemsCards request)
-            => new() { CatalogId = request.CatalogId.ToString(), Limit = request.Limit, Offset = request.Offset };
+            => new() { CatalogId = request.CatalogId.ToString(), Paging = new() { Limit = request.Limit, Offset = request.Offset } };
     }
 
     public record GetCatalogItemDetails(CatalogService.CatalogServiceClient Client, Guid CatalogId, Guid ItemId, CancellationToken CancellationToken)

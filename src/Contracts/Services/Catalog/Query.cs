@@ -1,26 +1,27 @@
 ﻿using Contracts.Abstractions.Messages;
 using Contracts.Services.Catalog.Protobuf;
+using Paging = Contracts.Abstractions.Paging.Paging;
 
 namespace Contracts.Services.Catalog;
 
 public static class Query
 {
-    public record struct ListCatalogsGridItems(int? Limit, int? Offset) : IQuery
+    public record struct ListCatalogsGridItems(Paging Paging) : IQuery
     {
         public static implicit operator ListCatalogsGridItems(ListCatalogsGridItemsRequest request)
-            => new(request.Limit, request.Offset);
+            => new(request.Paging);
     }
 
-    public record struct ListCatalogItemsListItems(Guid CatalogId, int? Limit, int? Offset) : IQuery
+    public record struct ListCatalogItemsListItems(Guid CatalogId, Paging Paging) : IQuery
     {
         public static implicit operator ListCatalogItemsListItems(ListCatalogItemsListItemsRequest request)
-            => new(new(request.CatalogId), request.Limit, request.Offset);
+            => new(new(request.CatalogId), request.Paging);
     }
 
-    public record struct ListCatalogItemsCards(Guid CatalogId, int? Limit, int? Offset) : IQuery
+    public record struct ListCatalogItemsCards(Guid CatalogId, Paging Paging) : IQuery
     {
         public static implicit operator ListCatalogItemsCards(ListCatalogItemsCardsRequest request)
-            => new(new(request.CatalogId), request.Limit, request.Offset);
+            => new(new(request.CatalogId), request.Paging);
     }
 
     public record struct GetCatalogItemDetails(Guid CatalogId, Guid ItemId) : IQuery
