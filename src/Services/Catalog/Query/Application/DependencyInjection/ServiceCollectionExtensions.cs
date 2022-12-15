@@ -8,12 +8,14 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddEventInteractors(this IServiceCollection services)
         => services
-            .AddScoped<IProjectCatalogDetailsWhenCatalogCreatedInteractor, ProjectCatalogDetailsWhenCatalogCreatedInteractor>()
-            .AddScoped<IProjectCatalogDetailsWhenCatalogDeletedInteractor, ProjectCatalogDetailsWhenCatalogDeletedInteractor>()
-            .AddScoped<IProjectCatalogDetailsWhenCatalogActivatedInteractor, ProjectCatalogDetailsWhenCatalogActivatedInteractor>()
-            .AddScoped<IProjectCatalogDetailsWhenCatalogDeactivatedInteractor, ProjectCatalogDetailsWhenCatalogDeactivatedInteractor>()
-            .AddScoped<IProjectCatalogDetailsWhenCatalogDescriptionChangedInteractor, ProjectCatalogDetailsWhenCatalogDescriptionChangedInteractor>()
-            .AddScoped<IProjectCatalogDetailsWhenCatalogTitleChangedInteractor, ProjectCatalogDetailsWhenCatalogTitleChangedInteractor>()
+            .AddScoped<IProjectCatalogGridItemWhenCatalogCreatedInteractor, ProjectCatalogGridItemWhenCatalogCreatedInteractor>()
+            .AddScoped<IProjectCatalogGridItemWhenCatalogDeletedInteractor, ProjectCatalogGridItemWhenCatalogDeletedInteractor>()
+            .AddScoped<IProjectCatalogGridItemWhenCatalogActivatedInteractor, ProjectCatalogGridItemWhenCatalogActivatedInteractor>()
+            .AddScoped<IProjectCatalogGridItemWhenCatalogDeactivatedInteractor, ProjectCatalogGridItemWhenCatalogDeactivatedInteractor>()
+            .AddScoped<IProjectCatalogGridItemWhenCatalogDescriptionChangedInteractor, ProjectCatalogGridItemWhenCatalogDescriptionChangedInteractor>()
+            .AddScoped<IProjectCatalogGridItemWhenCatalogTitleChangedInteractor, ProjectCatalogGridItemWhenCatalogTitleChangedInteractor>()
+            .AddScoped<IProjectCatalogItemCardWhenCatalogItemAddedInteractor, ProjectCatalogItemCardWhenCatalogItemAddedInteractor>()
+            .AddScoped<IProjectCatalogItemDetailsWhenCatalogItemAddedInteractor, ProjectCatalogItemDetailsWhenCatalogItemAddedInteractor>()
             .AddScoped<IProjectCatalogItemListItemWhenCatalogItemAddedInteractor, ProjectCatalogItemListItemWhenCatalogItemAddedInteractor>()
             .AddScoped<IProjectCatalogItemListItemWhenCatalogItemRemovedInteractor, ProjectCatalogItemListItemWhenCatalogItemRemovedInteractor>()
             .AddScoped<IProjectCatalogItemListItemWhenCatalogDeletedInteractor, ProjectCatalogItemListItemWhenCatalogDeletedInteractor>();
