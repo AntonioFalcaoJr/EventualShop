@@ -18,18 +18,18 @@ public class PaymentGateway : IPaymentGateway
     {
         creditCardPaymentService
             .SetNext(debitCardPaymentService)
-            ?.SetNext(payPalPaymentService);
+            .SetNext(payPalPaymentService);
 
         _paymentService = creditCardPaymentService;
     }
 
     public async Task AuthorizeAsync(Payment payment, CancellationToken cancellationToken)
     {
-        foreach (var method in payment.PaymentMethods)
+        foreach (var method in payment.Methods)
         {
             if (payment.AmountDue <= 0) break;
 
-            var paymentResult = await _paymentService.HandleAsync((srv, mtd, cancellationToken) => srv.AuthorizeAsync(mtd, cancellationToken), method, cancellationToken);
+            var paymentResult = await _paymentService.HandleAsync((srv, mtd, ct) => srv.AuthorizeAsync(mtd, ct), method, cancellationToken);
 
             payment.Handle(paymentResult.Success
                 ? new Command.AuthorizePaymentMethod(payment.Id, method.Id, paymentResult.TransactionId)
@@ -39,11 +39,11 @@ public class PaymentGateway : IPaymentGateway
 
     public async Task CancelAsync(Payment payment, CancellationToken cancellationToken)
     {
-        foreach (var method in payment.PaymentMethods)
+        foreach (var method in payment.Methods)
         {
             if (payment.AmountDue <= 0) break;
 
-            var paymentResult = await _paymentService.HandleAsync((srv, mtd, cancellationToken) => srv.CancelAsync(mtd, cancellationToken), method, cancellationToken);
+            var paymentResult = await _paymentService.HandleAsync((srv, mtd, ct) => srv.CancelAsync(mtd, ct), method, cancellationToken);
 
             payment.Handle(paymentResult.Success
                 ? new Command.CancelPaymentMethod(payment.Id, method.Id, paymentResult.TransactionId)
@@ -53,11 +53,11 @@ public class PaymentGateway : IPaymentGateway
 
     public async Task RefundAsync(Payment payment, CancellationToken cancellationToken)
     {
-        foreach (var method in payment.PaymentMethods)
+        foreach (var method in payment.Methods)
         {
             if (payment.AmountDue <= 0) break;
 
-            var paymentResult = await _paymentService.HandleAsync((srv, mtd, cancellationToken) => srv.RefundAsync(mtd, cancellationToken), method, cancellationToken);
+            var paymentResult = await _paymentService.HandleAsync((srv, mtd, ct) => srv.RefundAsync(mtd, ct), method, cancellationToken);
 
             payment.Handle(paymentResult.Success
                 ? new Command.RefundPaymentMethod(payment.Id, method.Id, paymentResult.TransactionId)

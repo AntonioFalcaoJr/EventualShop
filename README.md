@@ -1,11 +1,10 @@
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/Logo_EventualShop_Roxo.png">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/Logo_EventualShop_Roxo.png">
-  <img alt="Shows an illustrated sun in light mode and a moon with stars in dark mode." src="https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/696d45c3dce12a975c90f12bf485ef990565e1b4/.assets/img/Logo_EventualShop_Roxo.png">
-</picture>
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/Logo_EventualShop_Roxo.png)
+
+---
 
 <p align="center">
   <a href="#about">About</a> &nbsp;&bull;&nbsp;
+  <a href="#the-solution-architecture">The Solution Architecture</a> &nbsp;&bull;&nbsp;
   <a href="#research">Research</a> &nbsp;&bull;&nbsp;
   <a href="#running">Running</a> &nbsp;&bull;&nbsp;
   <a href="#tech-stack">Tech Stack</a>
@@ -74,9 +73,41 @@ Fig. 1: Falcão Jr., Antônio. _An EDA solution architecture_.
 
 ## Research
 
-<details><summary> Reactive Domain Driven Design </summary>
+<details>
+    <summary> Agnostic Obsession </summary>
+
+### Agnostic Obsession
+
+Agnostic obsession is a design approach that focuses on creating software unrelated to any specific domain, application, or technology. Some strategies adopted in this project are related to
+particular principles, such as the domain-centric to support the business (DDD and Clean Arch), event-sourcing + ORM for persistence mechanism, containers for immutable environments, and Kubernetes (
+K8s) for cloud deployment.
+
+The domain-centric approach is a design pattern that separates the core business logic of an application from other concerns, such as the user interface or infrastructure.,making it easier to maintain
+and extend the application, as the core domain is isolated from other system components. Additionally, the ability to move the core domain to different applications while keeping the essence of the
+business can be helpful for organizations that need to support multiple applications or platforms.
+
+A key aspect of agnostic obsession is event-sourcing and object-relational mapping (ORM) as a persistence mechanism. Event sourcing involves storing the history of events occurring within a system
+rather than the system's current state, avoiding advanced database capabilities such as Joins, Triggers, Procedures, and more. On the other hand, ORM is a technique that maps objects in a program to
+data stored in a database, making it easier and more abstract to manage data.
+
+Another essential aspect of agnostic obsession is using containers to create immutable environments. Containers are a lightweight virtualization form that allows packaging an application and its
+dependencies into a single, self-contained unit, making it easy to deploy and run the application in any environment without worrying about the underlying infrastructure or platform.
+
+Finally, agnostic obsession often involves using Kubernetes (K8s) for cloud deployment. K8s is an open-source platform for managing and deploying containerized applications. It is widely used in the
+industry and supported by most cloud providers, making it a natural choice for agnostic obsession.
+
+In summary, agnostic obsession is a powerful approach that allows for creating highly flexible and adaptable software that can be easily moved and deployed in different environments. Using
+event-sourcing, ORM, Containers, and K8s, it is possible to build resilient, scalable, and easy-to-maintain systems.
+
+</details>
+
+<details>
+    <summary> Reactive Domain Driven Design </summary>
 
 ### Reactive Domain Driven Design
+
+Reactive DDD aims to create software that is responsive, resilient, and scalable, by applying the principles of reactive programming to domain-driven design. This involves using asynchronous and
+non-blocking communication between the different components of the system, and using events and streams to model the domain concepts and relationships.
 
 > I have been seeing, at least in my world, a trend towards reactive systems. Not just reactive within a microservice, but building entire systems that are reactive. In DDD, reactive behavior is also
 > happening within the bounded context. Being reactive isn't entirely new, and Eric Evans was far ahead of the industry when he introduced eventing. Using domain events means we have to react to
@@ -175,7 +206,10 @@ Fig. 25: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st 
 >
 > [Fowler, Martin. "DDD_Aggregate", _martinfowler.com_, last edited on 08 Jun 2015](https://martinfowler.com/bliki/DomainDrivenDesign.html)
 
-</details><details><summary> Event Sourcing </summary>
+</details>
+
+<details>
+    <summary> Event Sourcing </summary>
 
 ### Event Sourcing
 
@@ -354,7 +388,10 @@ Snapshot stream:
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/stream_snapshot.png)        
 [Fig. 18: Comartin, Derek. _Snapshots in Event Sourcing for Rehydrating Aggregates_](https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates)
 
-</details><details><summary>Event-Driven Architecture (EDA)</summary>
+</details>
+
+<details>
+    <summary>Event-Driven Architecture (EDA)</summary>
 
 ### Event-Driven Architecture (EDA)
 
@@ -507,7 +544,10 @@ Comparison overview:
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/EventSourcing_EDA.jpeg)   
 [Fig. 19: Nowak, Aleksander. _Understanding Event-Driven Design Patterns for Microservices_](https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-microservices-659b3c9fb51f)
 
-</details><details><summary>Microservices</summary>
+</details>
+
+<details>
+    <summary>Microservices</summary>
 
 ### Microservices
 
@@ -524,7 +564,10 @@ Comparison overview:
 >
 > [Alagarsamy, Indu. "Practical DDD: Bounded Contexts + Events => Microservices", _www.infoq.com_, last edited on 03 Set 2019](https://www.infoq.com/presentations/microservices-ddd-bounded-contexts)
 
-</details><details><summary>CQRS</summary>
+</details>
+
+<details>
+    <summary>CQRS</summary>
 
 ### CQRS
 
@@ -654,7 +697,35 @@ with some different strategies and ways to implement projections.
 >
 > [Balachandran, Arvind. "Event Notification vs. Event-Carried State Transfer", _Start it up_, last edited on 27 Oct 2019](https://medium.com/swlh/event-notification-vs-event-carried-state-transfer-2e4fdf8f6662)
 
-</details><details><summary>EventStorming</summary>
+</details>
+
+<details>
+    <summary>Task Based UI + CQRS</summary>
+
+In a standard user interface (UI), the user typically edits or manipulates data directly. This allows the user to enter or modify the data synchronously, enabling the UI to respond to
+the user's actions in real-time (blocking the operation until the return).
+
+In a task-based UI, on the other hand, the user typically expresses their intentions rather than editing the data directly. Task-based UIs provide users with the information and tools to
+complete specific tasks. They generally are organized around the steps or stages of the task, and give the user instructions, prompts, and input fields to enter or modify a specific piece of data.
+
+Task Based UI can use asynchronous communication mechanisms to enable users to express their intentions asynchronously, without the need for the UI to wait for a response or confirmation from the system.
+For example, the UI may use a message queue or event bus to send commands or messages to the system, and the system may use the same mechanism to send updates or notifications back to the UI. This
+enable the UI to continue with other operations, such as querying the system for updated data or displaying a progress indicator to the user without waiting for a response from the system.
+
+However, even though a way command does not require a return value or confirmation, it can still be validated and accepted by the CQRS system. When a way command is received by the write side of the
+CQRS system, it can be validated to ensure that it is well-formed and conforms to the rules and constraints of the system. If the command is valid, it can be accepted and processed, and the data can
+be updated or modified according to the instructions in the command. If the command is not valid, it can be rejected or ignored, and the data can be left unchanged.
+
+Task-based UIs and CQRS can be used together to provide users with a flexible and efficient way to interact with a system and complete specific tasks. This can make them more efficient and
+user-friendly than more general-purpose UIs.
+
+![](.assets/img/task_based_ui.png)  
+[Fig. 29: Murali, Bala. _What is Task Based UI_](https://medium.com/@baladotcom/what-is-task-based-ui-60a44ddfd968)
+
+</details>
+
+<details>
+    <summary>EventStorming</summary>
 
 ### EventStorming
 
@@ -687,7 +758,10 @@ with some different strategies and ways to implement projections.
 
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/from-eventstorming-to-eventsourcing.png)
 
-</details><details><summary>Clean Architecture</summary>
+</details>
+
+<details>
+    <summary>Clean Architecture</summary>
 
 ### Clean Architecture
 
@@ -710,7 +784,8 @@ with some different strategies and ways to implement projections.
 
 ## Performance
 
-<details><summary>Minimize Exceptions</summary>
+<details>
+    <summary>Minimize Exceptions</summary>
 
 ### Minimize Exceptions
 
@@ -725,7 +800,10 @@ with some different strategies and ways to implement projections.
 >
 > ["ASP.NET Core Performance Best Practices" _MSDN_, Microsoft Docs, last edited on 18 Fev 2022](https://docs.microsoft.com/en-us/aspnet/core/performance/performance-best-practices?view=aspnetcore-6.0#minimize-exceptions)
 
-</details><details><summary>Pool HTTP connections with HttpClientFactory</summary>
+</details>
+
+<details>
+    <summary>Pool HTTP connections with HttpClientFactory</summary>
 
 ### Pool HTTP connections with HttpClientFactory
 
@@ -739,7 +817,10 @@ with some different strategies and ways to implement projections.
 >
 > ["ASP.NET Core Performance Best Practices" _MSDN_, Microsoft Docs, last edited on 18 Fev 2022](https://docs.microsoft.com/en-us/aspnet/core/performance/performance-best-practices?view=aspnetcore-6.0#pool-http-connections-with-httpclientfactory)
 
-</details><details><summary>DbContext Pooling</summary>
+</details>
+
+<details>
+    <summary>DbContext Pooling</summary>
 
 ### DbContext Pooling
 
@@ -751,7 +832,10 @@ with some different strategies and ways to implement projections.
 >
 > ["New features in EF Core 2.0" _MSDN_, Microsoft Docs, last edited on 11 Oct 2020](https://docs.microsoft.com/en-us/ef/core/what-is-new/ef-core-2.0/#dbcontext-pooling)
 
-</details><details><summary>Snapshotting</summary>
+</details>
+
+<details>
+    <summary>Snapshotting</summary>
 
 ### Snapshotting
 
@@ -765,7 +849,8 @@ More details in [snapshot](#snapshot) section.
 
 ## Running
 
-<details><summary>Development</summary>
+<details>
+    <summary>Development</summary>
 
 ### Development
 
@@ -823,7 +908,10 @@ rabbitmq:3-management
 dotnet ef migrations add "First Migration" -s .\WorkerService\ -p .\Infrastructure.EventStore\
 ```
 
-</details><details><summary>Staging</summary>
+</details>
+
+<details>
+    <summary>Staging</summary>
 
 ### Staging
 
@@ -862,7 +950,10 @@ deploy:
       cpus: '0.20'
       memory: 120M
 ```
-</details><details><summary>Production</summary>
+</details>
+
+<details>
+    <summary>Production</summary>
 
 ### Production
 
@@ -872,7 +963,8 @@ deploy:
 
 ## Tests
 
-<details><summary>Unit Tests</summary>
+<details>
+    <summary>Unit Tests</summary>
 
 ### Unit Tests
 
@@ -890,13 +982,19 @@ public void CreateCartShouldRaiseCartCreated()
             @event => @event.Status.Should().Be(CartStatus.Active));
 ```
 
-</details><details><summary>Integration Tests</summary>
+</details>
+
+<details>
+    <summary>Integration Tests</summary>
 
 ### Integration Tests
 
 // TODO
 
-</details><details><summary>Load Tests</summary>
+</details>
+
+<details>
+    <summary>Load Tests</summary>
 
 ### Load Testing (K6)
 
