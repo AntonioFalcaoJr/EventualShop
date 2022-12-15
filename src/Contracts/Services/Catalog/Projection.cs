@@ -40,7 +40,7 @@ public static class Projection
                 Product = item.Product,
                 Description = item.Product.Description,
                 ImageUrl = item.ImageUrl,
-                Price = item.Price.ToString(CultureInfo.InvariantCulture) // TODO -  Solve it!
+                UnitPrice = item.Price.ToString(CultureInfo.InvariantCulture) // TODO -  Solve it!
             };
     }
 
@@ -54,7 +54,7 @@ public static class Projection
                 Product = item.Product,
                 Description = item.Product.Description,
                 ImageUrl = item.ImageUrl,
-                Price = item.Price.ToString(CultureInfo.InvariantCulture) // TODO -  Solve it!
+                UnitPrice = item.Price.ToString(CultureInfo.InvariantCulture) // TODO -  Solve it!
             };
     }
 }
