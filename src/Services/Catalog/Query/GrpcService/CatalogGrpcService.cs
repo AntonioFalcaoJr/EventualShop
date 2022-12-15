@@ -23,10 +23,13 @@ public class CatalogGrpcService : CatalogService.CatalogServiceBase
         _listCatalogItemsListItemsInteractor = lstCatalogItemsListItemsInteractor;
     }
 
-    public override async Task<CatalogItemDetails> GetCatalogItemDetails(GetCatalogItemDetailsRequest request, ServerCallContext context)
-        => await _getCatalogItemDetailsInteractor.InteractAsync(request, context.CancellationToken);
+    public override async Task<CatalogItemDetailsResponse> GetCatalogItemDetails(GetCatalogItemDetailsRequest request, ServerCallContext context)
+    {
+        var itemDetails = await _getCatalogItemDetailsInteractor.InteractAsync(request, context.CancellationToken);
+        return itemDetails is null ? new() : new() { CatalogItemDetails = itemDetails };
+    }
 
-    public override async Task<CatalogsGridItems> ListCatalogsGridItems(ListCatalogsGridItemsRequest request, ServerCallContext context)
+    public override async Task<CatalogsGridItemsPagedResponse> ListCatalogsGridItems(ListCatalogsGridItemsRequest request, ServerCallContext context)
     {
         var pagedResult = await _listCatalogsGridItemsInteractor.InteractAsync(request, context.CancellationToken);
 
@@ -43,7 +46,7 @@ public class CatalogGrpcService : CatalogService.CatalogServiceBase
         };
     }
 
-    public override async Task<CatalogItemsListItems> ListCatalogItemsListItems(ListCatalogItemsListItemsRequest request, ServerCallContext context)
+    public override async Task<CatalogItemsListItemsPagedResponse> ListCatalogItemsListItems(ListCatalogItemsListItemsRequest request, ServerCallContext context)
     {
         var pagedResult = await _listCatalogItemsListItemsInteractor.InteractAsync(request, context.CancellationToken);
 
@@ -60,7 +63,7 @@ public class CatalogGrpcService : CatalogService.CatalogServiceBase
         };
     }
 
-    public override async Task<CatalogItemsCards> ListCatalogItemsCards(ListCatalogItemsCardsRequest request, ServerCallContext context)
+    public override async Task<CatalogItemsCardsPagedResponse> ListCatalogItemsCards(ListCatalogItemsCardsRequest request, ServerCallContext context)
     {
         var pagedResult = await _listCatalogItemsCardsInteractor.InteractAsync(request, context.CancellationToken);
 
