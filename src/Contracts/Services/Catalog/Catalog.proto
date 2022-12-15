@@ -2,28 +2,30 @@ syntax = "proto3";
 
 package Contracts.Services.Catalog.Protobuf;
 
+import "google/protobuf/wrappers.proto";
+
 service CatalogService {
-  rpc ListCatalogsGridItems(ListCatalogsGridItemsRequest) returns (CatalogsGridItems);
-  rpc ListCatalogItemsListItems(ListCatalogItemsListItemsRequest) returns (CatalogItemsListItems);
-  rpc ListCatalogItemsCards(ListCatalogItemsCardsRequest) returns (CatalogItemsCards);
-  rpc GetCatalogItemDetails(GetCatalogItemDetailsRequest) returns (CatalogItemDetails);
+  rpc ListCatalogsGridItems(ListCatalogsGridItemsRequest) returns (CatalogsGridItemsPagedResponse);
+  rpc ListCatalogItemsListItems(ListCatalogItemsListItemsRequest) returns (CatalogItemsListItemsPagedResponse);
+  rpc ListCatalogItemsCards(ListCatalogItemsCardsRequest) returns (CatalogItemsCardsPagedResponse);
+  rpc GetCatalogItemDetails(GetCatalogItemDetailsRequest) returns (CatalogItemDetailsResponse);
 }
 
 message ListCatalogsGridItemsRequest {
-  sint32 Limit = 1;
-  sint32 Offset = 2;
+  google.protobuf.Int32Value Limit = 1;
+  google.protobuf.Int32Value Offset = 2;
 }
 
 message ListCatalogItemsListItemsRequest {
   string CatalogId = 1;
-  sint32 Limit = 2;
-  sint32 Offset = 3;
+  google.protobuf.Int32Value Limit = 2;
+  google.protobuf.Int32Value Offset = 3;
 }
 
 message ListCatalogItemsCardsRequest {
   string CatalogId = 1;
-  sint32 Limit = 2;
-  sint32 Offset = 3;
+  google.protobuf.Int32Value Limit = 2;
+  google.protobuf.Int32Value Offset = 3;
 }
 
 message GetCatalogItemDetailsRequest {
@@ -31,7 +33,7 @@ message GetCatalogItemDetailsRequest {
   string ItemId = 2;
 }
 
-message CatalogsGridItems {
+message CatalogsGridItemsPagedResponse {
   repeated CatalogGridItem Items = 1;
   Page Page = 2;
 }
@@ -44,7 +46,7 @@ message CatalogGridItem {
   bool IsActive = 5;
 }
 
-message CatalogItemsListItems {
+message CatalogItemsListItemsPagedResponse {
   repeated CatalogItemListItem Items = 1;
   Page Page = 2;
 }
@@ -55,7 +57,7 @@ message CatalogItemListItem {
   string ProductName = 3;
 }
 
-message CatalogItemsCards {
+message CatalogItemsCardsPagedResponse {
   repeated CatalogItemCard Items = 1;
   Page Page = 2;
 }
@@ -66,7 +68,11 @@ message CatalogItemCard {
   Product Product = 3;
   string Description = 4;
   string ImageUrl = 5;
-  string Price = 6;
+  string UnitPrice = 6;
+}
+
+message CatalogItemDetailsResponse{
+  optional CatalogItemDetails CatalogItemDetails = 1;
 }
 
 message CatalogItemDetails {
@@ -75,7 +81,7 @@ message CatalogItemDetails {
   string Description = 3;
   string ImageUrl = 4;
   Product Product = 5;
-  string Price = 6;
+  string UnitPrice = 6;
 }
 
 message Product {
