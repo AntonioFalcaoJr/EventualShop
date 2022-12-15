@@ -1,6 +1,40 @@
-# EDA.CleanArch.DDD.CQRS.EventSourcing
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/Logo_EventualShop_Roxo.png)
 
-**WIP - work in progress**
+---
+
+<p align="center">
+  <a href="#about">About</a> &nbsp;&bull;&nbsp;
+  <a href="#the-solution-architecture">The Solution Architecture</a> &nbsp;&bull;&nbsp;
+  <a href="#research">Research</a> &nbsp;&bull;&nbsp;
+  <a href="#running">Running</a> &nbsp;&bull;&nbsp;
+  <a href="#tech-stack">Tech Stack</a>
+</p>
+
+<br>
+
+<table><tr><th>New Approach</th><th>Old Approach</th></tr><tr><td>
+
+| Service       |                                                                                                                                      Command Stack                                                                                                                                       |                                                                                                                                    Query Stack                                                                                                                                     | 
+|---------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| Account       |          [![Account - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-command.yaml)          |          [![Account - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-query.yaml)          |
+| Communication | [![Communication - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-command.yaml) | [![Communication - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-query.yaml) |
+| Identity      |        [![Identity - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-command.yaml)         |        [![Identity - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-query.yaml)         |
+| Order         |             [![Order - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/order-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/order-command.yaml)             |             [![Order - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/order-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/order-query.yaml)             |
+
+</td><td>
+
+| Service      |                                                                                                                                                                                                                                                         |
+|--------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| Catalog      |         [![Catalog](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/catalog.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/catalog.yaml)          |
+| Payment      |         [![Payment](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment.yaml)          |
+| ShoppingCart | [![ShoppingCart](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart.yaml) |
+| Warehouse    |      [![Warehouse](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse.yaml)       |
+
+</td></tr></table>
+
+<div align="center">:warning: <sub>Work in Progress (WIP)</sub></div>
+
+## About
 
 The main objective of this **cloud-native** project is to represent the **state of the art** of a **distributed**, **reliable**, and **highly scalable** system by interpreting the most relevant
 principles of **Reactive Domain Driven Design**.
@@ -32,36 +66,48 @@ As a Domain-centric approach, **Clean architecture** provides the appropriate is
 
 If this project helped you in some way, please **give it a star**. Thanks!
 
----
-
-New approach/design
-
-| Service       |                                                                                                                                      Command Stack                                                                                                                                       |                                                                                                                                    Query Stack                                                                                                                                     |
-|---------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
-| Account       |          [![Account - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-command.yaml)          |          [![Account - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-query.yaml)          |
-| Communication | [![Communication - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-command.yaml) | [![Communication - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-query.yaml) |
-| Identity      |        [![Identity - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-command.yaml)         |        [![Identity - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-query.yaml)         |
-| Order         |             [![Order - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/order-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/order-command.yaml)             |             [![Order - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/order-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/order-query.yaml)             |
-
----
-
-Old approach/design
-
-| Service        |                                                                                                                                                                                                                                                         |
-|----------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
-| Catalog        |         [![Catalog](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/catalog.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/catalog.yaml)          |
-| Payment        |         [![Payment](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment.yaml)          |
-| ShoppingCart   | [![ShoppingCart](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart.yaml) |
-| Warehouse      |      [![Warehouse](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse.yaml)       |
-
----
-
 ## The Solution Architecture
 
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/solution_architecture.png)    
 Fig. 1: Falcão Jr., Antônio. _An EDA solution architecture_.
 
-## Reactive Domain Driven Design
+## Research
+
+<details>
+    <summary> Agnostic Obsession </summary>
+
+### Agnostic Obsession
+
+Agnostic obsession is a design approach that focuses on creating software unrelated to any specific domain, application, or technology. Some strategies adopted in this project are related to
+particular principles, such as the domain-centric to support the business (DDD and Clean Arch), event-sourcing + ORM for persistence mechanism, containers for immutable environments, and Kubernetes (
+K8s) for cloud deployment.
+
+The domain-centric approach is a design pattern that separates the core business logic of an application from other concerns, such as the user interface or infrastructure.,making it easier to maintain
+and extend the application, as the core domain is isolated from other system components. Additionally, the ability to move the core domain to different applications while keeping the essence of the
+business can be helpful for organizations that need to support multiple applications or platforms.
+
+A key aspect of agnostic obsession is event-sourcing and object-relational mapping (ORM) as a persistence mechanism. Event sourcing involves storing the history of events occurring within a system
+rather than the system's current state, avoiding advanced database capabilities such as Joins, Triggers, Procedures, and more. On the other hand, ORM is a technique that maps objects in a program to
+data stored in a database, making it easier and more abstract to manage data.
+
+Another essential aspect of agnostic obsession is using containers to create immutable environments. Containers are a lightweight virtualization form that allows packaging an application and its
+dependencies into a single, self-contained unit, making it easy to deploy and run the application in any environment without worrying about the underlying infrastructure or platform.
+
+Finally, agnostic obsession often involves using Kubernetes (K8s) for cloud deployment. K8s is an open-source platform for managing and deploying containerized applications. It is widely used in the
+industry and supported by most cloud providers, making it a natural choice for agnostic obsession.
+
+In summary, agnostic obsession is a powerful approach that allows for creating highly flexible and adaptable software that can be easily moved and deployed in different environments. Using
+event-sourcing, ORM, Containers, and K8s, it is possible to build resilient, scalable, and easy-to-maintain systems.
+
+</details>
+
+<details>
+    <summary> Reactive Domain Driven Design </summary>
+
+### Reactive Domain Driven Design
+
+Reactive DDD aims to create software that is responsive, resilient, and scalable, by applying the principles of reactive programming to domain-driven design. This involves using asynchronous and
+non-blocking communication between the different components of the system, and using events and streams to model the domain concepts and relationships.
 
 > I have been seeing, at least in my world, a trend towards reactive systems. Not just reactive within a microservice, but building entire systems that are reactive. In DDD, reactive behavior is also
 > happening within the bounded context. Being reactive isn't entirely new, and Eric Evans was far ahead of the industry when he introduced eventing. Using domain events means we have to react to
@@ -91,9 +137,6 @@ Fig. 1: Falcão Jr., Antônio. _An EDA solution architecture_.
 
 ### Messaging - Making good use of Context Mapping
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/messaging_context_mapping.png)    
-Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed, p65.
-
 > When using asynchronous messaging to integrate, much can be accomplished by a client Bounded Context subscribing to the Domain Events published by your own or another Bounded Context. Using
 > messaging is one of the most robust forms of integration because you remove much of the temporal coupling associated with blocking forms such as RPC and REST. Since you already anticipate the
 > latency of message exchange, you tend to build more robust systems because you never expect immediate results.
@@ -103,7 +146,72 @@ Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed
 >
 > Vernon, V. (2016) Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional, p65-67.
 
-## Event Sourcing
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/messaging_context_mapping.png)    
+Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed, p65.
+
+### Domain Driven Design (DDD)
+
+> Domain-Driven Design is an approach to software development that centers the development on programming a domain model that has a rich understanding of the processes and rules of a domain. The name
+> comes from a 2003 book by Eric Evans that describes the approach through a catalog of patterns. Since then a community of practitioners have further developed the ideas, spawning various other books
+> and training courses. The approach is particularly suited to complex domains, where a lot of often-messy logic needs to be organized.
+>
+> [Fowler, Martin. "DomainDrivenDesign", _martinfowler.com_, last edited on 22 April 2020](https://martinfowler.com/bliki/DomainDrivenDesign.html)
+
+#### Bounded Context
+
+> Basically, the idea behind bounded context is to put a clear delineation between one model and another model. This delineation and boundary that's put around a domain model, makes the model that is
+> inside the boundary very explicit with very clear meaning as to the concepts, the elements of the model, and the way that the team, including domain experts, think about the model.
+>
+> You'll find a ubiquitous language that is spoken by the team and that is modeled in software by the team. In scenarios and discussions where somebody says, for example, "product," they know in that
+> context exactly what product means. In another context, product can have a different meaning, one that was defined by another team. The product may share identities across bounded contexts, but,
+> generally speaking, the product in another context has at least a slightly different meaning, and possibly even a vastly different meaning.
+>
+> [Vernon, Vaughn. "Modeling Uncertainty with Reactive DDD", _www.infoq.com_, last edited on 29 Set 2018](https://martinfowler.com/bliki/BoundedContext.html)
+
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/BoundedContext.jpg)  
+[Fig. 26: Martin, Fowler. _BoundedContext_](https://martinfowler.com/bliki/BoundedContext.html)
+
+> First, a Bounded Context is a semantic contextual boundary. This means that within the boundary each component of the software model has a specific meaning and does specific things. The components
+> inside a Bounded Context are context specific and semantically motivated. That’s simple enough.
+>
+> When you are just getting started in your software modeling efforts, your Bounded Context is somewhat conceptual. You could think of it as part of your problem space. However, as your model starts
+> to take on deeper meaning and clarity, your Bounded Context will quickly transition to your solution space , with your software model being reflected as project source code. Remember that a Bounded
+> Context is where a model is implemented, and you will have separate software artifacts for each Bounded Context.
+>
+> Vernon, V. (2016). "Strategic Design with Bounded Contexts and the Ubiquitous Language", Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional.
+
+> Explicitly define the context within which a model applies. Explicitly set boundaries in terms of team organization, usage within specific parts of the application, and physical manifestations such
+> as code bases and database schemas. Apply Continuous Integration to keep model concepts and terms strictly consistent within these bounds, but don’t be distracted or confused by issues outside.
+> Standardize a single development process within the context, which need not be used elsewhere.
+>
+> [Evans, Eric. (2015). "Bounded Context", Domain-Driven Design Reference](https://www.domainlanguage.com/ddd/reference)
+
+#### Aggregate
+
+> I think a model is a set of related concepts that can be applied to solve a problem.
+> -- <cite> Eric Evans </cite>
+
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/aggregate.png)  
+Fig. 25: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st ed, p78.
+
+> Each Aggregate forms a transactional consistency boundary. This means that within a single Aggregate, all composed parts must be consistent, according to business rules, when the controlling
+> transaction is committed to the database. This doesn't necessarily mean that you are not supposed to compose other elements within an Aggregate that don't need to be consistent after a transaction.
+> After all, an Aggregate also models a conceptual whole. But you should be first and foremost concerned with transactional consistency. The outer boundary drawn around Aggregate Type 1 and Aggregate
+> Type 2 represents a separate transaction that will be in control of atomically persisting each object cluster.
+>
+> Vernon, V. (2016) Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional, p78.
+
+> Aggregate is a pattern in Domain-Driven Design. A DDD aggregate is a cluster of domain objects that can be treated as a single unit. An example may be an order and its line-items, these will be
+> separate objects, but it's useful to treat the order (together with its line items) as a single aggregate.
+>
+> [Fowler, Martin. "DDD_Aggregate", _martinfowler.com_, last edited on 08 Jun 2015](https://martinfowler.com/bliki/DomainDrivenDesign.html)
+
+</details>
+
+<details>
+    <summary> Event Sourcing </summary>
+
+### Event Sourcing
 
 Note. _Greg Young takes the next steps beyond the DDD principles and best practices introduced by Eric Evans in **Domain-Driven Design: Tackling Complexity in the Heart of Software**, using DDD
 with **Command-Query Responsibility Segregation** (CQRS) and **event sourcing** to simplify construction, decentralize decision-making, and make system development more flexible and responsive._
@@ -123,8 +231,6 @@ Adapted from "Event Centric: Finding Simplicity in Complex Systems" by Y. Greg, 
 >
 > [Fowler, Martin. "Eventsourcing", _martinfowler.com_, last edited on 12 Dec 2005](https://martinfowler.com/eaaDev/EventSourcing.html)
 
-<br>
-
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/event-sourcing-overview.png)      
 [Fig. 11: MSDN. _Event Sourcing pattern_](https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing#solution)
 
@@ -133,11 +239,11 @@ Adapted from "Event Centric: Finding Simplicity in Complex Systems" by Y. Greg, 
 > To update an entity’s state we use commands from the outside and events on the inside:
 >
 > - Commands: The state of the entity can be changed only by sending commands to it. The commands are the "external" API of an entity. Commands request state changes. The current state may reject the
-    > command, or it may accept it producing zero, one or many events (depending on the command and the current state).
+> command, or it may accept it producing zero, one or many events (depending on the command and the current state).
 >
 >
 > - Events: The events represent changes of the entity’s state and are the only way to change it. The entity creates events from commands. Events are an internal mechanism for the entity to mutate the
-    > state, other parties can’t send events. Other parts of the application may listen to the created events. Summing up, events are facts new tab.
+> state, other parties can’t send events. Other parts of the application may listen to the created events. Summing up, events are facts.
 >
 > The events are persisted to the datastore, while the entity state is kept in memory. In case of a restart the latest state gets rebuilt by replaying the events from the Event Journal.
 >
@@ -152,6 +258,9 @@ Adapted from "Event Centric: Finding Simplicity in Complex Systems" by Y. Greg, 
 
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/event-sourcing-state-transition.png)  
 [Fig. 12: Battermann, Leif. _12 Things You Should Know About Event Sourcing_](http://blog.leifbattermann.de/2017/04/21/12-things-you-should-know-about-event-sourcing)
+
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/eventsourcingrequestflow.png)     
+[Fig. 13: Eventuate. _Event Sourcing_](https://eventuate.io/whyeventsourcing.html)
 
 The mantra of event sourcing and cover the four steps in slightly more details:
 
@@ -178,12 +287,7 @@ The mantra of event sourcing and cover the four steps in slightly more details:
 State transition during events applying:
 
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/applyTo_event-sourcing.png)   
-[Fig. 13: Reitzammer, Benjamin & Seitz, Johannes. _Event Sourcingin practice_](https://ookami86.github.io/event-sourcing-in-practice/#making-eventsourcing-work/18-concurrent-modifictations.md)
-
-<br>
-
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/eventsourcingrequestflow.png)     
-[Fig. 14: Eventuate. _Event Sourcing_](https://eventuate.io/whyeventsourcing.html)
+[Fig. 14: Reitzammer, Benjamin & Seitz, Johannes. _Event Sourcingin practice_](https://ookami86.github.io/event-sourcing-in-practice/#making-eventsourcing-work/18-concurrent-modifictations.md)
 
 ### Event Store
 
@@ -201,7 +305,68 @@ The following picture shows the difference between approaches:
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/event-sourcing.png)
 [Fig. 16: Richardson, Chris. _Pattern: Event sourcing_](https://microservices.io/patterns/data/event-sourcing.html)
 
-#### Snapshot
+#### Exemplifying
+
+##### Store Event
+
+```sql
+CREATE TABLE [Events] (
+    [Version] bigint NOT NULL,
+    [AggregateId] uniqueidentifier NOT NULL,
+    [AggregateName] varchar(30) NOT NULL,
+    [DomainEventName] varchar(50) NOT NULL,
+    [DomainEvent] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Events] PRIMARY KEY ([Version], [AggregateId])
+);
+```
+
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/store-event.png)
+
+```json
+{
+  "$type": "Contracts.Services.Account.DomainEvent+AccountCreated, Contracts",
+  "Id": "b7450a4c-5749-4131-830c-28dcfd7e5dea",
+  "FirstName": "Antônio Roque",
+  "LastName": "Falcão Júnior",
+  "Email": "arfj@edu.univali.br",
+  "Timestamp": "2022-08-31T19:27:41.7810008-03:00",
+  "CorrelationId": "b7450a4c-5749-4131-830c-28dcfd7e5dea"
+}
+```
+
+##### Snapshot
+
+```sql
+CREATE TABLE [Snapshots] (
+    [AggregateVersion] bigint NOT NULL,
+    [AggregateId] uniqueidentifier NOT NULL,
+    [AggregateName] varchar(30) NOT NULL,
+    [AggregateState] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Snapshots] PRIMARY KEY ([AggregateVersion], [AggregateId])
+);
+```
+
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/store-snapshot.png)
+
+```json
+{
+  "CustomerId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "Status": {
+    "Name": "Confirmed",
+    "Value": 2
+  },
+  "BillingAddress": null,
+  "ShippingAddress": null,
+  "Total": 0.0,
+  "TotalPayment": 0.0,
+  "AmountDue": 0.0,
+  "Items": [],
+  "PaymentMethods": [],
+  "Id": "de2ec981-24c1-4c27-abbb-dd50d99a1e16",
+  "IsDeleted": false
+}
+```
+### Snapshot
 
 > Once you understand how Event Sourcing works, the most common thought is: “What happens when you have a lot of Events? Won’t it be inefficient to fetch every event from the event stream and replay
 > all of them to get to the current state?”. It might be. But to combat this, you can use snapshots in event sourcing to rehydrate aggregates. Snapshots give you a representation of your aggregates
@@ -223,7 +388,12 @@ Snapshot stream:
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/stream_snapshot.png)        
 [Fig. 18: Comartin, Derek. _Snapshots in Event Sourcing for Rehydrating Aggregates_](https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates)
 
-## Event-Driven Architecture (EDA)
+</details>
+
+<details>
+    <summary>Event-Driven Architecture (EDA)</summary>
+
+### Event-Driven Architecture (EDA)
 
 > Event-driven architecture (EDA) is a software architecture paradigm promoting the production, detection, consumption of, and reaction to events. An event can be defined as "a significant change in
 > state".
@@ -325,21 +495,6 @@ The following table shows how EDA and Microservices architectural styles complim
 
 [Table 1: Ambre, Tanmay. _Architectural styles compliment_, Architectural considerations for event-driven microservices-based systems](https://developer.ibm.com/articles/eda-and-microservices-architecture-best-practices)
 
-#### Microservices
-
-> The term "Microservice Architecture" has sprung up over the last few years to describe a particular way of designing software applications as suites of independently deployable services. While there
-> is no precise definition of this architectural style, there are certain common characteristics around organization around business capability, automated deployment, intelligence in the endpoints,
-> and decentralized control of languages and data.
->
-> [Fowler, Martin. "Microservices", _martinfowler.com_, last edited on 25 Mar 2014](https://martinfowler.com/articles/microservices.html)
-
-#### Temporal Coupling and Autonomous Decisions
-
-> Temporal coupling is where you have a dependency on time where one service or one component cannot complete its operation until the other party is done with work. In order to get rid of this
-> temporal coupling, what you can do is you can use events.
->
-> [Alagarsamy, Indu. "Practical DDD: Bounded Contexts + Events => Microservices", _www.infoq.com_, last edited on 03 Set 2019](https://www.infoq.com/presentations/microservices-ddd-bounded-contexts)
-
 ### EDA vs SOA
 
 > Compared to SOA, the essence of an EDA is that the services involved communicate through the capture, propagation, processing and persistence of events. This resulting pattern of communicating
@@ -389,7 +544,32 @@ Comparison overview:
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/EventSourcing_EDA.jpeg)   
 [Fig. 19: Nowak, Aleksander. _Understanding Event-Driven Design Patterns for Microservices_](https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-microservices-659b3c9fb51f)
 
-## CQRS
+</details>
+
+<details>
+    <summary>Microservices</summary>
+
+### Microservices
+
+> The term "Microservice Architecture" has sprung up over the last few years to describe a particular way of designing software applications as suites of independently deployable services. While there
+> is no precise definition of this architectural style, there are certain common characteristics around organization around business capability, automated deployment, intelligence in the endpoints,
+> and decentralized control of languages and data.
+>
+> [Fowler, Martin. "Microservices", _martinfowler.com_, last edited on 25 Mar 2014](https://martinfowler.com/articles/microservices.html)
+
+#### Temporal Coupling and Autonomous Decisions
+
+> Temporal coupling is where you have a dependency on time where one service or one component cannot complete its operation until the other party is done with work. In order to get rid of this
+> temporal coupling, what you can do is you can use events.
+>
+> [Alagarsamy, Indu. "Practical DDD: Bounded Contexts + Events => Microservices", _www.infoq.com_, last edited on 03 Set 2019](https://www.infoq.com/presentations/microservices-ddd-bounded-contexts)
+
+</details>
+
+<details>
+    <summary>CQRS</summary>
+
+### CQRS
 
 > CQRS stands for Command and Query Responsibility Segregation, a pattern that separates read and update operations for a data store. Implementing CQRS in your application can maximize its
 > performance, scalability, and security. The flexibility created by migrating to CQRS allows a system to better evolve over time and prevents update commands from causing merge conflicts at the
@@ -427,7 +607,7 @@ with some different strategies and ways to implement projections.
 
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/projections.svg)
 
-## CQRS + Event Sourcing
+### CQRS + Event Sourcing
 
 > CQRS and Event Sourcing have a symbiotic relationship. CQRS allows Event Sourcing to be used as the data storage mechanism for the domain.
 >
@@ -517,7 +697,37 @@ with some different strategies and ways to implement projections.
 >
 > [Balachandran, Arvind. "Event Notification vs. Event-Carried State Transfer", _Start it up_, last edited on 27 Oct 2019](https://medium.com/swlh/event-notification-vs-event-carried-state-transfer-2e4fdf8f6662)
 
-## EventStorming
+</details>
+
+<details>
+    <summary>Task Based UI + CQRS</summary>
+
+In a standard user interface (UI), the user typically edits or manipulates data directly. This allows the user to enter or modify the data synchronously, enabling the UI to respond to
+the user's actions in real-time (blocking the operation until the return).
+
+In a task-based UI, on the other hand, the user typically expresses their intentions rather than editing the data directly. Task-based UIs provide users with the information and tools to
+complete specific tasks. They generally are organized around the steps or stages of the task, and give the user instructions, prompts, and input fields to enter or modify a specific piece of data.
+
+Task Based UI can use asynchronous communication mechanisms to enable users to express their intentions asynchronously, without the need for the UI to wait for a response or confirmation from the system.
+For example, the UI may use a message queue or event bus to send commands or messages to the system, and the system may use the same mechanism to send updates or notifications back to the UI. This
+enable the UI to continue with other operations, such as querying the system for updated data or displaying a progress indicator to the user without waiting for a response from the system.
+
+However, even though a way command does not require a return value or confirmation, it can still be validated and accepted by the CQRS system. When a way command is received by the write side of the
+CQRS system, it can be validated to ensure that it is well-formed and conforms to the rules and constraints of the system. If the command is valid, it can be accepted and processed, and the data can
+be updated or modified according to the instructions in the command. If the command is not valid, it can be rejected or ignored, and the data can be left unchanged.
+
+Task-based UIs and CQRS can be used together to provide users with a flexible and efficient way to interact with a system and complete specific tasks. This can make them more efficient and
+user-friendly than more general-purpose UIs.
+
+![](.assets/img/task_based_ui.png)  
+[Fig. 29: Murali, Bala. _What is Task Based UI_](https://medium.com/@baladotcom/what-is-task-based-ui-60a44ddfd968)
+
+</details>
+
+<details>
+    <summary>EventStorming</summary>
+
+### EventStorming
 
 > EventStorming is a flexible workshop format for collaborative exploration of complex business domains.
 >
@@ -548,64 +758,12 @@ with some different strategies and ways to implement projections.
 
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/from-eventstorming-to-eventsourcing.png)
 
-## Domain Driven Design (DDD)
+</details>
 
-> Domain-Driven Design is an approach to software development that centers the development on programming a domain model that has a rich understanding of the processes and rules of a domain. The name
-> comes from a 2003 book by Eric Evans that describes the approach through a catalog of patterns. Since then a community of practitioners have further developed the ideas, spawning various other books
-> and training courses. The approach is particularly suited to complex domains, where a lot of often-messy logic needs to be organized.
->
-> [Fowler, Martin. "DomainDrivenDesign", _martinfowler.com_, last edited on 22 April 2020](https://martinfowler.com/bliki/DomainDrivenDesign.html)
+<details>
+    <summary>Clean Architecture</summary>
 
-### Bounded Context
-
-> Basically, the idea behind bounded context is to put a clear delineation between one model and another model. This delineation and boundary that's put around a domain model, makes the model that is
-> inside the boundary very explicit with very clear meaning as to the concepts, the elements of the model, and the way that the team, including domain experts, think about the model.
->
-> You'll find a ubiquitous language that is spoken by the team and that is modeled in software by the team. In scenarios and discussions where somebody says, for example, "product," they know in that
-> context exactly what product means. In another context, product can have a different meaning, one that was defined by another team. The product may share identities across bounded contexts, but,
-> generally speaking, the product in another context has at least a slightly different meaning, and possibly even a vastly different meaning.
->
-> [Vernon, Vaughn. "Modeling Uncertainty with Reactive DDD", _www.infoq.com_, last edited on 29 Set 2018](https://martinfowler.com/bliki/BoundedContext.html)
-
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/BoundedContext.jpg)  
-[Fig. 26: Martin, Fowler. _BoundedContext_](https://martinfowler.com/bliki/BoundedContext.html)
-
-> First, a Bounded Context is a semantic contextual boundary. This means that within the boundary each component of the software model has a specific meaning and does specific things. The components
-> inside a Bounded Context are context specific and semantically motivated. That’s simple enough.
->
-> When you are just getting started in your software modeling efforts, your Bounded Context is somewhat conceptual. You could think of it as part of your problem space. However, as your model starts
-> to take on deeper meaning and clarity, your Bounded Context will quickly transition to your solution space , with your software model being reflected as project source code. Remember that a Bounded
-> Context is where a model is implemented, and you will have separate software artifacts for each Bounded Context.
->
-> Vernon, V. (2016). "Strategic Design with Bounded Contexts and the Ubiquitous Language", Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional.
-
-> Explicitly define the context within which a model applies. Explicitly set boundaries in terms of team organization, usage within specific parts of the application, and physical manifestations such
-> as code bases and database schemas. Apply Continuous Integration to keep model concepts and terms strictly consistent within these bounds, but don’t be distracted or confused by issues outside.
-> Standardize a single development process within the context, which need not be used elsewhere.
->
-> [Evans, Eric. (2015). "Bounded Context", Domain-Driven Design Reference](https://www.domainlanguage.com/ddd/reference)
-
-### Aggregate
-
-> I think a model is a set of related concepts that can be applied to solve a problem.
-> -- <cite> Eric Evans </cite>
-
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/aggregate.png)  
-Fig. 25: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st ed, p78.
-
-> Each Aggregate forms a transactional consistency boundary. This means that within a single Aggregate, all composed parts must be consistent, according to business rules, when the controlling
-> transaction is committed to the database. This doesn't necessarily mean that you are not supposed to compose other elements within an Aggregate that don't need to be consistent after a transaction.
-> After all, an Aggregate also models a conceptual whole. But you should be first and foremost concerned with transactional consistency. The outer boundary drawn around Aggregate Type 1 and Aggregate
-> Type 2 represents a separate transaction that will be in control of atomically persisting each object cluster.
->
-> Vernon, V. (2016) Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional, p78.
-
-> Aggregate is a pattern in Domain-Driven Design. A DDD aggregate is a cluster of domain objects that can be treated as a single unit. An example may be an order and its line-items, these will be
-> separate objects, but it's useful to treat the order (together with its line items) as a single aggregate.
->
-> [Fowler, Martin. "DDD_Aggregate", _martinfowler.com_, last edited on 08 Jun 2015](https://martinfowler.com/bliki/DomainDrivenDesign.html)
-
-## Clean Architecture
+### Clean Architecture
 
 > Clean architecture is a software design philosophy that separates the elements of a design into ring levels. An important goal of clean architecture is to provide developers with a way to organize
 > code in such a way that it encapsulates the business logic but keeps it separate from the delivery mechanism.
@@ -618,9 +776,18 @@ Fig. 25: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st 
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/CleanArchitecture.jpg)  
 [Fig. 27: C. Martin, Robert. _The Clean Architecture_](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
+#### Diagram
+
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/CleanArchitectureDiagram.png)
+
+</details>
+
 ## Performance
 
-### Minimize exceptions
+<details>
+    <summary>Minimize Exceptions</summary>
+
+### Minimize Exceptions
 
 > Exceptions should be rare. Throwing and catching exceptions is slow relative to other code flow patterns. Because of this, exceptions shouldn't be used to control normal program flow.
 >
@@ -632,6 +799,11 @@ Fig. 25: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st 
 > - App diagnostic tools, such as Application Insights, can help to identify common exceptions in an app that may affect performance.
 >
 > ["ASP.NET Core Performance Best Practices" _MSDN_, Microsoft Docs, last edited on 18 Fev 2022](https://docs.microsoft.com/en-us/aspnet/core/performance/performance-best-practices?view=aspnetcore-6.0#minimize-exceptions)
+
+</details>
+
+<details>
+    <summary>Pool HTTP connections with HttpClientFactory</summary>
 
 ### Pool HTTP connections with HttpClientFactory
 
@@ -645,7 +817,12 @@ Fig. 25: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st 
 >
 > ["ASP.NET Core Performance Best Practices" _MSDN_, Microsoft Docs, last edited on 18 Fev 2022](https://docs.microsoft.com/en-us/aspnet/core/performance/performance-best-practices?view=aspnetcore-6.0#pool-http-connections-with-httpclientfactory)
 
-### DbContext pooling
+</details>
+
+<details>
+    <summary>DbContext Pooling</summary>
+
+### DbContext Pooling
 
 > The basic pattern for using EF Core in an ASP.NET Core application usually involves registering a custom DbContext type into the dependency injection system and later obtaining instances of that
 > type through constructor parameters in controllers. This means a new instance of the DbContext is created for each request.
@@ -655,6 +832,11 @@ Fig. 25: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st 
 >
 > ["New features in EF Core 2.0" _MSDN_, Microsoft Docs, last edited on 11 Oct 2020](https://docs.microsoft.com/en-us/ef/core/what-is-new/ef-core-2.0/#dbcontext-pooling)
 
+</details>
+
+<details>
+    <summary>Snapshotting</summary>
+
 ### Snapshotting
 
 > Snapshotting is an optimisation that reduces time spent on reading event from an event store.
@@ -663,7 +845,12 @@ Fig. 25: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st 
 
 More details in [snapshot](#snapshot) section.
 
+</details>
+
 ## Running
+
+<details>
+    <summary>Development</summary>
 
 ### Development
 
@@ -715,6 +902,16 @@ docker run -d \
 --name rabbitmq \
 rabbitmq:3-management
 ```
+### Migrations
+
+```bash
+dotnet ef migrations add "First Migration" -s .\WorkerService\ -p .\Infrastructure.EventStore\
+```
+
+</details>
+
+<details>
+    <summary>Staging</summary>
 
 ### Staging
 
@@ -753,84 +950,61 @@ deploy:
       cpus: '0.20'
       memory: 120M
 ```
+</details>
 
-## Test
+<details>
+    <summary>Production</summary>
 
-K6
+### Production
+
+// TODO
+
+</details>
+
+## Tests
+
+<details>
+    <summary>Unit Tests</summary>
+
+### Unit Tests
+
+To unit-test an event-sourced aggregate, it's to verify that the Aggregate produces the expected event as output given a specific set of input Events and a Command. This involves creating an Aggregate
+instance, applying the input events to it, handling the command, and verifying the expected event output.
+
+```csharp
+[Fact]
+public void CreateCartShouldRaiseCartCreated()
+    => Given<ShoppingCart>()
+        .When<Command.CreateCart>(new(_cartId, _customerId))
+        .Then<DomainEvent.CartCreated>(
+            @event => @event.CartId.Should().Be(_cartId),
+            @event => @event.CustomerId.Should().Be(_customerId),
+            @event => @event.Status.Should().Be(CartStatus.Active));
+```
+
+</details>
+
+<details>
+    <summary>Integration Tests</summary>
+
+### Integration Tests
+
+// TODO
+
+</details>
+
+<details>
+    <summary>Load Tests</summary>
+
+### Load Testing (K6)
 
 ```bash
 docker run --network=internal --name k6 --rm -i grafana/k6 run - <test.js
 ```
 
-## Event Store
+</details>
 
-### Store event
-
-```sql
-CREATE TABLE [Events] (
-    [Version] bigint NOT NULL,
-    [AggregateId] uniqueidentifier NOT NULL,
-    [AggregateName] varchar(30) NOT NULL,
-    [DomainEventName] varchar(50) NOT NULL,
-    [DomainEvent] nvarchar(max) NOT NULL,
-    CONSTRAINT [PK_Events] PRIMARY KEY ([Version], [AggregateId])
-);
-```
-
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/store-event.png)
-
-```json
-{
-  "$type": "Contracts.Services.Account.DomainEvent+AccountCreated, Contracts",
-  "Id": "b7450a4c-5749-4131-830c-28dcfd7e5dea",
-  "FirstName": "Antônio Roque",
-  "LastName": "Falcão Júnior",
-  "Email": "arfj@edu.univali.br",
-  "Timestamp": "2022-08-31T19:27:41.7810008-03:00",
-  "CorrelationId": "b7450a4c-5749-4131-830c-28dcfd7e5dea"
-}
-```
-
-### Snapshot
-
-```sql
-CREATE TABLE [Snapshots] (
-    [AggregateVersion] bigint NOT NULL,
-    [AggregateId] uniqueidentifier NOT NULL,
-    [AggregateName] varchar(30) NOT NULL,
-    [AggregateState] nvarchar(max) NOT NULL,
-    CONSTRAINT [PK_Snapshots] PRIMARY KEY ([AggregateVersion], [AggregateId])
-);
-```
-
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/store-snapshot.png)
-
-```json
-{
-  "CustomerId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "Status": {
-    "Name": "Confirmed",
-    "Value": 2
-  },
-  "BillingAddress": null,
-  "ShippingAddress": null,
-  "Total": 0.0,
-  "TotalPayment": 0.0,
-  "AmountDue": 0.0,
-  "Items": [],
-  "PaymentMethods": [],
-  "Id": "de2ec981-24c1-4c27-abbb-dd50d99a1e16",
-  "IsDeleted": false
-}
-```
-
-### Migrations
-
-```bash
-dotnet ef migrations add "First Migration" -s .\WorkerService\ -p .\Infrastructure.EventStore\
-```
-
-## Main References
+## References
 
 - [Evans, Eric (2003), Domain-Driven Design: Tackling Complexity in the Heart of Software.](https://www.amazon.com/dp-0321125215/dp/0321125215/ref=mt_other?_encoding=UTF8&me=&qid=1641385448)
 - [Hohpe, Gregor (2003), Enterprise Integration Patterns: Designing, Building, and Deploying Messaging Solutions](https://www.enterpriseintegrationpatterns.com/)
@@ -863,13 +1037,7 @@ dotnet ef migrations add "First Migration" -s .\WorkerService\ -p .\Infrastructu
 - [Event Sourcing: Projections - Kacper Gunia](https://domaincentric.net/blog/event-sourcing-projections)
 - [Advantages of the event-driven architecture pattern - Grace Jansen & Johanna Saladas](https://developer.ibm.com/articles/advantages-of-an-event-driven-architecture/)
 
-### Videos
-
-[![Vaughn Vernon - GOTO, Berlin 2017 • DDD Today "Modeling Uncertainty"](https://i.ytimg.com/vi/uhZx7Pim_tc/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCP7QptcJD1hzlNOlZnV2M_L5e7rQ)](https://www.youtube.com/watch?v=4JqzXQXjYzY)
-
-[![Event Sourcing You are doing it wrong by David Schmitz - YouTube](https://i.ytimg.com/vi/YUjO1wM0PZM/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB4f49rCWZ0lBXVsTMIIkBJPqLNtQ)](https://www.youtube.com/watch?v=YUjO1wM0PZM&t=2880s)
-
-## Built With
+## Tech Stack
 
 ### Worker Services
 
