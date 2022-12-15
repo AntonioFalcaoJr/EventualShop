@@ -5,22 +5,22 @@ namespace Contracts.Services.Catalog;
 
 public static class Query
 {
-    public record struct ListCatalogsGridItems(ushort Limit, ushort Offset) : IQuery
+    public record struct ListCatalogsGridItems(int? Limit, int? Offset) : IQuery
     {
         public static implicit operator ListCatalogsGridItems(ListCatalogsGridItemsRequest request)
-            => new((ushort)request.Limit, (ushort)request.Offset);
+            => new(request.Limit, request.Offset);
     }
 
-    public record struct ListCatalogItemsListItems(Guid CatalogId, ushort Limit, ushort Offset) : IQuery
+    public record struct ListCatalogItemsListItems(Guid CatalogId, int? Limit, int? Offset) : IQuery
     {
         public static implicit operator ListCatalogItemsListItems(ListCatalogItemsListItemsRequest request)
-            => new(new(request.CatalogId), (ushort)request.Limit, (ushort)request.Offset);
+            => new(new(request.CatalogId), request.Limit, request.Offset);
     }
 
-    public record struct ListCatalogItemsCards(Guid CatalogId, ushort Limit, ushort Offset) : IQuery
+    public record struct ListCatalogItemsCards(Guid CatalogId, int? Limit, int? Offset) : IQuery
     {
         public static implicit operator ListCatalogItemsCards(ListCatalogItemsCardsRequest request)
-            => new(new(request.CatalogId), (ushort)request.Limit, (ushort)request.Offset);
+            => new(new(request.CatalogId), request.Limit, request.Offset);
     }
 
     public record struct GetCatalogItemDetails(Guid CatalogId, Guid ItemId) : IQuery
