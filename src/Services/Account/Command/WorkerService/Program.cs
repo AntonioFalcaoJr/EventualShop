@@ -6,6 +6,7 @@ using Infrastructure.MessageBus.DependencyInjection.Extensions;
 using Infrastructure.MessageBus.DependencyInjection.Options;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using Quartz;
 using Serilog;
 
 var builder = Host.CreateDefaultBuilder(args);
@@ -55,6 +56,9 @@ builder.ConfigureServices((context, services) =>
     
     services.ConfigureMassTransitHostOptions(
         context.Configuration.GetSection(nameof(MassTransitHostOptions)));
+    
+    services.ConfigureQuartzOptions(
+        context.Configuration.GetSection(nameof(QuartzOptions)));
 });
 
 using var host = builder.Build();
