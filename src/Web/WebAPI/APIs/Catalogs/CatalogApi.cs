@@ -1,6 +1,5 @@
 ﻿using Asp.Versioning.Builder;
 using Contracts.Services.Catalog;
-using MassTransit;
 using WebAPI.Abstractions;
 
 namespace WebAPI.APIs.Catalogs;
