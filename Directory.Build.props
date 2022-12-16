@@ -22,7 +22,7 @@
         <Microsoft_AspNetCore_WebAssembly_Version>7.0.1</Microsoft_AspNetCore_WebAssembly_Version>
 
         <!--EF Core-->
-        <EntityFrameworkCore_Version>7.0.0</EntityFrameworkCore_Version>
+        <EntityFrameworkCore_Version>7.0.1</EntityFrameworkCore_Version>
 
         <!--gRPC-->
         <Grpc_Version>2.41.0-pre1</Grpc_Version>
