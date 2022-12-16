@@ -86,6 +86,7 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddIdentityGrpcClient();
     services.AddAccountGrpcClient();
     services.AddCommunicationGrpcClient();
+    services.AddCatalogGrpcClient();
 
     services.ConfigureMessageBusOptions(
         context.Configuration.GetSection(nameof(MessageBusOptions)));
@@ -98,6 +99,9 @@ builder.Host.ConfigureServices((context, services) =>
     
     services.ConfigureCommunicationGrpcClientOptions(
         context.Configuration.GetSection(nameof(CommunicationGrpcClientOptions)));
+    
+    services.ConfigureCatalogGrpcClientOptions(
+        context.Configuration.GetSection(nameof(CatalogGrpcClientOptions)));
 
     services.ConfigureMassTransitHostOptions(
         context.Configuration.GetSection(nameof(MassTransitHostOptions)));
