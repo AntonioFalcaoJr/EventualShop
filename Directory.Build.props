@@ -43,7 +43,7 @@
         <!--Newtonsoft-->
         <Newtonsoft_Version>13.0.2</Newtonsoft_Version>
         <ContractResolvers_Version>2.0.0</ContractResolvers_Version>
-        <Microsoft_Mvc_NewtonsoftJso_Version>7.0.0</Microsoft_Mvc_NewtonsoftJso_Version>
+        <Microsoft_Mvc_NewtonsoftJso_Version>7.0.1</Microsoft_Mvc_NewtonsoftJso_Version>
 
         <!--Serilog-->
         <Serilog_Version>2.12.1-dev-01635</Serilog_Version>
