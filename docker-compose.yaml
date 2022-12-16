@@ -121,16 +121,37 @@ services:
       restart_policy:
         condition: any
   
-  catalog:
-    image: catalog:latest
+  catalog-command:
+    image: catalog-command:latest
     build:
       context: .
-      dockerfile: ./src/Services/Catalog/WorkerService/Dockerfile
+      dockerfile: ./src/Services/Catalog/Command/WorkerService/Dockerfile
     environment:
       DOTNET_ENVIRONMENT: Staging
     depends_on:
       mssql:
         condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - internal
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.20'
+          memory: 200M
+      restart_policy:
+        condition: any
+
+  catalog-query:
+    image: catalog-query:latest
+    build:
+      context: .
+      dockerfile: ./src/Services/Catalog/Query/GrpcService/Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: Staging
+    depends_on:
       rabbitmq:
         condition: service_healthy
       mongodb:

@@ -1,8 +1,6 @@
 ﻿using Asp.Versioning.Builder;
 using Contracts.Services.Catalog;
-using MassTransit;
 using WebAPI.Abstractions;
-using WebAPI.Validations;
 
 namespace WebAPI.APIs.Catalogs;
 
@@ -14,14 +12,11 @@ public static class CatalogApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(1);
 
-        group.MapGet("/", (IBus bus, ushort? limit, ushort? offset, CancellationToken cancellationToken)
-            => ApplicationApi.GetPagedProjectionAsync<Query.GetCatalogs, Projection.Catalog>(bus, new(limit ?? 0, offset ?? 0), cancellationToken));
-
         group.MapPost("/", ([AsParameters] Requests.CreateCatalog request)
             => ApplicationApi.SendCommandAsync<Command.CreateCatalog>(request));
 
-        group.MapGet("/{catalogId:guid}", (IBus bus, [NotEmpty] Guid catalogId, CancellationToken cancellationToken)
-            => ApplicationApi.GetProjectionAsync<Query.GetCatalog, Projection.Catalog>(bus, new(catalogId), cancellationToken));
+        group.MapGet("/grid-items", ([AsParameters] Requests.ListCatalogsGridItems request)
+            => ApplicationApi.QueryAsync(request, (client, cancellationToken) => client.ListCatalogsGridItemsAsync(request, cancellationToken: cancellationToken)));
 
         group.MapDelete("/{catalogId:guid}", ([AsParameters] Requests.DeleteCatalog request)
             => ApplicationApi.SendCommandAsync<Command.DeleteCatalog>(request));
@@ -38,14 +33,17 @@ public static class CatalogApi
         group.MapPut("/{catalogId:guid}/title", ([AsParameters] Requests.ChangeCatalogTitle request)
             => ApplicationApi.SendCommandAsync<Command.ChangeCatalogTitle>(request));
 
-        group.MapGet("/items", (IBus bus, ushort? limit, ushort? offset, CancellationToken cancellationToken)
-            => ApplicationApi.GetPagedProjectionAsync<Query.GetAllItems, Projection.CatalogItem>(bus, new(limit ?? 0, offset ?? 0), cancellationToken));
+        group.MapGet("/{catalogId:guid}/items/list-items", ([AsParameters] Requests.ListCatalogItemsListItems request)
+            => ApplicationApi.QueryAsync(request, (client, cancellationToken) => client.ListCatalogItemsListItemsAsync(request, cancellationToken: cancellationToken)));
 
-        group.MapGet("/{catalogId:guid}/items", (IBus bus, Guid catalogId, ushort? limit, ushort? offset, CancellationToken cancellationToken)
-            => ApplicationApi.GetProjectionAsync<Query.GetCatalogItems, Projection.CatalogItem>(bus, new(catalogId, limit ?? 0, offset ?? 0), cancellationToken));
+        group.MapGet("/{catalogId:guid}/items/cards", ([AsParameters] Requests.ListCatalogItemsCards request)
+            => ApplicationApi.QueryAsync(request, (client, cancellationToken) => client.ListCatalogItemsCardsAsync(request, cancellationToken: cancellationToken)));
 
         group.MapPost("/{catalogId:guid}/items", ([AsParameters] Requests.AddCatalogItem request)
             => ApplicationApi.SendCommandAsync<Command.AddCatalogItem>(request));
+
+        group.MapGet("/{catalogId:guid}/items/{itemId:guid}/details", ([AsParameters] Requests.GetCatalogItemDetails request)
+            => ApplicationApi.QueryAsync(request, (client, cancellationToken) => client.GetCatalogItemDetailsAsync(request, cancellationToken: cancellationToken)));
 
         group.MapDelete("/{catalogId:guid}/items/{itemId:guid}", ([AsParameters] Requests.RemoveCatalogItem request)
             => ApplicationApi.SendCommandAsync<Command.RemoveCatalogItem>(request));
@@ -57,8 +55,8 @@ public static class CatalogApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(2);
 
-        group.MapGet("/", (IBus bus, ushort? limit, ushort? offset, CancellationToken cancellationToken)
-            => ApplicationApi.GetPagedProjectionAsync<Query.GetCatalogs, Projection.Catalog>(bus, new(limit ?? 0, offset ?? 0), cancellationToken));
+        group.MapGet("/", ([AsParameters] Requests.ListCatalogsGridItems request)
+            => ApplicationApi.QueryAsync(request, (client, cancellationToken) => client.ListCatalogsGridItemsAsync(request, cancellationToken: cancellationToken)));
 
         return builder;
     }
