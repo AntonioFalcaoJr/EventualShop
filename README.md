@@ -78,9 +78,7 @@ Fig. 1: Falcão Jr., Antônio. _An EDA solution architecture_.
 
 ### Agnostic Obsession
 
-Agnostic obsession is a design approach that focuses on creating software unrelated to any specific domain, application, or technology. Some strategies adopted in this project are related to
-particular principles, such as the domain-centric to support the business (DDD and Clean Arch), event-sourcing + ORM for persistence mechanism, containers for immutable environments, and Kubernetes (
-K8s) for cloud deployment.
+Agnostic obsession is a design approach that focuses on creating software unrelated to any specific domain, application, or technology. Some strategies adopted in this project are related to particular principles, such as the **domain-centric** to support the business (**Reactive DDD** and **Clean Architecture**); **Event Sourcing** + **object-relational mapping** (ORM) for persistence mechanism; **Containers** for immutable environments; and **Kubernetes** (K8s) for cloud deployment.
 
 The domain-centric approach is a design pattern that separates the core business logic of an application from other concerns, such as the user interface or infrastructure.,making it easier to maintain
 and extend the application, as the core domain is isolated from other system components. Additionally, the ability to move the core domain to different applications while keeping the essence of the
