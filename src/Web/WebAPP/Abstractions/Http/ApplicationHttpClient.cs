@@ -15,19 +15,19 @@ public abstract class ApplicationHttpClient
     }
 
     protected Task<HttpResponse<TProjection>> GetAsync<TProjection>(string endpoint, CancellationToken cancellationToken)
-        => RequestAsync<TProjection>((client, cancellationToken) => client.GetAsync(endpoint, cancellationToken), cancellationToken);
+        => RequestAsync<TProjection>((client, ct) => client.GetAsync(endpoint, ct), cancellationToken);
 
     protected Task<HttpResponse> PostAsync<TRequest>(string endpoint, TRequest request, CancellationToken cancellationToken)
-        => RequestAsync((client, cancellationToken) => client.PostAsJsonAsync(endpoint, request, cancellationToken), cancellationToken);
+        => RequestAsync((client, ct) => client.PostAsJsonAsync(endpoint, request, ct), cancellationToken);
 
     protected Task<HttpResponse> PutAsync(string endpoint, CancellationToken cancellationToken)
-        => RequestAsync((client, cancellationToken) => client.PutAsync(endpoint, default, cancellationToken), cancellationToken);
+        => RequestAsync((client, ct) => client.PutAsync(endpoint, default, ct), cancellationToken);
 
     protected Task<HttpResponse> PutAsync<TRequest>(string endpoint, TRequest request, CancellationToken cancellationToken)
-        => RequestAsync((client, cancellationToken) => client.PutAsJsonAsync(endpoint, request, cancellationToken), cancellationToken);
+        => RequestAsync((client, ct) => client.PutAsJsonAsync(endpoint, request, ct), cancellationToken);
 
     protected Task<HttpResponse> DeleteAsync(string endpoint, CancellationToken cancellationToken)
-        => RequestAsync((client, cancellationToken) => client.DeleteAsync(endpoint, cancellationToken), cancellationToken);
+        => RequestAsync((client, ct) => client.DeleteAsync(endpoint, ct), cancellationToken);
 
     // TODO - Improve this
     private async Task<HttpResponse<TProjection>> RequestAsync<TProjection>(Func<HttpClient, CancellationToken, Task<HttpResponseMessage>> requestAsync, CancellationToken cancellationToken)

@@ -4,7 +4,6 @@
         <PackageReference Include="Serilog.AspNetCore" Version="$(Serilog_AspNetCore_Version)" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\Contracts\Contracts.csproj" />
         <ProjectReference Include="..\Infrastructure.Authentication\Infrastructure.Authentication.csproj" />
         <ProjectReference Include="..\Infrastructure.EventBus\Infrastructure.EventBus.csproj" />
         <ProjectReference Include="..\Infrastructure.Projections\Infrastructure.Projections.csproj" />
