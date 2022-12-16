@@ -2,7 +2,6 @@
 using Infrastructure.MessageBus.Consumers.Events;
 using MassTransit;
 using Identity = Contracts.Services.Identity;
-using Account = Contracts.Services.Account;
 
 namespace Infrastructure.MessageBus.DependencyInjection.Extensions;
 

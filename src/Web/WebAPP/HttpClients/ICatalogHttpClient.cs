@@ -5,8 +5,8 @@ namespace WebAPP.HttpClients;
 
 public interface ICatalogHttpClient
 {
-    Task<HttpResponse<PagedResult<Projection.CatalogItem>>> GetAllItemsAsync(int limit, int offset, CancellationToken cancellationToken);
-    Task<HttpResponse<PagedResult<Projection.Catalog>>> GetAsync(int limit, int offset, CancellationToken cancellationToken);
+    Task<HttpResponse<PagedResult<Projection.CatalogItemListItem>>> GetAllItemsAsync(int limit, int offset, CancellationToken cancellationToken);
+    Task<HttpResponse<PagedResult<Projection.CatalogGridItem>>> GetAsync(int limit, int offset, CancellationToken cancellationToken);
     Task<HttpResponse> CreateAsync(Requests.CreateCatalog request, CancellationToken cancellationToken);
     Task<HttpResponse> DeleteAsync(Guid catalogId, CancellationToken cancellationToken);
     Task<HttpResponse> ActivateAsync(Guid catalogId, CancellationToken cancellationToken);

@@ -1,6 +1,7 @@
 using Contracts.Abstractions.Messages;
 using Contracts.DataTransferObjects;
 using Contracts.Services.Catalog;
+using Contracts.Services.Catalog.Protobuf;
 using MassTransit;
 using WebAPI.Abstractions;
 using WebAPI.APIs.Catalogs.Validators;
@@ -63,5 +64,33 @@ public static class Requests
     {
         public ICommand Command
             => new Command.RemoveCatalogItem(CatalogId, ItemId);
+    }
+
+    public record ListCatalogsGridItems(CatalogService.CatalogServiceClient Client, int? Limit, int? Offset, CancellationToken CancellationToken)
+        : Validatable<ListCatalogsGridItemsValidator>, IQueryRequest<CatalogService.CatalogServiceClient>
+    {
+        public static implicit operator ListCatalogsGridItemsRequest(ListCatalogsGridItems request)
+            => new() { Paging = new() { Limit = request.Limit, Offset = request.Offset } };
+    }
+
+    public record ListCatalogItemsListItems(CatalogService.CatalogServiceClient Client, Guid CatalogId, int? Limit, int? Offset, CancellationToken CancellationToken)
+        : Validatable<ListCatalogItemsListItemsRequestValidator>, IQueryRequest<CatalogService.CatalogServiceClient>
+    {
+        public static implicit operator ListCatalogItemsListItemsRequest(ListCatalogItemsListItems request)
+            => new() { CatalogId = request.CatalogId.ToString(), Paging = new() { Limit = request.Limit, Offset = request.Offset } };
+    }
+
+    public record ListCatalogItemsCards(CatalogService.CatalogServiceClient Client, Guid CatalogId, int? Limit, int? Offset, CancellationToken CancellationToken)
+        : Validatable<ListCatalogItemsCardsValidator>, IQueryRequest<CatalogService.CatalogServiceClient>
+    {
+        public static implicit operator ListCatalogItemsCardsRequest(ListCatalogItemsCards request)
+            => new() { CatalogId = request.CatalogId.ToString(), Paging = new() { Limit = request.Limit, Offset = request.Offset } };
+    }
+
+    public record GetCatalogItemDetails(CatalogService.CatalogServiceClient Client, Guid CatalogId, Guid ItemId, CancellationToken CancellationToken)
+        : Validatable<GetCatalogItemDetailsValidator>, IQueryRequest<CatalogService.CatalogServiceClient>
+    {
+        public static implicit operator GetCatalogItemDetailsRequest(GetCatalogItemDetails request)
+            => new() { CatalogId = request.CatalogId.ToString(), ItemId = request.ItemId.ToString() };
     }
 }

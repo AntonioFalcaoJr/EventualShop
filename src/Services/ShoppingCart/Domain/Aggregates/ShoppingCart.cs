@@ -52,7 +52,7 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     public void Handle(Command.ChangeCartItemQuantity cmd)
     {
         if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is not { IsDeleted: false } item) return;
-
+        
         if (cmd.NewQuantity > item.Quantity)
             RaiseEvent(new DomainEvent.CartItemIncreased(Id, item.Id, cmd.NewQuantity, item.UnitPrice));
 
