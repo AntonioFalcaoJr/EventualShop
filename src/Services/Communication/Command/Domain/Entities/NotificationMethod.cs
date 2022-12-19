@@ -7,14 +7,14 @@ namespace Domain.Entities;
 
 public class NotificationMethod : Entity<NotificationMethodValidator>
 {
-    public NotificationMethod(Guid id, INotificationOption? option)
+    public NotificationMethod(Guid id, INotificationOption option)
     {
         Id = id;
         Option = option;
         Status = NotificationMethodStatus.Pending;
     }
 
-    public INotificationOption? Option { get; }
+    public INotificationOption Option { get; }
     public NotificationMethodStatus Status { get; private set; }
 
     public void Send()

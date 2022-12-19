@@ -1,8 +1,8 @@
-﻿using Application.Abstractions.Services;
+﻿using Application.Abstractions.Handlers;
 
-namespace Application.Services.PushesMobile;
+namespace Application.Handlers.Emails;
 
-public record PaypalNotificationResult : INotificationResult
+public record EmailNotificationResult : INotificationResult
 {
     public bool Success { get; init; }
     public int Code { get; init; }

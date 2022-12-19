@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using System.Net.Mail;
-using Application.Services.Emails;
+using Application.Abstractions.Gateways;
 using Domain.ValueObject;
 using Infrastructure.SMTP.DependencyInjection.Options;
 using Microsoft.Extensions.Options;

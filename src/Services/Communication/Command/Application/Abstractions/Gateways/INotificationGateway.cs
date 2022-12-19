@@ -1,6 +1,6 @@
 ﻿using Domain.Aggregates;
 
-namespace Application.Services;
+namespace Application.Abstractions.Gateways;
 
 public interface INotificationGateway
 {

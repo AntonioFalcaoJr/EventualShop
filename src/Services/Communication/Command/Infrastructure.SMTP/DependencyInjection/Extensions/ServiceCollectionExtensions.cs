@@ -1,4 +1,4 @@
-using Application.Services.Emails;
+using Application.Abstractions.Gateways;
 using Infrastructure.SMTP.DependencyInjection.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

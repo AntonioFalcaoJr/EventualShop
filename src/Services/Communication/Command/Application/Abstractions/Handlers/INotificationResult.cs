@@ -1,4 +1,4 @@
-﻿namespace Application.Abstractions.Services;
+﻿namespace Application.Abstractions.Handlers;
 
 public interface INotificationResult
 {

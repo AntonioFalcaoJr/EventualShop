@@ -1,8 +1,8 @@
-﻿using Application.Abstractions.Services;
+﻿using Application.Abstractions.Handlers;
 
-namespace Application.Services.SMSs;
+namespace Application.Handlers.PushesMobile;
 
-public record DebitCardNotificationResult : INotificationResult
+public record PaypalNotificationResult : INotificationResult
 {
     public bool Success { get; init; }
     public int Code { get; init; }
