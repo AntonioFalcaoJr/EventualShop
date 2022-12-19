@@ -1,4 +1,5 @@
-﻿using Domain.Abstractions.Entities;
+﻿using Contracts.DataTransferObjects;
+using Domain.Abstractions.Entities;
 
 namespace Domain.Entities.Addresses;
 
@@ -34,4 +35,7 @@ public abstract class Address : Entity<AddressValidator>
 
     public void Restore()
         => IsDeleted = false;
+
+    public static implicit operator Dto.Address(Address address)
+        => new(address.City, address.Country, address.Number, address.State, address.Street, address.ZipCode);
 }

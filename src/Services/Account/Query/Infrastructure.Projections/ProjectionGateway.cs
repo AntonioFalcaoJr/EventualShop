@@ -42,6 +42,13 @@ public class ProjectionGateway<TProjection> : IProjectionGateway<TProjection>
             options: new ReplaceOptions { IsUpsert = true },
             cancellationToken: ct);
 
+    public Task ReplaceAsync(TProjection replacement, CancellationToken cancellationToken)
+        => _collection.ReplaceOneAsync(
+            filter: projection => projection.Id == replacement.Id,
+            replacement: replacement,
+            options: new ReplaceOptions { IsUpsert = true },
+            cancellationToken: cancellationToken);
+
     public Task UpsertManyAsync(IEnumerable<TProjection> replacements, CancellationToken ct)
     {
         var requests = replacements.Select(replacement => new ReplaceOneModel<TProjection>(

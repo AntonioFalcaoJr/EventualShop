@@ -13,6 +13,7 @@ public interface IProjectionGateway<TProjection>
     Task<IPagedResult<TProjection>> GetAllAsync(ushort limit, ushort offset, CancellationToken cancellationToken);
     Task InsertAsync(TProjection projection, CancellationToken cancellationToken);
     Task UpsertAsync(TProjection replacement, CancellationToken cancellationToken);
+    Task ReplaceAsync(TProjection replacement, CancellationToken cancellationToken);
     Task UpsertManyAsync(IEnumerable<TProjection> replacements, CancellationToken cancellationToken);
     Task DeleteAsync(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken);
     Task DeleteAsync<TId>(TId id, CancellationToken cancellationToken) where TId : struct;
