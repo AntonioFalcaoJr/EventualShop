@@ -1,4 +1,4 @@
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/Logo_EventualShop_Roxo.png)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/logo.png)
 
 ---
 
