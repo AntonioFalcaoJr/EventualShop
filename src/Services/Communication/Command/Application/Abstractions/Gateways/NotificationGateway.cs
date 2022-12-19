@@ -2,6 +2,7 @@
 using Contracts.Services.Communication;
 using Domain.Aggregates;
 using Domain.ValueObject;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.Abstractions.Gateways;
 
@@ -20,16 +21,15 @@ public abstract class NotificationGateway : INotificationGateway
             .SetNext(pushWebHandler)
             .SetNext(pushMobileHandler);
 
-        _notificationHandler = emailHandler 
-            as INotificationHandler<INotificationOption>;
+        _notificationHandler = (INotificationHandler<INotificationOption>)emailHandler;
     }
 
     public async Task NotifyAsync(Notification notification, CancellationToken cancellationToken)
     {
         foreach (var method in notification.Methods)
         {
-            var result = await _notificationHandler.HandleAsync((handler, option)
-                => handler.NotifyAsync(option, cancellationToken), method.Option, cancellationToken);
+            var result = await _notificationHandler.HandleAsync((handler, option, ct)
+                => handler.NotifyAsync(option, ct), method.Option, cancellationToken);
 
             notification.Handle(result.Success
                 ? new Command.EmitNotificationMethod(notification.Id, method.Id)
@@ -41,8 +41,8 @@ public abstract class NotificationGateway : INotificationGateway
     {
         foreach (var method in notification.Methods)
         {
-            var result = await _notificationHandler.HandleAsync((handler, option)
-                => handler.CancelAsync(option, cancellationToken), method.Option, cancellationToken);
+            var result = await _notificationHandler.HandleAsync((handler, option, ct)
+                => handler.CancelAsync(option, ct), method.Option, cancellationToken);
 
             if (result.Success is false) return;
 

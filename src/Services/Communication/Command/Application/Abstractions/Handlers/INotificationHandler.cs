@@ -8,7 +8,7 @@ public interface INotificationHandler<in TOption>
     INotificationHandler<INotificationOption> SetNext<T>(INotificationHandler<T> next)
         where T : INotificationOption;
 
-    Task<INotificationResult> HandleAsync(Func<INotificationHandler<INotificationOption>, INotificationOption, Task<INotificationResult>> onHandle, INotificationOption option, CancellationToken cancellationToken);
+    Task<INotificationResult> HandleAsync(Func<INotificationHandler<INotificationOption>, INotificationOption, CancellationToken, Task<INotificationResult>> onHandle, INotificationOption option, CancellationToken cancellationToken);
     Task<INotificationResult> NotifyAsync(TOption option, CancellationToken cancellationToken);
     Task<INotificationResult> CancelAsync(TOption option, CancellationToken cancellationToken);
 }
