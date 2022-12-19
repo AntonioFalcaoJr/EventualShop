@@ -13,14 +13,16 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         => services
             .AddScoped<IApplicationService, ApplicationService>();
-    
+
     public static IServiceCollection AddCommandInteractors(this IServiceCollection services)
         => services
             .AddScoped<IInteractor<Command.AddBillingAddress>, AddBillingAddressInteractor>()
             .AddScoped<IInteractor<Command.AddShippingAddress>, AddShippingAddressInteractor>()
-            .AddScoped<IInteractor<Command.DeleteAccount>, DeleteAccountInteractor>();
+            .AddScoped<IInteractor<Command.DeleteAccount>, DeleteAccountInteractor>()
+            .AddScoped<IInteractor<Command.RequestRebuildProjection>, RequestRebuildProjectionInteractor>();
 
     public static IServiceCollection AddEventInteractors(this IServiceCollection services)
         => services
-            .AddScoped<IInteractor<Identity.DomainEvent.UserRegistered>, UserRegisteredInteractor>();
+            .AddScoped<IInteractor<Identity.DomainEvent.UserRegistered>, UserRegisteredInteractor>()
+            .AddScoped<IInteractor<NotificationEvent.RebuildProjectionRequested>, RebuildProjectionRequestedInteractor>();
 }
