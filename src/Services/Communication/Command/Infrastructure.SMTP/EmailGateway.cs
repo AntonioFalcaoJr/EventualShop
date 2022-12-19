@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Mail;
-using Application.Abstractions.Gateways;
+using Application.Services.Emails;
+using Domain.ValueObject;
 using Infrastructure.SMTP.DependencyInjection.Options;
 using Microsoft.Extensions.Options;
 
@@ -26,9 +27,9 @@ public class EmailGateway : IEmailGateway
         };
     }
 
-    public Task SendHtmlEmailAsync(string to, string subject, string body, CancellationToken cancellationToken)
-        => _smtpClient.SendMailAsync(new(_options.Username, to, subject, body) { IsBodyHtml = true }, cancellationToken);
+    public Task SendHtmlEmailAsync(Email email, CancellationToken cancellationToken)
+        => _smtpClient.SendMailAsync(new(_options.Username, email.Address, email.Subject, email.Body) { IsBodyHtml = true }, cancellationToken);
 
-    public Task SendTextEmailAsync(string to, string subject, string body, CancellationToken cancellationToken)
-        => _smtpClient.SendMailAsync(new(_options.Username, to, subject, body), cancellationToken);
+    public Task SendTextEmailAsync(Email email, CancellationToken cancellationToken)
+        => _smtpClient.SendMailAsync(new(_options.Username, email.Address, email.Subject, email.Body), cancellationToken);
 }
