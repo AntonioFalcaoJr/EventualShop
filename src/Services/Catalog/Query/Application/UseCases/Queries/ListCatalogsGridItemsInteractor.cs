@@ -4,9 +4,7 @@ using Contracts.Services.Catalog;
 
 namespace Application.UseCases.Queries;
 
-public interface IListCatalogsGridItemsInteractor : IInteractor<Query.ListCatalogsGridItems, IPagedResult<Projection.CatalogGridItem>> { }
-
-public class ListCatalogsGridItemsInteractor : IListCatalogsGridItemsInteractor
+public class ListCatalogsGridItemsInteractor : IInteractor<Query.ListCatalogsGridItems, IPagedResult<Projection.CatalogGridItem>>
 {
     private readonly IProjectionGateway<Projection.CatalogGridItem> _projectionGateway;
 
