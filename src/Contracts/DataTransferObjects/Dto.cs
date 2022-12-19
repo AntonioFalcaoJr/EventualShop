@@ -30,7 +30,7 @@ public static class Dto
 
     public interface INotificationOption { }
 
-    public record struct NotificationMethod(Guid MethodId, INotificationOption? Option)
+    public record struct NotificationMethod(Guid MethodId, INotificationOption Option)
     {
         public static implicit operator CommunicationProtobuf.NotificationMethod(NotificationMethod method)
             => method.Option switch
@@ -43,7 +43,7 @@ public static class Dto
             };
     }
 
-    public record struct Email(string Address, string Body) : INotificationOption
+    public record struct Email(string Address, string Subject, string Body) : INotificationOption
     {
         public static implicit operator CommunicationProtobuf.Email(Email email)
             => new() { Address = email.Address };
