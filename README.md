@@ -1,4 +1,4 @@
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/Logo_EventualShop_Roxo.png)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/new_logo.png)
 
 ---
 
@@ -692,6 +692,8 @@ with some different strategies and ways to implement projections.
 
 <details>
     <summary>Task Based UI + CQRS</summary>
+
+### Task Based UI + CQRS
 
 In a standard user interface (UI), the user typically edits or manipulates data directly. This allows the user to enter or modify the data synchronously, enabling the UI to respond to
 the user's actions in real-time (blocking the operation until the return).
