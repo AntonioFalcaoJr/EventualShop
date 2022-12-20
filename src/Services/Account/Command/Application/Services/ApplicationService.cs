@@ -40,14 +40,4 @@ public class ApplicationService : IApplicationService
         await foreach (var accountId in _eventStoreGateway.GetAggregateIdsAsync(cancellationToken))
             await _eventBusGateway.PublishAsync(new NotificationEvent.RebuildProjectionRequested(accountId, name), cancellationToken);
     }
-
-    public async Task RebuildAsync<TAggregate>(IEvent @event, string projectionName, CancellationToken cancellationToken)
-        where TAggregate : IAggregateRoot, new()
-    {
-        var exchange = $"exchange:{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(TAggregate).Name)}" +
-                       $".{KebabCaseEndpointNameFormatter.Instance.SanitizeName(projectionName)}" +
-                       $".{KebabCaseEndpointNameFormatter.Instance.SanitizeName(nameof(IntegrationEvent.ProjectionRebuilt))}";
-
-        await _eventBusGateway.SendAsync(@event, exchange, cancellationToken);
-    }
 }

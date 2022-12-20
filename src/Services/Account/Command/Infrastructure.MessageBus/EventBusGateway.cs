@@ -15,12 +15,6 @@ public class EventBusGateway : IEventBusGateway
         _publishEndpoint = publishEndpoint;
     }
 
-    public async Task SendAsync(IEvent @event, string exchange, CancellationToken cancellationToken)
-    {
-        var endpoint = await _bus.GetSendEndpoint(new(exchange));
-        await endpoint.Send(@event, cancellationToken);
-    }
-
     public Task PublishAsync(IEnumerable<IEvent> events, CancellationToken cancellationToken)
     => Task.WhenAll(events.Select(@event => _publishEndpoint.Publish(@event, @event.GetType(), cancellationToken)));
 
