@@ -18,7 +18,7 @@ public class RebuildProjectionRequestedInteractor : IInteractor<NotificationEven
 
     public async Task InteractAsync(NotificationEvent.RebuildProjectionRequested @event, CancellationToken cancellationToken)
     {
-        var account = (Account)await _applicationService.LoadAggregateAsync<Account>(@event.AccountId, cancellationToken);
+        var account = await _applicationService.LoadAggregateAsync<Account>(@event.AccountId, cancellationToken);
 
         IntegrationEvent.ProjectionRebuilt integrationEvent = new(@event.AccountId, account);
 
