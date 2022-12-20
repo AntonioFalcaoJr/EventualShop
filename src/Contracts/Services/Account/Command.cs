@@ -21,5 +21,5 @@ public static class Command
 
     public record PreferBillingAddress(Guid AccountId, Guid AddressId) : Message, ICommand;
 
-    public record RequestRebuildProjection(string Name, Guid Id = default) : Message, ICommand;
+    public record RequestRebuildProjection(string Name) : Message, ICommand;
 }

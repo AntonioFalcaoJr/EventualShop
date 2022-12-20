@@ -14,5 +14,5 @@ public class RequestRebuildProjectionInteractor : IInteractor<Command.RequestReb
     }
 
     public Task InteractAsync(Command.RequestRebuildProjection message, CancellationToken cancellationToken)
-        => _applicationService.StreamReplayAsync(message.Name, message.Id, cancellationToken);
+        => _applicationService.StreamReplayAsync(message.Name, cancellationToken);
 }

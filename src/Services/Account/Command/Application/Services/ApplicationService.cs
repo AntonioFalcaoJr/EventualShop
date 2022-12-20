@@ -35,13 +35,10 @@ public class ApplicationService : IApplicationService
             },
             cancellationToken: cancellationToken);
 
-    public async Task StreamReplayAsync(string name, Guid? id, CancellationToken cancellationToken)
+    public async Task StreamReplayAsync(string name, CancellationToken cancellationToken)
     {
-        if (id.HasValue)
-            await _eventBusGateway.PublishAsync(new NotificationEvent.RebuildProjectionRequested(id.Value, name), cancellationToken);
-        else
-            await foreach (var accountId in _eventStoreGateway.GetAggregateIdsAsync(cancellationToken))
-                await _eventBusGateway.PublishAsync(new NotificationEvent.RebuildProjectionRequested(accountId, name), cancellationToken);
+        await foreach (var accountId in _eventStoreGateway.GetAggregateIdsAsync(cancellationToken))
+            await _eventBusGateway.PublishAsync(new NotificationEvent.RebuildProjectionRequested(accountId, name), cancellationToken);
     }
 
     public async Task RebuildAsync<TAggregate>(IEvent @event, string projectionName, CancellationToken cancellationToken)
