@@ -14,8 +14,7 @@ public static class ServiceCollectionExtensions
             .AddScoped<IInteractor<DomainEvent.AccountCreated>, AccountCreatedInteractor>()
             .AddScoped<IInteractor<DomainEvent.AccountDeleted>, AccountDeletedInteractor>()
             .AddScoped<IInteractor<DomainEvent.BillingAddressAdded>, BillingAddressAddedInteractor>()
-            .AddScoped<IInteractor<DomainEvent.ShippingAddressAdded>, ShippingAddressAddedInteractor>()
-            .AddScoped<IInteractor<IntegrationEvent.ProjectionRebuilt>, ProjectionRebuiltInteractor>();
+            .AddScoped<IInteractor<DomainEvent.ShippingAddressAdded>, ShippingAddressAddedInteractor>();
 
     public static IServiceCollection AddQueryInteractors(this IServiceCollection services)
         => services

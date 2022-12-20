@@ -1,6 +1,7 @@
 using Application.Abstractions;
 using Contracts.Services.Account;
 using Infrastructure.EventBus.Abstractions;
+using MassTransit;
 
 namespace Infrastructure.EventBus.Consumers;
 

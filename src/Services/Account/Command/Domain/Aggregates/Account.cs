@@ -3,6 +3,7 @@ using Contracts.Abstractions.Messages;
 using Contracts.Services.Account;
 using Domain.Entities.Addresses;
 using Domain.Entities.Profiles;
+using Contracts.DataTransferObjects;
 
 namespace Domain.Aggregates;
 
@@ -126,4 +127,8 @@ public class Account : AggregateRoot<AccountValidator>
 
     private void Apply(DomainEvent.AccountDeleted _)
         => IsDeleted = true;
+
+    public static implicit operator Dto.Account(Account account)
+        => new(account.Profile, account.Addresses.Select(address => (Dto.AddressItem)address),
+            account.WishToReceiveNews, account.AcceptedPolicies, account.IsDeleted);
 }

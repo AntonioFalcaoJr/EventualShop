@@ -7,6 +7,8 @@ namespace Contracts.DataTransferObjects;
 public static class Dto
 {
     public record Address(string City, string Country, int? Number, string State, string Street, string ZipCode);
+    
+    public record AddressItem(Guid Id, Address Address);
 
     public record CreditCard(
             [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
@@ -44,4 +46,6 @@ public static class Dto
 
     public record ShoppingCart(Guid Id, Guid CustomerId, string Status, Address BillingAddress, Address ShippingAddress, decimal Total, decimal TotalPayment, decimal AmountDue,
         IEnumerable<CartItem> Items, IEnumerable<PaymentMethod> PaymentMethods);
+
+    public record Account(Profile Profile, IEnumerable<AddressItem> Addresses, bool WishToReceiveNews, bool AcceptedPolicies, bool IsDeleted);
 }

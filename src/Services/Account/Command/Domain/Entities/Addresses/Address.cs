@@ -38,4 +38,7 @@ public abstract class Address : Entity<AddressValidator>
 
     public static implicit operator Dto.Address(Address address)
         => new(address.City, address.Country, address.Number, address.State, address.Street, address.ZipCode);
+
+    public static implicit operator Dto.AddressItem(Address address)
+        => new(address.Id, address);
 }
