@@ -38,8 +38,6 @@ services:
         condition: service_healthy
     networks:
       - internal
-    depends_on:
-      - 
     deploy:
       replicas: 2
       resources:
@@ -63,8 +61,6 @@ services:
         condition: service_healthy
     networks:
       - internal
-    depends_on:
-      - 
     deploy:
       replicas: 2
       resources:
@@ -88,8 +84,6 @@ services:
         condition: service_healthy
     networks:
       - internal
-    depends_on:
-      - 
     deploy:
       replicas: 2
       resources:
@@ -113,8 +107,6 @@ services:
         condition: service_healthy
     networks:
       - internal
-    depends_on:
-      - 
     deploy:
       replicas: 2
       resources:
@@ -138,8 +130,6 @@ services:
         condition: service_healthy
     networks:
       - internal
-    depends_on:
-      - 
     deploy:
       replicas: 1
       resources:
@@ -163,8 +153,6 @@ services:
         condition: service_healthy
     networks:
       - internal
-    depends_on:
-      - 
     deploy:
       replicas: 2
       resources:
@@ -188,8 +176,6 @@ services:
         condition: service_healthy
     networks:
       - internal
-    depends_on:
-      - 
     deploy:
       replicas: 2
       resources:
@@ -213,8 +199,6 @@ services:
         condition: service_healthy
     networks:
       - internal
-    depends_on:
-      - 
     deploy:
       replicas: 2
       resources:
@@ -238,8 +222,6 @@ services:
         condition: service_healthy
     networks:
       - internal
-    depends_on:
-      - 
     deploy:
       replicas: 2
       resources:
@@ -265,8 +247,6 @@ services:
         condition: service_healthy
     networks:
       - internal
-    depends_on:
-      -
     deploy:
       replicas: 2
       resources:
@@ -292,8 +272,6 @@ services:
         condition: service_healthy
     networks:
       - internal
-    depends_on:
-      -
     deploy:
       replicas: 2
       resources:
@@ -319,8 +297,6 @@ services:
         condition: service_healthy
     networks:
       - internal
-    depends_on:
-      -
     deploy:
       replicas: 2
       resources:
@@ -345,8 +321,6 @@ services:
         condition: service_healthy
     networks:
       - internal
-    depends_on:
-      -
     deploy:
       replicas: 2
       resources:
@@ -378,8 +352,3 @@ services:
           memory: 128M
       restart_policy:
         condition: on-failure
-
-networks:
-  internal:
-    name: internal
-    driver: bridge
