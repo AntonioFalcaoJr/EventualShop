@@ -31,10 +31,18 @@ message GetCatalogItemDetailsRequest {
 }
 
 message CatalogsGridItemsPagedResponse {
-  repeated CatalogGridItem Items = 1;
-  Page Page = 2;
+  oneof Response {
+    CatalogGridItemList Items = 1;
+    NoContent NoContent = 2;
+  }
+  Page Page = 3;
 }
 
+message NoContent {}
+
+message CatalogGridItemList{
+  repeated CatalogGridItem Items = 1;
+}
 message CatalogGridItem {
   string CatalogId = 1;
   string Title = 2;
