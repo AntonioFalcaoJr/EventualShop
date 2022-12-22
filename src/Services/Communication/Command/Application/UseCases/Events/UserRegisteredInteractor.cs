@@ -6,7 +6,7 @@ using Contracts.Services.Identity;
 using Domain.Aggregates;
 using Command = Contracts.Services.Communication.Command;
 
-namespace Application.UseCases;
+namespace Application.UseCases.Events;
 
 public class UserRegisteredInteractor : IInteractor<DomainEvent.UserRegistered>
 {
