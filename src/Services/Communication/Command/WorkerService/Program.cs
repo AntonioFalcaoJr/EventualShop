@@ -46,6 +46,7 @@ builder.ConfigureServices((context, services) =>
     services.AddCommandInteractors();
     services.AddEventInteractors();
     services.AddMessageValidators();
+    services.AddNotificationGateway();
     services.AddEmailGateway();
     services.AddSmtpClient();
 
