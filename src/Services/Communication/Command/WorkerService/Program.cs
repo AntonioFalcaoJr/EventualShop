@@ -46,7 +46,8 @@ builder.ConfigureServices((context, services) =>
     services.AddCommandInteractors();
     services.AddEventInteractors();
     services.AddMessageValidators();
-    services.AddSmtp();
+    services.AddEmailGateway();
+    services.AddSmtpClient();
 
     services.ConfigureEventStoreOptions(
         context.Configuration.GetSection(nameof(EventStoreOptions)));
