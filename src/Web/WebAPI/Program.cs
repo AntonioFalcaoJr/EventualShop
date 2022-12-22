@@ -140,6 +140,7 @@ if (builder.Environment.IsProduction() is false)
 
         options.EnableTryItOutByDefault();
     });
+    app.Map("/", () => Results.Redirect("/swagger"));
 }
 
 try
