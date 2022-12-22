@@ -1,14 +1,13 @@
-﻿using Domain.ValueObject;
+﻿using Domain.Enumerations;
+using Domain.ValueObject;
 
 namespace Application.Abstractions.Handlers;
 
-public interface INotificationHandler<in TOption>
-    where TOption : INotificationOption
+public interface INotificationHandler
 {
-    INotificationHandler<INotificationOption> SetNext<T>(INotificationHandler<T> next)
-        where T : INotificationOption;
-
-    Task<INotificationResult> HandleAsync(Func<INotificationHandler<INotificationOption>, INotificationOption, CancellationToken, Task<INotificationResult>> onHandle, INotificationOption option, CancellationToken cancellationToken);
-    Task<INotificationResult> NotifyAsync(TOption option, CancellationToken cancellationToken);
-    Task<INotificationResult> CancelAsync(TOption option, CancellationToken cancellationToken);
+    INotificationHandler? Next { get; }
+    INotificationHandler SetNext(INotificationHandler next);
+    Task<NotificationMethodStatus> HandleAsync(Func<INotificationHandler, INotificationOption, Task<NotificationMethodStatus>> operation, INotificationOption option, CancellationToken cancellationToken);
+    Task<NotificationMethodStatus> NotifyAsync(INotificationOption option, CancellationToken cancellationToken);
+    Task<NotificationMethodStatus> CancelAsync(INotificationOption option, CancellationToken cancellationToken);
 }

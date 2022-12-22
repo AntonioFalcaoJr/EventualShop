@@ -1,4 +1,6 @@
 ﻿using Application.Abstractions.Handlers;
+using Application.Handlers.Emails;
+using Application.Handlers.PushesMobile;
 using Contracts.Services.Communication;
 using Domain.Aggregates;
 using Domain.ValueObject;
@@ -8,30 +10,25 @@ namespace Application.Abstractions.Gateways;
 
 public abstract class NotificationGateway : INotificationGateway
 {
-    private readonly INotificationHandler<INotificationOption> _notificationHandler;
+    private readonly INotificationHandler _notificationHandler;
 
     protected NotificationGateway(
-        INotificationHandler<Email> emailHandler,
-        INotificationHandler<Sms> smsHandler,
-        INotificationHandler<PushWeb> pushWebHandler,
-        INotificationHandler<PushMobile> pushMobileHandler)
+        IEmailNotificationHandler emailNotificationHandler,
+        IPushMobileNotificationHandler pushMobileNotificationHandler)
     {
-        emailHandler
-            .SetNext(smsHandler)
-            .SetNext(pushWebHandler)
-            .SetNext(pushMobileHandler);
+        emailNotificationHandler
+            .SetNext(pushMobileNotificationHandler);
 
-        _notificationHandler = (INotificationHandler<INotificationOption>)emailHandler;
+        _notificationHandler = emailNotificationHandler;
     }
 
     public async Task NotifyAsync(Notification notification, CancellationToken cancellationToken)
     {
         foreach (var method in notification.Methods)
         {
-            var result = await _notificationHandler.HandleAsync((handler, option, ct)
-                => handler.NotifyAsync(option, ct), method.Option, cancellationToken);
+            var result = await _notificationHandler.HandleAsync((handler, option) => handler.NotifyAsync(option, cancellationToken), method.Option, cancellationToken);
 
-            notification.Handle(result.Success
+            notification.Handle(result is { }
                 ? new Command.EmitNotificationMethod(notification.Id, method.Id)
                 : new Command.FailNotificationMethod(notification.Id, method.Id));
         }
@@ -41,10 +38,8 @@ public abstract class NotificationGateway : INotificationGateway
     {
         foreach (var method in notification.Methods)
         {
-            var result = await _notificationHandler.HandleAsync((handler, option, ct)
-                => handler.CancelAsync(option, ct), method.Option, cancellationToken);
-
-            if (result.Success is false) return;
+            var result = await _notificationHandler.HandleAsync((handler, option)
+                => handler.CancelAsync(option, cancellationToken), method.Option, cancellationToken);
 
             notification.Handle(new Command.CancelNotificationMethod(notification.Id, method.Id));
         }
