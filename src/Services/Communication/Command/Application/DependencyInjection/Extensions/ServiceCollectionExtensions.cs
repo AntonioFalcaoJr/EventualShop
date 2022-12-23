@@ -14,9 +14,8 @@ public static class ServiceCollectionExtensions
     
     public static IServiceCollection AddCommandInteractors(this IServiceCollection services)
         => services;
-    //  .AddScoped<IInteractor<Identity.Command.ChangePassword>, ChangePasswordInteractor>();
 
     public static IServiceCollection AddEventInteractors(this IServiceCollection services)
         => services
-            .AddScoped<IInteractor<Identity.DomainEvent.UserRegistered>, RequestEmailConfirmationInteractor>();
+            .AddScoped<IInteractor<Identity.DomainEvent.UserRegistered>, UserRegisteredInteractor>();
 }

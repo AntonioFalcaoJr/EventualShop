@@ -9,7 +9,7 @@ namespace Domain.Aggregates;
 
 public class Payment : AggregateRoot<Guid, PaymentValidator>
 {
-    private readonly List<PaymentMethod> _paymentMethods = new();
+    private readonly List<PaymentMethod> _methods = new();
 
     public Guid OrderId { get; private set; }
     public decimal Amount { get; private set; }
@@ -17,12 +17,12 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
     public Address? BillingAddress { get; private set; }
 
     public decimal AmountDue
-        => _paymentMethods
+        => _methods
             .Where(method => method.Status != PaymentMethodStatus.Authorized)
             .Sum(method => method.Amount);
 
-    public IEnumerable<PaymentMethod> PaymentMethods
-        => _paymentMethods;
+    public IEnumerable<PaymentMethod> Methods
+        => _methods;
 
     public void Handle(Command.RequestPayment cmd)
         => RaiseEvent(new DomainEvent.PaymentRequested(Guid.NewGuid(), cmd.OrderId, cmd.AmountDue, cmd.BillingAddress, cmd.PaymentMethods, PaymentStatus.Ready));
@@ -37,37 +37,37 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
 
     public void Handle(Command.AuthorizePaymentMethod cmd)
     {
-        if (_paymentMethods.Exists(method => method.Id == cmd.PaymentMethodId))
+        if (_methods.Exists(method => method.Id == cmd.PaymentMethodId))
             RaiseEvent(new DomainEvent.PaymentMethodAuthorized(cmd.PaymentId, cmd.PaymentMethodId, cmd.TransactionId));
     }
 
     public void Handle(Command.DenyPaymentMethod cmd)
     {
-        if (_paymentMethods.Exists(method => method.Id == cmd.PaymentMethodId))
+        if (_methods.Exists(method => method.Id == cmd.PaymentMethodId))
             RaiseEvent(new DomainEvent.PaymentMethodDenied(cmd.PaymentId, cmd.PaymentMethodId, cmd.TransactionId));
     }
 
     public void Handle(Command.CancelPaymentMethod cmd)
     {
-        if (_paymentMethods.Exists(method => method.Id == cmd.PaymentMethodId))
+        if (_methods.Exists(method => method.Id == cmd.PaymentMethodId))
             RaiseEvent(new DomainEvent.PaymentMethodCanceled(cmd.PaymentId, cmd.PaymentMethodId, cmd.TransactionId));
     }
 
     public void Handle(Command.DenyPaymentMethodCancellation cmd)
     {
-        if (_paymentMethods.Exists(method => method.Id == cmd.PaymentMethodId))
+        if (_methods.Exists(method => method.Id == cmd.PaymentMethodId))
             RaiseEvent(new DomainEvent.PaymentMethodCancellationDenied(cmd.PaymentId, cmd.PaymentMethodId, cmd.TransactionId));
     }
 
     public void Handle(Command.RefundPaymentMethod cmd)
     {
-        if (_paymentMethods.Exists(method => method.Id == cmd.PaymentMethodId))
+        if (_methods.Exists(method => method.Id == cmd.PaymentMethodId))
             RaiseEvent(new DomainEvent.PaymentMethodRefunded(cmd.PaymentId, cmd.PaymentMethodId, cmd.TransactionId));
     }
 
     public void Handle(Command.DenyPaymentMethodRefund cmd)
     {
-        if (_paymentMethods.Exists(method => method.Id == cmd.PaymentMethodId))
+        if (_methods.Exists(method => method.Id == cmd.PaymentMethodId))
             RaiseEvent(new DomainEvent.PaymentMethodRefundDenied(cmd.PaymentId, cmd.PaymentMethodId, cmd.TransactionId));
     }
 
@@ -77,26 +77,26 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
     private void When(DomainEvent.PaymentRequested @event)
     {
         (Id, OrderId, Amount, BillingAddress, var methods, Status) = @event;
-        _paymentMethods.AddRange(methods.Select(method => (PaymentMethod)method));
+        _methods.AddRange(methods.Select(method => (PaymentMethod)method));
     }
 
     private void When(DomainEvent.PaymentMethodAuthorized @event)
-        => _paymentMethods.Single(method => method.Id == @event.PaymentMethodId).Authorize();
+        => _methods.Single(method => method.Id == @event.PaymentMethodId).Authorize();
 
     private void When(DomainEvent.PaymentMethodDenied @event)
-        => _paymentMethods.Single(method => method.Id == @event.PaymentMethodId).Deny();
+        => _methods.Single(method => method.Id == @event.PaymentMethodId).Deny();
 
     private void When(DomainEvent.PaymentMethodCanceled @event)
-        => _paymentMethods.Single(method => method.Id == @event.PaymentMethodId).Cancel();
+        => _methods.Single(method => method.Id == @event.PaymentMethodId).Cancel();
 
     private void When(DomainEvent.PaymentMethodCancellationDenied @event)
-        => _paymentMethods.Single(method => method.Id == @event.PaymentMethodId).DenyCancellation();
+        => _methods.Single(method => method.Id == @event.PaymentMethodId).DenyCancellation();
 
     private void When(DomainEvent.PaymentMethodRefunded @event)
-        => _paymentMethods.Single(method => method.Id == @event.PaymentMethodId).Refund();
+        => _methods.Single(method => method.Id == @event.PaymentMethodId).Refund();
 
     private void When(DomainEvent.PaymentMethodRefundDenied @event)
-        => _paymentMethods.Single(method => method.Id == @event.PaymentMethodId).DenyRefund();
+        => _methods.Single(method => method.Id == @event.PaymentMethodId).DenyRefund();
 
     private void When(DomainEvent.PaymentCompleted _)
         => Status = PaymentStatus.Completed;

@@ -9,7 +9,6 @@ using MassTransit;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.AspNetCore.HttpLogging;
-using Microsoft.OpenApi.Any;
 using Serilog;
 using WebAPI.APIs.Accounts;
 using WebAPI.APIs.Catalogs;
@@ -21,7 +20,6 @@ using WebAPI.APIs.ShoppingCarts;
 using WebAPI.APIs.Warehouses;
 using WebAPI.DependencyInjection.Extensions;
 using WebAPI.DependencyInjection.Options;
-using WebAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,6 +46,8 @@ builder.Host.UseSerilog();
 
 builder.Host.ConfigureServices((context, services) =>
 {
+    services.AddProblemDetails();
+    
     services.AddCors(options
         => options.AddDefaultPolicy(policyBuilder
             => policyBuilder
@@ -72,17 +72,21 @@ builder.Host.ConfigureServices((context, services) =>
         .AddSwaggerGenNewtonsoftSupport()
         .AddFluentValidationRulesToSwagger()
         .AddEndpointsApiExplorer()
-        .AddSwaggerGen(options =>
+        .AddSwagger();
+    
+    services
+        .AddApiVersioning(options => options.ReportApiVersions = true)
+        .AddApiExplorer(options =>
         {
-            options.SwaggerDoc("v1", new() { Title = builder.Environment.ApplicationName, Version = "v1" });
-            options.MapType<DateOnly>(() => new() { Format = "date", Example = new OpenApiString(DateOnly.MinValue.ToString()) });
-            options.CustomSchemaIds(type => type.ToString().Replace("+", "."));
+            options.GroupNameFormat = "'v'VVV";
+            options.SubstituteApiVersionInUrl = true;
         });
 
     services.AddMessageBus();
     services.AddIdentityGrpcClient();
     services.AddAccountGrpcClient();
     services.AddCommunicationGrpcClient();
+    services.AddCatalogGrpcClient();
 
     services.ConfigureMessageBusOptions(
         context.Configuration.GetSection(nameof(MessageBusOptions)));
@@ -95,6 +99,9 @@ builder.Host.ConfigureServices((context, services) =>
     
     services.ConfigureCommunicationGrpcClientOptions(
         context.Configuration.GetSection(nameof(CommunicationGrpcClientOptions)));
+    
+    services.ConfigureCatalogGrpcClientOptions(
+        context.Configuration.GetSection(nameof(CatalogGrpcClientOptions)));
 
     services.ConfigureMassTransitHostOptions(
         context.Configuration.GetSection(nameof(MassTransitHostOptions)));
@@ -111,24 +118,29 @@ var app = builder.Build();
 if (builder.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 
-if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(options => options.EnableTryItOutByDefault());
-}
-
 app.UseCors();
 app.UseSerilogRequestLogging();
-app.UseApplicationExceptionHandler();
 
-app.MapGroup("/api/v1/accounts/").MapAccountApi();
-app.MapGroup("/api/v1/catalogs/").MapCatalogApi();
-app.MapGroup("/api/v1/communications/").MapCommunicationApi();
-app.MapGroup("/api/v1/identities/").MapIdentityApi();
-app.MapGroup("/api/v1/orders/").MapOrderApi();
-app.MapGroup("/api/v1/payments/").MapPaymentApi();
-app.MapGroup("/api/v1/shopping-carts/").MapShoppingCartApi();
-app.MapGroup("/api/v1/warehouses/").MapWarehouseApi();
+app.NewVersionedApi("Accounts").MapAccountApiV1().MapAccountApiV2();
+app.NewVersionedApi("Catalogs").MapCatalogApiV1().MapCatalogApiV2();
+app.NewVersionedApi("Communications").MapCommunicationApiV1().MapCommunicationApiV2();
+app.NewVersionedApi("Identities").MapIdentityApiV1().MapIdentityApiV2();
+app.NewVersionedApi("Orders").MapOrderApiV1().MapOrderApiV2();
+app.NewVersionedApi("Payments").MapPaymentApiV1().MapPaymentApiV2();
+app.NewVersionedApi("ShoppingCarts").MapShoppingCartApiV1().MapShoppingCartApiV2();
+app.NewVersionedApi("Warehouses").MapWarehouseApiV1().MapWarehouseApiV2();
+
+if (builder.Environment.IsProduction() is false)
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(options =>
+    {
+        foreach (var version in app.DescribeApiVersions().Select(version => version.GroupName))
+            options.SwaggerEndpoint($"/swagger/{version}/swagger.json", version);
+
+        options.EnableTryItOutByDefault();
+    });
+}
 
 try
 {

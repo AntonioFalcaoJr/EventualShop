@@ -1,4 +1,5 @@
-﻿using Contracts.Services.Warehouse;
+﻿using Asp.Versioning.Builder;
+using Contracts.Services.Warehouse;
 using MassTransit;
 using WebAPI.Abstractions;
 
@@ -6,8 +7,12 @@ namespace WebAPI.APIs.Warehouses;
 
 public static class WarehouseApi
 {
-    public static RouteGroupBuilder MapWarehouseApi(this RouteGroupBuilder group)
+    private const string BaseUrl = "/api/v{version:apiVersion}/warehouses/";
+
+    public static IVersionedEndpointRouteBuilder MapWarehouseApiV1(this IVersionedEndpointRouteBuilder builder)
     {
+        var group = builder.MapGroup(BaseUrl).HasApiVersion(1);
+
         group.MapGet("/", (IBus bus, ushort limit, ushort offset, CancellationToken cancellationToken)
             => ApplicationApi.GetPagedProjectionAsync<Query.GetInventories, Projection.Inventory>(bus, new(limit, offset), cancellationToken));
 
@@ -26,6 +31,16 @@ public static class WarehouseApi
         group.MapPut("/{inventoryId:guid}/items/{itemId:guid}/decrease-adjust", ([AsParameters] Requests.DecreaseInventoryAdjust request)
             => ApplicationApi.SendCommandAsync<Command.DecreaseInventoryAdjust>(request));
 
-        return group.WithMetadata(new TagsAttribute("Warehouses"));
+        return builder;
+    }
+
+    public static IVersionedEndpointRouteBuilder MapWarehouseApiV2(this IVersionedEndpointRouteBuilder builder)
+    {
+        var group = builder.MapGroup(BaseUrl).HasApiVersion(2);
+
+        group.MapGet("/", (IBus bus, ushort limit, ushort offset, CancellationToken cancellationToken)
+            => ApplicationApi.GetPagedProjectionAsync<Query.GetInventories, Projection.Inventory>(bus, new(limit, offset), cancellationToken));
+
+        return builder;
     }
 }

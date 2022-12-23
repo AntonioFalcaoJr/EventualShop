@@ -1,5 +1,5 @@
-name: Account - Command Stack
-run-name: Account Command Stack Workflow
+name: Account - Command
+run-name: Account Command Workflow
 on:
   push:
     paths:

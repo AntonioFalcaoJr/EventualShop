@@ -1,5 +1,4 @@
 ﻿using Contracts.Abstractions.Messages;
-using Contracts.Services.Account.Protobuf;
 
 namespace Contracts.Services.Order;
 

@@ -1,18 +1,18 @@
 ﻿using Contracts.Abstractions;
+using Contracts.DataTransferObjects;
 using Contracts.Services.Communication.Protobuf;
 
 namespace Contracts.Services.Communication;
 
 public static class Projection
 {
-    public record EmailSent(Guid Id, Guid UserId, string Email, bool IsDeleted) : IProjection
+    public record NotificationDetails(Guid Id, IEnumerable<Dto.NotificationMethod> Methods, bool IsDeleted) : IProjection
     {
-        public static implicit operator Email(EmailSent emailSent)
+        public static implicit operator Notification(NotificationDetails notification)
             => new()
             {
-                Id = emailSent.Id.ToString(),
-                UserId = emailSent.UserId.ToString(),
-                Email_ = emailSent.Email
+                Id = notification.Id.ToString(),
+                Methods = { notification.Methods.Select(method => (NotificationMethod)method) }
             };
     }
 }

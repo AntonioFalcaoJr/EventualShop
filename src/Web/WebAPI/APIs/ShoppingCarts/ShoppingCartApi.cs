@@ -1,4 +1,5 @@
-﻿using Contracts.Services.ShoppingCart;
+﻿using Asp.Versioning.Builder;
+using Contracts.Services.ShoppingCart;
 using MassTransit;
 using WebAPI.Abstractions;
 using WebAPI.Validations;
@@ -7,8 +8,12 @@ namespace WebAPI.APIs.ShoppingCarts;
 
 public static class ShoppingCartApi
 {
-    public static RouteGroupBuilder MapShoppingCartApi(this RouteGroupBuilder group)
+    private const string BaseUrl = "/api/v{version:apiVersion}/shopping-carts/";
+
+    public static IVersionedEndpointRouteBuilder MapShoppingCartApiV1(this IVersionedEndpointRouteBuilder builder)
     {
+        var group = builder.MapGroup(BaseUrl).HasApiVersion(1);
+
         group.MapGet("/{customerId:guid}", (IBus bus, Guid customerId, CancellationToken cancellationToken)
             => ApplicationApi.GetPagedProjectionAsync<Query.GetCustomerShoppingCart, Projection.ShoppingCart>(bus, new(customerId), cancellationToken));
 
@@ -63,6 +68,16 @@ public static class ShoppingCartApi
         group.MapPost("/admin/rebuild-projection", ([AsParameters] Requests.RebuildProjection request)
             => ApplicationApi.SendCommandAsync<Command.RebuildProjection>(request));
 
-        return group.WithMetadata(new TagsAttribute("ShoppingCarts"));
+        return builder;
+    }
+
+    public static IVersionedEndpointRouteBuilder MapShoppingCartApiV2(this IVersionedEndpointRouteBuilder builder)
+    {
+        var group = builder.MapGroup(BaseUrl).HasApiVersion(2);
+
+        group.MapGet("/{customerId:guid}", (IBus bus, Guid customerId, CancellationToken cancellationToken)
+            => ApplicationApi.GetPagedProjectionAsync<Query.GetCustomerShoppingCart, Projection.ShoppingCart>(bus, new(customerId), cancellationToken));
+
+        return builder;
     }
 }
