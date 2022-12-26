@@ -1,4 +1,6 @@
-using Application.UseCases.Queries;
+using Application.Abstractions;
+using Contracts.Abstractions.Paging;
+using Contracts.Services.Catalog;
 using Contracts.Services.Catalog.Protobuf;
 using Grpc.Core;
 
@@ -6,21 +8,21 @@ namespace GrpcService;
 
 public class CatalogGrpcService : CatalogService.CatalogServiceBase
 {
-    private readonly IGetCatalogItemDetailsInteractor _getCatalogItemDetailsInteractor;
-    private readonly IListCatalogItemsCardsInteractor _listCatalogItemsCardsInteractor;
-    private readonly IListCatalogsGridItemsInteractor _listCatalogsGridItemsInteractor;
-    private readonly IListCatalogItemsListItemsInteractor _listCatalogItemsListItemsInteractor;
+    private readonly IInteractor<Query.GetCatalogItemDetails, Projection.CatalogItemDetails> _getCatalogItemDetailsInteractor;
+    private readonly IInteractor<Query.ListCatalogItemsCards, IPagedResult<Projection.CatalogItemCard>> _listCatalogItemsCardsInteractor;
+    private readonly IInteractor<Query.ListCatalogItemsListItems, IPagedResult<Projection.CatalogItemListItem>> _listCatalogItemsListItemsInteractor;
+    private readonly IInteractor<Query.ListCatalogsGridItems, IPagedResult<Projection.CatalogGridItem>> _listCatalogsGridItemsInteractor;
 
     public CatalogGrpcService(
-        IGetCatalogItemDetailsInteractor getCatalogItemDetailsInteractor,
-        IListCatalogItemsCardsInteractor listCatalogItemsCardsInteractor,
-        IListCatalogsGridItemsInteractor listCatalogsGridItemsInteractor,
-        IListCatalogItemsListItemsInteractor lstCatalogItemsListItemsInteractor)
+        IInteractor<Query.GetCatalogItemDetails, Projection.CatalogItemDetails> getCatalogItemDetailsInteractor,
+        IInteractor<Query.ListCatalogItemsCards, IPagedResult<Projection.CatalogItemCard>> listCatalogItemsCardsInteractor,
+        IInteractor<Query.ListCatalogItemsListItems, IPagedResult<Projection.CatalogItemListItem>> listCatalogItemsListItemsInteractor,
+        IInteractor<Query.ListCatalogsGridItems, IPagedResult<Projection.CatalogGridItem>> listCatalogsGridItemsInteractor)
     {
         _getCatalogItemDetailsInteractor = getCatalogItemDetailsInteractor;
         _listCatalogItemsCardsInteractor = listCatalogItemsCardsInteractor;
+        _listCatalogItemsListItemsInteractor = listCatalogItemsListItemsInteractor;
         _listCatalogsGridItemsInteractor = listCatalogsGridItemsInteractor;
-        _listCatalogItemsListItemsInteractor = lstCatalogItemsListItemsInteractor;
     }
 
     public override async Task<CatalogItemDetailsResponse> GetCatalogItemDetails(GetCatalogItemDetailsRequest request, ServerCallContext context)

@@ -5,9 +5,7 @@ using Domain.Aggregates;
 
 namespace Application.UseCases.Commands;
 
-public interface IRemoveCatalogItemInteractor : IInteractor<Command.RemoveCatalogItem> { }
-
-public class RemoveCatalogItemInteractor : IRemoveCatalogItemInteractor
+public class RemoveCatalogItemInteractor : IInteractor<Command.RemoveCatalogItem>
 {
     private readonly IApplicationService _applicationService;
 

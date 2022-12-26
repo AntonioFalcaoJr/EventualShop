@@ -47,7 +47,7 @@ builder.Host.UseSerilog();
 builder.Host.ConfigureServices((context, services) =>
 {
     services.AddProblemDetails();
-    
+
     services.AddCors(options
         => options.AddDefaultPolicy(policyBuilder
             => policyBuilder
@@ -73,7 +73,7 @@ builder.Host.ConfigureServices((context, services) =>
         .AddFluentValidationRulesToSwagger()
         .AddEndpointsApiExplorer()
         .AddSwagger();
-    
+
     services
         .AddApiVersioning(options => options.ReportApiVersions = true)
         .AddApiExplorer(options =>
@@ -93,13 +93,13 @@ builder.Host.ConfigureServices((context, services) =>
 
     services.ConfigureIdentityGrpcClientOptions(
         context.Configuration.GetSection(nameof(IdentityGrpcClientOptions)));
-    
+
     services.ConfigureAccountGrpcClientOptions(
         context.Configuration.GetSection(nameof(AccountGrpcClientOptions)));
-    
+
     services.ConfigureCommunicationGrpcClientOptions(
         context.Configuration.GetSection(nameof(CommunicationGrpcClientOptions)));
-    
+
     services.ConfigureCatalogGrpcClientOptions(
         context.Configuration.GetSection(nameof(CatalogGrpcClientOptions)));
 

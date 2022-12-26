@@ -7,27 +7,27 @@ namespace Domain.Entities;
 
 public class NotificationMethod : Entity<NotificationMethodValidator>
 {
-    public NotificationMethod(Guid id, INotificationOption? option)
+    public NotificationMethod(Guid id, INotificationOption option)
     {
         Id = id;
         Option = option;
-        Status = NotificationMethodStatus.Ready;
+        Status = NotificationMethodStatus.Pending;
     }
 
-    public INotificationOption? Option { get; }
+    public INotificationOption Option { get; }
     public NotificationMethodStatus Status { get; private set; }
 
-    public void Complete()
-        => Status = NotificationMethodStatus.Completed;
+    public void Send()
+        => Status = NotificationMethodStatus.Sent;
 
     public void Fail()
         => Status = NotificationMethodStatus.Failed;
 
     public void Cancel()
-        => Status = NotificationMethodStatus.Canceled;
+        => Status = NotificationMethodStatus.Cancelled;
 
     public void Reset()
-        => Status = NotificationMethodStatus.Ready;
+        => Status = NotificationMethodStatus.Pending;
 
     public static implicit operator NotificationMethod(Dto.NotificationMethod method)
         => new(method.MethodId, method.Option switch
