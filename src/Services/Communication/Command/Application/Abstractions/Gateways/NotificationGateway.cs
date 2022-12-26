@@ -1,52 +1,49 @@
-﻿using Application.Abstractions.Handlers;
+﻿using Application.DependencyInjection;
 using Contracts.Services.Communication;
 using Domain.Aggregates;
-using Domain.ValueObject;
-using Microsoft.Extensions.DependencyInjection;
+using Domain.Enumerations;
 
 namespace Application.Abstractions.Gateways;
 
-public abstract class NotificationGateway : INotificationGateway
+public class NotificationGateway : INotificationGateway
 {
-    private readonly INotificationHandler<INotificationOption> _notificationHandler;
+    private readonly NotificationOptionGatewayProvider _gatewayProvider;
 
-    protected NotificationGateway(
-        INotificationHandler<Email> emailHandler,
-        INotificationHandler<Sms> smsHandler,
-        INotificationHandler<PushWeb> pushWebHandler,
-        INotificationHandler<PushMobile> pushMobileHandler)
+    public NotificationGateway(NotificationOptionGatewayProvider gatewayProvider)
     {
-        emailHandler
-            .SetNext(smsHandler)
-            .SetNext(pushWebHandler)
-            .SetNext(pushMobileHandler);
-
-        _notificationHandler = (INotificationHandler<INotificationOption>)emailHandler;
+        _gatewayProvider = gatewayProvider;
     }
 
     public async Task NotifyAsync(Notification notification, CancellationToken cancellationToken)
     {
         foreach (var method in notification.Methods)
         {
-            var result = await _notificationHandler.HandleAsync((handler, option, ct)
-                => handler.NotifyAsync(option, ct), method.Option, cancellationToken);
+            var status = await _gatewayProvider.GetGateway(method.Option).NotifyAsync(method.Option, cancellationToken);
 
-            notification.Handle(result.Success
-                ? new Command.EmitNotificationMethod(notification.Id, method.Id)
-                : new Command.FailNotificationMethod(notification.Id, method.Id));
+            notification.Handle(status switch
+            {
+                NotificationMethodStatus.FailedStatus => new Command.FailNotificationMethod(notification.Id, method.Id),
+                NotificationMethodStatus.SentStatus => new Command.EmitNotificationMethod(notification.Id, method.Id),
+                { } when status == NotificationMethodStatus.Sent => new Command.EmitNotificationMethod(notification.Id, method.Id),
+                _ or null => new Command.FailNotificationMethod(notification.Id, method.Id),
+            });
         }
     }
 
     public async Task CancelAsync(Notification notification, CancellationToken cancellationToken)
     {
-        foreach (var method in notification.Methods)
-        {
-            var result = await _notificationHandler.HandleAsync((handler, option, ct)
-                => handler.CancelAsync(option, ct), method.Option, cancellationToken);
-
-            if (result.Success is false) return;
-
-            notification.Handle(new Command.CancelNotificationMethod(notification.Id, method.Id));
-        }
+        // foreach (var method in notification.Methods)
+        // {
+        //     var status = await _notificationHandler.HandleAsync((handler, option, ct)
+        //         => handler.CancelAsync(option, ct), method.Option, cancellationToken);
+        //
+        //     notification.Handle(status switch
+        //     {
+        //         { } when status == NotificationMethodStatus.FailedStatus => new Command.CancelNotificationMethod(notification.Id, method.Id),
+        //         { } when status == NotificationMethodStatus.CancelledStatus => new Command.CancelNotificationMethod(notification.Id, method.Id),
+        //         { } when status == NotificationMethodStatus.SentStatus => new Command.CancelNotificationMethod(notification.Id, method.Id),
+        //         _ or null => new Command.CancelNotificationMethod(notification.Id, method.Id),
+        //     });
+        // }
     }
 }
