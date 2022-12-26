@@ -35,14 +35,9 @@ public class CatalogGrpcService : CatalogService.CatalogServiceBase
     {
         var pagedResult = await _listCatalogsGridItemsInteractor.InteractAsync(request, context.CancellationToken);
 
-        if (pagedResult.Items.Any() is false)
-        {
-            return new() { NoContent = new() };
-        }
-
         return new()
         {
-            Items = { Items = { pagedResult.Items.Select(gridItem => (CatalogGridItem)gridItem) } },
+            Items = { pagedResult.Items.Select(gridItem => (CatalogGridItem)gridItem) },
             Page = new()
             {
                 Current = pagedResult.Page.Current,
