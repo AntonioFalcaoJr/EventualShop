@@ -1,5 +1,7 @@
+using Application.Abstractions;
 using Application.Services;
 using Application.UseCases.Commands;
+using Contracts.Services.Catalog;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.DependencyInjection.Extensions;
@@ -12,12 +14,12 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddCommandInteractors(this IServiceCollection services)
         => services
-            .AddScoped<IActivateCatalogInteractor, ActivateCatalogInteractor>()
-            .AddScoped<IAddCatalogItemInteractor, AddCatalogItemInteractor>()
-            .AddScoped<IChangeCatalogDescriptionInteractor, ChangeCatalogDescriptionInteractor>()
-            .AddScoped<IChangeCatalogTitleInteractor, ChangeCatalogTitleInteractor>()
-            .AddScoped<ICreateCatalogInteractor, CreateCatalogInteractor>()
-            .AddScoped<IDeactivateCatalogInteractor, DeactivateCatalogInteractor>()
-            .AddScoped<IDeleteCatalogInteractor, DeleteCatalogInteractor>()
-            .AddScoped<IRemoveCatalogItemInteractor, RemoveCatalogItemInteractor>();
+            .AddScoped<IInteractor<Command.ActivateCatalog>, ActivateCatalogInteractor>()
+            .AddScoped<IInteractor<Command.AddCatalogItem>, AddCatalogItemInteractor>()
+            .AddScoped<IInteractor<Command.ChangeCatalogDescription>, ChangeCatalogDescriptionInteractor>()
+            .AddScoped<IInteractor<Command.ChangeCatalogTitle>, ChangeCatalogTitleInteractor>()
+            .AddScoped<IInteractor<Command.CreateCatalog>, CreateCatalogInteractor>()
+            .AddScoped<IInteractor<Command.DeactivateCatalog>, DeactivateCatalogInteractor>()
+            .AddScoped<IInteractor<Command.DeleteCatalog>, DeleteCatalogInteractor>()
+            .AddScoped<IInteractor<Command.RemoveCatalogItem>, RemoveCatalogItemInteractor>();
 }

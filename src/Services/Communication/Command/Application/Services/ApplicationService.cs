@@ -20,13 +20,16 @@ public class ApplicationService : IApplicationService
         _unitOfWork = unitOfWork;
     }
 
-    public Task<IAggregateRoot> LoadAggregateAsync<TAggregate>(Guid id, CancellationToken cancellationToken) where TAggregate : IAggregateRoot, new() 
+    public Task<IAggregateRoot> LoadAggregateAsync<TAggregate>(Guid id, CancellationToken cancellationToken)
+        where TAggregate : IAggregateRoot, new()
         => _eventStoreGateway.LoadAggregateAsync<TAggregate>(id, cancellationToken);
 
     public Task AppendEventsAsync(IAggregateRoot aggregate, CancellationToken cancellationToken)
-        => _unitOfWork.ExecuteAsync(async ct =>
-        {
-            await _eventStoreGateway.AppendEventsAsync(aggregate, ct);
-            await _eventBusGateway.PublishAsync(aggregate.Events.Select(tuple => tuple.@event), ct);
-        }, cancellationToken);
+        => _unitOfWork.ExecuteAsync(
+            operationAsync: async ct =>
+            {
+                await _eventStoreGateway.AppendEventsAsync(aggregate, ct);
+                await _eventBusGateway.PublishAsync(aggregate.Events.Select(tuple => tuple.@event), ct);
+            },
+            cancellationToken: cancellationToken);
 }
