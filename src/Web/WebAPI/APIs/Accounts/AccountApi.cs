@@ -7,7 +7,7 @@ namespace WebAPI.APIs.Accounts;
 public static class AccountApi
 {
     private const string BaseUrl = "/api/v{version:apiVersion}/accounts/";
-    
+
     public static IVersionedEndpointRouteBuilder MapAccountApiV1(this IVersionedEndpointRouteBuilder builder)
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(1);

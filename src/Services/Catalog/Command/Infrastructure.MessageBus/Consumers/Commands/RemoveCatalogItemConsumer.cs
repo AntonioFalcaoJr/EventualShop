@@ -1,4 +1,4 @@
-﻿using Application.UseCases.Commands;
+﻿using Application.Abstractions;
 using Contracts.Services.Catalog;
 using Infrastructure.MessageBus.Abstractions;
 
@@ -6,6 +6,6 @@ namespace Infrastructure.MessageBus.Consumers.Commands;
 
 public class RemoveCatalogItemConsumer : Consumer<Command.RemoveCatalogItem>
 {
-    public RemoveCatalogItemConsumer(IRemoveCatalogItemInteractor interactor)
+    public RemoveCatalogItemConsumer(IInteractor<Command.RemoveCatalogItem> interactor)
         : base(interactor) { }
 }
