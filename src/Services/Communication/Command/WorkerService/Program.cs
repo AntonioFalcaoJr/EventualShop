@@ -45,7 +45,7 @@ builder.ConfigureServices((context, services) =>
     services.AddServices();
     services.AddEventInteractors();
     services.AddMessageValidators();
-    services.AddNotificationGateway();
+    services.AddEmailGateway();
     services.AddSmtpClient();
     services.AddLazyFactory();
 

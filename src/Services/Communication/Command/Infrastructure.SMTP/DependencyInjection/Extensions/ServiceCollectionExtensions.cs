@@ -12,7 +12,7 @@ namespace Infrastructure.SMTP.DependencyInjection.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static void AddNotificationGateway(this IServiceCollection services)
+    public static void AddEmailGateway(this IServiceCollection services)
         => services.AddTransient<INotificationGateway<Email>, EmailGateway>();
     
     public static void AddLazyFactory(this IServiceCollection services)
