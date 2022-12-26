@@ -1,8 +1,6 @@
-using Application.Abstractions;
+using Application.UseCases.Events;
 using Contracts.Services.Catalog;
-using Infrastructure.EventBus.DependencyInjection.Providers;
 using MassTransit;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.EventBus.Consumers.Events;
 
@@ -11,19 +9,19 @@ public class ProjectCatalogItemListItemConsumer :
     IConsumer<DomainEvent.CatalogItemAdded>,
     IConsumer<DomainEvent.CatalogItemRemoved>
 {
-    private readonly ILazyInteractorProvider _lazyInteractorProvider;
+    private readonly IProjectCatalogItemListItemInteractor _interactor;
 
-    public ProjectCatalogItemListItemConsumer(ILazyInteractorProvider lazyInteractorProvider)
+    public ProjectCatalogItemListItemConsumer(IProjectCatalogItemListItemInteractor interactor)
     {
-        _lazyInteractorProvider = lazyInteractorProvider;
+        _interactor = interactor;
     }
 
     public Task Consume(ConsumeContext<DomainEvent.CatalogDeleted> context)
-        => _lazyInteractorProvider.InteractAsync(context.Message, context.CancellationToken);
+        => _interactor.InteractAsync(context.Message, context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.CatalogItemAdded> context)
-        => _lazyInteractorProvider.InteractAsync(context.Message, context.CancellationToken);
+        => _interactor.InteractAsync(context.Message, context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.CatalogItemRemoved> context)
-        => _lazyInteractorProvider.InteractAsync(context.Message, context.CancellationToken);
+        => _interactor.InteractAsync(context.Message, context.CancellationToken);
 }

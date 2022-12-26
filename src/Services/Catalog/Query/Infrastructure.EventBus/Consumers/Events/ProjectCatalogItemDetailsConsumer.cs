@@ -1,4 +1,4 @@
-using Application.Abstractions;
+using Application.UseCases.Events;
 using Contracts.Services.Catalog;
 using MassTransit;
 
@@ -6,9 +6,9 @@ namespace Infrastructure.EventBus.Consumers.Events;
 
 public class ProjectCatalogItemDetailsConsumer : IConsumer<DomainEvent.CatalogItemAdded>
 {
-    private readonly IInteractor<DomainEvent.CatalogItemAdded> _interactor;
+    private readonly IProjectCatalogItemDetailsInteractor _interactor;
 
-    public ProjectCatalogItemDetailsConsumer(IInteractor<DomainEvent.CatalogItemAdded> interactor)
+    public ProjectCatalogItemDetailsConsumer(IProjectCatalogItemDetailsInteractor interactor)
     {
         _interactor = interactor;
     }
