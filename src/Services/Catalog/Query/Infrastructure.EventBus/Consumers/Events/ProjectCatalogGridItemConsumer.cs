@@ -1,5 +1,6 @@
 using Application.Abstractions;
 using Contracts.Services.Catalog;
+using Infrastructure.EventBus.DependencyInjection.Providers;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,40 +14,28 @@ public class ProjectCatalogGridItemConsumer :
     IConsumer<DomainEvent.CatalogDescriptionChanged>,
     IConsumer<DomainEvent.CatalogTitleChanged>
 {
-    private readonly IServiceProvider _serviceProvider;
+    private readonly ILazyInteractorProvider _lazyInteractorProvider;
 
-    public ProjectCatalogGridItemConsumer(IServiceProvider serviceProvider)
+    public ProjectCatalogGridItemConsumer(ILazyInteractorProvider lazyInteractorProvider)
     {
-        _serviceProvider = serviceProvider;
+        _lazyInteractorProvider = lazyInteractorProvider;
     }
 
     public Task Consume(ConsumeContext<DomainEvent.CatalogActivated> context)
-        => _serviceProvider
-            .GetRequiredService<IInteractor<DomainEvent.CatalogActivated>>()
-            .InteractAsync(context.Message, context.CancellationToken);
+        => _lazyInteractorProvider.InteractAsync(context.Message, context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.CatalogCreated> context)
-        => _serviceProvider
-            .GetRequiredService<IInteractor<DomainEvent.CatalogCreated>>()
-            .InteractAsync(context.Message, context.CancellationToken);
+        => _lazyInteractorProvider.InteractAsync(context.Message, context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.CatalogDeactivated> context)
-        => _serviceProvider
-            .GetRequiredService<IInteractor<DomainEvent.CatalogDeactivated>>()
-            .InteractAsync(context.Message, context.CancellationToken);
+        => _lazyInteractorProvider.InteractAsync(context.Message, context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.CatalogDeleted> context)
-        => _serviceProvider
-            .GetRequiredService<IInteractor<DomainEvent.CatalogDeleted>>()
-            .InteractAsync(context.Message, context.CancellationToken);
+        => _lazyInteractorProvider.InteractAsync(context.Message, context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.CatalogDescriptionChanged> context)
-        => _serviceProvider
-            .GetRequiredService<IInteractor<DomainEvent.CatalogDescriptionChanged>>()
-            .InteractAsync(context.Message, context.CancellationToken);
+        => _lazyInteractorProvider.InteractAsync(context.Message, context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.CatalogTitleChanged> context)
-        => _serviceProvider
-            .GetRequiredService<IInteractor<DomainEvent.CatalogTitleChanged>>()
-            .InteractAsync(context.Message, context.CancellationToken);
+        => _lazyInteractorProvider.InteractAsync(context.Message, context.CancellationToken);
 }
