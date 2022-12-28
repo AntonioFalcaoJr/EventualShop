@@ -1,25 +1,26 @@
 ﻿using Contracts.Abstractions.Messages;
+using Contracts.Abstractions.Paging;
 using Contracts.Services.Account.Protobuf;
 
 namespace Contracts.Services.Account;
 
 public static class Query
 {
-    public record GetAccount(Guid AccountId) : IQuery
+    public record struct GetAccount(Guid AccountId) : IQuery
     {
         public static implicit operator GetAccount(GetAccountRequest request)
-            => new(new Guid(request.Id));
+            => new(new(request.AccountId));
     }
 
-    public record ListAccounts(ushort Limit, ushort Offset) : IQuery
+    public record struct ListAccounts(Paging Paging) : IQuery
     {
         public static implicit operator ListAccounts(ListAccountsRequest request)
-            => new((ushort)request.Limit, (ushort)request.Offset);
+            => new(request.Paging);
     }
 
-    public record ListShippingAddresses(Guid AccountId, ushort Limit, ushort Offset) : IQuery
+    public record struct ListShippingAddresses(Guid AccountId, Paging Paging) : IQuery
     {
         public static implicit operator ListShippingAddresses(ListShippingAddressesRequest request)
-            => new(new(request.AccountId), (ushort)request.Limit, (ushort)request.Offset);
+            => new(new(request.AccountId), request.Paging);
     }
 }

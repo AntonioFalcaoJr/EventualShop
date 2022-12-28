@@ -1,5 +1,8 @@
+using Application.Abstractions;
 using Application.UseCases.Events;
 using Application.UseCases.Queries;
+using Contracts.Abstractions.Paging;
+using Contracts.Services.Catalog;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.DependencyInjection;
@@ -8,22 +11,15 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddEventInteractors(this IServiceCollection services)
         => services
-            .AddScoped<IProjectCatalogGridItemWhenCatalogCreatedInteractor, ProjectCatalogGridItemWhenCatalogCreatedInteractor>()
-            .AddScoped<IProjectCatalogGridItemWhenCatalogDeletedInteractor, ProjectCatalogGridItemWhenCatalogDeletedInteractor>()
-            .AddScoped<IProjectCatalogGridItemWhenCatalogActivatedInteractor, ProjectCatalogGridItemWhenCatalogActivatedInteractor>()
-            .AddScoped<IProjectCatalogGridItemWhenCatalogDeactivatedInteractor, ProjectCatalogGridItemWhenCatalogDeactivatedInteractor>()
-            .AddScoped<IProjectCatalogGridItemWhenCatalogDescriptionChangedInteractor, ProjectCatalogGridItemWhenCatalogDescriptionChangedInteractor>()
-            .AddScoped<IProjectCatalogGridItemWhenCatalogTitleChangedInteractor, ProjectCatalogGridItemWhenCatalogTitleChangedInteractor>()
-            .AddScoped<IProjectCatalogItemCardWhenCatalogItemAddedInteractor, ProjectCatalogItemCardWhenCatalogItemAddedInteractor>()
-            .AddScoped<IProjectCatalogItemDetailsWhenCatalogItemAddedInteractor, ProjectCatalogItemDetailsWhenCatalogItemAddedInteractor>()
-            .AddScoped<IProjectCatalogItemListItemWhenCatalogItemAddedInteractor, ProjectCatalogItemListItemWhenCatalogItemAddedInteractor>()
-            .AddScoped<IProjectCatalogItemListItemWhenCatalogItemRemovedInteractor, ProjectCatalogItemListItemWhenCatalogItemRemovedInteractor>()
-            .AddScoped<IProjectCatalogItemListItemWhenCatalogDeletedInteractor, ProjectCatalogItemListItemWhenCatalogDeletedInteractor>();
+            .AddScoped<IProjectCatalogGridItemInteractor, ProjectCatalogGridItemInteractor>()
+            .AddScoped<IProjectCatalogItemCardInteractor, ProjectCatalogItemCardInteractor>()
+            .AddScoped<IProjectCatalogItemDetailsInteractor, ProjectCatalogItemDetailsInteractor>()
+            .AddScoped<IProjectCatalogItemListItemInteractor, ProjectCatalogItemListItemInteractor>();
 
     public static IServiceCollection AddQueryInteractors(this IServiceCollection services)
         => services
-            .AddScoped<IGetCatalogItemDetailsInteractor, GetCatalogItemDetailsInteractor>()
-            .AddScoped<IListCatalogItemsCardsInteractor, ListCatalogItemsCardsInteractor>()
-            .AddScoped<IListCatalogsGridItemsInteractor, ListCatalogsGridItemsInteractor>()
-            .AddScoped<IListCatalogItemsListItemsInteractor, ListCatalogItemsListItemsInteractor>();
+            .AddScoped<IInteractor<Query.GetCatalogItemDetails, Projection.CatalogItemDetails>, GetCatalogItemDetailsInteractor>()
+            .AddScoped<IInteractor<Query.ListCatalogItemsCards, IPagedResult<Projection.CatalogItemCard>>, ListCatalogItemsCardsInteractor>()
+            .AddScoped<IInteractor<Query.ListCatalogsGridItems, IPagedResult<Projection.CatalogGridItem>>, ListCatalogsGridItemsInteractor>()
+            .AddScoped<IInteractor<Query.ListCatalogItemsListItems, IPagedResult<Projection.CatalogItemListItem>>, ListCatalogItemsListItemsInteractor>();
 }

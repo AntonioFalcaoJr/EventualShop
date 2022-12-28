@@ -5,7 +5,7 @@ namespace Contracts.Services.Identity;
 
 public static class Query
 {
-    public record Login(string Email, string Password) : IQuery
+    public record struct Login(string Email, string Password) : IQuery
     {
         public static implicit operator Login(LoginRequest request)
             => new(request.Email, request.Password);

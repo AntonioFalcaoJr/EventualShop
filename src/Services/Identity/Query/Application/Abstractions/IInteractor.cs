@@ -1,4 +1,3 @@
-using Contracts.Abstractions;
 using Contracts.Abstractions.Messages;
 
 namespace Application.Abstractions;
@@ -11,7 +10,6 @@ public interface IInteractor<in TEvent>
 
 public interface IInteractor<in TQuery, TProjection>
     where TQuery : IQuery
-    where TProjection : IProjection
 {
     Task<TProjection?> InteractAsync(TQuery query, CancellationToken cancellationToken);
 }

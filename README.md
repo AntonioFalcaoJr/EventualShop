@@ -1,6 +1,4 @@
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/Logo_EventualShop_Roxo.png)
-
----
+# ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/new_logo.png)
 
 <p align="center">
   <a href="#about">About</a> &nbsp;&bull;&nbsp;
@@ -78,26 +76,17 @@ Fig. 1: Falcão Jr., Antônio. _An EDA solution architecture_.
 
 ### Agnostic Obsession
 
-Agnostic obsession is a design approach that focuses on creating software unrelated to any specific domain, application, or technology. Some strategies adopted in this project are related to
-particular principles, such as the domain-centric to support the business (DDD and Clean Arch), event-sourcing + ORM for persistence mechanism, containers for immutable environments, and Kubernetes (
-K8s) for cloud deployment.
+Agnostic obsession is a design approach that focuses on creating software unrelated to any specific domain, application, or technology. Some strategies adopted in this project are related to particular principles, such as the **domain-centric** to support the business (**Reactive DDD** and **Clean Architecture**); **Event Sourcing** + **object-relational mapping** (ORM) for persistence mechanism; **Containers** for immutable environments; and **Kubernetes** (K8s) for cloud deployment.
 
-The domain-centric approach is a design pattern that separates the core business logic of an application from other concerns, such as the user interface or infrastructure.,making it easier to maintain
-and extend the application, as the core domain is isolated from other system components. Additionally, the ability to move the core domain to different applications while keeping the essence of the
-business can be helpful for organizations that need to support multiple applications or platforms.
+The **domain-centric** approach is a design pattern that separates the core business logic of an application from other concerns, such as the user interface or infrastructure, making it easier to maintain and extend the application, as the core domain is isolated from other system components. Additionally, the ability to move the core domain to different applications while **keeping the essence of the business** can be helpful for organizations that need to support multiple applications or platforms.
 
-A key aspect of agnostic obsession is event-sourcing and object-relational mapping (ORM) as a persistence mechanism. Event sourcing involves storing the history of events occurring within a system
-rather than the system's current state, avoiding advanced database capabilities such as Joins, Triggers, Procedures, and more. On the other hand, ORM is a technique that maps objects in a program to
-data stored in a database, making it easier and more abstract to manage data.
+A key aspect of agnostic obsession is **event-sourcing** and **object-relational mapping** (ORM) as a persistence mechanism. Event sourcing involves storing the history of events occurring within a system rather than the system's current state, **avoiding advanced database capabilities such as Joins, Triggers, Procedures, and more**. On the other hand, ORM is a technique that maps objects in a program to data stored in a database, making it easier and more abstract to manage data.
 
-Another essential aspect of agnostic obsession is using containers to create immutable environments. Containers are a lightweight virtualization form that allows packaging an application and its
-dependencies into a single, self-contained unit, making it easy to deploy and run the application in any environment without worrying about the underlying infrastructure or platform.
+Another essential aspect of agnostic obsession is using **containers to create immutable environments**. Containers are a lightweight virtualization form that allows packaging an application and its dependencies into a single, self-contained unit, making it easy to deploy and run the application in any environment without worrying about the underlying infrastructure or platform.
 
-Finally, agnostic obsession often involves using Kubernetes (K8s) for cloud deployment. K8s is an open-source platform for managing and deploying containerized applications. It is widely used in the
-industry and supported by most cloud providers, making it a natural choice for agnostic obsession.
+Finally, agnostic obsession often involves using **Kubernetes** (K8s) for cloud deployment. K8s is an open-source platform for managing and deploying containerized applications. It is widely used in the industry and supported by most cloud providers, making it a natural choice for agnostic obsession.
 
-In summary, agnostic obsession is a powerful approach that allows for creating highly flexible and adaptable software that can be easily moved and deployed in different environments. Using
-event-sourcing, ORM, Containers, and K8s, it is possible to build resilient, scalable, and easy-to-maintain systems.
+In summary, agnostic obsession is a powerful approach that allows for creating highly flexible and adaptable software that can be easily moved and deployed in different environments. Using event-sourcing, ORM, Containers, and K8s, it is possible to build resilient, scalable, and easy-to-maintain systems.
 
 </details>
 
@@ -701,6 +690,8 @@ with some different strategies and ways to implement projections.
 
 <details>
     <summary>Task Based UI + CQRS</summary>
+
+### Task Based UI + CQRS
 
 In a standard user interface (UI), the user typically edits or manipulates data directly. This allows the user to enter or modify the data synchronously, enabling the UI to respond to
 the user's actions in real-time (blocking the operation until the return).

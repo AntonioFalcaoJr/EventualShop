@@ -1,4 +1,6 @@
 using Contracts.Abstractions.Messages;
+using Contracts.Abstractions.Paging;
+using Contracts.Services.Catalog;
 
 namespace Application.Abstractions;
 

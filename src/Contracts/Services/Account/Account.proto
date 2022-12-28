@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package Contracts.Services.Account.Protobuf;
 
+import "Abstractions/Abstractions.proto";
+
 service AccountService {
   rpc GetAccount(GetAccountRequest) returns (Account);
   rpc ListAccounts(ListAccountsRequest) returns (Accounts);
@@ -9,7 +11,7 @@ service AccountService {
 }
 
 message GetAccountRequest {
-  string Id = 1;
+  string AccountId = 1;
 }
 
 message Account {
@@ -20,24 +22,22 @@ message Account {
 }
 
 message ListAccountsRequest {
-  sint32 Limit = 1;
-  sint32 Offset = 2;
+  Abstractions.Protobuf.Paging Paging = 1;
 }
 
 message Accounts {
   repeated Account Items = 1;
-  Page Page = 2;
+  Abstractions.Protobuf.Page Page = 2;
 }
 
 message ListShippingAddressesRequest {
   string AccountId = 1;
-  sint32 Limit = 2;
-  sint32 Offset = 3;
+  Abstractions.Protobuf.Paging Paging = 2;
 }
 
 message Addresses {
   repeated Address Items = 1;
-  Page Page = 2;
+  Abstractions.Protobuf.Page Page = 2;
 }
 
 message Address {
@@ -49,11 +49,4 @@ message Address {
   string State = 6;
   string Street = 7;
   string ZipCode = 8;
-}
-
-message Page{
-  int32 Current = 1;
-  int32 Size = 2;
-  bool HasNext = 3;
-  bool HasPrevious = 4;
 }

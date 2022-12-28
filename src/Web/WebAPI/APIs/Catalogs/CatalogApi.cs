@@ -16,7 +16,7 @@ public static class CatalogApi
             => ApplicationApi.SendCommandAsync<Command.CreateCatalog>(request));
 
         group.MapGet("/grid-items", ([AsParameters] Requests.ListCatalogsGridItems request)
-            => ApplicationApi.QueryAsync(request, (client, cancellationToken) => client.ListCatalogsGridItemsAsync(request, cancellationToken: cancellationToken)));
+            => ApplicationApi.QueryAsyncCopy(request, (client, cancellationToken) => client.ListCatalogsGridItemsAsync(request, cancellationToken: cancellationToken)));
 
         group.MapDelete("/{catalogId:guid}", ([AsParameters] Requests.DeleteCatalog request)
             => ApplicationApi.SendCommandAsync<Command.DeleteCatalog>(request));
