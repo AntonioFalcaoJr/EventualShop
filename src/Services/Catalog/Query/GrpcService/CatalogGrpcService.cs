@@ -28,57 +28,54 @@ public class CatalogGrpcService : CatalogService.CatalogServiceBase
     public override async Task<CatalogItemDetailsResponse> GetCatalogItemDetails(GetCatalogItemDetailsRequest request, ServerCallContext context)
     {
         var itemDetails = await _getCatalogItemDetailsInteractor.InteractAsync(request, context.CancellationToken);
-        return itemDetails is null ? new() : new() { CatalogItemDetails = itemDetails };
+        return itemDetails is null ? new() { NotFound = new() } : new() { CatalogItemDetails = itemDetails };
     }
 
     public override async Task<CatalogsGridItemsPagedResponse> ListCatalogsGridItems(ListCatalogsGridItemsRequest request, ServerCallContext context)
     {
         var pagedResult = await _listCatalogsGridItemsInteractor.InteractAsync(request, context.CancellationToken);
 
-        return new()
-        {
-            Items = { pagedResult.Items.Select(gridItem => (CatalogGridItem)gridItem) },
-            Page = new()
+        return pagedResult!.Items.Any()
+            ? new()
             {
-                Current = pagedResult.Page.Current,
-                Size = pagedResult.Page.Size,
-                HasNext = pagedResult.Page.HasNext,
-                HasPrevious = pagedResult.Page.HasPrevious
+                CatalogGridItems =
+                {
+                    Items = { pagedResult.Items.Select(gridItem => (CatalogGridItem)gridItem) },
+                    Page = pagedResult.Page
+                }
             }
-        };
+            : new() { NoContent = new() };
     }
 
     public override async Task<CatalogItemsListItemsPagedResponse> ListCatalogItemsListItems(ListCatalogItemsListItemsRequest request, ServerCallContext context)
     {
         var pagedResult = await _listCatalogItemsListItemsInteractor.InteractAsync(request, context.CancellationToken);
 
-        return new()
-        {
-            Items = { pagedResult.Items.Select(listItem => (CatalogItemListItem)listItem) },
-            Page = new()
+        return pagedResult!.Items.Any()
+            ? new()
             {
-                Current = pagedResult.Page.Current,
-                Size = pagedResult.Page.Size,
-                HasNext = pagedResult.Page.HasNext,
-                HasPrevious = pagedResult.Page.HasPrevious
+                CatalogListItems =
+                {
+                    Items = { pagedResult.Items.Select(gridItem => (CatalogItemListItem)gridItem) },
+                    Page = pagedResult.Page
+                }
             }
-        };
+            : new() { NoContent = new() };
     }
 
     public override async Task<CatalogItemsCardsPagedResponse> ListCatalogItemsCards(ListCatalogItemsCardsRequest request, ServerCallContext context)
     {
         var pagedResult = await _listCatalogItemsCardsInteractor.InteractAsync(request, context.CancellationToken);
 
-        return new()
-        {
-            Items = { pagedResult.Items.Select(card => (CatalogItemCard)card) },
-            Page = new()
+        return pagedResult!.Items.Any()
+            ? new()
             {
-                Current = pagedResult.Page.Current,
-                Size = pagedResult.Page.Size,
-                HasNext = pagedResult.Page.HasNext,
-                HasPrevious = pagedResult.Page.HasPrevious
+                CatalogItemCards =
+                {
+                    Items = { pagedResult.Items.Select(gridItem => (CatalogItemCard)gridItem) },
+                    Page = pagedResult.Page
+                }
             }
-        };
+            : new() { NoContent = new() };
     }
 }

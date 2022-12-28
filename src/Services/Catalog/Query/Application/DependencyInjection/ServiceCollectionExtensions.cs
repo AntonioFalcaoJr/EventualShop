@@ -11,17 +11,10 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddEventInteractors(this IServiceCollection services)
         => services
-            .AddScoped<IInteractor<DomainEvent.CatalogCreated>, ProjectCatalogGridItemInteractor>()
-            .AddScoped<IInteractor<DomainEvent.CatalogDeleted>, ProjectCatalogGridItemInteractor>()
-            .AddScoped<IInteractor<DomainEvent.CatalogActivated>, ProjectCatalogGridItemInteractor>()
-            .AddScoped<IInteractor<DomainEvent.CatalogDeactivated>, ProjectCatalogGridItemInteractor>()
-            .AddScoped<IInteractor<DomainEvent.CatalogDescriptionChanged>, ProjectCatalogGridItemInteractor>()
-            .AddScoped<IInteractor<DomainEvent.CatalogTitleChanged>, ProjectCatalogGridItemInteractor>()
-            .AddScoped<IInteractor<DomainEvent.CatalogItemAdded>, ProjectCatalogItemCardInteractor>()
-            .AddScoped<IInteractor<DomainEvent.CatalogItemAdded>, ProjectCatalogItemDetailsInteractor>()
-            .AddScoped<IInteractor<DomainEvent.CatalogItemAdded>, ProjectCatalogItemListItemInteractor>()
-            .AddScoped<IInteractor<DomainEvent.CatalogItemRemoved>, ProjectCatalogItemListItemInteractor>()
-            .AddScoped<IInteractor<DomainEvent.CatalogDeleted>, ProjectCatalogItemListItemInteractor>();
+            .AddScoped<IProjectCatalogGridItemInteractor, ProjectCatalogGridItemInteractor>()
+            .AddScoped<IProjectCatalogItemCardInteractor, ProjectCatalogItemCardInteractor>()
+            .AddScoped<IProjectCatalogItemDetailsInteractor, ProjectCatalogItemDetailsInteractor>()
+            .AddScoped<IProjectCatalogItemListItemInteractor, ProjectCatalogItemListItemInteractor>();
 
     public static IServiceCollection AddQueryInteractors(this IServiceCollection services)
         => services

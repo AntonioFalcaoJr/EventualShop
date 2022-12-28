@@ -14,5 +14,5 @@ public class ListAccountsInteractor : IInteractor<Query.ListAccounts, IPagedResu
     }
 
     public Task<IPagedResult<Projection.AccountDetails>> InteractAsync(Query.ListAccounts query, CancellationToken cancellationToken)
-        => _projectionGateway.GetAllAsync(query.Limit, query.Offset, cancellationToken);
+        => _projectionGateway.ListAsync(query.Paging, cancellationToken);
 }

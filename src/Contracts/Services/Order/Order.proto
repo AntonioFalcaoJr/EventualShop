@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package Contracts.Services.Order.Protobuf;
+
+import "Abstractions/Abstractions.proto";
+
+service OrderService {
+  rpc ListOrdersGridItems(ListOrdersGridItemsRequest) returns (OrdersGridItemsPagedResponse);
+  rpc GetOrderDetails(GetOrderDetailsRequest) returns (OrderDetailsResponse);
+}
+
+// ListOrders - GridItems
+
+message ListOrdersGridItemsRequest {
+  string CustomerId = 1;
+  Abstractions.Protobuf.Paging Paging = 2;
+}
+
+message OrdersGridItemsPagedResponse {
+  oneof Response{
+    OrderGridItems OrderGridItems = 1;
+    Abstractions.Protobuf.NoContent NoContent = 2;
+  }
+}
+
+message OrderGridItems {
+  repeated OrderGridItem Items = 1;
+  Abstractions.Protobuf.Page Page = 2;
+}
+
+message OrderGridItem {
+  string OrderId = 1;
+  string CustomerId = 2;
+  string Total = 3;
+  string Status = 4;
+}
+
+// GetOrder - Details
+
+message GetOrderDetailsRequest {
+  string OrderId = 1;
+}
+
+message OrderDetailsResponse{
+  oneof Response{
+    OrderDetails OrderDetails = 1;
+    Abstractions.Protobuf.NotFound NotFound = 2;
+  }
+}
+
+message OrderDetails {
+  string OrderId = 1;
+  string CustomerId = 2;
+  string Total = 3;
+  string Status = 4;
+}

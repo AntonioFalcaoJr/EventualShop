@@ -1,0 +1,30 @@
+﻿syntax = "proto3";
+
+package Contracts.Abstractions.Protobuf;
+
+import "google/protobuf/wrappers.proto";
+
+message Page{
+  int32 Current = 1;
+  int32 Size = 2;
+  bool HasNext = 3;
+  bool HasPrevious = 4;
+}
+
+message Paging {
+  google.protobuf.Int32Value Limit = 1;
+  google.protobuf.Int32Value Offset = 2;
+}
+
+message NoContent {}
+
+message NotFound {}
+
+message Product {
+  string Description = 1;
+  string Name = 2;
+  string Brand = 4;
+  string Category = 5;
+  string Unit = 6;
+  string Sku = 7;
+}

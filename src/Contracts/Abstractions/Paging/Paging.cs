@@ -20,9 +20,9 @@ public record struct Paging
         };
     }
 
-    public static implicit operator Paging(Services.Catalog.Protobuf.Paging paging)
+    public static implicit operator Paging(Abstractions.Protobuf.Paging paging)
         => new() { Limit = paging.Limit, Offset = paging.Offset };
 
-    public static implicit operator Services.Catalog.Protobuf.Paging(Paging paging)
+    public static implicit operator Abstractions.Protobuf.Paging(Paging paging)
         => new() { Limit = paging.Limit, Offset = paging.Offset };
 }

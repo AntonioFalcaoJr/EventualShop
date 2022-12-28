@@ -16,6 +16,6 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddQueryInteractors(this IServiceCollection services)
         => services
-            .AddScoped<IInteractor<Query.GetOrder, Projection.OrderDetails>, GetOrderInteractor>()
-            .AddScoped<IInteractor<Query.ListOrders, IPagedResult<Projection.OrderDetails>>, ListOrdersInteractor>();
+            .AddScoped<IInteractor<Query.GetOrderDetails, Projection.OrderDetails>, GetOrderDetailsInteractor>()
+            .AddScoped<IInteractor<Query.ListOrdersGridItems, IPagedResult<Projection.OrderGridItem>>, ListOrdersGridItemsInteractor>();
 }
