@@ -1,18 +1,44 @@
 using Contracts.Abstractions;
 using Contracts.Abstractions.Messages;
 using Contracts.Abstractions.Paging;
+using Contracts.Services.Catalog.Protobuf;
+using Google.Protobuf;
+using Google.Protobuf.Reflection;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using MassTransit;
 using Microsoft.AspNetCore.Http.HttpResults;
 using static Microsoft.AspNetCore.Http.TypedResults;
+using IMessage = Contracts.Abstractions.Messages.IMessage;
 
 namespace WebAPI.Abstractions;
 
 public static class ApplicationApi
 {
-    public static async Task<Results<Ok<TResponse>, ValidationProblem>> QueryAsync<TClient, TResponse>(IQueryRequest<TClient> request, Func<TClient, CancellationToken, AsyncUnaryCall<TResponse>> query)
+    public static async Task<Results<Ok<TResponse>, ValidationProblem>> QueryAsync<TClient, TResponse>(IQueryRequest<TClient> request,
+        Func<TClient, CancellationToken, AsyncUnaryCall<TResponse>> query)
         where TClient : ClientBase<TClient>
         => request.IsValid(out var errors) ? Ok(await query(request.Client, request.CancellationToken)) : ValidationProblem(errors);
+
+    public static async Task<Results<Ok<TResponse>, NoContent, NotFound, ValidationProblem>> QueryAsyncCopy<TClient, TResponse>(IQueryRequest<TClient> request,
+        Func<TClient, CancellationToken, AsyncUnaryCall<TResponse>> query)
+        where TClient : ClientBase<TClient> where TResponse : IMessage<TResponse>
+    {
+        return request.IsValid(out var errors) ? await ResponseAsync() : ValidationProblem(errors);
+
+        async Task<Results<Ok<TResponse>, NoContent, NotFound, ValidationProblem>> ResponseAsync()
+        {
+            var response = await query(request.Client, request.CancellationToken);
+
+            return response switch
+            {
+                null => NoContent(),
+                { } when (bool)response.ToString()?.Contains("NotFound") => NotFound(),
+                { } when response.ToString().Contains("NoContent") => NoContent(),
+                _ => Ok(response)
+            };
+        }
+    }
 
     public static async Task<Results<Accepted, ValidationProblem>> SendCommandAsync<TCommand>(ICommandRequest request)
         where TCommand : class, ICommand

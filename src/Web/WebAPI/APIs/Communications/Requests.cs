@@ -10,10 +10,6 @@ public static class Requests
         : Validatable<ListNotificationsValidator>, IQueryRequest<CommunicationService.CommunicationServiceClient>
     {
         public static implicit operator ListNotificationsRequest(ListNotifications request)
-            => new()
-            {
-                Limit = request.Limit ?? default,
-                Offset = request.Offset ?? default
-            };
+            => new() { Paging = new() { Limit = request.Limit, Offset = request.Offset } };
     }
 }
