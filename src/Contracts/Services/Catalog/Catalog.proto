@@ -4,29 +4,20 @@ package Contracts.Services.Catalog.Protobuf;
 
 import "Abstractions/Abstractions.proto";
 
+import "google/protobuf/any.proto";
+import "google/protobuf/descriptor.proto";
+
 service CatalogService {
-  rpc ListCatalogsGridItems(ListCatalogsGridItemsRequest) returns (CatalogsGridItemsPagedResponse);
-  rpc ListCatalogItemsListItems(ListCatalogItemsListItemsRequest) returns (CatalogItemsListItemsPagedResponse);
-  rpc ListCatalogItemsCards(ListCatalogItemsCardsRequest) returns (CatalogItemsCardsPagedResponse);
-  rpc GetCatalogItemDetails(GetCatalogItemDetailsRequest) returns (CatalogItemDetailsResponse);
+  rpc ListCatalogsGridItems(ListCatalogsGridItemsRequest) returns (Abstractions.Protobuf.ListResponse);
+  rpc ListCatalogItemsListItems(ListCatalogItemsListItemsRequest) returns (Abstractions.Protobuf.ListResponse);
+  rpc ListCatalogItemsCards(ListCatalogItemsCardsRequest) returns (Abstractions.Protobuf.ListResponse);
+  rpc GetCatalogItemDetails(GetCatalogItemDetailsRequest) returns (Abstractions.Protobuf.GetResponse);
 }
 
 // Catalogs - GridItems
 
 message ListCatalogsGridItemsRequest {
   Abstractions.Protobuf.Paging Paging = 1;
-}
-
-message CatalogsGridItemsPagedResponse {
-  oneof Response{
-    CatalogGridItems CatalogGridItems = 1;
-    Abstractions.Protobuf.NoContent NoContent = 2;
-  }
-}
-
-message CatalogGridItems {
-  repeated CatalogGridItem Items = 1;
-  Abstractions.Protobuf.Page Page = 2;
 }
 
 message CatalogGridItem {
@@ -44,18 +35,6 @@ message ListCatalogItemsListItemsRequest {
   Abstractions.Protobuf.Paging Paging = 2;
 }
 
-message CatalogItemsListItemsPagedResponse {
-  oneof Response{
-    CatalogListItems CatalogListItems = 1;
-    Abstractions.Protobuf.NoContent NoContent = 2;
-  }
-}
-
-message CatalogListItems {
-  repeated CatalogItemListItem Items = 1;
-  Abstractions.Protobuf.Page Page = 2;
-}
-
 message CatalogItemListItem {
   string CatalogId = 1;
   string ItemId = 2;
@@ -67,18 +46,6 @@ message CatalogItemListItem {
 message ListCatalogItemsCardsRequest {
   string CatalogId = 1;
   Abstractions.Protobuf.Paging Paging = 2;
-}
-
-message CatalogItemsCardsPagedResponse {
-  oneof Response{
-    CatalogItemsCards CatalogItemCards = 1;
-    Abstractions.Protobuf.NoContent NoContent = 2;
-  }
-}
-
-message CatalogItemsCards {
-  repeated CatalogItemCard Items = 1;
-  Abstractions.Protobuf.Page Page = 2;
 }
 
 message CatalogItemCard {
@@ -95,13 +62,6 @@ message CatalogItemCard {
 message GetCatalogItemDetailsRequest {
   string CatalogId = 1;
   string ItemId = 2;
-}
-
-message CatalogItemDetailsResponse{
-  oneof Response{
-    CatalogItemDetails CatalogItemDetails = 1;
-    Abstractions.Protobuf.NotFound NotFound = 2;
-  }
 }
 
 message CatalogItemDetails {

@@ -15,4 +15,13 @@ public record Page
             HasPrevious = page.HasPrevious,
             HasNext = page.HasNext
         };
+
+    public static implicit operator Page(Abstractions.Protobuf.Page page)
+        => new()
+        {
+            Current = page.Current,
+            Size = page.Size,
+            HasPrevious = page.HasPrevious,
+            HasNext = page.HasNext
+        };
 }
