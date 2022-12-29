@@ -4,7 +4,7 @@ public record struct Paging
 {
     private const int UpperLimit = 100;
     private const int DefaultLimit = 10;
-    private const int DefaultOffset = 10;
+    private const int DefaultOffset = 0;
 
     public Paging(int? limit, int? offset)
     {
