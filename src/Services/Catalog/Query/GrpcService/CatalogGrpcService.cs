@@ -1,10 +1,8 @@
 using Application.Abstractions;
-using Contracts.Abstractions;
 using Contracts.Abstractions.Paging;
 using Contracts.Abstractions.Protobuf;
 using Contracts.Services.Catalog;
 using Contracts.Services.Catalog.Protobuf;
-using Google.Protobuf;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 
@@ -41,31 +39,48 @@ public class CatalogGrpcService : CatalogService.CatalogServiceBase
     public override async Task<ListResponse> ListCatalogsGridItems(ListCatalogsGridItemsRequest request, ServerCallContext context)
     {
         var pagedResult = await _listCatalogsGridItemsInteractor.InteractAsync(request, context.CancellationToken);
-        return GetListResponse<CatalogItemCard>(pagedResult);
+        
+        return pagedResult!.Items.Any()
+            ? new()
+            {
+                PagedResult = new()
+                {
+                    Projections = { pagedResult.Items.Select(item => Any.Pack((CatalogGridItem)item)) },
+                    Page = pagedResult.Page
+                }
+            }
+            : new() { NoContent = new() };
     }
 
     public override async Task<ListResponse> ListCatalogItemsListItems(ListCatalogItemsListItemsRequest request, ServerCallContext context)
     {
         var pagedResult = await _listCatalogItemsListItemsInteractor.InteractAsync(request, context.CancellationToken);
-        return GetListResponse<CatalogItemCard>(pagedResult);
+        
+        return pagedResult!.Items.Any()
+            ? new()
+            {
+                PagedResult = new()
+                {
+                    Projections = { pagedResult.Items.Select(item => Any.Pack((CatalogItemListItem)item)) },
+                    Page = pagedResult.Page
+                }
+            }
+            : new() { NoContent = new() };
     }
 
     public override async Task<ListResponse> ListCatalogItemsCards(ListCatalogItemsCardsRequest request, ServerCallContext context)
     {
         var pagedResult = await _listCatalogItemsCardsInteractor.InteractAsync(request, context.CancellationToken);
-        return GetListResponse<CatalogItemCard>(pagedResult);
-    }
 
-    private static ListResponse GetListResponse<TProtobuf>(IPagedResult<IProjection>? pagedResult)
-        where TProtobuf : class, IMessage
-        => pagedResult!.Items.Any()
+        return pagedResult!.Items.Any()
             ? new()
             {
                 PagedResult = new()
                 {
-                    Projections = { pagedResult.Items.Select(item => Any.Pack((TProtobuf)item)) },
+                    Projections = { pagedResult.Items.Select(item => Any.Pack((CatalogItemCard)item)) },
                     Page = pagedResult.Page
                 }
             }
             : new() { NoContent = new() };
+    }
 }

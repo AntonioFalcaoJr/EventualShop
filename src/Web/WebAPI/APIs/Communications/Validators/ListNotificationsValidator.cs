@@ -11,6 +11,6 @@ public class ListNotificationsValidator : AbstractValidator<Requests.ListNotific
             .LessThanOrEqualTo(100);
 
         RuleFor(request => request.Offset)
-            .GreaterThan(0);
+            .GreaterThanOrEqualTo(0);
     }
 }

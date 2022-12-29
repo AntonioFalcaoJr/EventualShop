@@ -14,6 +14,6 @@ public class ListCatalogItemsCardsValidator : AbstractValidator<Requests.ListCat
             .LessThanOrEqualTo(100);
 
         RuleFor(request => request.Offset)
-            .GreaterThan(0);
+            .GreaterThanOrEqualTo(0);
     }
 }
