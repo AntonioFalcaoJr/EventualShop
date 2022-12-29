@@ -1,4 +1,4 @@
-name: _Workflow
+name: [Template] Workflow
 on:
   workflow_call:
     inputs:
