@@ -23,7 +23,7 @@ services:
           cpus: '0.20'
           memory: 200M
       restart_policy:
-        condition: on-failure
+        condition: any
 
   account-query:
     image: account-query:latest
@@ -46,7 +46,7 @@ services:
           cpus: '0.20'
           memory: 200M
       restart_policy:
-        condition: on-failure
+        condition: any
   
   catalog-command:
     image: catalog-command:latest
@@ -69,7 +69,7 @@ services:
           cpus: '0.20'
           memory: 200M
       restart_policy:
-        condition: on-failure
+        condition: any
 
   catalog-query:
     image: catalog-query:latest
@@ -92,7 +92,7 @@ services:
           cpus: '0.20'
           memory: 200M
       restart_policy:
-        condition: on-failure
+        condition: any
   
   communication-command:
     image: communication-command:latest
@@ -115,7 +115,7 @@ services:
           cpus: '0.20'
           memory: 200M
       restart_policy:
-        condition: on-failure
+        condition: any
 
   communication-query:
     image: communication-query:latest
@@ -138,7 +138,7 @@ services:
           cpus: '0.20'
           memory: 200M
       restart_policy:
-        condition: on-failure
+        condition: any
   
   identity-command:
     image: identity-command:latest
@@ -161,7 +161,7 @@ services:
           cpus: '0.20'
           memory: 200M
       restart_policy:
-        condition: on-failure
+        condition: any
 
   identity-query:
     image: identity-query:latest
@@ -184,7 +184,7 @@ services:
           cpus: '0.20'
           memory: 200M
       restart_policy:
-        condition: on-failure
+        condition: any
   
   order-command:
     image: order-command:latest
@@ -207,7 +207,7 @@ services:
           cpus: '0.20'
           memory: 200M
       restart_policy:
-        condition: on-failure
+        condition: any
   
   order-query:
     image: order-query:latest
@@ -230,7 +230,7 @@ services:
           cpus: '0.20'
           memory: 200M
       restart_policy:
-        condition: on-failure
+        condition: any
   
   payment:
     image: payment:latest
@@ -255,7 +255,7 @@ services:
           cpus: '0.20'
           memory: 200M
       restart_policy:
-        condition: on-failure
+        condition: any
 
   shopping-cart:
     image: shopping-cart:latest
@@ -280,7 +280,7 @@ services:
           cpus: '0.20'
           memory: 200M
       restart_policy:
-        condition: on-failure
+        condition: any
   
   warehouse:
     image: warehouse:latest
@@ -305,7 +305,7 @@ services:
           cpus: '0.20'
           memory: 200M
       restart_policy:
-        condition: on-failure
+        condition: any
   
   webapi:
     image: webapi:latest
@@ -329,7 +329,7 @@ services:
           cpus: '0.20'
           memory: 200M
       restart_policy:
-        condition: on-failure
+        condition: any
   
   webapp:
     image: webapp:latest
@@ -352,4 +352,4 @@ services:
           cpus: '0.25'
           memory: 128M
       restart_policy:
-        condition: on-failure
+        condition: any
