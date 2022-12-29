@@ -24,7 +24,7 @@ public class NotificationMethod : Entity<NotificationMethodValidator>
         => Status = NotificationMethodStatus.Failed;
 
     public void Cancel()
-        => Status = NotificationMethodStatus.Canceled;
+        => Status = NotificationMethodStatus.Cancelled;
 
     public void Reset()
         => Status = NotificationMethodStatus.Pending;

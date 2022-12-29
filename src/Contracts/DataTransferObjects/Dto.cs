@@ -69,7 +69,7 @@ public static class Dto
 
     public record Product(string Description, string Name, string Brand, string Category, string Unit, string Sku)
     {
-        public static implicit operator CatalogProtobuf.Product(Product product)
+        public static implicit operator Abstractions.Protobuf.Product(Product product)
             => new()
             {
                 Description = product.Description,

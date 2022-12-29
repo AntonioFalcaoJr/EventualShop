@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package Contracts.Services.Communication.Protobuf;
 
+import "Abstractions/Abstractions.proto";
+
 service CommunicationService {
   rpc ListEmails(ListNotificationsRequest) returns (Notifications);
 }
@@ -37,18 +39,10 @@ message PushMobile {
 }
 
 message ListNotificationsRequest {
-  sint32 Limit = 1;
-  sint32 Offset = 2;
+  Abstractions.Protobuf.Paging Paging = 1;
 }
 
 message Notifications {
   repeated Notification Items = 1;
-  Page Page = 2;
-}
-
-message Page{
-  int32 Current = 1;
-  int32 Size = 2;
-  bool HasNext = 3;
-  bool HasPrevious = 4;
+  Abstractions.Protobuf.Page Page = 2;
 }

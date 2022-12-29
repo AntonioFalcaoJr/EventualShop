@@ -3,7 +3,9 @@ using Contracts.Services.Catalog;
 
 namespace Application.UseCases.Events;
 
-public class ProjectCatalogItemCardInteractor : IInteractor<DomainEvent.CatalogItemAdded>
+public interface IProjectCatalogItemCardInteractor : IInteractor<DomainEvent.CatalogItemAdded> { }
+
+public class ProjectCatalogItemCardInteractor : IProjectCatalogItemCardInteractor
 {
     private readonly IProjectionGateway<Projection.CatalogItemCard> _projectionGateway;
 

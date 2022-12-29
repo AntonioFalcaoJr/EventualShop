@@ -15,7 +15,4 @@
         <DependentUpon>EmailResource.resx</DependentUpon>
       </Compile>
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Handlers" />
-    </ItemGroup>
 </Project>

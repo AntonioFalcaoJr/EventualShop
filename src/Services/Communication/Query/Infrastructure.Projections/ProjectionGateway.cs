@@ -26,11 +26,11 @@ public class ProjectionGateway<TProjection> : IProjectionGateway<TProjection>
     public Task<TProjection> FindAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
         => _collection.AsQueryable().Where(predicate).FirstOrDefaultAsync(cancellationToken);
 
-    public Task<IPagedResult<TProjection>> GetAllAsync(ushort limit, ushort offset, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
-        => PagedResult<TProjection>.CreateAsync(limit, offset, _collection.AsQueryable().Where(predicate), cancellationToken);
+    public Task<IPagedResult<TProjection>> ListAsync(Paging paging, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
+        => PagedResult<TProjection>.CreateAsync(paging, _collection.AsQueryable().Where(predicate), cancellationToken);
 
-    public Task<IPagedResult<TProjection>> GetAllAsync(ushort limit, ushort offset, CancellationToken cancellationToken)
-        => PagedResult<TProjection>.CreateAsync(limit, offset, _collection.AsQueryable(), cancellationToken);
+    public Task<IPagedResult<TProjection>> ListAsync(Paging paging, CancellationToken cancellationToken)
+        => PagedResult<TProjection>.CreateAsync(paging, _collection.AsQueryable(), cancellationToken);
 
     public Task InsertAsync(TProjection projection, CancellationToken cancellationToken)
         => _collection.InsertOneAsync(projection, cancellationToken: cancellationToken);
@@ -52,7 +52,7 @@ public class ProjectionGateway<TProjection> : IProjectionGateway<TProjection>
             .WithWriteConcern(WriteConcern.Unacknowledged)
             .BulkWriteAsync(
                 requests: requests,
-                options: new BulkWriteOptions { IsOrdered = false },
+                options: new() { IsOrdered = false },
                 cancellationToken: cancellationToken);
     }
 

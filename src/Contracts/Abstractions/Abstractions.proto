@@ -1,0 +1,50 @@
+﻿syntax = "proto3";
+
+package Contracts.Abstractions.Protobuf;
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/any.proto";
+
+message GetResponse{
+  oneof OneOf{
+    google.protobuf.Any Projection = 1;
+    NotFound NotFound = 2;
+  }
+}
+
+message ListResponse{
+  oneof OneOf{
+    PagedResult PagedResult = 1;
+    NoContent NoContent = 2;
+  }
+}
+
+message PagedResult{
+  repeated google.protobuf.Any Projections = 1;
+  Page page = 2;
+}
+
+message Page{
+  int32 Current = 1;
+  int32 Size = 2;
+  bool HasNext = 3;
+  bool HasPrevious = 4;
+}
+
+message NoContent {}
+
+message NotFound {}
+
+message Paging {
+  google.protobuf.Int32Value Limit = 1;
+  google.protobuf.Int32Value Offset = 2;
+}
+
+message Product {
+  string Description = 1;
+  string Name = 2;
+  string Brand = 4;
+  string Category = 5;
+  string Unit = 6;
+  string Sku = 7;
+}

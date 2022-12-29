@@ -28,12 +28,7 @@ public static class Requests
         : Validatable<ListShippingAddressesValidator>, IQueryRequest<AccountService.AccountServiceClient>
     {
         public static implicit operator ListShippingAddressesRequest(ListShippingAddresses request)
-            => new()
-            {
-                AccountId = request.AccountId.ToString(),
-                Limit = request.Limit ?? default,
-                Offset = request.Offset ?? default
-            };
+            => new() { AccountId = request.AccountId.ToString(), Paging = new() { Limit = request.Limit, Offset = request.Offset } };
     }
 
     public record DeleteAccount(IBus Bus, Guid AccountId, CancellationToken CancellationToken)
@@ -47,13 +42,13 @@ public static class Requests
         : Validatable<GetAccountValidator>, IQueryRequest<AccountService.AccountServiceClient>
     {
         public static implicit operator GetAccountRequest(GetAccount request)
-            => new() { Id = request.AccountId.ToString() };
+            => new() { AccountId = request.AccountId.ToString() };
     }
 
     public record ListAccounts(AccountService.AccountServiceClient Client, int? Limit, int? Offset, CancellationToken CancellationToken)
         : Validatable<ListAccountsValidator>, IQueryRequest<AccountService.AccountServiceClient>
     {
         public static implicit operator ListAccountsRequest(ListAccounts request)
-            => new() { Limit = request.Limit ?? default, Offset = request.Offset ?? default };
+            => new() { Paging = new() { Limit = request.Limit, Offset = request.Offset } };
     }
 }

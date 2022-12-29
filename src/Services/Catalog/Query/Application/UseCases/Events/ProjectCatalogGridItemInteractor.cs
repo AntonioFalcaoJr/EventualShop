@@ -3,13 +3,15 @@ using Contracts.Services.Catalog;
 
 namespace Application.UseCases.Events;
 
-public class ProjectCatalogGridItemInteractor :
+public interface IProjectCatalogGridItemInteractor :
     IInteractor<DomainEvent.CatalogActivated>,
     IInteractor<DomainEvent.CatalogCreated>,
     IInteractor<DomainEvent.CatalogDeactivated>,
     IInteractor<DomainEvent.CatalogDescriptionChanged>,
     IInteractor<DomainEvent.CatalogTitleChanged>,
-    IInteractor<DomainEvent.CatalogDeleted>
+    IInteractor<DomainEvent.CatalogDeleted> { }
+
+public class ProjectCatalogGridItemInteractor : IProjectCatalogGridItemInteractor
 {
     private readonly IProjectionGateway<Projection.CatalogGridItem> _projectionGateway;
 
@@ -23,7 +25,7 @@ public class ProjectCatalogGridItemInteractor :
             id: @event.CatalogId,
             field: catalog => catalog.IsActive,
             value: true,
-            cancellationToken);
+            cancellationToken: cancellationToken);
 
     public async Task InteractAsync(DomainEvent.CatalogCreated @event, CancellationToken cancellationToken)
     {
@@ -43,21 +45,21 @@ public class ProjectCatalogGridItemInteractor :
             id: @event.CatalogId,
             field: catalog => catalog.IsActive,
             value: false,
-            cancellationToken);
+            cancellationToken: cancellationToken);
 
     public async Task InteractAsync(DomainEvent.CatalogDescriptionChanged @event, CancellationToken cancellationToken)
         => await _projectionGateway.UpdateFieldAsync(
             id: @event.CatalogId,
             field: catalog => catalog.Description,
             value: @event.Description,
-            cancellationToken);
+            cancellationToken: cancellationToken);
 
     public async Task InteractAsync(DomainEvent.CatalogTitleChanged @event, CancellationToken cancellationToken)
         => await _projectionGateway.UpdateFieldAsync(
             id: @event.CatalogId,
             field: catalog => catalog.Title,
             value: @event.Title,
-            cancellationToken);
+            cancellationToken: cancellationToken);
 
     public async Task InteractAsync(DomainEvent.CatalogDeleted @event, CancellationToken cancellationToken)
         => await _projectionGateway.DeleteAsync(@event.CatalogId, cancellationToken);

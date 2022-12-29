@@ -42,11 +42,12 @@ builder.ConfigureServices((context, services) =>
     services.AddEventStore();
     services.AddMessageBus();
     services.AddEventBusGateway();
-    services.AddApplicationServices();
-    services.AddCommandInteractors();
+    services.AddServices();
     services.AddEventInteractors();
     services.AddMessageValidators();
-    services.AddSmtp();
+    services.AddEmailGateway();
+    services.AddSmtpClient();
+    services.AddLazyFactory();
 
     services.ConfigureEventStoreOptions(
         context.Configuration.GetSection(nameof(EventStoreOptions)));

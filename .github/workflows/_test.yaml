@@ -1,4 +1,4 @@
-name: _Test
+name: _Template Test
 on:
   workflow_call:
     inputs:
