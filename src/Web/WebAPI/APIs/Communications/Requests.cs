@@ -6,10 +6,10 @@ namespace WebAPI.APIs.Communications;
 
 public static class Requests
 {
-    public record ListEmails(CommunicationService.CommunicationServiceClient Client, int? Limit, int? Offset, CancellationToken CancellationToken)
-        : Validatable<ListEmailsValidator>, IQueryRequest<CommunicationService.CommunicationServiceClient>
+    public record ListNotifications(CommunicationService.CommunicationServiceClient Client, int? Limit, int? Offset, CancellationToken CancellationToken)
+        : Validatable<ListNotificationsValidator>, IQueryRequest<CommunicationService.CommunicationServiceClient>
     {
-        public static implicit operator ListEmailsRequest(ListEmails request)
+        public static implicit operator ListNotificationsRequest(ListNotifications request)
             => new()
             {
                 Limit = request.Limit ?? default,

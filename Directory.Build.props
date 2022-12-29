@@ -18,16 +18,16 @@
         <Microsoft_Extensions_Version>7.0.0</Microsoft_Extensions_Version>
 
         <!--Blazor-->
-        <BlazorStrap_Version>5.1.100-Preview5</BlazorStrap_Version>
-        <Microsoft_AspNetCore_WebAssembly_Version>7.0.0</Microsoft_AspNetCore_WebAssembly_Version>
+        <BlazorStrap_Version>5.1.100-Preview7</BlazorStrap_Version>
+        <Microsoft_AspNetCore_WebAssembly_Version>7.0.1</Microsoft_AspNetCore_WebAssembly_Version>
 
         <!--EF Core-->
-        <EntityFrameworkCore_Version>7.0.0</EntityFrameworkCore_Version>
+        <EntityFrameworkCore_Version>7.0.1</EntityFrameworkCore_Version>
 
         <!--gRPC-->
         <Grpc_Version>2.41.0-pre1</Grpc_Version>
-        <Grpc_Tools_Version>2.51.0-pre1</Grpc_Tools_Version>
-        <Google_Protobuf_Version>3.21.10</Google_Protobuf_Version>
+        <Grpc_Tools_Version>2.51.0</Grpc_Tools_Version>
+        <Google_Protobuf_Version>3.21.12</Google_Protobuf_Version>
         <Grpc_Net_Client_Version>2.50.0</Grpc_Net_Client_Version>
         <Grpc_AspNetCore_Version>2.50.0</Grpc_AspNetCore_Version>
         <Grpc_Net_ClientFactory_Version>2.50.0</Grpc_Net_ClientFactory_Version>
@@ -37,16 +37,16 @@
         <MongoDb_Version>2.18.0</MongoDb_Version>
 
         <!--MassTransit-->
-        <MassTransit_Version>8.0.9-develop.674</MassTransit_Version>
+        <MassTransit_Version>8.0.9</MassTransit_Version>
         <Quartz_Version>3.5.0</Quartz_Version>
 
         <!--Newtonsoft-->
         <Newtonsoft_Version>13.0.2</Newtonsoft_Version>
         <ContractResolvers_Version>2.0.0</ContractResolvers_Version>
-        <Microsoft_Mvc_NewtonsoftJso_Version>7.0.0</Microsoft_Mvc_NewtonsoftJso_Version>
+        <Microsoft_Mvc_NewtonsoftJso_Version>7.0.1</Microsoft_Mvc_NewtonsoftJso_Version>
 
         <!--Serilog-->
-        <Serilog_Version>2.12.1-dev-01594</Serilog_Version>
+        <Serilog_Version>2.12.1-dev-01635</Serilog_Version>
         <Serilog_AspNetCore_Version>6.1.0</Serilog_AspNetCore_Version>
         <Serilog_Extensions_Version>5.0.1</Serilog_Extensions_Version>
         <Serilog_Settings_Version>3.5.0-dev-00359</Serilog_Settings_Version>
@@ -60,10 +60,10 @@
         <Swashbuckle_FluentValidation_Version>6.0.0-beta.1</Swashbuckle_FluentValidation_Version>
 
         <!--Polly-->
-        <Polly_Version>7.0.0</Polly_Version>
+        <Polly_Version>7.0.1</Polly_Version>
 
         <!--Test-->
-        <Microsoft_Mvc_Testing_Version>7.0.0</Microsoft_Mvc_Testing_Version>
+        <Microsoft_Mvc_Testing_Version>7.0.1</Microsoft_Mvc_Testing_Version>
         <Microsoft_Test_SDK_Version>17.5.0-preview-20221003-04</Microsoft_Test_SDK_Version>
      
     </PropertyGroup>

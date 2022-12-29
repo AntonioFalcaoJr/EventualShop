@@ -1,0 +1,16 @@
+name: Catalog - Command
+run-name: Catalog Command Workflow
+on:
+  push:
+    paths:
+      - src/Services/Catalog/Command/**.cs
+      - src/Services/Catalog/Command/**.csproj
+      - Directory.Build.props
+      - .github/workflows/catalog-command.yaml
+jobs:
+  workflow:
+    uses: ./.github/workflows/_workflow.yaml
+    with:
+      path: src/Services/Catalog/Command
+      project: WorkerService
+      test: test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests  
