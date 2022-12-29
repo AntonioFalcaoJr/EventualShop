@@ -840,23 +840,23 @@ More details in [snapshot](#snapshot) section.
 
 ## Running
 
+Projects may have different environments where the application runs: development, staging, production, etc. Usually, different environments should have different settings.
+
 <details>
     <summary>Development</summary>
 
 ### Development
 
-Projects may have different environments where the application runs: development, staging, production, etc. Usually, different environments should have different secrets.
-
-Secret Manager allows each developer to configure the desired infrastructure just once, avoiding changing every new branch besides avoiding storing passwords or other sensitive data in source code or
-local configuration files.
+Development is usually a local environment. [Docker](https://www.docker.com/why-docker/) makes it easy to set up that closely mirrors the production environment without having to install and configure all of the dependencies on your local
+machine. Especially useful for working on complex applications that rely on many different libraries and tools.
 
 #### Docker
 
-The respective [./docker-compose.Development.yaml](./docker-compose.Development.yaml) will provide all the necessary resources (with proper exposure of the connection ports) for a development
-environment:
+The respective [./docker-compose.Development.Infrastructure.yaml](./docker-compose.Development.Infrastructure.yaml) will provide all the necessary resources, with public exposure to the connection
+ports:
 
 ```bash
-docker-compose -f ./docker-compose.Development.yaml up -d
+docker-compose -f ./docker-compose.Development.Infrastructure.yaml up -d
 ```
 
 If prefer, is possible to use individual Docker commands:
@@ -893,12 +893,6 @@ docker run -d \
 --name rabbitmq \
 rabbitmq:3-management
 ```
-### Migrations
-
-```bash
-dotnet ef migrations add "First Migration" -s .\WorkerService\ -p .\Infrastructure.EventStore\
-```
-
 </details>
 
 <details>
@@ -906,32 +900,29 @@ dotnet ef migrations add "First Migration" -s .\WorkerService\ -p .\Infrastructu
 
 ### Staging
 
-An environment for testing that exactly resembles the production environment. In other words, it's a complete but independent copy of the production environment, including the database.
+The staging environment is for testing and homologation; It resembles the production environment. In other words, it's a complete but independent copy of the production environment, including seeding
+data if needed.
 
-To preserve this concept, and considering a containerized deployment strategy (immutable environment), the staging environment is provided via [./docker-compose.yaml](./docker-compose.yaml)
-accordingly with each `appsettings.Staging.json`, considering Docker has a network interface with an IP address, a gateway, a routing table, DNS services, and other networking details.
+Based on a containerized system, the staging environment is provided via Docker Compose. On each `appsettings.Staging.json` the integrations are configured by name, taking advantage from the Docker
+network interface with DNS services.
 
 #### Docker-compose
 
-The respective [./docker-compose.yaml](./docker-compose.yaml) will provision all system dependencies, with minimal resources needed, and expose only the **WebAPP** connection port (as in
-Production environment):
+The resources were split into two files: 
+
+- [`docker-compose.Staging.Infrastructure.yaml`](./docker-compose.Staging.Infrastructure.yaml), connection ports are privately exposed only; 
+- [`docker-compose.Staging.Services.yaml`](./docker-compose.Staging.Services.yaml), services connected by DNS names.
 
 ```bash
-docker-compose up -d
-```
+docker-compose \
+-f ./docker-compose.Staging.Infrastructure.yaml \
+-f ./docker-compose.Staging.Services.yaml \
+up -d
+``` 
 
-Worker Services
+##### Deployment
 
-```yaml
-deploy:
-  replicas: 2
-  resources:
-    limits:
-      cpus: '0.20'
-      memory: 120M
-```
-
-Web API
+Replicas count and resources allocation can be configured straight on respective composes files:
 
 ```yaml
 deploy:
@@ -939,8 +930,9 @@ deploy:
   resources:
     limits:
       cpus: '0.20'
-      memory: 120M
+      memory: 200M
 ```
+
 </details>
 
 <details>
@@ -949,6 +941,33 @@ deploy:
 ### Production
 
 // TODO
+
+</details>
+
+<details>
+    <summary>Migrations</summary>
+
+### EF Core Migrations
+
+If it's needed to change the **Event Store** structure, a new _migration_ should be built:
+
+```bash
+dotnet ef migrations add "First Migration" -s .\WorkerService\ -p .\Infrastructure.EventStore\
+```
+
+The database update is automatically executed at the command-stack Worker Services [Program.cs](./src/Services/Account/Command/WorkerService/Program.cs), for **Development** and **Staging** environments:
+
+```csharp
+var environment = host.Services.GetRequiredService<IHostEnvironment>();
+
+if (environment.IsDevelopment() || environment.IsStaging())
+{
+    await using var scope = host.Services.CreateAsyncScope();
+    await using var dbContext = scope.ServiceProvider.GetRequiredService<EventStoreDbContext>();
+    await dbContext.Database.MigrateAsync();
+    await dbContext.Database.EnsureCreatedAsync();
+}
+```
 
 </details>
 
