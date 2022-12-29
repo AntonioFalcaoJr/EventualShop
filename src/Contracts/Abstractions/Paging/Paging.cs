@@ -4,25 +4,26 @@ public record struct Paging
 {
     private const int UpperLimit = 100;
     private const int DefaultLimit = 10;
+    private const int DefaultOffset = 10;
 
-    private readonly int? _limit;
-    public int? Offset { get; init; }
-
-    public int? Limit
+    public Paging(int? limit, int? offset)
     {
-        get => _limit;
-
-        init => _limit = value switch
+        Limit = limit switch
         {
             null or < 1 => DefaultLimit,
             > UpperLimit => UpperLimit,
-            _ => value
+            _ => limit.Value
         };
+
+        Offset = offset ?? DefaultOffset;
     }
 
-    public static implicit operator Paging(Abstractions.Protobuf.Paging paging)
-        => new() { Limit = paging.Limit, Offset = paging.Offset };
+    public int Offset { get; }
+    public int Limit { get; }
 
-    public static implicit operator Abstractions.Protobuf.Paging(Paging paging)
+    public static implicit operator Paging(Protobuf.Paging paging)
+        => new(paging.Limit, paging.Offset);
+
+    public static implicit operator Protobuf.Paging(Paging paging)
         => new() { Limit = paging.Limit, Offset = paging.Offset };
 }

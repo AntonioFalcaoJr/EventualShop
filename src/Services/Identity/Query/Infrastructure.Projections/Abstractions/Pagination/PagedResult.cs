@@ -16,12 +16,12 @@ public class PagedResult<T> : IPagedResult<T>
     }
 
     public IEnumerable<T> Items
-        => _items.Take(_paging.Limit ?? 0);
+        => _items.Take(_paging.Limit);
 
     public Page Page
         => new()
         {
-            Current = (_paging.Offset ?? 0) + 1,
+            Current = _paging.Offset + 1,
             Size = Items.Count(),
             HasNext = _items.Count > _paging.Limit,
             HasPrevious = _paging.Offset > 0
@@ -34,5 +34,5 @@ public class PagedResult<T> : IPagedResult<T>
     }
 
     private static IMongoQueryable<T>? ApplyPagination(Paging paging, IQueryable<T> source)
-        => source.Skip(paging.Limit * paging.Offset ?? 0).Take(paging.Limit ?? 0 + 1) as IMongoQueryable<T>;
+        => source.Skip(paging.Limit * paging.Offset).Take(paging.Limit) as IMongoQueryable<T>;
 }
