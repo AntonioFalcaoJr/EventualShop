@@ -85,17 +85,4 @@ public class CatalogGrpcService : CatalogService.CatalogServiceBase
             }
             : new() { NoContent = new() };
     }
-
-    private static ListResponse GetListResponse<TProtobuf>(IPagedResult<IProjection>? pagedResult)
-        where TProtobuf : class, IMessage
-        => pagedResult!.Items.Any()
-            ? new()
-            {
-                PagedResult = new()
-                {
-                    Projections = { pagedResult.Items.Select(item => Any.Pack((TProtobuf)item)) },
-                    Page = pagedResult.Page
-                }
-            }
-            : new() { NoContent = new() };
 }
