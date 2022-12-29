@@ -10,18 +10,18 @@ namespace WebAPI.APIs.Catalogs;
 
 public static class Requests
 {
-    public record CreateCatalog(IBus Bus, Guid CatalogId, string Title, string Description, CancellationToken CancellationToken)
+    public record CreateCatalog(IBus Bus, Payloads.CreateCatalog Payload, CancellationToken CancellationToken)
         : Validatable<CreateCatalogValidator>, ICommandRequest
     {
         public ICommand Command
-            => new Command.CreateCatalog(CatalogId, Title, Description);
+            => new Command.CreateCatalog(Payload.CatalogId, Payload.Title, Payload.Description);
     }
 
-    public record AddCatalogItem(IBus Bus, Guid CatalogId, Guid InventoryId, Dto.Product Product, decimal UnitPrice, string Sku, int Quantity, CancellationToken CancellationToken)
+    public record AddCatalogItem(IBus Bus, Guid CatalogId, Payloads.AddCatalogItem Payload, CancellationToken CancellationToken)
         : Validatable<AddCatalogItemValidator>, ICommandRequest
     {
         public ICommand Command
-            => new Command.AddCatalogItem(CatalogId, InventoryId, Product, UnitPrice, Sku, Quantity);
+            => new Command.AddCatalogItem(CatalogId, Payload.InventoryId, Payload.Product, Payload.UnitPrice, Payload.Sku, Payload.Quantity);
     }
 
     public record DeleteCatalog(IBus Bus, Guid CatalogId, CancellationToken CancellationToken)
