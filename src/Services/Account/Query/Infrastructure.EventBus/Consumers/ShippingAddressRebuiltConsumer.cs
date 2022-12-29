@@ -4,8 +4,8 @@ using Infrastructure.EventBus.Abstractions;
 
 namespace Infrastructure.EventBus.Consumers;
 
-public class AccountRebuiltConsumer : Consumer<IntegrationEvent.ProjectionRebuilt>
+public class ShippingAddressRebuiltConsumer : Consumer<IntegrationEvent.ProjectionRebuilt>
 {
-    public AccountRebuiltConsumer(AccountRebuiltInteractor interactor) 
+    public ShippingAddressRebuiltConsumer(ShippingAddressRebuiltInteractor interactor) 
         : base(interactor) { }
 }
