@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning.Builder;
 using Contracts.Services.Catalog;
+using Contracts.Services.Catalog.Protobuf;
 using WebAPI.Abstractions;
 
 namespace WebAPI.APIs.Catalogs;
@@ -16,7 +17,8 @@ public static class CatalogApi
             => ApplicationApi.SendCommandAsync<Command.CreateCatalog>(request));
 
         group.MapGet("/grid-items", ([AsParameters] Requests.ListCatalogsGridItems request)
-            => ApplicationApi.QueryAsyncCopy(request, (client, cancellationToken) => client.ListCatalogsGridItemsAsync(request, cancellationToken: cancellationToken)));
+            => ApplicationApi.ListAsync<CatalogService.CatalogServiceClient, CatalogGridItem>
+                (request, (client, cancellationToken) => client.ListCatalogsGridItemsAsync(request, cancellationToken: cancellationToken)));
 
         group.MapDelete("/{catalogId:guid}", ([AsParameters] Requests.DeleteCatalog request)
             => ApplicationApi.SendCommandAsync<Command.DeleteCatalog>(request));
@@ -43,7 +45,8 @@ public static class CatalogApi
             => ApplicationApi.SendCommandAsync<Command.AddCatalogItem>(request));
 
         group.MapGet("/{catalogId:guid}/items/{itemId:guid}/details", ([AsParameters] Requests.GetCatalogItemDetails request)
-            => ApplicationApi.QueryAsync(request, (client, cancellationToken) => client.GetCatalogItemDetailsAsync(request, cancellationToken: cancellationToken)));
+            => ApplicationApi.GetAsync<CatalogService.CatalogServiceClient, CatalogItemDetails>
+                (request, (client, cancellationToken) => client.GetCatalogItemDetailsAsync(request, cancellationToken: cancellationToken)));
 
         group.MapDelete("/{catalogId:guid}/items/{itemId:guid}", ([AsParameters] Requests.RemoveCatalogItem request)
             => ApplicationApi.SendCommandAsync<Command.RemoveCatalogItem>(request));

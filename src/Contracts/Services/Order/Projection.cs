@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using Contracts.Abstractions;
 using Contracts.DataTransferObjects;
-using MassTransit.Observables;
 
 namespace Contracts.Services.Order;
 
