@@ -1,4 +1,4 @@
-name: _Quality
+name: [Template] Quality
 on:
   workflow_call:
     inputs:
