@@ -4,9 +4,6 @@ package Contracts.Services.Catalog.Protobuf;
 
 import "Abstractions/Abstractions.proto";
 
-import "google/protobuf/any.proto";
-import "google/protobuf/descriptor.proto";
-
 service CatalogService {
   rpc ListCatalogsGridItems(ListCatalogsGridItemsRequest) returns (Abstractions.Protobuf.ListResponse);
   rpc ListCatalogItemsListItems(ListCatalogItemsListItemsRequest) returns (Abstractions.Protobuf.ListResponse);
