@@ -14,7 +14,7 @@ public record struct Paging
 
         init => _limit = value switch
         {
-            < 1 => DefaultLimit,
+            null or < 1 => DefaultLimit,
             > UpperLimit => UpperLimit,
             _ => value
         };

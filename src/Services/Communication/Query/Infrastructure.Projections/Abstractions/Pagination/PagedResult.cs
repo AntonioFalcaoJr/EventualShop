@@ -6,10 +6,10 @@ namespace Infrastructure.Projections.Abstractions.Pagination;
 
 public class PagedResult<T> : IPagedResult<T>
 {
-    private readonly IEnumerable<T> _items;
+    private readonly List<T> _items;
     private readonly Paging _paging;
 
-    public PagedResult(IEnumerable<T> items, Paging paging)
+    public PagedResult(List<T> items, Paging paging)
     {
         _items = items;
         _paging = paging;
@@ -21,9 +21,9 @@ public class PagedResult<T> : IPagedResult<T>
     public Page Page
         => new()
         {
-            Current = _paging.Offset ?? 0 + 1,
+            Current = (_paging.Offset ?? 0) + 1,
             Size = Items.Count(),
-            HasNext = _items.Count() > _paging.Limit,
+            HasNext = _items.Count > _paging.Limit,
             HasPrevious = _paging.Offset > 0
         };
 
