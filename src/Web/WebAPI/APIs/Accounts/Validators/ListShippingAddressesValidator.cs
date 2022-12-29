@@ -14,6 +14,6 @@ public class ListShippingAddressesValidator : AbstractValidator<Requests.ListShi
             .LessThanOrEqualTo(100);
 
         RuleFor(request => request.Offset)
-            .GreaterThan(0);
+            .GreaterThanOrEqualTo(0);
     }
 }

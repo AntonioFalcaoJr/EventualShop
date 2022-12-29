@@ -1,80 +1,7 @@
-version: "3.9"
+﻿version: "3.9"
+
 services:
   
-  mssql:
-    container_name: mssql
-    image: mcr.microsoft.com/mssql/server
-    ports:
-      - "1433"
-    environment:
-      SA_PASSWORD: "!MyStrongPassword"
-      ACCEPT_EULA: "Y"
-    healthcheck:
-      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$$SA_PASSWORD" -Q "SELECT 1" || exit 1
-      interval: 5s
-      timeout: 5s
-      retries: 5
-      start_period: 10s
-    deploy:
-      resources:
-        limits:
-          cpus: 1
-          memory: 2G
-      restart_policy:
-        condition: any
-    networks:
-      - internal
-  
-  rabbitmq:
-    container_name: rabbitmq
-    image: rabbitmq:3-management-alpine
-    ports:
-      - "5672"
-      - "15672"
-    environment:
-      RABBITMQ_DEFAULT_USER: "guest"
-      RABBITMQ_DEFAULT_PASS: "guest"
-      RABBITMQ_DEFAULT_VHOST: "ecommerce"
-    healthcheck:
-      test: rabbitmq-diagnostics -q ping
-      interval: 5s
-      timeout: 5s
-      retries: 5
-      start_period: 10s
-    deploy:
-      resources:
-        limits:
-          cpus: 1
-          memory: 400M
-      restart_policy:
-        condition: any
-    networks:
-      - internal
-
-  mongodb:
-    container_name: mongodb
-    image: mongo:5.0.14
-    ports:
-      - "27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: "mongoadmin"
-      MONGO_INITDB_ROOT_PASSWORD: "secret"
-    healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongo mongodb:27017/test --quiet
-      interval: 5s
-      timeout: 5s
-      retries: 5
-      start_period: 10s
-    deploy:
-      resources:
-        limits:
-          cpus: 1
-          memory: 500M
-      restart_policy:
-        condition: any
-    networks:
-      - internal
-
   account-command:
     image: account-command:latest
     build:
@@ -426,31 +353,3 @@ services:
           memory: 128M
       restart_policy:
         condition: any
-
-  proxy:
-    container_name: proxy
-    image: nginx:alpine
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-    depends_on:
-      webapi:
-        condition: service_started
-      webapp:
-        condition: service_started
-    ports:
-      - "8080:8080"
-      - "5000:5000"
-    networks:
-      - internal
-    deploy:
-      resources:
-        limits:
-          cpus: 1
-          memory: 80M
-      restart_policy:
-        condition: any
-
-networks:
-  internal:
-    name: internal
-    driver: bridge

@@ -1,18 +1,20 @@
 ﻿using Contracts.Abstractions.Messages;
+using Contracts.Abstractions.Paging;
+using Contracts.Services.Order.Protobuf;
 
 namespace Contracts.Services.Order;
 
 public static class Query
 {
-    public record GetOrder(Guid OrderId) : IQuery
+    public record struct GetOrderDetails(Guid OrderId) : IQuery
     {
-        // public static implicit operator GetOrder(GetOrderRequest request)
-        //     => new(new Guid(request.Id));
+        public static implicit operator GetOrderDetails(GetOrderDetailsRequest request)
+            => new(new(request.OrderId));
     }
 
-    public record ListOrders(ushort Limit, ushort Offset) : IQuery
+    public record struct ListOrdersGridItems(Guid CustomerId, Paging Paging) : IQuery
     {
-        // public static implicit operator ListAccounts(ListAccountsOrders request)
-        //     => new((ushort)request.Limit, (ushort)request.Offset);
+        public static implicit operator ListOrdersGridItems(ListOrdersGridItemsRequest request)
+            => new(new(request.CustomerId), request.Paging);
     }
 }

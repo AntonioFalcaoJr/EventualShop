@@ -2,37 +2,19 @@ syntax = "proto3";
 
 package Contracts.Services.Catalog.Protobuf;
 
-import "google/protobuf/wrappers.proto";
+import "Abstractions/Abstractions.proto";
 
 service CatalogService {
-  rpc ListCatalogsGridItems(ListCatalogsGridItemsRequest) returns (CatalogsGridItemsPagedResponse);
-  rpc ListCatalogItemsListItems(ListCatalogItemsListItemsRequest) returns (CatalogItemsListItemsPagedResponse);
-  rpc ListCatalogItemsCards(ListCatalogItemsCardsRequest) returns (CatalogItemsCardsPagedResponse);
-  rpc GetCatalogItemDetails(GetCatalogItemDetailsRequest) returns (CatalogItemDetailsResponse);
+  rpc ListCatalogsGridItems(ListCatalogsGridItemsRequest) returns (Abstractions.Protobuf.ListResponse);
+  rpc ListCatalogItemsListItems(ListCatalogItemsListItemsRequest) returns (Abstractions.Protobuf.ListResponse);
+  rpc ListCatalogItemsCards(ListCatalogItemsCardsRequest) returns (Abstractions.Protobuf.ListResponse);
+  rpc GetCatalogItemDetails(GetCatalogItemDetailsRequest) returns (Abstractions.Protobuf.GetResponse);
 }
+
+// Catalogs - GridItems
 
 message ListCatalogsGridItemsRequest {
-  Paging Paging = 1;
-}
-
-message ListCatalogItemsListItemsRequest {
-  string CatalogId = 1;
-  Paging Paging = 2;
-}
-
-message ListCatalogItemsCardsRequest {
-  string CatalogId = 1;
-  Paging Paging = 2;
-}
-
-message GetCatalogItemDetailsRequest {
-  string CatalogId = 1;
-  string ItemId = 2;
-}
-
-message CatalogsGridItemsPagedResponse {
-  repeated CatalogGridItem Items = 1;
-  Page Page = 2;
+  Abstractions.Protobuf.Paging Paging = 1;
 }
 
 message CatalogGridItem {
@@ -43,9 +25,11 @@ message CatalogGridItem {
   bool IsActive = 5;
 }
 
-message CatalogItemsListItemsPagedResponse {
-  repeated CatalogItemListItem Items = 1;
-  Page Page = 2;
+// CatalogItems - ListItems
+
+message ListCatalogItemsListItemsRequest {
+  string CatalogId = 1;
+  Abstractions.Protobuf.Paging Paging = 2;
 }
 
 message CatalogItemListItem {
@@ -54,22 +38,27 @@ message CatalogItemListItem {
   string ProductName = 3;
 }
 
-message CatalogItemsCardsPagedResponse {
-  repeated CatalogItemCard Items = 1;
-  Page Page = 2;
+// CatalogItems - Cards
+
+message ListCatalogItemsCardsRequest {
+  string CatalogId = 1;
+  Abstractions.Protobuf.Paging Paging = 2;
 }
 
 message CatalogItemCard {
   string CatalogId = 1;
   string ItemId = 2;
-  Product Product = 3;
+  Abstractions.Protobuf.Product Product = 3;
   string Description = 4;
   string ImageUrl = 5;
   string UnitPrice = 6;
 }
 
-message CatalogItemDetailsResponse{
-  optional CatalogItemDetails CatalogItemDetails = 1;
+// CatalogItem - Details
+
+message GetCatalogItemDetailsRequest {
+  string CatalogId = 1;
+  string ItemId = 2;
 }
 
 message CatalogItemDetails {
@@ -77,27 +66,6 @@ message CatalogItemDetails {
   string ItemId = 2;
   string Description = 3;
   string ImageUrl = 4;
-  Product Product = 5;
+  Abstractions.Protobuf.Product Product = 5;
   string UnitPrice = 6;
-}
-
-message Product {
-  string Description = 1;
-  string Name = 2;
-  string Brand = 4;
-  string Category = 5;
-  string Unit = 6;
-  string Sku = 7;
-}
-
-message Page{
-  int32 Current = 1;
-  int32 Size = 2;
-  bool HasNext = 3;
-  bool HasPrevious = 4;
-}
-
-message Paging {
-  google.protobuf.Int32Value Limit = 1;
-  google.protobuf.Int32Value Offset = 2;
 }

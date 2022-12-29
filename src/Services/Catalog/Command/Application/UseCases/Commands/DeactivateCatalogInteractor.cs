@@ -5,9 +5,7 @@ using Domain.Aggregates;
 
 namespace Application.UseCases.Commands;
 
-public interface IDeactivateCatalogInteractor : IInteractor<Command.DeactivateCatalog> { }
-    
-public class DeactivateCatalogInteractor : IDeactivateCatalogInteractor
+public class DeactivateCatalogInteractor : IInteractor<Command.DeactivateCatalog>
 {
     private readonly IApplicationService _applicationService;
 

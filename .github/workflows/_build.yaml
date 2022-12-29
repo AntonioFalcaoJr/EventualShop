@@ -1,4 +1,4 @@
-name: _Build
+name: _Template Build
 on:
   workflow_call:
     inputs:

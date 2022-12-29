@@ -3,9 +3,7 @@ using Contracts.Services.Catalog;
 
 namespace Application.UseCases.Queries;
 
-public interface IGetCatalogItemDetailsInteractor : IInteractor<Query.GetCatalogItemDetails, Projection.CatalogItemDetails> { }
-
-public class GetCatalogItemDetailsInteractor : IGetCatalogItemDetailsInteractor
+public class GetCatalogItemDetailsInteractor : IInteractor<Query.GetCatalogItemDetails, Projection.CatalogItemDetails>
 {
     private readonly IProjectionGateway<Projection.CatalogItemDetails> _projectionGateway;
 

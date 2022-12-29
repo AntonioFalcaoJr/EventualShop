@@ -26,10 +26,10 @@ public class UserRegisteredInteractor : IInteractor<DomainEvent.UserRegistered>
         await _applicationService.AppendEventsAsync(notification, cancellationToken);
     }
 
-    private static IEnumerable<Dto.NotificationMethod> DefineMethods(Guid userId, string firstName, string email)
-        => new[] { new Dto.NotificationMethod { Option = new Dto.Email(email, FormatMessage(userId, firstName, email)) } };
+    private static IEnumerable<Dto.NotificationMethod> DefineMethods(Guid userId, string firstName, string address)
+        => new[] { new Dto.NotificationMethod { Option = new Dto.Email(address, $"Welcome {firstName}!", FormatBody(userId, firstName, address)) } };
 
-    private static string FormatMessage(Guid userid, string firstname, string email)
+    private static string FormatBody(Guid userid, string firstname, string email)
         => string.Format(
             format: EmailResource.EmailConfirmationHtml,
             arg0: firstname,

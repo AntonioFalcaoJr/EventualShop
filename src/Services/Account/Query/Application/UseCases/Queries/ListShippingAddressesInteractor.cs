@@ -14,5 +14,5 @@ public class ListShippingAddressesInteractor : IInteractor<Query.ListShippingAdd
     }
 
     public Task<IPagedResult<Projection.ShippingAddressListItem>> InteractAsync(Query.ListShippingAddresses query, CancellationToken cancellationToken)
-        => _projectionGateway.GetAllAsync(query.Limit, query.Offset, cancellationToken);
+        => _projectionGateway.ListAsync(query.Paging, cancellationToken);
 }

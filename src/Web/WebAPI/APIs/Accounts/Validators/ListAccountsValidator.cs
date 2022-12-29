@@ -11,6 +11,6 @@ public class ListAccountsValidator : AbstractValidator<Requests.ListAccounts>
             .LessThanOrEqualTo(100);
 
         RuleFor(request => request.Offset)
-            .GreaterThan(0);
+            .GreaterThanOrEqualTo(0);
     }
 }
