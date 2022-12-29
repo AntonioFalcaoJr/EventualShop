@@ -41,13 +41,13 @@ public class CatalogGrpcService : CatalogService.CatalogServiceBase
     public override async Task<ListResponse> ListCatalogsGridItems(ListCatalogsGridItemsRequest request, ServerCallContext context)
     {
         var pagedResult = await _listCatalogsGridItemsInteractor.InteractAsync(request, context.CancellationToken);
-        return GetListResponse<CatalogItemCard>(pagedResult);
+        return GetListResponse<CatalogGridItem>(pagedResult);
     }
 
     public override async Task<ListResponse> ListCatalogItemsListItems(ListCatalogItemsListItemsRequest request, ServerCallContext context)
     {
         var pagedResult = await _listCatalogItemsListItemsInteractor.InteractAsync(request, context.CancellationToken);
-        return GetListResponse<CatalogItemCard>(pagedResult);
+        return GetListResponse<CatalogItemListItem>(pagedResult);
     }
 
     public override async Task<ListResponse> ListCatalogItemsCards(ListCatalogItemsCardsRequest request, ServerCallContext context)
