@@ -14,9 +14,6 @@ public class BillingAddressRebuiltInteractor : IInteractor<IntegrationEvent.Proj
 
     public async Task InteractAsync(IntegrationEvent.ProjectionRebuilt @event, CancellationToken cancellationToken)
     {
-        if (@event.Account.IsDeleted)
-            return;
-
         foreach (var addressItem in @event.Account.Addresses)
         {
             Projection.BillingAddressListItem addressListItem =

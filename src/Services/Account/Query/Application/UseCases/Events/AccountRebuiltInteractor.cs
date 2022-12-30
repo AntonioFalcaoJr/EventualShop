@@ -14,9 +14,6 @@ public class AccountRebuiltInteractor : IInteractor<IntegrationEvent.ProjectionR
 
     public async Task InteractAsync(IntegrationEvent.ProjectionRebuilt @event, CancellationToken cancellationToken)
     {
-        if (@event.Account.IsDeleted)
-            return;
-
         Projection.AccountDetails accountDetails =
             new(@event.AccountId,
                 @event.Account.Profile.FirstName,
