@@ -4,7 +4,6 @@ using Application.UseCases.Commands;
 using Application.UseCases.Events;
 using Contracts.Services.Account;
 using Microsoft.Extensions.DependencyInjection;
-using Identity = Contracts.Services.Identity;
 
 namespace Application.DependencyInjection.Extensions;
 
@@ -22,5 +21,5 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddEventInteractors(this IServiceCollection services)
         => services
-            .AddScoped<IInteractor<Identity.DomainEvent.UserRegistered>, UserRegisteredInteractor>();
+            .AddScoped<ICreateAccountInteractor, CreateAccountInteractor>();
 }

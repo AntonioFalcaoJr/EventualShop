@@ -24,10 +24,10 @@ public static class Requests
             => new Command.AddBillingAddress(AccountId, Address);
     }
 
-    public record ListShippingAddresses(AccountService.AccountServiceClient Client, Guid AccountId, int? Limit, int? Offset, CancellationToken CancellationToken)
-        : Validatable<ListShippingAddressesValidator>, IQueryRequest<AccountService.AccountServiceClient>
+    public record ListShippingAddressesListItems(AccountService.AccountServiceClient Client, Guid AccountId, int? Limit, int? Offset, CancellationToken CancellationToken)
+        : Validatable<ListShippingAddressesListItemsValidator>, IQueryRequest<AccountService.AccountServiceClient>
     {
-        public static implicit operator ListShippingAddressesRequest(ListShippingAddresses request)
+        public static implicit operator ListShippingAddressesListItemsRequest(ListShippingAddressesListItems request)
             => new() { AccountId = request.AccountId.ToString(), Paging = new() { Limit = request.Limit, Offset = request.Offset } };
     }
 
@@ -38,17 +38,17 @@ public static class Requests
             => new Command.DeleteAccount(AccountId);
     }
 
-    public record GetAccount(AccountService.AccountServiceClient Client, Guid AccountId, CancellationToken CancellationToken)
+    public record GetAccountDetails(AccountService.AccountServiceClient Client, Guid AccountId, CancellationToken CancellationToken)
         : Validatable<GetAccountValidator>, IQueryRequest<AccountService.AccountServiceClient>
     {
-        public static implicit operator GetAccountRequest(GetAccount request)
+        public static implicit operator GetAccountDetailsRequest(GetAccountDetails request)
             => new() { AccountId = request.AccountId.ToString() };
     }
 
-    public record ListAccounts(AccountService.AccountServiceClient Client, int? Limit, int? Offset, CancellationToken CancellationToken)
-        : Validatable<ListAccountsValidator>, IQueryRequest<AccountService.AccountServiceClient>
+    public record ListAccountsDetails(AccountService.AccountServiceClient Client, int? Limit, int? Offset, CancellationToken CancellationToken)
+        : Validatable<ListAccountsDetailsValidator>, IQueryRequest<AccountService.AccountServiceClient>
     {
-        public static implicit operator ListAccountsRequest(ListAccounts request)
+        public static implicit operator ListAccountsDetailsRequest(ListAccountsDetails request)
             => new() { Paging = new() { Limit = request.Limit, Offset = request.Offset } };
     }
 }

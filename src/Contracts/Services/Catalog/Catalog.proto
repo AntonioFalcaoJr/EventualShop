@@ -11,11 +11,28 @@ service CatalogService {
   rpc GetCatalogItemDetails(GetCatalogItemDetailsRequest) returns (Abstractions.Protobuf.GetResponse);
 }
 
-// Catalogs - GridItems
+// Requests
 
 message ListCatalogsGridItemsRequest {
   Abstractions.Protobuf.Paging Paging = 1;
 }
+
+message ListCatalogItemsListItemsRequest {
+  string CatalogId = 1;
+  Abstractions.Protobuf.Paging Paging = 2;
+}
+
+message ListCatalogItemsCardsRequest {
+  string CatalogId = 1;
+  Abstractions.Protobuf.Paging Paging = 2;
+}
+
+message GetCatalogItemDetailsRequest {
+  string CatalogId = 1;
+  string ItemId = 2;
+}
+
+// Projections
 
 message CatalogGridItem {
   string CatalogId = 1;
@@ -25,24 +42,10 @@ message CatalogGridItem {
   bool IsActive = 5;
 }
 
-// CatalogItems - ListItems
-
-message ListCatalogItemsListItemsRequest {
-  string CatalogId = 1;
-  Abstractions.Protobuf.Paging Paging = 2;
-}
-
 message CatalogItemListItem {
   string CatalogId = 1;
   string ItemId = 2;
   string ProductName = 3;
-}
-
-// CatalogItems - Cards
-
-message ListCatalogItemsCardsRequest {
-  string CatalogId = 1;
-  Abstractions.Protobuf.Paging Paging = 2;
 }
 
 message CatalogItemCard {
@@ -52,13 +55,6 @@ message CatalogItemCard {
   string Description = 4;
   string ImageUrl = 5;
   string UnitPrice = 6;
-}
-
-// CatalogItem - Details
-
-message GetCatalogItemDetailsRequest {
-  string CatalogId = 1;
-  string ItemId = 2;
 }
 
 message CatalogItemDetails {

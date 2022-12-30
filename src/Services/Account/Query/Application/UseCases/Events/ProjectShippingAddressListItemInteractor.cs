@@ -3,11 +3,13 @@ using Contracts.Services.Account;
 
 namespace Application.UseCases.Events;
 
-public class ShippingAddressAddedInteractor : IInteractor<DomainEvent.ShippingAddressAdded>
+public interface IProjectShippingAddressListItemInteractor : IInteractor<DomainEvent.ShippingAddressAdded> { }
+
+public class ProjectShippingAddressListItemInteractor : IProjectShippingAddressListItemInteractor
 {
     private readonly IProjectionGateway<Projection.ShippingAddressListItem> _projectionGateway;
 
-    public ShippingAddressAddedInteractor(IProjectionGateway<Projection.ShippingAddressListItem> projectionGateway)
+    public ProjectShippingAddressListItemInteractor(IProjectionGateway<Projection.ShippingAddressListItem> projectionGateway)
     {
         _projectionGateway = projectionGateway;
     }

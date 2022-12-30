@@ -6,11 +6,13 @@ using Identity = Contracts.Services.Identity;
 
 namespace Application.UseCases.Events;
 
-public class UserRegisteredInteractor : IInteractor<Identity.DomainEvent.UserRegistered>
+public interface ICreateAccountInteractor : IInteractor<Identity.DomainEvent.UserRegistered> { }
+
+public class CreateAccountInteractor : ICreateAccountInteractor
 {
     private readonly IApplicationService _applicationService;
 
-    public UserRegisteredInteractor(IApplicationService applicationService)
+    public CreateAccountInteractor(IApplicationService applicationService)
     {
         _applicationService = applicationService;
     }

@@ -6,15 +6,15 @@ namespace Contracts.Services.Account;
 
 public static class Projection
 {
-    public record AccountDetails(Guid Id, string FirstName, string LastName, string Email, bool IsDeleted) : IProjection
+    public record AccountDetails(Guid Id, string FirstName, string LastName, string Email, string Status, bool IsDeleted) : IProjection
     {
-        public static implicit operator Protobuf.Account(AccountDetails accountDetails)
+        public static implicit operator Protobuf.AccountDetails(AccountDetails account)
             => new()
             {
-                Id = accountDetails.Id.ToString(),
-                FirstName = accountDetails.FirstName,
-                LastName = accountDetails.LastName,
-                Email = accountDetails.Email
+                Id = account.Id.ToString(),
+                FirstName = account.FirstName,
+                LastName = account.LastName,
+                Email = account.Email
             };
     }
 
@@ -26,16 +26,13 @@ public static class Projection
 
     public abstract record AddressListItem(Guid Id, Guid AccountId, Dto.Address Address, bool IsDeleted) : IProjection
     {
-        public static implicit operator Address(AddressListItem listItem)
+        public static implicit operator Protobuf.AddressListItem(AddressListItem item)
         {
             return new()
             {
-                Id = listItem.Id.ToString(),
-                AccountId = listItem.AccountId.ToString(),
-                Street = listItem.Address.Street,
-                City = listItem.Address.City,
-                State = listItem.Address.State,
-                ZipCode = listItem.Address.ZipCode
+                Id = item.Id.ToString(),
+                AccountId = item.AccountId.ToString(),
+                Address = item.Address
             };
         }
     }
