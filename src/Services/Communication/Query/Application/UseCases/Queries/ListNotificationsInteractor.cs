@@ -13,6 +13,6 @@ public class ListNotificationsInteractor : IInteractor<Query.ListNotifications, 
         _projectionGateway = projectionGateway;
     }
 
-    public Task<IPagedResult<Projection.NotificationDetails>> InteractAsync(Query.ListNotifications query, CancellationToken cancellationToken)
+    public Task<IPagedResult<Projection.NotificationDetails>?> InteractAsync(Query.ListNotifications query, CancellationToken cancellationToken)
         => _projectionGateway.ListAsync(query.Paging, cancellationToken);
 }

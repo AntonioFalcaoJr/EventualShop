@@ -7,10 +7,10 @@ namespace Application.Abstractions;
 public interface IProjectionGateway<TProjection>
     where TProjection : IProjection
 {
-    Task<TProjection> FindAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken);
-    Task<TProjection> GetAsync<TId>(TId id, CancellationToken cancellationToken) where TId : struct;
-    Task<IPagedResult<TProjection>> ListAsync(Paging paging, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken);
-    Task<IPagedResult<TProjection>> ListAsync(Paging paging, CancellationToken cancellationToken);
+    Task<TProjection?> FindAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken);
+    Task<TProjection?> GetAsync<TId>(TId id, CancellationToken cancellationToken) where TId : struct;
+    Task<IPagedResult<TProjection>?> ListAsync(Paging paging, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken);
+    Task<IPagedResult<TProjection>?> ListAsync(Paging paging, CancellationToken cancellationToken);
     Task InsertAsync(TProjection projection, CancellationToken cancellationToken);
     Task UpsertAsync(TProjection replacement, CancellationToken cancellationToken);
     Task ReplaceAsync(TProjection replacement, CancellationToken cancellationToken);

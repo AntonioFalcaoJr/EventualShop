@@ -13,6 +13,6 @@ public class ListCatalogItemsListItemsInteractor : IInteractor<Query.ListCatalog
         _projectionGateway = projectionGateway;
     }
 
-    public Task<IPagedResult<Projection.CatalogItemListItem>> InteractAsync(Query.ListCatalogItemsListItems query, CancellationToken cancellationToken)
+    public Task<IPagedResult<Projection.CatalogItemListItem>?> InteractAsync(Query.ListCatalogItemsListItems query, CancellationToken cancellationToken)
         => _projectionGateway.ListAsync(query.Paging, listItem => listItem.CatalogId == query.CatalogId, cancellationToken);
 }

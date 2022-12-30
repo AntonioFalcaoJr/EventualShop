@@ -35,14 +35,16 @@ public static class CatalogApi
         group.MapPut("/{catalogId:guid}/title", ([AsParameters] Requests.ChangeCatalogTitle request)
             => ApplicationApi.SendCommandAsync<Command.ChangeCatalogTitle>(request));
 
-        group.MapGet("/{catalogId:guid}/items/list-items", ([AsParameters] Requests.ListCatalogItemsListItems request)
-            => ApplicationApi.QueryAsync(request, (client, cancellationToken) => client.ListCatalogItemsListItemsAsync(request, cancellationToken: cancellationToken)));
-
-        group.MapGet("/{catalogId:guid}/items/cards", ([AsParameters] Requests.ListCatalogItemsCards request)
-            => ApplicationApi.QueryAsync(request, (client, cancellationToken) => client.ListCatalogItemsCardsAsync(request, cancellationToken: cancellationToken)));
-
         group.MapPost("/{catalogId:guid}/items", ([AsParameters] Requests.AddCatalogItem request)
             => ApplicationApi.SendCommandAsync<Command.AddCatalogItem>(request));
+        
+        group.MapGet("/{catalogId:guid}/items/list-items", ([AsParameters] Requests.ListCatalogItemsListItems request)
+            => ApplicationApi.ListAsync<CatalogService.CatalogServiceClient, CatalogItemListItem>
+                (request, (client, cancellationToken) => client.ListCatalogItemsListItemsAsync(request, cancellationToken: cancellationToken)));
+
+        group.MapGet("/{catalogId:guid}/items/cards", ([AsParameters] Requests.ListCatalogItemsCards request)
+            => ApplicationApi.ListAsync<CatalogService.CatalogServiceClient, CatalogItemCard>
+                (request, (client, cancellationToken) => client.ListCatalogItemsCardsAsync(request, cancellationToken: cancellationToken)));
 
         group.MapGet("/{catalogId:guid}/items/{itemId:guid}/details", ([AsParameters] Requests.GetCatalogItemDetails request)
             => ApplicationApi.GetAsync<CatalogService.CatalogServiceClient, CatalogItemDetails>
@@ -58,8 +60,9 @@ public static class CatalogApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(2);
 
-        group.MapGet("/", ([AsParameters] Requests.ListCatalogsGridItems request)
-            => ApplicationApi.QueryAsync(request, (client, cancellationToken) => client.ListCatalogsGridItemsAsync(request, cancellationToken: cancellationToken)));
+        group.MapGet("/grid-items", ([AsParameters] Requests.ListCatalogsGridItems request)
+            => ApplicationApi.ListAsync<CatalogService.CatalogServiceClient, CatalogGridItem>
+                (request, (client, cancellationToken) => client.ListCatalogsGridItemsAsync(request, cancellationToken: cancellationToken)));
 
         return builder;
     }

@@ -19,18 +19,18 @@ public class ProjectionGateway<TProjection> : IProjectionGateway<TProjection>
         _collection = context.GetCollection<TProjection>();
     }
 
-    public Task<TProjection> GetAsync<TId>(TId id, CancellationToken cancellationToken)
+    public Task<TProjection?> GetAsync<TId>(TId id, CancellationToken cancellationToken)
         where TId : struct
         => FindAsync(projection => projection.Id.Equals(id), cancellationToken);
 
-    public Task<TProjection> FindAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
-        => _collection.AsQueryable().Where(predicate).FirstOrDefaultAsync(cancellationToken);
+    public Task<TProjection?> FindAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
+        => _collection.AsQueryable().Where(predicate).FirstOrDefaultAsync(cancellationToken)!;
 
-    public Task<IPagedResult<TProjection>> ListAsync(Paging paging, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
-        => PagedResult<TProjection>.CreateAsync(paging, _collection.AsQueryable().Where(predicate), cancellationToken);
+    public Task<IPagedResult<TProjection>?> ListAsync(Paging paging, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
+        => PagedResult<TProjection>.CreateAsync(paging, _collection.AsQueryable().Where(predicate), cancellationToken)!;
 
-    public Task<IPagedResult<TProjection>> ListAsync(Paging paging, CancellationToken cancellationToken)
-        => PagedResult<TProjection>.CreateAsync(paging, _collection.AsQueryable(), cancellationToken);
+    public Task<IPagedResult<TProjection>?> ListAsync(Paging paging, CancellationToken cancellationToken)
+        => PagedResult<TProjection>.CreateAsync(paging, _collection.AsQueryable(), cancellationToken)!;
 
     public Task InsertAsync(TProjection projection, CancellationToken cancellationToken)
         => _collection.InsertOneAsync(projection, cancellationToken: cancellationToken);

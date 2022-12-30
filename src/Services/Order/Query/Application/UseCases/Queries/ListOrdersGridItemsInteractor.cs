@@ -13,6 +13,6 @@ public class ListOrdersGridItemsInteractor : IInteractor<Query.ListOrdersGridIte
         _projectionGateway = projectionGateway;
     }
 
-    public Task<IPagedResult<Projection.OrderGridItem>> InteractAsync(Query.ListOrdersGridItems query, CancellationToken cancellationToken)
+    public Task<IPagedResult<Projection.OrderGridItem>?> InteractAsync(Query.ListOrdersGridItems query, CancellationToken cancellationToken)
         => _projectionGateway.ListAsync(query.Paging, order => order.CustomerId == query.CustomerId, cancellationToken);
 }
