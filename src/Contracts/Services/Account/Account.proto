@@ -16,13 +16,13 @@ message GetAccountDetailsRequest {
   string AccountId = 1;
 }
 
+message ListAccountsDetailsRequest {
+  Abstractions.Protobuf.Paging Paging = 1;
+}
+
 message ListShippingAddressesListItemsRequest {
   string AccountId = 1;
   Abstractions.Protobuf.Paging Paging = 2;
-}
-
-message ListAccountsDetailsRequest {
-  Abstractions.Protobuf.Paging Paging = 1;
 }
 
 // Projections
