@@ -25,5 +25,18 @@ public class AddressValidator : AbstractValidator<Dto.Address>
         RuleFor(address => address.ZipCode)
             .NotNull()
             .NotEmpty();
+
+        When(address => address.Number is not null, () =>
+        {
+            RuleFor(address => address.Number)
+                .GreaterThan(0);
+        });
+
+        When(address => address.Complement is not null, () =>
+        {
+            RuleFor(address => address.Complement)
+                .NotEmpty()
+                .MaximumLength(80);
+        });
     }
 }
