@@ -6,11 +6,13 @@ using ShoppingCart = Contracts.Services.ShoppingCart;
 
 namespace Application.UseCases.Events;
 
-public class CartSubmittedInteractor : IInteractor<ShoppingCart.IntegrationEvent.CartSubmitted>
+public interface IPlaceOrderWhenCartSubmittedInteractor : IInteractor<ShoppingCart.IntegrationEvent.CartSubmitted> { }
+
+public class PlaceOrderWhenCartSubmittedInteractor : IPlaceOrderWhenCartSubmittedInteractor
 {
     private readonly IApplicationService _applicationService;
 
-    public CartSubmittedInteractor(IApplicationService applicationService)
+    public PlaceOrderWhenCartSubmittedInteractor(IApplicationService applicationService)
     {
         _applicationService = applicationService;
     }

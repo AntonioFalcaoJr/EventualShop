@@ -3,11 +3,15 @@ using Contracts.Services.Order;
 
 namespace Application.UseCases.Events;
 
-public class OrderPlacedInteractor : IInteractor<DomainEvent.OrderPlaced>
+public interface IProjectOrderDetailsWhenOrderChangedInteractor :
+    IInteractor<DomainEvent.OrderPlaced>,
+    IInteractor<DomainEvent.OrderConfirmed> { }
+
+public class ProjectOrderDetailsWhenOrderChangedInteractor : IProjectOrderDetailsWhenOrderChangedInteractor
 {
     private readonly IProjectionGateway<Projection.OrderDetails> _projectionGateway;
 
-    public OrderPlacedInteractor(IProjectionGateway<Projection.OrderDetails> projectionGateway)
+    public ProjectOrderDetailsWhenOrderChangedInteractor(IProjectionGateway<Projection.OrderDetails> projectionGateway)
     {
         _projectionGateway = projectionGateway;
     }
@@ -27,4 +31,7 @@ public class OrderPlacedInteractor : IInteractor<DomainEvent.OrderPlaced>
 
         await _projectionGateway.InsertAsync(orderDetails, cancellationToken);
     }
+
+    public Task InteractAsync(DomainEvent.OrderConfirmed @event, CancellationToken cancellationToken)
+        => _projectionGateway.UpdateFieldAsync(@event.OrderId, order => order.Status, @event.Status, cancellationToken);
 }
