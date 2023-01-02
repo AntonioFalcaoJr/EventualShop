@@ -21,5 +21,5 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddEventInteractors(this IServiceCollection services)
         => services
-            .AddScoped<ICreateAccountInteractor, CreateAccountInteractor>();
+            .AddScoped<ICreateAccountWhenUserRegisteredInteractor, CreateAccountWhenUserRegisteredInteractor>();
 }

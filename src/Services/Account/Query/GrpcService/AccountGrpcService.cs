@@ -2,7 +2,6 @@ using Application.Abstractions;
 using Contracts.Abstractions.Paging;
 using Contracts.Services.Account;
 using Contracts.Services.Account.Protobuf;
-using Grpc.Core;
 
 namespace GrpcService;
 

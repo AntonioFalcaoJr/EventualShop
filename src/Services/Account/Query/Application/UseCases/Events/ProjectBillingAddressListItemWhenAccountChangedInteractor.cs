@@ -3,13 +3,15 @@ using Contracts.Services.Account;
 
 namespace Application.UseCases.Events;
 
-public interface IProjectBillingAddressListItemInteractor : IInteractor<DomainEvent.BillingAddressAdded> { }
+public interface IProjectBillingAddressListItemWhenAccountChangedInteractor :
+    IInteractor<DomainEvent.BillingAddressAdded>,
+    IInteractor<DomainEvent.AccountDeleted> { }
 
-public class ProjectBillingAddressListItemInteractor : IProjectBillingAddressListItemInteractor
+public class ProjectBillingAddressListItemWhenAccountChangedInteractor : IProjectBillingAddressListItemWhenAccountChangedInteractor
 {
     private readonly IProjectionGateway<Projection.BillingAddressListItem> _projectionGateway;
 
-    public ProjectBillingAddressListItemInteractor(IProjectionGateway<Projection.BillingAddressListItem> projectionGateway)
+    public ProjectBillingAddressListItemWhenAccountChangedInteractor(IProjectionGateway<Projection.BillingAddressListItem> projectionGateway)
     {
         _projectionGateway = projectionGateway;
     }
@@ -24,4 +26,7 @@ public class ProjectBillingAddressListItemInteractor : IProjectBillingAddressLis
 
         await _projectionGateway.InsertAsync(addressListItem, cancellationToken);
     }
+
+    public Task InteractAsync(DomainEvent.AccountDeleted @event, CancellationToken cancellationToken)
+        => _projectionGateway.DeleteAsync(@event.AccountId, cancellationToken);
 }

@@ -3,17 +3,17 @@ using Contracts.Services.Account;
 
 namespace Application.UseCases.Events;
 
-public interface IProjectAccountDetailsInteractor :
+public interface IProjectAccountDetailsWhenAccountChangedInteractor :
     IInteractor<DomainEvent.AccountCreated>,
     IInteractor<DomainEvent.AccountDeleted>,
     IInteractor<DomainEvent.AccountActivated>,
     IInteractor<DomainEvent.AccountDeactivated> { }
 
-public class ProjectAccountDetailsInteractor : IProjectAccountDetailsInteractor
+public class ProjectAccountDetailsWhenAccountChangedInteractor : IProjectAccountDetailsWhenAccountChangedInteractor
 {
     private readonly IProjectionGateway<Projection.AccountDetails> _projectionGateway;
 
-    public ProjectAccountDetailsInteractor(IProjectionGateway<Projection.AccountDetails> projectionGateway)
+    public ProjectAccountDetailsWhenAccountChangedInteractor(IProjectionGateway<Projection.AccountDetails> projectionGateway)
     {
         _projectionGateway = projectionGateway;
     }

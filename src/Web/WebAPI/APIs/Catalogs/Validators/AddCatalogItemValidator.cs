@@ -1,4 +1,3 @@
-using Contracts.DataTransferObjects.Validators;
 using FluentValidation;
 
 namespace WebAPI.APIs.Catalogs.Validators;

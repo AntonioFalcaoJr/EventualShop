@@ -4,8 +4,8 @@ using Infrastructure.MessageBus.Abstractions;
 
 namespace Infrastructure.MessageBus.Consumers.Events;
 
-public class CreateAccountConsumer : Consumer<DomainEvent.UserRegistered>
+public class CreateAccountWhenUserRegisteredConsumer : Consumer<DomainEvent.UserRegistered>
 {
-    public CreateAccountConsumer(ICreateAccountInteractor interactor)
+    public CreateAccountWhenUserRegisteredConsumer(ICreateAccountWhenUserRegisteredInteractor interactor)
         : base(interactor) { }
 }

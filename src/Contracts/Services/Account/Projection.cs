@@ -1,6 +1,5 @@
 ﻿using Contracts.Abstractions;
 using Contracts.DataTransferObjects;
-using Contracts.Services.Account.Protobuf;
 
 namespace Contracts.Services.Account;
 

@@ -11,9 +11,9 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddEventInteractors(this IServiceCollection services)
         => services
-            .AddScoped<IProjectAccountDetailsInteractor, ProjectAccountDetailsInteractor>()
-            .AddScoped<IProjectBillingAddressListItemInteractor, ProjectBillingAddressListItemInteractor>()
-            .AddScoped<IProjectShippingAddressListItemInteractor, ProjectShippingAddressListItemInteractor>();
+            .AddScoped<IProjectAccountDetailsWhenAccountChangedInteractor, ProjectAccountDetailsWhenAccountChangedInteractor>()
+            .AddScoped<IProjectBillingAddressListItemWhenAccountChangedInteractor, ProjectBillingAddressListItemWhenAccountChangedInteractor>()
+            .AddScoped<IProjectShippingAddressListItemWhenAccountChangedInteractor, ProjectShippingAddressListItemWhenAccountChangedInteractor>();
 
     public static IServiceCollection AddQueryInteractors(this IServiceCollection services)
         => services
