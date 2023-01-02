@@ -3,12 +3,26 @@ using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 using CommunicationProtobuf = Contracts.Services.Communication.Protobuf;
 using CatalogProtobuf = Contracts.Services.Catalog.Protobuf;
+using AbstractionsProtobuf = Contracts.Abstractions.Protobuf;
 
 namespace Contracts.DataTransferObjects;
 
 public static class Dto
 {
-    public record Address(string City, string Country, int? Number, string State, string Street, string ZipCode);
+    public record Address(string Street, string City, string State, string ZipCode, string Country, int? Number, string? Complement)
+    {
+        public static implicit operator AbstractionsProtobuf.Address(Address address)
+            => new()
+            {
+                Street = address.Street,
+                City = address.City,
+                State = address.State,
+                ZipCode = address.ZipCode,
+                Country = address.Country,
+                Number = address.Number,
+                Complement = address.Complement
+            };
+    }
 
     public interface IPaymentOption { }
 

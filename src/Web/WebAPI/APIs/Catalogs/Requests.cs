@@ -1,5 +1,4 @@
 using Contracts.Abstractions.Messages;
-using Contracts.DataTransferObjects;
 using Contracts.Services.Catalog;
 using Contracts.Services.Catalog.Protobuf;
 using MassTransit;

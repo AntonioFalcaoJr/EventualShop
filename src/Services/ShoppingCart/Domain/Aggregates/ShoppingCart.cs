@@ -19,8 +19,8 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
 
     public Guid CustomerId { get; private set; }
     public CartStatus Status { get; private set; } = CartStatus.Active;
-    public Address BillingAddress { get; private set; } = default!;
-    public Address ShippingAddress { get; private set; } = default!;
+    public Address? BillingAddress { get; private set; }
+    public Address? ShippingAddress { get; private set; }
     private bool ShippingAndBillingAddressesAreSame { get; set; } = true;
 
     public decimal Total
@@ -52,7 +52,7 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
     public void Handle(Command.ChangeCartItemQuantity cmd)
     {
         if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is not { IsDeleted: false } item) return;
-        
+
         if (cmd.NewQuantity > item.Quantity)
             RaiseEvent(new DomainEvent.CartItemIncreased(Id, item.Id, cmd.NewQuantity, item.UnitPrice));
 

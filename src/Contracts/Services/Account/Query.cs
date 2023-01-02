@@ -6,21 +6,21 @@ namespace Contracts.Services.Account;
 
 public static class Query
 {
-    public record struct GetAccount(Guid AccountId) : IQuery
+    public record struct GetAccountDetails(Guid AccountId) : IQuery
     {
-        public static implicit operator GetAccount(GetAccountRequest request)
+        public static implicit operator GetAccountDetails(GetAccountDetailsRequest request)
             => new(new(request.AccountId));
     }
 
-    public record struct ListAccounts(Paging Paging) : IQuery
+    public record struct ListAccountsDetails(Paging Paging) : IQuery
     {
-        public static implicit operator ListAccounts(ListAccountsRequest request)
+        public static implicit operator ListAccountsDetails(ListAccountsDetailsRequest request)
             => new(request.Paging);
     }
 
-    public record struct ListShippingAddresses(Guid AccountId, Paging Paging) : IQuery
+    public record struct ListShippingAddressesListItems(Guid AccountId, Paging Paging) : IQuery
     {
-        public static implicit operator ListShippingAddresses(ListShippingAddressesRequest request)
+        public static implicit operator ListShippingAddressesListItems(ListShippingAddressesListItemsRequest request)
             => new(new(request.AccountId), request.Paging);
     }
 }

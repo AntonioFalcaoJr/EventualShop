@@ -1,61 +1,67 @@
 using Application.Abstractions;
 using Contracts.Abstractions.Paging;
+using Contracts.Abstractions.Protobuf;
 using Contracts.Services.Account;
 using Contracts.Services.Account.Protobuf;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 
 namespace GrpcService;
 
 public class AccountGrpcService : AccountService.AccountServiceBase
 {
-    private readonly IInteractor<Query.ListAccounts, IPagedResult<Projection.AccountDetails>> _listAccountsInteractor;
-    private readonly IInteractor<Query.ListShippingAddresses, IPagedResult<Projection.ShippingAddressListItem>> _listAddressesInteractor;
-    private readonly IInteractor<Query.GetAccount, Projection.AccountDetails> _getAccountInteractor;
+    private readonly IInteractor<Query.GetAccountDetails, Projection.AccountDetails> _getAccountDetailsInteractor;
+    private readonly IInteractor<Query.ListAccountsDetails, IPagedResult<Projection.AccountDetails>> _listAccountsDetailsInteractor;
+    private readonly IInteractor<Query.ListShippingAddressesListItems, IPagedResult<Projection.ShippingAddressListItem>> _listShippingAddressesListItemsInteractor;
 
     public AccountGrpcService(
-        IInteractor<Query.GetAccount, Projection.AccountDetails> getAccountInteractor,
-        IInteractor<Query.ListAccounts, IPagedResult<Projection.AccountDetails>> listAccountsInteractor,
-        IInteractor<Query.ListShippingAddresses, IPagedResult<Projection.ShippingAddressListItem>> listAddressesInteractor)
+        IInteractor<Query.GetAccountDetails, Projection.AccountDetails> getAccountDetailsInteractor,
+        IInteractor<Query.ListAccountsDetails, IPagedResult<Projection.AccountDetails>> listAccountsDetailsInteractor,
+        IInteractor<Query.ListShippingAddressesListItems, IPagedResult<Projection.ShippingAddressListItem>> listShippingAddressesListItemsInteractor)
     {
-        _listAccountsInteractor = listAccountsInteractor;
-        _listAddressesInteractor = listAddressesInteractor;
-        _getAccountInteractor = getAccountInteractor;
+        _getAccountDetailsInteractor = getAccountDetailsInteractor;
+        _listAccountsDetailsInteractor = listAccountsDetailsInteractor;
+        _listShippingAddressesListItemsInteractor = listShippingAddressesListItemsInteractor;
     }
 
-    public override async Task<Account> GetAccount(GetAccountRequest request, ServerCallContext context)
-        => await _getAccountInteractor.InteractAsync(request, context.CancellationToken);
-
-    public override async Task<Accounts> ListAccounts(ListAccountsRequest request, ServerCallContext context)
+    public override async Task<GetResponse> GetAccountDetails(GetAccountDetailsRequest request, ServerCallContext context)
     {
-        var pagedResult = await _listAccountsInteractor.InteractAsync(request, context.CancellationToken);
+        var accountDetails = await _getAccountDetailsInteractor.InteractAsync(request, context.CancellationToken);
 
-        return new()
-        {
-            Items = { pagedResult.Items.Select(details => (Account)details) },
-            Page = new()
-            {
-                Current = pagedResult.Page.Current,
-                Size = pagedResult.Page.Size,
-                HasNext = pagedResult.Page.HasNext,
-                HasPrevious = pagedResult.Page.HasPrevious
-            }
-        };
+        return accountDetails is null
+            ? new() { NotFound = new() }
+            : new() { Projection = Any.Pack((AccountDetails)accountDetails) };
     }
 
-    public override async Task<Addresses> ListShippingAddresses(ListShippingAddressesRequest request, ServerCallContext context)
+    public override async Task<ListResponse> ListAccountsDetails(ListAccountsDetailsRequest request, ServerCallContext context)
     {
-        var pagedResult = await _listAddressesInteractor.InteractAsync(request, context.CancellationToken);
+        var pagedResult = await _listAccountsDetailsInteractor.InteractAsync(request, context.CancellationToken);
 
-        return new()
-        {
-            Items = { pagedResult.Items.Select(details => (Address)details) },
-            Page = new()
+        return pagedResult!.Items.Any()
+            ? new()
             {
-                Current = pagedResult.Page.Current,
-                Size = pagedResult.Page.Size,
-                HasNext = pagedResult.Page.HasNext,
-                HasPrevious = pagedResult.Page.HasPrevious
+                PagedResult = new()
+                {
+                    Projections = { pagedResult.Items.Select(item => Any.Pack((AccountDetails)item)) },
+                    Page = pagedResult.Page
+                }
             }
-        };
+            : new() { NoContent = new() };
+    }
+
+    public override async Task<ListResponse> ListShippingAddressesListItems(ListShippingAddressesListItemsRequest request, ServerCallContext context)
+    {
+        var pagedResult = await _listShippingAddressesListItemsInteractor.InteractAsync(request, context.CancellationToken);
+
+        return pagedResult!.Items.Any()
+            ? new()
+            {
+                PagedResult = new()
+                {
+                    Projections = { pagedResult.Items.Select(item => Any.Pack((AddressListItem)item)) },
+                    Page = pagedResult.Page
+                }
+            }
+            : new() { NoContent = new() };
     }
 }

@@ -2,9 +2,9 @@
 
 namespace WebAPI.APIs.Accounts.Validators;
 
-public class ListShippingAddressesValidator : AbstractValidator<Requests.ListShippingAddresses>
+public class ListShippingAddressesListItemsValidator : AbstractValidator<Requests.ListShippingAddressesListItems>
 {
-    public ListShippingAddressesValidator()
+    public ListShippingAddressesListItemsValidator()
     {
         RuleFor(request => request.AccountId)
             .NotEmpty();
