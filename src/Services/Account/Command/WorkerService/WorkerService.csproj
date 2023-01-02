@@ -4,7 +4,7 @@
         <PackageReference Include="Serilog.AspNetCore" Version="$(Serilog_AspNetCore_Version)" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Infrastructure.EventStore\Infrastructure.EventStore.csproj" />
-        <ProjectReference Include="..\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj" />
+        <ProjectReference Include="..\Infrastructure\EventStore\EventStore.csproj" />
+        <ProjectReference Include="..\Infrastructure\MessageBus\MessageBus.csproj" />
     </ItemGroup>
 </Project>

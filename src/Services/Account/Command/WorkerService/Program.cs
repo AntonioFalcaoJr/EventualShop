@@ -1,10 +1,10 @@
 using Application.DependencyInjection.Extensions;
-using Infrastructure.EventStore.Contexts;
-using Infrastructure.EventStore.DependencyInjection.Extensions;
-using Infrastructure.EventStore.DependencyInjection.Options;
-using Infrastructure.MessageBus.DependencyInjection.Extensions;
-using Infrastructure.MessageBus.DependencyInjection.Options;
+using EventStore.Contexts;
+using EventStore.DependencyInjection.Extensions;
+using EventStore.DependencyInjection.Options;
 using MassTransit;
+using MessageBus.DependencyInjection.Extensions;
+using MessageBus.DependencyInjection.Options;
 using Microsoft.EntityFrameworkCore;
 using Quartz;
 using Serilog;
