@@ -20,4 +20,6 @@ public static class Command
     public record PreferShippingAddress(Guid AccountId, Guid AddressId) : Message, ICommand;
 
     public record PreferBillingAddress(Guid AccountId, Guid AddressId) : Message, ICommand;
+
+    public record ActiveAccount(Guid AccountId) : Message, ICommand;
 }

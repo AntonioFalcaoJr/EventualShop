@@ -12,6 +12,6 @@ public class GetCatalogItemDetailsInteractor : IInteractor<Query.GetCatalogItemD
         _projectionGateway = projectionGateway;
     }
 
-    public Task<Projection.CatalogItemDetails> InteractAsync(Query.GetCatalogItemDetails query, CancellationToken cancellationToken)
+    public Task<Projection.CatalogItemDetails?> InteractAsync(Query.GetCatalogItemDetails query, CancellationToken cancellationToken)
         => _projectionGateway.FindAsync(item => item.CatalogId == query.CatalogId && item.Id == query.ItemId, cancellationToken);
 }

@@ -2,9 +2,9 @@
 
 namespace WebAPI.APIs.Accounts.Validators;
 
-public class ListAccountsValidator : AbstractValidator<Requests.ListAccounts>
+public class ListAccountsDetailsValidator : AbstractValidator<Requests.ListAccountsDetails>
 {
-    public ListAccountsValidator()
+    public ListAccountsDetailsValidator()
     {
         RuleFor(request => request.Limit)
             .GreaterThan(0)

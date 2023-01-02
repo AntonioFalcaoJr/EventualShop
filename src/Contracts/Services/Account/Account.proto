@@ -5,48 +5,37 @@ package Contracts.Services.Account.Protobuf;
 import "Abstractions/Abstractions.proto";
 
 service AccountService {
-  rpc GetAccount(GetAccountRequest) returns (Account);
-  rpc ListAccounts(ListAccountsRequest) returns (Accounts);
-  rpc ListShippingAddresses(ListShippingAddressesRequest) returns (Addresses);
+  rpc GetAccountDetails(GetAccountDetailsRequest) returns (Abstractions.Protobuf.GetResponse);
+  rpc ListAccountsDetails(ListAccountsDetailsRequest) returns (Abstractions.Protobuf.ListResponse);
+  rpc ListShippingAddressesListItems(ListShippingAddressesListItemsRequest) returns (Abstractions.Protobuf.ListResponse);
 }
 
-message GetAccountRequest {
+// Requests
+
+message GetAccountDetailsRequest {
   string AccountId = 1;
 }
 
-message Account {
+message ListAccountsDetailsRequest {
+  Abstractions.Protobuf.Paging Paging = 1;
+}
+
+message ListShippingAddressesListItemsRequest {
+  string AccountId = 1;
+  Abstractions.Protobuf.Paging Paging = 2;
+}
+
+// Projections
+
+message AccountDetails {
   string Id = 1;
   string FirstName = 2;
   string LastName = 3;
   string Email = 4;
 }
 
-message ListAccountsRequest {
-  Abstractions.Protobuf.Paging Paging = 1;
-}
-
-message Accounts {
-  repeated Account Items = 1;
-  Abstractions.Protobuf.Page Page = 2;
-}
-
-message ListShippingAddressesRequest {
-  string AccountId = 1;
-  Abstractions.Protobuf.Paging Paging = 2;
-}
-
-message Addresses {
-  repeated Address Items = 1;
-  Abstractions.Protobuf.Page Page = 2;
-}
-
-message Address {
+message AddressListItem {
   string Id = 1;
   string AccountId = 2;
-  string City = 3;
-  string Country = 4;
-  sint32 Number = 5;
-  string State = 6;
-  string Street = 7;
-  string ZipCode = 8;
+  Abstractions.Protobuf.Address Address = 3;
 }

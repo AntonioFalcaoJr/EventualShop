@@ -25,7 +25,16 @@ public class ShoppingCartValidator : AbstractValidator<ShoppingCart>
         RuleForEach(cart => cart.PaymentMethods)
             .SetValidator(new PaymentMethodValidator());
 
-        RuleFor(cart => cart.BillingAddress)
-            .SetValidator(new AddressValidator());
+        When(cart => cart.BillingAddress is not null, () =>
+        {
+            RuleFor(cart => cart.BillingAddress)
+                .SetValidator(new AddressValidator()!);
+        });
+
+        When(cart => cart.ShippingAddress is not null, () =>
+        {
+            RuleFor(cart => cart.ShippingAddress)
+                .SetValidator(new AddressValidator()!);
+        });
     }
 }

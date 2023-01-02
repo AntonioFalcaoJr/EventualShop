@@ -3,20 +3,20 @@ using Contracts.Services.Catalog;
 
 namespace Application.UseCases.Events;
 
-public interface IProjectCatalogItemDetailsInteractor : IInteractor<DomainEvent.CatalogItemAdded> { }
+public interface IProjectCatalogItemDetailsWhenCatalogChangedInteractor : IInteractor<DomainEvent.CatalogItemAdded> { }
 
-public class ProjectCatalogItemDetailsInteractor : IProjectCatalogItemDetailsInteractor
+public class ProjectCatalogItemDetailsWhenCatalogChangedInteractor : IProjectCatalogItemDetailsWhenCatalogChangedInteractor
 {
-    private readonly IProjectionGateway<Projection.CatalogItemCard> _projectionGateway;
+    private readonly IProjectionGateway<Projection.CatalogItemDetails> _projectionGateway;
 
-    public ProjectCatalogItemDetailsInteractor(IProjectionGateway<Projection.CatalogItemCard> projectionGateway)
+    public ProjectCatalogItemDetailsWhenCatalogChangedInteractor(IProjectionGateway<Projection.CatalogItemDetails> projectionGateway)
     {
         _projectionGateway = projectionGateway;
     }
 
     public async Task InteractAsync(DomainEvent.CatalogItemAdded @event, CancellationToken cancellationToken)
     {
-        Projection.CatalogItemCard card = new(
+        Projection.CatalogItemDetails card = new(
             @event.ItemId,
             @event.CatalogId,
             @event.Product,

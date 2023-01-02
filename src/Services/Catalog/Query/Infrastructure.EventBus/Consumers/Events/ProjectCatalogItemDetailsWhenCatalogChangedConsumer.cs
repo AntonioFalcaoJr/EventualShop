@@ -4,11 +4,11 @@ using MassTransit;
 
 namespace Infrastructure.EventBus.Consumers.Events;
 
-public class ProjectCatalogItemDetailsConsumer : IConsumer<DomainEvent.CatalogItemAdded>
+public class ProjectCatalogItemDetailsWhenCatalogChangedConsumer : IConsumer<DomainEvent.CatalogItemAdded>
 {
-    private readonly IProjectCatalogItemDetailsInteractor _interactor;
+    private readonly IProjectCatalogItemDetailsWhenCatalogChangedInteractor _interactor;
 
-    public ProjectCatalogItemDetailsConsumer(IProjectCatalogItemDetailsInteractor interactor)
+    public ProjectCatalogItemDetailsWhenCatalogChangedConsumer(IProjectCatalogItemDetailsWhenCatalogChangedInteractor interactor)
     {
         _interactor = interactor;
     }

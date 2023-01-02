@@ -3,7 +3,7 @@ using Contracts.Services.Account;
 
 namespace Application.UseCases.Queries;
 
-public class GetAccountInteractor : IInteractor<Query.GetAccount, Projection.AccountDetails>
+public class GetAccountInteractor : IInteractor<Query.GetAccountDetails, Projection.AccountDetails>
 {
     private readonly IProjectionGateway<Projection.AccountDetails> _projectionGateway;
 
@@ -12,6 +12,6 @@ public class GetAccountInteractor : IInteractor<Query.GetAccount, Projection.Acc
         _projectionGateway = projectionGateway;
     }
 
-    public Task<Projection.AccountDetails> InteractAsync(Query.GetAccount query, CancellationToken cancellationToken)
+    public Task<Projection.AccountDetails?> InteractAsync(Query.GetAccountDetails query, CancellationToken cancellationToken)
         => _projectionGateway.GetAsync(query.AccountId, cancellationToken);
 }

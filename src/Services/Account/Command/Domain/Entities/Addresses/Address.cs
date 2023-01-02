@@ -4,30 +4,25 @@ namespace Domain.Entities.Addresses;
 
 public abstract class Address : Entity<AddressValidator>
 {
-    protected Address(Guid id, string city, string country, int? number, string state, string street, string zipCode)
+    protected Address(Guid id, string street, string city, string state, string zipCode, string country, int? number, string? complement)
     {
         Id = id;
+        Street = street;
         City = city;
+        State = state;
+        ZipCode = zipCode;
         Country = country;
         Number = number;
-        State = state;
-        Street = street;
-        ZipCode = zipCode;
+        Complement = complement;
     }
 
-    public string City { get; }
-    public string Country { get; }
-    public bool IsPreferred { get; private set; }
-    public int? Number { get; }
-    public string State { get; }
     public string Street { get; }
+    public string City { get; }
+    public string State { get; }
     public string ZipCode { get; }
-
-    public void Prefer()
-        => IsPreferred = true;
-
-    public void Unprefer()
-        => IsPreferred = false;
+    public string Country { get; }
+    public int? Number { get; }
+    public string? Complement { get; }
 
     public void Delete()
         => IsDeleted = true;

@@ -12,6 +12,6 @@ public class GetOrderDetailsInteractor : IInteractor<Query.GetOrderDetails, Proj
         _projectionGateway = projectionGateway;
     }
 
-    public Task<Projection.OrderDetails> InteractAsync(Query.GetOrderDetails query, CancellationToken cancellationToken)
+    public Task<Projection.OrderDetails?> InteractAsync(Query.GetOrderDetails query, CancellationToken cancellationToken)
         => _projectionGateway.GetAsync(query.OrderId, cancellationToken);
 }

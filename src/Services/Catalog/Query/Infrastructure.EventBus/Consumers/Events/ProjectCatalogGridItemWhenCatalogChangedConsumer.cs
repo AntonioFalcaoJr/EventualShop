@@ -4,7 +4,7 @@ using MassTransit;
 
 namespace Infrastructure.EventBus.Consumers.Events;
 
-public class ProjectCatalogGridItemConsumer :
+public class ProjectCatalogGridItemWhenCatalogChangedConsumer :
     IConsumer<DomainEvent.CatalogActivated>,
     IConsumer<DomainEvent.CatalogCreated>,
     IConsumer<DomainEvent.CatalogDeactivated>,
@@ -12,9 +12,9 @@ public class ProjectCatalogGridItemConsumer :
     IConsumer<DomainEvent.CatalogDescriptionChanged>,
     IConsumer<DomainEvent.CatalogTitleChanged>
 {
-    private readonly IProjectCatalogGridItemInteractor _interactor;
+    private readonly IProjectCatalogGridItemWhenCatalogChangedInteractor _interactor;
 
-    public ProjectCatalogGridItemConsumer(IProjectCatalogGridItemInteractor interactor)
+    public ProjectCatalogGridItemWhenCatalogChangedConsumer(IProjectCatalogGridItemWhenCatalogChangedInteractor interactor)
     {
         _interactor = interactor;
     }

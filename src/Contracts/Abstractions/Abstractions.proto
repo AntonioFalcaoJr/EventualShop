@@ -48,3 +48,13 @@ message Product {
   string Unit = 6;
   string Sku = 7;
 }
+
+message Address {
+  string Street = 1;
+  string City = 2;
+  string State = 3;
+  string ZipCode = 4;
+  string Country = 5;
+  google.protobuf.Int32Value Number = 6;
+  google.protobuf.StringValue Complement = 7;
+}
