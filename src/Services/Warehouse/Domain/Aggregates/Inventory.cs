@@ -4,12 +4,15 @@ using Contracts.Services.Warehouse;
 using Domain.Entities.Adjustments;
 using Domain.Entities.InventoryItems;
 using Domain.ValueObjects.Products;
+using Newtonsoft.Json;
 
 namespace Domain.Aggregates;
 
 public class Inventory : AggregateRoot<Guid, InventoryValidator>
 {
+    [JsonProperty]
     private readonly List<InventoryItem> _items = new();
+
     private static DateTimeOffset Expiration => DateTimeOffset.Now.AddMinutes(5);
 
     public Guid OwnerId { get; private set; }
@@ -21,7 +24,7 @@ public class Inventory : AggregateRoot<Guid, InventoryValidator>
         => Items.Sum(item => item.Quantity);
 
     public IEnumerable<InventoryItem> Items
-        => _items;
+        => _items.AsReadOnly();
 
     public void Handle(Command.CreateInventory cmd)
         => RaiseEvent(new DomainEvent.InventoryCreated(Guid.NewGuid(), cmd.OwnerId));
