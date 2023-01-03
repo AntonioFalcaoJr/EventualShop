@@ -1,18 +1,11 @@
 using Application.UseCases.Events;
 using Contracts.Services.Catalog;
-using MassTransit;
+using Infrastructure.EventBus.Abstractions;
 
 namespace Infrastructure.EventBus.Consumers.Events;
 
-public class ProjectCatalogItemCardWhenCatalogChangedConsumer : IConsumer<DomainEvent.CatalogItemAdded>
+public class ProjectCatalogItemCardWhenCatalogChangedConsumer : Consumer<DomainEvent.CatalogItemAdded>
 {
-    private readonly IProjectCatalogItemCardWhenCatalogChangedInteractor _interactor;
-
     public ProjectCatalogItemCardWhenCatalogChangedConsumer(IProjectCatalogItemCardWhenCatalogChangedInteractor interactor)
-    {
-        _interactor = interactor;
-    }
-
-    public Task Consume(ConsumeContext<DomainEvent.CatalogItemAdded> context)
-        => _interactor.InteractAsync(context.Message, context.CancellationToken);
+        : base(interactor) { }
 }

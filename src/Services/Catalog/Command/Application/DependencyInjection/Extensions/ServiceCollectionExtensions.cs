@@ -22,4 +22,7 @@ public static class ServiceCollectionExtensions
             .AddScoped<IInteractor<Command.DeactivateCatalog>, DeactivateCatalogInteractor>()
             .AddScoped<IInteractor<Command.DeleteCatalog>, DeleteCatalogInteractor>()
             .AddScoped<IInteractor<Command.RemoveCatalogItem>, RemoveCatalogItemInteractor>();
+
+    public static IServiceCollection AddEventInteractors(this IServiceCollection services)
+        => services;
 }

@@ -1,6 +1,6 @@
 using Contracts.Abstractions.Messages;
 
-namespace Application.Abstractions.Interactors;
+namespace Application.Abstractions;
 
 public interface IInteractor<in TMessage>
     where TMessage : IMessage
