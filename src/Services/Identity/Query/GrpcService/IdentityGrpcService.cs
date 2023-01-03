@@ -1,6 +1,8 @@
 using Application.Abstractions;
+using Contracts.Abstractions.Protobuf;
 using Contracts.Services.Identity;
 using Contracts.Services.Identity.Protobuf;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 
 namespace GrpcService;
@@ -14,6 +16,12 @@ public class IdentityGrpcService : IdentityService.IdentityServiceBase
         _interactor = interactor;
     }
 
-    public override async Task<LoginResponse> Login(LoginRequest request, ServerCallContext context)
-        => await _interactor.InteractAsync(request, context.CancellationToken);
+    public override async Task<GetResponse> Login(LoginRequest request, ServerCallContext context)
+    {
+        var userDetails = await _interactor.InteractAsync(request, context.CancellationToken);
+        
+        return userDetails is null
+            ? new() { NotFound = new() }
+            : new() { Projection = Any.Pack((GetUserDetailsResponse)userDetails) };
+    } 
 }
