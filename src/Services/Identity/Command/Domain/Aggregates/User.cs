@@ -3,11 +3,13 @@ using Contracts.Abstractions.Messages;
 using Contracts.Services.Identity;
 using Domain.Enumerations;
 using Domain.ValueObjects.Emails;
+using Newtonsoft.Json;
 
 namespace Domain.Aggregates;
 
 public class User : AggregateRoot<UserValidator>
 {
+    [JsonProperty]
     private readonly List<Email> _emails = new();
 
     public string? FirstName { get; private set; }
@@ -16,7 +18,7 @@ public class User : AggregateRoot<UserValidator>
     public string? PrimaryEmail { get; private set; }
 
     public IEnumerable<Email> Emails
-        => _emails;
+        => _emails.AsReadOnly();
 
     public override void Handle(ICommand command)
         => Handle(command as dynamic);

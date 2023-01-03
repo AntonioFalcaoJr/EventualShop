@@ -9,12 +9,16 @@ using Domain.ValueObjects.Addresses;
 using Domain.ValueObjects.PaymentOptions.CreditCards;
 using Domain.ValueObjects.PaymentOptions.DebitCards;
 using Domain.ValueObjects.PaymentOptions.PayPals;
+using Newtonsoft.Json;
 
 namespace Domain.Aggregates;
 
 public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
 {
+    [JsonProperty]
     private readonly List<CartItem> _items = new();
+
+    [JsonProperty]
     private readonly List<PaymentMethod> _paymentMethods = new();
 
     public Guid CustomerId { get; private set; }
@@ -33,10 +37,10 @@ public class ShoppingCart : AggregateRoot<Guid, ShoppingCartValidator>
         => Total - TotalPayment;
 
     public IEnumerable<CartItem> Items
-        => _items;
+        => _items.AsReadOnly();
 
     public IEnumerable<PaymentMethod> PaymentMethods
-        => _paymentMethods;
+        => _paymentMethods.AsReadOnly();
 
     public override void Handle(ICommand? command)
         => Handle(command as dynamic);
