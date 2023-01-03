@@ -5,10 +5,10 @@ package Contracts.Services.Catalog.Protobuf;
 import "Abstractions/Abstractions.proto";
 
 service CatalogService {
-  rpc ListCatalogsGridItems(ListCatalogsGridItemsRequest) returns (Abstractions.Protobuf.ListResponse);
-  rpc ListCatalogItemsListItems(ListCatalogItemsListItemsRequest) returns (Abstractions.Protobuf.ListResponse);
-  rpc ListCatalogItemsCards(ListCatalogItemsCardsRequest) returns (Abstractions.Protobuf.ListResponse);
   rpc GetCatalogItemDetails(GetCatalogItemDetailsRequest) returns (Abstractions.Protobuf.GetResponse);
+  rpc ListCatalogsGridItems(ListCatalogsGridItemsRequest) returns (Abstractions.Protobuf.ListResponse);
+  rpc ListCatalogItemsCards(ListCatalogItemsCardsRequest) returns (Abstractions.Protobuf.ListResponse);
+  rpc ListCatalogItemsListItems(ListCatalogItemsListItemsRequest) returns (Abstractions.Protobuf.ListResponse);
 }
 
 // Requests

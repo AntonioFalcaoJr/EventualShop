@@ -9,15 +9,15 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistrationContext context)
     {
-        ConfigureEventReceiveEndpoint<OrderPlacedConsumer, DomainEvent.OrderPlaced>(cfg, context);
-        ConfigureEventReceiveEndpoint<OrderConfirmedConsumer, DomainEvent.OrderConfirmed>(cfg, context);
+        ConfigureEventReceiveEndpoint<ProjectOrderDetailsWhenOrderChangedConsumer, DomainEvent.OrderPlaced>(cfg, context);
+        ConfigureEventReceiveEndpoint<ProjectOrderDetailsWhenOrderChangedConsumer, DomainEvent.OrderConfirmed>(cfg, context);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistrationContext context)
         where TConsumer : class, IConsumer
         where TEvent : class, IEvent
         => bus.ReceiveEndpoint(
-            queueName: $"order.query.{typeof(TConsumer).ToKebabCaseString()}.{typeof(TEvent).ToKebabCaseString()}",
+            queueName: $"order.query-stack.{typeof(TConsumer).ToKebabCaseString()}.{typeof(TEvent).ToKebabCaseString()}",
             configureEndpoint: endpoint =>
             {
                 endpoint.ConfigureConsumeTopology = false;

@@ -5,10 +5,18 @@ package Contracts.Services.Communication.Protobuf;
 import "Abstractions/Abstractions.proto";
 
 service CommunicationService {
-  rpc ListEmails(ListNotificationsRequest) returns (Notifications);
+  rpc ListNotificationsDetails(ListNotificationsDetailsRequest) returns (Abstractions.Protobuf.ListResponse);
 }
 
-message Notification {
+// Requests
+
+message ListNotificationsDetailsRequest {
+  Abstractions.Protobuf.Paging Paging = 1;
+}
+
+// Projections
+
+message NotificationDetails {
   string id = 1;
   repeated NotificationMethod methods = 2;
 }
@@ -36,13 +44,4 @@ message PushWeb {
 
 message PushMobile {
   string DeviceId = 1;
-}
-
-message ListNotificationsRequest {
-  Abstractions.Protobuf.Paging Paging = 1;
-}
-
-message Notifications {
-  repeated Notification Items = 1;
-  Abstractions.Protobuf.Page Page = 2;
 }

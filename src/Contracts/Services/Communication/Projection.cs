@@ -8,7 +8,7 @@ public static class Projection
 {
     public record NotificationDetails(Guid Id, IEnumerable<Dto.NotificationMethod> Methods, bool IsDeleted) : IProjection
     {
-        public static implicit operator Notification(NotificationDetails notification)
+        public static implicit operator Protobuf.NotificationDetails(NotificationDetails notification)
             => new()
             {
                 Id = notification.Id.ToString(),

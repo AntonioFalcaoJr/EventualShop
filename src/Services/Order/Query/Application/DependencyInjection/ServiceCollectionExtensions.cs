@@ -10,9 +10,7 @@ namespace Application.DependencyInjection;
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddEventInteractors(this IServiceCollection services)
-        => services
-            .AddScoped<IInteractor<DomainEvent.OrderPlaced>, OrderPlacedInteractor>()
-            .AddScoped<IInteractor<DomainEvent.OrderConfirmed>, OrderConfirmedInteractor>();
+        => services.AddScoped<IProjectOrderDetailsWhenOrderChangedInteractor, ProjectOrderDetailsWhenOrderChangedInteractor>();
 
     public static IServiceCollection AddQueryInteractors(this IServiceCollection services)
         => services

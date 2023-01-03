@@ -4,11 +4,13 @@ using Domain.Enumerations;
 using Domain.ValueObjects.Addresses;
 using Contracts.Abstractions.Messages;
 using Contracts.Services.Payment;
+using Newtonsoft.Json;
 
 namespace Domain.Aggregates;
 
 public class Payment : AggregateRoot<Guid, PaymentValidator>
 {
+    [JsonProperty]
     private readonly List<PaymentMethod> _methods = new();
 
     public Guid OrderId { get; private set; }
@@ -22,7 +24,7 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
             .Sum(method => method.Amount);
 
     public IEnumerable<PaymentMethod> Methods
-        => _methods;
+        => _methods.AsReadOnly();
 
     public void Handle(Command.RequestPayment cmd)
         => RaiseEvent(new DomainEvent.PaymentRequested(Guid.NewGuid(), cmd.OrderId, cmd.AmountDue, cmd.BillingAddress, cmd.PaymentMethods, PaymentStatus.Ready));

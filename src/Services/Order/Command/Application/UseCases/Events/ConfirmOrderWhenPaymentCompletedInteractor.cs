@@ -6,11 +6,13 @@ using Payment = Contracts.Services.Payment;
 
 namespace Application.UseCases.Events;
 
-public class PaymentCompletedInteractor : IInteractor<Payment.DomainEvent.PaymentCompleted>
+public interface IConfirmOrderWhenPaymentCompletedInteractor : IInteractor<Payment.DomainEvent.PaymentCompleted> { }
+
+public class ConfirmOrderWhenPaymentCompletedInteractor : IConfirmOrderWhenPaymentCompletedInteractor
 {
     private readonly IApplicationService _applicationService;
 
-    public PaymentCompletedInteractor(IApplicationService applicationService)
+    public ConfirmOrderWhenPaymentCompletedInteractor(IApplicationService applicationService)
     {
         _applicationService = applicationService;
     }

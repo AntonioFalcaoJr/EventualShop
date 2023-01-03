@@ -3,15 +3,17 @@ using Contracts.Services.Communication;
 using Domain.Abstractions.Aggregates;
 using Domain.Entities;
 using Domain.Enumerations;
+using Newtonsoft.Json;
 
 namespace Domain.Aggregates;
 
 public class Notification : AggregateRoot<NotificationValidator>
 {
+    [JsonProperty]
     private readonly List<NotificationMethod> _methods = new();
 
     public IEnumerable<NotificationMethod> Methods
-        => _methods;
+        => _methods.AsReadOnly();
 
     public override void Handle(ICommand command)
         => Handle(command as dynamic);
