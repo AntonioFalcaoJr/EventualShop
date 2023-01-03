@@ -1,4 +1,4 @@
-using Application.Abstractions.Interactors;
+using Application.Abstractions;
 using Contracts.Abstractions.Messages;
 using MassTransit;
 

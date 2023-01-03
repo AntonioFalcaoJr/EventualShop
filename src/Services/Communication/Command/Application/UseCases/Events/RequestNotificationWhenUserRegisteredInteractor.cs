@@ -1,23 +1,25 @@
-using Application.Abstractions.Interactors;
+using Application.Abstractions;
 using Application.Resources;
 using Application.Services;
 using Contracts.DataTransferObjects;
-using Contracts.Services.Identity;
 using Domain.Aggregates;
-using Command = Contracts.Services.Communication.Command;
+using Contracts.Services.Communication;
+using Identity = Contracts.Services.Identity;
 
-namespace Application.UseCases;
+namespace Application.UseCases.Events;
 
-public class UserRegisteredInteractor : IInteractor<DomainEvent.UserRegistered>
+public interface IRequestNotificationWhenUserRegisteredInteractor : IInteractor<Identity.DomainEvent.UserRegistered> { }
+
+public class RequestNotificationWhenUserRegisteredInteractor : IRequestNotificationWhenUserRegisteredInteractor
 {
     private readonly IApplicationService _applicationService;
 
-    public UserRegisteredInteractor(IApplicationService applicationService)
+    public RequestNotificationWhenUserRegisteredInteractor(IApplicationService applicationService)
     {
         _applicationService = applicationService;
     }
 
-    public async Task InteractAsync(DomainEvent.UserRegistered @event, CancellationToken cancellationToken)
+    public async Task InteractAsync(Identity.DomainEvent.UserRegistered @event, CancellationToken cancellationToken)
     {
         Notification notification = new();
         var methods = DefineMethods(@event.UserId, @event.FirstName, @event.Email);

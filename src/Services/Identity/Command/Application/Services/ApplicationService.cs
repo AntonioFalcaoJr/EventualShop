@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions;
+using Application.Abstractions.Gateways;
 using Contracts.Abstractions.Messages;
 using Domain.Abstractions.Aggregates;
 
@@ -20,7 +21,7 @@ public class ApplicationService : IApplicationService
         _unitOfWork = unitOfWork;
     }
 
-    public Task<IAggregateRoot> LoadAggregateAsync<TAggregate>(Guid id, CancellationToken cancellationToken)
+    public Task<TAggregate> LoadAggregateAsync<TAggregate>(Guid id, CancellationToken cancellationToken)
         where TAggregate : IAggregateRoot, new()
         => _eventStoreGateway.LoadAggregateAsync<TAggregate>(id, cancellationToken);
 
