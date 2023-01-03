@@ -6,6 +6,6 @@ public interface IEventStoreGateway
 {
     Task AppendEventsAsync(IAggregateRoot aggregate, CancellationToken cancellationToken);
 
-    Task<IAggregateRoot> LoadAggregateAsync<TAggregate>(Guid aggregateId, CancellationToken cancellationToken)
+    Task<TAggregate> LoadAggregateAsync<TAggregate>(Guid aggregateId, CancellationToken cancellationToken)
         where TAggregate : IAggregateRoot, new();
 }

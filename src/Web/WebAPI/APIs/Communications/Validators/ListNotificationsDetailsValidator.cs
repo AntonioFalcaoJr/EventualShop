@@ -2,9 +2,9 @@
 
 namespace WebAPI.APIs.Communications.Validators;
 
-public class ListNotificationsValidator : AbstractValidator<Requests.ListNotifications>
+public class ListNotificationsDetailsValidator : AbstractValidator<Requests.ListNotificationsDetails>
 {
-    public ListNotificationsValidator()
+    public ListNotificationsDetailsValidator()
     {
         RuleFor(request => request.Limit)
             .GreaterThan(0)

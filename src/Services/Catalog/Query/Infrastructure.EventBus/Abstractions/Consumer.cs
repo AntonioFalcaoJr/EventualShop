@@ -2,10 +2,10 @@ using Application.Abstractions;
 using Contracts.Abstractions.Messages;
 using MassTransit;
 
-namespace Infrastructure.MessageBus.Abstractions;
+namespace Infrastructure.EventBus.Abstractions;
 
 public abstract class Consumer<TMessage> : IConsumer<TMessage>
-    where TMessage : class, IMessage
+    where TMessage : class, IEvent
 {
     private readonly IInteractor<TMessage> _interactor;
 

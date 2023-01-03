@@ -7,7 +7,8 @@ namespace Application.DependencyInjection.Extensions;
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
-        => services.AddScoped<IApplicationService, ApplicationService>();
+        => services
+            .AddScoped<IApplicationService, ApplicationService>();
     
     public static IServiceCollection AddCommandInteractors(this IServiceCollection services)
         => services;

@@ -3,11 +3,13 @@ using Contracts.Services.Communication;
 
 namespace Application.UseCases.Events;
 
-public class NotificationRequestedInteractor : IInteractor<DomainEvent.NotificationRequested>
+public interface IProjectNotificationDetailsWhenNotificationChangedInteractor : IInteractor<DomainEvent.NotificationRequested> { }
+
+public class ProjectNotificationDetailsWhenNotificationChangedInteractor : IProjectNotificationDetailsWhenNotificationChangedInteractor
 {
     private readonly IProjectionGateway<Projection.NotificationDetails> _projectionGateway;
 
-    public NotificationRequestedInteractor(IProjectionGateway<Projection.NotificationDetails> projectionGateway)
+    public ProjectNotificationDetailsWhenNotificationChangedInteractor(IProjectionGateway<Projection.NotificationDetails> projectionGateway)
     {
         _projectionGateway = projectionGateway;
     }

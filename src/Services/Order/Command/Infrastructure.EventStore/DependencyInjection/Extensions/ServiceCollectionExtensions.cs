@@ -1,4 +1,5 @@
 using Application.Abstractions;
+using Application.Abstractions.Gateways;
 using Domain.Abstractions.EventStore;
 using Infrastructure.EventStore.Abstractions;
 using Infrastructure.EventStore.Contexts;

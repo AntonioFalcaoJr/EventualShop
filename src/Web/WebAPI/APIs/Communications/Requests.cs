@@ -6,10 +6,10 @@ namespace WebAPI.APIs.Communications;
 
 public static class Requests
 {
-    public record ListNotifications(CommunicationService.CommunicationServiceClient Client, int? Limit, int? Offset, CancellationToken CancellationToken)
-        : Validatable<ListNotificationsValidator>, IQueryRequest<CommunicationService.CommunicationServiceClient>
+    public record ListNotificationsDetails(CommunicationService.CommunicationServiceClient Client, int? Limit, int? Offset, CancellationToken CancellationToken)
+        : Validatable<ListNotificationsDetailsValidator>, IQueryRequest<CommunicationService.CommunicationServiceClient>
     {
-        public static implicit operator ListNotificationsRequest(ListNotifications request)
+        public static implicit operator ListNotificationsDetailsRequest(ListNotificationsDetails request)
             => new() { Paging = new() { Limit = request.Limit, Offset = request.Offset } };
     }
 }
