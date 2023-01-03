@@ -3,12 +3,12 @@ using Contracts.Services.Identity;
 
 namespace Application.UseCases.Queries;
 
-public class LoginInteractor : IInteractor<Query.Login, Projection.UserDetails>
+public class GetUserDetailsInteractor : IInteractor<Query.Login, Projection.UserDetails>
 {
     private readonly IProjectionGateway<Projection.UserDetails> _gateway;
     private readonly IJwtTokenGenerator _tokenGenerator;
 
-    public LoginInteractor(
+    public GetUserDetailsInteractor(
         IProjectionGateway<Projection.UserDetails> gateway,
         IJwtTokenGenerator tokenGenerator)
     {

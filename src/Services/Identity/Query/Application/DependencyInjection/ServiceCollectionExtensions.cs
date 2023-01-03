@@ -10,10 +10,8 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddEventInteractors(this IServiceCollection services)
         => services
-            .AddScoped<IInteractor<DomainEvent.UserDeleted>, UserDeletedInteractor>()
-            .AddScoped<IInteractor<DomainEvent.UserRegistered>, UserRegisteredInteractor>()
-            .AddScoped<IInteractor<DomainEvent.PasswordChanged>, UserPasswordChangedInteractor>();
+            .AddScoped<IProjectUserDetailsWhenUserChangedInteractor, ProjectUserDetailsWhenUserChangedInteractor>();
 
     public static IServiceCollection AddQueryInteractors(this IServiceCollection services)
-        => services.AddScoped<IInteractor<Query.Login, Projection.UserDetails>, LoginInteractor>();
+        => services.AddScoped<IInteractor<Query.Login, Projection.UserDetails>, GetUserDetailsInteractor>();
 }

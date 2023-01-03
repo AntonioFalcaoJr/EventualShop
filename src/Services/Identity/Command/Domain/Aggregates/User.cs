@@ -41,7 +41,7 @@ public class User : AggregateRoot<UserValidator>
     private void Handle(Command.ChangePassword cmd)
     {
         if (cmd.NewPassword == Password) return;
-        RaiseEvent(new DomainEvent.PasswordChanged(cmd.UserId, cmd.NewPassword));
+        RaiseEvent(new DomainEvent.UserPasswordChanged(cmd.UserId, cmd.NewPassword));
     }
 
     private void Handle(Command.DeleteUser cmd)
@@ -71,7 +71,7 @@ public class User : AggregateRoot<UserValidator>
         _emails.Add(email);
     }
 
-    private void Apply(DomainEvent.PasswordChanged @event)
+    private void Apply(DomainEvent.UserPasswordChanged @event)
         => Password = @event.Password;
 
     private void Apply(DomainEvent.UserDeleted _)
