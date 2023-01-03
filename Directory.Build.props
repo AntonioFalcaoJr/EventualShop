@@ -29,7 +29,7 @@
         <Grpc_Tools_Version>2.51.0</Grpc_Tools_Version>
         <Google_Protobuf_Version>3.21.12</Google_Protobuf_Version>
         <Grpc_Net_Client_Version>2.51.0-pre1</Grpc_Net_Client_Version>
-        <Grpc_AspNetCore_Version>2.51.0-pre1</Grpc_AspNetCore_Version>
+        <Grpc_AspNetCore_Version>2.51.0</Grpc_AspNetCore_Version>
         <Grpc_Net_ClientFactory_Version>2.51.0-pre1</Grpc_Net_ClientFactory_Version>
         <Grpc_AspNetCore_Server_ClientFactory_Version>2.51.0-pre1</Grpc_AspNetCore_Server_ClientFactory_Version>
 
