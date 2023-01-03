@@ -6,12 +6,16 @@ using Contracts.Abstractions.Messages;
 using Contracts.DataTransferObjects;
 using Contracts.Services.Order;
 using Domain.ValueObjects.Addresses;
+using Newtonsoft.Json;
 
 namespace Domain.Aggregates;
 
 public class Order : AggregateRoot<OrderValidator>
 {
+    [JsonProperty]
     private readonly List<OrderItem> _items = new();
+
+    [JsonProperty]
     private readonly List<PaymentMethod> _paymentMethods = new();
 
     public Guid CustomerId { get; private set; }
@@ -21,10 +25,10 @@ public class Order : AggregateRoot<OrderValidator>
     public decimal Total { get; private set; }
 
     public IEnumerable<OrderItem> Items
-        => _items;
+        => _items.AsReadOnly();
 
     public IEnumerable<PaymentMethod> PaymentMethods
-        => _paymentMethods;
+        => _paymentMethods.AsReadOnly();
 
     public override void Handle(ICommand command)
         => Handle(command as dynamic);

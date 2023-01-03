@@ -1,12 +1,16 @@
 ﻿using Domain.Abstractions.Entities;
 using Domain.Entities.Adjustments;
 using Domain.ValueObjects.Products;
+using Newtonsoft.Json;
 
 namespace Domain.Entities.InventoryItems;
 
 public class InventoryItem : Entity<Guid, InventoryItemValidator>
 {
+    [JsonProperty]
     private readonly List<Reserve> _reserves = new();
+
+    [JsonProperty]
     private readonly List<IAdjustment> _adjustments = new();
 
     public InventoryItem(Guid id, decimal cost, Product product, int quantity, string sku)
@@ -34,10 +38,10 @@ public class InventoryItem : Entity<Guid, InventoryItemValidator>
             });
 
     public IEnumerable<Reserve> Reserves
-        => _reserves;
+        => _reserves.AsReadOnly();
 
     public IEnumerable<IAdjustment> Adjustments
-        => _adjustments;
+        => _adjustments.AsReadOnly();
 
     public Product Product { get; }
     public int Quantity { get; private set; }
@@ -46,7 +50,7 @@ public class InventoryItem : Entity<Guid, InventoryItemValidator>
 
     public void Increase(int quantity)
         => Quantity += quantity;
-    
+
     public void Decrease(int quantity)
         => Quantity -= quantity;
 
