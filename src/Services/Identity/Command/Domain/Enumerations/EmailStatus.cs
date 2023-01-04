@@ -6,12 +6,12 @@ namespace Domain.Enumerations;
 public class EmailStatus : SmartEnum<EmailStatus>
 {
     [JsonConstructor]
-    private EmailStatus(string name, int value)
+    public EmailStatus(string name, int value)
         : base(name, value) { }
 
-    public static readonly EmailStatus Unverified = new(nameof(Unverified), 1);
-    public static readonly EmailStatus Verified = new(nameof(Verified), 2);
-    public static readonly EmailStatus Expired = new(nameof(Expired), 3);
+    public static readonly EmailStatus Unverified = new UnverifiedStatus();
+    public static readonly EmailStatus Verified = new VerifiedStatus();
+    public static readonly EmailStatus Expired = new ExpiredStatus();
 
     public static implicit operator EmailStatus(string name)
         => FromName(name);
@@ -24,4 +24,22 @@ public class EmailStatus : SmartEnum<EmailStatus>
 
     public static implicit operator int(EmailStatus status)
         => status.Value;
+
+    public class UnverifiedStatus : EmailStatus
+    {
+        public UnverifiedStatus() 
+            : base(nameof(Unverified), 1) { }
+    }
+    
+    public class VerifiedStatus : EmailStatus
+    {
+        public VerifiedStatus() 
+            : base(nameof(Verified), 2) { }
+    }
+    
+    public class ExpiredStatus : EmailStatus
+    {
+        public ExpiredStatus() 
+            : base(nameof(Expired), 3) { }
+    }
 }

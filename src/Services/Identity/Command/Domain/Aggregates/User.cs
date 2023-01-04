@@ -28,7 +28,7 @@ public class User : AggregateRoot<UserValidator>
 
     private void Handle(Command.ConfirmEmail cmd)
     {
-        if (_emails.SingleOrDefault(email => email == cmd.Email) is not { IsVerified: false }) return;
+        if (_emails.SingleOrDefault(email => email == cmd.Email) is not {Status: EmailStatus.VerifiedStatus}) return;
         RaiseEvent(new DomainEvent.EmailConfirmed(cmd.UserId, cmd.Email));
     }
 
@@ -52,7 +52,7 @@ public class User : AggregateRoot<UserValidator>
 
     private void Handle(Command.ExpiryEmail cmd)
     {
-        if (_emails.SingleOrDefault(email => email == cmd.Email) is not { IsVerified: true }) return;
+        if (_emails.SingleOrDefault(email => email == cmd.Email) is not {Status: EmailStatus.VerifiedStatus}) return;
         RaiseEvent(new DomainEvent.EmailExpired(cmd.UserId, cmd.Email));
     }
 
@@ -87,7 +87,7 @@ public class User : AggregateRoot<UserValidator>
             .Select((email, index) => (email, index))
             .First();
 
-        _emails[index] = email with { Status = EmailStatus.Verified };
+        _emails[index] = email with {Status = EmailStatus.Verified};
     }
 
     private void Apply(DomainEvent.EmailExpired @event)
@@ -97,7 +97,7 @@ public class User : AggregateRoot<UserValidator>
             .Select((email, index) => (email, index))
             .First();
 
-        _emails[index] = email with { Status = EmailStatus.Expired };
+        _emails[index] = email with {Status = EmailStatus.Expired};
     }
 
     private void Apply(DomainEvent.PrimaryEmailDefined @event)
