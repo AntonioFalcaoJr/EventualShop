@@ -10,26 +10,26 @@ public interface IProjectUserDetailsWhenUserChangedInteractor :
 
 public class ProjectUserDetailsWhenUserChangedInteractor : IProjectUserDetailsWhenUserChangedInteractor
 {
-    private readonly IProjectionGateway<Projection.UserDetails> _gateway;
+    private readonly IProjectionGateway<Projection.UserDetails> _projectionGateway;
 
-    public ProjectUserDetailsWhenUserChangedInteractor(IProjectionGateway<Projection.UserDetails> gateway)
+    public ProjectUserDetailsWhenUserChangedInteractor(IProjectionGateway<Projection.UserDetails> projectionGateway)
     {
-        _gateway = gateway;
+        _projectionGateway = projectionGateway;
     }
 
     public Task InteractAsync(DomainEvent.UserDeleted @event, CancellationToken cancellationToken)
-        => _gateway.DeleteAsync(@event.UserId, cancellationToken);
+        => _projectionGateway.DeleteAsync(@event.UserId, cancellationToken);
 
     public Task InteractAsync(DomainEvent.UserRegistered @event, CancellationToken cancellationToken)
     {
         Projection.UserDetails userDetails = 
             new(@event.UserId, @event.FirstName, @event.LastName, @event.Email, @event.Password, false);
 
-        return _gateway.InsertAsync(userDetails, cancellationToken);
+        return _projectionGateway.InsertAsync(userDetails, cancellationToken);
     }
 
     public Task InteractAsync(DomainEvent.UserPasswordChanged @event, CancellationToken cancellationToken)
-        => _gateway.UpdateFieldAsync(
+        => _projectionGateway.UpdateFieldAsync(
             id: @event.UserId,
             field: user => user.Password,
             value: @event.Password,
