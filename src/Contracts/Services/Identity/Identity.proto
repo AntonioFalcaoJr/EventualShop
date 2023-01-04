@@ -13,7 +13,7 @@ message LoginRequest {
   string Password = 2;
 }
 
-message GetUserDetailsResponse {
+message UserDetails {
   string Id = 1;
   string FirstName = 2;
   string LastName = 3;

@@ -14,7 +14,7 @@ public static class IdentityApi
         var group = builder.MapGroup(BaseUrl).HasApiVersion(1);
 
         group.MapGet("/sign-in", ([AsParameters] Requests.SignIn request)
-            => ApplicationApi.GetAsync<IdentityService.IdentityServiceClient, GetUserDetailsResponse>
+            => ApplicationApi.GetAsync<IdentityService.IdentityServiceClient, UserDetails>
                 (request, (client, cancellationToken) => client.LoginAsync(request, cancellationToken: cancellationToken)));
 
         group.MapPost("/sign-up", ([AsParameters] Requests.SignUp request)

@@ -8,7 +8,7 @@ public static class Projection
 {
     public record UserDetails(Guid Id, string FirstName, string LastName, string Email, string Password, bool IsDeleted, [property: BsonIgnore] string? Token = default) : IProjection
     {
-        public static implicit operator GetUserDetailsResponse(UserDetails userDetails)
+        public static implicit operator Protobuf.UserDetails(UserDetails userDetails)
             => new()
             {
                 Id = userDetails.Id.ToString(),

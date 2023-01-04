@@ -22,6 +22,6 @@ public class IdentityGrpcService : IdentityService.IdentityServiceBase
         
         return userDetails is null
             ? new() { NotFound = new() }
-            : new() { Projection = Any.Pack((GetUserDetailsResponse)userDetails) };
+            : new() { Projection = Any.Pack((UserDetails)userDetails) };
     } 
 }
