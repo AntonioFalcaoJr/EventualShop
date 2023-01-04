@@ -5,20 +5,20 @@ namespace Application.UseCases.Queries;
 
 public class GetUserDetailsInteractor : IInteractor<Query.Login, Projection.UserDetails>
 {
-    private readonly IProjectionGateway<Projection.UserDetails> _gateway;
+    private readonly IProjectionGateway<Projection.UserDetails> _projectionGateway;
     private readonly IJwtTokenGenerator _tokenGenerator;
 
     public GetUserDetailsInteractor(
-        IProjectionGateway<Projection.UserDetails> gateway,
+        IProjectionGateway<Projection.UserDetails> projectionGateway,
         IJwtTokenGenerator tokenGenerator)
     {
-        _gateway = gateway;
+        _projectionGateway = projectionGateway;
         _tokenGenerator = tokenGenerator;
     }
 
     public async Task<Projection.UserDetails?> InteractAsync(Query.Login query, CancellationToken cancellationToken)
     {
-        var userDetails = await _gateway.FindAsync(user => user.Email == query.Email, cancellationToken);
+        var userDetails = await _projectionGateway.FindAsync(user => user.Email == query.Email, cancellationToken);
 
         return userDetails switch
         {
