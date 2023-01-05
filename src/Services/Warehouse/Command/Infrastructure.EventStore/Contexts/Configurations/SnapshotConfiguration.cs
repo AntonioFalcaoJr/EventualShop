@@ -1,15 +1,15 @@
-﻿using Domain.StoreEvents;
+using Domain.Abstractions.EventStore;
 using Infrastructure.EventStore.Contexts.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.EventStore.Contexts.Configurations;
 
-public class WarehouseSnapshotConfiguration : IEntityTypeConfiguration<InventorySnapshot>
+public class SnapshotConfiguration : IEntityTypeConfiguration<Snapshot>
 {
-    public void Configure(EntityTypeBuilder<InventorySnapshot> builder)
+    public void Configure(EntityTypeBuilder<Snapshot> builder)
     {
-        builder.HasKey(snapshot => new {snapshot.AggregateVersion, snapshot.AggregateId});
+        builder.HasKey(snapshot => new { snapshot.AggregateVersion, snapshot.AggregateId });
 
         builder
             .Property(snapshot => snapshot.AggregateVersion)
@@ -25,8 +25,8 @@ public class WarehouseSnapshotConfiguration : IEntityTypeConfiguration<Inventory
             .IsRequired();
 
         builder
-            .Property(snapshot => snapshot.AggregateState)
-            .HasConversion<InventoryConverter>()
+            .Property(snapshot => snapshot.Aggregate)
+            .HasConversion<AggregateConverter>()
             .IsRequired();
     }
 }

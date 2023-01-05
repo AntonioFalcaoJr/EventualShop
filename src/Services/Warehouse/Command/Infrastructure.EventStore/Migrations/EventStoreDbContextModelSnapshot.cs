@@ -17,12 +17,12 @@ namespace Infrastructure.EventStore.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0-preview.5.22302.2")
+                .HasAnnotation("ProductVersion", "7.0.0-preview.7.22376.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.StoreEvents.InventorySnapshot", b =>
+            modelBuilder.Entity("Domain.Abstractions.EventStore.Snapshot", b =>
                 {
                     b.Property<long>("AggregateVersion")
                         .HasColumnType("bigint");
@@ -30,22 +30,22 @@ namespace Infrastructure.EventStore.Migrations
                     b.Property<Guid>("AggregateId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Aggregate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("AggregateName")
                         .IsRequired()
                         .HasMaxLength(30)
                         .IsUnicode(false)
                         .HasColumnType("varchar(30)");
 
-                    b.Property<string>("AggregateState")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("AggregateVersion", "AggregateId");
 
                     b.ToTable("Snapshots");
                 });
 
-            modelBuilder.Entity("Domain.StoreEvents.InventoryStoreEvent", b =>
+            modelBuilder.Entity("Domain.Abstractions.EventStore.StoreEvent", b =>
                 {
                     b.Property<long>("Version")
                         .HasColumnType("bigint");

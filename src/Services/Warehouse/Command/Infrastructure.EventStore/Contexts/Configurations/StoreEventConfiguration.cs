@@ -1,15 +1,15 @@
-﻿using Domain.StoreEvents;
+using Domain.Abstractions.EventStore;
 using Infrastructure.EventStore.Contexts.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.EventStore.Contexts.Configurations;
 
-public class WarehouseStoreEventConfiguration : IEntityTypeConfiguration<InventoryStoreEvent>
+public class StoreEventConfiguration : IEntityTypeConfiguration<StoreEvent>
 {
-    public void Configure(EntityTypeBuilder<InventoryStoreEvent> builder)
+    public void Configure(EntityTypeBuilder<StoreEvent> builder)
     {
-        builder.HasKey(storeEvent => new {storeEvent.Version, storeEvent.AggregateId});
+        builder.HasKey(storeEvent => new { storeEvent.Version, storeEvent.AggregateId });
 
         builder
             .Property(storeEvent => storeEvent.Version)

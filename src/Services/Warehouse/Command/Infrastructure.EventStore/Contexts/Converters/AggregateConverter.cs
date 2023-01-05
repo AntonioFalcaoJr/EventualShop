@@ -1,17 +1,17 @@
 ﻿using Contracts.JsonConverters;
-using Domain.Aggregates;
+using Domain.Abstractions.Aggregates;
 using JsonNet.ContractResolvers;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Newtonsoft.Json;
 
 namespace Infrastructure.EventStore.Contexts.Converters;
 
-public class InventoryConverter : ValueConverter<Inventory?, string>
+public class AggregateConverter : ValueConverter<IAggregateRoot?, string>
 {
-    public InventoryConverter()
+    public AggregateConverter()
         : base(
-            @event => JsonConvert.SerializeObject(@event, typeof(Inventory), SerializerSettings()),
-            jsonString => JsonConvert.DeserializeObject<Inventory>(jsonString, DeserializerSettings())) { }
+            @event => JsonConvert.SerializeObject(@event, typeof(IAggregateRoot), SerializerSettings()),
+            jsonString => JsonConvert.DeserializeObject<IAggregateRoot>(jsonString, DeserializerSettings())) { }
 
     private static JsonSerializerSettings SerializerSettings()
     {
