@@ -2,18 +2,21 @@
 using Domain.Entities.CatalogItems;
 using Contracts.Abstractions.Messages;
 using Contracts.Services.Catalog;
+using Newtonsoft.Json;
 
 namespace Domain.Aggregates;
 
 public class Catalog : AggregateRoot<CatalogValidator>
 {
+    [JsonProperty]
     private readonly List<CatalogItem> _items = new();
+    
     public bool IsActive { get; private set; }
     public string? Title { get; private set; }
     public string? Description { get; private set; }
 
     public IEnumerable<CatalogItem> Items
-        => _items;
+        => _items.AsReadOnly();
 
     public override void Handle(ICommand command)
         => Handle(command as dynamic);

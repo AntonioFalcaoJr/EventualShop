@@ -42,7 +42,7 @@ builder.ConfigureServices((context, services) =>
     services.AddEventStore();
     services.AddMessageBus();
     services.AddEventBusGateway();
-    services.AddServices();
+    services.AddApplicationServices();
     services.AddEventInteractors();
     services.AddMessageValidators();
     services.AddEmailGateway();

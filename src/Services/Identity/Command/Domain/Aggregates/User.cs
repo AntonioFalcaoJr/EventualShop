@@ -3,11 +3,13 @@ using Contracts.Abstractions.Messages;
 using Contracts.Services.Identity;
 using Domain.Enumerations;
 using Domain.ValueObjects.Emails;
+using Newtonsoft.Json;
 
 namespace Domain.Aggregates;
 
 public class User : AggregateRoot<UserValidator>
 {
+    [JsonProperty]
     private readonly List<Email> _emails = new();
 
     public string? FirstName { get; private set; }
@@ -16,7 +18,7 @@ public class User : AggregateRoot<UserValidator>
     public string? PrimaryEmail { get; private set; }
 
     public IEnumerable<Email> Emails
-        => _emails;
+        => _emails.AsReadOnly();
 
     public override void Handle(ICommand command)
         => Handle(command as dynamic);
@@ -26,7 +28,7 @@ public class User : AggregateRoot<UserValidator>
 
     private void Handle(Command.ConfirmEmail cmd)
     {
-        if (_emails.SingleOrDefault(email => email == cmd.Email) is not { IsVerified: false }) return;
+        if (_emails.SingleOrDefault(email => email == cmd.Email) is not {Status: EmailStatus.VerifiedStatus}) return;
         RaiseEvent(new DomainEvent.EmailConfirmed(cmd.UserId, cmd.Email));
     }
 
@@ -39,7 +41,7 @@ public class User : AggregateRoot<UserValidator>
     private void Handle(Command.ChangePassword cmd)
     {
         if (cmd.NewPassword == Password) return;
-        RaiseEvent(new DomainEvent.PasswordChanged(cmd.UserId, cmd.NewPassword));
+        RaiseEvent(new DomainEvent.UserPasswordChanged(cmd.UserId, cmd.NewPassword));
     }
 
     private void Handle(Command.DeleteUser cmd)
@@ -50,7 +52,7 @@ public class User : AggregateRoot<UserValidator>
 
     private void Handle(Command.ExpiryEmail cmd)
     {
-        if (_emails.SingleOrDefault(email => email == cmd.Email) is not { IsVerified: true }) return;
+        if (_emails.SingleOrDefault(email => email == cmd.Email) is not {Status: EmailStatus.VerifiedStatus}) return;
         RaiseEvent(new DomainEvent.EmailExpired(cmd.UserId, cmd.Email));
     }
 
@@ -69,7 +71,7 @@ public class User : AggregateRoot<UserValidator>
         _emails.Add(email);
     }
 
-    private void Apply(DomainEvent.PasswordChanged @event)
+    private void Apply(DomainEvent.UserPasswordChanged @event)
         => Password = @event.Password;
 
     private void Apply(DomainEvent.UserDeleted _)
@@ -85,7 +87,7 @@ public class User : AggregateRoot<UserValidator>
             .Select((email, index) => (email, index))
             .First();
 
-        _emails[index] = email with { Status = EmailStatus.Verified };
+        _emails[index] = email with {Status = EmailStatus.Verified};
     }
 
     private void Apply(DomainEvent.EmailExpired @event)
@@ -95,7 +97,7 @@ public class User : AggregateRoot<UserValidator>
             .Select((email, index) => (email, index))
             .First();
 
-        _emails[index] = email with { Status = EmailStatus.Expired };
+        _emails[index] = email with {Status = EmailStatus.Expired};
     }
 
     private void Apply(DomainEvent.PrimaryEmailDefined @event)

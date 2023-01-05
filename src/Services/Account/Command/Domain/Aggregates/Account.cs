@@ -4,11 +4,13 @@ using Contracts.Services.Account;
 using Domain.Entities.Addresses;
 using Domain.Entities.Profiles;
 using Domain.Enumerations;
+using Newtonsoft.Json;
 
 namespace Domain.Aggregates;
 
 public class Account : AggregateRoot<AccountValidator>
 {
+    [JsonProperty]
     private readonly List<Address> _addresses = new();
 
     // TODO - Implement Wallet capability. Interesting in Payment Methods business facts
@@ -22,7 +24,7 @@ public class Account : AggregateRoot<AccountValidator>
     public AccountStatus? Status { get; private set; }
 
     public IEnumerable<Address> Addresses
-        => _addresses;
+        => _addresses.AsReadOnly();
 
     public override void Handle(ICommand command)
         => Handle(command as dynamic);

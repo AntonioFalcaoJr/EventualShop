@@ -1,34 +1,35 @@
 using Application.Abstractions;
 using Contracts.Abstractions.Paging;
+using Contracts.Abstractions.Protobuf;
 using Contracts.Services.Communication;
 using Contracts.Services.Communication.Protobuf;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 
 namespace GrpcService;
 
 public class CommunicationGrpcService : CommunicationService.CommunicationServiceBase
 {
-    private readonly IInteractor<Query.ListNotifications, IPagedResult<Projection.NotificationDetails>> _listEmailsInteractor;
+    private readonly IInteractor<Query.ListNotificationsDetails, IPagedResult<Projection.NotificationDetails>> _listNotificationsDetails;
 
-    public CommunicationGrpcService(IInteractor<Query.ListNotifications, IPagedResult<Projection.NotificationDetails>> listEmailsInteractor)
+    public CommunicationGrpcService(IInteractor<Query.ListNotificationsDetails, IPagedResult<Projection.NotificationDetails>> listNotificationsDetails)
     {
-        _listEmailsInteractor = listEmailsInteractor;
+        _listNotificationsDetails = listNotificationsDetails;
     }
 
-    public override async Task<Notifications> ListEmails(ListNotificationsRequest request, ServerCallContext context)
+    public override async Task<ListResponse> ListNotificationsDetails(ListNotificationsDetailsRequest request, ServerCallContext context)
     {
-        var pagedResult = await _listEmailsInteractor.InteractAsync(request, context.CancellationToken);
+        var pagedResult = await _listNotificationsDetails.InteractAsync(request, context.CancellationToken);
 
-        return new()
-        {
-            Items = { pagedResult.Items.Select(details => (Notification)details) },
-            Page = new()
+        return pagedResult!.Items.Any()
+            ? new()
             {
-                Current = pagedResult.Page.Current,
-                Size = pagedResult.Page.Size,
-                HasNext = pagedResult.Page.HasNext,
-                HasPrevious = pagedResult.Page.HasPrevious
+                PagedResult = new()
+                {
+                    Projections = { pagedResult.Items.Select(item => Any.Pack((NotificationDetails)item)) },
+                    Page = pagedResult.Page
+                }
             }
-        };
+            : new() { NoContent = new() };
     }
 }
