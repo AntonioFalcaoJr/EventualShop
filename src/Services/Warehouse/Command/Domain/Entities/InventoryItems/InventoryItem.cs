@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace Domain.Entities.InventoryItems;
 
-public class InventoryItem : Entity<Guid, InventoryItemValidator>
+public class InventoryItem : Entity<InventoryItemValidator>
 {
     [JsonProperty]
     private readonly List<Reserve> _reserves = new();

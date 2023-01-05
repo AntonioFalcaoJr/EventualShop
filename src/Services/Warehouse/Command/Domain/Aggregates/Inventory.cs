@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace Domain.Aggregates;
 
-public class Inventory : AggregateRoot<Guid, InventoryValidator>
+public class Inventory : AggregateRoot<InventoryValidator>
 {
     [JsonProperty]
     private readonly List<InventoryItem> _items = new();
@@ -26,6 +26,9 @@ public class Inventory : AggregateRoot<Guid, InventoryValidator>
     public IEnumerable<InventoryItem> Items
         => _items.AsReadOnly();
 
+    public override void Handle(ICommand command)
+        => Handle(command as dynamic);
+    
     public void Handle(Command.CreateInventory cmd)
         => RaiseEvent(new DomainEvent.InventoryCreated(Guid.NewGuid(), cmd.OwnerId));
 
@@ -61,46 +64,41 @@ public class Inventory : AggregateRoot<Guid, InventoryValidator>
             });
     }
 
-    protected override void ApplyEvent(IEvent? @event)
-        => When(@event as dynamic);
+    protected override void Apply(IEvent @event)
+        => Apply(@event as dynamic);
 
-    private void When(DomainEvent.InventoryCreated @event)
+    private void Apply(DomainEvent.InventoryCreated @event)
         => (Id, OwnerId) = @event;
 
-    private void When(DomainEvent.InventoryItemReceived @event)
+    private void Apply(DomainEvent.InventoryItemReceived @event)
         => _items.Add(new(@event.ItemId, @event.Cost, @event.Product, @event.Quantity, @event.Sku));
 
-    private void When(DomainEvent.InventoryItemIncreased @event)
+    private void Apply(DomainEvent.InventoryItemIncreased @event)
         => _items
             .Single(item => item.Id == @event.ItemId)
             .Increase(@event.Quantity);
 
-    private void When(DomainEvent.InventoryItemDecreased @event)
+    private void Apply(DomainEvent.InventoryItemDecreased @event)
         => _items
             .Single(item => item.Id == @event.ItemId)
             .Decrease(@event.Quantity);
 
-    private void When(DomainEvent.InventoryAdjustmentIncreased @event)
+    private void Apply(DomainEvent.InventoryAdjustmentIncreased @event)
         => _items
             .Single(item => item.Id == @event.ItemId)
             .Adjust(new IncreaseAdjustment(@event.Reason, @event.Quantity));
 
-    private void When(DomainEvent.InventoryAdjustmentDecreased @event)
+    private void Apply(DomainEvent.InventoryAdjustmentDecreased @event)
         => _items
             .Single(item => item.Id == @event.ItemId)
             .Adjust(new DecreaseAdjustment(@event.Reason, @event.Quantity));
 
-    // private void When(DomainEvent.StockDepleted _)
-    // {
-    //     Status = OutOfStock;
-    // }
-
-    private void When(DomainEvent.InventoryReserved @event)
+    private void Apply(DomainEvent.InventoryReserved @event)
         => _items
             .Single(item => item.Id == @event.ItemId)
             .Reserve(@event.Quantity, @event.CartId, @event.Expiration);
 
-    private void When(DomainEvent.InventoryNotReserved _) { }
+    private void Apply(DomainEvent.InventoryNotReserved _) { }
 
     private string FormatSku(Product product)
     {
