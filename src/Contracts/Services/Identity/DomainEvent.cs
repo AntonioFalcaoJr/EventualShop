@@ -10,7 +10,7 @@ public static class DomainEvent
 
     public record EmailChanged(Guid UserId, string Email) : Message, IEvent;
 
-    public record PasswordChanged(Guid UserId, string Password) : Message, IEvent;
+    public record UserPasswordChanged(Guid UserId, string Password) : Message, IEvent;
 
     public record EmailConfirmed(Guid UserId, string Email) : Message, IEvent;
 

@@ -2,8 +2,10 @@ syntax = "proto3";
 
 package Contracts.Services.Identity.Protobuf;
 
+import "Abstractions/Abstractions.proto";
+
 service IdentityService {
-  rpc Login(LoginRequest) returns (LoginResponse);
+  rpc Login(LoginRequest) returns (Abstractions.Protobuf.GetResponse);
 }
 
 message LoginRequest {
@@ -11,7 +13,7 @@ message LoginRequest {
   string Password = 2;
 }
 
-message LoginResponse {
+message UserDetails {
   string Id = 1;
   string FirstName = 2;
   string LastName = 3;

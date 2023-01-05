@@ -1,5 +1,6 @@
 using Asp.Versioning.Builder;
 using Contracts.Services.Identity;
+using Contracts.Services.Identity.Protobuf;
 using WebAPI.Abstractions;
 
 namespace WebAPI.APIs.Identities;
@@ -13,7 +14,8 @@ public static class IdentityApi
         var group = builder.MapGroup(BaseUrl).HasApiVersion(1);
 
         group.MapGet("/sign-in", ([AsParameters] Requests.SignIn request)
-            => ApplicationApi.QueryAsync(request, (client, cancellationToken) => client.LoginAsync(request, cancellationToken: cancellationToken)));
+            => ApplicationApi.GetAsync<IdentityService.IdentityServiceClient, UserDetails>
+                (request, (client, cancellationToken) => client.LoginAsync(request, cancellationToken: cancellationToken)));
 
         group.MapPost("/sign-up", ([AsParameters] Requests.SignUp request)
             => ApplicationApi.SendCommandAsync<Command.RegisterUser>(request));
