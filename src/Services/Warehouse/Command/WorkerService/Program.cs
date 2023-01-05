@@ -1,9 +1,9 @@
-﻿using Infrastructure.EventStore.Contexts;
+using Application.DependencyInjection.Extensions;
+using Infrastructure.EventStore.Contexts;
 using Infrastructure.EventStore.DependencyInjection.Extensions;
 using Infrastructure.EventStore.DependencyInjection.Options;
 using Infrastructure.MessageBus.DependencyInjection.Extensions;
 using Infrastructure.MessageBus.DependencyInjection.Options;
-using Infrastructure.Projections.DependencyInjection.Extensions;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Quartz;
@@ -38,10 +38,11 @@ builder.ConfigureLogging((context, logging) =>
 builder.ConfigureServices((context, services) =>
 {
     services.AddEventStore();
-    services.AddProjections();
     services.AddMessageBus();
+    services.AddEventBusGateway();
+    services.AddApplicationServices();
+    services.AddCommandInteractors();
     services.AddMessageValidators();
-    services.AddNotificationContext();
 
     services.ConfigureEventStoreOptions(
         context.Configuration.GetSection(nameof(EventStoreOptions)));
@@ -51,12 +52,12 @@ builder.ConfigureServices((context, services) =>
 
     services.ConfigureMessageBusOptions(
         context.Configuration.GetSection(nameof(MessageBusOptions)));
-
-    services.ConfigureQuartzOptions(
-        context.Configuration.GetSection(nameof(QuartzOptions)));
-
+    
     services.ConfigureMassTransitHostOptions(
         context.Configuration.GetSection(nameof(MassTransitHostOptions)));
+    
+    services.ConfigureQuartzOptions(
+        context.Configuration.GetSection(nameof(QuartzOptions)));
 });
 
 using var host = builder.Build();
