@@ -4,15 +4,15 @@ using Contracts.Services.Warehouse;
 
 namespace Application.UseCases.Queries;
 
-public class ListInventoriesGridInteractor : IInteractor<Query.ListInventoryGridItems, IPagedResult<Projection.Inventory>>
+public class ListInventoriesGridInteractor : IInteractor<Query.ListInventoryGridItems, IPagedResult<Projection.InventoryGridItem>>
 {
-    private readonly IProjectionGateway<Projection.Inventory> _projectionGateway;
+    private readonly IProjectionGateway<Projection.InventoryGridItem> _projectionGateway;
 
-    public ListInventoriesGridInteractor(IProjectionGateway<Projection.Inventory> projectionGateway)
+    public ListInventoriesGridInteractor(IProjectionGateway<Projection.InventoryGridItem> projectionGateway)
     {
         _projectionGateway = projectionGateway;
     }
 
-    public Task<IPagedResult<Projection.Inventory>?> InteractAsync(Query.ListInventoryGridItems query, CancellationToken cancellationToken)
+    public Task<IPagedResult<Projection.InventoryGridItem>?> InteractAsync(Query.ListInventoryGridItems query, CancellationToken cancellationToken)
         => _projectionGateway.ListAsync(query.Paging, cancellationToken);
 }

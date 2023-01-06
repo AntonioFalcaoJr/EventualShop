@@ -42,7 +42,7 @@ public static class WarehouseApi
 
         group.MapGet("/", ([AsParameters] Requests.ListInventoryGridItems request)
             => ApplicationApi.ListAsync<WarehouseService.WarehouseServiceClient, InventoryGridItem>
-                (request, (client, ct) => client.ListInventoryGridItemsAsync(new ListInventoryGridItemsRequest(), cancellationToken: ct)));
+                (request, (client, ct) => client.ListInventoryGridItemsAsync(request, cancellationToken: ct)));
 
         return builder;
     }

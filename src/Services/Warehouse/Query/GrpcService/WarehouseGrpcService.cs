@@ -10,12 +10,12 @@ namespace GrpcService;
 
 public class WarehouseGrpcService : WarehouseService.WarehouseServiceBase
 {
-    private readonly IInteractor<Query.ListInventoryItems, IPagedResult<Projection.InventoryItem>> _listInventoryGridItemsInteractor;
-    private readonly IInteractor<Query.ListInventoryGridItems, IPagedResult<Projection.Inventory>> _listInventoriesItemsCardsInteractor;
+    private readonly IInteractor<Query.ListInventoryItemsListItems, IPagedResult<Projection.InventoryItemListItem>> _listInventoryGridItemsInteractor;
+    private readonly IInteractor<Query.ListInventoryGridItems, IPagedResult<Projection.InventoryGridItem>> _listInventoriesItemsCardsInteractor;
 
     public WarehouseGrpcService(
-        IInteractor<Query.ListInventoryItems, IPagedResult<Projection.InventoryItem>> listInventoryGridItemsInteractor,
-        IInteractor<Query.ListInventoryGridItems, IPagedResult<Projection.Inventory>> listInventoriesItemsCardsInteractor)
+        IInteractor<Query.ListInventoryItemsListItems, IPagedResult<Projection.InventoryItemListItem>> listInventoryGridItemsInteractor,
+        IInteractor<Query.ListInventoryGridItems, IPagedResult<Projection.InventoryGridItem>> listInventoriesItemsCardsInteractor)
     {
         _listInventoryGridItemsInteractor = listInventoryGridItemsInteractor;
         _listInventoriesItemsCardsInteractor = listInventoriesItemsCardsInteractor;

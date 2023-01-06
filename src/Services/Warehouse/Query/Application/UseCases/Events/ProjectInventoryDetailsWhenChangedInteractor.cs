@@ -7,16 +7,16 @@ public interface IProjectInventoryDetailsWhenChangedInteractor : IInteractor<Dom
 
 public class ProjectInventoryDetailsWhenChangedInteractor : IProjectInventoryDetailsWhenChangedInteractor
 {
-    private readonly IProjectionGateway<Projection.Inventory> _projectionGateway;
+    private readonly IProjectionGateway<Projection.InventoryGridItem> _projectionGateway;
 
-    public ProjectInventoryDetailsWhenChangedInteractor(IProjectionGateway<Projection.Inventory> projectionGateway)
+    public ProjectInventoryDetailsWhenChangedInteractor(IProjectionGateway<Projection.InventoryGridItem> projectionGateway)
     {
         _projectionGateway = projectionGateway;
     }
 
     public async Task InteractAsync(DomainEvent.InventoryCreated @event, CancellationToken cancellationToken)
     {
-        Projection.Inventory card = new(
+        Projection.InventoryGridItem card = new(
             @event.InventoryId,
             @event.OwnerId,
             false);

@@ -12,9 +12,9 @@ public static class Query
 
     }
 
-    public record ListInventoryItems(Guid InventoryId, Paging Paging) : IQuery
+    public record ListInventoryItemsListItems(Guid InventoryId, Paging Paging) : IQuery
     {
-        public static implicit operator ListInventoryItems(Protobuf.ListInventoryItemsRequest request)
+        public static implicit operator ListInventoryItemsListItems(Protobuf.ListInventoryItemsRequest request)
             => new(new(request.InventoryId), request.Paging);
     }
 }

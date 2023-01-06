@@ -11,9 +11,9 @@ public interface IProjectInventoryItemWhenChangedInteractor :
 
 public class ProjectInventoryItemWhenChangedInteractor : IProjectInventoryItemWhenChangedInteractor
 {
-    private readonly IProjectionGateway<Projection.InventoryItem> _projectionGateway;
+    private readonly IProjectionGateway<Projection.InventoryItemListItem> _projectionGateway;
 
-    public ProjectInventoryItemWhenChangedInteractor(IProjectionGateway<Projection.InventoryItem> projectionGateway)
+    public ProjectInventoryItemWhenChangedInteractor(IProjectionGateway<Projection.InventoryItemListItem> projectionGateway)
     {
         _projectionGateway = projectionGateway;
     }
@@ -41,7 +41,7 @@ public class ProjectInventoryItemWhenChangedInteractor : IProjectInventoryItemWh
 
     public async Task InteractAsync(DomainEvent.InventoryItemReceived @event,  CancellationToken cancellationToken)
     {
-        Projection.InventoryItem inventoryItem = new(
+        Projection.InventoryItemListItem inventoryItemListItem = new(
             @event.ItemId,
             @event.InventoryId,
             @event.Product,
@@ -49,6 +49,6 @@ public class ProjectInventoryItemWhenChangedInteractor : IProjectInventoryItemWh
             @event.Sku,
             false);
 
-         await _projectionGateway.InsertAsync(inventoryItem, cancellationToken);
+         await _projectionGateway.InsertAsync(inventoryItemListItem, cancellationToken);
     }
 }

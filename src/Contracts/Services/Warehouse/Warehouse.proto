@@ -30,6 +30,5 @@ message InventoryItemListItem {
   string InventoryId = 2;
   Abstractions.Protobuf.Product Product = 3;
   string Sku = 4;
-  bool IsDeleted = 5;
-  int32 Quantity = 6;
+  int32 Quantity = 5;
 }
