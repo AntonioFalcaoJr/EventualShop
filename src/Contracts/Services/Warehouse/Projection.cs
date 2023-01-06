@@ -23,7 +23,6 @@ public static class Projection
             {
                 Id = inventoryItemListItem.Id.ToString(),
                 InventoryId = inventoryItemListItem.InventoryId.ToString(),
-                IsDeleted = inventoryItemListItem.IsDeleted,
                 Product = inventoryItemListItem.Product,
                 Sku = inventoryItemListItem.Sku,
                 Quantity = inventoryItemListItem.Quantity,

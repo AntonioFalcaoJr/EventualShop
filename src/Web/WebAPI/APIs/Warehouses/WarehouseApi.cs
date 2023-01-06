@@ -21,9 +21,10 @@ public static class WarehouseApi
         group.MapPost("/", ([AsParameters] Requests.CreateInventory request)
             => ApplicationApi.SendCommandAsync<Command.CreateInventory>(request));
 
-        // group.MapGet("/{inventoryId:guid}/items", (IBus bus, Guid inventoryId, ushort? limit, ushort? offset, CancellationToken cancellationToken)
-        //     => ApplicationApi.GetPagedProjectionAsync<Query.ListInventoryItems, Projection.InventoryItem>(bus, new(inventoryId, limit ?? 0, offset ?? 0), cancellationToken));
-
+        group.MapGet("/{inventoryId:guid}/items", ([AsParameters] Requests.ListInventoryItems request)
+            => ApplicationApi.ListAsync<WarehouseService.WarehouseServiceClient, InventoryItemListItem>
+                (request, (client, ct) => client.ListInventoryItemsAsync(request, cancellationToken: ct)));
+        
         group.MapPost("/{inventoryId:guid}/items", ([AsParameters] Requests.ReceiveInventoryItem request)
             => ApplicationApi.SendCommandAsync<Command.ReceiveInventoryItem>(request));
 

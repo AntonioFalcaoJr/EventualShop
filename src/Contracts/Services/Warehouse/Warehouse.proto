@@ -22,7 +22,6 @@ message ListInventoryItemsRequest {
 message InventoryGridItem {
   string InventoryId = 1;
   string OwnerId = 2;
-  bool IsDeleted = 3;
 }
 
 message InventoryItemListItem {
