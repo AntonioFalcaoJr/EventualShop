@@ -87,6 +87,7 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddAccountGrpcClient();
     services.AddCommunicationGrpcClient();
     services.AddCatalogGrpcClient();
+    services.AddWarehouseGrpcClient();
 
     services.ConfigureMessageBusOptions(
         context.Configuration.GetSection(nameof(MessageBusOptions)));
