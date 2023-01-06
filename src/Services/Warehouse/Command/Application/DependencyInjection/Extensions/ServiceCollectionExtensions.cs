@@ -4,7 +4,7 @@ using Application.UseCases.Commands;
 using Application.UseCases.Events;
 using Contracts.Services.Warehouse;
 using Microsoft.Extensions.DependencyInjection;
-using ShoppingCartDomainEvent = Contracts.Services.ShoppingCart.DomainEvent;
+using ShoppingCart = Contracts.Services.ShoppingCart.DomainEvent;
 
 namespace Application.DependencyInjection.Extensions;
 
@@ -23,5 +23,5 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddEventInteractors(this IServiceCollection services)
         => services
-            .AddScoped<IInteractor<ShoppingCartDomainEvent.CartItemAdded>, CartItemAddedInteractor>();
+            .AddScoped<IInteractor<ShoppingCart.CartItemAdded>, CartItemAddedInteractor>();
 }
