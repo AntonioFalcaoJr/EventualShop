@@ -5,11 +5,11 @@ namespace Application.UseCases.Events;
 
 public class UserRegisteredInteractor : IInteractor<DomainEvent.UserRegistered>
 {
-    private readonly IProjectionGateway<Projection.UserDetails> _gateway;
+    private readonly IProjectionGateway<Projection.UserDetails> _projectionGateway;
 
-    public UserRegisteredInteractor(IProjectionGateway<Projection.UserDetails> gateway)
+    public UserRegisteredInteractor(IProjectionGateway<Projection.UserDetails> projectionGateway)
     {
-        _gateway = gateway;
+        _projectionGateway = projectionGateway;
     }
 
     public Task InteractAsync(DomainEvent.UserRegistered @event, CancellationToken cancellationToken)
@@ -17,6 +17,6 @@ public class UserRegisteredInteractor : IInteractor<DomainEvent.UserRegistered>
         Projection.UserDetails userDetails = 
             new(@event.UserId, @event.FirstName, @event.LastName, @event.Email, @event.Password, false);
 
-        return _gateway.InsertAsync(userDetails, cancellationToken);
+        return _projectionGateway.UpsertAsync(userDetails, cancellationToken);
     }
 }

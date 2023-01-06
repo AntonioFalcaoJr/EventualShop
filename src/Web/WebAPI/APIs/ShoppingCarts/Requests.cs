@@ -58,21 +58,21 @@ public static class Requests
             => new Command.AddBillingAddress(CartId, Address);
     }
 
-    public record AddCreditCard(IBus Bus, Guid CartId, decimal Amount, Dto.CreditCard CreditCard, CancellationToken CancellationToken)
+    public record AddCreditCard(IBus Bus, Guid CartId, decimal Amount, Dto.CreditCard? CreditCard, CancellationToken CancellationToken)
         : Validatable<AddCreditCardValidator>, ICommandRequest
     {
         public ICommand Command
             => new Command.AddPaymentMethod(CartId, Amount, CreditCard);
     }
 
-    public record AddDebitCard(IBus Bus, Guid CartId, decimal Amount, Dto.DebitCard DebitCard, CancellationToken CancellationToken)
+    public record AddDebitCard(IBus Bus, Guid CartId, decimal Amount, Dto.DebitCard? DebitCard, CancellationToken CancellationToken)
         : Validatable<AddDebitCardValidator>, ICommandRequest
     {
         public ICommand Command
             => new Command.AddPaymentMethod(CartId, Amount, DebitCard);
     }
 
-    public record AddPayPal(IBus Bus, Guid CartId, decimal Amount, Dto.PayPal PayPal, CancellationToken CancellationToken)
+    public record AddPayPal(IBus Bus, Guid CartId, decimal Amount, Dto.PayPal? PayPal, CancellationToken CancellationToken)
         : Validatable<AddPayPalValidator>, ICommandRequest
     {
         public ICommand Command

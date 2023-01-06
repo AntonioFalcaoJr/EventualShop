@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package Contracts.Services.ShoppingCart.Protobuf;
+
+import "Abstractions/Abstractions.proto";
+
+service ShoppingCartService {
+  rpc GetShoppingCartDetails(GetShoppingCartDetailsRequest) returns (Abstractions.Protobuf.GetResponse);
+  rpc GetCustomerShoppingCartDetails(GetCustomerShoppingCartDetailsRequest) returns (Abstractions.Protobuf.GetResponse);
+  rpc GetPaymentMethodDetails(GetPaymentMethodDetailsRequest) returns (Abstractions.Protobuf.GetResponse);
+  rpc GetShoppingCartItemDetails(GetShoppingCartItemDetailsRequest) returns (Abstractions.Protobuf.GetResponse);
+  rpc ListPaymentMethodsListItems(ListPaymentMethodsListItemsRequest) returns (Abstractions.Protobuf.ListResponse);
+  rpc ListShoppingCartItemsListItems(ListShoppingCartItemsListItemsRequest) returns (Abstractions.Protobuf.ListResponse);
+}
+
+// Requests
+
+message GetShoppingCartDetailsRequest {
+  string CartId = 1;
+}
+
+message GetCustomerShoppingCartDetailsRequest {
+  string CustomerId = 1;
+}
+
+message GetShoppingCartItemDetailsRequest {
+  string ItemId = 1;
+}
+
+message GetPaymentMethodDetailsRequest {
+  string PaymentMethodId = 1;
+}
+
+message ListPaymentMethodsListItemsRequest {
+  string CartId = 1;
+  Abstracts.Protobuf.Paging Paging = 2;
+}
+
+message ListShoppingCartItemsListItemsRequest {
+  string CartId = 1;
+  Abstracts.Protobuf.Paging Paging = 2;
+}
+
+// Projections
+
+message ShoppingCartDetails {
+  string CartId = 1;
+  string CustomerId = 2;
+  Abstracts.Protobuf.Address BillingAddress = 3;
+  Abstracts.Protobuf.Address ShippingAddress = 4;
+  string Status = 5;
+  string Total = 6;
+}
+
+message ShoppingCartItemDetails{
+  string ItemId = 1;
+  string CartId = 2;
+  Abstracts.Protobuf.Product Product = 3;
+  int32 Quantity = 5;
+}
+
+message PaymentMethodDetails{
+  string PaymentMethodId = 1;
+  string CartId = 2;
+  string Name = 3;
+  string CardNumber = 4;
+  string Expiration = 5;
+  string CVV = 6;
+}
