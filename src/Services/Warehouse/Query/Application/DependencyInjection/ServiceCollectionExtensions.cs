@@ -11,11 +11,11 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddEventInteractors(this IServiceCollection services)
         => services
-            .AddScoped<IProjectInventoryDetailsWhenChangedInteractor, ProjectInventoryDetailsWhenChangedInteractor>()
-            .AddScoped<IProjectInventoryItemWhenChangedInteractor, ProjectInventoryItemWhenChangedInteractor>();
+            .AddScoped<IProjectInventoryGridItemWhenInventoryChangedInteractor, ProjectInventoryGridItemWhenInventoryChangedInteractor>()
+            .AddScoped<IProjectInventoryItemListItemWhenInventoryItemChangedInteractor, ProjectInventoryItemListItemWhenInventoryItemChangedInteractor>();
 
     public static IServiceCollection AddQueryInteractors(this IServiceCollection services)
         => services
-            .AddScoped<IInteractor<Query.ListInventoryGridItems, IPagedResult<Projection.InventoryGridItem>>, ListInventoriesGridInteractor>()
-            .AddScoped<IInteractor<Query.ListInventoryItemsListItems, IPagedResult<Projection.InventoryItemListItem>>, ListInventoryItemsInteractor>();
+            .AddScoped<IInteractor<Query.ListInventoryGridItems, IPagedResult<Projection.InventoryGridItem>>, ListInventoriesGridItemInteractor>()
+            .AddScoped<IInteractor<Query.ListInventoryItemsListItems, IPagedResult<Projection.InventoryItemListItem>>, ListInventoryItemsListItemsInteractor>();
 }

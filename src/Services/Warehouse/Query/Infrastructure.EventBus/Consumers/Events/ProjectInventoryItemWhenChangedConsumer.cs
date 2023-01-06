@@ -10,9 +10,9 @@ public class ProjectInventoryItemWhenChangedConsumer :
     IConsumer<DomainEvent.InventoryItemIncreased>,
     IConsumer<DomainEvent.InventoryItemReceived>
 {
-    private readonly IProjectInventoryItemWhenChangedInteractor _interactor;
+    private readonly IProjectInventoryItemListItemWhenInventoryItemChangedInteractor _interactor;
 
-    public ProjectInventoryItemWhenChangedConsumer(IProjectInventoryItemWhenChangedInteractor interactor)
+    public ProjectInventoryItemWhenChangedConsumer(IProjectInventoryItemListItemWhenInventoryItemChangedInteractor interactor)
     {
         _interactor = interactor;
     }

@@ -6,9 +6,9 @@ namespace Infrastructure.EventBus.Consumers.Events;
 
 public class ProjectInventoryDetailsWhenChangedConsumer : IConsumer<DomainEvent.InventoryCreated>
 {
-    private readonly IProjectInventoryDetailsWhenChangedInteractor _interactor;
+    private readonly IProjectInventoryGridItemWhenInventoryChangedInteractor _interactor;
 
-    public ProjectInventoryDetailsWhenChangedConsumer(IProjectInventoryDetailsWhenChangedInteractor interactor)
+    public ProjectInventoryDetailsWhenChangedConsumer(IProjectInventoryGridItemWhenInventoryChangedInteractor interactor)
     {
         _interactor = interactor;
     }

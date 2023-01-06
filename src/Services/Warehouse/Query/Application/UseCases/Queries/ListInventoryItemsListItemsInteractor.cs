@@ -4,11 +4,11 @@ using Contracts.Services.Warehouse;
 
 namespace Application.UseCases.Queries;
 
-public class ListInventoryItemsInteractor : IInteractor<Query.ListInventoryItemsListItems, IPagedResult<Projection.InventoryItemListItem>>
+public class ListInventoryItemsListItemsInteractor : IInteractor<Query.ListInventoryItemsListItems, IPagedResult<Projection.InventoryItemListItem>>
 {
     private readonly IProjectionGateway<Projection.InventoryItemListItem> _projectionGateway;
 
-    public ListInventoryItemsInteractor(IProjectionGateway<Projection.InventoryItemListItem> projectionGateway)
+    public ListInventoryItemsListItemsInteractor(IProjectionGateway<Projection.InventoryItemListItem> projectionGateway)
     {
         _projectionGateway = projectionGateway;
     }

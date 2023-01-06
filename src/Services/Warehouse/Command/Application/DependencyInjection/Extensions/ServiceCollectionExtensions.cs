@@ -23,5 +23,5 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddEventInteractors(this IServiceCollection services)
         => services
-            .AddScoped<IInteractor<ShoppingCart.CartItemAdded>, CartItemAddedInteractor>();
+            .AddScoped<ICartItemAddedInteractor, CartItemAddedInteractor>();
 }

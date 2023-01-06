@@ -3,13 +3,13 @@ using Contracts.Services.Warehouse;
 
 namespace Application.UseCases.Events;
 
-public interface IProjectInventoryDetailsWhenChangedInteractor : IInteractor<DomainEvent.InventoryCreated> { }
+public interface IProjectInventoryGridItemWhenInventoryChangedInteractor : IInteractor<DomainEvent.InventoryCreated> { }
 
-public class ProjectInventoryDetailsWhenChangedInteractor : IProjectInventoryDetailsWhenChangedInteractor
+public class ProjectInventoryGridItemWhenInventoryChangedInteractor : IProjectInventoryGridItemWhenInventoryChangedInteractor
 {
     private readonly IProjectionGateway<Projection.InventoryGridItem> _projectionGateway;
 
-    public ProjectInventoryDetailsWhenChangedInteractor(IProjectionGateway<Projection.InventoryGridItem> projectionGateway)
+    public ProjectInventoryGridItemWhenInventoryChangedInteractor(IProjectionGateway<Projection.InventoryGridItem> projectionGateway)
     {
         _projectionGateway = projectionGateway;
     }

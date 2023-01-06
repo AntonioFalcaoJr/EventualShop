@@ -6,7 +6,9 @@ using DomainEvent = Contracts.Services.ShoppingCart.DomainEvent;
 
 namespace Application.UseCases.Events;
 
-public class CartItemAddedInteractor : IInteractor<DomainEvent.CartItemAdded>
+public interface ICartItemAddedInteractor : IInteractor<DomainEvent.CartItemAdded> { }
+
+public class CartItemAddedInteractor : ICartItemAddedInteractor
 {
     private readonly IApplicationService _applicationService;
 
