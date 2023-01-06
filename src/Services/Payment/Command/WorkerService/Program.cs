@@ -1,4 +1,4 @@
-using WorkerService1;
+using WorkerService;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>

@@ -4,7 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>dotnet-WorkerService1-793c0331-ca31-4630-b2cd-a5e78fbe0793</UserSecretsId>
+    <UserSecretsId>dotnet-WorkerService-79fa26b8-28e6-4069-95d8-6da4a586d966</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
