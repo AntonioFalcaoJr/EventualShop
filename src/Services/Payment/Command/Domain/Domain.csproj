@@ -1,3 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
+  <ItemGroup>
+    <Folder Include="Abstractions\" />
+    <Folder Include="Aggregates\" />
+    <Folder Include="Entities\" />
+    <Folder Include="Enumerations\" />
+    <Folder Include="ValueObjects\" />
+  </ItemGroup>
 </Project>
