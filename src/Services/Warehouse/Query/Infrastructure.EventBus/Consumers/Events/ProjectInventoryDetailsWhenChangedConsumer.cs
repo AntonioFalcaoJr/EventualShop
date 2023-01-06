@@ -8,7 +8,7 @@ public class ProjectInventoryDetailsWhenChangedConsumer : IConsumer<DomainEvent.
 {
     private readonly IProjectInventoryDetailsWhenChangedInteractor _interactor;
 
-    public ProjectInventoryDetailsWhenChangedConsumer(ProjectInventoryDetailsWhenChangedInteractor interactor)
+    public ProjectInventoryDetailsWhenChangedConsumer(IProjectInventoryDetailsWhenChangedInteractor interactor)
     {
         _interactor = interactor;
     }
