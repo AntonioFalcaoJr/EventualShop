@@ -3,6 +3,7 @@ using Contracts.Services.Account.Protobuf;
 using Contracts.Services.Catalog.Protobuf;
 using Contracts.Services.Communication.Protobuf;
 using Contracts.Services.Identity.Protobuf;
+using Contracts.Services.Warehouse.Protobuf;
 using Grpc.Core;
 using Grpc.Net.Client.Configuration;
 using MassTransit;
@@ -68,6 +69,9 @@ public static class ServiceCollectionExtensions
     
     public static void AddCatalogGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<CatalogService.CatalogServiceClient, CatalogGrpcClientOptions>();
+    
+    public static void AddWarehouseGrpcClient(this IServiceCollection services)
+        => services.AddGrpcClient<WarehouseService.WarehouseServiceClient, WarehouseGrpcClientOptions>();
 
     private static void AddGrpcClient<TClient, TOptions>(this IServiceCollection services)
         where TClient : ClientBase
@@ -139,6 +143,13 @@ public static class ServiceCollectionExtensions
     public static OptionsBuilder<CatalogGrpcClientOptions> ConfigureCatalogGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<CatalogGrpcClientOptions>()
+            .Bind(section)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+    
+    public static OptionsBuilder<WarehouseGrpcClientOptions> ConfigureWarehouseGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
+        => services
+            .AddOptions<WarehouseGrpcClientOptions>()
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();
