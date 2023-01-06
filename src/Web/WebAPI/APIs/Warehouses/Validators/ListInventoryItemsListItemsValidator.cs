@@ -2,9 +2,9 @@
 
 namespace WebAPI.APIs.Warehouses.Validators;
 
-public class ListInventoryGridItemsValidator : AbstractValidator<Requests.ListInventoryGridItems>
+public class ListInventoryItemsListItemsValidator : AbstractValidator<Requests.ListInventoryItemsListItems>
 {
-    public ListInventoryGridItemsValidator()
+    public ListInventoryItemsListItemsValidator()
     {
         RuleFor(request => request.Limit)
             .GreaterThan(0)
@@ -12,7 +12,8 @@ public class ListInventoryGridItemsValidator : AbstractValidator<Requests.ListIn
 
         RuleFor(request => request.Offset)
             .GreaterThanOrEqualTo(0);
+        
+        RuleFor(request => request.InventoryId)
+            .NotNull();
     }
 }
-
-// ListInventoryItemsListItems

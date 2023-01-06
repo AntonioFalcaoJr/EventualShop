@@ -21,7 +21,7 @@ public static class WarehouseApi
         group.MapPost("/", ([AsParameters] Requests.CreateInventory request)
             => ApplicationApi.SendCommandAsync<Command.CreateInventory>(request));
 
-        group.MapGet("/{inventoryId:guid}/items", ([AsParameters] Requests.ListInventoryItems request)
+        group.MapGet("/{inventoryId:guid}/items", ([AsParameters] Requests.ListInventoryItemsListItems request)
             => ApplicationApi.ListAsync<WarehouseService.WarehouseServiceClient, InventoryItemListItem>
                 (request, (client, ct) => client.ListInventoryItemsAsync(request, cancellationToken: ct)));
         

@@ -45,10 +45,10 @@ public static class Requests
             => new() { Paging = new() { Limit = request.Limit, Offset = request.Offset } };
     }
     
-    public record  ListInventoryItems(WarehouseService.WarehouseServiceClient Client, Guid InventoryId, int? Limit, int? Offset, CancellationToken CancellationToken)
+    public record  ListInventoryItemsListItems(WarehouseService.WarehouseServiceClient Client, Guid InventoryId, int? Limit, int? Offset, CancellationToken CancellationToken)
         : Validatable<ListInventoryGridItemsValidator>, IQueryRequest<WarehouseService.WarehouseServiceClient>
     {
-        public static implicit operator ListInventoryItemsRequest(ListInventoryItems request)
+        public static implicit operator ListInventoryItemsListItemsResquest(ListInventoryItemsListItems request)
             => new() { InventoryId  = request.InventoryId.ToString(), Paging = new() { Limit = request.Limit, Offset = request.Offset } };
     }
 }

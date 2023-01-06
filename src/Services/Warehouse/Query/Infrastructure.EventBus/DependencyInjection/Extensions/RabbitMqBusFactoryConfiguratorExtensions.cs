@@ -9,12 +9,12 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistrationContext context)
     {
-        cfg.ConfigureEventReceiveEndpoint<ProjectInventoryDetailsWhenChangedConsumer, DomainEvent.InventoryCreated>(context);
+        cfg.ConfigureEventReceiveEndpoint<ProjectInventoryGridItemWhenInventoryChangedConsumer, DomainEvent.InventoryCreated>(context);
 
-        cfg.ConfigureEventReceiveEndpoint<ProjectInventoryItemWhenChangedConsumer, DomainEvent.InventoryItemIncreased>(context);
-        cfg.ConfigureEventReceiveEndpoint<ProjectInventoryItemWhenChangedConsumer, DomainEvent.InventoryItemReceived>(context);
-        cfg.ConfigureEventReceiveEndpoint<ProjectInventoryItemWhenChangedConsumer, DomainEvent.InventoryAdjustmentIncreased>(context);
-        cfg.ConfigureEventReceiveEndpoint<ProjectInventoryItemWhenChangedConsumer, DomainEvent.InventoryAdjustmentDecreased>(context);
+        cfg.ConfigureEventReceiveEndpoint<ProjectInventoryItemListItemWhenInventoryItemChangedConsumer, DomainEvent.InventoryItemIncreased>(context);
+        cfg.ConfigureEventReceiveEndpoint<ProjectInventoryItemListItemWhenInventoryItemChangedConsumer, DomainEvent.InventoryItemReceived>(context);
+        cfg.ConfigureEventReceiveEndpoint<ProjectInventoryItemListItemWhenInventoryItemChangedConsumer, DomainEvent.InventoryAdjustmentIncreased>(context);
+        cfg.ConfigureEventReceiveEndpoint<ProjectInventoryItemListItemWhenInventoryItemChangedConsumer, DomainEvent.InventoryAdjustmentDecreased>(context);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistrationContext context)

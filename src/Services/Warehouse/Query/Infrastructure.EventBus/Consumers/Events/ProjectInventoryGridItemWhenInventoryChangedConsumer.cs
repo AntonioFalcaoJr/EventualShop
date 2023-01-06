@@ -4,11 +4,11 @@ using MassTransit;
 
 namespace Infrastructure.EventBus.Consumers.Events;
 
-public class ProjectInventoryDetailsWhenChangedConsumer : IConsumer<DomainEvent.InventoryCreated>
+public class ProjectInventoryGridItemWhenInventoryChangedConsumer : IConsumer<DomainEvent.InventoryCreated>
 {
     private readonly IProjectInventoryGridItemWhenInventoryChangedInteractor _interactor;
 
-    public ProjectInventoryDetailsWhenChangedConsumer(IProjectInventoryGridItemWhenInventoryChangedInteractor interactor)
+    public ProjectInventoryGridItemWhenInventoryChangedConsumer(IProjectInventoryGridItemWhenInventoryChangedInteractor interactor)
     {
         _interactor = interactor;
     }
