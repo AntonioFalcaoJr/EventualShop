@@ -1,3 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
+  <ItemGroup>
+    <Folder Include="Abstractions\" />
+    <Folder Include="Consumers\" />
+    <Folder Include="DependencyInjection\" />
+    <Folder Include="PipeObservers\" />
+    <Folder Include="PipeFilters\" />
+  </ItemGroup>
 </Project>
