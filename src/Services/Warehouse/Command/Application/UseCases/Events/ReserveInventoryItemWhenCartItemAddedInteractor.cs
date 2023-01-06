@@ -6,13 +6,13 @@ using DomainEvent = Contracts.Services.ShoppingCart.DomainEvent;
 
 namespace Application.UseCases.Events;
 
-public interface ICartItemAddedInteractor : IInteractor<DomainEvent.CartItemAdded> { }
+public interface IReserveInventoryItemWhenCartItemAddedInteractor : IInteractor<DomainEvent.CartItemAdded> { }
 
-public class CartItemAddedInteractor : ICartItemAddedInteractor
+public class ReserveInventoryItemWhenCartItemAddedInteractor : IReserveInventoryItemWhenCartItemAddedInteractor
 {
     private readonly IApplicationService _applicationService;
 
-    public CartItemAddedInteractor(IApplicationService applicationService)
+    public ReserveInventoryItemWhenCartItemAddedInteractor(IApplicationService applicationService)
     {
         _applicationService = applicationService;
     }

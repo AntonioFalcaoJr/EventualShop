@@ -6,7 +6,7 @@ import "Abstractions/Abstractions.proto";
 
 service WarehouseService {
   rpc ListInventoryGridItems(ListInventoryGridItemsRequest) returns (Abstractions.Protobuf.ListResponse);
-  rpc ListInventoryItems(ListInventoryItemsRequest) returns (Abstractions.Protobuf.ListResponse);
+  rpc ListInventoryItems(ListInventoryItemsListItemsResquest) returns (Abstractions.Protobuf.ListResponse);
 }
 
 
@@ -14,7 +14,7 @@ message ListInventoryGridItemsRequest {
   Abstractions.Protobuf.Paging Paging = 1;
 }
 
-message ListInventoryItemsRequest {
+message ListInventoryItemsListItemsResquest {
   string InventoryId = 1;
   Abstractions.Protobuf.Paging Paging = 2;
 }
