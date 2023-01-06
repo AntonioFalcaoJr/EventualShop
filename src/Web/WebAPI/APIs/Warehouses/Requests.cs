@@ -1,6 +1,7 @@
 using Contracts.Abstractions.Messages;
 using Contracts.DataTransferObjects;
 using Contracts.Services.Warehouse;
+using Contracts.Services.Warehouse.Protobuf;
 using MassTransit;
 using WebAPI.Abstractions;
 using WebAPI.APIs.Warehouses.Validators;
@@ -35,5 +36,12 @@ public static class Requests
     {
         public ICommand Command
             => new Command.DecreaseInventoryAdjust(InventoryId, ItemId, Quantity, Reason);
+    }
+    
+    public record ListInventoryGridItems(WarehouseService.WarehouseServiceClient Client, int? Limit, int? Offset, CancellationToken CancellationToken)
+        : Validatable<ListInventoryGridItemsValidator>, IQueryRequest<WarehouseService.WarehouseServiceClient>
+    {
+        public static implicit operator ListInventoryGridItemsRequest(ListInventoryGridItems request)
+            => new() { Paging = new() { Limit = request.Limit, Offset = request.Offset } };
     }
 }

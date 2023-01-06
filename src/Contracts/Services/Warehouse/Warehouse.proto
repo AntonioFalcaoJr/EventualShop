@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package Contracts.Services.Warehouse.Protobuf;
+
+import "Abstractions/Abstractions.proto";
+
+service WarehouseService {
+  rpc ListInventoryGridItems(ListInventoryGridItemsRequest) returns (Abstractions.Protobuf.ListResponse);
+  rpc ListInventoryItems(ListInventoryItemsRequest) returns (Abstractions.Protobuf.ListResponse);
+}
+
+
+message ListInventoryGridItemsRequest {
+  Abstractions.Protobuf.Paging Paging = 1;
+}
+
+message ListInventoryItemsRequest {
+  string InventoryId = 1;
+  Abstractions.Protobuf.Paging Paging = 2;
+}
+
+message InventoryGridItem {
+  string InventoryId = 1;
+  string OwnerId = 2;
+  bool IsDeleted = 3;
+}
+
+message InventoryItemListItem {
+  string Id = 1;
+  string InventoryId = 2;
+  Abstractions.Protobuf.Product Product = 3;
+  string Sku = 4;
+  bool IsDeleted = 5;
+  int32 Quantity = 6;
+}

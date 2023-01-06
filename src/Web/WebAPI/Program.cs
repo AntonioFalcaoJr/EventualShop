@@ -102,6 +102,9 @@ builder.Host.ConfigureServices((context, services) =>
 
     services.ConfigureCatalogGrpcClientOptions(
         context.Configuration.GetSection(nameof(CatalogGrpcClientOptions)));
+    
+    services.ConfigureWarehouseGrpcClientOptions(
+        context.Configuration.GetSection(nameof(WarehouseGrpcClientOptions)));
 
     services.ConfigureMassTransitHostOptions(
         context.Configuration.GetSection(nameof(MassTransitHostOptions)));

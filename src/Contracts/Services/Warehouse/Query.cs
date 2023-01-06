@@ -1,10 +1,20 @@
 ﻿using Contracts.Abstractions.Messages;
+using Contracts.Abstractions.Paging;
 
 namespace Contracts.Services.Warehouse;
 
 public static class Query
 {
-    public record GetInventories(ushort Limit, ushort Offset) : Message, IQuery;
+    public record ListInventoryGridItems(Paging Paging) : IQuery
+    {
+        public static implicit operator ListInventoryGridItems(Protobuf.ListInventoryGridItemsRequest request)
+            => new(request.Paging);
 
-    public record GetInventoryItems(Guid InventoryId, ushort Limit, ushort Offset) : Message(CorrelationId: InventoryId), IQuery;
+    }
+
+    public record ListInventoryItems(Guid InventoryId, Paging Paging) : IQuery
+    {
+        public static implicit operator ListInventoryItems(Protobuf.ListInventoryItemsRequest request)
+            => new(new(request.InventoryId), request.Paging);
+    }
 }

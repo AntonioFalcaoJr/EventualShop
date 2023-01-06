@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning.Builder;
 using Contracts.Services.Warehouse;
+using Contracts.Services.Warehouse.Protobuf;
 using MassTransit;
 using WebAPI.Abstractions;
 
@@ -13,14 +14,15 @@ public static class WarehouseApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(1);
 
-        group.MapGet("/", (IBus bus, ushort limit, ushort offset, CancellationToken cancellationToken)
-            => ApplicationApi.GetPagedProjectionAsync<Query.GetInventories, Projection.Inventory>(bus, new(limit, offset), cancellationToken));
+        group.MapGet("/", ([AsParameters] Requests.ListInventoryGridItems request)
+            => ApplicationApi.ListAsync<WarehouseService.WarehouseServiceClient, InventoryGridItem>
+                (request, (client, ct) => client.ListInventoryGridItemsAsync(new ListInventoryGridItemsRequest(), cancellationToken: ct)));
 
         group.MapPost("/", ([AsParameters] Requests.CreateInventory request)
             => ApplicationApi.SendCommandAsync<Command.CreateInventory>(request));
 
-        group.MapGet("/{inventoryId:guid}/items", (IBus bus, Guid inventoryId, ushort? limit, ushort? offset, CancellationToken cancellationToken)
-            => ApplicationApi.GetPagedProjectionAsync<Query.GetInventoryItems, Projection.InventoryItem>(bus, new(inventoryId, limit ?? 0, offset ?? 0), cancellationToken));
+        // group.MapGet("/{inventoryId:guid}/items", (IBus bus, Guid inventoryId, ushort? limit, ushort? offset, CancellationToken cancellationToken)
+        //     => ApplicationApi.GetPagedProjectionAsync<Query.ListInventoryItems, Projection.InventoryItem>(bus, new(inventoryId, limit ?? 0, offset ?? 0), cancellationToken));
 
         group.MapPost("/{inventoryId:guid}/items", ([AsParameters] Requests.ReceiveInventoryItem request)
             => ApplicationApi.SendCommandAsync<Command.ReceiveInventoryItem>(request));
@@ -38,8 +40,9 @@ public static class WarehouseApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(2);
 
-        group.MapGet("/", (IBus bus, ushort limit, ushort offset, CancellationToken cancellationToken)
-            => ApplicationApi.GetPagedProjectionAsync<Query.GetInventories, Projection.Inventory>(bus, new(limit, offset), cancellationToken));
+        group.MapGet("/", ([AsParameters] Requests.ListInventoryGridItems request)
+            => ApplicationApi.ListAsync<WarehouseService.WarehouseServiceClient, InventoryGridItem>
+                (request, (client, ct) => client.ListInventoryGridItemsAsync(new ListInventoryGridItemsRequest(), cancellationToken: ct)));
 
         return builder;
     }
