@@ -37,7 +37,7 @@ public abstract class AggregateTests
 
         if (assertions.Any())
             assertions.Should().AllSatisfy(assert
-                => assert((TEvent)events!.First()));
+                => assert((TEvent)events!.Select(tuple => tuple.@event)));
     }
 
     public void Throws<TException>(params Action<TException>[] assertions)
