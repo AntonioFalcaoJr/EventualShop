@@ -43,18 +43,4 @@ public static class Requests
         public ICommand Command
             => new Command.ConfirmEmail(UserId, Email);
     }
-
-    // public record RefreshToken(IdentityService.IdentityServiceClient Client, string Token, string RefreshToken, CancellationToken CancellationToken)
-    //     : Validatable<RefreshTokenValidator>, IQueryRequest<IdentityService.IdentityServiceClient>
-    // {
-    //     public static implicit operator RefreshTokenRequest(RefreshToken request)
-    //         => new() { Token = request.Token, RefreshToken = request.RefreshToken };
-    // }
-    //
-    // public record RevokeToken(IdentityService.IdentityServiceClient Client, string Token, string RefreshToken, CancellationToken CancellationToken)
-    //     : Validatable<RevokeTokenValidator>, IQueryRequest<IdentityService.IdentityServiceClient>
-    // {
-    //     public static implicit operator RevokeTokenRequest(RevokeToken request)
-    //         => new() { Token = request.Token, RefreshToken = request.RefreshToken };
-    // }
 }
