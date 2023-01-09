@@ -1,6 +1,7 @@
 using Contracts.Abstractions.Messages;
 using Contracts.DataTransferObjects;
 using Contracts.Services.ShoppingCart;
+using Contracts.Services.ShoppingCart.Protobuf;
 using MassTransit;
 using WebAPI.Abstractions;
 using WebAPI.APIs.ShoppingCarts.Validators;
@@ -58,21 +59,21 @@ public static class Requests
             => new Command.AddBillingAddress(CartId, Address);
     }
 
-    public record AddCreditCard(IBus Bus, Guid CartId, decimal Amount, Dto.CreditCard? CreditCard, CancellationToken CancellationToken)
+    public record AddCreditCard(IBus Bus, Guid CartId, decimal Amount, Dto.CreditCard CreditCard, CancellationToken CancellationToken)
         : Validatable<AddCreditCardValidator>, ICommandRequest
     {
         public ICommand Command
             => new Command.AddPaymentMethod(CartId, Amount, CreditCard);
     }
 
-    public record AddDebitCard(IBus Bus, Guid CartId, decimal Amount, Dto.DebitCard? DebitCard, CancellationToken CancellationToken)
+    public record AddDebitCard(IBus Bus, Guid CartId, decimal Amount, Dto.DebitCard DebitCard, CancellationToken CancellationToken)
         : Validatable<AddDebitCardValidator>, ICommandRequest
     {
         public ICommand Command
             => new Command.AddPaymentMethod(CartId, Amount, DebitCard);
     }
 
-    public record AddPayPal(IBus Bus, Guid CartId, decimal Amount, Dto.PayPal? PayPal, CancellationToken CancellationToken)
+    public record AddPayPal(IBus Bus, Guid CartId, decimal Amount, Dto.PayPal PayPal, CancellationToken CancellationToken)
         : Validatable<AddPayPalValidator>, ICommandRequest
     {
         public ICommand Command
@@ -91,5 +92,48 @@ public static class Requests
     {
         public ICommand Command
             => new Command.RebuildProjection(Name);
+    }
+
+
+    public record GetShoppingCartDetails(ShoppingCartService.ShoppingCartServiceClient Client, Guid CartId, CancellationToken CancellationToken)
+        : Validatable<GetShoppingCartDetailsValidator>, IQueryRequest<ShoppingCartService.ShoppingCartServiceClient>
+    {
+        public static implicit operator GetShoppingCartDetailsRequest(GetShoppingCartDetails request)
+            => new() { CartId = request.CartId.ToString() };
+    }
+
+    public record GetCustomerShoppingCartDetails(ShoppingCartService.ShoppingCartServiceClient Client, Guid CartId, Guid CustomerId, CancellationToken CancellationToken)
+        : Validatable<GetCustomerShoppingCartDetailsValidator>, IQueryRequest<ShoppingCartService.ShoppingCartServiceClient>
+    {
+        public static implicit operator GetCustomerShoppingCartDetailsRequest(GetCustomerShoppingCartDetails request)
+            => new() { CartId = request.CartId.ToString(), CustomerId = request.CustomerId.ToString() };
+    }
+
+    public record GetShoppingCartItemDetails(ShoppingCartService.ShoppingCartServiceClient Client, Guid CartId, Guid ItemId, CancellationToken CancellationToken)
+        : Validatable<GetShoppingCartItemDetailsValidator>, IQueryRequest<ShoppingCartService.ShoppingCartServiceClient>
+    {
+        public static implicit operator GetShoppingCartItemDetailsRequest(GetShoppingCartItemDetails request)
+            => new() { CartId = request.CartId.ToString(), ItemId = request.ItemId.ToString() };
+    }
+
+    public record GetPaymentMethodDetails(ShoppingCartService.ShoppingCartServiceClient Client, Guid CartId, Guid MethodId, CancellationToken CancellationToken)
+        : Validatable<GetPaymentMethodDetailsValidator>, IQueryRequest<ShoppingCartService.ShoppingCartServiceClient>
+    {
+        public static implicit operator GetPaymentMethodDetailsRequest(GetPaymentMethodDetails request)
+            => new() { CartId = request.CartId.ToString(), MethodId = request.MethodId.ToString() };
+    }
+
+    public record ListPaymentMethodsListItems(ShoppingCartService.ShoppingCartServiceClient Client, Guid CartId, int? Limit, int? Offset, CancellationToken CancellationToken)
+        : Validatable<ListPaymentMethodsListItemsValidator>, IQueryRequest<ShoppingCartService.ShoppingCartServiceClient>
+    {
+        public static implicit operator ListPaymentMethodsListItemsRequest(ListPaymentMethodsListItems request)
+            => new() { CartId = request.CartId.ToString(), Paging = new() { Limit = request.Limit, Offset = request.Offset } };
+    }
+
+    public record ListShoppingCartItemsListItems(ShoppingCartService.ShoppingCartServiceClient Client, Guid CartId, int? Limit, int? Offset, CancellationToken CancellationToken)
+        : Validatable<ListShoppingCartItemsListItemsValidator>, IQueryRequest<ShoppingCartService.ShoppingCartServiceClient>
+    {
+        public static implicit operator ListShoppingCartItemsListItemsRequest(ListShoppingCartItemsListItems request)
+            => new() { CartId = request.CartId.ToString(), Paging = new() { Limit = request.Limit, Offset = request.Offset } };
     }
 }

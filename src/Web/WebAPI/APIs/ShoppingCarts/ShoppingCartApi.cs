@@ -1,8 +1,7 @@
 ﻿using Asp.Versioning.Builder;
 using Contracts.Services.ShoppingCart;
-using MassTransit;
+using Contracts.Services.ShoppingCart.Protobuf;
 using WebAPI.Abstractions;
-using WebAPI.Validations;
 
 namespace WebAPI.APIs.ShoppingCarts;
 
@@ -14,14 +13,16 @@ public static class ShoppingCartApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(1);
 
-        group.MapGet("/{customerId:guid}", (IBus bus, Guid customerId, CancellationToken cancellationToken)
-            => ApplicationApi.GetPagedProjectionAsync<Query.GetCustomerShoppingCartDetails, Projection.ShoppingCartDetails>(bus, new(customerId), cancellationToken));
-
         group.MapPost("/", ([AsParameters] Requests.CreateCart request)
             => ApplicationApi.SendCommandAsync<Command.CreateCart>(request));
 
-        group.MapGet("/{cartId:guid}", (IBus bus, [NotEmpty] Guid cartId, CancellationToken cancellationToken)
-            => ApplicationApi.GetProjectionAsync<Query.GetShoppingCartDetails, Projection.ShoppingCartDetails>(bus, new(cartId), cancellationToken));
+        group.MapGet("/{customerId:guid}", ([AsParameters] Requests.GetCustomerShoppingCartDetails request)
+            => ApplicationApi.GetAsync<ShoppingCartService.ShoppingCartServiceClient, ShoppingCartDetails>
+                (request, (client, ct) => client.GetCustomerShoppingCartDetailsAsync(request, cancellationToken: ct)));
+
+        group.MapGet("/{cartId:guid}/details", ([AsParameters] Requests.GetShoppingCartDetails request)
+            => ApplicationApi.GetAsync<ShoppingCartService.ShoppingCartServiceClient, ShoppingCartDetails>
+                (request, (client, ct) => client.GetShoppingCartDetailsAsync(request, cancellationToken: ct)));
 
         group.MapPut("/{cartId:guid}/check-out", ([AsParameters] Requests.CheckOut request)
             => ApplicationApi.SendCommandAsync<Command.CheckOutCart>(request));
@@ -32,14 +33,16 @@ public static class ShoppingCartApi
         group.MapPut("/{cartId:guid}/add-billing-address", ([AsParameters] Requests.AddBillingAddress request)
             => ApplicationApi.SendCommandAsync<Command.AddBillingAddress>(request));
 
-        group.MapGet("/{cartId:guid}/items", (IBus bus, Guid cartId, ushort? limit, ushort? offset, CancellationToken cancellationToken)
-            => ApplicationApi.GetPagedProjectionAsync<Query.ListShoppingCartItemsListItems, Projection.ShoppingCartItemListItem>(bus, new(cartId, limit ?? 0, offset ?? 0), cancellationToken));
+        group.MapGet("/{cartId:guid}/items", ([AsParameters] Requests.ListShoppingCartItemsListItems request)
+            => ApplicationApi.ListAsync<ShoppingCartService.ShoppingCartServiceClient, ShoppingCartItemListItem>
+                (request, (client, ct) => client.ListShoppingCartItemsListItemsAsync(request, cancellationToken: ct)));
 
         group.MapPost("/{cartId:guid}/items", ([AsParameters] Requests.AddCartItem request)
             => ApplicationApi.SendCommandAsync<Command.AddCartItem>(request));
 
-        group.MapGet("/{cartId:guid}/items/{itemId:guid}", (IBus bus, [NotEmpty] Guid cartId, [NotEmpty] Guid itemId, CancellationToken cancellationToken)
-            => ApplicationApi.GetProjectionAsync<Query.GetShoppingCartItemDetails, Projection.ShoppingCartItemListItem>(bus, new(cartId, itemId), cancellationToken));
+        group.MapGet("/{cartId:guid}/items/{itemId:guid}", ([AsParameters] Requests.GetShoppingCartItemDetails request)
+            => ApplicationApi.GetAsync<ShoppingCartService.ShoppingCartServiceClient, ShoppingCartDetails>
+                (request, (client, ct) => client.GetShoppingCartItemDetailsAsync(request, cancellationToken: ct)));
 
         group.MapDelete("/{cartId:guid}/items/{itemId:guid}", ([AsParameters] Requests.RemoveCartItem request)
             => ApplicationApi.SendCommandAsync<Command.RemoveCartItem>(request));
@@ -47,11 +50,13 @@ public static class ShoppingCartApi
         group.MapPut("/{cartId:guid}/items/{itemId:guid}/change-quantity", ([AsParameters] Requests.ChangeCartItemQuantity request)
             => ApplicationApi.SendCommandAsync<Command.ChangeCartItemQuantity>(request));
 
-        group.MapGet("/{cartId:guid}/payment-methods", (IBus bus, [NotEmpty] Guid cartId, ushort limit, ushort offset, CancellationToken cancellationToken)
-            => ApplicationApi.GetPagedProjectionAsync<Query.ListPaymentMethodsListItems, Projection.PaymentMethodListItem>(bus, new(cartId, limit, offset), cancellationToken));
+        group.MapGet("/{cartId:guid}/payment-methods", ([AsParameters] Requests.ListPaymentMethodsListItems request)
+            => ApplicationApi.ListAsync<ShoppingCartService.ShoppingCartServiceClient, PaymentMethodListItem>
+                (request, (client, ct) => client.ListPaymentMethodsListItemsAsync(request, cancellationToken: ct)));
 
-        group.MapGet("/{cartId:guid}/payment-methods/{methodId:guid}", (IBus bus, [NotEmpty] Guid cartId, [NotEmpty] Guid methodId, CancellationToken cancellationToken)
-            => ApplicationApi.GetProjectionAsync<Query.GetPaymentMethodDetails, Projection.PaymentMethodListItem>(bus, new(cartId, methodId), cancellationToken));
+        group.MapGet("/{cartId:guid}/payment-methods/{methodId:guid}", (Requests.GetPaymentMethodDetails request)
+            => ApplicationApi.GetAsync<ShoppingCartService.ShoppingCartServiceClient, ShoppingCartDetails>
+                (request, (client, ct) => client.GetPaymentMethodDetailsAsync(request, cancellationToken: ct)));
 
         group.MapDelete("/{cartId:guid}/payment-methods/{methodId:guid}", ([AsParameters] Requests.RemovePaymentMethod request)
             => ApplicationApi.SendCommandAsync<Command.RemovePaymentMethod>(request));
@@ -75,8 +80,9 @@ public static class ShoppingCartApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(2);
 
-        group.MapGet("/{customerId:guid}", (IBus bus, Guid customerId, CancellationToken cancellationToken)
-            => ApplicationApi.GetPagedProjectionAsync<Query.GetCustomerShoppingCartDetails, Projection.ShoppingCartDetails>(bus, new(customerId), cancellationToken));
+        group.MapGet("/{cartId:guid}/details", ([AsParameters] Requests.GetShoppingCartDetails request)
+            => ApplicationApi.GetAsync<ShoppingCartService.ShoppingCartServiceClient, ShoppingCartDetails>
+                (request, (client, ct) => client.GetShoppingCartDetailsAsync(request, cancellationToken: ct)));
 
         return builder;
     }
