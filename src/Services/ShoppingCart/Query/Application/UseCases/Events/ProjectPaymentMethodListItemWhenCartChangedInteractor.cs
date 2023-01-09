@@ -21,6 +21,7 @@ public class ProjectPaymentMethodListItemWhenCartChangedInteractor : IProjectPay
         Projection.PaymentMethodListItem creditCard = new(
             @event.MethodId,
             @event.CartId,
+            @event.Amount,
             @event.Option?.ToString()!, // TODO - It's temporary
             false);
 

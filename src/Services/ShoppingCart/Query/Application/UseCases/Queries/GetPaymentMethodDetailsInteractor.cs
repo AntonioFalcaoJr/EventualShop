@@ -1,5 +1,4 @@
 ﻿using Application.Abstractions;
-using Contracts.Abstractions.Paging;
 using Contracts.Services.ShoppingCart;
 
 namespace Application.UseCases.Queries;
