@@ -20,13 +20,6 @@
         <Protobuf Include="Services\Communication\Communication.proto" GrpcServices="Both" />
         <Protobuf Include="Services\Identity\Identity.proto" GrpcServices="Both" />
         <Protobuf Include="Services\Order\Order.proto" GrpcServices="Both" />
-        <Protobuf Include="Services\ShoppingCart\ShoppingCart.proto">
-          <GrpcServices>Both</GrpcServices>
-          <Access>Public</Access>
-          <ProtoCompile>True</ProtoCompile>
-          <CompileOutputs>True</CompileOutputs>
-          <OutputDir>obj\Debug\net7.0\</OutputDir>
-          <Generator>MSBuild:Compile</Generator>
-        </Protobuf>
+        <Protobuf Include="Services\ShoppingCart\ShoppingCart.proto" GrpcServices="Both" />
     </ItemGroup>
 </Project>
