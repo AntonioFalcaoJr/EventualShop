@@ -13,7 +13,7 @@ service ShoppingCartService {
   rpc ListShoppingCartItemsListItems(ListShoppingCartItemsListItemsRequest) returns (Abstractions.Protobuf.ListResponse);
 }
 
-// Requests
+//// Requests
 
 message GetShoppingCartDetailsRequest {
   string CartId = 1;
@@ -33,37 +33,53 @@ message GetPaymentMethodDetailsRequest {
 
 message ListPaymentMethodsListItemsRequest {
   string CartId = 1;
-  Abstracts.Protobuf.Paging Paging = 2;
+  Abstractions.Protobuf.Paging Paging = 2;
 }
 
 message ListShoppingCartItemsListItemsRequest {
   string CartId = 1;
-  Abstracts.Protobuf.Paging Paging = 2;
+  Abstractions.Protobuf.Paging Paging = 2;
 }
 
-// Projections
+//// Projections
 
+
+// Cart 
 message ShoppingCartDetails {
-  string CartId = 1;
+  string Id = 1;
   string CustomerId = 2;
-  Abstracts.Protobuf.Address BillingAddress = 3;
-  Abstracts.Protobuf.Address ShippingAddress = 4;
+  optional Abstractions.Protobuf.Address BillingAddress = 3;
+  optional Abstractions.Protobuf.Address ShippingAddress = 4;
   string Status = 5;
   string Total = 6;
 }
 
+// Items
 message ShoppingCartItemDetails{
-  string ItemId = 1;
+  string Id = 1;
   string CartId = 2;
-  Abstracts.Protobuf.Product Product = 3;
+  Abstractions.Protobuf.Product Product = 3;
   int32 Quantity = 5;
 }
 
-message PaymentMethodDetails{
-  string PaymentMethodId = 1;
+message ShoppingCartItemListItem{
+  string Id = 1;
   string CartId = 2;
-  string Name = 3;
-  string CardNumber = 4;
-  string Expiration = 5;
-  string CVV = 6;
+  string ProductName = 3;
+  int32 Quantity = 4;
+}
+
+// Payment
+message PaymentMethodDetails {
+  string Id = 1;
+  string CartId = 2;
+  string Amount = 3;
+  Abstractions.Protobuf.PaymentOption Option = 4;
+}
+
+message PaymentMethodListItem {
+  string Id = 1;
+  string CartId = 3;
+  string Amount = 4;
+  string Option = 5;
 }
