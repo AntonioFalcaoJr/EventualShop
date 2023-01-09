@@ -1051,8 +1051,8 @@ docker run --network=internal --name k6 --rm -i grafana/k6 run - <test.js
 
 ### Worker Services
 
-- [.NET 7 preview](https://dotnet.microsoft.com/en-us/) - A free, multi/cross-platform and open-source framework;
-- [EF Core 7 preview](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-7-preview-1/) - An open source object–relational mapping framework for ADO.NET;
+- [.NET 7](https://dotnet.microsoft.com/en-us/) - A free, multi/cross-platform and open-source framework;
+- [EF Core 7](https://devblogs.microsoft.com/dotnet/announcing-ef7/) - An open source object–relational mapping framework for ADO.NET;
 - [MSSQL](https://hub.docker.com/_/microsoft-mssql-server) - A relational database management system (Event Store Database);
 - [MongoDB](https://www.mongodb.com/docs/drivers/csharp/) - A source-available cross-platform document-oriented database (Projections Database);
 - [MassTransit](https://masstransit-project.com/) - Message Bus;
