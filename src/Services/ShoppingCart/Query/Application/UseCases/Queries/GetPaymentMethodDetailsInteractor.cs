@@ -13,5 +13,5 @@ public class GetPaymentMethodDetailsInteractor : IInteractor<Query.GetPaymentMet
     }
 
     public Task<Projection.PaymentMethodDetails?> InteractAsync(Query.GetPaymentMethodDetails query, CancellationToken cancellationToken)
-        => _projectionGateway.GetAsync(query.PaymentMethodId, cancellationToken);
+        => _projectionGateway.FindAsync(method => method.Id == query.MethodId && method.CartId == query.CartId, cancellationToken);
 }

@@ -14,5 +14,5 @@ public class ListShoppingCartItemsListItemsInteractor : IInteractor<Query.ListSh
     }
 
     public Task<IPagedResult<Projection.ShoppingCartItemListItem>?> InteractAsync(Query.ListShoppingCartItemsListItems query, CancellationToken cancellationToken)
-        => _projectionGateway.ListAsync(query.Paging, method => method.CartId == query.CartId, cancellationToken);
+        => _projectionGateway.ListAsync(query.Paging, item => item.CartId == query.CartId, cancellationToken);
 }

@@ -13,5 +13,5 @@ public class GetCustomerShoppingCartDetailsInteractor : IInteractor<Query.GetCus
     }
 
     public Task<Projection.ShoppingCartDetails?> InteractAsync(Query.GetCustomerShoppingCartDetails query, CancellationToken cancellationToken)
-        => _projectionGateway.FindAsync(cart => cart.CustomerId == query.CustomerId, cancellationToken);
+        => _projectionGateway.FindAsync(cart => cart.Id == query.CartId && cart.CustomerId == query.CustomerId, cancellationToken);
 }
