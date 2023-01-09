@@ -20,15 +20,18 @@ message GetShoppingCartDetailsRequest {
 }
 
 message GetCustomerShoppingCartDetailsRequest {
-  string CustomerId = 1;
+  string CartId = 1;
+  string CustomerId = 2;
 }
 
 message GetShoppingCartItemDetailsRequest {
-  string ItemId = 1;
+  string CartId = 1;
+  string ItemId = 2;
 }
 
 message GetPaymentMethodDetailsRequest {
-  string PaymentMethodId = 1;
+  string CartId = 1;
+  string MethodId = 2;
 }
 
 message ListPaymentMethodsListItemsRequest {
