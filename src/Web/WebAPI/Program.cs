@@ -106,6 +106,9 @@ builder.Host.ConfigureServices((context, services) =>
     
     services.ConfigureWarehouseGrpcClientOptions(
         context.Configuration.GetSection(nameof(WarehouseGrpcClientOptions)));
+    
+    services.ConfigureShoppingCartGrpcClientOptions(
+        context.Configuration.GetSection(nameof(ShoppingCartGrpcClientOptions)));
 
     services.ConfigureMassTransitHostOptions(
         context.Configuration.GetSection(nameof(MassTransitHostOptions)));

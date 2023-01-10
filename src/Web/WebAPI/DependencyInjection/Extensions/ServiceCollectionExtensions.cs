@@ -63,13 +63,13 @@ public static class ServiceCollectionExtensions
 
     public static void AddAccountGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<AccountService.AccountServiceClient, AccountGrpcClientOptions>();
-    
+
     public static void AddCommunicationGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<CommunicationService.CommunicationServiceClient, CommunicationGrpcClientOptions>();
-    
+
     public static void AddCatalogGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<CatalogService.CatalogServiceClient, CatalogGrpcClientOptions>();
-    
+
     public static void AddWarehouseGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<WarehouseService.WarehouseServiceClient, WarehouseGrpcClientOptions>();
 
@@ -132,24 +132,31 @@ public static class ServiceCollectionExtensions
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();
-    
+
     public static OptionsBuilder<CommunicationGrpcClientOptions> ConfigureCommunicationGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<CommunicationGrpcClientOptions>()
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();
-    
+
     public static OptionsBuilder<CatalogGrpcClientOptions> ConfigureCatalogGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<CatalogGrpcClientOptions>()
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();
-    
+
     public static OptionsBuilder<WarehouseGrpcClientOptions> ConfigureWarehouseGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<WarehouseGrpcClientOptions>()
+            .Bind(section)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+
+    public static OptionsBuilder<ShoppingCartGrpcClientOptions> ConfigureShoppingCartGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
+        => services
+            .AddOptions<ShoppingCartGrpcClientOptions>()
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();
