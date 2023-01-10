@@ -8,7 +8,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-<!--        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>-->
+        <!--        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>-->
         <NoWarn>8981, CS0660, CS0661</NoWarn>
     </PropertyGroup>
 
@@ -37,7 +37,7 @@
         <MongoDb_Version>2.18.0</MongoDb_Version>
 
         <!--MassTransit-->
-        <MassTransit_Version>8.0.10</MassTransit_Version>
+        <MassTransit_Version>8.0.11-develop.805</MassTransit_Version>
         <Quartz_Version>3.5.0</Quartz_Version>
 
         <!--Newtonsoft-->
@@ -49,7 +49,7 @@
         <Serilog_Version>2.12.1-dev-01635</Serilog_Version>
         <Serilog_AspNetCore_Version>6.1.1-dev-00293</Serilog_AspNetCore_Version>
         <Serilog_Extensions_Version>5.0.1</Serilog_Extensions_Version>
-        <Serilog_Settings_Version>3.5.0-dev-00367</Serilog_Settings_Version>
+        <Serilog_Settings_Version>3.5.0-dev-00370</Serilog_Settings_Version>
 
         <!--FluentValidation-->
         <FluentValidation_Version>11.4.0</FluentValidation_Version>
@@ -62,9 +62,14 @@
         <!--Polly-->
         <Polly_Version>7.0.1</Polly_Version>
 
+        <!--Open Telemetry-->
+        <OpenTelemetry_Exporter_Version>1.4.0-rc.2</OpenTelemetry_Exporter_Version>
+        <OpenTelemetry_Extensions_Hosting_Version>1.4.0-rc.2</OpenTelemetry_Extensions_Hosting_Version>
+        <OpenTelemetry_Instrumentation_AspNetCore_Version>1.0.0-rc9.11</OpenTelemetry_Instrumentation_AspNetCore_Version>
+
         <!--Test-->
         <Microsoft_Mvc_Testing_Version>7.0.1</Microsoft_Mvc_Testing_Version>
         <Microsoft_Test_SDK_Version>17.5.0-preview-20221221-03</Microsoft_Test_SDK_Version>
-     
+
     </PropertyGroup>
 </Project>
