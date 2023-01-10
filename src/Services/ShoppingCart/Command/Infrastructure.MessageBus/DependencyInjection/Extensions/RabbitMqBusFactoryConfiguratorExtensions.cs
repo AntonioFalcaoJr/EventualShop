@@ -16,7 +16,7 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
         where TConsumer : class, IConsumer
         where TEvent : class, IEvent
         => bus.ReceiveEndpoint(
-            queueName: $"catalog.command-stack.{typeof(TConsumer).ToKebabCaseString()}.{typeof(TEvent).ToKebabCaseString()}",
+            queueName: $"shopping-cart.command-stack.{typeof(TConsumer).ToKebabCaseString()}.{typeof(TEvent).ToKebabCaseString()}",
             configureEndpoint: endpoint =>
             {
                 endpoint.ConfigureConsumeTopology = false;

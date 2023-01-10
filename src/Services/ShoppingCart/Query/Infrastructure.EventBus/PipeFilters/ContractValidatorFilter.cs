@@ -34,7 +34,7 @@ public class ContractValidatorFilter<T> : IFilter<ConsumeContext<T>>
         Log.Error("Contract validation errors: {Errors}", validationResult.Errors);
 
         await context.Send(
-            destinationAddress: new($"queue:catalog.{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}.contract-errors"),
+            destinationAddress: new($"queue:shopping-cart.{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}.contract-errors"),
             message: new ContractValidationResult<T>(context.Message, validationResult.Errors.Select(failure => failure.ErrorMessage)));
     }
 
