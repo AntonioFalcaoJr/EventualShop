@@ -26,11 +26,11 @@ public class EventStoreRepository : IEventStoreRepository
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public Task<List<IEvent>> GetStreamAsync(Guid aggregateId, long version, CancellationToken cancellationToken)
+    public Task<List<IEvent>> GetStreamAsync(Guid aggregateId, long? version, CancellationToken cancellationToken)
         => _dbContext.Set<StoreEvent>()
             .AsNoTracking()
             .Where(@event => @event.AggregateId.Equals(aggregateId))
-            .Where(@event => @event.Version > version)
+            .Where(@event => @event.Version > (version ?? 0))
             .Select(@event => @event.DomainEvent)
             .ToListAsync(cancellationToken);
 

@@ -50,10 +50,8 @@ message ListShoppingCartItemsListItemsRequest {
 message ShoppingCartDetails {
   string Id = 1;
   string CustomerId = 2;
-  optional Abstractions.Protobuf.Address BillingAddress = 3;
-  optional Abstractions.Protobuf.Address ShippingAddress = 4;
-  string Status = 5;
-  string Total = 6;
+  string Status = 3;
+  string Total = 4;
 }
 
 // Items

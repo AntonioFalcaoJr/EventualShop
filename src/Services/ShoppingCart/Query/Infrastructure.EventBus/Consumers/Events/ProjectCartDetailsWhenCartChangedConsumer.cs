@@ -5,12 +5,10 @@ using MassTransit;
 namespace Infrastructure.EventBus.Consumers.Events;
 
 public class ProjectCartDetailsWhenCartChangedConsumer :
-    IConsumer<DomainEvent.BillingAddressAdded>,
     IConsumer<DomainEvent.CartCreated>,
     IConsumer<DomainEvent.CartItemAdded>,
     IConsumer<DomainEvent.CartItemRemoved>,
     IConsumer<DomainEvent.CartCheckedOut>,
-    IConsumer<DomainEvent.ShippingAddressAdded>,
     IConsumer<DomainEvent.CartItemIncreased>,
     IConsumer<DomainEvent.CartItemDecreased>,
     IConsumer<DomainEvent.CartDiscarded>,
@@ -23,9 +21,6 @@ public class ProjectCartDetailsWhenCartChangedConsumer :
         _interactor = interactor;
     }
 
-    public Task Consume(ConsumeContext<DomainEvent.BillingAddressAdded> context)
-        => _interactor.InteractAsync(context.Message, context.CancellationToken);
-
     public Task Consume(ConsumeContext<DomainEvent.CartCreated> context)
         => _interactor.InteractAsync(context.Message, context.CancellationToken);
 
@@ -36,9 +31,6 @@ public class ProjectCartDetailsWhenCartChangedConsumer :
         => _interactor.InteractAsync(context.Message, context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.CartCheckedOut> context)
-        => _interactor.InteractAsync(context.Message, context.CancellationToken);
-
-    public Task Consume(ConsumeContext<DomainEvent.ShippingAddressAdded> context)
         => _interactor.InteractAsync(context.Message, context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.CartItemIncreased> context)

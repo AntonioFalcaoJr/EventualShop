@@ -6,15 +6,13 @@ namespace Contracts.Services.ShoppingCart;
 
 public static class Projection
 {
-    public record ShoppingCartDetails(Guid Id, Guid CustomerId, Dto.Address? BillingAddress, Dto.Address? ShippingAddress, string Status, decimal Total, bool IsDeleted) : IProjection
+    public record ShoppingCartDetails(Guid Id, Guid CustomerId, string Status, decimal Total, bool IsDeleted) : IProjection
     {
         public static implicit operator Protobuf.ShoppingCartDetails(ShoppingCartDetails cart)
             => new()
             {
                 Id = cart.Id.ToString(),
                 CustomerId = cart.CustomerId.ToString(),
-                BillingAddress = cart.BillingAddress,
-                ShippingAddress = cart.ShippingAddress,
                 Status = cart.Status,
                 Total = cart.Total.ToString(CultureInfo.InvariantCulture),
             };

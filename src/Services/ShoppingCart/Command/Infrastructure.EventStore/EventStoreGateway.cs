@@ -2,6 +2,7 @@ using Application.Abstractions.Gateways;
 using Domain.Abstractions.Aggregates;
 using Domain.Abstractions.EventStore;
 using Infrastructure.EventStore.DependencyInjection.Options;
+using Infrastructure.EventStore.Exceptions;
 using Microsoft.Extensions.Options;
 
 namespace Infrastructure.EventStore;
@@ -30,8 +31,14 @@ public class EventStoreGateway : IEventStoreGateway
         where TAggregate : IAggregateRoot, new()
     {
         var snapshot = await _repository.GetSnapshotAsync(aggregateId, cancellationToken);
-        var events = await _repository.GetStreamAsync(aggregateId, snapshot?.AggregateVersion ?? default, cancellationToken);
-        return (TAggregate)(snapshot?.Aggregate.Load(events) ?? new TAggregate().Load(events));
+        var events = await _repository.GetStreamAsync(aggregateId, snapshot?.AggregateVersion, cancellationToken);
+
+        if (snapshot is null && events is not { Count: > 0 })
+            throw new AggregateNotFoundException(aggregateId, typeof(TAggregate));
+
+        var aggregate = snapshot?.Aggregate ?? new TAggregate();
+
+        return (TAggregate)aggregate.Load(events);
     }
 
     private async Task AppendSnapshotAsync(IAggregateRoot aggregate, long version, CancellationToken cancellationToken)
@@ -40,7 +47,7 @@ public class EventStoreGateway : IEventStoreGateway
         Snapshot snapshot = new(version, aggregate);
         await _repository.AppendSnapshotAsync(snapshot, cancellationToken);
     }
-    
+
     public IAsyncEnumerable<Guid> StreamAggregatesId(CancellationToken cancellationToken)
         => _repository.GetAggregateIdsAsync(cancellationToken);
 }
