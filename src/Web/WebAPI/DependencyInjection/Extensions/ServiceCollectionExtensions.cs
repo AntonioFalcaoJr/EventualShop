@@ -3,6 +3,7 @@ using Contracts.Services.Account.Protobuf;
 using Contracts.Services.Catalog.Protobuf;
 using Contracts.Services.Communication.Protobuf;
 using Contracts.Services.Identity.Protobuf;
+using Contracts.Services.ShoppingCart.Protobuf;
 using Contracts.Services.Warehouse.Protobuf;
 using Grpc.Core;
 using Grpc.Net.Client.Configuration;
@@ -72,6 +73,9 @@ public static class ServiceCollectionExtensions
 
     public static void AddWarehouseGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<WarehouseService.WarehouseServiceClient, WarehouseGrpcClientOptions>();
+    
+    public static void AddShoppingCartGrpcClient(this IServiceCollection services)
+        => services.AddGrpcClient<ShoppingCartService.ShoppingCartServiceClient, ShoppingCartGrpcClientOptions>();
 
     private static void AddGrpcClient<TClient, TOptions>(this IServiceCollection services)
         where TClient : ClientBase
