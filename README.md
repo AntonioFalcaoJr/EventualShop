@@ -776,6 +776,46 @@ user-friendly than more general-purpose UIs.
 ## Performance
 
 <details>
+    <summary>Async Projections</summary>
+
+### Async Projections
+
+In a Command and Query Responsibility Segregation (CQRS) system, denormalized asynchronous projections can significantly improve performance for several reasons:
+
+- Improved Read Performance: In a CQRS system, the read side is separate from the write side and is optimized for querying data. By denormalizing the data in the projections, the read side can access
+the data it needs more efficiently, reducing the number of joins required to retrieve data and ultimately speeding up query performance.
+
+- Reduced Latency: When data is denormalized, it's usually stored in a format that's more suitable for the specific use case. This can reduce the amount of data that needs to be retrieved from the
+database, which can help to minimize latency and improve the overall responsiveness of the system.
+
+- Increased Scalability: Denormalized projections can handle a larger volume of data more efficiently than normalized ones. This is because denormalized data is usually stored in a format that's
+optimized for a specific use case, which allows the system to process the data more quickly and with less resources.
+
+- Simpler Architecture: In a normalized data model, data is often spread out across multiple tables, which can make the system more complex to design, develop, and maintain. By denormalizing the data,
+it can be easier to manage and understand, which can simplify the overall architecture and make the system more maintainable.
+
+- Improved Concurrency: Asynchronous projections allow multiple operations to be performed at the same time and, denormalized projections reduce contention, helping to improve concurrent write operation
+performance.
+
+In summary, denormalized asynchronous projections in a CQRS system can help to improve performance by reducing latency, increasing scalability, simplifying the architecture, and improving concurrency.
+This results in a more responsive and efficient system that can handle larger volumes of data and more complex queries.
+
+</details>
+
+<details>
+    <summary>Snapshotting</summary>
+
+### Snapshotting
+
+> Snapshotting is an optimisation that reduces time spent on reading event from an event store.
+>
+> [Gunia, Kacper. "Event Sourcing: Snapshotting", _domaincentric.net_, last edited on 5 Jun 2020](https://domaincentric.net/blog/event-sourcing-snapshotting)
+
+More details in [snapshot](#snapshot) section.
+
+</details>
+
+<details>
     <summary>Minimize Exceptions</summary>
 
 ### Minimize Exceptions
@@ -822,19 +862,6 @@ user-friendly than more general-purpose UIs.
 > similar to how connection pooling operates in ADO.NET providers and has the advantage of saving some of the cost of initialization of DbContext instance.
 >
 > ["New features in EF Core 2.0" _MSDN_, Microsoft Docs, last edited on 11 Oct 2020](https://docs.microsoft.com/en-us/ef/core/what-is-new/ef-core-2.0/#dbcontext-pooling)
-
-</details>
-
-<details>
-    <summary>Snapshotting</summary>
-
-### Snapshotting
-
-> Snapshotting is an optimisation that reduces time spent on reading event from an event store.
->
-> [Gunia, Kacper. "Event Sourcing: Snapshotting", _domaincentric.net_, last edited on 5 Jun 2020](https://domaincentric.net/blog/event-sourcing-snapshotting)
-
-More details in [snapshot](#snapshot) section.
 
 </details>
 
