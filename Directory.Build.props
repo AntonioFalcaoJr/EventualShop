@@ -15,7 +15,7 @@
     <PropertyGroup Label="Packages dependency versions">
 
         <!--Microsoft-->
-        <Microsoft_Extensions_Version>7.0.2</Microsoft_Extensions_Version>
+        <Microsoft_Extensions_Version>7.0.0</Microsoft_Extensions_Version>
 
         <!--Blazor-->
         <BlazorStrap_Version>5.1.100</BlazorStrap_Version>
