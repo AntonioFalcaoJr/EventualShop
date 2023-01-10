@@ -109,7 +109,6 @@ public class CatalogEffects
         {
             dispatcher.Dispatch(new CatalogAddAction());
             dispatcher.Dispatch(new CatalogSetCanvasVisibilityAction(false));
-
             dispatcher.Dispatch(new CatalogClearCatalogAction());
         }
     }
