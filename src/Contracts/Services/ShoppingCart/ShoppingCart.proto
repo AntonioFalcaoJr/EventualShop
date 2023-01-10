@@ -59,7 +59,7 @@ message ShoppingCartItemDetails{
   string Id = 1;
   string CartId = 2;
   Abstractions.Protobuf.Product Product = 3;
-  int32 Quantity = 5;
+  int32 Quantity = 4;
 }
 
 message ShoppingCartItemListItem{
@@ -79,7 +79,7 @@ message PaymentMethodDetails {
 
 message PaymentMethodListItem {
   string Id = 1;
-  string CartId = 3;
-  string Amount = 4;
-  string Option = 5;
+  string CartId = 2;
+  string Amount = 3;
+  string Option = 4;
 }
