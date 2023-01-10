@@ -26,7 +26,7 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
     public Address? BillingAddress { get; private set; }
     public Address? ShippingAddress { get; private set; }
     public decimal Total { get; private set; }
-    private bool ShippingAndBillingAddressesAreSame { get; set; } = true;
+    private bool BillingShippingSame { get; set; } = true;
 
     public decimal TotalPayment
         => _paymentMethods.Sum(method => method.Amount);
@@ -156,15 +156,15 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
 
     private void When(DomainEvent.BillingAddressAdded @event)
     {
-        ShippingAddress = @event.Address;
+        BillingAddress = @event.Address;
 
-        if (ShippingAndBillingAddressesAreSame)
-            BillingAddress = ShippingAddress;
+        if (BillingShippingSame)
+            ShippingAddress = BillingAddress;
     }
 
     private void When(DomainEvent.ShippingAddressAdded @event)
     {
-        BillingAddress = @event.Address;
-        ShippingAndBillingAddressesAreSame = false;
+        ShippingAddress = @event.Address;
+        BillingShippingSame = ShippingAddress == BillingAddress;
     }
 }

@@ -8,7 +8,6 @@ namespace Domain.Abstractions.Aggregates;
 public abstract class AggregateRoot<TValidator> : Entity<TValidator>, IAggregateRoot
     where TValidator : IValidator, new()
 {
-    [JsonIgnore]
     private readonly List<(long version, IEvent @event)> _events = new();
 
     public long Version { get; private set; }
