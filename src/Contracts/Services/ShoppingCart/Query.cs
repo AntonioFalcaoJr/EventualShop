@@ -11,10 +11,10 @@ public static class Query
             => new(new Guid(request.CartId));
     }
 
-    public record GetCustomerShoppingCartDetails(Guid CartId, Guid CustomerId) : IQuery
+    public record GetCustomerShoppingCartDetails(Guid CustomerId) : IQuery
     {
         public static implicit operator GetCustomerShoppingCartDetails(Protobuf.GetCustomerShoppingCartDetailsRequest request)
-            => new(new(request.CartId), new(request.CustomerId));
+            => new(new Guid(request.CustomerId));
     }
 
     public record GetShoppingCartItemDetails(Guid CartId, Guid ItemId) : IQuery

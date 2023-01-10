@@ -102,11 +102,11 @@ public static class Requests
             => new() { CartId = request.CartId.ToString() };
     }
 
-    public record GetCustomerShoppingCartDetails(ShoppingCartService.ShoppingCartServiceClient Client, Guid CartId, Guid CustomerId, CancellationToken CancellationToken)
+    public record GetCustomerShoppingCartDetails(ShoppingCartService.ShoppingCartServiceClient Client, Guid CustomerId, CancellationToken CancellationToken)
         : Validatable<GetCustomerShoppingCartDetailsValidator>, IQueryRequest<ShoppingCartService.ShoppingCartServiceClient>
     {
         public static implicit operator GetCustomerShoppingCartDetailsRequest(GetCustomerShoppingCartDetails request)
-            => new() { CartId = request.CartId.ToString(), CustomerId = request.CustomerId.ToString() };
+            => new() { CustomerId = request.CustomerId.ToString() };
     }
 
     public record GetShoppingCartItemDetails(ShoppingCartService.ShoppingCartServiceClient Client, Guid CartId, Guid ItemId, CancellationToken CancellationToken)

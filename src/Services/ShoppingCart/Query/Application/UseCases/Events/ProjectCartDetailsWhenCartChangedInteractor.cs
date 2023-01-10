@@ -101,6 +101,6 @@ public class ProjectCartDetailsWhenCartChangedInteractor : IProjectCartDetailsWh
             @event.Cart.Total,
             false);
 
-        return _projectionGateway.ReplaceAsync(shoppingCartDetails, cancellationToken);
+        return _projectionGateway.UpsertAsync(shoppingCartDetails, cancellationToken);
     }
 }

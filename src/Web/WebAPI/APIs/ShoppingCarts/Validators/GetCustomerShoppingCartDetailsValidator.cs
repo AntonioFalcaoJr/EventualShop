@@ -6,9 +6,6 @@ public class GetCustomerShoppingCartDetailsValidator : AbstractValidator<Request
 {
     public GetCustomerShoppingCartDetailsValidator()
     {
-        RuleFor(request => request.CartId)
-            .NotEmpty();
-
         RuleFor(request => request.CustomerId)
             .NotEmpty();
     }

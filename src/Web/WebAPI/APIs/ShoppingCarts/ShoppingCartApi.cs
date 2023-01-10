@@ -28,6 +28,7 @@ public static class ShoppingCartApi
         group.MapGet("/{cartId:guid}/details", ([AsParameters] Requests.GetShoppingCartDetails request)
             => ApplicationApi.GetAsync<ShoppingCartService.ShoppingCartServiceClient, ShoppingCartDetails>
                 (request, (client, ct) => client.GetShoppingCartDetailsAsync(request, cancellationToken: ct)));
+        
 
         group.MapPost("/{cartId:guid}/items", ([AsParameters] Requests.AddCartItem request)
             => ApplicationApi.SendCommandAsync<Command.AddCartItem>(request));
@@ -65,11 +66,11 @@ public static class ShoppingCartApi
         group.MapGet("/{cartId:guid}/payment-methods/{methodId:guid}/details", ([AsParameters] Requests.GetPaymentMethodDetails request)
             => ApplicationApi.GetAsync<ShoppingCartService.ShoppingCartServiceClient, PaymentMethodDetails>
                 (request, (client, ct) => client.GetPaymentMethodDetailsAsync(request, cancellationToken: ct)));
-
-        group.MapGet("/{cartId:guid}/customers/{customerId:guid}/details", ([AsParameters] Requests.GetCustomerShoppingCartDetails request)
+        
+        group.MapGet("/customers/{customerId:guid}/cart-details", ([AsParameters] Requests.GetCustomerShoppingCartDetails request)
             => ApplicationApi.GetAsync<ShoppingCartService.ShoppingCartServiceClient, ShoppingCartDetails>
                 (request, (client, ct) => client.GetCustomerShoppingCartDetailsAsync(request, cancellationToken: ct)));
-
+        
         group.MapPost("/admin/rebuild-projection", ([AsParameters] Requests.RebuildProjection request)
             => ApplicationApi.SendCommandAsync<Command.RebuildProjection>(request));
 
