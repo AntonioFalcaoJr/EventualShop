@@ -13,23 +13,23 @@ COPY ./Directory.Build.props ./
 
 WORKDIR /src
 
-COPY ./src/Services/Catalog/Command/Application/*.csproj ./Services/Catalog/Command/Application/
-COPY ./src/Services/Catalog/Command/Domain/*.csproj ./Services/Catalog/Command/Domain/
-COPY ./src/Services/Catalog/Command/Infrastructure.EventStore/*.csproj ./Services/Catalog/Command/Infrastructure.EventStore/
-COPY ./src/Services/Catalog/Command/Infrastructure.MessageBus/*.csproj ./Services/Catalog/Command/Infrastructure.MessageBus/
-COPY ./src/Services/Catalog/Command/WorkerService/*.csproj ./Services/Catalog/Command/WorkerService/
+COPY ./src/Services/ShoppingCart/Command/Application/*.csproj ./Services/ShoppingCart/Command/Application/
+COPY ./src/Services/ShoppingCart/Command/Domain/*.csproj ./Services/ShoppingCart/Command/Domain/
+COPY ./src/Services/ShoppingCart/Command/Infrastructure.EventStore/*.csproj ./Services/ShoppingCart/Command/Infrastructure.EventStore/
+COPY ./src/Services/ShoppingCart/Command/Infrastructure.MessageBus/*.csproj ./Services/ShoppingCart/Command/Infrastructure.MessageBus/
+COPY ./src/Services/ShoppingCart/Command/WorkerService/*.csproj ./Services/ShoppingCart/Command/WorkerService/
 COPY ./src/Contracts/*.csproj ./Contracts/
 
-RUN dotnet restore -v m ./Services/Catalog/Command/WorkerService
+RUN dotnet restore -v m ./Services/ShoppingCart/Command/WorkerService
 
-COPY ./src/Services/Catalog/Command/Application/. ./Services/Catalog/Command/Application/
-COPY ./src/Services/Catalog/Command/Domain/. ./Services/Catalog/Command/Domain/
-COPY ./src/Services/Catalog/Command/Infrastructure.EventStore/. ./Services/Catalog/Command/Infrastructure.EventStore/
-COPY ./src/Services/Catalog/Command/Infrastructure.MessageBus/. ./Services/Catalog/Command/Infrastructure.MessageBus/
-COPY ./src/Services/Catalog/Command/WorkerService/. ./Services/Catalog/Command/WorkerService/
+COPY ./src/Services/ShoppingCart/Command/Application/. ./Services/ShoppingCart/Command/Application/
+COPY ./src/Services/ShoppingCart/Command/Domain/. ./Services/ShoppingCart/Command/Domain/
+COPY ./src/Services/ShoppingCart/Command/Infrastructure.EventStore/. ./Services/ShoppingCart/Command/Infrastructure.EventStore/
+COPY ./src/Services/ShoppingCart/Command/Infrastructure.MessageBus/. ./Services/ShoppingCart/Command/Infrastructure.MessageBus/
+COPY ./src/Services/ShoppingCart/Command/WorkerService/. ./Services/ShoppingCart/Command/WorkerService/
 COPY ./src/Contracts/. ./Contracts/
 
-WORKDIR /src/Services/Catalog/Command/WorkerService
+WORKDIR /src/Services/ShoppingCart/Command/WorkerService
 
 RUN dotnet build -c Release --no-restore -v m -o /app/build 
 
