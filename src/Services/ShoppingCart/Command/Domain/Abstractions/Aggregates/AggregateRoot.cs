@@ -34,7 +34,8 @@ public abstract class AggregateRoot<TValidator> : Entity<TValidator>, IAggregate
     {
         Apply(@event);
         Validate();
-        _events.Add((Version += 1, @event));
+        Version += 1;
+        _events.Add((Version, @event));
     }
 
     protected abstract void Apply(IEvent @event);

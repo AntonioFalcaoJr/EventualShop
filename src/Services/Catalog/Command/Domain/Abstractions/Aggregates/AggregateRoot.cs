@@ -9,13 +9,13 @@ public abstract class AggregateRoot<TValidator> : Entity<TValidator>, IAggregate
     where TValidator : IValidator, new()
 {
     [JsonIgnore]
-    private readonly List<(long version, IEvent @event)> _uncommittedEvents = new();
+    private readonly List<(long version, IEvent @event)> _events = new();
 
     public long Version { get; private set; }
 
     [JsonIgnore]
     public IEnumerable<(long version, IEvent @event)> UncommittedEvents
-        => _uncommittedEvents;
+        => _events;
 
     public IAggregateRoot Load(IEnumerable<IEvent> events)
     {
@@ -34,7 +34,8 @@ public abstract class AggregateRoot<TValidator> : Entity<TValidator>, IAggregate
     {
         Apply(@event);
         Validate();
-        _uncommittedEvents.Add((Version += 1, @event));
+        Version += 1;
+        _events.Add((Version, @event));
     }
 
     protected abstract void Apply(IEvent @event);

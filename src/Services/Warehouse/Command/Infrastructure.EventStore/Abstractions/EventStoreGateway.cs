@@ -20,7 +20,7 @@ public class EventStoreGateway : IEventStoreGateway
 
     public async Task AppendEventsAsync(IAggregateRoot aggregate, CancellationToken cancellationToken)
     {
-        foreach (var @event in aggregate.Events.Select(@event => new StoreEvent(aggregate, @event)))
+        foreach (var @event in aggregate.UncommittedEvents.Select(@event => new StoreEvent(aggregate, @event)))
         {
             await _repository.AppendEventAsync(@event, cancellationToken);
             await AppendSnapshotAsync(aggregate, @event.Version, cancellationToken);
