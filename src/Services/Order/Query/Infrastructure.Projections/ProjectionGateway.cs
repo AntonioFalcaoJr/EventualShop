@@ -32,9 +32,6 @@ public class ProjectionGateway<TProjection> : IProjectionGateway<TProjection>
     public Task<IPagedResult<TProjection>?> ListAsync(Paging paging, CancellationToken cancellationToken)
         => PagedResult<TProjection>.CreateAsync(paging, _collection.AsQueryable(), cancellationToken)!;
 
-    public Task InsertAsync(TProjection projection, CancellationToken cancellationToken)
-        => _collection.InsertOneAsync(projection, cancellationToken: cancellationToken);
-
     public Task UpsertAsync(TProjection replacement, CancellationToken cancellationToken)
         => _collection.ReplaceOneAsync(
             filter: projection => projection.Id == replacement.Id,

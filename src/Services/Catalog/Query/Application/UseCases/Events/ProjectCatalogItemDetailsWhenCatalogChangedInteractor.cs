@@ -24,6 +24,6 @@ public class ProjectCatalogItemDetailsWhenCatalogChangedInteractor : IProjectCat
             "image url",
             false);
 
-        await _projectionGateway.InsertAsync(card, cancellationToken);
+        await _projectionGateway.UpsertAsync(card, cancellationToken);
     }
 }
