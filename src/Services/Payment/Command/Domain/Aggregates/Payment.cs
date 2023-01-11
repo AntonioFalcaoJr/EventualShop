@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace Domain.Aggregates;
 
-public class Payment : AggregateRoot<Guid, PaymentValidator>
+public class Payment : AggregateRoot<PaymentValidator>
 {
     [JsonProperty]
     private readonly List<PaymentMethod> _methods = new();
@@ -73,36 +73,39 @@ public class Payment : AggregateRoot<Guid, PaymentValidator>
             RaiseEvent(new DomainEvent.PaymentMethodRefundDenied(cmd.PaymentId, cmd.PaymentMethodId, cmd.TransactionId));
     }
 
-    protected override void ApplyEvent(IEvent? @event)
-        => When(@event as dynamic);
+    public override void Handle(ICommand @command)
+        => Handle(@command as dynamic);
 
-    private void When(DomainEvent.PaymentRequested @event)
+    protected override void Apply(IEvent? @event)
+        => Apply(@event as dynamic);
+
+    private void Apply(DomainEvent.PaymentRequested @event)
     {
         (Id, OrderId, Amount, BillingAddress, var methods, Status) = @event;
         _methods.AddRange(methods.Select(method => (PaymentMethod)method));
     }
 
-    private void When(DomainEvent.PaymentMethodAuthorized @event)
+    private void Apply(DomainEvent.PaymentMethodAuthorized @event)
         => _methods.Single(method => method.Id == @event.PaymentMethodId).Authorize();
 
-    private void When(DomainEvent.PaymentMethodDenied @event)
+    private void Apply(DomainEvent.PaymentMethodDenied @event)
         => _methods.Single(method => method.Id == @event.PaymentMethodId).Deny();
 
-    private void When(DomainEvent.PaymentMethodCanceled @event)
+    private void Apply(DomainEvent.PaymentMethodCanceled @event)
         => _methods.Single(method => method.Id == @event.PaymentMethodId).Cancel();
 
-    private void When(DomainEvent.PaymentMethodCancellationDenied @event)
+    private void Apply(DomainEvent.PaymentMethodCancellationDenied @event)
         => _methods.Single(method => method.Id == @event.PaymentMethodId).DenyCancellation();
 
-    private void When(DomainEvent.PaymentMethodRefunded @event)
+    private void Apply(DomainEvent.PaymentMethodRefunded @event)
         => _methods.Single(method => method.Id == @event.PaymentMethodId).Refund();
 
-    private void When(DomainEvent.PaymentMethodRefundDenied @event)
+    private void Apply(DomainEvent.PaymentMethodRefundDenied @event)
         => _methods.Single(method => method.Id == @event.PaymentMethodId).DenyRefund();
 
-    private void When(DomainEvent.PaymentCompleted _)
+    private void Apply(DomainEvent.PaymentCompleted _)
         => Status = PaymentStatus.Completed;
 
-    private void When(DomainEvent.PaymentNotCompleted _)
+    private void Apply(DomainEvent.PaymentNotCompleted _)
         => Status = PaymentStatus.Pending;
 }
