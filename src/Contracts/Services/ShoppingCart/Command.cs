@@ -7,7 +7,7 @@ public static class Command
 {
     public record AddCartItem(Guid CartId, Guid CatalogId, Guid InventoryId, Dto.Product Product, ushort Quantity, decimal UnitPrice) : Message, ICommand;
 
-    public record AddPaymentMethod(Guid CartId, decimal Amount, Dto.IPaymentOption Option) : Message, ICommand;
+    public record AddPaymentMethod(Guid CartId, decimal Amount, Dto.IPaymentOption? Option) : Message, ICommand;
 
     public record AddShippingAddress(Guid CartId, Dto.Address Address) : Message, ICommand;
 
@@ -25,5 +25,5 @@ public static class Command
 
     public record RemovePaymentMethod(Guid CartId, Guid MethodId) : Message, ICommand;
 
-    public record RebuildProjection(string Name, Guid Id = default) : Message, ICommand;
+    public record RebuildProjection(string Name) : Message, ICommand;
 }

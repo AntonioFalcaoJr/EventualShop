@@ -6,7 +6,7 @@ public class CreditCardValidator : AbstractValidator<Dto.CreditCard>
 {
     public CreditCardValidator()
     {
-        RuleFor(card => card.Expiration)
+        RuleFor(card => card.ExpirationDate)
             .NotNull()
             .NotEmpty();
 
@@ -17,7 +17,7 @@ public class CreditCardValidator : AbstractValidator<Dto.CreditCard>
             .NotNull()
             .NotEmpty();
 
-        RuleFor(card => card.SecurityNumber)
+        RuleFor(card => card.SecurityCode)
             .GreaterThan(ushort.MinValue);
     }
 }

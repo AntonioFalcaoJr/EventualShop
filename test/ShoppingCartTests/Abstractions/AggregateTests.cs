@@ -6,14 +6,14 @@ namespace ShoppingCartTests.Abstractions;
 
 public abstract class AggregateTests
 {
-    private IAggregateRoot<Guid>? _aggregateRoot;
+    private IAggregateRoot? _aggregateRoot;
     private ICommand? _command;
 
     protected AggregateTests Given<TAggregate>(params IEvent[] events)
-        where TAggregate : IAggregateRoot<Guid>, new()
+        where TAggregate : IAggregateRoot, new()
     {
         _aggregateRoot = new TAggregate();
-        _aggregateRoot.LoadEvents(events);
+        _aggregateRoot.Load(events);
         return this;
     }
 
@@ -27,7 +27,7 @@ public abstract class AggregateTests
     public void Then<TEvent>(params Action<TEvent>[] assertions)
         where TEvent : IEvent
     {
-        _aggregateRoot?.Handle(_command);
+        _aggregateRoot?.Handle(_command!);
 
         var events = _aggregateRoot?.UncommittedEvents.ToList();
 
@@ -37,13 +37,13 @@ public abstract class AggregateTests
 
         if (assertions.Any())
             assertions.Should().AllSatisfy(assert
-                => assert((TEvent)events!.First()));
+                => assert((TEvent)events!.Select(tuple => tuple.@event)));
     }
 
     public void Throws<TException>(params Action<TException>[] assertions)
         where TException : Exception
     {
-        var handle = () => _aggregateRoot?.Handle(_command);
+        var handle = () => _aggregateRoot?.Handle(_command!);
         var exceptionAssertions = handle.Should().Throw<TException>();
 
         if (assertions.Any())

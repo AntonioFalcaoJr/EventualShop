@@ -10,6 +10,6 @@ public record struct PagedResult<T> : IPagedResult<T>
     public IEnumerable<T> Items { get; init; }
     public Page Page { get; init; }
 
-    public static implicit operator PagedResult<T>(PagedResult paged)
-        => new() { Items = paged.Projections.Select(x => x.Unpack<T>()), Page = paged.Page };
+    public static implicit operator PagedResult<T>(PagedResult result)
+        => new() { Items = result.Projections.Select(x => x.Unpack<T>()), Page = result.Page };
 }

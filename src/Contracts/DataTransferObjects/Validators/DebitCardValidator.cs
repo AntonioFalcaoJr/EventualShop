@@ -6,7 +6,7 @@ public class DebitCardValidator : AbstractValidator<Dto.DebitCard>
 {
     public DebitCardValidator()
     {
-        RuleFor(card => card.Expiration)
+        RuleFor(card => card.ExpirationDate)
             .NotNull()
             .NotEmpty();
 
@@ -17,7 +17,7 @@ public class DebitCardValidator : AbstractValidator<Dto.DebitCard>
             .NotNull()
             .NotEmpty();
 
-        RuleFor(card => card.SecurityNumber)
+        RuleFor(card => card.SecurityCode)
             .GreaterThan(ushort.MinValue);
     }
 }
