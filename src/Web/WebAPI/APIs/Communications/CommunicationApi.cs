@@ -1,5 +1,4 @@
 ﻿using Asp.Versioning.Builder;
-using Contracts.Services.Communication;
 using Contracts.Services.Communication.Protobuf;
 using WebAPI.Abstractions;
 

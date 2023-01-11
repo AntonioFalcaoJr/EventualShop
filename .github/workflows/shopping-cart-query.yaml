@@ -1,0 +1,16 @@
+name: Shopping Cart - Query
+run-name: Shopping Cart Query Workflow
+on:
+  push:
+    paths:
+      - src/Services/ShoppingCart/Query/**.cs
+      - src/Services/ShoppingCart/Query/**.csproj
+      - Directory.Build.props
+      - .github/workflows/shopping-cart-query.yaml
+jobs:
+  workflow:
+    uses: ./.github/workflows/_workflow.yaml
+    with:
+      path: src/Services/ShoppingCart/Query
+      project: GrpcService
+      test: test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests

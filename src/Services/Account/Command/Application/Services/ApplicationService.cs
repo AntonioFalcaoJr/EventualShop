@@ -29,7 +29,7 @@ public class ApplicationService : IApplicationService
             operationAsync: async ct =>
             {
                 await _eventStoreGateway.AppendEventsAsync(aggregate, ct);
-                await _eventBusGateway.PublishAsync(aggregate.Events.Select(tuple => tuple.@event), ct);
+                await _eventBusGateway.PublishAsync(aggregate.UncommittedEvents.Select(tuple => tuple.@event), ct);
             },
             cancellationToken: cancellationToken);
 }
