@@ -7,13 +7,13 @@ namespace WebAPI.APIs.Catalogs;
 
 public static class Commands
 {
-    public record CreateCatalog(IBus Bus, Payload.CreateCatalog Payload, CancellationToken CancellationToken)
+    public record CreateCatalog(IBus Bus, Payloads.CreateCatalog Payload, CancellationToken CancellationToken)
         : Validatable<CreateCatalogValidator>, ICommand<Command.CreateCatalog>
     {
         public Command.CreateCatalog Command => new(Payload.CatalogId, Payload.Title, Payload.Description);
     }
 
-    public record AddCatalogItem(IBus Bus, Guid CatalogId, Payload.AddCatalogItem Payload, CancellationToken CancellationToken)
+    public record AddCatalogItem(IBus Bus, Guid CatalogId, Payloads.AddCatalogItem Payload, CancellationToken CancellationToken)
         : Validatable<AddCatalogItemValidator>, ICommand<Contracts.Services.Catalog.Command.AddCatalogItem>
     {
         public Command.AddCatalogItem Command

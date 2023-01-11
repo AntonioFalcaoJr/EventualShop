@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace WebAPI.APIs.Catalogs.Validators;
 
-public class CreateCatalogPayloadValidator : AbstractValidator<Payload.CreateCatalog>
+public class CreateCatalogPayloadValidator : AbstractValidator<Payloads.CreateCatalog>
 {
     public CreateCatalogPayloadValidator()
     {

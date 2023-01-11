@@ -2,7 +2,7 @@
 
 namespace WebAPI.APIs.Catalogs;
 
-public static class Payload
+public static class Payloads
 {
     public record struct CreateCatalog(Guid CatalogId, string Title, string Description);
 
