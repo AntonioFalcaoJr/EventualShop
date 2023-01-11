@@ -257,16 +257,37 @@ services:
       restart_policy:
         condition: any
 
-  shopping-cart:
-    image: shopping-cart:latest
+  shopping-cart-command:
+    image: shopping-cart-command:latest
     build:
       context: .
-      dockerfile: ./src/Services/ShoppingCart/WorkerService/Dockerfile
+      dockerfile: ./src/Services/ShoppingCart/Command/WorkerService/Dockerfile
     environment:
       DOTNET_ENVIRONMENT: Staging
     depends_on:
       mssql:
         condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - internal
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.20'
+          memory: 200M
+      restart_policy:
+        condition: any
+  
+  shopping-cart-query:
+    image: shopping-cart-query:latest
+    build:
+      context: .
+      dockerfile: ./src/Services/ShoppingCart/Query/GrpcService/Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: Staging
+    depends_on:
       rabbitmq:
         condition: service_healthy
       mongodb:
@@ -282,16 +303,37 @@ services:
       restart_policy:
         condition: any
   
-  warehouse:
-    image: warehouse:latest
+  warehouse-command:
+    image: warehouse-command:latest
     build:
       context: .
-      dockerfile: ./src/Services/Warehouse/WorkerService/Dockerfile
+      dockerfile: ./src/Services/Warehouse/Command/WorkerService/Dockerfile
     environment:
       DOTNET_ENVIRONMENT: Staging
     depends_on:
       mssql:
         condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - internal
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.20'
+          memory: 200M
+      restart_policy:
+        condition: any
+  
+  warehouse-query:
+    image: warehouse-query:latest
+    build:
+      context: .
+      dockerfile: ./src/Services/Warehouse/Query/GrpcService/Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: Staging
+    depends_on:
       rabbitmq:
         condition: service_healthy
       mongodb:

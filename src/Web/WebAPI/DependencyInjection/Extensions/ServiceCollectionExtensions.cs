@@ -3,6 +3,7 @@ using Contracts.Services.Account.Protobuf;
 using Contracts.Services.Catalog.Protobuf;
 using Contracts.Services.Communication.Protobuf;
 using Contracts.Services.Identity.Protobuf;
+using Contracts.Services.ShoppingCart.Protobuf;
 using Contracts.Services.Warehouse.Protobuf;
 using Grpc.Core;
 using Grpc.Net.Client.Configuration;
@@ -63,15 +64,18 @@ public static class ServiceCollectionExtensions
 
     public static void AddAccountGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<AccountService.AccountServiceClient, AccountGrpcClientOptions>();
-    
+
     public static void AddCommunicationGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<CommunicationService.CommunicationServiceClient, CommunicationGrpcClientOptions>();
-    
+
     public static void AddCatalogGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<CatalogService.CatalogServiceClient, CatalogGrpcClientOptions>();
-    
+
     public static void AddWarehouseGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<WarehouseService.WarehouseServiceClient, WarehouseGrpcClientOptions>();
+    
+    public static void AddShoppingCartGrpcClient(this IServiceCollection services)
+        => services.AddGrpcClient<ShoppingCartService.ShoppingCartServiceClient, ShoppingCartGrpcClientOptions>();
 
     private static void AddGrpcClient<TClient, TOptions>(this IServiceCollection services)
         where TClient : ClientBase
@@ -132,24 +136,31 @@ public static class ServiceCollectionExtensions
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();
-    
+
     public static OptionsBuilder<CommunicationGrpcClientOptions> ConfigureCommunicationGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<CommunicationGrpcClientOptions>()
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();
-    
+
     public static OptionsBuilder<CatalogGrpcClientOptions> ConfigureCatalogGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<CatalogGrpcClientOptions>()
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();
-    
+
     public static OptionsBuilder<WarehouseGrpcClientOptions> ConfigureWarehouseGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<WarehouseGrpcClientOptions>()
+            .Bind(section)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+
+    public static OptionsBuilder<ShoppingCartGrpcClientOptions> ConfigureShoppingCartGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
+        => services
+            .AddOptions<ShoppingCartGrpcClientOptions>()
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();

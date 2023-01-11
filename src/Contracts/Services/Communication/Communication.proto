@@ -18,30 +18,10 @@ message ListNotificationsDetailsRequest {
 
 message NotificationDetails {
   string id = 1;
-  repeated NotificationMethod methods = 2;
 }
 
-message NotificationMethod{
-  oneof option {
-    Email email = 2;
-    Sms sms = 3;
-    PushMobile pushMobile = 4;
-    PushWeb pushWeb = 5;
-  }
-}
-
-message Email {
-  string Address = 1;
-}
-
-message Sms {
-  string Number = 1;
-}
-
-message PushWeb {
-  string UserId = 1;
-}
-
-message PushMobile {
-  string DeviceId = 1;
+message NotificationMethodDetails{
+  string Id = 1;
+  string NotificationId = 2;
+  Abstractions.Protobuf.NotificationOption Option = 3;
 }
