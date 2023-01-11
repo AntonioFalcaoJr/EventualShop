@@ -25,7 +25,7 @@ public class ProjectCatalogItemListItemWhenCatalogChangedInteractor : IProjectCa
             @event.Product,
             false);
 
-        await _projectionGateway.InsertAsync(listItem, cancellationToken);
+        await _projectionGateway.UpsertAsync(listItem, cancellationToken);
     }
 
     public async Task InteractAsync(DomainEvent.CatalogDeleted @event, CancellationToken cancellationToken)

@@ -58,3 +58,58 @@ message Address {
   google.protobuf.Int32Value Number = 6;
   google.protobuf.StringValue Complement = 7;
 }
+
+// Payment
+
+message PaymentOption {
+  oneof OneOf{
+    CreditCard CreditCard = 1;
+    DebitCard DebitCard = 2;
+    PayPal PayPal = 3;
+  }
+}
+
+message CreditCard{
+  string ExpirationDate = 1;
+  string Number = 2;
+  string HolderName = 3;
+  sint32 SecurityCode = 4;
+}
+
+message DebitCard{
+  string ExpirationDate = 1;
+  string Number = 2;
+  string HolderName = 3;
+  sint32 SecurityCode = 4;
+}
+
+message PayPal{
+  string Email = 1;
+}
+
+// Notifications
+
+message NotificationOption {
+  oneof option {
+    Email email = 1;
+    Sms sms = 2;
+    PushMobile pushMobile = 3;
+    PushWeb pushWeb = 4;
+  }
+}
+
+message Email {
+  string Address = 1;
+}
+
+message Sms {
+  string Number = 1;
+}
+
+message PushWeb {
+  string UserId = 1;
+}
+
+message PushMobile {
+  string DeviceId = 1;
+}
