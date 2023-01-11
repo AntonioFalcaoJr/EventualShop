@@ -56,7 +56,7 @@
         <FluentValidation_AspNetCore_Version>11.2.2</FluentValidation_AspNetCore_Version>
 
         <!--Swashbuckle-->
-        <Swashbuckle_Version>6.4.0</Swashbuckle_Version>
+        <Swashbuckle_Version>6.5.0</Swashbuckle_Version>
         <Swashbuckle_FluentValidation_Version>6.0.0-beta.1</Swashbuckle_FluentValidation_Version>
 
         <!--Polly-->
