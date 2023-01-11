@@ -3,11 +3,11 @@ using FluentValidation;
 
 namespace WebAPI.APIs.ShoppingCarts.Validators;
 
-public class AddShippingAddressValidator : AbstractValidator<Accounts.Requests.AddShippingAddress>
+public class AddShippingAddressValidator : AbstractValidator<Requests.AddShippingAddress>
 {
     public AddShippingAddressValidator()
     {
-        RuleFor(request => request.AccountId)
+        RuleFor(request => request.CartId)
             .NotEmpty();
 
         RuleFor(request => request.Address)

@@ -8,7 +8,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-<!--        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>-->
+        <!--        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>-->
         <NoWarn>8981, CS0660, CS0661</NoWarn>
     </PropertyGroup>
 
@@ -19,10 +19,10 @@
 
         <!--Blazor-->
         <BlazorStrap_Version>5.1.100</BlazorStrap_Version>
-        <Microsoft_AspNetCore_WebAssembly_Version>7.0.1</Microsoft_AspNetCore_WebAssembly_Version>
+        <Microsoft_AspNetCore_WebAssembly_Version>7.0.2</Microsoft_AspNetCore_WebAssembly_Version>
 
         <!--EF Core-->
-        <EntityFrameworkCore_Version>7.0.1</EntityFrameworkCore_Version>
+        <EntityFrameworkCore_Version>7.0.2</EntityFrameworkCore_Version>
 
         <!--gRPC-->
         <Grpc_Version>2.41.0-pre1</Grpc_Version>
@@ -37,19 +37,19 @@
         <MongoDb_Version>2.18.0</MongoDb_Version>
 
         <!--MassTransit-->
-        <MassTransit_Version>8.0.10</MassTransit_Version>
+        <MassTransit_Version>8.0.11-develop.805</MassTransit_Version>
         <Quartz_Version>3.5.0</Quartz_Version>
 
         <!--Newtonsoft-->
         <Newtonsoft_Version>13.0.2</Newtonsoft_Version>
         <ContractResolvers_Version>2.0.0</ContractResolvers_Version>
-        <Microsoft_Mvc_NewtonsoftJso_Version>7.0.1</Microsoft_Mvc_NewtonsoftJso_Version>
+        <Microsoft_Mvc_NewtonsoftJso_Version>7.0.2</Microsoft_Mvc_NewtonsoftJso_Version>
 
         <!--Serilog-->
         <Serilog_Version>2.12.1-dev-01635</Serilog_Version>
         <Serilog_AspNetCore_Version>6.1.1-dev-00293</Serilog_AspNetCore_Version>
         <Serilog_Extensions_Version>5.0.1</Serilog_Extensions_Version>
-        <Serilog_Settings_Version>3.5.0-dev-00367</Serilog_Settings_Version>
+        <Serilog_Settings_Version>3.5.0-dev-00370</Serilog_Settings_Version>
 
         <!--FluentValidation-->
         <FluentValidation_Version>11.4.0</FluentValidation_Version>
@@ -60,11 +60,16 @@
         <Swashbuckle_FluentValidation_Version>6.0.0-beta.1</Swashbuckle_FluentValidation_Version>
 
         <!--Polly-->
-        <Polly_Version>7.0.1</Polly_Version>
+        <Polly_Version>7.0.2</Polly_Version>
+
+        <!--Open Telemetry-->
+        <OpenTelemetry_Exporter_Jaeger_Version>1.4.0-rc.2</OpenTelemetry_Exporter_Jaeger_Version>
+        <OpenTelemetry_Extensions_Hosting_Version>1.4.0-rc.2</OpenTelemetry_Extensions_Hosting_Version>
+        <OpenTelemetry_Instrumentation_AspNetCore_Version>1.0.0-rc9.11</OpenTelemetry_Instrumentation_AspNetCore_Version>
 
         <!--Test-->
         <Microsoft_Mvc_Testing_Version>7.0.2</Microsoft_Mvc_Testing_Version>
         <Microsoft_Test_SDK_Version>17.5.0-preview-20221221-03</Microsoft_Test_SDK_Version>
-     
+
     </PropertyGroup>
 </Project>

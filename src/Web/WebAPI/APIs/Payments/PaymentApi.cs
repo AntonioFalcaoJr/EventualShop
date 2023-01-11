@@ -1,8 +1,4 @@
 ﻿using Asp.Versioning.Builder;
-using Contracts.Services.Payment;
-using MassTransit;
-using WebAPI.Abstractions;
-using WebAPI.Validations;
 
 namespace WebAPI.APIs.Payments;
 
@@ -14,8 +10,8 @@ public static class PaymentApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(1);
 
-        group.MapGet("/{paymentId:guid}", (IBus bus, [NotEmpty] Guid paymentId, CancellationToken cancellationToken)
-            => ApplicationApi.GetProjectionAsync<Query.GetPayment, Projection.Payment>(bus, new(paymentId), cancellationToken));
+        // group.MapGet("/{paymentId:guid}", (IBus bus, [NotEmpty] Guid paymentId, CancellationToken cancellationToken)
+        //     => ApplicationApi.GetProjectionAsync<Query.GetPayment, Projection.Payment>(bus, new(paymentId), cancellationToken));
 
         return builder;
     }
@@ -24,8 +20,8 @@ public static class PaymentApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(2);
 
-        group.MapGet("/{paymentId:guid}", (IBus bus, [NotEmpty] Guid paymentId, CancellationToken cancellationToken)
-            => ApplicationApi.GetProjectionAsync<Query.GetPayment, Projection.Payment>(bus, new(paymentId), cancellationToken));
+        // group.MapGet("/{paymentId:guid}", (IBus bus, [NotEmpty] Guid paymentId, CancellationToken cancellationToken)
+        //     => ApplicationApi.GetProjectionAsync<Query.GetPayment, Projection.Payment>(bus, new(paymentId), cancellationToken));
 
         return builder;
     }
