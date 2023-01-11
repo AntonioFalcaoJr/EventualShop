@@ -19,6 +19,6 @@
         </PackageReference>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Services\ShoppingCart\Domain\Domain.csproj" />
+      <ProjectReference Include="..\..\src\Services\ShoppingCart\Command\Domain\Domain.csproj" />
     </ItemGroup>
 </Project>

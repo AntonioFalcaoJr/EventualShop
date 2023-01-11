@@ -7,10 +7,10 @@ public class AccountStatus : SmartEnum<AccountStatus>
     private AccountStatus(string name, int value)
         : base(name, value) { }
 
-    public static readonly AccountStatus Pending = new(nameof(Pending), 1);
-    public static readonly AccountStatus Active = new(nameof(Active), 2);
-    public static readonly AccountStatus Inactive = new(nameof(Inactive), 3);
-    public static readonly AccountStatus Closed = new(nameof(Closed), 4);
+    public static readonly AccountStatus Pending = new PendingStatus();
+    public static readonly AccountStatus Active = new ActiveStatus();
+    public static readonly AccountStatus Inactive = new InactiveStatus();
+    public static readonly AccountStatus Closed = new ClosedStatus();
 
     public static implicit operator AccountStatus(string name)
         => FromName(name);

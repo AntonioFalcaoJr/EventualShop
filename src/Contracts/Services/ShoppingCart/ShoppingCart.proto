@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+package Contracts.Services.ShoppingCart.Protobuf;
+
+import "Abstractions/Abstractions.proto";
+
+service ShoppingCartService {
+  rpc GetShoppingCartDetails(GetShoppingCartDetailsRequest) returns (Abstractions.Protobuf.GetResponse);
+  rpc GetCustomerShoppingCartDetails(GetCustomerShoppingCartDetailsRequest) returns (Abstractions.Protobuf.GetResponse);
+  rpc GetPaymentMethodDetails(GetPaymentMethodDetailsRequest) returns (Abstractions.Protobuf.GetResponse);
+  rpc GetShoppingCartItemDetails(GetShoppingCartItemDetailsRequest) returns (Abstractions.Protobuf.GetResponse);
+  rpc ListPaymentMethodsListItems(ListPaymentMethodsListItemsRequest) returns (Abstractions.Protobuf.ListResponse);
+  rpc ListShoppingCartItemsListItems(ListShoppingCartItemsListItemsRequest) returns (Abstractions.Protobuf.ListResponse);
+}
+
+//// Requests
+
+message GetShoppingCartDetailsRequest {
+  string CartId = 1;
+}
+
+message GetCustomerShoppingCartDetailsRequest {
+  string CustomerId = 1;
+}
+
+message GetShoppingCartItemDetailsRequest {
+  string CartId = 1;
+  string ItemId = 2;
+}
+
+message GetPaymentMethodDetailsRequest {
+  string CartId = 1;
+  string MethodId = 2;
+}
+
+message ListPaymentMethodsListItemsRequest {
+  string CartId = 1;
+  Abstractions.Protobuf.Paging Paging = 2;
+}
+
+message ListShoppingCartItemsListItemsRequest {
+  string CartId = 1;
+  Abstractions.Protobuf.Paging Paging = 2;
+}
+
+//// Projections
+
+
+// Cart 
+message ShoppingCartDetails {
+  string Id = 1;
+  string CustomerId = 2;
+  string Status = 3;
+  string Total = 4;
+}
+
+// Items
+message ShoppingCartItemDetails{
+  string Id = 1;
+  string CartId = 2;
+  Abstractions.Protobuf.Product Product = 3;
+  int32 Quantity = 4;
+}
+
+message ShoppingCartItemListItem{
+  string Id = 1;
+  string CartId = 2;
+  string ProductName = 3;
+  int32 Quantity = 4;
+}
+
+// Payment
+message PaymentMethodDetails {
+  string Id = 1;
+  string CartId = 2;
+  string Amount = 3;
+  Abstractions.Protobuf.PaymentOption Option = 4;
+}
+
+message PaymentMethodListItem {
+  string Id = 1;
+  string CartId = 2;
+  string Amount = 3;
+  string Option = 4;
+}
