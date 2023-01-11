@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace WebAPI.APIs.ShoppingCarts.Validators;
 
-public class AddDebitCardValidator : AbstractValidator<Requests.AddDebitCard>
+public class AddDebitCardValidator : AbstractValidator<Commands.AddDebitCard>
 {
     public AddDebitCardValidator()
     {

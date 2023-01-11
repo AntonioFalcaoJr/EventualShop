@@ -1,5 +1,4 @@
 ﻿using Asp.Versioning.Builder;
-using Contracts.Services.ShoppingCart;
 using Contracts.Services.ShoppingCart.Protobuf;
 using WebAPI.Abstractions;
 
@@ -13,66 +12,65 @@ public static class ShoppingCartApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(1);
 
-        group.MapPost("/", ([AsParameters] Requests.CreateCart request)
-            => ApplicationApi.SendCommandAsync<Command.CreateCart>(request));
+        group.MapPost("/", ([AsParameters] Commands.CreateCart createCart)
+            => ApplicationApi.SendCommandAsync(createCart));
 
-        group.MapPut("/{cartId:guid}/check-out", ([AsParameters] Requests.CheckOut request)
-            => ApplicationApi.SendCommandAsync<Command.CheckOutCart>(request));
+        group.MapPut("/{cartId:guid}/check-out", ([AsParameters] Commands.CheckOut checkOut)
+            => ApplicationApi.SendCommandAsync(checkOut));
 
-        group.MapPut("/{cartId:guid}/add-shipping-address", ([AsParameters] Requests.AddShippingAddress request)
-            => ApplicationApi.SendCommandAsync<Command.AddShippingAddress>(request));
+        group.MapPut("/{cartId:guid}/add-shipping-address", ([AsParameters] Commands.AddShippingAddress addShippingAddress)
+            => ApplicationApi.SendCommandAsync(addShippingAddress));
 
-        group.MapPut("/{cartId:guid}/add-billing-address", ([AsParameters] Requests.AddBillingAddress request)
-            => ApplicationApi.SendCommandAsync<Command.AddBillingAddress>(request));
-        
-        group.MapGet("/{cartId:guid}/details", ([AsParameters] Requests.GetShoppingCartDetails request)
+        group.MapPut("/{cartId:guid}/add-billing-address", ([AsParameters] Commands.AddBillingAddress addBillingAddress)
+            => ApplicationApi.SendCommandAsync(addBillingAddress));
+
+        group.MapGet("/{cartId:guid}/details", ([AsParameters] Queries.GetShoppingCartDetails query)
             => ApplicationApi.GetAsync<ShoppingCartService.ShoppingCartServiceClient, ShoppingCartDetails>
-                (request, (client, ct) => client.GetShoppingCartDetailsAsync(request, cancellationToken: ct)));
-        
+                (query, (client, ct) => client.GetShoppingCartDetailsAsync(query, cancellationToken: ct)));
 
-        group.MapPost("/{cartId:guid}/items", ([AsParameters] Requests.AddCartItem request)
-            => ApplicationApi.SendCommandAsync<Command.AddCartItem>(request));
-        
-        group.MapGet("/{cartId:guid}/items/list-item", ([AsParameters] Requests.ListShoppingCartItemsListItems request)
+        group.MapPost("/{cartId:guid}/items", ([AsParameters] Commands.AddCartItem request)
+            => ApplicationApi.SendCommandAsync(request));
+
+        group.MapGet("/{cartId:guid}/items/list-item", ([AsParameters] Queries.ListShoppingCartItemsListItems query)
             => ApplicationApi.ListAsync<ShoppingCartService.ShoppingCartServiceClient, ShoppingCartItemListItem>
-                (request, (client, ct) => client.ListShoppingCartItemsListItemsAsync(request, cancellationToken: ct)));
+                (query, (client, ct) => client.ListShoppingCartItemsListItemsAsync(query, cancellationToken: ct)));
 
-        group.MapDelete("/{cartId:guid}/items/{itemId:guid}", ([AsParameters] Requests.RemoveCartItem request)
-            => ApplicationApi.SendCommandAsync<Command.RemoveCartItem>(request));
-        
-        group.MapGet("/{cartId:guid}/items/{itemId:guid}/details", ([AsParameters] Requests.GetShoppingCartItemDetails request)
+        group.MapDelete("/{cartId:guid}/items/{itemId:guid}", ([AsParameters] Commands.RemoveCartItem request)
+            => ApplicationApi.SendCommandAsync(request));
+
+        group.MapGet("/{cartId:guid}/items/{itemId:guid}/details", ([AsParameters] Queries.GetShoppingCartItemDetails query)
             => ApplicationApi.GetAsync<ShoppingCartService.ShoppingCartServiceClient, ShoppingCartDetails>
-                (request, (client, ct) => client.GetShoppingCartItemDetailsAsync(request, cancellationToken: ct)));
+                (query, (client, ct) => client.GetShoppingCartItemDetailsAsync(query, cancellationToken: ct)));
 
-        group.MapPut("/{cartId:guid}/items/{itemId:guid}/change-quantity", ([AsParameters] Requests.ChangeCartItemQuantity request)
-            => ApplicationApi.SendCommandAsync<Command.ChangeCartItemQuantity>(request));
+        group.MapPut("/{cartId:guid}/items/{itemId:guid}/change-quantity", ([AsParameters] Commands.ChangeCartItemQuantity changeCartItemQuantity)
+            => ApplicationApi.SendCommandAsync(changeCartItemQuantity));
 
-        group.MapGet("/{cartId:guid}/payment-methods/list-items", ([AsParameters] Requests.ListPaymentMethodsListItems request)
+        group.MapGet("/{cartId:guid}/payment-methods/list-items", ([AsParameters] Queries.ListPaymentMethodsListItems query)
             => ApplicationApi.ListAsync<ShoppingCartService.ShoppingCartServiceClient, PaymentMethodListItem>
-                (request, (client, ct) => client.ListPaymentMethodsListItemsAsync(request, cancellationToken: ct)));
+                (query, (client, ct) => client.ListPaymentMethodsListItemsAsync(query, cancellationToken: ct)));
 
-        group.MapPost("/{cartId:guid}/payment-methods/credit-card", ([AsParameters] Requests.AddCreditCard request)
-            => ApplicationApi.SendCommandAsync<Command.AddPaymentMethod>(request));
+        group.MapPost("/{cartId:guid}/payment-methods/credit-card", ([AsParameters] Commands.AddCreditCard addCreditCard)
+            => ApplicationApi.SendCommandAsync(addCreditCard));
 
-        group.MapPost("/{cartId:guid}/payment-methods/debit-card", ([AsParameters] Requests.AddDebitCard request)
-            => ApplicationApi.SendCommandAsync<Command.AddPaymentMethod>(request));
+        group.MapPost("/{cartId:guid}/payment-methods/debit-card", ([AsParameters] Commands.AddDebitCard addDebitCard)
+            => ApplicationApi.SendCommandAsync(addDebitCard));
 
-        group.MapPost("/{cartId:guid}/payment-methods/pay-pal", ([AsParameters] Requests.AddPayPal request)
-            => ApplicationApi.SendCommandAsync<Command.AddPaymentMethod>(request));
+        group.MapPost("/{cartId:guid}/payment-methods/pay-pal", ([AsParameters] Commands.AddPayPal addPayPal)
+            => ApplicationApi.SendCommandAsync(addPayPal));
 
-        group.MapDelete("/{cartId:guid}/payment-methods/{methodId:guid}", ([AsParameters] Requests.RemovePaymentMethod request)
-            => ApplicationApi.SendCommandAsync<Command.RemovePaymentMethod>(request));
+        group.MapDelete("/{cartId:guid}/payment-methods/{methodId:guid}", ([AsParameters] Commands.RemovePaymentMethod removePaymentMethod)
+            => ApplicationApi.SendCommandAsync(removePaymentMethod));
 
-        group.MapGet("/{cartId:guid}/payment-methods/{methodId:guid}/details", ([AsParameters] Requests.GetPaymentMethodDetails request)
+        group.MapGet("/{cartId:guid}/payment-methods/{methodId:guid}/details", ([AsParameters] Queries.GetPaymentMethodDetails query)
             => ApplicationApi.GetAsync<ShoppingCartService.ShoppingCartServiceClient, PaymentMethodDetails>
-                (request, (client, ct) => client.GetPaymentMethodDetailsAsync(request, cancellationToken: ct)));
-        
-        group.MapGet("/customers/{customerId:guid}/cart-details", ([AsParameters] Requests.GetCustomerShoppingCartDetails request)
+                (query, (client, ct) => client.GetPaymentMethodDetailsAsync(query, cancellationToken: ct)));
+
+        group.MapGet("/customers/{customerId:guid}/cart-details", ([AsParameters] Queries.GetCustomerShoppingCartDetails query)
             => ApplicationApi.GetAsync<ShoppingCartService.ShoppingCartServiceClient, ShoppingCartDetails>
-                (request, (client, ct) => client.GetCustomerShoppingCartDetailsAsync(request, cancellationToken: ct)));
-        
-        group.MapPost("/admin/rebuild-projection", ([AsParameters] Requests.RebuildProjection request)
-            => ApplicationApi.SendCommandAsync<Command.RebuildProjection>(request));
+                (query, (client, ct) => client.GetCustomerShoppingCartDetailsAsync(query, cancellationToken: ct)));
+
+        group.MapPost("/admin/rebuild-projection", ([AsParameters] Commands.RebuildProjection rebuildProjection)
+            => ApplicationApi.SendCommandAsync(rebuildProjection));
 
         return builder;
     }
@@ -81,9 +79,9 @@ public static class ShoppingCartApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(2);
 
-        group.MapGet("/{cartId:guid}/details", ([AsParameters] Requests.GetShoppingCartDetails request)
+        group.MapGet("/{cartId:guid}/details", ([AsParameters] Queries.GetShoppingCartDetails query)
             => ApplicationApi.GetAsync<ShoppingCartService.ShoppingCartServiceClient, ShoppingCartDetails>
-                (request, (client, ct) => client.GetShoppingCartDetailsAsync(request, cancellationToken: ct)));
+                (query, (client, ct) => client.GetShoppingCartDetailsAsync(query, cancellationToken: ct)));
 
         return builder;
     }
