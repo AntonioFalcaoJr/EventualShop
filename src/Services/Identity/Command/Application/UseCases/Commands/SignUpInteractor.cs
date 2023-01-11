@@ -5,16 +5,16 @@ using Domain.Aggregates;
 
 namespace Application.UseCases.Commands;
 
-public class RegisterUserInteractor : IInteractor<Command.RegisterUser>
+public class SignUpInteractor : IInteractor<Command.SignUp>
 {
     private readonly IApplicationService _applicationService;
 
-    public RegisterUserInteractor(IApplicationService applicationService)
+    public SignUpInteractor(IApplicationService applicationService)
     {
         _applicationService = applicationService;
     }
 
-    public async Task InteractAsync(Command.RegisterUser command, CancellationToken cancellationToken)
+    public async Task InteractAsync(Command.SignUp command, CancellationToken cancellationToken)
     {
         var aggregate = await _applicationService.LoadAggregateAsync<User>(command.UserId, cancellationToken);
         aggregate.Handle(command);
