@@ -29,7 +29,7 @@ public abstract class AggregateTests
     {
         _aggregateRoot?.Handle(_command!);
 
-        var events = _aggregateRoot?.UncommittedEvents.ToList();
+        var events = _aggregateRoot?.UncommittedEvents.Select(tuple => tuple.@event).ToList();
 
         events.Should().NotBeNull();
         events.Should().AllBeOfType<TEvent>();
@@ -37,7 +37,7 @@ public abstract class AggregateTests
 
         if (assertions.Any())
             assertions.Should().AllSatisfy(assert
-                => assert((TEvent)events!.Select(tuple => tuple.@event)));
+                => assert((TEvent)events!.First()));
     }
 
     public void Throws<TException>(params Action<TException>[] assertions)
