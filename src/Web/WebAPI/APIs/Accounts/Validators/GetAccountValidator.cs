@@ -2,7 +2,7 @@
 
 namespace WebAPI.APIs.Accounts.Validators;
 
-public class GetAccountValidator : AbstractValidator<Requests.GetAccountDetails>
+public class GetAccountValidator : AbstractValidator<Queries.GetAccountDetails>
 {
     public GetAccountValidator()
     {
