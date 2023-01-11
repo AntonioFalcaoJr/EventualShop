@@ -4,10 +4,10 @@ using WebAPI.APIs.Communications.Validators;
 
 namespace WebAPI.APIs.Communications;
 
-public static class Requests
+public static class Queries
 {
     public record ListNotificationsDetails(CommunicationService.CommunicationServiceClient Client, int? Limit, int? Offset, CancellationToken CancellationToken)
-        : Validatable<ListNotificationsDetailsValidator>, IQueryRequest<CommunicationService.CommunicationServiceClient>
+        : Validatable<ListNotificationsDetailsValidator>, IQuery<CommunicationService.CommunicationServiceClient>
     {
         public static implicit operator ListNotificationsDetailsRequest(ListNotificationsDetails request)
             => new() { Paging = new() { Limit = request.Limit, Offset = request.Offset } };
