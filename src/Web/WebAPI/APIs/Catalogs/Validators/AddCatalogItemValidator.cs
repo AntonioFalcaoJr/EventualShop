@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace WebAPI.APIs.Catalogs.Validators;
 
-public class AddCatalogItemValidator : AbstractValidator<Requests.AddCatalogItem>
+public class AddCatalogItemValidator : AbstractValidator<Commands.AddCatalogItem>
 {
     public AddCatalogItemValidator()
     {

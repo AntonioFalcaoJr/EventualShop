@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace WebAPI.APIs.Catalogs.Validators;
 
-public class ChangeCatalogTitleValidator : AbstractValidator<Requests.ChangeCatalogTitle>
+public class ChangeCatalogTitleValidator : AbstractValidator<Commands.ChangeCatalogTitle>
 {
     public ChangeCatalogTitleValidator()
     {
