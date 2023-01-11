@@ -2,7 +2,7 @@
 
 namespace WebAPI.APIs.Warehouses.Validators;
 
-public class ListInventoryItemsListItemsValidator : AbstractValidator<Requests.ListInventoryItemsListItems>
+public class ListInventoryItemsListItemsValidator : AbstractValidator<Queries.ListInventoryItemsListItems>
 {
     public ListInventoryItemsListItemsValidator()
     {
