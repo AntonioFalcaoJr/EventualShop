@@ -6,7 +6,7 @@ on:
       - src/Services/Payment/Query/**.cs
       - src/Services/Payment/Query/**.csproj
       - Directory.Build.props
-      - .github/workflows/order-query.yaml
+      - .github/workflows/payment-query.yaml
 jobs:
   workflow:
     uses: ./.github/workflows/_workflow.yaml
