@@ -16,8 +16,8 @@ public static class IdentityApi
             => ApplicationApi.GetAsync<IdentityService.IdentityServiceClient, UserDetails>
                 (query, (client, cancellationToken) => client.LoginAsync(query, cancellationToken: cancellationToken)));
 
-        group.MapPost("/sign-up", ([AsParameters] Commands.SignUp signUp)
-            => ApplicationApi.SendCommandAsync(signUp));
+        group.MapPost("/sign-up", ([AsParameters] Commands.RegisterUser registerUser)
+            => ApplicationApi.SendCommandAsync(registerUser));
 
         group.MapPost("/{userId:guid}/confirm-email", ([AsParameters] Commands.ConfirmEmail confirmEmail)
             => ApplicationApi.SendCommandAsync(confirmEmail));

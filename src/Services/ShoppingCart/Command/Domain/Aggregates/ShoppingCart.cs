@@ -1,5 +1,4 @@
 ﻿using Contracts.Abstractions.Messages;
-using Contracts.DataTransferObjects;
 using Contracts.Services.ShoppingCart;
 using Domain.Abstractions.Aggregates;
 using Domain.Entities.CartItems;
@@ -48,31 +47,42 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
 
     private void Handle(Command.AddCartItem cmd)
         => RaiseEvent(_items.SingleOrDefault(cartItem => cartItem.Product == cmd.Product) is { IsDeleted: false } item
-            ? new DomainEvent.CartItemIncreased(Id, item.Id, (ushort)(item.Quantity + cmd.Quantity), item.UnitPrice, Total + item.UnitPrice * cmd.Quantity)
-            : new DomainEvent.CartItemAdded(cmd.CartId, Guid.NewGuid(), cmd.InventoryId, cmd.Product, cmd.Quantity, cmd.UnitPrice, Total + cmd.UnitPrice * cmd.Quantity));
+            ? new DomainEvent.CartItemIncreased(Id, item.Id, (ushort)(item.Quantity + cmd.Quantity), item.UnitPrice, IncreasedTotal(item.UnitPrice, cmd.Quantity))
+            : new DomainEvent.CartItemAdded(cmd.CartId, Guid.NewGuid(), cmd.InventoryId, cmd.Product, cmd.Quantity, cmd.UnitPrice, IncreasedTotal(cmd.UnitPrice, cmd.Quantity)));
 
     private void Handle(Command.ChangeCartItemQuantity cmd)
     {
         if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is not { IsDeleted: false } item) return;
 
         if (cmd.NewQuantity > item.Quantity)
-            RaiseEvent(new DomainEvent.CartItemIncreased(Id, item.Id, cmd.NewQuantity, item.UnitPrice, Total + item.UnitPrice * cmd.NewQuantity));
+            RaiseEvent(new DomainEvent.CartItemIncreased(Id, item.Id, cmd.NewQuantity, item.UnitPrice, IncreasedTotal(item.UnitPrice, cmd.NewQuantity)));
 
         else if (cmd.NewQuantity < item.Quantity)
-            RaiseEvent(new DomainEvent.CartItemDecreased(Id, item.Id, cmd.NewQuantity, item.UnitPrice, Total - item.UnitPrice * cmd.NewQuantity));
+            RaiseEvent(new DomainEvent.CartItemDecreased(Id, item.Id, cmd.NewQuantity, item.UnitPrice, DecreasedTotal(item.UnitPrice, cmd.NewQuantity)));
     }
 
     private void Handle(Command.RemoveCartItem cmd)
     {
         if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is not { IsDeleted: false } item) return;
-        RaiseEvent(new DomainEvent.CartItemRemoved(cmd.CartId, cmd.ItemId, item.UnitPrice, item.Quantity, Total - item.UnitPrice * item.Quantity));
+        RaiseEvent(new DomainEvent.CartItemRemoved(cmd.CartId, cmd.ItemId, item.UnitPrice, item.Quantity, DecreasedTotal(item.UnitPrice, item.Quantity)));
     }
 
-    private void Handle(Command.AddPaymentMethod cmd)
+    private void Handle(Command.AddCreditCard cmd)
     {
-        // TODO - Should cmd.Amount be subtracted from AmountDue?
         if (cmd.Amount > AmountDue) return;
-        RaiseEvent(new DomainEvent.PaymentMethodAdded(cmd.CartId, Guid.NewGuid(), cmd.Amount, cmd.Option));
+        RaiseEvent(new DomainEvent.CreditCardAdded(cmd.CartId, Guid.NewGuid(), cmd.Amount, cmd.CreditCard));
+    }
+
+    private void Handle(Command.AddDebitCard cmd)
+    {
+        if (cmd.Amount > AmountDue) return;
+        RaiseEvent(new DomainEvent.DebitCardAdded(cmd.CartId, Guid.NewGuid(), cmd.Amount, cmd.DebitCard));
+    }
+
+    private void Handle(Command.AddPayPal cmd)
+    {
+        if (cmd.Amount > AmountDue) return;
+        RaiseEvent(new DomainEvent.PayPalAdded(cmd.CartId, Guid.NewGuid(), cmd.Amount, cmd.PayPal));
     }
 
     private void Handle(Command.AddShippingAddress cmd)
@@ -145,14 +155,14 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
         Total = @event.NewCartTotal;
     }
 
-    private void When(DomainEvent.PaymentMethodAdded @event)
-        => _paymentMethods.Add(new(@event.MethodId, @event.Amount, @event.Option switch
-        {
-            Dto.CreditCard creditCard => (CreditCard)creditCard,
-            Dto.DebitCard debitCard => (DebitCard)debitCard,
-            Dto.PayPal payPal => (PayPal)payPal,
-            _ => default
-        }));
+    private void When(DomainEvent.CreditCardAdded @event)
+        => _paymentMethods.Add(new(@event.MethodId, @event.Amount, (CreditCard)@event.CreditCard));
+
+    private void When(DomainEvent.DebitCardAdded @event)
+        => _paymentMethods.Add(new(@event.MethodId, @event.Amount, (DebitCard)@event.DebitCard));
+
+    private void When(DomainEvent.PayPalAdded @event)
+        => _paymentMethods.Add(new(@event.MethodId, @event.Amount, (PayPal)@event.PayPal));
 
     private void When(DomainEvent.BillingAddressAdded @event)
     {
@@ -167,4 +177,10 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
         ShippingAddress = @event.Address;
         BillingShippingSame = ShippingAddress == BillingAddress;
     }
+
+    private decimal IncreasedTotal(decimal unitPrice, int quantity)
+        => Total + unitPrice * quantity;
+
+    private decimal DecreasedTotal(decimal unitPrice, int quantity)
+        => Total - unitPrice * quantity;
 }

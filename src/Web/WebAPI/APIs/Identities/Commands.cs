@@ -7,10 +7,10 @@ namespace WebAPI.APIs.Identities;
 
 public static class Commands
 {
-    public record SignUp(IBus Bus, Payloads.SignUp Payload, CancellationToken CancellationToken)
-        : Validatable<SignUpValidator>, ICommand<Command.SignUp>
+    public record RegisterUser(IBus Bus, Payloads.SignUp Payload, CancellationToken CancellationToken)
+        : Validatable<RegisterUserValidator>, ICommand<Command.RegisterUser>
     {
-        public Command.SignUp Command
+        public Command.RegisterUser Command
             => new(Guid.NewGuid(), Payload.FirstName, Payload.LastName, Payload.Email, Payload.Password);
     }
 

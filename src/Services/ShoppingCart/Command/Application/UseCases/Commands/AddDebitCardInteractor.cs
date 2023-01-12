@@ -5,16 +5,16 @@ using Domain.Aggregates;
 
 namespace Application.UseCases.Commands;
 
-public class AddPaymentMethodInteractor : IInteractor<Command.AddPaymentMethod>
+public class AddDebitCardInteractor : IInteractor<Command.AddDebitCard>
 {
     private readonly IApplicationService _applicationService;
 
-    public AddPaymentMethodInteractor(IApplicationService applicationService)
+    public AddDebitCardInteractor(IApplicationService applicationService)
     {
         _applicationService = applicationService;
     }
 
-    public async Task InteractAsync(Command.AddPaymentMethod command, CancellationToken cancellationToken)
+    public async Task InteractAsync(Command.AddDebitCard command, CancellationToken cancellationToken)
     {
         var shoppingCart = await _applicationService.LoadAggregateAsync<ShoppingCart>(command.CartId, cancellationToken);
         shoppingCart.Handle(command);

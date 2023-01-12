@@ -5,7 +5,7 @@ using Infrastructure.EventStore.DependencyInjection.Options;
 using Infrastructure.EventStore.Exceptions;
 using Microsoft.Extensions.Options;
 
-namespace Infrastructure.EventStore.Abstractions;
+namespace Infrastructure.EventStore;
 
 public class EventStoreGateway : IEventStoreGateway
 {

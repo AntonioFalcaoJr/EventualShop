@@ -45,10 +45,6 @@ public static class ShoppingCartApi
         group.MapPut("/{cartId:guid}/items/{itemId:guid}/change-quantity", ([AsParameters] Commands.ChangeCartItemQuantity changeCartItemQuantity)
             => ApplicationApi.SendCommandAsync(changeCartItemQuantity));
 
-        group.MapGet("/{cartId:guid}/payment-methods/list-items", ([AsParameters] Queries.ListPaymentMethodsListItems query)
-            => ApplicationApi.ListAsync<ShoppingCartService.ShoppingCartServiceClient, PaymentMethodListItem>
-                (query, (client, ct) => client.ListPaymentMethodsListItemsAsync(query, cancellationToken: ct)));
-
         group.MapPost("/{cartId:guid}/payment-methods/credit-card", ([AsParameters] Commands.AddCreditCard addCreditCard)
             => ApplicationApi.SendCommandAsync(addCreditCard));
 
@@ -57,6 +53,10 @@ public static class ShoppingCartApi
 
         group.MapPost("/{cartId:guid}/payment-methods/pay-pal", ([AsParameters] Commands.AddPayPal addPayPal)
             => ApplicationApi.SendCommandAsync(addPayPal));
+        
+        group.MapGet("/{cartId:guid}/payment-methods/list-items", ([AsParameters] Queries.ListPaymentMethodsListItems query)
+            => ApplicationApi.ListAsync<ShoppingCartService.ShoppingCartServiceClient, PaymentMethodListItem>
+                (query, (client, ct) => client.ListPaymentMethodsListItemsAsync(query, cancellationToken: ct)));
 
         group.MapDelete("/{cartId:guid}/payment-methods/{methodId:guid}", ([AsParameters] Commands.RemovePaymentMethod removePaymentMethod)
             => ApplicationApi.SendCommandAsync(removePaymentMethod));

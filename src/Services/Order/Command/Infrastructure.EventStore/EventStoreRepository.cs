@@ -3,7 +3,7 @@ using Domain.Abstractions.EventStore;
 using Infrastructure.EventStore.Contexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.EventStore.Abstractions;
+namespace Infrastructure.EventStore;
 
 public class EventStoreRepository : IEventStoreRepository
 {
