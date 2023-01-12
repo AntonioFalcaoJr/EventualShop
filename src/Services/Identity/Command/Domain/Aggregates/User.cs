@@ -23,7 +23,7 @@ public class User : AggregateRoot<UserValidator>
     public override void Handle(ICommand command)
         => Handle(command as dynamic);
 
-    private void Handle(Command.SignUp cmd)
+    private void Handle(Command.RegisterUser cmd)
         => RaiseEvent(new DomainEvent.UserRegistered(cmd.UserId, cmd.FirstName, cmd.LastName, cmd.Email, cmd.Password));
 
     private void Handle(Command.ConfirmEmail cmd)

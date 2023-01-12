@@ -4,8 +4,8 @@ using Infrastructure.MessageBus.Abstractions;
 
 namespace Infrastructure.MessageBus.Consumers.Commands;
 
-public class RegisterUserConsumer : Consumer<Command.SignUp>
+public class RegisterUserConsumer : Consumer<Command.RegisterUser>
 {
-    public RegisterUserConsumer(IInteractor<Command.SignUp> interactor)
+    public RegisterUserConsumer(IInteractor<Command.RegisterUser> interactor)
         : base(interactor) { }
 }
