@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace WebAPI.APIs.Warehouses.Validators;
 
-public class CreateInventoryValidator : AbstractValidator<Requests.CreateInventory>
+public class CreateInventoryValidator : AbstractValidator<Commands.CreateInventory>
 {
     public CreateInventoryValidator()
     {

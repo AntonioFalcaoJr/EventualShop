@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace WebAPI.APIs.Identities.Validators;
 
-public class ChangeEmailValidator : AbstractValidator<Requests.ChangeEmail>
+public class ChangeEmailValidator : AbstractValidator<Commands.ChangeEmail>
 {
     public ChangeEmailValidator()
     {

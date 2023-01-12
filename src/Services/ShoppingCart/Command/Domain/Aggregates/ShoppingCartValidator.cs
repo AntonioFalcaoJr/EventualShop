@@ -16,7 +16,7 @@ public class ShoppingCartValidator : AbstractValidator<ShoppingCart>
             .NotNull()
             .SetValidator(new CartItemValidator());
 
-        When(cart => cart.Items.Any(), () =>
+        When(cart => cart.Items.Any(item => item.IsDeleted is false), () =>
         {
             RuleFor(cart => cart.Total)
                 .GreaterThan(0);

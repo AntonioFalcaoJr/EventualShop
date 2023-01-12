@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace WebAPI.APIs.Warehouses.Validators;
 
-public class ReceiveInventoryItemValidator : AbstractValidator<Requests.ReceiveInventoryItem>
+public class ReceiveInventoryItemValidator : AbstractValidator<Commands.ReceiveInventoryItem>
 {
     public ReceiveInventoryItemValidator()
     {

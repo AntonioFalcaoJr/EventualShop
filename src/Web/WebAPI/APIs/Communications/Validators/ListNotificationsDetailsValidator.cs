@@ -2,7 +2,7 @@
 
 namespace WebAPI.APIs.Communications.Validators;
 
-public class ListNotificationsDetailsValidator : AbstractValidator<Requests.ListNotificationsDetails>
+public class ListNotificationsDetailsValidator : AbstractValidator<Queries.ListNotificationsDetails>
 {
     public ListNotificationsDetailsValidator()
     {
