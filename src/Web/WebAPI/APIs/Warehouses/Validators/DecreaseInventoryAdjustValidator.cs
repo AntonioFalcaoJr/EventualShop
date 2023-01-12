@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace WebAPI.APIs.Warehouses.Validators;
 
-public class DecreaseInventoryAdjustValidator : AbstractValidator<Requests.DecreaseInventoryAdjust>
+public class DecreaseInventoryAdjustValidator : AbstractValidator<Commands.DecreaseInventoryAdjust>
 {
     public DecreaseInventoryAdjustValidator()
     {

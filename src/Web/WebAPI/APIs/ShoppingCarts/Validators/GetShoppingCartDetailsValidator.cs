@@ -2,7 +2,7 @@
 
 namespace WebAPI.APIs.ShoppingCarts.Validators;
 
-public class GetShoppingCartDetailsValidator : AbstractValidator<Requests.GetShoppingCartDetails>
+public class GetShoppingCartDetailsValidator : AbstractValidator<Queries.GetShoppingCartDetails>
 {
     public GetShoppingCartDetailsValidator()
     {

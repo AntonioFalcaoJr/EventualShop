@@ -10,7 +10,7 @@ public static class Command
 
     public record ExpiryEmail(Guid UserId, string Email) : Message, ICommand;
 
-    public record RegisterUser(Guid UserId, string FirstName, string LastName, string Email, string Password) : Message, ICommand;
+    public record SignUp(Guid UserId, string FirstName, string LastName, string Email, string Password) : Message, ICommand;
 
     public record ChangePassword(Guid UserId, string NewPassword, string NewPasswordConfirmation) : Message, ICommand;
 

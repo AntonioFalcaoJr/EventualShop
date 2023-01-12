@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace WebAPI.APIs.Catalogs.Validators;
 
-public class DeleteCatalogValidator : AbstractValidator<Requests.DeleteCatalog>
+public class DeleteCatalogValidator : AbstractValidator<Commands.DeleteCatalog>
 {
     public DeleteCatalogValidator()
     {
