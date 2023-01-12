@@ -10,7 +10,7 @@ public class PayPalValidator : AbstractValidator<Dto.PayPal>
             .NotNull()
             .NotEmpty();
 
-        RuleFor(payPal => payPal.UserName)
+        RuleFor(payPal => payPal.Email)
             .EmailAddress();
     }
 }

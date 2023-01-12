@@ -12,27 +12,27 @@
 
 <table><tr><th>New Approach</th><th>Old Approach</th></tr><tr><td>
 
-| Service       |                                                                                                                                      Command Stack                                                                                                                                       |                                                                                                                                    Query Stack                                                                                                                                     | 
-|---------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
-| Account       |          [![Account - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-command.yaml)          |          [![Account - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-query.yaml)          |
-| Communication | [![Communication - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-command.yaml) | [![Communication - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-query.yaml) |
-| Identity      |        [![Identity - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-command.yaml)         |        [![Identity - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-query.yaml)         |
-| Order         |             [![Order - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/order-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/order-command.yaml)             |             [![Order - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/order-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/order-query.yaml)             |
-| Catalog       |           [![Catalog - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/catalog-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/catalog-command.yaml)           |            [![Catalog - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/catalog-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/catalog-query.yaml)      |
+| Service        |                                                                                                                                      Command Stack                                                                                                                                       |                                                                                                                                     Query Stack                                                                                                                                     | 
+|----------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| Account        |          [![Account - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-command.yaml)          |          [![Account - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-query.yaml)           |
+| Communication  | [![Communication - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-command.yaml) | [![Communication - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-query.yaml)  |
+| Identity       |        [![Identity - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-command.yaml)         |         [![Identity - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-query.yaml)         |
+| Order          |             [![Order - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/order-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/order-command.yaml)             |             [![Order - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/order-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/order-query.yaml)              |
+| Catalog        |          [![Catalog - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/catalog-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/catalog-command.yaml)          |          [![Catalog - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/catalog-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/catalog-query.yaml)           |
+| Warehouse      |       [![Warehouse - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse-command.yaml)       |       [![Warehouse - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse-query.yaml)        |
+| Shopping Cart  | [![Shopping Cart - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart-command.yaml) | [![Shopping Cart - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart-query.yaml)  |
 
 </td><td>
 
 | Service      |                                                                                                                                                                                                                                                         |
 |--------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 | Payment      |         [![Payment](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment.yaml)          |
-| ShoppingCart | [![ShoppingCart](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart.yaml) |
-| Warehouse    |      [![Warehouse](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse.yaml)       |
 
 </td></tr></table>
 
-<div align="center">:warning: <sub>Work in Progress (WIP)</sub></div>
-
-## About
+<div align="center"> :construction: <sub>Work in Progress (WIP)</sub></div>
+ 
+## :bulb: About
 
 The main objective of this **cloud-native** project is to represent the **state of the art** of a **distributed**, **reliable**, and **highly scalable** system by interpreting the most relevant
 principles of **Reactive Domain Driven Design**.
@@ -60,16 +60,16 @@ As a Domain-centric approach, **Clean architecture** provides the appropriate is
 > State transitions are an important part of our problem space and should be modelled within our domain.   
 > -- <cite> Greg Young </cite>
 
-### Give a Star! :star:
+### :star: Give a Star! 
 
 If this project helped you in some way, please **give it a star**. Thanks!
 
-## The Solution Architecture
+## :classical_building: The Solution Architecture
 
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/solution_architecture.png)    
 Fig. 1: Falcão Jr., Antônio. _An EDA solution architecture_.
 
-## Research
+## :mag_right: Research
 
 <details>
     <summary> Agnostic Obsession </summary>
@@ -773,7 +773,47 @@ user-friendly than more general-purpose UIs.
 
 </details>
 
-## Performance
+## :rocket: Performance
+
+<details>
+    <summary>Async Projections</summary>
+
+### Async Projections
+
+In a Command and Query Responsibility Segregation (CQRS) system, denormalized asynchronous projections can significantly improve performance for several reasons:
+
+- Improved Read Performance: In a CQRS system, the read side is separate from the write side and is optimized for querying data. By denormalizing the data in the projections, the read side can access
+the data it needs more efficiently, reducing the number of joins required to retrieve data and ultimately speeding up query performance.
+
+- Reduced Latency: When data is denormalized, it's usually stored in a format that's more suitable for the specific use case. This can reduce the amount of data that needs to be retrieved from the
+database, which can help to minimize latency and improve the overall responsiveness of the system.
+
+- Increased Scalability: Denormalized projections can handle a larger volume of data more efficiently than normalized ones. This is because denormalized data is usually stored in a format that's
+optimized for a specific use case, which allows the system to process the data more quickly and with less resources.
+
+- Simpler Architecture: In a normalized data model, data is often spread out across multiple tables, which can make the system more complex to design, develop, and maintain. By denormalizing the data,
+it can be easier to manage and understand, which can simplify the overall architecture and make the system more maintainable.
+
+- Improved Concurrency: Asynchronous projections allow multiple operations to be performed at the same time and, denormalized projections reduce contention, helping to improve concurrent write operation
+performance.
+
+In summary, denormalized asynchronous projections in a CQRS system can help to improve performance by reducing latency, increasing scalability, simplifying the architecture, and improving concurrency.
+This results in a more responsive and efficient system that can handle larger volumes of data and more complex queries.
+
+</details>
+
+<details>
+    <summary>Snapshotting</summary>
+
+### Snapshotting
+
+> Snapshotting is an optimisation that reduces time spent on reading event from an event store.
+>
+> [Gunia, Kacper. "Event Sourcing: Snapshotting", _domaincentric.net_, last edited on 5 Jun 2020](https://domaincentric.net/blog/event-sourcing-snapshotting)
+
+More details in [snapshot](#snapshot) section.
+
+</details>
 
 <details>
     <summary>Minimize Exceptions</summary>
@@ -825,20 +865,7 @@ user-friendly than more general-purpose UIs.
 
 </details>
 
-<details>
-    <summary>Snapshotting</summary>
-
-### Snapshotting
-
-> Snapshotting is an optimisation that reduces time spent on reading event from an event store.
->
-> [Gunia, Kacper. "Event Sourcing: Snapshotting", _domaincentric.net_, last edited on 5 Jun 2020](https://domaincentric.net/blog/event-sourcing-snapshotting)
-
-More details in [snapshot](#snapshot) section.
-
-</details>
-
-## Running
+## :computer: Running
 
 Projects may have different environments where the application runs: development, staging, production, etc. Usually, different environments should have different settings.
 
@@ -971,7 +998,7 @@ if (environment.IsDevelopment() || environment.IsStaging())
 
 </details>
 
-## Tests
+## :test_tube: Tests
 
 <details>
     <summary>Unit Tests</summary>
@@ -1014,7 +1041,7 @@ docker run --network=internal --name k6 --rm -i grafana/k6 run - <test.js
 
 </details>
 
-## References
+## :book: References
 
 - [Evans, Eric (2003), Domain-Driven Design: Tackling Complexity in the Heart of Software.](https://www.amazon.com/dp-0321125215/dp/0321125215/ref=mt_other?_encoding=UTF8&me=&qid=1641385448)
 - [Hohpe, Gregor (2003), Enterprise Integration Patterns: Designing, Building, and Deploying Messaging Solutions](https://www.enterpriseintegrationpatterns.com/)
@@ -1047,12 +1074,12 @@ docker run --network=internal --name k6 --rm -i grafana/k6 run - <test.js
 - [Event Sourcing: Projections - Kacper Gunia](https://domaincentric.net/blog/event-sourcing-projections)
 - [Advantages of the event-driven architecture pattern - Grace Jansen & Johanna Saladas](https://developer.ibm.com/articles/advantages-of-an-event-driven-architecture/)
 
-## Tech Stack
+## :toolbox: Tech Stack
 
 ### Worker Services
 
-- [.NET 7 preview](https://dotnet.microsoft.com/en-us/) - A free, multi/cross-platform and open-source framework;
-- [EF Core 7 preview](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-7-preview-1/) - An open source object–relational mapping framework for ADO.NET;
+- [.NET 7](https://dotnet.microsoft.com/en-us/) - A free, multi/cross-platform and open-source framework;
+- [EF Core 7](https://devblogs.microsoft.com/dotnet/announcing-ef7/) - An open source object–relational mapping framework for ADO.NET;
 - [MSSQL](https://hub.docker.com/_/microsoft-mssql-server) - A relational database management system (Event Store Database);
 - [MongoDB](https://www.mongodb.com/docs/drivers/csharp/) - A source-available cross-platform document-oriented database (Projections Database);
 - [MassTransit](https://masstransit-project.com/) - Message Bus;

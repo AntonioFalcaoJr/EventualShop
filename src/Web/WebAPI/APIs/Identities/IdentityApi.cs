@@ -1,5 +1,4 @@
 using Asp.Versioning.Builder;
-using Contracts.Services.Identity;
 using Contracts.Services.Identity.Protobuf;
 using WebAPI.Abstractions;
 
@@ -13,21 +12,21 @@ public static class IdentityApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(1);
 
-        group.MapGet("/sign-in", ([AsParameters] Requests.SignIn request)
+        group.MapGet("/sign-in", ([AsParameters] Queries.SignIn query)
             => ApplicationApi.GetAsync<IdentityService.IdentityServiceClient, UserDetails>
-                (request, (client, cancellationToken) => client.LoginAsync(request, cancellationToken: cancellationToken)));
+                (query, (client, cancellationToken) => client.LoginAsync(query, cancellationToken: cancellationToken)));
 
-        group.MapPost("/sign-up", ([AsParameters] Requests.SignUp request)
-            => ApplicationApi.SendCommandAsync<Command.RegisterUser>(request));
+        group.MapPost("/sign-up", ([AsParameters] Commands.RegisterUser registerUser)
+            => ApplicationApi.SendCommandAsync(registerUser));
 
-        group.MapPost("/{userId:guid}/confirm-email", ([AsParameters] Requests.ConfirmEmail request)
-            => ApplicationApi.SendCommandAsync<Command.ConfirmEmail>(request));
+        group.MapPost("/{userId:guid}/confirm-email", ([AsParameters] Commands.ConfirmEmail confirmEmail)
+            => ApplicationApi.SendCommandAsync(confirmEmail));
 
-        group.MapPut("/{userId:guid}/change-email", ([AsParameters] Requests.ChangeEmail request)
-            => ApplicationApi.SendCommandAsync<Command.ChangeEmail>(request));
+        group.MapPut("/{userId:guid}/change-email", ([AsParameters] Commands.ChangeEmail changeEmail)
+            => ApplicationApi.SendCommandAsync(changeEmail));
 
-        group.MapPut("/{userId:guid}/change-password", ([AsParameters] Requests.ChangePassword request)
-            => ApplicationApi.SendCommandAsync<Command.ChangePassword>(request));
+        group.MapPut("/{userId:guid}/change-password", ([AsParameters] Commands.ChangePassword changePassword)
+            => ApplicationApi.SendCommandAsync(changePassword));
 
         return builder;
     }
@@ -36,8 +35,9 @@ public static class IdentityApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(2);
 
-        group.MapGet("/sign-in", ([AsParameters] Requests.SignIn request)
-            => ApplicationApi.QueryAsync(request, (client, cancellationToken) => client.LoginAsync(request, cancellationToken: cancellationToken)));
+        group.MapGet("/sign-in", ([AsParameters] Queries.SignIn query)
+            => ApplicationApi.GetAsync<IdentityService.IdentityServiceClient, UserDetails>
+                (query, (client, cancellationToken) => client.LoginAsync(query, cancellationToken: cancellationToken)));
 
         return builder;
     }

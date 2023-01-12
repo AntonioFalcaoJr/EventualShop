@@ -2,7 +2,7 @@
 
 namespace WebAPI.APIs.ShoppingCarts.Validators;
 
-public class RemoveCartItemValidator : AbstractValidator<Requests.RemoveCartItem>
+public class RemoveCartItemValidator : AbstractValidator<Commands.RemoveCartItem>
 {
     public RemoveCartItemValidator()
     {

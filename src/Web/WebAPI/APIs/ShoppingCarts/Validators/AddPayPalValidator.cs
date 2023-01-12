@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace WebAPI.APIs.ShoppingCarts.Validators;
 
-public class AddPayPalValidator : AbstractValidator<Requests.AddPayPal>
+public class AddPayPalValidator : AbstractValidator<Commands.AddPayPal>
 {
     public AddPayPalValidator()
     {

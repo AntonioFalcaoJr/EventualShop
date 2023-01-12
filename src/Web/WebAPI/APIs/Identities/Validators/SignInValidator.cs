@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace WebAPI.APIs.Identities.Validators;
 
-public class SignInValidator : AbstractValidator<Requests.SignIn>
+public class SignInValidator : AbstractValidator<Queries.SignIn>
 {
     public SignInValidator()
     {

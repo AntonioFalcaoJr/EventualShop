@@ -10,13 +10,14 @@ public interface IRequest
     bool IsValid(out IDictionary<string, string[]> errors);
 }
 
-public interface ICommandRequest : IRequest
+public interface ICommand<out TCommand> : IRequest
+    where TCommand : ICommand
 {
-    ICommand Command { get; }
+    TCommand Command { get; }
     IBus Bus { get; }
 }
 
-public interface IQueryRequest<out TClient> : IRequest
+public interface IQuery<out TClient> : IRequest
     where TClient : ClientBase
 {
     TClient Client { get; }

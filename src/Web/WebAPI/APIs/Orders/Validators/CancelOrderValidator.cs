@@ -2,7 +2,7 @@
 
 namespace WebAPI.APIs.Orders.Validators;
 
-public class CancelOrderValidator : AbstractValidator<Requests.CancelOrder>
+public class CancelOrderValidator : AbstractValidator<Commands.CancelOrder>
 {
     public CancelOrderValidator()
     {

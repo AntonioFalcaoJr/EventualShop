@@ -16,10 +16,10 @@ public class ShoppingCartTests : AggregateTests
     private readonly Fixture _fixture;
 
     private readonly Guid _cartId;
-    private readonly Guid _itemId;
-    private readonly Guid _customerId;
     private readonly Guid _catalogId;
+    private readonly Guid _customerId;
     private readonly Guid _inventoryId;
+    private readonly Guid _itemId;
     private readonly Product _product;
     private readonly ushort _quantity;
     private readonly decimal _unitPrice;
@@ -34,7 +34,7 @@ public class ShoppingCartTests : AggregateTests
         _catalogId = _fixture.Create<Guid>();
         _inventoryId = _fixture.Create<Guid>();
         _product = _fixture.Create<Product>();
-        _quantity = _fixture.Create<ushort>();
+        _quantity = (ushort)(_fixture.Create<ushort>() + 1);
         _unitPrice = _fixture.Create<decimal>();
     }
 
@@ -53,8 +53,7 @@ public class ShoppingCartTests : AggregateTests
             .When<Command.AddCartItem>(new(_cartId, _catalogId, _inventoryId, _product, _quantity, _unitPrice))
             .Then<DomainEvent.CartItemAdded>(
                 @event => @event.CartId.Should().Be(_cartId),
-                // TODO - Remove ValueObject heritage from Product
-                //@event => @event.Product.Should().Be(product),
+                @event => @event.Product.Should().BeEquivalentTo(_product),
                 @event => @event.Quantity.Should().Be(_quantity),
                 @event => @event.UnitPrice.Should().Be(_unitPrice),
                 @event => @event.InventoryId.Should().Be(_inventoryId));
@@ -72,79 +71,93 @@ public class ShoppingCartTests : AggregateTests
     [Fact]
     public void ChangeCartItemQuantityForUpShouldRaiseCartItemIncreased()
     {
-        var newQuantity = (ushort)(_quantity + 1);
+        var cartItemAddedNewCartTotal = _unitPrice * _quantity;
+        var changeCartItemQuantityNewQuantity = (ushort)(_quantity + 1);
+        var cartItemIncreasedNewCartTotal = cartItemAddedNewCartTotal + _unitPrice * changeCartItemQuantityNewQuantity;
 
         Given<ShoppingCart>(
                 new DomainEvent.CartCreated(_cartId, _customerId, CartStatus.Active),
-                new DomainEvent.CartItemAdded(_cartId, _itemId, _inventoryId, _product, _quantity, _unitPrice))
-            .When<Command.ChangeCartItemQuantity>(new(_cartId, _itemId, newQuantity))
+                new DomainEvent.CartItemAdded(_cartId, _itemId, _inventoryId, _product, _quantity, _unitPrice, cartItemAddedNewCartTotal))
+            .When<Command.ChangeCartItemQuantity>(new(_cartId, _itemId, changeCartItemQuantityNewQuantity))
             .Then<DomainEvent.CartItemIncreased>(
                 @event => @event.CartId.Should().Be(_cartId),
                 @event => @event.ItemId.Should().Be(_itemId),
-                @event => @event.NewQuantity.Should().Be(newQuantity));
+                @event => @event.NewQuantity.Should().Be(changeCartItemQuantityNewQuantity),
+                @event => @event.NewCartTotal.Should().Be(cartItemIncreasedNewCartTotal));
     }
 
     [Fact]
     public void ChangeCartItemQuantityForDownShouldRaiseCartItemDecreased()
     {
-        const ushort quantity = 10;
-        const ushort newQuantity = quantity - 1;
+        var cartItemAddedNewCartTotal = _unitPrice * _quantity;
+
+        var expectedNewQuantity = (ushort)(_quantity - 1);
+        var expectedNewCartTotal = cartItemAddedNewCartTotal - _unitPrice * expectedNewQuantity;
 
         Given<ShoppingCart>(
                 new DomainEvent.CartCreated(_cartId, _customerId, CartStatus.Active),
-                new DomainEvent.CartItemAdded(_cartId, _itemId, _inventoryId, _product, quantity, _unitPrice))
-            .When<Command.ChangeCartItemQuantity>(new(_cartId, _itemId, newQuantity))
+                new DomainEvent.CartItemAdded(_cartId, _itemId, _inventoryId, _product, _quantity, _unitPrice, cartItemAddedNewCartTotal))
+            .When<Command.ChangeCartItemQuantity>(new(_cartId, _itemId, expectedNewQuantity))
             .Then<DomainEvent.CartItemDecreased>(
                 @event => @event.CartId.Should().Be(_cartId),
                 @event => @event.ItemId.Should().Be(_itemId),
-                @event => @event.NewQuantity.Should().Be(newQuantity));
+                @event => @event.NewQuantity.Should().Be(expectedNewQuantity),
+                @event => @event.NewCartTotal.Should().Be(expectedNewCartTotal));
     }
 
     [Fact]
     public void RemoveCartItemShouldRaiseCartItemRemoved()
     {
-        var newQuantity = (ushort)(_quantity + 1);
+        var cartItemAddedNewCartTotal = _unitPrice * _quantity;
 
         Given<ShoppingCart>(
                 new DomainEvent.CartCreated(_cartId, _customerId, CartStatus.Active),
-                new DomainEvent.CartItemAdded(_cartId, _itemId, _inventoryId, _product, _quantity, _unitPrice),
-                new DomainEvent.CartItemIncreased(_cartId, _itemId, newQuantity, _unitPrice))
+                new DomainEvent.CartItemAdded(_cartId, _itemId, _inventoryId, _product, _quantity, _unitPrice, cartItemAddedNewCartTotal))
             .When<Command.RemoveCartItem>(new(_cartId, _itemId))
             .Then<DomainEvent.CartItemRemoved>(
                 @event => @event.CartId.Should().Be(_cartId),
-                @event => @event.ItemId.Should().Be(_itemId),
-                @event => @event.Quantity.Should().Be(newQuantity),
-                @event => @event.UnitPrice.Should().Be(_unitPrice));
+                @event => @event.ItemId.Should().Be(_itemId));
     }
 
     [Fact]
     public void AddCartItemWithSameProductShouldRaiseCartItemIncreased()
     {
-        var newQuantity = (ushort)(_quantity * 2);
+        var cartItemAddedNewCartTotal = _unitPrice * _quantity;
+        var addCartItemQuantity = (ushort)(_quantity + 1);
+
+        var expectedNewQuantity = (ushort)(_quantity + addCartItemQuantity);
+        var expectedNewCartTotal = cartItemAddedNewCartTotal + _unitPrice * addCartItemQuantity;
 
         Given<ShoppingCart>(
                 new DomainEvent.CartCreated(_cartId, _customerId, CartStatus.Active),
-                new DomainEvent.CartItemAdded(_cartId, _itemId, _inventoryId, _product, _quantity, _unitPrice))
-            .When<Command.AddCartItem>(new(_cartId, _catalogId, _inventoryId, _product, _quantity, _unitPrice))
+                new DomainEvent.CartItemAdded(_cartId, _itemId, _inventoryId, _product, _quantity, _unitPrice, cartItemAddedNewCartTotal))
+            .When<Command.AddCartItem>(new(_cartId, _catalogId, _inventoryId, _product, addCartItemQuantity, _unitPrice))
             .Then<DomainEvent.CartItemIncreased>(
                 @event => @event.CartId.Should().Be(_cartId),
                 @event => @event.ItemId.Should().Be(_itemId),
-                @event => @event.NewQuantity.Should().Be(newQuantity));
+                @event => @event.NewQuantity.Should().Be(expectedNewQuantity),
+                @event => @event.NewCartTotal.Should().Be(expectedNewCartTotal));
     }
 
     [Fact]
     public void AddCartItemWithDifferentProductShouldRaiseCartItemAdded()
     {
-        var product = _fixture.Create<Product>();
+        var product = _product with { Name = _fixture.Create<string>(), Brand = _fixture.Create<string>() };
+        var cartItemAddedNewCartTotal = _unitPrice * _quantity;
+        
+        var expectedNewCartTotal = cartItemAddedNewCartTotal + _unitPrice * _quantity;
 
         Given<ShoppingCart>(
                 new DomainEvent.CartCreated(_cartId, _customerId, CartStatus.Active),
-                new DomainEvent.CartItemAdded(_cartId, _itemId, _inventoryId, _product, _quantity, _unitPrice))
+                new DomainEvent.CartItemAdded(_cartId, _itemId, _inventoryId, _product, _quantity, _unitPrice, cartItemAddedNewCartTotal))
             .When<Command.AddCartItem>(new(_cartId, _catalogId, _inventoryId, product, _quantity, _unitPrice))
             .Then<DomainEvent.CartItemAdded>(
                 @event => @event.CartId.Should().Be(_cartId),
                 @event => @event.ItemId.Should().NotBe(_itemId),
-                @event => @event.Quantity.Should().Be(_quantity));
+                @event => @event.Quantity.Should().Be(_quantity),
+                @event => @event.UnitPrice.Should().Be(_unitPrice),
+                @event => @event.Product.Should().NotBeEquivalentTo(_product),
+                @event => @event.NewCartTotal.Should().Be(expectedNewCartTotal));
     }
 
     [Fact]

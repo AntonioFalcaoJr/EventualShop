@@ -2,7 +2,7 @@
 
 namespace WebAPI.APIs.Accounts.Validators;
 
-public class ListAccountsDetailsValidator : AbstractValidator<Requests.ListAccountsDetails>
+public class ListAccountsDetailsValidator : AbstractValidator<Queries.ListAccountsDetails>
 {
     public ListAccountsDetailsValidator()
     {

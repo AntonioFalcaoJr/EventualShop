@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace WebAPI.APIs.ShoppingCarts.Validators;
 
-public class CreateCartValidator : AbstractValidator<Requests.CreateCart>
+public class CreateCartValidator : AbstractValidator<Commands.CreateCart>
 {
     public CreateCartValidator()
     {

@@ -1,5 +1,4 @@
 ﻿using Asp.Versioning.Builder;
-using Contracts.Services.Communication;
 using Contracts.Services.Communication.Protobuf;
 using WebAPI.Abstractions;
 
@@ -13,9 +12,9 @@ public static class CommunicationApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(1);
 
-        group.MapGet("/notifications/details", ([AsParameters] Requests.ListNotificationsDetails request)
+        group.MapGet("/notifications/details", ([AsParameters] Queries.ListNotificationsDetails query)
             => ApplicationApi.ListAsync<CommunicationService.CommunicationServiceClient, NotificationDetails>
-                (request, (client, cancellationToken) => client.ListNotificationsDetailsAsync(request, cancellationToken: cancellationToken)));
+                (query, (client, cancellationToken) => client.ListNotificationsDetailsAsync(query, cancellationToken: cancellationToken)));
 
         return builder;
     }
@@ -24,9 +23,9 @@ public static class CommunicationApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(2);
 
-        group.MapGet("/notifications/details", ([AsParameters] Requests.ListNotificationsDetails request)
+        group.MapGet("/notifications/details", ([AsParameters] Queries.ListNotificationsDetails query)
             => ApplicationApi.ListAsync<CommunicationService.CommunicationServiceClient, NotificationDetails>
-                (request, (client, cancellationToken) => client.ListNotificationsDetailsAsync(request, cancellationToken: cancellationToken)));
+                (query, (client, cancellationToken) => client.ListNotificationsDetailsAsync(query, cancellationToken: cancellationToken)));
 
         return builder;
     }

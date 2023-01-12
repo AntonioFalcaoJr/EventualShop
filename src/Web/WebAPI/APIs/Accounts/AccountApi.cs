@@ -1,5 +1,4 @@
 ﻿using Asp.Versioning.Builder;
-using Contracts.Services.Account;
 using Contracts.Services.Account.Protobuf;
 using WebAPI.Abstractions;
 
@@ -13,30 +12,26 @@ public static class AccountApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(1);
 
-        group.MapGet("/accounts-details", ([AsParameters] Requests.ListAccountsDetails request)
-            => ApplicationApi.ListAsync<AccountService.AccountServiceClient, AccountDetails>(request, (client, ct)
-                => client.ListAccountsDetailsAsync(request, cancellationToken: ct)));
+        group.MapGet("/accounts-details", ([AsParameters] Queries.ListAccountsDetails query)
+            => ApplicationApi.ListAsync<AccountService.AccountServiceClient, AccountDetails>(query, (client, ct)
+                => client.ListAccountsDetailsAsync(query, cancellationToken: ct)));
 
-        group.MapDelete("/{accountId:guid}", ([AsParameters] Requests.DeleteAccount request)
-            => ApplicationApi.SendCommandAsync<Command.DeleteAccount>(request));
+        group.MapDelete("/{accountId:guid}", ([AsParameters] Commands.DeleteAccount deleteAccount)
+            => ApplicationApi.SendCommandAsync(deleteAccount));
 
-        group.MapGet("/{accountId:guid}/account-details", ([AsParameters] Requests.GetAccountDetails request)
-            => ApplicationApi.GetAsync<AccountService.AccountServiceClient, AccountDetails>(request, (client, ct)
-                => client.GetAccountDetailsAsync(request, cancellationToken: ct)));
+        group.MapGet("/{accountId:guid}/account-details", ([AsParameters] Queries.GetAccountDetails query)
+            => ApplicationApi.GetAsync<AccountService.AccountServiceClient, AccountDetails>(query, (client, ct)
+                => client.GetAccountDetailsAsync(query, cancellationToken: ct)));
 
-        group.MapPost("/{accountId:guid}/billing-addresses", ([AsParameters] Requests.AddBillingAddress request)
-            => ApplicationApi.SendCommandAsync<Command.AddBillingAddress>(request));
+        group.MapPost("/{accountId:guid}/billing-addresses", ([AsParameters] Commands.AddBillingAddress addBillingAddress)
+            => ApplicationApi.SendCommandAsync(addBillingAddress));
 
-        group.MapPost("/{accountId:guid}/shipping-addresses", ([AsParameters] Requests.AddShippingAddress request)
-            => ApplicationApi.SendCommandAsync<Command.AddShippingAddress>(request));
+        group.MapPost("/{accountId:guid}/shipping-addresses", ([AsParameters] Commands.AddShippingAddress addShippingAddress)
+            => ApplicationApi.SendCommandAsync(addShippingAddress));
 
-        // group.MapGet("/{accountId:guid}/billing-addresses/list-items", ([AsParameters] Requests.ListBillingAddressesListItems request)
-        //     => ApplicationApi.ListAsync<AccountService.AccountServiceClient, AddressListItem>(request, (client, cancellationToken) 
-        //         => client.ListBillingAddressesListItemsAsync(request, cancellationToken:ct)));
-
-        group.MapGet("/{accountId:guid}/shipping-addresses/list-items", ([AsParameters] Requests.ListShippingAddressesListItems request)
-            => ApplicationApi.ListAsync<AccountService.AccountServiceClient, AddressListItem>(request, (client, ct)
-                => client.ListShippingAddressesListItemsAsync(request, cancellationToken: ct)));
+        group.MapGet("/{accountId:guid}/shipping-addresses/list-items", ([AsParameters] Queries.ListShippingAddressesListItems query)
+            => ApplicationApi.ListAsync<AccountService.AccountServiceClient, AddressListItem>(query, (client, ct)
+                => client.ListShippingAddressesListItemsAsync(query, cancellationToken: ct)));
 
         return builder;
     }
@@ -45,9 +40,9 @@ public static class AccountApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(2);
 
-        group.MapGet("/accounts-details", ([AsParameters] Requests.ListAccountsDetails request)
-            => ApplicationApi.ListAsync<AccountService.AccountServiceClient, AccountDetails>(request, (client, ct)
-                => client.ListAccountsDetailsAsync(request, cancellationToken: ct)));
+        group.MapGet("/accounts-details", ([AsParameters] Queries.ListAccountsDetails query)
+            => ApplicationApi.ListAsync<AccountService.AccountServiceClient, AccountDetails>(query, (client, ct)
+                => client.ListAccountsDetailsAsync(query, cancellationToken: ct)));
 
         return builder;
     }

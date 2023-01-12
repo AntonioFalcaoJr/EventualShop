@@ -1,6 +1,5 @@
 ﻿using Asp.Versioning.Builder;
-using Contracts.Services.Warehouse;
-using MassTransit;
+using Contracts.Services.Warehouse.Protobuf;
 using WebAPI.Abstractions;
 
 namespace WebAPI.APIs.Warehouses;
@@ -13,23 +12,25 @@ public static class WarehouseApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(1);
 
-        group.MapGet("/", (IBus bus, ushort limit, ushort offset, CancellationToken cancellationToken)
-            => ApplicationApi.GetPagedProjectionAsync<Query.GetInventories, Projection.Inventory>(bus, new(limit, offset), cancellationToken));
+        group.MapGet("/", ([AsParameters] Queries.ListInventoryGridItems query)
+            => ApplicationApi.ListAsync<WarehouseService.WarehouseServiceClient, InventoryGridItem>
+                (query, (client, ct) => client.ListInventoryGridItemsAsync(query, cancellationToken: ct)));
 
-        group.MapPost("/", ([AsParameters] Requests.CreateInventory request)
-            => ApplicationApi.SendCommandAsync<Command.CreateInventory>(request));
+        group.MapPost("/", ([AsParameters] Commands.CreateInventory createInventory)
+            => ApplicationApi.SendCommandAsync(createInventory));
 
-        group.MapGet("/{inventoryId:guid}/items", (IBus bus, Guid inventoryId, ushort? limit, ushort? offset, CancellationToken cancellationToken)
-            => ApplicationApi.GetPagedProjectionAsync<Query.GetInventoryItems, Projection.InventoryItem>(bus, new(inventoryId, limit ?? 0, offset ?? 0), cancellationToken));
+        group.MapGet("/{inventoryId:guid}/items", ([AsParameters] Queries.ListInventoryItemsListItems query)
+            => ApplicationApi.ListAsync<WarehouseService.WarehouseServiceClient, InventoryItemListItem>
+                (query, (client, ct) => client.ListInventoryItemsAsync(query, cancellationToken: ct)));
+        
+        group.MapPost("/{inventoryId:guid}/items", ([AsParameters] Commands.ReceiveInventoryItem receiveInventoryItem)
+            => ApplicationApi.SendCommandAsync(receiveInventoryItem));
 
-        group.MapPost("/{inventoryId:guid}/items", ([AsParameters] Requests.ReceiveInventoryItem request)
-            => ApplicationApi.SendCommandAsync<Command.ReceiveInventoryItem>(request));
+        group.MapPut("/{inventoryId:guid}/items/{itemId:guid}/increase-adjust", ([AsParameters] Commands.IncreaseInventoryAdjust increaseInventoryAdjust)
+            => ApplicationApi.SendCommandAsync(increaseInventoryAdjust));
 
-        group.MapPut("/{inventoryId:guid}/items/{itemId:guid}/increase-adjust", ([AsParameters] Requests.IncreaseInventoryAdjust request)
-            => ApplicationApi.SendCommandAsync<Command.IncreaseInventoryAdjust>(request));
-
-        group.MapPut("/{inventoryId:guid}/items/{itemId:guid}/decrease-adjust", ([AsParameters] Requests.DecreaseInventoryAdjust request)
-            => ApplicationApi.SendCommandAsync<Command.DecreaseInventoryAdjust>(request));
+        group.MapPut("/{inventoryId:guid}/items/{itemId:guid}/decrease-adjust", ([AsParameters] Commands.DecreaseInventoryAdjust decreaseInventoryAdjust)
+            => ApplicationApi.SendCommandAsync(decreaseInventoryAdjust));
 
         return builder;
     }
@@ -38,8 +39,9 @@ public static class WarehouseApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(2);
 
-        group.MapGet("/", (IBus bus, ushort limit, ushort offset, CancellationToken cancellationToken)
-            => ApplicationApi.GetPagedProjectionAsync<Query.GetInventories, Projection.Inventory>(bus, new(limit, offset), cancellationToken));
+        group.MapGet("/", ([AsParameters] Queries.ListInventoryGridItems query)
+            => ApplicationApi.ListAsync<WarehouseService.WarehouseServiceClient, InventoryGridItem>
+                (query, (client, ct) => client.ListInventoryGridItemsAsync(query, cancellationToken: ct)));
 
         return builder;
     }

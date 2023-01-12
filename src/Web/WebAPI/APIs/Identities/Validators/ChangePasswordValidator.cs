@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace WebAPI.APIs.Identities.Validators;
 
-public class ChangePasswordValidator : AbstractValidator<Requests.ChangePassword>
+public class ChangePasswordValidator : AbstractValidator<Commands.ChangePassword>
 {
     public ChangePasswordValidator()
     {

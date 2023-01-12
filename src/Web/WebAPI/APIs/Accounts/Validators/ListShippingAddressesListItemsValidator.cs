@@ -2,7 +2,7 @@
 
 namespace WebAPI.APIs.Accounts.Validators;
 
-public class ListShippingAddressesListItemsValidator : AbstractValidator<Requests.ListShippingAddressesListItems>
+public class ListShippingAddressesListItemsValidator : AbstractValidator<Queries.ListShippingAddressesListItems>
 {
     public ListShippingAddressesListItemsValidator()
     {

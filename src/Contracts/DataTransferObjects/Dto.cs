@@ -2,16 +2,16 @@
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 using CommunicationProtobuf = Contracts.Services.Communication.Protobuf;
+using ShoppingCartProtobuf = Contracts.Services.ShoppingCart.Protobuf;
 using CatalogProtobuf = Contracts.Services.Catalog.Protobuf;
-using AbstractionsProtobuf = Contracts.Abstractions.Protobuf;
 
 namespace Contracts.DataTransferObjects;
 
 public static class Dto
 {
-    public record Address(string Street, string City, string State, string ZipCode, string Country, int? Number, string? Complement)
+    public record struct Address(string Street, string City, string State, string ZipCode, string Country, int? Number, string? Complement)
     {
-        public static implicit operator AbstractionsProtobuf.Address(Address address)
+        public static implicit operator Abstractions.Protobuf.Address(Address address)
             => new()
             {
                 Street = address.Street,
@@ -26,58 +26,69 @@ public static class Dto
 
     public interface IPaymentOption { }
 
-    public record CreditCard(
-            [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
-            [property: BsonSerializer(typeof(ExpirationDateOnlyBsonSerializer))]
-            DateOnly Expiration, string Number, string HolderName, ushort SecurityNumber)
-        : IPaymentOption;
-
-    public record DebitCard(
-            [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
-            [property: BsonSerializer(typeof(ExpirationDateOnlyBsonSerializer))]
-            DateOnly Expiration, string Number, string HolderName, ushort SecurityNumber)
-        : IPaymentOption;
-
-    public record PayPal(string UserName, string Password) : IPaymentOption;
-
-    public record PaymentMethod(Guid Id, decimal Amount, IPaymentOption? Option);
-
-    public interface INotificationOption { }
-
-    public record struct NotificationMethod(Guid MethodId, INotificationOption Option)
+    public record struct CreditCard(
+        [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
+        [property: BsonSerializer(typeof(ExpirationDateOnlyBsonSerializer))]
+        DateOnly ExpirationDate, string Number, string HolderName, ushort SecurityCode) : IPaymentOption
     {
-        public static implicit operator CommunicationProtobuf.NotificationMethod(NotificationMethod method)
-            => method.Option switch
+        public static implicit operator Abstractions.Protobuf.CreditCard(CreditCard creditCard)
+            => new()
             {
-                Email email => new() { Email = email },
-                Sms sms => new() { Sms = sms },
-                PushMobile pushMobile => new() { PushMobile = pushMobile },
-                PushWeb pushWeb => new() { PushWeb = pushWeb },
-                _ => default
+                ExpirationDate = creditCard.ExpirationDate.ToShortDateString(),
+                Number = creditCard.Number,
+                HolderName = creditCard.HolderName,
+                SecurityCode = creditCard.SecurityCode
             };
     }
 
+    public record struct DebitCard(
+        [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
+        [property: BsonSerializer(typeof(ExpirationDateOnlyBsonSerializer))]
+        DateOnly ExpirationDate, string Number, string HolderName, ushort SecurityCode) : IPaymentOption
+    {
+        public static implicit operator Abstractions.Protobuf.DebitCard(DebitCard debitCard)
+            => new()
+            {
+                ExpirationDate = debitCard.ExpirationDate.ToShortDateString(),
+                Number = debitCard.Number,
+                HolderName = debitCard.HolderName,
+                SecurityCode = debitCard.SecurityCode
+            };
+    }
+
+    public record struct PayPal(string Email, string Password) : IPaymentOption
+    {
+        public static implicit operator Abstractions.Protobuf.PayPal(PayPal payPal)
+            => new() { Email = payPal.Email };
+    }
+
+    public record struct PaymentMethod(Guid Id, decimal Amount, IPaymentOption? Option);
+
+    public interface INotificationOption { }
+
+    public record struct NotificationMethod(Guid MethodId, INotificationOption Option);
+
     public record struct Email(string Address, string Subject, string Body) : INotificationOption
     {
-        public static implicit operator CommunicationProtobuf.Email(Email email)
+        public static implicit operator Abstractions.Protobuf.Email(Email email)
             => new() { Address = email.Address };
     }
 
     public record struct Sms(string Number, string Body) : INotificationOption
     {
-        public static implicit operator CommunicationProtobuf.Sms(Sms sms)
+        public static implicit operator Abstractions.Protobuf.Sms(Sms sms)
             => new() { Number = sms.Number };
     }
 
     public record struct PushWeb(Guid UserId, string Body) : INotificationOption
     {
-        public static implicit operator CommunicationProtobuf.PushWeb(PushWeb pushWeb)
+        public static implicit operator Abstractions.Protobuf.PushWeb(PushWeb pushWeb)
             => new() { UserId = pushWeb.UserId.ToString() };
     }
 
     public record struct PushMobile(Guid DeviceId, string Body) : INotificationOption
     {
-        public static implicit operator CommunicationProtobuf.PushMobile(PushMobile pushMobile)
+        public static implicit operator Abstractions.Protobuf.PushMobile(PushMobile pushMobile)
             => new() { DeviceId = pushMobile.DeviceId.ToString() };
     }
 

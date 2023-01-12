@@ -1,5 +1,4 @@
 ﻿using Asp.Versioning.Builder;
-using Contracts.Services.Catalog;
 using Contracts.Services.Catalog.Protobuf;
 using WebAPI.Abstractions;
 
@@ -13,45 +12,45 @@ public static class CatalogApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(1);
 
-        group.MapPost("/", ([AsParameters] Requests.CreateCatalog request)
-            => ApplicationApi.SendCommandAsync<Command.CreateCatalog>(request));
+        group.MapPost("/", ([AsParameters] Commands.CreateCatalog createCatalog)
+            => ApplicationApi.SendCommandAsync(createCatalog));
 
-        group.MapGet("/grid-items", ([AsParameters] Requests.ListCatalogsGridItems request)
+        group.MapGet("/grid-items", ([AsParameters] Queries.ListCatalogsGridItems query)
             => ApplicationApi.ListAsync<CatalogService.CatalogServiceClient, CatalogGridItem>
-                (request, (client, ct) => client.ListCatalogsGridItemsAsync(request, cancellationToken: ct)));
+                (query, (client, ct) => client.ListCatalogsGridItemsAsync(query, cancellationToken: ct)));
 
-        group.MapDelete("/{catalogId:guid}", ([AsParameters] Requests.DeleteCatalog request)
-            => ApplicationApi.SendCommandAsync<Command.DeleteCatalog>(request));
+        group.MapDelete("/{catalogId:guid}", ([AsParameters] Commands.DeleteCatalog deleteCatalog)
+            => ApplicationApi.SendCommandAsync(deleteCatalog));
 
-        group.MapPut("/{catalogId:guid}/activate", ([AsParameters] Requests.ActivateCatalog request)
-            => ApplicationApi.SendCommandAsync<Command.ActivateCatalog>(request));
+        group.MapPut("/{catalogId:guid}/activate", ([AsParameters] Commands.ActivateCatalog activateCatalog)
+            => ApplicationApi.SendCommandAsync(activateCatalog));
 
-        group.MapPut("/{catalogId:guid}/deactivate", ([AsParameters] Requests.DeactivateCatalog request)
-            => ApplicationApi.SendCommandAsync<Command.DeactivateCatalog>(request));
+        group.MapPut("/{catalogId:guid}/deactivate", ([AsParameters] Commands.DeactivateCatalog deactivateCatalog)
+            => ApplicationApi.SendCommandAsync(deactivateCatalog));
 
-        group.MapPut("/{catalogId:guid}/description", ([AsParameters] Requests.ChangeCatalogDescription request)
-            => ApplicationApi.SendCommandAsync<Command.ChangeCatalogDescription>(request));
+        group.MapPut("/{catalogId:guid}/description", ([AsParameters] Commands.ChangeCatalogDescription changeCatalogDescription)
+            => ApplicationApi.SendCommandAsync(changeCatalogDescription));
 
-        group.MapPut("/{catalogId:guid}/title", ([AsParameters] Requests.ChangeCatalogTitle request)
-            => ApplicationApi.SendCommandAsync<Command.ChangeCatalogTitle>(request));
+        group.MapPut("/{catalogId:guid}/title", ([AsParameters] Commands.ChangeCatalogTitle changeCatalogTitle)
+            => ApplicationApi.SendCommandAsync(changeCatalogTitle));
 
-        group.MapPost("/{catalogId:guid}/items", ([AsParameters] Requests.AddCatalogItem request)
-            => ApplicationApi.SendCommandAsync<Command.AddCatalogItem>(request));
+        group.MapPost("/{catalogId:guid}/items", ([AsParameters] Commands.AddCatalogItem addCatalogItem)
+            => ApplicationApi.SendCommandAsync(addCatalogItem));
 
-        group.MapGet("/{catalogId:guid}/items/list-items", ([AsParameters] Requests.ListCatalogItemsListItems request)
+        group.MapGet("/{catalogId:guid}/items/list-items", ([AsParameters] Queries.ListCatalogItemsListItems query)
             => ApplicationApi.ListAsync<CatalogService.CatalogServiceClient, CatalogItemListItem>
-                (request, (client, ct) => client.ListCatalogItemsListItemsAsync(request, cancellationToken: ct)));
+                (query, (client, ct) => client.ListCatalogItemsListItemsAsync(query, cancellationToken: ct)));
 
-        group.MapGet("/{catalogId:guid}/items/cards", ([AsParameters] Requests.ListCatalogItemsCards request)
+        group.MapGet("/{catalogId:guid}/items/cards", ([AsParameters] Queries.ListCatalogItemsCards query)
             => ApplicationApi.ListAsync<CatalogService.CatalogServiceClient, CatalogItemCard>
-                (request, (client, ct) => client.ListCatalogItemsCardsAsync(request, cancellationToken: ct)));
+                (query, (client, ct) => client.ListCatalogItemsCardsAsync(query, cancellationToken: ct)));
 
-        group.MapGet("/{catalogId:guid}/items/{itemId:guid}/details", ([AsParameters] Requests.GetCatalogItemDetails request)
+        group.MapGet("/{catalogId:guid}/items/{itemId:guid}/details", ([AsParameters] Queries.GetCatalogItemDetails query)
             => ApplicationApi.GetAsync<CatalogService.CatalogServiceClient, CatalogItemDetails>
-                (request, (client, ct) => client.GetCatalogItemDetailsAsync(request, cancellationToken: ct)));
+                (query, (client, ct) => client.GetCatalogItemDetailsAsync(query, cancellationToken: ct)));
 
-        group.MapDelete("/{catalogId:guid}/items/{itemId:guid}", ([AsParameters] Requests.RemoveCatalogItem request)
-            => ApplicationApi.SendCommandAsync<Command.RemoveCatalogItem>(request));
+        group.MapDelete("/{catalogId:guid}/items/{itemId:guid}", ([AsParameters] Commands.RemoveCatalogItem removeCatalogItem)
+            => ApplicationApi.SendCommandAsync(removeCatalogItem));
 
         return builder;
     }
@@ -60,9 +59,9 @@ public static class CatalogApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(2);
 
-        group.MapGet("/grid-items", ([AsParameters] Requests.ListCatalogsGridItems request)
+        group.MapGet("/grid-items", ([AsParameters] Queries.ListCatalogsGridItems query)
             => ApplicationApi.ListAsync<CatalogService.CatalogServiceClient, CatalogGridItem>
-                (request, (client, ct) => client.ListCatalogsGridItemsAsync(request, cancellationToken: ct)));
+                (query, (client, ct) => client.ListCatalogsGridItemsAsync(query, cancellationToken: ct)));
 
         return builder;
     }

@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace WebAPI.APIs.Identities.Validators;
 
-public class ConfirmEmailValidator : AbstractValidator<Requests.ConfirmEmail>
+public class ConfirmEmailValidator : AbstractValidator<Commands.ConfirmEmail>
 {
     public ConfirmEmailValidator()
     {

@@ -20,5 +20,7 @@
         <Protobuf Include="Services\Communication\Communication.proto" GrpcServices="Both"/>
         <Protobuf Include="Services\Identity\Identity.proto" GrpcServices="Both"/>
         <Protobuf Include="Services\Order\Order.proto" GrpcServices="Both"/>
+        <Protobuf Include="Services\Warehouse\Warehouse.proto" GrpcServices="Both"/>
+        <Protobuf Include="Services\ShoppingCart\ShoppingCart.proto" GrpcServices="Both"/>
     </ItemGroup>
 </Project>
