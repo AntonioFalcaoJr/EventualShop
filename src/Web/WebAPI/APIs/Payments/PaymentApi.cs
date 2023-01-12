@@ -1,4 +1,8 @@
 ﻿using Asp.Versioning.Builder;
+using Contracts.Services.Payment;
+using Contracts.Services.Payment.Protobuf;
+using MassTransit;
+using WebAPI.Abstractions;
 
 namespace WebAPI.APIs.Payments;
 
@@ -10,9 +14,10 @@ public static class PaymentApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(1);
 
-        // group.MapGet("/{paymentId:guid}", (IBus bus, [NotEmpty] Guid paymentId, CancellationToken cancellationToken)
-        //     => ApplicationApi.GetProjectionAsync<Query.GetPayment, Projection.Payment>(bus, new(paymentId), cancellationToken));
-
+        group.MapGet("/{paymentId:guid}", ([AsParameters] Query.GetPayment query)
+            => ApplicationApi.GetAsync<PaymentService.PaymentServiceClient, Payment>
+                (query, (client, ct) => client.GetPaymentAsync(query, cancellationToken: ct)));    
+        
         return builder;
     }
 
@@ -20,8 +25,9 @@ public static class PaymentApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(2);
 
-        // group.MapGet("/{paymentId:guid}", (IBus bus, [NotEmpty] Guid paymentId, CancellationToken cancellationToken)
-        //     => ApplicationApi.GetProjectionAsync<Query.GetPayment, Projection.Payment>(bus, new(paymentId), cancellationToken));
+        group.MapGet("/{paymentId:guid}", ([AsParameters] Query.GetPayment query)
+            => ApplicationApi.GetAsync<PaymentService.PaymentServiceClient, Payment>
+                (query, (client, ct) => client.GetPaymentAsync(query, cancellationToken: ct)));   
 
         return builder;
     }
