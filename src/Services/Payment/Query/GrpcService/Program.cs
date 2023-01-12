@@ -62,7 +62,7 @@ var app = builder.Build();
 
 app.UseCors();
 app.UseSerilogRequestLogging();
-app.MapGrpcService<CatalogGrpcService>();
+app.MapGrpcService<PaymentGrpcService>();
 
 try
 {

@@ -83,6 +83,14 @@ message DebitCard{
   sint32 SecurityCode = 4;
 }
 
+message PaymentMethod {
+  string Id = 1;
+  double Amount = 2;
+  PaymentOption PaymentOption = 3;
+  string PaymentId = 4;
+  string Status = 5;
+}
+
 message PayPal{
   string Email = 1;
 }
