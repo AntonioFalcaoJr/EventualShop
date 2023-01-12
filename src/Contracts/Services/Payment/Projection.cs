@@ -19,7 +19,7 @@ public static class Projection
             };
     }
 
-    public record PaymentMethod(Guid Id, Guid PaymentId, decimal Amount, Dto.IPaymentOption? Option, string Status,
+    public record PaymentMethod(Guid Id, Guid PaymentId, decimal Amount, Dto.IPaymentOption Option, string Status,
         bool IsDeleted) : IProjection
     {
         public static implicit operator Abstractions.Protobuf.PaymentMethod(PaymentMethod paymentMethod)
@@ -29,6 +29,13 @@ public static class Projection
                 Id = paymentMethod.Id.ToString(),
                 PaymentId = paymentMethod.Id.ToString(),
                 Status = paymentMethod.Status,
+                PaymentOption = paymentMethod.Option switch
+                {
+                    Dto.CreditCard creditCard => new() { CreditCard = creditCard },
+                    Dto.DebitCard debitCard => new() { DebitCard = debitCard },
+                    Dto.PayPal payPal => new() { PayPal = payPal },
+                    _ => default
+                }
             };
     }
 }
