@@ -8,7 +8,7 @@ namespace WebAPI.APIs.Identities;
 public static class Commands
 {
     public record RegisterUser(IBus Bus, Payloads.SignUp Payload, CancellationToken CancellationToken)
-        : Validatable<SignUpValidator>, ICommand<Command.RegisterUser>
+        : Validatable<RegisterUserValidator>, ICommand<Command.RegisterUser>
     {
         public Command.RegisterUser Command
             => new(Guid.NewGuid(), Payload.FirstName, Payload.LastName, Payload.Email, Payload.Password);

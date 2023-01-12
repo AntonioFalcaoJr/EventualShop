@@ -2,9 +2,9 @@ using FluentValidation;
 
 namespace WebAPI.APIs.Identities.Validators;
 
-public class SignUpValidator : AbstractValidator<Commands.RegisterUser>
+public class RegisterUserValidator : AbstractValidator<Commands.RegisterUser>
 {
-    public SignUpValidator()
+    public RegisterUserValidator()
     {
         RuleFor(request => request.Payload)
             .SetValidator(new SignUpPayloadValidator())
