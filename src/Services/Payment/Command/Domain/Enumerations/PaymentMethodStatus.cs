@@ -30,7 +30,7 @@ public class PaymentMethodStatus : SmartEnum<PaymentMethodStatus>
         => status.Value;
 
 
-    public class AuthorizedMethodStatus : PaymentMethodStatus
+    public class AuthorizedStatus : PaymentMethodStatus
     {
         public AuthorizedMethodStatus() : base(nameof(Authorized), 1) { }
     }
