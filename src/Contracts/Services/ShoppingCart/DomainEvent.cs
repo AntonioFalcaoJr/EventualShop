@@ -21,7 +21,11 @@ public static class DomainEvent
 
     public record BillingAddressAdded(Guid CartId, Dto.Address Address) : Message, IEvent;
 
-    public record PaymentMethodAdded(Guid CartId, Guid MethodId, decimal Amount, Dto.IPaymentOption? Option) : Message, IEvent;
-
     public record CartDiscarded(Guid CartId, string Status) : Message, IEvent;
+
+    public record CreditCardAdded(Guid CartId, Guid MethodId, decimal Amount, Dto.CreditCard CreditCard) : Message, IEvent;
+
+    public record DebitCardAdded(Guid CartId, Guid MethodId, decimal Amount, Dto.DebitCard DebitCard) : Message, IEvent;
+
+    public record PayPalAdded(Guid CartId, Guid MethodId, decimal Amount, Dto.PayPal PayPal) : Message, IEvent;
 }
