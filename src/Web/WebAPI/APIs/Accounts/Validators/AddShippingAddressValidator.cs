@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace WebAPI.APIs.Accounts.Validators;
 
-public class AddShippingAddressValidator : AbstractValidator<Requests.AddShippingAddress>
+public class AddShippingAddressValidator : AbstractValidator<Commands.AddShippingAddress>
 {
     public AddShippingAddressValidator()
     {

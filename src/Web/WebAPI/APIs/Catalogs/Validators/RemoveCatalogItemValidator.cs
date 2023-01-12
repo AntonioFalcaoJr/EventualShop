@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace WebAPI.APIs.Catalogs.Validators;
 
-public class RemoveCatalogItemValidator : AbstractValidator<Requests.RemoveCatalogItem>
+public class RemoveCatalogItemValidator : AbstractValidator<Commands.RemoveCatalogItem>
 {
     public RemoveCatalogItemValidator()
     {

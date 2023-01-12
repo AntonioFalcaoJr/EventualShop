@@ -1,5 +1,4 @@
 ﻿using Asp.Versioning.Builder;
-using Contracts.Services.Order;
 using WebAPI.Abstractions;
 
 namespace WebAPI.APIs.Orders;
@@ -12,8 +11,8 @@ public static class OrderApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(1);
 
-        group.MapPut("/{orderId:guid}/cancel", ([AsParameters] Requests.CancelOrder request)
-            => ApplicationApi.SendCommandAsync<Command.CancelOrder>(request));
+        group.MapPut("/{orderId:guid}/cancel", ([AsParameters] Commands.CancelOrder cancelOrder)
+            => ApplicationApi.SendCommandAsync(cancelOrder));
 
         return builder;
     }
@@ -22,8 +21,8 @@ public static class OrderApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(2);
 
-        group.MapPut("/{orderId:guid}/cancel", ([AsParameters] Requests.CancelOrder request)
-            => ApplicationApi.SendCommandAsync<Command.CancelOrder>(request));
+        group.MapPut("/{orderId:guid}/cancel", ([AsParameters] Commands.CancelOrder cancelOrder)
+            => ApplicationApi.SendCommandAsync(cancelOrder));
 
         return builder;
     }

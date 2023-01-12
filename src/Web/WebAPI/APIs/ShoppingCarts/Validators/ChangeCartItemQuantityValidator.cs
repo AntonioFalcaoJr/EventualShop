@@ -2,7 +2,7 @@
 
 namespace WebAPI.APIs.ShoppingCarts.Validators;
 
-public class ChangeCartItemQuantityValidator : AbstractValidator<Requests.ChangeCartItemQuantity>
+public class ChangeCartItemQuantityValidator : AbstractValidator<Commands.ChangeCartItemQuantity>
 {
     public ChangeCartItemQuantityValidator()
     {

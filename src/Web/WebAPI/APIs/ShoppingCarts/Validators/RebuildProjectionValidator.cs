@@ -2,7 +2,7 @@
 
 namespace WebAPI.APIs.ShoppingCarts.Validators;
 
-public class RebuildProjectionValidator : AbstractValidator<Requests.RebuildProjection>
+public class RebuildProjectionValidator : AbstractValidator<Commands.RebuildProjection>
 {
     public RebuildProjectionValidator()
     {

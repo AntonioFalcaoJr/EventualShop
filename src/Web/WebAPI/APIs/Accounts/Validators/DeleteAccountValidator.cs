@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace WebAPI.APIs.Accounts.Validators;
 
-public class DeleteAccountValidator : AbstractValidator<Requests.DeleteAccount>
+public class DeleteAccountValidator : AbstractValidator<Commands.DeleteAccount>
 {
     public DeleteAccountValidator()
     {

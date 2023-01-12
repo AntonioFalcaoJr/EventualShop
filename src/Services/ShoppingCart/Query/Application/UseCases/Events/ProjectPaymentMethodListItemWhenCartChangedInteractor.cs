@@ -4,7 +4,9 @@ using Contracts.Services.ShoppingCart;
 namespace Application.UseCases.Events;
 
 public interface IProjectPaymentMethodListItemWhenCartChangedInteractor :
-    IInteractor<DomainEvent.PaymentMethodAdded>,
+    IInteractor<DomainEvent.CreditCardAdded>,
+    IInteractor<DomainEvent.DebitCardAdded>,
+    IInteractor<DomainEvent.PayPalAdded>,
     IInteractor<DomainEvent.CartDiscarded> { }
 
 public class ProjectPaymentMethodListItemWhenCartChangedInteractor : IProjectPaymentMethodListItemWhenCartChangedInteractor
@@ -16,13 +18,37 @@ public class ProjectPaymentMethodListItemWhenCartChangedInteractor : IProjectPay
         _projectionGateway = projectionGateway;
     }
 
-    public Task InteractAsync(DomainEvent.PaymentMethodAdded @event, CancellationToken cancellationToken)
+    public Task InteractAsync(DomainEvent.CreditCardAdded @event, CancellationToken cancellationToken)
     {
         Projection.PaymentMethodListItem creditCard = new(
             @event.MethodId,
             @event.CartId,
             @event.Amount,
-            @event.Option?.ToString()!, // TODO - It's temporary
+            @event.CreditCard.GetType().Name, // TODO - It's temporary
+            false);
+
+        return _projectionGateway.UpsertAsync(creditCard, cancellationToken);
+    }
+    
+    public Task InteractAsync(DomainEvent.DebitCardAdded @event, CancellationToken cancellationToken)
+    {
+        Projection.PaymentMethodListItem creditCard = new(
+            @event.MethodId,
+            @event.CartId,
+            @event.Amount,
+            @event.DebitCard.GetType().Name, // TODO - It's temporary
+            false);
+
+        return _projectionGateway.UpsertAsync(creditCard, cancellationToken);
+    }
+    
+    public Task InteractAsync(DomainEvent.PayPalAdded @event, CancellationToken cancellationToken)
+    {
+        Projection.PaymentMethodListItem creditCard = new(
+            @event.MethodId,
+            @event.CartId,
+            @event.Amount,
+            @event.PayPal.GetType().Name, // TODO - It's temporary
             false);
 
         return _projectionGateway.UpsertAsync(creditCard, cancellationToken);
