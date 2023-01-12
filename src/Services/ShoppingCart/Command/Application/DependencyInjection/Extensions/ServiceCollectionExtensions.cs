@@ -16,7 +16,9 @@ public static class ServiceCollectionExtensions
         => services
             .AddScoped<IInteractor<Command.AddBillingAddress>, AddBillingAddressInteractor>()
             .AddScoped<IInteractor<Command.AddCartItem>, AddCartItemInteractor>()
-            .AddScoped<IInteractor<Command.AddPaymentMethod>, AddPaymentMethodInteractor>()
+            .AddScoped<IInteractor<Command.AddCreditCard>, AddCreditCardInteractor>()
+            .AddScoped<IInteractor<Command.AddDebitCard>, AddDebitCardInteractor>()
+            .AddScoped<IInteractor<Command.AddPayPal>, AddPayPalInteractor>()
             .AddScoped<IInteractor<Command.AddShippingAddress>, AddShippingAddressInteractor>()
             .AddScoped<IInteractor<Command.ChangeCartItemQuantity>, ChangeCartItemQuantityInteractor>()
             .AddScoped<IInteractor<Command.CheckOutCart>, CheckOutCartInteractor>()

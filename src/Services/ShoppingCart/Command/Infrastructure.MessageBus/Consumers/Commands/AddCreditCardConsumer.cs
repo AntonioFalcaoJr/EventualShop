@@ -4,8 +4,8 @@ using Infrastructure.MessageBus.Abstractions;
 
 namespace Infrastructure.MessageBus.Consumers.Commands;
 
-public class AddPaymentMethodConsumer : Consumer<Command.AddPaymentMethod>
+public class AddCreditCardConsumer : Consumer<Command.AddCreditCard>
 {
-    public AddPaymentMethodConsumer(IInteractor<Command.AddPaymentMethod> interactor)
+    public AddCreditCardConsumer(IInteractor<Command.AddCreditCard> interactor)
         : base(interactor) { }
 }

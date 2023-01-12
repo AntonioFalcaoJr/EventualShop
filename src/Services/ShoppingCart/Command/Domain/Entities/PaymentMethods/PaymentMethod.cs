@@ -20,20 +20,20 @@ public class PaymentMethod : Entity<PaymentMethodValidator>
     public IPaymentOption? Option { get; }
 
     public static implicit operator PaymentMethod(Dto.PaymentMethod method)
-        => new(method.Id, method.Amount, method.Option switch
+        => new(method.MethodId, method.Amount, method.Option switch
         {
-            Dto.CreditCard creditCard => (CreditCard) creditCard,
-            Dto.DebitCard debitCard => (DebitCard) debitCard,
-            Dto.PayPal payPal => (PayPal) payPal,
+            Dto.CreditCard creditCard => (CreditCard)creditCard,
+            Dto.DebitCard debitCard => (DebitCard)debitCard,
+            Dto.PayPal payPal => (PayPal)payPal,
             _ => default
         });
 
     public static implicit operator Dto.PaymentMethod(PaymentMethod method)
         => new(method.Id, method.Amount, method.Option switch
         {
-            CreditCard creditCard => (Dto.CreditCard) creditCard,
-            DebitCard debitCard => (Dto.DebitCard) debitCard,
-            PayPal payPal => (Dto.PayPal) payPal,
+            CreditCard creditCard => (Dto.CreditCard)creditCard,
+            DebitCard debitCard => (Dto.DebitCard)debitCard,
+            PayPal payPal => (Dto.PayPal)payPal,
             _ => default
         });
 };
