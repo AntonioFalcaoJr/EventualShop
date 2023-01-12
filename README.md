@@ -30,9 +30,9 @@
 
 </td></tr></table>
 
-<div align="center">:warning: <sub>Work in Progress (WIP)</sub></div>
-
-## About
+<div align="center"> :construction: <sub>Work in Progress (WIP)</sub></div>
+ 
+## :bulb: About
 
 The main objective of this **cloud-native** project is to represent the **state of the art** of a **distributed**, **reliable**, and **highly scalable** system by interpreting the most relevant
 principles of **Reactive Domain Driven Design**.
@@ -60,16 +60,16 @@ As a Domain-centric approach, **Clean architecture** provides the appropriate is
 > State transitions are an important part of our problem space and should be modelled within our domain.   
 > -- <cite> Greg Young </cite>
 
-### Give a Star! :star:
+### :star: Give a Star! 
 
 If this project helped you in some way, please **give it a star**. Thanks!
 
-## The Solution Architecture
+## :classical_building: The Solution Architecture
 
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/solution_architecture.png)    
 Fig. 1: Falcão Jr., Antônio. _An EDA solution architecture_.
 
-## Research
+## :mag_right: Research
 
 <details>
     <summary> Agnostic Obsession </summary>
@@ -773,7 +773,7 @@ user-friendly than more general-purpose UIs.
 
 </details>
 
-## Performance
+## :rocket: Performance
 
 <details>
     <summary>Async Projections</summary>
@@ -865,7 +865,7 @@ More details in [snapshot](#snapshot) section.
 
 </details>
 
-## Running
+## :computer: Running
 
 Projects may have different environments where the application runs: development, staging, production, etc. Usually, different environments should have different settings.
 
@@ -998,7 +998,7 @@ if (environment.IsDevelopment() || environment.IsStaging())
 
 </details>
 
-## Tests
+## :test_tube: Tests
 
 <details>
     <summary>Unit Tests</summary>
@@ -1041,7 +1041,7 @@ docker run --network=internal --name k6 --rm -i grafana/k6 run - <test.js
 
 </details>
 
-## References
+## :book: References
 
 - [Evans, Eric (2003), Domain-Driven Design: Tackling Complexity in the Heart of Software.](https://www.amazon.com/dp-0321125215/dp/0321125215/ref=mt_other?_encoding=UTF8&me=&qid=1641385448)
 - [Hohpe, Gregor (2003), Enterprise Integration Patterns: Designing, Building, and Deploying Messaging Solutions](https://www.enterpriseintegrationpatterns.com/)
@@ -1074,7 +1074,7 @@ docker run --network=internal --name k6 --rm -i grafana/k6 run - <test.js
 - [Event Sourcing: Projections - Kacper Gunia](https://domaincentric.net/blog/event-sourcing-projections)
 - [Advantages of the event-driven architecture pattern - Grace Jansen & Johanna Saladas](https://developer.ibm.com/articles/advantages-of-an-event-driven-architecture/)
 
-## Tech Stack
+## :toolbox: Tech Stack
 
 ### Worker Services
 
