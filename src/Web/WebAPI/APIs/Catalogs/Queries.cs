@@ -4,7 +4,7 @@ using WebAPI.APIs.Catalogs.Validators;
 
 namespace WebAPI.APIs.Catalogs;
 
-public static class Query
+public static class Queries
 {
     public record ListCatalogsGridItems(CatalogService.CatalogServiceClient Client, int? Limit, int? Offset, CancellationToken CancellationToken)
         : Validatable<ListCatalogsGridItemsValidator>, IQuery<CatalogService.CatalogServiceClient>
