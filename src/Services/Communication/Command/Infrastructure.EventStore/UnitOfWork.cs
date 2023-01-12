@@ -3,7 +3,7 @@ using Infrastructure.EventStore.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace Infrastructure.EventStore.UnitsOfWork;
+namespace Infrastructure.EventStore;
 
 public class UnitOfWork : IUnitOfWork
 {
