@@ -9,13 +9,13 @@ public class PaymentMethodStatus : SmartEnum<PaymentMethodStatus>
     private PaymentMethodStatus(string name, int value)
         : base(name, value) { }
 
-    public static readonly PaymentMethodStatus Authorized = new AuthorizedMethodStatus();
-    public static readonly PaymentMethodStatus Canceled = new CanceledMethodStatus();
-    public static readonly PaymentMethodStatus CancellationDenied = new CancellationDeniedMethodStatus();
-    public static readonly PaymentMethodStatus Denied = new DeniedMethodStatus();
-    public static readonly PaymentMethodStatus Ready = new ReadyMethodStatus();
-    public static readonly PaymentMethodStatus RefundDenied = new RefundDeniedMethodtatus();
-    public static readonly PaymentMethodStatus Refunded = new RefundedMethodtatus();
+    public static readonly PaymentMethodStatus Authorized = new AuthorizedStatus();
+    public static readonly PaymentMethodStatus Canceled = new CanceledStatus();
+    public static readonly PaymentMethodStatus CancellationDenied = new CancellationDeniedStatus();
+    public static readonly PaymentMethodStatus Denied = new DeniedStatus();
+    public static readonly PaymentMethodStatus Ready = new ReadyStatus();
+    public static readonly PaymentMethodStatus RefundDenied = new RefundDeniedStatus();
+    public static readonly PaymentMethodStatus Refunded = new RefundedStatus();
 
     public static implicit operator PaymentMethodStatus(string name)
         => FromName(name);
@@ -32,36 +32,36 @@ public class PaymentMethodStatus : SmartEnum<PaymentMethodStatus>
 
     public class AuthorizedStatus : PaymentMethodStatus
     {
-        public AuthorizedMethodStatus() : base(nameof(Authorized), 1) { }
+        public AuthorizedStatus() : base(nameof(Authorized), 1) { }
     }
     
     public class CanceledStatus : PaymentMethodStatus
     {
-        public CanceledMethodStatus() : base(nameof(Canceled), 2) { }
+        public CanceledStatus() : base(nameof(Canceled), 2) { }
     }
     
     public class CancellationDeniedStatus : PaymentMethodStatus
     {
-        public CancellationDeniedMethodStatus() : base(nameof(CancellationDenied), 3) { }
+        public CancellationDeniedStatus() : base(nameof(CancellationDenied), 3) { }
     }
     
     public class DeniedStatus : PaymentMethodStatus
     {
-        public DeniedMethodStatus() : base(nameof(Denied), 4) { }
+        public DeniedStatus() : base(nameof(Denied), 4) { }
     }
     
     public class ReadyStatus : PaymentMethodStatus
     {
-        public ReadyMethodStatus() : base(nameof(Ready), 5) { }
+        public ReadyStatus() : base(nameof(Ready), 5) { }
     }
     
     public class RefundDeniedStatus : PaymentMethodStatus
     {
-        public RefundDeniedMethodtatus() : base(nameof(RefundDenied), 6) { }
+        public RefundDeniedStatus() : base(nameof(RefundDenied), 6) { }
     }
     
     public class RefundedStatus : PaymentMethodStatus
     {
-        public RefundedMethodtatus() : base(nameof(Refunded), 7) { }
+        public RefundedStatus() : base(nameof(Refunded), 7) { }
     }
 }
