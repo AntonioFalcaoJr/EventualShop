@@ -2,7 +2,7 @@
 
 namespace Contracts.Services.Identity.Validators;
 
-public class RegisterUserValidator : AbstractValidator<Command.RegisterUser>
+public class RegisterUserValidator : AbstractValidator<Command.SignUp>
 {
     public RegisterUserValidator()
     {
