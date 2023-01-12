@@ -41,7 +41,6 @@ builder.Host.ConfigureServices((context, services) =>
                 .AllowAnyMethod()));
 
     services.AddGrpc();
-    services.AddLazyProvider();
     services.AddEventBus();
     services.AddEventInteractors();
     services.AddMessageValidators();
