@@ -60,7 +60,7 @@ public class PaymentMethodStatus : SmartEnum<PaymentMethodStatus>
         public RefundDeniedMethodtatus() : base(nameof(RefundDenied), 6) { }
     }
     
-    public class RefundedMethodtatus : PaymentMethodStatus
+    public class RefundedStatus : PaymentMethodStatus
     {
         public RefundedMethodtatus() : base(nameof(Refunded), 7) { }
     }
