@@ -50,7 +50,7 @@ public class PaymentMethodStatus : SmartEnum<PaymentMethodStatus>
         public DeniedMethodStatus() : base(nameof(Denied), 4) { }
     }
     
-    public class ReadyMethodStatus : PaymentMethodStatus
+    public class ReadyStatus : PaymentMethodStatus
     {
         public ReadyMethodStatus() : base(nameof(Ready), 5) { }
     }
