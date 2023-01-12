@@ -2,7 +2,7 @@
 
 namespace WebAPI.APIs.Catalogs.Validators;
 
-public class ListCatalogItemsCardsValidator : AbstractValidator<Query.ListCatalogItemsCards>
+public class ListCatalogItemsCardsValidator : AbstractValidator<Queries.ListCatalogItemsCards>
 {
     public ListCatalogItemsCardsValidator()
     {
