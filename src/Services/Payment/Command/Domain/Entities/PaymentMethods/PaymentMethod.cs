@@ -42,7 +42,7 @@ public class PaymentMethod : Entity<PaymentMethodValidator>
         => Status = PaymentMethodStatus.RefundDenied;
 
     public static implicit operator PaymentMethod(Dto.PaymentMethod method)
-        => new(method.Id, method.Money, method.Option switch
+        => new(method.Id, method.Amount, method.Option switch
         {
             Dto.CreditCard creditCard => (CreditCard) creditCard,
             Dto.DebitCard debitCard => (DebitCard) debitCard,
