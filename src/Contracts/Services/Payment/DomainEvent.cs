@@ -5,7 +5,7 @@ namespace Contracts.Services.Payment;
 
 public static class DomainEvent
 {
-    public record PaymentRequested(Guid PaymentId, Guid OrderId, decimal Amount, Dto.Address BillingAddress, IEnumerable<Dto.PaymentMethod> PaymentMethods, string Status) : Message, IEvent;
+    public record PaymentRequested(Guid PaymentId, Guid OrderId, (decimal value, string symbol) Amount, Dto.Address BillingAddress, IEnumerable<Dto.PaymentMethod> PaymentMethods, string Status) : Message, IEvent;
 
     public record PaymentCanceled(Guid PaymentId, Guid OrderId) : Message, IEvent;
 

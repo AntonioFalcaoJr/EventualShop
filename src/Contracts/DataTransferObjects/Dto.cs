@@ -62,7 +62,7 @@ public static class Dto
             => new() { Email = payPal.Email };
     }
 
-    public record struct PaymentMethod(Guid Id, decimal Amount, IPaymentOption Option);
+    public record struct PaymentMethod(Guid Id, (decimal value, string symbol) Money, IPaymentOption Option);
 
     public interface INotificationOption { }
 
