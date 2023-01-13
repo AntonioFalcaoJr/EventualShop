@@ -4,6 +4,7 @@ using Domain.Enumerations;
 using Domain.ValueObjects.Addresses;
 using Contracts.Abstractions.Messages;
 using Contracts.Services.Payment;
+using Domain.ValueObjects;
 using Newtonsoft.Json;
 
 namespace Domain.Aggregates;
@@ -14,14 +15,15 @@ public class Payment : AggregateRoot<PaymentValidator>
     private readonly List<PaymentMethod> _methods = new();
 
     public Guid OrderId { get; private set; }
-    public decimal Amount { get; private set; }
+
+    public Money Amount { get; private set; }
     public PaymentStatus? Status { get; private set; }
     public Address? BillingAddress { get; private set; }
 
     public decimal AmountDue
         => _methods
             .Where(method => method.Status != PaymentMethodStatus.Authorized)
-            .Sum(method => method.Amount);
+            .Sum(method => method.Amount.Value);
 
     public IEnumerable<PaymentMethod> Methods
         => _methods.AsReadOnly();

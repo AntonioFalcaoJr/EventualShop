@@ -1,6 +1,7 @@
 ﻿using Contracts.DataTransferObjects;
 using Domain.Abstractions.Entities;
 using Domain.Enumerations;
+using Domain.ValueObjects;
 using Domain.ValueObjects.PaymentOptions;
 using Domain.ValueObjects.PaymentOptions.CreditCards;
 using Domain.ValueObjects.PaymentOptions.DebitCards;
@@ -10,7 +11,7 @@ namespace Domain.Entities.PaymentMethods;
 
 public class PaymentMethod : Entity<PaymentMethodValidator>
 {
-    public PaymentMethod(Guid id, decimal amount, IPaymentOption? option)
+    public PaymentMethod(Guid id, Money amount, IPaymentOption? option)
     {
         Id = id;
         Amount = amount;
@@ -18,7 +19,7 @@ public class PaymentMethod : Entity<PaymentMethodValidator>
         Status = PaymentMethodStatus.Ready;
     }
 
-    public decimal Amount { get; }
+    public Money Amount { get; }
     public IPaymentOption? Option { get; }
     public PaymentMethodStatus Status { get; private set; }
 
@@ -41,7 +42,7 @@ public class PaymentMethod : Entity<PaymentMethodValidator>
         => Status = PaymentMethodStatus.RefundDenied;
 
     public static implicit operator PaymentMethod(Dto.PaymentMethod method)
-        => new(method.Id, method.Amount, method.Option switch
+        => new(method.Id, method.Money, method.Option switch
         {
             Dto.CreditCard creditCard => (CreditCard) creditCard,
             Dto.DebitCard debitCard => (DebitCard) debitCard,
@@ -50,7 +51,7 @@ public class PaymentMethod : Entity<PaymentMethodValidator>
         });
 
     public static implicit operator Dto.PaymentMethod(PaymentMethod method)
-        => new(method.Id, method.Amount, method.Option switch
+        => new(method.Id, (method.Amount.Value, method.Amount.Currency.Name), method.Option switch
         {
             CreditCard creditCard => (Dto.CreditCard) creditCard,
             DebitCard debitCard => (Dto.DebitCard) debitCard,
