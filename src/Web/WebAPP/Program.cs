@@ -1,5 +1,6 @@
 using System.Reflection;
 using BlazorStrap;
+using CorrelationId.DependencyInjection;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Serilog;
@@ -26,6 +27,18 @@ builder.Configuration
 Log.Logger = new LoggerConfiguration().ReadFrom
     .Configuration(builder.Configuration)
     .CreateLogger();
+
+const string executionIdDescription = "CorrelationId";
+
+builder.Services.AddDefaultCorrelationId(
+    options =>
+    {
+        options.RequestHeader =
+            options.ResponseHeader =
+                options.LoggingScopeKey = executionIdDescription;
+        options.UpdateTraceIdentifier = true;
+        options.AddToLoggingScope = true;
+    });
 
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog();
