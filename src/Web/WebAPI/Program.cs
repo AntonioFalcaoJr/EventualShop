@@ -3,6 +3,8 @@ using System.Text.Json.Serialization;
 using Ardalis.SmartEnum.SystemTextJson;
 using Contracts.Enumerations;
 using Contracts.JsonConverters;
+using CorrelationId;
+using CorrelationId.DependencyInjection;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MassTransit;
@@ -22,6 +24,7 @@ using WebAPI.DependencyInjection.Extensions;
 using WebAPI.DependencyInjection.Options;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 builder.Host.UseDefaultServiceProvider((context, provider) =>
 {
@@ -55,6 +58,18 @@ builder.Host.ConfigureServices((context, services) =>
                 .AllowAnyHeader()
                 .AllowAnyMethod()));
 
+    const string executionIdDescription = "CorrelationId";
+
+    services.AddDefaultCorrelationId(
+        options =>
+        {
+            options.RequestHeader =
+                options.ResponseHeader =
+                    options.LoggingScopeKey = executionIdDescription;
+            options.UpdateTraceIdentifier = true;
+            options.AddToLoggingScope = true;
+        });
+    
     services
         .AddFluentValidationAutoValidation()
         .AddFluentValidationClientsideAdapters()
@@ -126,6 +141,7 @@ var app = builder.Build();
 if (builder.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 
+app.UseCorrelationId();
 app.UseCors();
 app.UseSerilogRequestLogging();
 

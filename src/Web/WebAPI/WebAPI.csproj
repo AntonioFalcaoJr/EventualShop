@@ -2,6 +2,7 @@
     <ItemGroup>
         <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="7.0.0" />
         <PackageReference Include="Asp.Versioning.Http" Version="7.0.0" />
+        <PackageReference Include="CorrelationId" Version="$(CorrelationId_Version)" />
         <PackageReference Include="FluentValidation" Version="$(FluentValidation_Version)" />
         <PackageReference Include="FluentValidation.AspNetCore" Version="$(FluentValidation_AspNetCore_Version)" />
         <PackageReference Include="Grpc.Net.Client" Version="$(Grpc_Net_Client_Version)" />

@@ -6,6 +6,7 @@ using Contracts.Services.Communication.Protobuf;
 using Contracts.Services.Identity.Protobuf;
 using Contracts.Services.ShoppingCart.Protobuf;
 using Contracts.Services.Warehouse.Protobuf;
+using CorrelationId.Abstractions;
 using Grpc.Core;
 using Grpc.Net.Client.Configuration;
 using MassTransit;
@@ -62,7 +63,8 @@ public static class ServiceCollectionExtensions
                 bus.ConfigureSend(pipe => pipe.AddPipeSpecification(
                     new DelegatePipeSpecification<SendContext<ICommand>>(sendContext =>
                     {
-                        sendContext.CorrelationId = Guid.NewGuid();
+                        var service = context.GetRequiredService<ICorrelationContextAccessor>();
+                        sendContext.CorrelationId = new (service.CorrelationContext.CorrelationId);
                     })));
             });
         });
