@@ -20,7 +20,7 @@ public class PaymentMethod : Entity<PaymentMethodValidator>
     public IPaymentOption? Option { get; }
 
     public static implicit operator PaymentMethod(Dto.PaymentMethod method)
-        => new(method.Id, method.Amount, method.Option switch
+        => new(method.Id, method.Amount.value, method.Option switch
         {
             Dto.CreditCard creditCard => (CreditCard) creditCard,
             Dto.DebitCard debitCard => (DebitCard) debitCard,
@@ -29,7 +29,7 @@ public class PaymentMethod : Entity<PaymentMethodValidator>
         });
 
     public static implicit operator Dto.PaymentMethod(PaymentMethod method)
-        => new(method.Id, method.Amount, method.Option switch
+        => new(method.Id, (method.Amount, "R$"), method.Option switch
         {
             CreditCard creditCard => (Dto.CreditCard) creditCard,
             DebitCard debitCard => (Dto.DebitCard) debitCard,

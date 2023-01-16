@@ -30,7 +30,7 @@ public class ProjectPaymentWhenChangedInteractor : IProjectPaymentWhenChangedInt
         Projection.Payment payment = new(
             @event.PaymentId,
             @event.OrderId,
-            @event.Amount,
+            @event.Amount.value,
             @event.BillingAddress,
             @event.PaymentMethods,
             @event.Status,

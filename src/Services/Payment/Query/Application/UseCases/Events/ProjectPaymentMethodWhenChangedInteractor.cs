@@ -28,7 +28,7 @@ public class ProjectPaymentMethodWhenChangedInteractor : IProjectPaymentMethodWh
             => new Projection.PaymentMethod(
                 method.Id,
                 @event.PaymentId,
-                method.Amount,
+                method.Amount.value,
                 method.Option,
                 PaymentMethodStatus.Ready,
                 false));
