@@ -1,4 +1,5 @@
-﻿using Contracts.JsonConverters;
+﻿using Contracts.Abstractions.Messages;
+using Contracts.JsonConverters;
 using Contracts.Services.Account.Protobuf;
 using Contracts.Services.Catalog.Protobuf;
 using Contracts.Services.Communication.Protobuf;
@@ -8,6 +9,7 @@ using Contracts.Services.Warehouse.Protobuf;
 using Grpc.Core;
 using Grpc.Net.Client.Configuration;
 using MassTransit;
+using MassTransit.Configuration;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using WebAPI.DependencyInjection.Options;
@@ -56,6 +58,12 @@ public static class ServiceCollectionExtensions
                 bus.ConnectConsumeObserver(new LoggingConsumeObserver());
                 bus.ConnectSendObserver(new LoggingSendObserver());
                 bus.ConfigureEndpoints(context);
+                
+                bus.ConfigureSend(pipe => pipe.AddPipeSpecification(
+                    new DelegatePipeSpecification<SendContext<ICommand>>(sendContext =>
+                    {
+                        sendContext.CorrelationId = Guid.NewGuid();
+                    })));
             });
         });
 
