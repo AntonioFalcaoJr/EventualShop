@@ -7,6 +7,7 @@ using Infrastructure.MessageBus.DependencyInjection.Options;
 using Infrastructure.MessageBus.PipeFilters;
 using Infrastructure.MessageBus.PipeObservers;
 using MassTransit;
+using MassTransit.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -40,7 +41,7 @@ public static class ServiceCollectionExtensions
                             retryLimit: options.RetryLimit,
                             initialInterval: options.InitialInterval,
                             intervalIncrement: options.IntervalIncrement));
-
+                    
                     bus.UseNewtonsoftJsonSerializer();
 
                     bus.ConfigureNewtonsoftJsonSerializer(settings =>
@@ -71,6 +72,12 @@ public static class ServiceCollectionExtensions
                     bus.ConnectSendObserver(new LoggingSendObserver());
                     bus.ConfigureEventReceiveEndpoints(context);
                     bus.ConfigureEndpoints(context);
+
+                    bus.ConfigurePublish(pipe => pipe.AddPipeSpecification(
+                        new DelegatePipeSpecification<PublishContext<IEvent>>(p =>
+                        {
+                            p.CorrelationId = p.InitiatorId;
+                        })));
                 });
             })
             .AddQuartz();

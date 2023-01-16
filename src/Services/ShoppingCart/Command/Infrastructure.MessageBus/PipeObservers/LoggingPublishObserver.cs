@@ -9,7 +9,8 @@ public class LoggingPublishObserver : IPublishObserver
         where T : class
     {
         await Task.Yield();
-        Log.Information("Publishing {Message} event from {Namespace}, CorrelationId: {CorrelationId}", typeof(T).Name, typeof(T).Namespace, context.CorrelationId);
+        Log.Information("Publishing {Message} event from {Namespace}, CorrelationId: {CorrelationId} InitiatorId: {InitiatorId} ConversationId: {ConversationId} ",
+            typeof(T).Name, typeof(T).Namespace, context.CorrelationId, context.InitiatorId, context.ConversationId);
     }
 
     public async Task PostPublish<T>(PublishContext<T> context)
