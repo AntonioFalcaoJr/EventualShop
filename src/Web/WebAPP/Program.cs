@@ -17,7 +17,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.ConfigureContainer(new DefaultServiceProviderFactory(new()
 {
     ValidateScopes = builder.HostEnvironment.IsDevelopment(),
-    ValidateOnBuild = true
+    ValidateOnBuild = builder.HostEnvironment.IsDevelopment()
 }));
 
 builder.Configuration
@@ -28,20 +28,17 @@ Log.Logger = new LoggerConfiguration().ReadFrom
     .Configuration(builder.Configuration)
     .CreateLogger();
 
-const string executionIdDescription = "CorrelationId";
-
-builder.Services.AddDefaultCorrelationId(
-    options =>
-    {
-        options.RequestHeader =
-            options.ResponseHeader =
-                options.LoggingScopeKey = executionIdDescription;
-        options.UpdateTraceIdentifier = true;
-        options.AddToLoggingScope = true;
-    });
-
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog();
+
+builder.Services.AddDefaultCorrelationId(options =>
+{
+    options.RequestHeader =
+        options.ResponseHeader =
+            options.LoggingScopeKey = "CorrelationId";
+    options.UpdateTraceIdentifier = true;
+    options.AddToLoggingScope = true;
+});
 
 builder.Services.AddECommerceHttpClient();
 builder.Services.AddBlazorStrap();

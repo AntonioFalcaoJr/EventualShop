@@ -72,12 +72,10 @@ public static class ServiceCollectionExtensions
                     bus.ConnectSendObserver(new LoggingSendObserver());
                     bus.ConfigureEventReceiveEndpoints(context);
                     bus.ConfigureEndpoints(context);
-                    
+
                     bus.ConfigurePublish(pipe => pipe.AddPipeSpecification(
-                        new DelegatePipeSpecification<PublishContext<IEvent>>(publishContext =>
-                        {
-                            publishContext.CorrelationId = publishContext.InitiatorId;
-                        })));
+                        new DelegatePipeSpecification<PublishContext<IEvent>>(ctx 
+                            => ctx.CorrelationId = ctx.InitiatorId)));
                 });
             })
             .AddQuartz();

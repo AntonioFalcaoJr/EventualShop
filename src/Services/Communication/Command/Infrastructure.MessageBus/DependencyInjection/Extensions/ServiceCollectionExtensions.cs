@@ -74,10 +74,8 @@ public static class ServiceCollectionExtensions
                     bus.ConfigureEndpoints(context);
                     
                     bus.ConfigurePublish(pipe => pipe.AddPipeSpecification(
-                        new DelegatePipeSpecification<PublishContext<IEvent>>(publishContext =>
-                        {
-                            publishContext.CorrelationId = publishContext.InitiatorId;
-                        })));
+                        new DelegatePipeSpecification<PublishContext<IEvent>>(ctx 
+                            => ctx.CorrelationId = ctx.InitiatorId)));
                 });
             })
             .AddQuartz();
