@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package Contracts.Services.Payment.Protobuf;
+
+import "Abstractions/Abstractions.proto";
+
+service PaymentService {
+  rpc GetPaymentDetails(GetPaymentDetailsRequest) returns (Abstractions.Protobuf.GetResponse);
+  rpc GetPaymentMethodDetails(GetPaymentMethodDetailsRequest) returns (Abstractions.Protobuf.GetResponse);
+  rpc ListPaymentMethodListItem(ListPaymentMethodListItemRequest) returns (Abstractions.Protobuf.ListResponse);
+}
+
+// Requests
+
+message GetPaymentDetailsRequest {
+  string PaymentId = 1;
+}
+
+message GetPaymentMethodDetailsRequest {
+  string PaymentId = 1;
+  string MethodId = 2;
+}
+
+message ListPaymentMethodListItemRequest {
+  string PaymentId = 1;
+  Abstractions.Protobuf.Paging Paging = 2;
+}
+
+// Projections
+
+message PaymentDetails {
+  string Id = 1;
+  string OrderId = 2;
+  string Amount = 3;
+  string Status = 4;
+}
+
+message PaymentMethodDetails {
+  string Id = 1;
+  string OrderId = 2;
+  string Amount = 3;
+  Abstractions.Protobuf.PaymentOption Option = 4;
+  string Status = 5;
+}
+
+message PaymentMethodListItem {
+  string Id = 1;
+  string OrderId = 2;
+  string Amount = 3;
+  string Option = 4;
+  string Status = 5;
+}
