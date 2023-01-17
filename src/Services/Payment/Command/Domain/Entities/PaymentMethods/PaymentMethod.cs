@@ -10,16 +10,16 @@ namespace Domain.Entities.PaymentMethods;
 
 public class PaymentMethod : Entity<PaymentMethodValidator>
 {
-    public PaymentMethod(Guid id, decimal amount, IPaymentOption? option)
+    public PaymentMethod(Guid id, decimal amount, IPaymentOption option)
     {
         Id = id;
         Amount = amount;
         Option = option;
-        Status = PaymentMethodStatus.Ready;
+        Status = PaymentMethodStatus.Pending;
     }
 
     public decimal Amount { get; }
-    public IPaymentOption? Option { get; }
+    public IPaymentOption Option { get; }
     public PaymentMethodStatus Status { get; private set; }
 
     public void Authorize()
@@ -29,7 +29,7 @@ public class PaymentMethod : Entity<PaymentMethodValidator>
         => Status = PaymentMethodStatus.Denied;
 
     public void Cancel()
-        => Status = PaymentMethodStatus.Canceled;
+        => Status = PaymentMethodStatus.Cancelled;
 
     public void DenyCancellation()
         => Status = PaymentMethodStatus.CancellationDenied;
@@ -43,18 +43,18 @@ public class PaymentMethod : Entity<PaymentMethodValidator>
     public static implicit operator PaymentMethod(Dto.PaymentMethod method)
         => new(method.Id, method.Amount, method.Option switch
         {
-            Dto.CreditCard creditCard => (CreditCard) creditCard,
-            Dto.DebitCard debitCard => (DebitCard) debitCard,
-            Dto.PayPal payPal => (PayPal) payPal,
-            _ => default
+            Dto.CreditCard creditCard => (CreditCard)creditCard,
+            Dto.DebitCard debitCard => (DebitCard)debitCard,
+            Dto.PayPal payPal => (PayPal)payPal,
+            _ => throw new NotImplementedException()
         });
 
     public static implicit operator Dto.PaymentMethod(PaymentMethod method)
         => new(method.Id, method.Amount, method.Option switch
         {
-            CreditCard creditCard => (Dto.CreditCard) creditCard,
-            DebitCard debitCard => (Dto.DebitCard) debitCard,
-            PayPal payPal => (Dto.PayPal) payPal,
-            _ => default
+            CreditCard creditCard => (Dto.CreditCard)creditCard,
+            DebitCard debitCard => (Dto.DebitCard)debitCard,
+            PayPal payPal => (Dto.PayPal)payPal,
+            _ => throw new NotImplementedException()
         });
 }
