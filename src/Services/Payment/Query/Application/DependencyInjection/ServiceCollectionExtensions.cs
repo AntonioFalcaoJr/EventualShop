@@ -10,10 +10,10 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddEventInteractors(this IServiceCollection services)
         => services
-            .AddScoped<IProjectPaymentMethodWhenChangedInteractor, ProjectPaymentMethodWhenChangedInteractor>()
+            .AddScoped<IProjectPaymentMethodDetailsWhenChangedInteractor, ProjectPaymentMethodDetailsWhenChangedInteractor>()
             .AddScoped<IProjectPaymentWhenChangedInteractor, ProjectPaymentWhenChangedInteractor>();
 
     public static IServiceCollection AddQueryInteractors(this IServiceCollection services)
         => services
-            .AddScoped<IInteractor<Query.GetPayment, Projection.Payment>, GetPaymentInteractor>();
+            .AddScoped<IInteractor<Query.GetPaymentDetails, Projection.PaymentDetails>, GetPaymentDetailsInteractor>();
 }
