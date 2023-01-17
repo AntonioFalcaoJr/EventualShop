@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using CorrelationId.HttpClient;
+using Microsoft.Extensions.Options;
 using Polly;
 using WebAPP.DependencyInjection.Options;
 using WebAPP.HttpClients;
@@ -12,6 +13,7 @@ public static class ServiceCollectionExtensions
     {
         services
             .AddHttpClient<ICatalogHttpClient, CatalogHttpClient>()
+            .AddCorrelationIdForwarding()
             .ConfigureHttpClient((provider, client) =>
             {
                 var options = provider.GetRequiredService<IOptionsSnapshot<ECommerceHttpClientOptions>>().Value;

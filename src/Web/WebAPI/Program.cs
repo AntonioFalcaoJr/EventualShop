@@ -3,6 +3,8 @@ using System.Text.Json.Serialization;
 using Ardalis.SmartEnum.SystemTextJson;
 using Contracts.Enumerations;
 using Contracts.JsonConverters;
+using CorrelationId;
+using CorrelationId.DependencyInjection;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MassTransit;
@@ -55,6 +57,15 @@ builder.Host.ConfigureServices((context, services) =>
                 .AllowAnyHeader()
                 .AllowAnyMethod()));
 
+    services.AddDefaultCorrelationId(options =>
+    {
+        options.RequestHeader =
+            options.ResponseHeader =
+                options.LoggingScopeKey = "CorrelationId";
+        options.UpdateTraceIdentifier = true;
+        options.AddToLoggingScope = true;
+    });
+
     services
         .AddFluentValidationAutoValidation()
         .AddFluentValidationClientsideAdapters()
@@ -105,13 +116,13 @@ builder.Host.ConfigureServices((context, services) =>
 
     services.ConfigureCatalogGrpcClientOptions(
         context.Configuration.GetSection(nameof(CatalogGrpcClientOptions)));
-    
+
     services.ConfigureWarehouseGrpcClientOptions(
         context.Configuration.GetSection(nameof(WarehouseGrpcClientOptions)));
-    
+
     services.ConfigureShoppingCartGrpcClientOptions(
         context.Configuration.GetSection(nameof(ShoppingCartGrpcClientOptions)));
-    
+
     services.ConfigurePaymentGrpcClientOptions(
         context.Configuration.GetSection(nameof(PaymentGrpcClientOptions)));
 
@@ -130,6 +141,7 @@ var app = builder.Build();
 if (builder.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 
+app.UseCorrelationId();
 app.UseCors();
 app.UseSerilogRequestLogging();
 

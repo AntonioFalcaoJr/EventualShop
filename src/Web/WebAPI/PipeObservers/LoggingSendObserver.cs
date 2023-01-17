@@ -23,6 +23,6 @@ public class LoggingSendObserver : ISendObserver
         where T : class
     {
         await Task.Yield();
-        Log.Error("Fault on sending message {Message} from {Namespace}, Error: {Error}, CorrelationId: {CorrelationId}", typeof(T).Name, typeof(T).Namespace, exception.Message, context.CorrelationId ?? new());
+        Log.Error("Fault on sending message {Message} from {Namespace}, Error: {Error}, CorrelationId: {CorrelationId}", typeof(T).Name, typeof(T).Namespace, exception.Message, context.CorrelationId);
     }
 }
