@@ -1,6 +1,5 @@
 ﻿using Application.Abstractions;
 using Contracts.Services.Payment;
-using Domain.Enumerations;
 
 namespace Application.UseCases.Events;
 
@@ -10,32 +9,29 @@ public interface IProjectPaymentWhenChangedInteractor :
 
 public class ProjectPaymentWhenChangedInteractor : IProjectPaymentWhenChangedInteractor
 {
-    private readonly IProjectionGateway<Projection.Payment> _projectionGateway;
+    private readonly IProjectionGateway<Projection.PaymentDetails> _projectionGateway;
 
-    public ProjectPaymentWhenChangedInteractor(IProjectionGateway<Projection.Payment> projectionGateway)
+    public ProjectPaymentWhenChangedInteractor(IProjectionGateway<Projection.PaymentDetails> projectionGateway)
     {
         _projectionGateway = projectionGateway;
     }
-
 
     public Task InteractAsync(DomainEvent.PaymentCanceled @event, CancellationToken cancellationToken)
         => _projectionGateway.UpdateFieldAsync(
             id: @event.PaymentId,
             field: payment => payment.Status,
-            value: PaymentStatus.Canceled.Name,
+            value: @event.Status,
             cancellationToken: cancellationToken);
 
     public Task InteractAsync(DomainEvent.PaymentRequested @event, CancellationToken cancellationToken)
     {
-        Projection.Payment payment = new(
+        Projection.PaymentDetails paymentDetails = new(
             @event.PaymentId,
             @event.OrderId,
             @event.Amount,
-            @event.BillingAddress,
-            @event.PaymentMethods,
             @event.Status,
             false);
 
-        return _projectionGateway.UpsertAsync(payment, cancellationToken);
+        return _projectionGateway.UpsertAsync(paymentDetails, cancellationToken);
     }
 }
