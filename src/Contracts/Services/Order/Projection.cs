@@ -15,7 +15,7 @@ public static class Projection
                 OrderId = order.Id.ToString(),
                 CustomerId = order.CustomerId.ToString(),
                 Total = order.Total.ToString(CultureInfo.InvariantCulture),
-                Status = order.Status,
+                Status = order.Status
             };
     }
 
@@ -27,7 +27,7 @@ public static class Projection
                 OrderId = order.Id.ToString(),
                 CustomerId = order.CustomerId.ToString(),
                 Total = order.Total.ToString(CultureInfo.InvariantCulture),
-                Status = order.Status,
+                Status = order.Status
             };
     }
 }

@@ -1,6 +1,5 @@
 using Contracts.DataTransferObjects;
 using Contracts.Services.ShoppingCart;
-using Contracts.Services.ShoppingCart.Protobuf;
 using MassTransit;
 using WebAPI.Abstractions;
 using WebAPI.APIs.ShoppingCarts.Validators;

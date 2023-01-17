@@ -3,6 +3,7 @@ using Contracts.Services.Account.Protobuf;
 using Contracts.Services.Catalog.Protobuf;
 using Contracts.Services.Communication.Protobuf;
 using Contracts.Services.Identity.Protobuf;
+using Contracts.Services.Payment.Protobuf;
 using Contracts.Services.ShoppingCart.Protobuf;
 using Contracts.Services.Warehouse.Protobuf;
 using Grpc.Core;
@@ -76,6 +77,9 @@ public static class ServiceCollectionExtensions
     
     public static void AddShoppingCartGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<ShoppingCartService.ShoppingCartServiceClient, ShoppingCartGrpcClientOptions>();
+    
+    public static void AddPaymentGrpcClient(this IServiceCollection services)
+        => services.AddGrpcClient<PaymentService.PaymentServiceClient, PaymentGrpcClientOptions>();
 
     private static void AddGrpcClient<TClient, TOptions>(this IServiceCollection services)
         where TClient : ClientBase
@@ -161,6 +165,13 @@ public static class ServiceCollectionExtensions
     public static OptionsBuilder<ShoppingCartGrpcClientOptions> ConfigureShoppingCartGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<ShoppingCartGrpcClientOptions>()
+            .Bind(section)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+    
+    public static OptionsBuilder<PaymentGrpcClientOptions> ConfigurePaymentGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
+        => services
+            .AddOptions<PaymentGrpcClientOptions>()
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();

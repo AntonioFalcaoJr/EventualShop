@@ -25,7 +25,7 @@ public static class ServiceCollectionExtensions
             return new(options.Host, options.Port)
             {
                 Credentials = new NetworkCredential(options.Username, options.Password),
-                EnableSsl = options.EnableSsl,
+                EnableSsl = options.EnableSsl
             };
         });
     
