@@ -4,7 +4,7 @@ using MassTransit;
 
 namespace Infrastructure.EventBus.Consumers.Events;
 
-public class ProjectPaymentMethodWhenChangedConsumer :
+public class ProjectPaymentMethodDetailsWhenChangedConsumer :
     IConsumer<DomainEvent.PaymentRequested>,
     IConsumer<DomainEvent.PaymentMethodAuthorized>,
     IConsumer<DomainEvent.PaymentMethodDenied>,
@@ -13,9 +13,9 @@ public class ProjectPaymentMethodWhenChangedConsumer :
     IConsumer<DomainEvent.PaymentMethodRefunded>,
     IConsumer<DomainEvent.PaymentMethodRefundDenied> 
 {
-    private readonly IProjectPaymentMethodWhenChangedInteractor _interactor;
+    private readonly IProjectPaymentMethodDetailsWhenChangedInteractor _interactor;
 
-    public ProjectPaymentMethodWhenChangedConsumer(IProjectPaymentMethodWhenChangedInteractor interactor)
+    public ProjectPaymentMethodDetailsWhenChangedConsumer(IProjectPaymentMethodDetailsWhenChangedInteractor interactor)
     {
         _interactor = interactor;
     }
