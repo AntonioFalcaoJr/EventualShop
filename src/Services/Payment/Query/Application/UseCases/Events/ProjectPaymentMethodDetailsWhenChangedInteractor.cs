@@ -4,7 +4,6 @@ using Contracts.Services.Payment;
 namespace Application.UseCases.Events;
 
 public interface IProjectPaymentMethodDetailsWhenChangedInteractor :
-    IInteractor<DomainEvent.PaymentRequested>,
     IInteractor<DomainEvent.PaymentMethodAuthorized>,
     IInteractor<DomainEvent.PaymentMethodDenied>,
     IInteractor<DomainEvent.PaymentMethodCanceled>,
@@ -19,22 +18,6 @@ public class ProjectPaymentMethodDetailsWhenChangedInteractor : IProjectPaymentM
     public ProjectPaymentMethodDetailsWhenChangedInteractor(IProjectionGateway<Projection.PaymentMethodDetails> projectionGateway)
     {
         _projectionGateway = projectionGateway;
-    }
-
-    public Task InteractAsync(DomainEvent.PaymentRequested @event, CancellationToken cancellationToken)
-    {
-        
-        // TODO: Fix nesting 
-        // var methods = @event.PaymentMethods.Select(method
-        //     => new Projection.PaymentMethodDetails(
-        //         method.Id,
-        //         @event.PaymentId,
-        //         method.Amount,
-        //         method.Option,
-        //         method.Status,
-        //         false));
-        //
-        // return _projectionGateway.UpsertManyAsync(methods, cancellationToken);
     }
 
     public Task InteractAsync(DomainEvent.PaymentMethodAuthorized @event, CancellationToken cancellationToken)

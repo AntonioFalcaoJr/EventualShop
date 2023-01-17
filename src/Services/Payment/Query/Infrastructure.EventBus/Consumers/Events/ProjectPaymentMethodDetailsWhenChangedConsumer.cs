@@ -5,7 +5,6 @@ using MassTransit;
 namespace Infrastructure.EventBus.Consumers.Events;
 
 public class ProjectPaymentMethodDetailsWhenChangedConsumer :
-    IConsumer<DomainEvent.PaymentRequested>,
     IConsumer<DomainEvent.PaymentMethodAuthorized>,
     IConsumer<DomainEvent.PaymentMethodDenied>,
     IConsumer<DomainEvent.PaymentMethodCanceled>,
@@ -19,9 +18,6 @@ public class ProjectPaymentMethodDetailsWhenChangedConsumer :
     {
         _interactor = interactor;
     }
-
-    public Task Consume(ConsumeContext<DomainEvent.PaymentRequested> context)
-        => _interactor.InteractAsync(context.Message, context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.PaymentMethodAuthorized> context)
         => _interactor.InteractAsync(context.Message, context.CancellationToken);
