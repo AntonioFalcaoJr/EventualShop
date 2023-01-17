@@ -15,21 +15,21 @@ COPY ./Directory.Build.props ./
 
 WORKDIR /src
 
-COPY ./src/Services/Catalog/Query/Application/*.csproj ./Services/Catalog/Query/Application/
-COPY ./src/Services/Catalog/Query/GrpcService/*.csproj ./Services/Catalog/Query/GrpcService/
-COPY ./src/Services/Catalog/Query/Infrastructure.EventBus/*.csproj ./Services/Catalog/Query/Infrastructure.EventBus/
-COPY ./src/Services/Catalog/Query/Infrastructure.Projections/*.csproj ./Services/Catalog/Query/Infrastructure.Projections/
+COPY ./src/Services/Payment/Query/Application/*.csproj ./Services/Payment/Query/Application/
+COPY ./src/Services/Payment/Query/GrpcService/*.csproj ./Services/Payment/Query/GrpcService/
+COPY ./src/Services/Payment/Query/Infrastructure.EventBus/*.csproj ./Services/Payment/Query/Infrastructure.EventBus/
+COPY ./src/Services/Payment/Query/Infrastructure.Projections/*.csproj ./Services/Payment/Query/Infrastructure.Projections/
 COPY ./src/Contracts/*.csproj ./Contracts/
 
-RUN dotnet restore -v m ./Services/Catalog/Query/GrpcService
+RUN dotnet restore -v m ./Services/Payment/Query/GrpcService
 
-COPY ./src/Services/Catalog/Query/Application/. ./Services/Catalog/Query/Application/
-COPY ./src/Services/Catalog/Query/GrpcService/. ./Services/Catalog/Query/GrpcService/
-COPY ./src/Services/Catalog/Query/Infrastructure.EventBus/. ./Services/Catalog/Query/Infrastructure.EventBus/
-COPY ./src/Services/Catalog/Query/Infrastructure.Projections/. ./Services/Catalog/Query/Infrastructure.Projections/
+COPY ./src/Services/Payment/Query/Application/. ./Services/Payment/Query/Application/
+COPY ./src/Services/Payment/Query/GrpcService/. ./Services/Payment/Query/GrpcService/
+COPY ./src/Services/Payment/Query/Infrastructure.EventBus/. ./Services/Payment/Query/Infrastructure.EventBus/
+COPY ./src/Services/Payment/Query/Infrastructure.Projections/. ./Services/Payment/Query/Infrastructure.Projections/
 COPY ./src/Contracts/. ./Contracts/
 
-WORKDIR /src/Services/Catalog/Query/GrpcService
+WORKDIR /src/Services/Payment/Query/GrpcService
 
 RUN dotnet build -c Release --no-restore -v m -o /app/build 
 
