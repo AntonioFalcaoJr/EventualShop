@@ -10,8 +10,6 @@
 
 <br>
 
-<table><tr><th>New Approach</th><th>Old Approach</th></tr><tr><td>
-
 | Service       |                                                                                                                                      Command Stack                                                                                                                                       |                                                                                                                                    Query Stack                                                                                                                                     | 
 |---------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 | Account       |          [![Account - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-command.yaml)          |          [![Account - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-query.yaml)          |
@@ -22,11 +20,6 @@
 | Warehouse     |       [![Warehouse - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse-command.yaml)       |       [![Warehouse - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse-query.yaml)       |
 | Shopping Cart | [![Shopping Cart - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart-command.yaml) | [![Shopping Cart - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart-query.yaml) |
 | Payment       |          [![Payment - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment-command.yaml)          |          [![Payment - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment-query.yaml)          |
-
-</td><td>
-
-
-</td></tr></table>
 
 <div align="center"> :construction: <sub>Work in Progress (WIP)</sub></div>
  
