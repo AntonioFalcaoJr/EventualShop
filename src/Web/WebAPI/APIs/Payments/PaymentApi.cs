@@ -1,4 +1,6 @@
 ﻿using Asp.Versioning.Builder;
+using Contracts.Services.Payment.Protobuf;
+using WebAPI.Abstractions;
 
 namespace WebAPI.APIs.Payments;
 
@@ -10,9 +12,18 @@ public static class PaymentApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(1);
 
-        // group.MapGet("/{paymentId:guid}", (IBus bus, [NotEmpty] Guid paymentId, CancellationToken cancellationToken)
-        //     => ApplicationApi.GetProjectionAsync<Query.GetPayment, Projection.Payment>(bus, new(paymentId), cancellationToken));
+        group.MapGet("/{paymentId:guid}/details", ([AsParameters] Queries.GetPaymentDetails query)
+            => ApplicationApi.GetAsync<PaymentService.PaymentServiceClient, PaymentDetails>
+                (query, (client, ct) => client.GetPaymentDetailsAsync(query, cancellationToken: ct)));
 
+        group.MapGet("/{paymentId:guid}/methods", ([AsParameters] Queries.ListPaymentMethodListItem query)
+            => ApplicationApi.ListAsync<PaymentService.PaymentServiceClient, PaymentDetails>
+                (query, (client, ct) => client.ListPaymentMethodListItemAsync(query, cancellationToken: ct)));
+
+        group.MapGet("/{paymentId:guid}/methods/{methodId:guid}", ([AsParameters] Queries.GetPaymentMethodDetails query)
+            => ApplicationApi.GetAsync<PaymentService.PaymentServiceClient, PaymentMethodDetails>
+                (query, (client, ct) => client.GetPaymentMethodDetailsAsync(query, cancellationToken: ct)));
+        
         return builder;
     }
 
@@ -20,8 +31,9 @@ public static class PaymentApi
     {
         var group = builder.MapGroup(BaseUrl).HasApiVersion(2);
 
-        // group.MapGet("/{paymentId:guid}", (IBus bus, [NotEmpty] Guid paymentId, CancellationToken cancellationToken)
-        //     => ApplicationApi.GetProjectionAsync<Query.GetPayment, Projection.Payment>(bus, new(paymentId), cancellationToken));
+        group.MapGet("/{paymentId:guid}", ([AsParameters] Queries.GetPaymentDetails query)
+            => ApplicationApi.GetAsync<PaymentService.PaymentServiceClient, PaymentDetails>
+                (query, (client, ct) => client.GetPaymentDetailsAsync(query, cancellationToken: ct)));
 
         return builder;
     }

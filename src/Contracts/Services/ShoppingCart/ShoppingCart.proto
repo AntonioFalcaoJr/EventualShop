@@ -45,7 +45,6 @@ message ListShoppingCartItemsListItemsRequest {
 
 //// Projections
 
-
 // Cart 
 message ShoppingCartDetails {
   string Id = 1;

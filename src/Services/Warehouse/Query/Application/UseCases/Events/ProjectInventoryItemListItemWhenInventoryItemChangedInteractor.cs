@@ -22,7 +22,7 @@ public class ProjectInventoryItemListItemWhenInventoryItemChangedInteractor : IP
         => await _projectionGateway.UpdateFieldAsync(
             id: @event.ItemId,
             field: item => item.Quantity,
-            value: @event.Quantity * -1,
+            value: @event.Quantity * -1, // TODO: This is a hack, should be fixed in the domain event
             cancellationToken: cancellationToken);
 
     public async Task InteractAsync(DomainEvent.InventoryAdjustmentIncreased @event,  CancellationToken cancellationToken)
@@ -34,9 +34,9 @@ public class ProjectInventoryItemListItemWhenInventoryItemChangedInteractor : IP
 
     public async Task InteractAsync(DomainEvent.InventoryItemIncreased @event,  CancellationToken cancellationToken)
         => await _projectionGateway.UpdateFieldAsync(
-            @id: @event.ItemId,
+            id: @event.ItemId,
             field: item => item.Quantity,
-            @value: @event.Quantity,
+            value: @event.Quantity,
             cancellationToken: cancellationToken);
 
     public async Task InteractAsync(DomainEvent.InventoryItemReceived @event,  CancellationToken cancellationToken)
@@ -49,6 +49,6 @@ public class ProjectInventoryItemListItemWhenInventoryItemChangedInteractor : IP
             @event.Sku,
             false);
 
-         await _projectionGateway.InsertAsync(inventoryItemListItem, cancellationToken);
+         await _projectionGateway.UpsertAsync(inventoryItemListItem, cancellationToken);
     }
 }

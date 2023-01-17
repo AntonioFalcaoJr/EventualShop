@@ -34,7 +34,7 @@ public class NotificationService : INotificationService
             {
                 NotificationMethodStatus.SentStatus => new Command.SendNotificationMethod(notification.Id, method.Id),
                 NotificationMethodStatus.CancelledStatus => new Command.CancelNotificationMethod(notification.Id, method.Id),
-                _ => new Command.FailNotificationMethod(notification.Id, method.Id),
+                _ => new Command.FailNotificationMethod(notification.Id, method.Id)
             });
         }
     }

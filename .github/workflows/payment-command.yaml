@@ -1,0 +1,16 @@
+name: Payment - Command
+run-name: Payment Command Workflow
+on:
+  push:
+    paths:
+      - src/Services/Payment/Command/**.cs
+      - src/Services/Payment/Command/**.csproj
+      - Directory.Build.props
+      - .github/workflows/payment-command.yaml
+jobs:
+  workflow:
+    uses: ./.github/workflows/_workflow.yaml
+    with:
+      path: src/Services/Payment/Command
+      project: WorkerService
+      test: test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests  

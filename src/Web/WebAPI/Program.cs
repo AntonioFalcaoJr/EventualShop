@@ -104,6 +104,7 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddCatalogGrpcClient();
     services.AddWarehouseGrpcClient();
     services.AddShoppingCartGrpcClient();
+    services.AddPaymentGrpcClient();
 
     services.ConfigureMessageBusOptions(
         context.Configuration.GetSection(nameof(MessageBusOptions)));
@@ -125,6 +126,9 @@ builder.Host.ConfigureServices((context, services) =>
     
     services.ConfigureShoppingCartGrpcClientOptions(
         context.Configuration.GetSection(nameof(ShoppingCartGrpcClientOptions)));
+    
+    services.ConfigurePaymentGrpcClientOptions(
+        context.Configuration.GetSection(nameof(PaymentGrpcClientOptions)));
 
     services.ConfigureMassTransitHostOptions(
         context.Configuration.GetSection(nameof(MassTransitHostOptions)));
