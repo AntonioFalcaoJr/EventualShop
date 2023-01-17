@@ -2,9 +2,9 @@
 
 namespace WebAPI.APIs.Payments.Validators;
 
-public class GetPaymentDetailsValidator : AbstractValidator<Queries.GetPaymentDetails>
+public class GetPaymentMethodDetailsValidator : AbstractValidator<Queries.GetPaymentMethodDetails>
 {
-    public GetPaymentDetailsValidator()
+    public GetPaymentMethodDetailsValidator()
     {
         RuleFor(request => request.PaymentId)
             .NotEmpty();
