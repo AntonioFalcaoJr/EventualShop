@@ -57,21 +57,21 @@ public static class Commands
             => new(CartId, Address);
     }
 
-    public record AddCreditCard(IBus Bus, Guid CartId, decimal Amount, Dto.CreditCard CreditCard, CancellationToken CancellationToken)
+    public record AddCreditCard(IBus Bus, Guid CartId, string Amount, Dto.CreditCard CreditCard, CancellationToken CancellationToken)
         : Validatable<AddCreditCardValidator>, ICommand<Command.AddCreditCard>
     {
         public Command.AddCreditCard Command
             => new(CartId, Amount, CreditCard);
     }
 
-    public record AddDebitCard(IBus Bus, Guid CartId, decimal Amount, Dto.DebitCard DebitCard, CancellationToken CancellationToken)
+    public record AddDebitCard(IBus Bus, Guid CartId, string Amount, Dto.DebitCard DebitCard, CancellationToken CancellationToken)
         : Validatable<AddDebitCardValidator>, ICommand<Command.AddDebitCard>
     {
         public Command.AddDebitCard Command
             => new(CartId, Amount, DebitCard);
     }
 
-    public record AddPayPal(IBus Bus, Guid CartId, decimal Amount, Dto.PayPal PayPal, CancellationToken CancellationToken)
+    public record AddPayPal(IBus Bus, Guid CartId, string Amount, Dto.PayPal PayPal, CancellationToken CancellationToken)
         : Validatable<AddPayPalValidator>, ICommand<Command.AddPayPal>
     {
         public Command.AddPayPal Command

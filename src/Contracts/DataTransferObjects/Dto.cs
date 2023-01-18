@@ -62,7 +62,7 @@ public static class Dto
             => new() { Email = payPal.Email };
     }
 
-    public record struct PaymentMethod(Guid Id, (decimal value, string symbol) Amount, IPaymentOption Option);
+    public record struct PaymentMethod(Guid Id, string Amount, IPaymentOption Option);
 
     public interface INotificationOption { }
 
@@ -110,9 +110,9 @@ public static class Dto
 
     public record CatalogItem(Guid Id, Guid CatalogId, Guid InventoryId, Product Product, decimal Cost, decimal Markup, int Quantity);
 
-    public record CartItem(Guid Id, Product Product, ushort Quantity, decimal UnitPrice);
+    public record CartItem(Guid Id, Product Product, ushort Quantity, string UnitPrice);
 
-    public record OrderItem(Guid Id, Product Product, ushort Quantity, decimal UnitPrice)
+    public record OrderItem(Guid Id, Product Product, ushort Quantity, string UnitPrice)
     {
         public static implicit operator OrderItem(CartItem item)
             => new(Guid.NewGuid(), item.Product, item.Quantity, item.UnitPrice);

@@ -51,7 +51,7 @@ public class PaymentMethod : Entity<PaymentMethodValidator>
         });
 
     public static implicit operator Dto.PaymentMethod(PaymentMethod method)
-        => new(method.Id, (method.Amount.Value, method.Amount.Currency.Name), method.Option switch
+        => new(method.Id, method.Amount, method.Option switch
         {
             CreditCard creditCard => (Dto.CreditCard)creditCard,
             DebitCard debitCard => (Dto.DebitCard)debitCard,

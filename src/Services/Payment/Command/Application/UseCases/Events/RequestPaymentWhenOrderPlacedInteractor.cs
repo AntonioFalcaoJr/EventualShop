@@ -4,6 +4,7 @@ using Domain.Aggregates;
 using Order = Contracts.Services.Order;
 using Contracts.Services.Payment;
 using Domain.Enumerations;
+using Currency = Domain.ValueObjects.Currency;
 
 namespace Application.UseCases.Events;
 
@@ -24,7 +25,7 @@ public class RequestPaymentWhenOrderPlacedInteractor : IRequestPaymentWhenOrderP
 
         payment.Handle(new Command.RequestPayment(
             @event.OrderId,
-            (@event.Total, Currency.BRL.Name),
+            @event.Total,
             @event.BillingAddress,
             @event.PaymentMethods));
 

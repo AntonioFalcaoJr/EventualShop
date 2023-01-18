@@ -2,6 +2,7 @@ using AutoFixture;
 using Contracts.Services.ShoppingCart;
 using Domain.Aggregates;
 using Domain.Enumerations;
+using Domain.ValueObjects;
 using Domain.ValueObjects.Addresses;
 using Domain.ValueObjects.Products;
 using FluentAssertions;
@@ -22,7 +23,7 @@ public class ShoppingCartTests : AggregateTests
     private readonly Guid _itemId;
     private readonly Product _product;
     private readonly ushort _quantity;
-    private readonly decimal _unitPrice;
+    private readonly Money _unitPrice;
 
     public ShoppingCartTests()
     {
@@ -35,7 +36,7 @@ public class ShoppingCartTests : AggregateTests
         _inventoryId = _fixture.Create<Guid>();
         _product = _fixture.Create<Product>();
         _quantity = (ushort)(_fixture.Create<ushort>() + 1);
-        _unitPrice = _fixture.Create<decimal>();
+        _unitPrice = _fixture.Create<Money>();
     }
 
     [Fact]
