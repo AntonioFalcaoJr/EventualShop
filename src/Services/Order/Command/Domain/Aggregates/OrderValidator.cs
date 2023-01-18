@@ -13,9 +13,9 @@ public class OrderValidator : AbstractValidator<Order>
         RuleForEach(order => order.Items)
             .SetValidator(new OrderItemValidator());
 
-        When(cart => cart.Items.Any(item => item.IsDeleted is false), () =>
+        When(order => order.Items.Any(item => item.IsDeleted is false), () =>
         {
-            RuleFor(cart => cart.Total.Value)
+            RuleFor(order => order.Total.Value)
                 .GreaterThan(0);
         });
     }
