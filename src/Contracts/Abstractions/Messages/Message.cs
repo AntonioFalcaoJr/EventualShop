@@ -3,9 +3,7 @@
 namespace Contracts.Abstractions.Messages;
 
 [ExcludeFromTopology]
-public abstract record Message(Guid? CorrelationId = default) : IMessage
+public abstract record Message : IMessage
 {
-    // TODO - Verify deserialization without private init;
     public DateTimeOffset Timestamp { get; private init; } = DateTimeOffset.Now;
-    public Guid? CorrelationId { get; } = CorrelationId ?? Guid.NewGuid();
 }

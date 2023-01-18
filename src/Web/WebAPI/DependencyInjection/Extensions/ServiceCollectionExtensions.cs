@@ -1,4 +1,5 @@
-﻿using Contracts.JsonConverters;
+﻿using Contracts.Abstractions.Messages;
+using Contracts.JsonConverters;
 using Contracts.Services.Account.Protobuf;
 using Contracts.Services.Catalog.Protobuf;
 using Contracts.Services.Communication.Protobuf;
@@ -6,9 +7,12 @@ using Contracts.Services.Identity.Protobuf;
 using Contracts.Services.Payment.Protobuf;
 using Contracts.Services.ShoppingCart.Protobuf;
 using Contracts.Services.Warehouse.Protobuf;
+using CorrelationId.Abstractions;
+using CorrelationId.HttpClient;
 using Grpc.Core;
 using Grpc.Net.Client.Configuration;
 using MassTransit;
+using MassTransit.Configuration;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using WebAPI.DependencyInjection.Options;
@@ -57,6 +61,13 @@ public static class ServiceCollectionExtensions
                 bus.ConnectConsumeObserver(new LoggingConsumeObserver());
                 bus.ConnectSendObserver(new LoggingSendObserver());
                 bus.ConfigureEndpoints(context);
+
+                bus.ConfigureSend(pipe => pipe.AddPipeSpecification(
+                    new DelegatePipeSpecification<SendContext<ICommand>>(ctx =>
+                    {
+                        var accessor = context.GetRequiredService<ICorrelationContextAccessor>();
+                        ctx.CorrelationId = new(accessor.CorrelationContext.CorrelationId);
+                    })));
             });
         });
 
@@ -74,10 +85,10 @@ public static class ServiceCollectionExtensions
 
     public static void AddWarehouseGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<WarehouseService.WarehouseServiceClient, WarehouseGrpcClientOptions>();
-    
+
     public static void AddShoppingCartGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<ShoppingCartService.ShoppingCartServiceClient, ShoppingCartGrpcClientOptions>();
-    
+
     public static void AddPaymentGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<PaymentService.PaymentServiceClient, PaymentGrpcClientOptions>();
 
@@ -89,6 +100,7 @@ public static class ServiceCollectionExtensions
                 var options = provider.GetRequiredService<IOptionsMonitor<TOptions>>().CurrentValue as dynamic;
                 client.Address = new(options.BaseAddress);
             })
+            .AddCorrelationIdForwarding()
             .ConfigureChannel(options =>
                 {
                     options.Credentials = ChannelCredentials.Insecure;
@@ -168,7 +180,7 @@ public static class ServiceCollectionExtensions
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();
-    
+
     public static OptionsBuilder<PaymentGrpcClientOptions> ConfigurePaymentGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
         => services
             .AddOptions<PaymentGrpcClientOptions>()

@@ -4,13 +4,13 @@ using MassTransit;
 
 namespace Infrastructure.EventBus.Consumers.Events;
 
-public class ProjectPaymentWhenChangedConsumer : 
+public class ProjectPaymentDetailsWhenChangedConsumer : 
     IConsumer<DomainEvent.PaymentRequested>,
     IConsumer<DomainEvent.PaymentCanceled>
 {
     private readonly IProjectPaymentWhenChangedInteractor _interactor;
 
-    public ProjectPaymentWhenChangedConsumer(IProjectPaymentWhenChangedInteractor interactor)
+    public ProjectPaymentDetailsWhenChangedConsumer(IProjectPaymentWhenChangedInteractor interactor)
     {
         _interactor = interactor;
     }

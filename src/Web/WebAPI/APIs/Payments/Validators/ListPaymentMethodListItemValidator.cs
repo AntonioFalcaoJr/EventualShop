@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
 
-namespace WebAPI.APIs.Catalogs.Validators;
+namespace WebAPI.APIs.Payments.Validators;
 
-public class ListCatalogItemsListItemsRequestValidator : AbstractValidator<Queries.ListCatalogItemsListItems>
+public class ListPaymentMethodListItemValidator : AbstractValidator<Queries.ListPaymentMethodListItem>
 {
-    public ListCatalogItemsListItemsRequestValidator()
+    public ListPaymentMethodListItemValidator()
     {
-        RuleFor(request => request.CatalogId)
+        RuleFor(request => request.PaymentId)
             .NotEmpty();
 
         RuleFor(request => request.Limit)

@@ -1,12 +1,25 @@
 ﻿using Contracts.Abstractions.Messages;
+using Contracts.Abstractions.Paging;
 
 namespace Contracts.Services.Payment;
 
 public static class Query
 {
-    public record struct GetPayment(Guid PaymentId) : IQuery
+    public record struct GetPaymentDetails(Guid PaymentId) : IQuery
     {
-        public static implicit operator GetPayment(Protobuf.GetPaymentRequest request)
+        public static implicit operator GetPaymentDetails(Protobuf.GetPaymentDetailsRequest request)
             => new(new(request.PaymentId));
+    }
+
+    public record struct GetPaymentMethodDetails(Guid MethodId) : IQuery
+    {
+        public static implicit operator GetPaymentMethodDetails(Protobuf.GetPaymentMethodDetailsRequest request)
+            => new(new(request.MethodId));
+    }
+
+    public record struct ListPaymentMethodListItem(Guid PaymentId, Paging Paging) : IQuery
+    {
+        public static implicit operator ListPaymentMethodListItem(Protobuf.ListPaymentMethodListItemRequest request)
+            => new(new(request.PaymentId), request.Paging);
     }
 }

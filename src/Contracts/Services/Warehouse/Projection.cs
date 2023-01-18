@@ -11,7 +11,7 @@ public static class Projection
             => new()
             {
                 InventoryId = inventoryGridItem.Id.ToString(),
-                OwnerId = inventoryGridItem.OwnerId.ToString(),
+                OwnerId = inventoryGridItem.OwnerId.ToString()
             };
     }
 
@@ -25,7 +25,7 @@ public static class Projection
                 InventoryId = inventoryItemListItem.InventoryId.ToString(),
                 Product = inventoryItemListItem.Product,
                 Sku = inventoryItemListItem.Sku,
-                Quantity = inventoryItemListItem.Quantity,
+                Quantity = inventoryItemListItem.Quantity
             };
     }
 }

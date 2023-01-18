@@ -6,5 +6,4 @@ namespace Contracts.Abstractions.Messages;
 public interface IMessage
 {
     DateTimeOffset Timestamp { get; }
-    Guid? CorrelationId { get; }
 }

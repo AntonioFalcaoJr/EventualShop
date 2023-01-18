@@ -10,7 +10,7 @@
 
 <br>
 
-<table><tr><th>New Approach</th><th>Old Approach</th></tr><tr><td>
+<div align="center">
 
 | Service       |                                                                                                                                      Command Stack                                                                                                                                       |                                                                                                                                    Query Stack                                                                                                                                     | 
 |---------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
@@ -23,12 +23,9 @@
 | Shopping Cart | [![Shopping Cart - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart-command.yaml) | [![Shopping Cart - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart-query.yaml) |
 | Payment       |          [![Payment - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment-command.yaml)          |          [![Payment - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment-query.yaml)          |
 
-</td><td>
+ :construction: <sub>Work in Progress (WIP)</sub>
 
-
-</td></tr></table>
-
-<div align="center"> :construction: <sub>Work in Progress (WIP)</sub></div>
+</div>
  
 ## :bulb: About
 

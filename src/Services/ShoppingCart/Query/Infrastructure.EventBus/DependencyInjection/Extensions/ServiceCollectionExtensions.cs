@@ -3,7 +3,6 @@ using Contracts.Abstractions.Messages;
 using Contracts.JsonConverters;
 using FluentValidation;
 using Infrastructure.EventBus.DependencyInjection.Options;
-using Infrastructure.EventBus.DependencyInjection.Providers;
 using Infrastructure.EventBus.PipeFilters;
 using Infrastructure.EventBus.PipeObservers;
 using MassTransit;
@@ -64,10 +63,6 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddMessageValidators(this IServiceCollection services)
         => services.AddValidatorsFromAssemblyContaining(typeof(IMessage));
-
-    public static IServiceCollection AddLazyProvider(this IServiceCollection services)
-        => services
-            .AddScoped<ILazyInteractorProvider, LazyInteractorProvider>();
 
     public static OptionsBuilder<EventBusOptions> ConfigureEventBusOptions(this IServiceCollection services, IConfigurationSection section)
         => services

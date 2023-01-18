@@ -14,7 +14,7 @@ public static class Projection
                 Id = cart.Id.ToString(),
                 CustomerId = cart.CustomerId.ToString(),
                 Status = cart.Status,
-                Total = cart.Total.ToString(CultureInfo.InvariantCulture),
+                Total = cart.Total.ToString(CultureInfo.InvariantCulture)
             };
     }
 
@@ -26,7 +26,7 @@ public static class Projection
                 Id = item.Id.ToString(),
                 CartId = item.CartId.ToString(),
                 Product = item.Product,
-                Quantity = item.Quantity,
+                Quantity = item.Quantity
             };
     }
 
@@ -56,7 +56,7 @@ public static class Projection
                 Id = item.Id.ToString(),
                 CartId = item.CartId.ToString(),
                 ProductName = item.ProductName,
-                Quantity = item.Quantity,
+                Quantity = item.Quantity
             };
     }
 
@@ -68,7 +68,7 @@ public static class Projection
                 Id = method.Id.ToString(),
                 CartId = method.CartId.ToString(),
                 Amount = method.Amount.ToString(CultureInfo.InvariantCulture),
-                Option = method.Option,
+                Option = method.Option
             };
     }
 }
