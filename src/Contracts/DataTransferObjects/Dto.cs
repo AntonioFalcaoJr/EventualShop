@@ -106,9 +106,9 @@ public static class Dto
             };
     }
 
-    public record InventoryItem(Guid Id, Guid InventoryId, Product Product, decimal Cost, int Quantity);
+    public record InventoryItem(Guid Id, Guid InventoryId, Product Product, string Cost, int Quantity);
 
-    public record CatalogItem(Guid Id, Guid CatalogId, Guid InventoryId, Product Product, decimal Cost, decimal Markup, int Quantity);
+    public record CatalogItem(Guid Id, Guid CatalogId, Guid InventoryId, Product Product, string Cost, decimal Markup, int Quantity);
 
     public record CartItem(Guid Id, Product Product, ushort Quantity, string UnitPrice);
 
@@ -120,6 +120,6 @@ public static class Dto
 
     public record Profile(string FirstName, string LastName, string Email, DateOnly? Birthdate, string Gender);
 
-    public record ShoppingCart(Guid Id, Guid CustomerId, string Status, Address BillingAddress, Address ShippingAddress, decimal Total, decimal TotalPayment, decimal AmountDue,
+    public record ShoppingCart(Guid Id, Guid CustomerId, string Status, Address BillingAddress, Address ShippingAddress, string Total, string TotalPayment, string AmountDue,
         IEnumerable<CartItem> Items, IEnumerable<PaymentMethod> PaymentMethods);
 }

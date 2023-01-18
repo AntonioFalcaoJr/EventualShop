@@ -11,7 +11,7 @@ public class AddDebitCardValidator : AbstractValidator<Commands.AddDebitCard>
             .NotEmpty();
 
         RuleFor(request => request.Amount)
-            .GreaterThan(0);
+            .GreaterThan("0");
 
         RuleFor(request => request.DebitCard)
             .SetValidator(new DebitCardValidator())

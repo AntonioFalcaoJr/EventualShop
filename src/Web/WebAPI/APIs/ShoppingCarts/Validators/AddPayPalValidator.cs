@@ -11,7 +11,7 @@ public class AddPayPalValidator : AbstractValidator<Commands.AddPayPal>
             .NotEmpty();
 
         RuleFor(request => request.Amount)
-            .GreaterThan(0);
+            .GreaterThan("0");
 
         RuleFor(request => request.PayPal)
             .SetValidator(new PayPalValidator())

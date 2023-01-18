@@ -17,7 +17,7 @@ public class AddCartItemPayloadValidator : AbstractValidator<Payloads.AddCartIte
             .GreaterThan(ushort.MinValue);
 
         RuleFor(request => request.UnitPrice)
-            .GreaterThan(0);
+            .GreaterThan("0");
 
         RuleFor(request => request.Product)
             .SetValidator(new ProductValidator())

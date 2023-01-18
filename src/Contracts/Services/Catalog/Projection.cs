@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using Contracts.Abstractions;
+﻿using Contracts.Abstractions;
 using Contracts.DataTransferObjects;
 
 namespace Contracts.Services.Catalog;
@@ -30,7 +29,7 @@ public static class Projection
             };
     }
 
-    public record CatalogItemCard(Guid Id, Guid CatalogId, Dto.Product Product, decimal Price, string ImageUrl, bool IsDeleted) : IProjection
+    public record CatalogItemCard(Guid Id, Guid CatalogId, Dto.Product Product, string Price, string ImageUrl, bool IsDeleted) : IProjection
     {
         public static implicit operator Protobuf.CatalogItemCard(CatalogItemCard item)
             => new()
@@ -40,11 +39,11 @@ public static class Projection
                 Product = item.Product,
                 Description = item.Product.Description,
                 ImageUrl = item.ImageUrl,
-                UnitPrice = item.Price.ToString(CultureInfo.InvariantCulture) // TODO -  Solve it!,
+                UnitPrice = item.Price
             };
     }
 
-    public record CatalogItemDetails(Guid Id, Guid CatalogId, Dto.Product Product, decimal Price, string ImageUrl, bool IsDeleted) : IProjection
+    public record CatalogItemDetails(Guid Id, Guid CatalogId, Dto.Product Product, string Price, string ImageUrl, bool IsDeleted) : IProjection
     {
         public static implicit operator Protobuf.CatalogItemDetails(CatalogItemDetails item)
             => new()
@@ -54,7 +53,7 @@ public static class Projection
                 Product = item.Product,
                 Description = item.Product.Description,
                 ImageUrl = item.ImageUrl,
-                UnitPrice = item.Price.ToString(CultureInfo.InvariantCulture) // TODO -  Solve it!
+                UnitPrice = item.Price
             };
     }
 }

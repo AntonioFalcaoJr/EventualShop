@@ -11,7 +11,7 @@ public class AddCreditCardValidator : AbstractValidator<Commands.AddCreditCard>
             .NotEmpty();
 
         RuleFor(request => request.Amount)
-            .GreaterThan(0);
+            .GreaterThan("0");
 
         RuleFor(request => request.CreditCard)
             .SetValidator(new CreditCardValidator())

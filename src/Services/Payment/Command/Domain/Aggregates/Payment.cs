@@ -20,10 +20,12 @@ public class Payment : AggregateRoot<PaymentValidator>
     public PaymentStatus? Status { get; private set; }
     public Address? BillingAddress { get; private set; }
 
-    public decimal AmountDue
-        => _methods
+    public Money AmountDue => Amount with
+    {
+        Value = _methods
             .Where(method => method.Status is not PaymentMethodStatus.AuthorizedStatus)
-            .Sum(method => method.Amount.Value);
+            .Sum(method => method.Amount.Value)
+    };
 
     public IEnumerable<PaymentMethod> Methods
         => _methods.AsReadOnly();
@@ -48,7 +50,7 @@ public class Payment : AggregateRoot<PaymentValidator>
     }
 
     public void Handle(Command.ProceedWithPayment cmd)
-        => RaiseEvent(AmountDue is 0
+        => RaiseEvent(AmountDue == 0
             ? new DomainEvent.PaymentCompleted(cmd.PaymentId, cmd.OrderId, PaymentStatus.Completed)
             : new DomainEvent.PaymentNotCompleted(cmd.PaymentId, cmd.OrderId, PaymentStatus.NotCompleted));
 

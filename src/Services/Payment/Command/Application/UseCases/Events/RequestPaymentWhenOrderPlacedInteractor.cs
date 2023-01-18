@@ -3,8 +3,6 @@ using Application.Services;
 using Domain.Aggregates;
 using Order = Contracts.Services.Order;
 using Contracts.Services.Payment;
-using Domain.Enumerations;
-using Currency = Domain.ValueObjects.Currency;
 
 namespace Application.UseCases.Events;
 
