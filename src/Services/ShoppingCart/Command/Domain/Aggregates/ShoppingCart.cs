@@ -4,6 +4,7 @@ using Domain.Abstractions.Aggregates;
 using Domain.Entities.CartItems;
 using Domain.Entities.PaymentMethods;
 using Domain.Enumerations;
+using Domain.ValueObjects;
 using Domain.ValueObjects.Addresses;
 using Domain.ValueObjects.PaymentOptions.CreditCards;
 using Domain.ValueObjects.PaymentOptions.DebitCards;
@@ -24,13 +25,13 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
     public CartStatus Status { get; private set; }
     public Address? BillingAddress { get; private set; }
     public Address? ShippingAddress { get; private set; }
-    public decimal Total { get; private set; }
+    public Money Total { get; private set; }
     private bool BillingShippingSame { get; set; } = true;
 
-    public decimal TotalPayment
-        => _paymentMethods.Sum(method => method.Amount);
+    public Money TotalPayment
+        => Total with { Value = _paymentMethods.Sum(method => method.Amount) };
 
-    public decimal AmountDue
+    public Money AmountDue
         => Total - TotalPayment;
 
     public IEnumerable<CartItem> Items
@@ -43,7 +44,7 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
         => Handle(command as dynamic);
 
     private void Handle(Command.CreateCart cmd)
-        => RaiseEvent(new DomainEvent.CartCreated(cmd.CartId, cmd.CustomerId, CartStatus.Active));
+        => RaiseEvent(new DomainEvent.CartCreated(Guid.NewGuid(), cmd.CustomerId, Money.Zero(cmd.Currency), CartStatus.Active));
 
     private void Handle(Command.AddCartItem cmd)
         => RaiseEvent(_items.SingleOrDefault(cartItem => cartItem.Product == cmd.Product) is { IsDeleted: false } item
@@ -114,7 +115,7 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
         => When(@event as dynamic);
 
     private void When(DomainEvent.CartCreated @event)
-        => (Id, CustomerId, Status) = @event;
+        => (Id, CustomerId, Total, Status) = @event;
 
     private void When(DomainEvent.CartCheckedOut @event)
         => Status = @event.Status;
@@ -178,9 +179,9 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
         BillingShippingSame = ShippingAddress == BillingAddress;
     }
 
-    private decimal IncreasedTotal(decimal unitPrice, int quantity)
+    private Money IncreasedTotal(Money unitPrice, int quantity)
         => Total + unitPrice * quantity;
 
-    private decimal DecreasedTotal(decimal unitPrice, int quantity)
+    private Money DecreasedTotal(Money unitPrice, int quantity)
         => Total - unitPrice * quantity;
 }

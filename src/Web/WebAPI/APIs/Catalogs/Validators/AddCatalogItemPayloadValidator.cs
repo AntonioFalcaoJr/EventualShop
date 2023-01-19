@@ -18,7 +18,7 @@ public class AddCatalogItemPayloadValidator : AbstractValidator<Payloads.AddCata
             .NotEmpty();
 
         RuleFor(request => request.UnitPrice)
-            .GreaterThan(0);
+            .GreaterThan("0");
 
         RuleFor(request => request.Product)
             .SetValidator(new ProductValidator())

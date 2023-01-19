@@ -1,6 +1,7 @@
 ﻿using Contracts.DataTransferObjects;
 using Domain.Abstractions.Entities;
 using Domain.Enumerations;
+using Domain.ValueObjects;
 using Domain.ValueObjects.PaymentOptions;
 using Domain.ValueObjects.PaymentOptions.CreditCards;
 using Domain.ValueObjects.PaymentOptions.DebitCards;
@@ -10,7 +11,7 @@ namespace Domain.Entities.PaymentMethods;
 
 public class PaymentMethod : Entity<PaymentMethodValidator>
 {
-    public PaymentMethod(Guid id, decimal amount, IPaymentOption option)
+    public PaymentMethod(Guid id, Money amount, IPaymentOption option)
     {
         Id = id;
         Amount = amount;
@@ -18,7 +19,7 @@ public class PaymentMethod : Entity<PaymentMethodValidator>
         Status = PaymentMethodStatus.Pending;
     }
 
-    public decimal Amount { get; }
+    public Money Amount { get; }
     public IPaymentOption Option { get; }
     public PaymentMethodStatus Status { get; private set; }
 

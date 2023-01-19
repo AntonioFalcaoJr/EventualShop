@@ -5,6 +5,7 @@ using Domain.ValueObjects.Addresses;
 using Contracts.Abstractions.Messages;
 using Contracts.DataTransferObjects;
 using Contracts.Services.Payment;
+using Domain.ValueObjects;
 using Newtonsoft.Json;
 
 namespace Domain.Aggregates;
@@ -15,14 +16,16 @@ public class Payment : AggregateRoot<PaymentValidator>
     private readonly List<PaymentMethod> _methods = new();
 
     public Guid OrderId { get; private set; }
-    public decimal Amount { get; private set; }
+    public Money Amount { get; private set; }
     public PaymentStatus? Status { get; private set; }
     public Address? BillingAddress { get; private set; }
 
-    public decimal AmountDue
-        => _methods
+    public Money AmountDue => Amount with
+    {
+        Value = _methods
             .Where(method => method.Status is not PaymentMethodStatus.AuthorizedStatus)
-            .Sum(method => method.Amount);
+            .Sum(method => method.Amount.Value)
+    };
 
     public IEnumerable<PaymentMethod> Methods
         => _methods.AsReadOnly();
@@ -47,7 +50,7 @@ public class Payment : AggregateRoot<PaymentValidator>
     }
 
     public void Handle(Command.ProceedWithPayment cmd)
-        => RaiseEvent(AmountDue is 0
+        => RaiseEvent(AmountDue == 0
             ? new DomainEvent.PaymentCompleted(cmd.PaymentId, cmd.OrderId, PaymentStatus.Completed)
             : new DomainEvent.PaymentNotCompleted(cmd.PaymentId, cmd.OrderId, PaymentStatus.NotCompleted));
 
