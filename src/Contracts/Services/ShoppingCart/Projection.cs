@@ -5,7 +5,7 @@ namespace Contracts.Services.ShoppingCart;
 
 public static class Projection
 {
-    public record ShoppingCartDetails(Guid Id, Guid CustomerId, string Status, string Total, bool IsDeleted) : IProjection
+    public record ShoppingCartDetails(Guid Id, Guid CustomerId, string Total, string Status, bool IsDeleted) : IProjection
     {
         public static implicit operator Protobuf.ShoppingCartDetails(ShoppingCartDetails cart)
             => new()

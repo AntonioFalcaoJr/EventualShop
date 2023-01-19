@@ -33,7 +33,7 @@ public readonly record struct Money(Currency Currency, decimal Value)
         => money.Value < other.Value;
 
     public static implicit operator string(Money money)
-        => $"{money.Value} {money.Currency.Symbol}";
+        => $"{money.Currency.Symbol} {money.Value}";
 
     public static implicit operator Money(string money)
     {
@@ -43,4 +43,7 @@ public readonly record struct Money(Currency Currency, decimal Value)
 
     public static implicit operator decimal(Money money)
         => money.Value;
+
+    public static Money Zero(Currency currency)
+        => new(currency, 0);
 }

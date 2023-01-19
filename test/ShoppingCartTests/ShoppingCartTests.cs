@@ -36,21 +36,25 @@ public class ShoppingCartTests : AggregateTests
         _inventoryId = _fixture.Create<Guid>();
         _product = _fixture.Create<Product>();
         _quantity = (ushort)(_fixture.Create<ushort>() + 1);
-        _unitPrice = _fixture.Create<Money>();
+
+        _unitPrice = _fixture.Build<Money>()
+            .With(m => m.Value, _fixture.Create<decimal>() + 1)
+            .With(m => m.Currency, Currency.USD)
+            .Create();
     }
 
     [Fact]
     public void CreateCartShouldRaiseCartCreated()
         => Given<ShoppingCart>()
-            .When<Command.CreateCart>(new(_cartId, _customerId))
+            .When<Command.CreateCart>(new(_customerId, Currency.USD))
             .Then<DomainEvent.CartCreated>(
-                @event => @event.CartId.Should().Be(_cartId),
                 @event => @event.CustomerId.Should().Be(_customerId),
-                @event => @event.Status.Should().Be(CartStatus.Active));
+                @event => @event.Status.Should().Be(CartStatus.Active),
+                @event => @event.Total.Should().Be(Money.Zero(Currency.USD)));
 
     [Fact]
     public void AddCartItemShouldRaiseCartItemAdded()
-        => Given<ShoppingCart>(new DomainEvent.CartCreated(_cartId, _customerId, CartStatus.Active))
+        => Given<ShoppingCart>(new DomainEvent.CartCreated(_cartId, _customerId, Money.Zero(Currency.USD), CartStatus.Active))
             .When<Command.AddCartItem>(new(_cartId, _catalogId, _inventoryId, _product, _quantity, _unitPrice))
             .Then<DomainEvent.CartItemAdded>(
                 @event => @event.CartId.Should().Be(_cartId),
@@ -64,7 +68,7 @@ public class ShoppingCartTests : AggregateTests
     {
         const ushort quantity = 0;
 
-        Given<ShoppingCart>(new DomainEvent.CartCreated(_cartId, _customerId, CartStatus.Active))
+        Given<ShoppingCart>(new DomainEvent.CartCreated(_cartId, _customerId, Money.Zero(Currency.USD), CartStatus.Active))
             .When<Command.AddCartItem>(new(_cartId, _catalogId, _inventoryId, _product, quantity, _unitPrice))
             .Throws<ValidationException>();
     }
@@ -77,7 +81,7 @@ public class ShoppingCartTests : AggregateTests
         var cartItemIncreasedNewCartTotal = cartItemAddedNewCartTotal + _unitPrice * changeCartItemQuantityNewQuantity;
 
         Given<ShoppingCart>(
-                new DomainEvent.CartCreated(_cartId, _customerId, CartStatus.Active),
+                new DomainEvent.CartCreated(_cartId, _customerId, Money.Zero(Currency.USD), CartStatus.Active),
                 new DomainEvent.CartItemAdded(_cartId, _itemId, _inventoryId, _product, _quantity, _unitPrice, cartItemAddedNewCartTotal))
             .When<Command.ChangeCartItemQuantity>(new(_cartId, _itemId, changeCartItemQuantityNewQuantity))
             .Then<DomainEvent.CartItemIncreased>(
@@ -96,7 +100,7 @@ public class ShoppingCartTests : AggregateTests
         var expectedNewCartTotal = cartItemAddedNewCartTotal - _unitPrice * expectedNewQuantity;
 
         Given<ShoppingCart>(
-                new DomainEvent.CartCreated(_cartId, _customerId, CartStatus.Active),
+                new DomainEvent.CartCreated(_cartId, _customerId, Money.Zero(Currency.USD), CartStatus.Active),
                 new DomainEvent.CartItemAdded(_cartId, _itemId, _inventoryId, _product, _quantity, _unitPrice, cartItemAddedNewCartTotal))
             .When<Command.ChangeCartItemQuantity>(new(_cartId, _itemId, expectedNewQuantity))
             .Then<DomainEvent.CartItemDecreased>(
@@ -112,7 +116,7 @@ public class ShoppingCartTests : AggregateTests
         var cartItemAddedNewCartTotal = _unitPrice * _quantity;
 
         Given<ShoppingCart>(
-                new DomainEvent.CartCreated(_cartId, _customerId, CartStatus.Active),
+                new DomainEvent.CartCreated(_cartId, _customerId, Money.Zero(Currency.USD), CartStatus.Active),
                 new DomainEvent.CartItemAdded(_cartId, _itemId, _inventoryId, _product, _quantity, _unitPrice, cartItemAddedNewCartTotal))
             .When<Command.RemoveCartItem>(new(_cartId, _itemId))
             .Then<DomainEvent.CartItemRemoved>(
@@ -130,7 +134,7 @@ public class ShoppingCartTests : AggregateTests
         var expectedNewCartTotal = cartItemAddedNewCartTotal + _unitPrice * addCartItemQuantity;
 
         Given<ShoppingCart>(
-                new DomainEvent.CartCreated(_cartId, _customerId, CartStatus.Active),
+                new DomainEvent.CartCreated(_cartId, _customerId, Money.Zero(Currency.USD), CartStatus.Active),
                 new DomainEvent.CartItemAdded(_cartId, _itemId, _inventoryId, _product, _quantity, _unitPrice, cartItemAddedNewCartTotal))
             .When<Command.AddCartItem>(new(_cartId, _catalogId, _inventoryId, _product, addCartItemQuantity, _unitPrice))
             .Then<DomainEvent.CartItemIncreased>(
@@ -145,11 +149,11 @@ public class ShoppingCartTests : AggregateTests
     {
         var product = _product with { Name = _fixture.Create<string>(), Brand = _fixture.Create<string>() };
         var cartItemAddedNewCartTotal = _unitPrice * _quantity;
-        
+
         var expectedNewCartTotal = cartItemAddedNewCartTotal + _unitPrice * _quantity;
 
         Given<ShoppingCart>(
-                new DomainEvent.CartCreated(_cartId, _customerId, CartStatus.Active),
+                new DomainEvent.CartCreated(_cartId, _customerId, Money.Zero(Currency.USD), CartStatus.Active),
                 new DomainEvent.CartItemAdded(_cartId, _itemId, _inventoryId, _product, _quantity, _unitPrice, cartItemAddedNewCartTotal))
             .When<Command.AddCartItem>(new(_cartId, _catalogId, _inventoryId, product, _quantity, _unitPrice))
             .Then<DomainEvent.CartItemAdded>(
@@ -166,7 +170,7 @@ public class ShoppingCartTests : AggregateTests
     {
         var address = _fixture.Create<Address>();
 
-        Given<ShoppingCart>(new DomainEvent.CartCreated(_cartId, _customerId, CartStatus.Active))
+        Given<ShoppingCart>(new DomainEvent.CartCreated(_cartId, _customerId, Money.Zero(Currency.USD), CartStatus.Active))
             .When<Command.AddBillingAddress>(new(_cartId, address))
             .Then<DomainEvent.BillingAddressAdded>(
                 @event => @event.CartId.Should().Be(_cartId),
@@ -178,7 +182,7 @@ public class ShoppingCartTests : AggregateTests
     {
         var address = _fixture.Create<Address>();
 
-        Given<ShoppingCart>(new DomainEvent.CartCreated(_cartId, _customerId, CartStatus.Active))
+        Given<ShoppingCart>(new DomainEvent.CartCreated(_cartId, _customerId, Money.Zero(Currency.USD), CartStatus.Active))
             .When<Command.AddShippingAddress>(new(_cartId, address))
             .Then<DomainEvent.ShippingAddressAdded>(
                 @event => @event.CartId.Should().Be(_cartId),

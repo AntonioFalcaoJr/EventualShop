@@ -44,7 +44,7 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
         => Handle(command as dynamic);
 
     private void Handle(Command.CreateCart cmd)
-        => RaiseEvent(new DomainEvent.CartCreated(cmd.CartId, cmd.CustomerId, CartStatus.Active));
+        => RaiseEvent(new DomainEvent.CartCreated(Guid.NewGuid(), cmd.CustomerId, Money.Zero(cmd.Currency), CartStatus.Active));
 
     private void Handle(Command.AddCartItem cmd)
         => RaiseEvent(_items.SingleOrDefault(cartItem => cartItem.Product == cmd.Product) is { IsDeleted: false } item
@@ -115,7 +115,7 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
         => When(@event as dynamic);
 
     private void When(DomainEvent.CartCreated @event)
-        => (Id, CustomerId, Status) = @event;
+        => (Id, CustomerId, Total, Status) = @event;
 
     private void When(DomainEvent.CartCheckedOut @event)
         => Status = @event.Status;

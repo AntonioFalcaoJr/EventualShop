@@ -1,5 +1,4 @@
-﻿using Contracts.DataTransferObjects.Validators;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace WebAPI.APIs.ShoppingCarts.Validators;
 
@@ -10,11 +9,8 @@ public class AddPayPalValidator : AbstractValidator<Commands.AddPayPal>
         RuleFor(request => request.CartId)
             .NotEmpty();
 
-        RuleFor(request => request.Amount)
-            .GreaterThan("0");
-
-        RuleFor(request => request.PayPal)
-            .SetValidator(new PayPalValidator())
+        RuleFor(request => request.Payload)
+            .SetValidator(new AddPaypalPayloadValidator())
             .OverridePropertyName(string.Empty);
     }
 }

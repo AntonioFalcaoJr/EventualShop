@@ -1,5 +1,4 @@
-﻿using Contracts.DataTransferObjects.Validators;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace WebAPI.APIs.ShoppingCarts.Validators;
 
@@ -10,11 +9,8 @@ public class AddCreditCardValidator : AbstractValidator<Commands.AddCreditCard>
         RuleFor(request => request.CartId)
             .NotEmpty();
 
-        RuleFor(request => request.Amount)
-            .GreaterThan("0");
-
-        RuleFor(request => request.CreditCard)
-            .SetValidator(new CreditCardValidator())
+        RuleFor(request => request.Payload)
+            .SetValidator(new AddCreditCardPayloadValidator())
             .OverridePropertyName(string.Empty);
     }
 }

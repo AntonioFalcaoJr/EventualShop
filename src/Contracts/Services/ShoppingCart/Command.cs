@@ -17,7 +17,7 @@ public static class Command
 
     public record AddBillingAddress(Guid CartId, Dto.Address Address) : Message, ICommand;
 
-    public record CreateCart(Guid CartId, Guid CustomerId) : Message, ICommand;
+    public record CreateCart(Guid CustomerId, string Currency) : Message, ICommand;
 
     public record CheckOutCart(Guid CartId) : Message, ICommand;
 
