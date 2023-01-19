@@ -27,8 +27,8 @@ public class ProjectCartDetailsWhenCartChangedInteractor : IProjectCartDetailsWh
         Projection.ShoppingCartDetails shoppingCartDetails = new(
             @event.CartId,
             @event.CustomerId,
+            @event.Total,
             @event.Status,
-            default,
             false);
 
         return _projectionGateway.UpsertAsync(shoppingCartDetails, cancellationToken);

@@ -5,7 +5,7 @@ namespace Contracts.Services.Payment;
 
 public static class Command
 {
-    public record RequestPayment(Guid OrderId, decimal AmountDue, Dto.Address BillingAddress, IEnumerable<Dto.PaymentMethod> PaymentMethods) : Message, ICommand;
+    public record RequestPayment(Guid OrderId, string AmountDue, Dto.Address BillingAddress, IEnumerable<Dto.PaymentMethod> PaymentMethods) : Message, ICommand;
 
     public record ProceedWithPayment(Guid PaymentId, Guid OrderId) : Message, ICommand;
 

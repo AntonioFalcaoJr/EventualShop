@@ -5,6 +5,7 @@ using Domain.Enumerations;
 using Contracts.Abstractions.Messages;
 using Contracts.DataTransferObjects;
 using Contracts.Services.Order;
+using Domain.ValueObjects;
 using Domain.ValueObjects.Addresses;
 using Newtonsoft.Json;
 
@@ -22,7 +23,7 @@ public class Order : AggregateRoot<OrderValidator>
     public OrderStatus Status { get; private set; }
     public Address BillingAddress { get; private set; }
     public Address ShippingAddress { get; private set; }
-    public decimal Total { get; private set; }
+    public Money Total { get; private set; }
 
     public IEnumerable<OrderItem> Items
         => _items.AsReadOnly();

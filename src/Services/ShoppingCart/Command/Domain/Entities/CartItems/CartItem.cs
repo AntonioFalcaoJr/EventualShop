@@ -1,12 +1,13 @@
 ﻿using Contracts.DataTransferObjects;
 using Domain.Abstractions.Entities;
+using Domain.ValueObjects;
 using Domain.ValueObjects.Products;
 
 namespace Domain.Entities.CartItems;
 
 public class CartItem : Entity<CartItemValidator>
 {
-    public CartItem(Guid id, Product product, ushort quantity, decimal unitPrice)
+    public CartItem(Guid id, Product product, ushort quantity, Money unitPrice)
     {
         Id = id;
         Product = product;
@@ -16,7 +17,7 @@ public class CartItem : Entity<CartItemValidator>
 
     public Product Product { get; }
     public ushort Quantity { get; private set; }
-    public decimal UnitPrice { get; }
+    public Money UnitPrice { get; }
 
     public void SetQuantity(ushort quantity)
         => Quantity = quantity;

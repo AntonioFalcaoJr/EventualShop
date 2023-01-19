@@ -6,10 +6,10 @@ public class CreateCartValidator : AbstractValidator<Command.CreateCart>
 {
     public CreateCartValidator()
     {
-        RuleFor(cart => cart.CartId)
+        RuleFor(cart => cart.CustomerId)
             .NotEmpty();
 
-        RuleFor(cart => cart.CustomerId)
+        RuleFor(cart => cart.Currency)
             .NotEmpty();
     }
 }
