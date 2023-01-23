@@ -4,8 +4,8 @@ namespace WebAPP.DependencyInjection.Options;
 
 public record ECommerceHttpClientOptions
 {
-    [Required, Url] public string BaseAddress { get; init; } = default!;
-    [Required, MinLength(5)] public string CatalogEndpoint { get; init; } = default!;
+    [Required, Url] public required string BaseAddress { get; init; }
+    [Required, MinLength(5)] public required string CatalogEndpoint { get; init; }
     [Required, Timestamp] public TimeSpan OverallTimeout { get; init; }
     [Required, Range(2, 20)] public int RetryCount { get; init; }
     [Required, Range(2, 20)] public int SleepDurationPower { get; init; }
