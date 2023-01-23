@@ -4,7 +4,7 @@ using PagedResult = Contracts.Abstractions.Protobuf.PagedResult;
 
 namespace WebAPI.Abstractions;
 
-public record struct PagedResult<T> : IPagedResult<T>
+public record PagedResult<T> : IPagedResult<T>
     where T : IMessage, new()
 {
     public IEnumerable<T> Items { get; init; }

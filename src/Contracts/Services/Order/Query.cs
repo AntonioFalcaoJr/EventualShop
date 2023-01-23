@@ -6,13 +6,13 @@ namespace Contracts.Services.Order;
 
 public static class Query
 {
-    public record struct GetOrderDetails(Guid OrderId) : IQuery
+    public record GetOrderDetails(Guid OrderId) : IQuery
     {
         public static implicit operator GetOrderDetails(GetOrderDetailsRequest request)
             => new(new(request.OrderId));
     }
 
-    public record struct ListOrdersGridItems(Guid CustomerId, Paging Paging) : IQuery
+    public record ListOrdersGridItems(Guid CustomerId, Paging Paging) : IQuery
     {
         public static implicit operator ListOrdersGridItems(ListOrdersGridItemsRequest request)
             => new(new(request.CustomerId), request.Paging);

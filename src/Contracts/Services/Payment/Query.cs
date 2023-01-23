@@ -5,19 +5,19 @@ namespace Contracts.Services.Payment;
 
 public static class Query
 {
-    public record struct GetPaymentDetails(Guid PaymentId) : IQuery
+    public record GetPaymentDetails(Guid PaymentId) : IQuery
     {
         public static implicit operator GetPaymentDetails(Protobuf.GetPaymentDetailsRequest request)
             => new(new(request.PaymentId));
     }
 
-    public record struct GetPaymentMethodDetails(Guid MethodId) : IQuery
+    public record GetPaymentMethodDetails(Guid MethodId) : IQuery
     {
         public static implicit operator GetPaymentMethodDetails(Protobuf.GetPaymentMethodDetailsRequest request)
             => new(new(request.MethodId));
     }
 
-    public record struct ListPaymentMethodListItem(Guid PaymentId, Paging Paging) : IQuery
+    public record ListPaymentMethodListItem(Guid PaymentId, Paging Paging) : IQuery
     {
         public static implicit operator ListPaymentMethodListItem(Protobuf.ListPaymentMethodListItemRequest request)
             => new(new(request.PaymentId), request.Paging);
