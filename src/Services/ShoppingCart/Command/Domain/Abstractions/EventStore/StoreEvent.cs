@@ -7,4 +7,4 @@ public record StoreEvent(long Version, Guid AggregateId, string AggregateName, I
 {
     public StoreEvent(IAggregateRoot aggregate, (long version, IEvent @event) tuple)
         : this(tuple.version, aggregate.Id, aggregate.GetType().Name, tuple.@event, tuple.@event.GetType().Name) { }
-};
+}
