@@ -29,7 +29,7 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
     private bool BillingShippingSame { get; set; } = true;
 
     public Money TotalPayment
-        => Total with { Value = _paymentMethods.Sum(method => method.Amount) };
+        => Total with { Amount = _paymentMethods.Sum(method => method.Amount) };
 
     public Money AmountDue
         => Total - TotalPayment;

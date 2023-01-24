@@ -38,7 +38,7 @@ public class ShoppingCartTests : AggregateTests
         _quantity = (ushort)(_fixture.Create<ushort>() + 1);
 
         _unitPrice = _fixture.Build<Money>()
-            .With(m => m.Value, _fixture.Create<decimal>() + 1)
+            .With(m => m.Amount, _fixture.Create<decimal>() + 1)
             .With(m => m.Currency, Currency.USD)
             .Create();
     }
