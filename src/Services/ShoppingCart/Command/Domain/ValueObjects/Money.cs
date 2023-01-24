@@ -5,6 +5,8 @@ namespace Domain.ValueObjects;
 
 public record Money(decimal Amount, Currency Currency)
 {
+    public static Money Zero => new(0, Currency.USD);
+    
     public static Money operator +(Money money, Money other)
         => ApplyOperator(money, other, (first, second) => first.Amount + second.Amount);
 
@@ -43,8 +45,8 @@ public record Money(decimal Amount, Currency Currency)
     public static implicit operator decimal(Money money)
         => money.Amount;
 
-    public static Money Zero(Currency currency)
-        => new(0, currency);
+    // public static Money Zero(Currency currency)
+    //     => new(0, currency);
 
     private static Money ApplyOperator(Money money, Money other, Func<Money, Money, decimal> operation)
     {

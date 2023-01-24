@@ -9,7 +9,15 @@ namespace Contracts.DataTransferObjects;
 
 public static class Dto
 {
-    public record Money(string Amount, string Currency);
+    public record Money(string Amount, string Currency)
+    {
+        public static implicit operator Abstractions.Protobuf.Money(Money money)
+            => new()
+            {
+                Amount = money.Amount,
+                Currency = money.Currency
+            };
+    }
 
     public record Address(string Street, string City, string State, string ZipCode, string Country, int? Number, string? Complement)
     {
@@ -68,7 +76,7 @@ public static class Dto
 
     public interface INotificationOption { }
 
-    public record NotificationMethod(Guid MethodId, INotificationOption Option);
+    public record NotificationMethod(Guid Id, INotificationOption Option);
 
     public record Email(string Address, string Subject, string Body) : INotificationOption
     {
@@ -122,6 +130,6 @@ public static class Dto
 
     public record Profile(string FirstName, string LastName, string Email, DateOnly? Birthdate, string Gender);
 
-    public record ShoppingCart(Guid Id, Guid CustomerId, string Status, Address BillingAddress, Address ShippingAddress, Money Total, string TotalPayment, string AmountDue,
+    public record ShoppingCart(Guid Id, Guid CustomerId, string Status, Address BillingAddress, Address ShippingAddress, Money Total, Money TotalPayment, Money AmountDue,
         IEnumerable<CartItem> Items, IEnumerable<PaymentMethod> PaymentMethods);
 }

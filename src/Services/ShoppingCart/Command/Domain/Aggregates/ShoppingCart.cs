@@ -22,10 +22,10 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
     private readonly List<PaymentMethod> _paymentMethods = new();
 
     public Guid CustomerId { get; private set; }
-    public CartStatus Status { get; private set; }
+    public CartStatus Status { get; private set; } = CartStatus.Open;
     public Address? BillingAddress { get; private set; }
     public Address? ShippingAddress { get; private set; }
-    public Money Total { get; private set; }
+    public Money Total { get; private set; } = Money.Zero;
     private bool BillingShippingSame { get; set; } = true;
 
     public Money TotalPayment
@@ -44,7 +44,7 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
         => Handle(command as dynamic);
 
     private void Handle(Command.CreateCart cmd)
-        => RaiseEvent(new DomainEvent.CartCreated(Guid.NewGuid(), cmd.CustomerId, Money.Zero(cmd.Currency), CartStatus.Active));
+        => RaiseEvent(new DomainEvent.CartCreated(Guid.NewGuid(), cmd.CustomerId, Money.Zero, CartStatus.Open));
 
     private void Handle(Command.AddCartItem cmd)
         => RaiseEvent(_items.SingleOrDefault(cartItem => cartItem.Product == cmd.Product) is { IsDeleted: false } item
@@ -100,7 +100,7 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
 
     private void Handle(Command.CheckOutCart cmd)
     {
-        if (Status is not CartStatus.ActiveStatus) return;
+        if (Status is not CartStatus.OpenStatus) return;
         if (_items is { Count: 0 } || AmountDue > 0) return;
         RaiseEvent(new DomainEvent.CartCheckedOut(cmd.CartId, CartStatus.CheckedOut));
     }

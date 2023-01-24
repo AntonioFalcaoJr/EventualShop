@@ -30,12 +30,12 @@ public class NotificationMethod : Entity<NotificationMethodValidator>
         => Status = NotificationMethodStatus.Pending;
 
     public static implicit operator NotificationMethod(Dto.NotificationMethod method)
-        => new(method.MethodId, method.Option switch
+        => new(method.Id, method.Option switch
         {
             Dto.Email email => (Email)email,
             Dto.Sms sms => (Sms)sms,
             Dto.PushMobile pushMobile => (PushMobile)pushMobile,
             Dto.PushWeb pushWeb => (PushWeb)pushWeb,
-            _ => default
+            _ => throw new NotImplementedException()
         });
 }

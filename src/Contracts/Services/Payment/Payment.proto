@@ -31,14 +31,14 @@ message ListPaymentMethodListItemRequest {
 message PaymentDetails {
   string Id = 1;
   string OrderId = 2;
-  string Amount = 3;
+  Abstractions.Protobuf.Money Amount = 3;
   string Status = 4;
 }
 
 message PaymentMethodDetails {
   string Id = 1;
   string OrderId = 2;
-  string Amount = 3;
+  Abstractions.Protobuf.Money Amount = 3;
   Abstractions.Protobuf.PaymentOption Option = 4;
   string Status = 5;
 }
@@ -46,7 +46,7 @@ message PaymentMethodDetails {
 message PaymentMethodListItem {
   string Id = 1;
   string OrderId = 2;
-  string Amount = 3;
+  Abstractions.Protobuf.Money Amount = 3;
   string Option = 4;
   string Status = 5;
 }

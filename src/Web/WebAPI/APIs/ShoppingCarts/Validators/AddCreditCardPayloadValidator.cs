@@ -8,7 +8,8 @@ public class AddCreditCardPayloadValidator : AbstractValidator<Payloads.AddCredi
     public AddCreditCardPayloadValidator()
     {
         RuleFor(request => request.Amount)
-            .GreaterThan("0");
+            .SetValidator(new MoneyValidator())
+            .OverridePropertyName(string.Empty);
 
         RuleFor(request => request.CreditCard)
             .SetValidator(new CreditCardValidator())

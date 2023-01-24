@@ -29,7 +29,7 @@ public class RequestNotificationWhenUserRegisteredInteractor : IRequestNotificat
     }
 
     private static IEnumerable<Dto.NotificationMethod> DefineMethods(Guid userId, string firstName, string address)
-        => new[] { new Dto.NotificationMethod { Option = new Dto.Email(address, $"Welcome {firstName}!", FormatBody(userId, firstName, address)) } };
+        => new[] { new Dto.NotificationMethod(Guid.NewGuid(), new Dto.Email(address, $"Welcome {firstName}!", FormatBody(userId, firstName, address))) };
 
     private static string FormatBody(Guid userid, string firstname, string email)
         => string.Format(

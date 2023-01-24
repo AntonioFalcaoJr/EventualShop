@@ -21,7 +21,7 @@ public class WarehouseGrpcService : WarehouseService.WarehouseServiceBase
         _listInventoriesItemsCardsInteractor = listInventoriesItemsCardsInteractor;
     }
 
-    public override async Task<ListResponse> ListInventoryItems(ListInventoryItemsListItemsResquest request, ServerCallContext context)
+    public override async Task<ListResponse> ListInventoryItems(ListInventoryItemsListItemsRequest request, ServerCallContext context)
     {
         var pagedResult = await _listInventoryGridItemsInteractor.InteractAsync(request, context.CancellationToken);
         
