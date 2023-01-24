@@ -31,8 +31,8 @@ public abstract class AggregateTests
 
         // TODO - Solve the tuple in abstraction
         var events = _aggregateRoot?.UncommittedEvents
-            .Where(tuple => tuple.@event is TEvent)
             .Select(tuple => tuple.@event)
+            .OfType<TEvent>()
             .ToList();
 
         events.Should().NotBeNull();
@@ -41,7 +41,7 @@ public abstract class AggregateTests
 
         if (assertions.Any())
             assertions.Should().AllSatisfy(assert
-                => assert((TEvent)events!.First()));
+                => assert(events!.First()));
 
         return this;
     }
