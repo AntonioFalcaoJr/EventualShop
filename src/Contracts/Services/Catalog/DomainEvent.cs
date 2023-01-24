@@ -17,7 +17,7 @@ public static class DomainEvent
 
     public record CatalogDescriptionChanged(Guid CatalogId, string Description) : Message, IEvent;
 
-    public record CatalogItemAdded(Guid CatalogId, Guid ItemId, Guid InventoryId, Dto.Product Product, string UnitPrice, string Sku, int Quantity) : Message, IEvent;
+    public record CatalogItemAdded(Guid CatalogId, Guid ItemId, Guid InventoryId, Dto.Product Product, Dto.Money UnitPrice, string Sku, int Quantity) : Message, IEvent;
 
     public record CatalogItemRemoved(Guid CatalogId, Guid ItemId) : Message, IEvent;
 

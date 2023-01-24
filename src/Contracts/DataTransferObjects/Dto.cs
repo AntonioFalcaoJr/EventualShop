@@ -122,6 +122,6 @@ public static class Dto
 
     public record Profile(string FirstName, string LastName, string Email, DateOnly? Birthdate, string Gender);
 
-    public record ShoppingCart(Guid Id, Guid CustomerId, string Status, Address BillingAddress, Address ShippingAddress, string Total, string TotalPayment, string AmountDue,
+    public record ShoppingCart(Guid Id, Guid CustomerId, string Status, Address BillingAddress, Address ShippingAddress, Money Total, string TotalPayment, string AmountDue,
         IEnumerable<CartItem> Items, IEnumerable<PaymentMethod> PaymentMethods);
 }

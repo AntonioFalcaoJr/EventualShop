@@ -32,9 +32,6 @@ public record Money(decimal Amount, Currency Currency)
     public static implicit operator string(Money money)
         => $"{money.Currency.Symbol} {money.Amount.ToString("N", CultureInfo.GetCultureInfo(money.Currency.CultureInfo))}";
 
-    public static implicit operator (string, string)(Money money)
-        => (money.Amount.ToString(CultureInfo.GetCultureInfo(money.Currency.CultureInfo)), money.Currency.Symbol);
-
     public static implicit operator Money(Dto.Money money)
         => new(decimal.Parse(money.Amount), money.Currency);
 

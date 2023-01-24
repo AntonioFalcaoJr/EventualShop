@@ -5,7 +5,7 @@ namespace Contracts.Services.Catalog;
 
 public static class Command
 {
-    public record AddCatalogItem(Guid CatalogId, Guid InventoryId, Dto.Product Product, string UnitPrice, string Sku, int Quantity) : Message, ICommand;
+    public record AddCatalogItem(Guid CatalogId, Guid InventoryId, Dto.Product Product, Dto.Money UnitPrice, string Sku, int Quantity) : Message, ICommand;
 
     public record ActivateCatalog(Guid CatalogId) : Message, ICommand;
 
