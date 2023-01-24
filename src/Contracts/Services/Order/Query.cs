@@ -9,7 +9,7 @@ public static class Query
     public record GetOrderDetails(Guid OrderId) : IQuery
     {
         public static implicit operator GetOrderDetails(GetOrderDetailsRequest request)
-            => new(new(request.OrderId));
+            => new(new Guid(request.OrderId));
     }
 
     public record ListOrdersGridItems(Guid CustomerId, Paging Paging) : IQuery

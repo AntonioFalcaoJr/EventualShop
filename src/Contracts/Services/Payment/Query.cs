@@ -8,13 +8,13 @@ public static class Query
     public record GetPaymentDetails(Guid PaymentId) : IQuery
     {
         public static implicit operator GetPaymentDetails(Protobuf.GetPaymentDetailsRequest request)
-            => new(new(request.PaymentId));
+            => new(new Guid(request.PaymentId));
     }
 
     public record GetPaymentMethodDetails(Guid MethodId) : IQuery
     {
         public static implicit operator GetPaymentMethodDetails(Protobuf.GetPaymentMethodDetailsRequest request)
-            => new(new(request.MethodId));
+            => new(new Guid(request.MethodId));
     }
 
     public record ListPaymentMethodListItem(Guid PaymentId, Paging Paging) : IQuery

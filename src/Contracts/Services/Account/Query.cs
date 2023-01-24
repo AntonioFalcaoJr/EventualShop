@@ -9,7 +9,7 @@ public static class Query
     public record GetAccountDetails(Guid AccountId) : IQuery
     {
         public static implicit operator GetAccountDetails(GetAccountDetailsRequest request)
-            => new(new(request.AccountId));
+            => new(new Guid(request.AccountId));
     }
 
     public record ListAccountsDetails(Paging Paging) : IQuery
