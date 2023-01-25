@@ -8,7 +8,8 @@ public class AddPaypalPayloadValidator : AbstractValidator<Payloads.AddPaypalPay
     public AddPaypalPayloadValidator()
     {
         RuleFor(request => request.Amount)
-            .GreaterThan("0");
+            .SetValidator(new MoneyValidator())
+            .OverridePropertyName(string.Empty);
 
         RuleFor(request => request.PayPal)
             .SetValidator(new PayPalValidator())

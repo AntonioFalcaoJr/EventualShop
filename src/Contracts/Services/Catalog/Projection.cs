@@ -29,7 +29,7 @@ public static class Projection
             };
     }
 
-    public record CatalogItemCard(Guid Id, Guid CatalogId, Dto.Product Product, string Price, string ImageUrl, bool IsDeleted) : IProjection
+    public record CatalogItemCard(Guid Id, Guid CatalogId, Dto.Product Product, Dto.Money Price, string ImageUrl, bool IsDeleted) : IProjection
     {
         public static implicit operator Protobuf.CatalogItemCard(CatalogItemCard item)
             => new()
@@ -43,7 +43,7 @@ public static class Projection
             };
     }
 
-    public record CatalogItemDetails(Guid Id, Guid CatalogId, Dto.Product Product, string Price, string ImageUrl, bool IsDeleted) : IProjection
+    public record CatalogItemDetails(Guid Id, Guid CatalogId, Dto.Product Product, Dto.Money Price, string ImageUrl, bool IsDeleted) : IProjection
     {
         public static implicit operator Protobuf.CatalogItemDetails(CatalogItemDetails item)
             => new()

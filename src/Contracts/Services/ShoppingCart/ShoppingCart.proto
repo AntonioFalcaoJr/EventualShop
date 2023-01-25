@@ -50,7 +50,7 @@ message ShoppingCartDetails {
   string Id = 1;
   string CustomerId = 2;
   string Status = 3;
-  string Total = 4;
+  Abstractions.Protobuf.Money Total = 4;
 }
 
 // Items
@@ -72,13 +72,13 @@ message ShoppingCartItemListItem{
 message PaymentMethodDetails {
   string Id = 1;
   string CartId = 2;
-  string Amount = 3;
+  Abstractions.Protobuf.Money Amount = 3;
   Abstractions.Protobuf.PaymentOption Option = 4;
 }
 
 message PaymentMethodListItem {
   string Id = 1;
   string CartId = 2;
-  string Amount = 3;
+  Abstractions.Protobuf.Money Amount = 3;
   string Option = 4;
 }

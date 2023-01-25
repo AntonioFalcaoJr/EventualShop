@@ -37,4 +37,4 @@ public class PaymentMethod : Entity<PaymentMethodValidator>
             PayPal payPal => (Dto.PayPal)payPal,
             _ => throw new NotImplementedException()
         });
-};
+}

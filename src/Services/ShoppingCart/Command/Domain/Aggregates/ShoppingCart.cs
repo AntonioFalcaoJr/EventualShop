@@ -22,14 +22,14 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
     private readonly List<PaymentMethod> _paymentMethods = new();
 
     public Guid CustomerId { get; private set; }
-    public CartStatus Status { get; private set; }
+    public CartStatus Status { get; private set; } = CartStatus.Undefined;
     public Address? BillingAddress { get; private set; }
     public Address? ShippingAddress { get; private set; }
-    public Money Total { get; private set; }
-    private bool BillingShippingSame { get; set; } = true;
+    public Money Total { get; private set; } = Money.Zero(Currency.Unknown);
+    private bool SameBillingShippingAddress { get; set; } = true;
 
     public Money TotalPayment
-        => Total with { Value = _paymentMethods.Sum(method => method.Amount) };
+        => Total with { Amount = _paymentMethods.Sum(method => method.Amount) };
 
     public Money AmountDue
         => Total - TotalPayment;
@@ -169,14 +169,14 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
     {
         BillingAddress = @event.Address;
 
-        if (BillingShippingSame)
+        if (SameBillingShippingAddress)
             ShippingAddress = BillingAddress;
     }
 
     private void When(DomainEvent.ShippingAddressAdded @event)
     {
         ShippingAddress = @event.Address;
-        BillingShippingSame = ShippingAddress == BillingAddress;
+        SameBillingShippingAddress = ShippingAddress == BillingAddress;
     }
 
     private Money IncreasedTotal(Money unitPrice, int quantity)

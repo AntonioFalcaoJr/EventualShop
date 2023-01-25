@@ -2,7 +2,7 @@
 
 namespace Domain.ValueObject;
 
-public record struct PushWeb(Guid UserId) : INotificationOption
+public record PushWeb(Guid UserId) : INotificationOption
 {
     public static implicit operator PushWeb(Guid userId)
         => new(userId);

@@ -21,7 +21,7 @@ public class PublishCartSubmittedWhenCartCheckedOutInteractor : IPublishCartSubm
     {
         var shoppingCart = await _applicationService.LoadAggregateAsync<ShoppingCart>(@event.CartId, cancellationToken);
 
-        IntegrationEvent.CartSubmitted cartSubmitted = new(
+        SummaryEvent.CartSubmitted cartSubmitted = new(
             shoppingCart.Id,
             shoppingCart.CustomerId,
             shoppingCart.Total,

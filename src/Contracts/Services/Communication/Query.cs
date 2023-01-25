@@ -6,7 +6,7 @@ namespace Contracts.Services.Communication;
 
 public static class Query
 {
-    public record struct ListNotificationsDetails(Paging Paging) : IQuery
+    public record ListNotificationsDetails(Paging Paging) : IQuery
     {
         public static implicit operator ListNotificationsDetails(ListNotificationsDetailsRequest request)
             => new(request.Paging);
