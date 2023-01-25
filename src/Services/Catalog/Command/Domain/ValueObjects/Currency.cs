@@ -10,11 +10,12 @@ public record Currency(string IsoCode, string Symbol, int DecimalPlaces, string 
     public static Currency EUR => new("EUR", "€", 2, "Euro", "European Union", "en-EU");
     public static Currency GBP => new("GBP", "£", 2, "British pound", "United Kingdom", "en-GB");
     public static Currency JPY => new("JPY", "JP¥", 0, "Japanese yen", "Japan", "ja-JP");
-    public static Currency CHF => new("CHF", "CHF", 2, "Swiss franc", "Switzerland", "de-CH");  
+    public static Currency CHF => new("CHF", "CHF", 2, "Swiss franc", "Switzerland", "de-CH");
     public static Currency AUD => new("AUD", "A$", 2, "Australian dollar", "Australia", "en-AU");
     public static Currency CNY => new("CNY", "CNY", 2, "Chinese yuan", "China", "zh-CN");
     public static Currency INR => new("INR", "INR", 2, "Indian rupee", "India", "hi-IN");
     public static Currency MXN => new("MXN", "Mex$", 2, "Mexican peso", "Mexico", "es-MX");
+    public static Currency Unknown => new("Unknown", "Unknown", 0, "Unknown", "Unknown", "Unknown");
 
     public static implicit operator Currency(string currency)
         => currency switch
@@ -30,7 +31,7 @@ public record Currency(string IsoCode, string Symbol, int DecimalPlaces, string 
             "CNY" => CNY,
             "INR" => INR,
             "MXN" or "Mex$" => MXN,
-            _ => throw new ArgumentException($"Invalid currency: {currency}")
+            _ => Unknown
         };
 
     public static implicit operator string(Currency currency)

@@ -22,11 +22,11 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
     private readonly List<PaymentMethod> _paymentMethods = new();
 
     public Guid CustomerId { get; private set; }
-    public CartStatus Status { get; private set; } = CartStatus.Open;
+    public CartStatus Status { get; private set; } = CartStatus.Undefined;
     public Address? BillingAddress { get; private set; }
     public Address? ShippingAddress { get; private set; }
-    public Money Total { get; private set; } = Money.Zero;
-    private bool BillingShippingSame { get; set; } = true;
+    public Money Total { get; private set; } = Money.Zero(Currency.Unknown);
+    private bool SameBillingShippingAddress { get; set; } = true;
 
     public Money TotalPayment
         => Total with { Amount = _paymentMethods.Sum(method => method.Amount) };
@@ -44,7 +44,7 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
         => Handle(command as dynamic);
 
     private void Handle(Command.CreateCart cmd)
-        => RaiseEvent(new DomainEvent.CartCreated(Guid.NewGuid(), cmd.CustomerId, Money.Zero, CartStatus.Open));
+        => RaiseEvent(new DomainEvent.CartCreated(Guid.NewGuid(), cmd.CustomerId, Money.Zero(cmd.Currency), CartStatus.Active));
 
     private void Handle(Command.AddCartItem cmd)
         => RaiseEvent(_items.SingleOrDefault(cartItem => cartItem.Product == cmd.Product) is { IsDeleted: false } item
@@ -100,7 +100,7 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
 
     private void Handle(Command.CheckOutCart cmd)
     {
-        if (Status is not CartStatus.OpenStatus) return;
+        if (Status is not CartStatus.ActiveStatus) return;
         if (_items is { Count: 0 } || AmountDue > 0) return;
         RaiseEvent(new DomainEvent.CartCheckedOut(cmd.CartId, CartStatus.CheckedOut));
     }
@@ -169,14 +169,14 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
     {
         BillingAddress = @event.Address;
 
-        if (BillingShippingSame)
+        if (SameBillingShippingAddress)
             ShippingAddress = BillingAddress;
     }
 
     private void When(DomainEvent.ShippingAddressAdded @event)
     {
         ShippingAddress = @event.Address;
-        BillingShippingSame = ShippingAddress == BillingAddress;
+        SameBillingShippingAddress = ShippingAddress == BillingAddress;
     }
 
     private Money IncreasedTotal(Money unitPrice, int quantity)

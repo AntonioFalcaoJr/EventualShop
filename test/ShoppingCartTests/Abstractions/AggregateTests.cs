@@ -36,12 +36,13 @@ public abstract class AggregateTests
             .ToList();
 
         events.Should().NotBeNull();
-        events.Should().BeOfType<TEvent>();
+        events.Should().NotBeEmpty();
         events.Should().ContainSingle();
+        
+        var @event = events!.First();
 
-        if (assertions.Any())
-            assertions.Should().AllSatisfy(assert
-                => assert(events!.First()));
+        if (assertions.Any()) 
+            assertions.Should().AllSatisfy(assert => assert(@event));
 
         return this;
     }

@@ -5,8 +5,6 @@ namespace Domain.ValueObjects;
 
 public record Money(decimal Amount, Currency Currency)
 {
-    public static Money Zero => new(0, Currency.USD);
-    
     public static Money operator +(Money money, Money other)
         => ApplyOperator(money, other, (first, second) => first.Amount + second.Amount);
 
@@ -31,11 +29,17 @@ public record Money(decimal Amount, Currency Currency)
     public static bool operator <(Money money, Money other)
         => ApplyOperator(money, other, (first, second) => first.Amount < second.Amount);
 
+    public static bool operator ==(Money money, Dto.Money dto)
+        => dto == (Dto.Money)money;
+
+    public static bool operator !=(Money money, Dto.Money dto)
+        => dto != (Dto.Money)money;
+
     public static implicit operator string(Money money)
         => $"{money.Currency.Symbol} {money.Amount.ToString("N", CultureInfo.GetCultureInfo(money.Currency.CultureInfo))}";
 
-    public static implicit operator Money(Dto.Money money)
-        => new(decimal.Parse(money.Amount), money.Currency);
+    public static implicit operator Money(Dto.Money dto)
+        => new(decimal.Parse(dto.Amount), dto.Currency);
 
     public static implicit operator Dto.Money(Money money)
         => new(money.Amount.ToString("N", CultureInfo.GetCultureInfo(money.Currency.CultureInfo)), money.Currency);
@@ -45,8 +49,8 @@ public record Money(decimal Amount, Currency Currency)
     public static implicit operator decimal(Money money)
         => money.Amount;
 
-    // public static Money Zero(Currency currency)
-    //     => new(0, currency);
+    public static Money Zero(Currency currency)
+        => new(0, currency);
 
     private static Money ApplyOperator(Money money, Money other, Func<Money, Money, decimal> operation)
     {

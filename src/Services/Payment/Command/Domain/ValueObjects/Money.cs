@@ -29,6 +29,12 @@ public record Money(decimal Amount, Currency Currency)
     public static bool operator <(Money money, Money other)
         => ApplyOperator(money, other, (first, second) => first.Amount < second.Amount);
 
+    public static bool operator ==(Money money, Dto.Money dto)
+        => dto == (Dto.Money)money;
+
+    public static bool operator !=(Money money, Dto.Money dto)
+        => dto != (Dto.Money)money;
+
     public static implicit operator string(Money money)
         => $"{money.Currency.Symbol} {money.Amount.ToString("N", CultureInfo.GetCultureInfo(money.Currency.CultureInfo))}";
 
