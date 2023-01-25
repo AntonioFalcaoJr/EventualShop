@@ -10,11 +10,11 @@ public record PayPalHttpClientOptions : HttpClientOptions;
 
 public abstract record HttpClientOptions
 {
-    [Required, Url] public string BaseAddress { get; init; } = default!;
-    [Required, MinLength(5)] public string CancelEndpoint { get; init; } = default!;
-    [Required, MinLength(5)] public string AuthorizeEndpoint { get; init; } = default!;
-    [Required, MinLength(5)] public string RefundEndpoint { get; init; } = default!;
-    [Required, MinLength(5)] public string CaptureEndpoint { get; init; } = default!;
+    [Required, Url] public required string BaseAddress { get; init; }
+    [Required, MinLength(5)] public required string CancelEndpoint { get; init; }
+    [Required, MinLength(5)] public required string AuthorizeEndpoint { get; init; }
+    [Required, MinLength(5)] public required string RefundEndpoint { get; init; }
+    [Required, MinLength(5)] public required string CaptureEndpoint { get; init; }
     [Required, Timestamp] public TimeSpan OverallTimeout { get; init; }
     [Required, Range(2, 20)] public int RetryCount { get; init; }
     [Required, Range(2, 20)] public int SleepDurationPower { get; init; }

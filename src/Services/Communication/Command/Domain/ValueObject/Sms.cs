@@ -2,7 +2,7 @@
 
 namespace Domain.ValueObject;
 
-public record struct Sms(string Number) : INotificationOption
+public record Sms(string Number) : INotificationOption
 {
     public static implicit operator Sms(string number)
         => new(number);

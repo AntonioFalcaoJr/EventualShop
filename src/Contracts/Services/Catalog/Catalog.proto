@@ -54,7 +54,7 @@ message CatalogItemCard {
   Abstractions.Protobuf.Product Product = 3;
   string Description = 4;
   string ImageUrl = 5;
-  string UnitPrice = 6;
+  Abstractions.Protobuf.Money UnitPrice = 6;
 }
 
 message CatalogItemDetails {
@@ -63,5 +63,5 @@ message CatalogItemDetails {
   string Description = 3;
   string ImageUrl = 4;
   Abstractions.Protobuf.Product Product = 5;
-  string UnitPrice = 6;
+  Abstractions.Protobuf.Money UnitPrice = 6;
 }

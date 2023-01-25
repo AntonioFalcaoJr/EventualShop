@@ -15,7 +15,7 @@ public class OrderValidator : AbstractValidator<Order>
 
         When(order => order.Items.Any(item => item.IsDeleted is false), () =>
         {
-            RuleFor(order => order.Total.Value)
+            RuleFor(order => order.Total.Amount)
                 .GreaterThan(0);
         });
     }

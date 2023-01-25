@@ -22,9 +22,9 @@ public class Payment : AggregateRoot<PaymentValidator>
 
     public Money AmountDue => Amount with
     {
-        Value = _methods
+        Amount = _methods
             .Where(method => method.Status is not PaymentMethodStatus.AuthorizedStatus)
-            .Sum(method => method.Amount.Value)
+            .Sum(method => method.Amount.Amount)
     };
 
     public IEnumerable<PaymentMethod> Methods

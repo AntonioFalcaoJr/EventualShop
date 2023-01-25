@@ -1,49 +1,78 @@
-﻿namespace Domain.ValueObjects;
+﻿using System.Globalization;
+using Contracts.DataTransferObjects;
 
-public readonly record struct Money(Currency Currency, decimal Value)
+namespace Domain.ValueObjects;
+
+public record Money(decimal Amount, Currency Currency)
 {
     public static Money operator +(Money money, Money other)
-        => money with { Value = money.Value + other.Value };
+        => ApplyOperator(money, other, (first, second) => first.Amount + second.Amount);
 
     public static Money operator -(Money money, Money other)
-        => money with { Value = money.Value - other.Value };
+        => ApplyOperator(money, other, (first, second) => first.Amount - second.Amount);
 
     public static Money operator *(Money money, Money other)
-        => money with { Value = money.Value * other.Value };
+        => ApplyOperator(money, other, (first, second) => first.Amount * second.Amount);
 
     public static Money operator *(Money money, int integer)
-        => money with { Value = money.Value * integer };
+        => money with { Amount = money.Amount * integer };
 
     public static Money operator /(Money money, Money other)
-    {
-        if (other.Value is 0) throw new DivideByZeroException();
-        return money with { Value = money.Value / other.Value };
-    }
+        => ApplyDivideByZeroOperator(money, other, (first, second) => first.Amount / second.Amount);
 
     public static Money operator %(Money money, Money other)
-    {
-        if (other.Value is 0) throw new DivideByZeroException();
-        return money with { Value = money.Value % other.Value };
-    }
+        => ApplyDivideByZeroOperator(money, other, (first, second) => first.Amount % second.Amount);
 
     public static bool operator >(Money money, Money other)
-        => money.Value > other.Value;
+        => ApplyOperator(money, other, (first, second) => first.Amount > second.Amount);
 
     public static bool operator <(Money money, Money other)
-        => money.Value < other.Value;
+        => ApplyOperator(money, other, (first, second) => first.Amount < second.Amount);
+
+    public static bool operator ==(Money money, Dto.Money dto)
+        => dto == (Dto.Money)money;
+
+    public static bool operator !=(Money money, Dto.Money dto)
+        => dto != (Dto.Money)money;
 
     public static implicit operator string(Money money)
-        => $"{money.Currency.Symbol} {money.Value}";
+        => $"{money.Currency.Symbol} {money.Amount.ToString("N", CultureInfo.GetCultureInfo(money.Currency.CultureInfo))}";
 
-    public static implicit operator Money(string money)
-    {
-        var parts = money.Split(' ');
-        return new(parts[1], decimal.Parse(parts[0]));
-    }
+    public static implicit operator Money(Dto.Money money)
+        => new(decimal.Parse(money.Amount), money.Currency);
+
+    public static implicit operator Dto.Money(Money money)
+        => new(money.Amount.ToString("N", CultureInfo.GetCultureInfo(money.Currency.CultureInfo)), money.Currency);
+
+    public override string ToString() => this;
 
     public static implicit operator decimal(Money money)
-        => money.Value;
+        => money.Amount;
 
     public static Money Zero(Currency currency)
-        => new(currency, 0);
+        => new(0, currency);
+
+    private static Money ApplyOperator(Money money, Money other, Func<Money, Money, decimal> operation)
+    {
+        ValidateCurrencies(money, other);
+        return money with { Amount = operation(money, other) };
+    }
+
+    private static bool ApplyOperator(Money money, Money other, Func<Money, Money, bool> operation)
+    {
+        ValidateCurrencies(money, other);
+        return operation(money, other);
+    }
+
+    private static Money ApplyDivideByZeroOperator(Money money, Money other, Func<Money, Money, decimal> operation)
+    {
+        if (other.Amount is 0) throw new DivideByZeroException();
+        return ApplyOperator(money, other, operation);
+    }
+
+    private static void ValidateCurrencies(Money money, Money other)
+    {
+        if (money.Currency != other.Currency)
+            throw new InvalidOperationException("Currencies must be the same");
+    }
 }

@@ -40,6 +40,11 @@ message Paging {
   google.protobuf.Int32Value Offset = 2;
 }
 
+message Money{
+  string Amount = 1;
+  string Currency = 2;
+}
+
 message Product {
   string Description = 1;
   string Name = 2;

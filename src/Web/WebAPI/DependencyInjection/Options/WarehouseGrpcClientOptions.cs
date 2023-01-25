@@ -4,5 +4,5 @@ namespace WebAPI.DependencyInjection.Options;
 
 public record WarehouseGrpcClientOptions
 {
-    [Required, Url] public string BaseAddress { get; init; } = default!;
+    [Required, Url] public required string BaseAddress { get; init; }
 }

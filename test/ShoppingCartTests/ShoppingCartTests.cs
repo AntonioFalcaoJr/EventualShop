@@ -1,9 +1,10 @@
 using AutoFixture;
+using Contracts.DataTransferObjects;
 using Contracts.Services.ShoppingCart;
 using Domain.Aggregates;
 using Domain.Enumerations;
-using Domain.ValueObjects;
 using Domain.ValueObjects.Addresses;
+using Domain.ValueObjects;
 using Domain.ValueObjects.Products;
 using FluentAssertions;
 using FluentValidation;
@@ -38,7 +39,7 @@ public class ShoppingCartTests : AggregateTests
         _quantity = (ushort)(_fixture.Create<ushort>() + 1);
 
         _unitPrice = _fixture.Build<Money>()
-            .With(m => m.Value, _fixture.Create<decimal>() + 1)
+            .With(m => m.Amount, _fixture.Create<decimal>() + 1)
             .With(m => m.Currency, Currency.USD)
             .Create();
     }
@@ -50,7 +51,7 @@ public class ShoppingCartTests : AggregateTests
             .Then<DomainEvent.CartCreated>(
                 @event => @event.CustomerId.Should().Be(_customerId),
                 @event => @event.Status.Should().Be(CartStatus.Active),
-                @event => @event.Total.Should().Be(Money.Zero(Currency.USD)));
+                @event => @event.Total.Should().Be((Dto.Money)Money.Zero(Currency.USD)));
 
     [Fact]
     public void AddCartItemShouldRaiseCartItemAdded()
