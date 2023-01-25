@@ -22,7 +22,7 @@ public class SendNotificationWhenNotificationRequestedInteractor : ISendNotifica
     public async Task InteractAsync(DomainEvent.NotificationRequested @event, CancellationToken cancellationToken)
     {
         var notification = await _applicationService.LoadAggregateAsync<Notification>(@event.NotificationId, cancellationToken);
-        await _notificationService.NotifyAsync(notification as Notification, cancellationToken);
+        await _notificationService.NotifyAsync(notification, cancellationToken);
         await _applicationService.AppendEventsAsync(notification, cancellationToken);
     }
 }

@@ -25,13 +25,13 @@ message ListOrdersGridItemsRequest {
 message OrderDetails {
   string OrderId = 1;
   string CustomerId = 2;
-  string Total = 3;
+  Abstractions.Protobuf.Money Total = 3;
   string Status = 4;
 }
 
 message OrderGridItem {
   string OrderId = 1;
   string CustomerId = 2;
-  string Total = 3;
+  Abstractions.Protobuf.Money Total = 3;
   string Status = 4;
 }

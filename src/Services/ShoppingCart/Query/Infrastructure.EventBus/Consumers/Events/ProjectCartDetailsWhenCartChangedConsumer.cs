@@ -12,7 +12,7 @@ public class ProjectCartDetailsWhenCartChangedConsumer :
     IConsumer<DomainEvent.CartItemIncreased>,
     IConsumer<DomainEvent.CartItemDecreased>,
     IConsumer<DomainEvent.CartDiscarded>,
-    IConsumer<IntegrationEvent.ProjectionRebuilt>
+    IConsumer<SummaryEvent.ProjectionRebuilt>
 {
     private readonly IProjectCartDetailsWhenCartChangedInteractor _interactor;
 
@@ -42,6 +42,6 @@ public class ProjectCartDetailsWhenCartChangedConsumer :
     public Task Consume(ConsumeContext<DomainEvent.CartDiscarded> context)
         => _interactor.InteractAsync(context.Message, context.CancellationToken);
 
-    public Task Consume(ConsumeContext<IntegrationEvent.ProjectionRebuilt> context)
+    public Task Consume(ConsumeContext<SummaryEvent.ProjectionRebuilt> context)
         => _interactor.InteractAsync(context.Message, context.CancellationToken);
 }

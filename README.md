@@ -600,8 +600,7 @@ with some different strategies and ways to implement projections.
 > The CQRS pattern is often used along with the Event Sourcing pattern. CQRS-based systems use separate read and write data models, each tailored to relevant tasks and often located in physically
 > separate stores. When used with the Event Sourcing pattern, the store of events is the write model, and is the official source of information. The read model of a CQRS-based system provides
 > materialized views of the data, typically as highly denormalized views. These views are tailored to the interfaces and display requirements of the application, which helps to maximize both display
-> and
-> query performance.
+> and query performance.
 >
 > ["Event Sourcing and CQRS pattern" _MSDN_, Microsoft Docs, last edited on 02 Nov 2020](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs#event-sourcing-and-cqrs-pattern)
 
@@ -637,8 +636,7 @@ with some different strategies and ways to implement projections.
 
 > Integration events are used for bringing domain state in sync across multiple microservices or external systems. This functionality is done by publishing integration events outside the microservice.
 > When an event is published to multiple receiver microservices (to as many microservices as are subscribed to the integration event), the appropriate event handler in each receiver microservice
-> handles
-> the event.
+> handles the event.
 >
 > [MSDN. "Implementing event-based communication between microservices (integration events)", _docs.microsoft.com_, last edited on 30 Nov 2021](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/multi-container-microservice-net-applications/integration-event-based-microservice-communications)
 
@@ -680,6 +678,15 @@ with some different strategies and ways to implement projections.
 > Snapshots.
 >
 > [Balachandran, Arvind. "Event Notification vs. Event-Carried State Transfer", _Start it up_, last edited on 27 Oct 2019](https://medium.com/swlh/event-notification-vs-event-carried-state-transfer-2e4fdf8f6662)
+
+#### Summary Event
+
+> Instead of emitting each event, the original business process can keep all the events private. At the end of the process, the process emits a single Summary Event. This event is redundant, in the
+> sense that it contains only information that was already available in the preceding events. Consumers, instead of being aware of every event, are now only listening to this Summary Event, which tells
+> them everything they need to know, with little to no irrelevant (to them) information. Consumers do not need to track state changes during the process, because they get everything at the end, and can
+> then act on them.
+>
+> [Verraes, Mathias. "Patterns for Decoupling in Distributed Systems: Summary Event", _verraes.net_, last edited on 08 May 2019](https://verraes.net/2019/05/patterns-for-decoupling-distsys-summary-event/)
 
 </details>
 

@@ -24,20 +24,27 @@ public abstract class AggregateTests
         return this;
     }
 
-    public void Then<TEvent>(params Action<TEvent>[] assertions)
+    public AggregateTests Then<TEvent>(params Action<TEvent>[] assertions)
         where TEvent : IEvent
     {
         _aggregateRoot?.Handle(_command!);
 
-        var events = _aggregateRoot?.UncommittedEvents.Select(tuple => tuple.@event).ToList();
+        // TODO - Solve the tuple in abstraction
+        var events = _aggregateRoot?.UncommittedEvents
+            .Select(tuple => tuple.@event)
+            .OfType<TEvent>()
+            .ToList();
 
         events.Should().NotBeNull();
-        events.Should().AllBeOfType<TEvent>();
+        events.Should().NotBeEmpty();
         events.Should().ContainSingle();
+        
+        var @event = events!.First();
 
-        if (assertions.Any())
-            assertions.Should().AllSatisfy(assert
-                => assert((TEvent)events!.First()));
+        if (assertions.Any()) 
+            assertions.Should().AllSatisfy(assert => assert(@event));
+
+        return this;
     }
 
     public void Throws<TException>(params Action<TException>[] assertions)

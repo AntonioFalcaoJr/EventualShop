@@ -1,6 +1,6 @@
 namespace Contracts.Abstractions.Paging;
 
-public record struct Paging
+public record Paging
 {
     private const int UpperLimit = 100;
     private const int DefaultLimit = 10;

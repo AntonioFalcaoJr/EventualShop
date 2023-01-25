@@ -6,7 +6,7 @@ using ShoppingCart = Contracts.Services.ShoppingCart;
 
 namespace Application.UseCases.Events;
 
-public interface IPlaceOrderWhenCartSubmittedInteractor : IInteractor<ShoppingCart.IntegrationEvent.CartSubmitted> { }
+public interface IPlaceOrderWhenCartSubmittedInteractor : IInteractor<ShoppingCart.SummaryEvent.CartSubmitted> { }
 
 public class PlaceOrderWhenCartSubmittedInteractor : IPlaceOrderWhenCartSubmittedInteractor
 {
@@ -17,7 +17,7 @@ public class PlaceOrderWhenCartSubmittedInteractor : IPlaceOrderWhenCartSubmitte
         _applicationService = applicationService;
     }
 
-    public async Task InteractAsync(ShoppingCart.IntegrationEvent.CartSubmitted @event, CancellationToken cancellationToken)
+    public async Task InteractAsync(ShoppingCart.SummaryEvent.CartSubmitted @event, CancellationToken cancellationToken)
     {
         Order order = new();
 

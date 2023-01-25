@@ -18,7 +18,7 @@ public class ShoppingCartValidator : AbstractValidator<ShoppingCart>
 
         When(cart => cart.Items.Any(item => item.IsDeleted is false), () =>
         {
-            RuleFor(cart => cart.Total.Value)
+            RuleFor(cart => cart.Total.Amount)
                 .GreaterThan(0);
         });
 

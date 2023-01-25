@@ -16,7 +16,7 @@ public static class Queries
     public record ListInventoryItemsListItems(WarehouseService.WarehouseServiceClient Client, Guid InventoryId, int? Limit, int? Offset, CancellationToken CancellationToken)
         : Validatable<ListInventoryGridItemsValidator>, IQuery<WarehouseService.WarehouseServiceClient>
     {
-        public static implicit operator ListInventoryItemsListItemsResquest(ListInventoryItemsListItems request)
+        public static implicit operator ListInventoryItemsListItemsRequest(ListInventoryItemsListItems request)
             => new() { InventoryId = request.InventoryId.ToString(), Paging = new() { Limit = request.Limit, Offset = request.Offset } };
     }
 }
