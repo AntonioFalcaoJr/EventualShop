@@ -50,7 +50,7 @@ public record Money(decimal Amount, Currency Currency)
         => money.Amount;
 
     public static Money Zero(Currency currency)
-        => new(0, currency);
+        => new(decimal.Zero, currency);
 
     private static Money ApplyOperator(Money money, Money other, Func<Money, Money, decimal> operation)
     {
