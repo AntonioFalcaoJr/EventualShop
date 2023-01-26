@@ -25,6 +25,7 @@ public class ProjectPaymentMethodListItemWhenCartChangedInteractor : IProjectPay
             @event.CartId,
             @event.Amount,
             @event.CreditCard.GetType().Name, // TODO - It's temporary
+            @event.Version,
             false);
 
         return _projectionGateway.UpsertAsync(creditCard, cancellationToken);
@@ -37,6 +38,7 @@ public class ProjectPaymentMethodListItemWhenCartChangedInteractor : IProjectPay
             @event.CartId,
             @event.Amount,
             @event.DebitCard.GetType().Name, // TODO - It's temporary
+            @event.Version,
             false);
 
         return _projectionGateway.UpsertAsync(creditCard, cancellationToken);
@@ -49,6 +51,7 @@ public class ProjectPaymentMethodListItemWhenCartChangedInteractor : IProjectPay
             @event.CartId,
             @event.Amount,
             @event.PayPal.GetType().Name, // TODO - It's temporary
+            @event.Version,
             false);
 
         return _projectionGateway.UpsertAsync(creditCard, cancellationToken);

@@ -9,7 +9,7 @@ public abstract class AggregateTests
     private IAggregateRoot? _aggregateRoot;
     private ICommand? _command;
 
-    protected AggregateTests Given<TAggregate>(params IEvent[] events)
+    protected AggregateTests Given<TAggregate>(params IVersionedEvent[] events)
         where TAggregate : IAggregateRoot, new()
     {
         _aggregateRoot = new TAggregate();
@@ -25,15 +25,11 @@ public abstract class AggregateTests
     }
 
     public AggregateTests Then<TEvent>(params Action<TEvent>[] assertions)
-        where TEvent : IEvent
+        where TEvent : IVersionedEvent
     {
         _aggregateRoot?.Handle(_command!);
 
-        // TODO - Solve the tuple in abstraction
-        var events = _aggregateRoot?.UncommittedEvents
-            .Select(tuple => tuple.@event)
-            .OfType<TEvent>()
-            .ToList();
+        var events = _aggregateRoot?.UncommittedEvents.OfType<TEvent>().ToList();
 
         events.Should().NotBeNull();
         events.Should().NotBeEmpty();

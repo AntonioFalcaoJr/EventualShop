@@ -5,7 +5,7 @@ namespace Domain.Abstractions.Aggregates;
 
 public interface IAggregateRoot : IEntity
 {
-    IEnumerable<(long version, IEvent @event)> UncommittedEvents { get; }
-    IAggregateRoot Load(IEnumerable<IEvent> events);
+    IEnumerable<IVersionedEvent> UncommittedEvents { get; }
+    IAggregateRoot Load(IEnumerable<IVersionedEvent> events);
     void Handle(ICommand command);
 }

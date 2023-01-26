@@ -44,78 +44,78 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
         => Handle(command as dynamic);
 
     private void Handle(Command.CreateCart cmd)
-        => RaiseEvent(new DomainEvent.CartCreated(Guid.NewGuid(), cmd.CustomerId, Money.Zero(cmd.Currency), CartStatus.Active));
+        => RaiseEvent(new DomainEvent.CartCreated(Guid.NewGuid(), cmd.CustomerId, Money.Zero(cmd.Currency), CartStatus.Active, ExpectedVersion));
 
     private void Handle(Command.AddCartItem cmd)
         => RaiseEvent(_items.SingleOrDefault(cartItem => cartItem.Product == cmd.Product) is { IsDeleted: false } item
-            ? new DomainEvent.CartItemIncreased(Id, item.Id, (ushort)(item.Quantity + cmd.Quantity), item.UnitPrice, IncreasedTotal(item.UnitPrice, cmd.Quantity))
-            : new DomainEvent.CartItemAdded(cmd.CartId, Guid.NewGuid(), cmd.InventoryId, cmd.Product, cmd.Quantity, cmd.UnitPrice, IncreasedTotal(cmd.UnitPrice, cmd.Quantity)));
+            ? new DomainEvent.CartItemIncreased(Id, item.Id, (ushort)(item.Quantity + cmd.Quantity), item.UnitPrice, IncreasedTotal(item.UnitPrice, cmd.Quantity), ExpectedVersion)
+            : new DomainEvent.CartItemAdded(cmd.CartId, Guid.NewGuid(), cmd.InventoryId, cmd.Product, cmd.Quantity, cmd.UnitPrice, IncreasedTotal(cmd.UnitPrice, cmd.Quantity), ExpectedVersion));
 
     private void Handle(Command.ChangeCartItemQuantity cmd)
     {
         if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is not { IsDeleted: false } item) return;
 
         if (cmd.NewQuantity > item.Quantity)
-            RaiseEvent(new DomainEvent.CartItemIncreased(Id, item.Id, cmd.NewQuantity, item.UnitPrice, IncreasedTotal(item.UnitPrice, cmd.NewQuantity)));
+            RaiseEvent(new DomainEvent.CartItemIncreased(Id, item.Id, cmd.NewQuantity, item.UnitPrice, IncreasedTotal(item.UnitPrice, cmd.NewQuantity), ExpectedVersion));
 
         else if (cmd.NewQuantity < item.Quantity)
-            RaiseEvent(new DomainEvent.CartItemDecreased(Id, item.Id, cmd.NewQuantity, item.UnitPrice, DecreasedTotal(item.UnitPrice, cmd.NewQuantity)));
+            RaiseEvent(new DomainEvent.CartItemDecreased(Id, item.Id, cmd.NewQuantity, item.UnitPrice, DecreasedTotal(item.UnitPrice, cmd.NewQuantity), ExpectedVersion));
     }
 
     private void Handle(Command.RemoveCartItem cmd)
     {
         if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is not { IsDeleted: false } item) return;
-        RaiseEvent(new DomainEvent.CartItemRemoved(cmd.CartId, cmd.ItemId, item.UnitPrice, item.Quantity, DecreasedTotal(item.UnitPrice, item.Quantity)));
+        RaiseEvent(new DomainEvent.CartItemRemoved(cmd.CartId, cmd.ItemId, item.UnitPrice, item.Quantity, DecreasedTotal(item.UnitPrice, item.Quantity), ExpectedVersion));
     }
 
     private void Handle(Command.AddCreditCard cmd)
     {
         if (cmd.Amount > AmountDue) return;
-        RaiseEvent(new DomainEvent.CreditCardAdded(cmd.CartId, Guid.NewGuid(), cmd.Amount, cmd.CreditCard));
+        RaiseEvent(new DomainEvent.CreditCardAdded(cmd.CartId, Guid.NewGuid(), cmd.Amount, cmd.CreditCard, ExpectedVersion));
     }
 
     private void Handle(Command.AddDebitCard cmd)
     {
         if (cmd.Amount > AmountDue) return;
-        RaiseEvent(new DomainEvent.DebitCardAdded(cmd.CartId, Guid.NewGuid(), cmd.Amount, cmd.DebitCard));
+        RaiseEvent(new DomainEvent.DebitCardAdded(cmd.CartId, Guid.NewGuid(), cmd.Amount, cmd.DebitCard, ExpectedVersion));
     }
 
     private void Handle(Command.AddPayPal cmd)
     {
         if (cmd.Amount > AmountDue) return;
-        RaiseEvent(new DomainEvent.PayPalAdded(cmd.CartId, Guid.NewGuid(), cmd.Amount, cmd.PayPal));
+        RaiseEvent(new DomainEvent.PayPalAdded(cmd.CartId, Guid.NewGuid(), cmd.Amount, cmd.PayPal, ExpectedVersion));
     }
 
     private void Handle(Command.AddShippingAddress cmd)
     {
         if (ShippingAddress == cmd.Address) return;
-        RaiseEvent(new DomainEvent.ShippingAddressAdded(cmd.CartId, cmd.Address));
+        RaiseEvent(new DomainEvent.ShippingAddressAdded(cmd.CartId, cmd.Address, ExpectedVersion));
     }
 
     private void Handle(Command.AddBillingAddress cmd)
     {
         if (BillingAddress == cmd.Address) return;
-        RaiseEvent(new DomainEvent.BillingAddressAdded(cmd.CartId, cmd.Address));
+        RaiseEvent(new DomainEvent.BillingAddressAdded(cmd.CartId, cmd.Address, ExpectedVersion));
     }
 
     private void Handle(Command.CheckOutCart cmd)
     {
         if (Status is not CartStatus.ActiveStatus) return;
         if (_items is { Count: 0 } || AmountDue > 0) return;
-        RaiseEvent(new DomainEvent.CartCheckedOut(cmd.CartId, CartStatus.CheckedOut));
+        RaiseEvent(new DomainEvent.CartCheckedOut(cmd.CartId, CartStatus.CheckedOut, ExpectedVersion));
     }
 
     private void Handle(Command.DiscardCart cmd)
     {
         if (Status is CartStatus.AbandonedStatus) return;
-        RaiseEvent(new DomainEvent.CartDiscarded(cmd.CartId, CartStatus.Abandoned));
+        RaiseEvent(new DomainEvent.CartDiscarded(cmd.CartId, CartStatus.Abandoned, ExpectedVersion));
     }
 
-    protected override void Apply(IEvent @event)
+    protected override void Apply(IVersionedEvent @event)
         => When(@event as dynamic);
 
     private void When(DomainEvent.CartCreated @event)
-        => (Id, CustomerId, Total, Status) = @event;
+        => (Id, CustomerId, Total, Status, Version) = @event;
 
     private void When(DomainEvent.CartCheckedOut @event)
         => Status = @event.Status;

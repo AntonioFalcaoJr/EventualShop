@@ -10,7 +10,7 @@ using MongoDB.Driver.Linq;
 namespace Infrastructure.Projections;
 
 public class ProjectionGateway<TProjection> : IProjectionGateway<TProjection>
-    where TProjection : IProjection
+    where TProjection : IVersionedProjection
 {
     private readonly IMongoCollection<TProjection> _collection;
 
@@ -33,7 +33,7 @@ public class ProjectionGateway<TProjection> : IProjectionGateway<TProjection>
 
     public Task UpsertAsync(TProjection replacement, CancellationToken cancellationToken)
         => _collection.ReplaceOneAsync(
-            filter: projection => projection.Id == replacement.Id,
+            filter: projection => projection.Id == replacement.Id && projection.Version < replacement.Version,
             replacement: replacement,
             options: new ReplaceOptions { IsUpsert = true },
             cancellationToken: cancellationToken);
@@ -44,9 +44,9 @@ public class ProjectionGateway<TProjection> : IProjectionGateway<TProjection>
     public Task DeleteAsync<TId>(TId id, CancellationToken cancellationToken) where TId : struct
         => _collection.DeleteOneAsync(projection => projection.Id.Equals(id), cancellationToken);
 
-    public Task UpdateFieldAsync<TField, TId>(TId id, Expression<Func<TProjection, TField>> field, TField value, CancellationToken cancellationToken) where TId : struct
+    public Task UpdateFieldAsync<TField, TId>(TId id, long version, Expression<Func<TProjection, TField>> field, TField value, CancellationToken cancellationToken) where TId : struct
         => _collection.UpdateOneAsync(
-            filter: projection => projection.Id.Equals(id),
+            filter: projection => projection.Id.Equals(id) && projection.Version < version,
             update: new ObjectUpdateDefinition<TProjection>(new()).Set(field, value),
             cancellationToken: cancellationToken);
 }
