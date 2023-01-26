@@ -39,7 +39,10 @@ public record Money(decimal Amount, Currency Currency)
         => $"{money.Currency.Symbol} {money.Amount.ToString("N", CultureInfo.GetCultureInfo(money.Currency.CultureInfo))}";
 
     public static implicit operator Money(Dto.Money dto)
-        => new(decimal.Parse(dto.Amount), dto.Currency);
+    {
+        Currency currency = dto.Currency;
+        return new(decimal.Parse(dto.Amount, CultureInfo.GetCultureInfo(currency.CultureInfo)), currency);
+    }
 
     public static implicit operator Dto.Money(Money money)
         => new(money.Amount.ToString("N", CultureInfo.GetCultureInfo(money.Currency.CultureInfo)), money.Currency);
@@ -54,13 +57,13 @@ public record Money(decimal Amount, Currency Currency)
 
     private static Money ApplyOperator(Money money, Money other, Func<Money, Money, decimal> operation)
     {
-        ValidateCurrencies(money, other);
+        EnsureCurrenciesAreEqual(money, other);
         return money with { Amount = operation(money, other) };
     }
 
     private static bool ApplyOperator(Money money, Money other, Func<Money, Money, bool> operation)
     {
-        ValidateCurrencies(money, other);
+        EnsureCurrenciesAreEqual(money, other);
         return operation(money, other);
     }
 
@@ -70,7 +73,7 @@ public record Money(decimal Amount, Currency Currency)
         return ApplyOperator(money, other, operation);
     }
 
-    private static void ValidateCurrencies(Money money, Money other)
+    private static void EnsureCurrenciesAreEqual(Money money, Money other)
     {
         if (money.Currency != other.Currency)
             throw new InvalidOperationException("Currencies must be the same");

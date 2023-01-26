@@ -46,23 +46,33 @@ public class ShoppingCartTests : AggregateTests
 
     [Fact]
     public void CreateCartShouldRaiseCartCreated()
-        => Given<ShoppingCart>()
+    {
+        Dto.Money expectedTotal = Money.Zero(Currency.USD);
+
+        Given<ShoppingCart>()
             .When<Command.CreateCart>(new(_customerId, Currency.USD))
             .Then<DomainEvent.CartCreated>(
                 @event => @event.CustomerId.Should().Be(_customerId),
                 @event => @event.Status.Should().Be(CartStatus.Active),
-                @event => @event.Total.Should().Be((Dto.Money)Money.Zero(Currency.USD)));
+                @event => @event.Total.Should().Be(expectedTotal));
+    }
 
     [Fact]
     public void AddCartItemShouldRaiseCartItemAdded()
-        => Given<ShoppingCart>(new DomainEvent.CartCreated(_cartId, _customerId, Money.Zero(Currency.USD), CartStatus.Active))
+    {
+        Dto.Money expectedUnitPrice = _unitPrice;
+        Dto.Money expectedNewCartTotal = _unitPrice * _quantity;
+
+        Given<ShoppingCart>(new DomainEvent.CartCreated(_cartId, _customerId, Money.Zero(Currency.USD), CartStatus.Active))
             .When<Command.AddCartItem>(new(_cartId, _catalogId, _inventoryId, _product, _quantity, _unitPrice))
             .Then<DomainEvent.CartItemAdded>(
                 @event => @event.CartId.Should().Be(_cartId),
                 @event => @event.Product.Should().BeEquivalentTo(_product),
                 @event => @event.Quantity.Should().Be(_quantity),
-                @event => @event.UnitPrice.Should().Be(_unitPrice),
-                @event => @event.InventoryId.Should().Be(_inventoryId));
+                @event => @event.UnitPrice.Should().Be(expectedUnitPrice),
+                @event => @event.InventoryId.Should().Be(_inventoryId),
+                @event => @event.NewCartTotal.Should().Be(expectedNewCartTotal));
+    }
 
     [Fact]
     public void AddInvalidCartItemShouldThrowValidationException()
@@ -77,9 +87,9 @@ public class ShoppingCartTests : AggregateTests
     [Fact]
     public void ChangeCartItemQuantityForUpShouldRaiseCartItemIncreased()
     {
-        var cartItemAddedNewCartTotal = _unitPrice * _quantity;
+        Dto.Money cartItemAddedNewCartTotal = _unitPrice * _quantity;
         var changeCartItemQuantityNewQuantity = (ushort)(_quantity + 1);
-        var cartItemIncreasedNewCartTotal = cartItemAddedNewCartTotal + _unitPrice * changeCartItemQuantityNewQuantity;
+        Dto.Money cartItemIncreasedNewCartTotal = cartItemAddedNewCartTotal + _unitPrice * changeCartItemQuantityNewQuantity;
 
         Given<ShoppingCart>(
                 new DomainEvent.CartCreated(_cartId, _customerId, Money.Zero(Currency.USD), CartStatus.Active),
@@ -98,7 +108,7 @@ public class ShoppingCartTests : AggregateTests
         var cartItemAddedNewCartTotal = _unitPrice * _quantity;
 
         var expectedNewQuantity = (ushort)(_quantity - 1);
-        var expectedNewCartTotal = cartItemAddedNewCartTotal - _unitPrice * expectedNewQuantity;
+        Dto.Money expectedNewCartTotal = cartItemAddedNewCartTotal - _unitPrice * expectedNewQuantity;
 
         Given<ShoppingCart>(
                 new DomainEvent.CartCreated(_cartId, _customerId, Money.Zero(Currency.USD), CartStatus.Active),
@@ -132,7 +142,7 @@ public class ShoppingCartTests : AggregateTests
         var addCartItemQuantity = (ushort)(_quantity + 1);
 
         var expectedNewQuantity = (ushort)(_quantity + addCartItemQuantity);
-        var expectedNewCartTotal = cartItemAddedNewCartTotal + _unitPrice * addCartItemQuantity;
+        Dto.Money expectedNewCartTotal = cartItemAddedNewCartTotal + _unitPrice * addCartItemQuantity;
 
         Given<ShoppingCart>(
                 new DomainEvent.CartCreated(_cartId, _customerId, Money.Zero(Currency.USD), CartStatus.Active),
@@ -151,7 +161,8 @@ public class ShoppingCartTests : AggregateTests
         var product = _product with { Name = _fixture.Create<string>(), Brand = _fixture.Create<string>() };
         var cartItemAddedNewCartTotal = _unitPrice * _quantity;
 
-        var expectedNewCartTotal = cartItemAddedNewCartTotal + _unitPrice * _quantity;
+        Dto.Money expectedUnitPrice = _unitPrice;
+        Dto.Money expectedNewCartTotal = cartItemAddedNewCartTotal + _unitPrice * _quantity;
 
         Given<ShoppingCart>(
                 new DomainEvent.CartCreated(_cartId, _customerId, Money.Zero(Currency.USD), CartStatus.Active),
@@ -161,7 +172,7 @@ public class ShoppingCartTests : AggregateTests
                 @event => @event.CartId.Should().Be(_cartId),
                 @event => @event.ItemId.Should().NotBe(_itemId),
                 @event => @event.Quantity.Should().Be(_quantity),
-                @event => @event.UnitPrice.Should().Be(_unitPrice),
+                @event => @event.UnitPrice.Should().Be(expectedUnitPrice),
                 @event => @event.Product.Should().NotBeEquivalentTo(_product),
                 @event => @event.NewCartTotal.Should().Be(expectedNewCartTotal));
     }
