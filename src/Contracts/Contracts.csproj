@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
         <PackageReference Include="Ardalis.SmartEnum.SystemTextJson" Version="2.1.0" />
-        <PackageReference Include="Ardalis.SmartEnum" Version="2.1.0" />
+        <PackageReference Include="Ardalis.SmartEnum" Version="7.0.0" />
         <PackageReference Include="FluentValidation" Version="$(FluentValidation_Version)" />
         <PackageReference Include="MassTransit" Version="$(MassTransit_Version)" />
         <PackageReference Include="MongoDB.Bson" Version="$(MongoDb_Version)" />
