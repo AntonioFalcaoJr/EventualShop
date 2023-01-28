@@ -4,12 +4,16 @@ using PagedResult = Contracts.Abstractions.Protobuf.PagedResult;
 
 namespace WebAPI.Abstractions;
 
-public record PagedResult<T> : IPagedResult<T>
-    where T : IMessage, new()
+public record PagedResult<TProjection> : IPagedResult<TProjection>
+    where TProjection : IMessage, new()
 {
-    public IEnumerable<T> Items { get; init; }
-    public Page Page { get; init; }
+    public IEnumerable<TProjection> Items { get; init; } = new List<TProjection>();
+    public Page Page { get; init; } = new();
 
-    public static implicit operator PagedResult<T>(PagedResult result)
-        => new() { Items = result.Projections.Select(x => x.Unpack<T>()), Page = result.Page };
+    public static implicit operator PagedResult<TProjection>(PagedResult result)
+        => new()
+        {
+            Items = result.Projections.Select(proto => proto.Unpack<TProjection>()),
+            Page = result.Page
+        };
 }

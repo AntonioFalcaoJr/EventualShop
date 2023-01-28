@@ -11,7 +11,6 @@ public abstract class AggregateRoot<TValidator> : Entity<TValidator>, IAggregate
     private readonly List<IVersionedEvent> _events = new();
 
     public long Version { get; protected set; }
-    protected long ExpectedVersion => Version++;
 
     [JsonIgnore]
     public IEnumerable<IVersionedEvent> UncommittedEvents
@@ -22,7 +21,7 @@ public abstract class AggregateRoot<TValidator> : Entity<TValidator>, IAggregate
         foreach (var @event in events)
         {
             Apply(@event);
-            Version = @event.Version;
+            Version++;
         }
 
         return this;
@@ -30,10 +29,15 @@ public abstract class AggregateRoot<TValidator> : Entity<TValidator>, IAggregate
 
     public abstract void Handle(ICommand command);
 
-    protected void RaiseEvent(IVersionedEvent @event)
+    protected void RaiseEvent<TEvent>(Func<long, TEvent> func)
+        where TEvent : IVersionedEvent
+        => RaiseEvent((func as Func<long, IVersionedEvent>)!);
+
+    protected void RaiseEvent(Func<long, IVersionedEvent> onRaise)
     {
+        Version++;
+        var @event = onRaise(Version);
         Apply(@event);
-        Version = @event.Version;
         Validate();
         _events.Add(@event);
     }

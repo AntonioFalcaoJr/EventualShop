@@ -6,12 +6,12 @@ using Newtonsoft.Json;
 
 namespace Infrastructure.EventStore.Contexts.Converters;
 
-public class EventConverter : ValueConverter<IEvent?, string>
+public class EventConverter : ValueConverter<IVersionedEvent?, string>
 {
     public EventConverter()
         : base(
-            @event => JsonConvert.SerializeObject(@event, typeof(IEvent), SerializerSettings()),
-            jsonString => JsonConvert.DeserializeObject<IEvent>(jsonString, DeserializerSettings())) { }
+            @event => JsonConvert.SerializeObject(@event, typeof(IVersionedEvent), SerializerSettings()),
+            jsonString => JsonConvert.DeserializeObject<IVersionedEvent>(jsonString, DeserializerSettings())) { }
 
     private static JsonSerializerSettings SerializerSettings()
     {
