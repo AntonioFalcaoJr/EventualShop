@@ -39,4 +39,7 @@ public class ApplicationService : IApplicationService
 
     public Task PublishEventAsync(IEvent @event, CancellationToken cancellationToken)
         => _eventBusGateway.PublishAsync(@event, cancellationToken);
+
+    public Task SchedulePublishAsync(IDelayedEvent @event, DateTimeOffset scheduledTime, CancellationToken cancellationToken)
+        => _eventBusGateway.SchedulePublishAsync(@event, scheduledTime, cancellationToken);
 }

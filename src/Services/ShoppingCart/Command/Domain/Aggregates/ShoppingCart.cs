@@ -57,59 +57,59 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
         if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is not { IsDeleted: false } item) return;
 
         if (cmd.NewQuantity > item.Quantity)
-            RaiseEvent<DomainEvent.CartItemIncreased>(version 
+            RaiseEvent<DomainEvent.CartItemIncreased>(version
                 => new(Id, item.Id, cmd.NewQuantity, item.UnitPrice, IncreasedTotal(item.UnitPrice, cmd.NewQuantity), version));
 
         else if (cmd.NewQuantity < item.Quantity)
-            RaiseEvent<DomainEvent.CartItemDecreased>(version 
+            RaiseEvent<DomainEvent.CartItemDecreased>(version
                 => new(Id, item.Id, cmd.NewQuantity, item.UnitPrice, DecreasedTotal(item.UnitPrice, cmd.NewQuantity), version));
     }
 
     private void Handle(Command.RemoveCartItem cmd)
     {
         if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is not { IsDeleted: false } item) return;
-        
-        RaiseEvent<DomainEvent.CartItemRemoved>(version 
+
+        RaiseEvent<DomainEvent.CartItemRemoved>(version
             => new(cmd.CartId, cmd.ItemId, item.UnitPrice, item.Quantity, DecreasedTotal(item.UnitPrice, item.Quantity), version));
     }
 
     private void Handle(Command.AddCreditCard cmd)
     {
         if (cmd.Amount > AmountDue) return;
-        
-        RaiseEvent<DomainEvent.CreditCardAdded>(version 
+
+        RaiseEvent<DomainEvent.CreditCardAdded>(version
             => new(cmd.CartId, Guid.NewGuid(), cmd.Amount, cmd.CreditCard, version));
     }
 
     private void Handle(Command.AddDebitCard cmd)
     {
         if (cmd.Amount > AmountDue) return;
-        
-        RaiseEvent<DomainEvent.DebitCardAdded>(version 
+
+        RaiseEvent<DomainEvent.DebitCardAdded>(version
             => new(cmd.CartId, Guid.NewGuid(), cmd.Amount, cmd.DebitCard, version));
     }
 
     private void Handle(Command.AddPayPal cmd)
     {
         if (cmd.Amount > AmountDue) return;
-        
-        RaiseEvent<DomainEvent.PayPalAdded>(version 
+
+        RaiseEvent<DomainEvent.PayPalAdded>(version
             => new(cmd.CartId, Guid.NewGuid(), cmd.Amount, cmd.PayPal, version));
     }
 
     private void Handle(Command.AddShippingAddress cmd)
     {
         if (ShippingAddress == cmd.Address) return;
-        
-        RaiseEvent<DomainEvent.ShippingAddressAdded>(version 
+
+        RaiseEvent<DomainEvent.ShippingAddressAdded>(version
             => new(cmd.CartId, cmd.Address, version));
     }
 
     private void Handle(Command.AddBillingAddress cmd)
     {
         if (BillingAddress == cmd.Address) return;
-        
-        RaiseEvent<DomainEvent.BillingAddressAdded>(version 
+
+        RaiseEvent<DomainEvent.BillingAddressAdded>(version
             => new(cmd.CartId, cmd.Address, version));
     }
 
@@ -117,20 +117,20 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
     {
         if (Status is not CartStatus.ActiveStatus) return;
         if (_items is { Count: 0 } || AmountDue > 0) return;
-        
-        RaiseEvent<DomainEvent.CartCheckedOut>(version 
+
+        RaiseEvent<DomainEvent.CartCheckedOut>(version
             => new(cmd.CartId, CartStatus.CheckedOut, version));
     }
 
     private void Handle(Command.DiscardCart cmd)
     {
         if (Status is CartStatus.AbandonedStatus) return;
-        
-        RaiseEvent<DomainEvent.CartDiscarded>(version 
+
+        RaiseEvent<DomainEvent.CartDiscarded>(version
             => new(cmd.CartId, CartStatus.Abandoned, version));
     }
 
-    protected override void Apply(IVersionedEvent @event)
+    protected override void Apply(IDomainEvent @event)
         => When(@event as dynamic);
 
     private void When(DomainEvent.CartCreated @event)
