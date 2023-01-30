@@ -34,7 +34,7 @@
         <Grpc_Net_ClientFactory_Version>2.51.0</Grpc_Net_ClientFactory_Version>
 
         <!--MongoDb-->
-        <MongoDb_Version>2.18.0</MongoDb_Version>
+        <MongoDb_Version>2.19.0</MongoDb_Version>
 
         <!--MassTransit-->
         <MassTransit_Version>8.0.13-develop.891</MassTransit_Version>
