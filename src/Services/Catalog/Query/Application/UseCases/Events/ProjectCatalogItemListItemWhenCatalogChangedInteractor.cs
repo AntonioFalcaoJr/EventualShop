@@ -23,7 +23,8 @@ public class ProjectCatalogItemListItemWhenCatalogChangedInteractor : IProjectCa
             @event.ItemId,
             @event.CatalogId,
             @event.Product,
-            false);
+            false,
+            @event.Version);
 
         await _projectionGateway.UpsertAsync(listItem, cancellationToken);
     }

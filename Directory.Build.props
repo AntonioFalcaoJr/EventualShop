@@ -1,7 +1,7 @@
 ﻿<Project>
     <PropertyGroup Label="Common properties">
         <Product>EDA.CleanArch.DDD.CQRS.EventSourcing</Product>
-        <Copyright>Copyright (c) 2021-2022 Antonio Falcão Jr.</Copyright>
+        <Copyright>Copyright (c) 2021-2023 Antonio Falcão Jr.</Copyright>
         <Authors>Antônio Falcão Jr.</Authors>
         <TargetFramework>net7.0</TargetFramework>
         <LangVersion>preview</LangVersion>
@@ -26,7 +26,7 @@
 
         <!--gRPC-->
         <Grpc_Version>2.41.0-pre1</Grpc_Version>
-        <Grpc_Tools_Version>2.51.0</Grpc_Tools_Version>
+        <Grpc_Tools_Version>2.52.0-pre1</Grpc_Tools_Version>
         <Google_Protobuf_Version>3.21.12</Google_Protobuf_Version>
         <Grpc_Net_Client_Version>2.51.0</Grpc_Net_Client_Version>
         <Grpc_AspNetCore_Version>2.51.0</Grpc_AspNetCore_Version>
@@ -37,7 +37,7 @@
         <MongoDb_Version>2.18.0</MongoDb_Version>
 
         <!--MassTransit-->
-        <MassTransit_Version>8.0.11</MassTransit_Version>
+        <MassTransit_Version>8.0.13-develop.891</MassTransit_Version>
         <Quartz_Version>3.5.0</Quartz_Version>
 
         <!--Newtonsoft-->
@@ -46,7 +46,7 @@
         <Microsoft_Mvc_NewtonsoftJso_Version>7.0.2</Microsoft_Mvc_NewtonsoftJso_Version>
 
         <!--Serilog-->
-        <Serilog_Version>2.12.1-dev-01635</Serilog_Version>
+        <Serilog_Version>3.0.0-dev-01801</Serilog_Version>
         <Serilog_AspNetCore_Version>6.1.1-dev-00293</Serilog_AspNetCore_Version>
         <Serilog_Extensions_Version>5.0.1</Serilog_Extensions_Version>
         <Serilog_Settings_Version>3.5.0-dev-00370</Serilog_Settings_Version>
@@ -73,6 +73,9 @@
 
         <!--Correlation-->
         <CorrelationId_Version>3.0.1</CorrelationId_Version>
+
+        <!--SmartEnum-->
+        <SmartEnum_Version>7.0.0</SmartEnum_Version>
 
     </PropertyGroup>
 </Project>

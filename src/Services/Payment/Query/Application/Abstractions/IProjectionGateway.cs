@@ -14,5 +14,5 @@ public interface IProjectionGateway<TProjection>
     Task UpsertAsync(TProjection replacement, CancellationToken cancellationToken);
     Task DeleteAsync(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken);
     Task DeleteAsync<TId>(TId id, CancellationToken cancellationToken) where TId : struct;
-    Task UpdateFieldAsync<TField, TId>(TId id, Expression<Func<TProjection, TField>> field, TField value, CancellationToken cancellationToken) where TId : struct;
+    Task UpdateFieldAsync<TField, TId>(TId id, long version, Expression<Func<TProjection, TField>> field, TField value, CancellationToken cancellationToken) where TId : struct;
 }

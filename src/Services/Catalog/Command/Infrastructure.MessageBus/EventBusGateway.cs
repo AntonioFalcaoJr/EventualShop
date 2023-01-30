@@ -7,17 +7,18 @@ namespace Infrastructure.MessageBus;
 public class EventBusGateway : IEventBusGateway
 {
     private readonly IBus _bus;
-    private readonly IPublishEndpoint _publishEndpoint;
 
-    public EventBusGateway(IBus bus, IPublishEndpoint publishEndpoint)
+    public EventBusGateway(IBus bus)
     {
         _bus = bus;
-        _publishEndpoint = publishEndpoint;
     }
 
     public Task PublishAsync(IEnumerable<IEvent> events, CancellationToken cancellationToken)
-        => Task.WhenAll(events.Select(@event => _publishEndpoint.Publish(@event, @event.GetType(), cancellationToken)));
+        => Task.WhenAll(events.Select(@event => _bus.Publish(@event, @event.GetType(), cancellationToken)));
 
-    public Task SchedulePublishAsync(DateTimeOffset scheduledTime, IEvent @event, CancellationToken cancellationToken)
-        => _publishEndpoint.CreateMessageScheduler(_bus.Topology).SchedulePublish(scheduledTime.UtcDateTime, @event, @event.GetType(), cancellationToken);
+    public Task PublishAsync(IEvent @event, CancellationToken cancellationToken)
+        => _bus.Publish(@event, @event.GetType(), cancellationToken);
+
+    public Task SchedulePublishAsync(IDelayedEvent @event, DateTimeOffset scheduledTime, CancellationToken cancellationToken)
+        => _bus.CreateMessageScheduler(_bus.Topology).SchedulePublish(scheduledTime.UtcDateTime, @event, @event.GetType(), cancellationToken);
 }

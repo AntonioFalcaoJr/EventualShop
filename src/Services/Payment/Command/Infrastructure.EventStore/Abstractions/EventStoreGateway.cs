@@ -47,4 +47,7 @@ public class EventStoreGateway : IEventStoreGateway
         Snapshot snapshot = new(version, aggregate);
         await _repository.AppendSnapshotAsync(snapshot, cancellationToken);
     }
+
+    public IAsyncEnumerable<Guid> StreamAggregatesId(CancellationToken cancellationToken)
+        => _repository.GetAggregateIdsAsync(cancellationToken);
 }

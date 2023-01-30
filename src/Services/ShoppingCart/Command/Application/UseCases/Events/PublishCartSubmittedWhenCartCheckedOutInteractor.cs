@@ -28,7 +28,8 @@ public class PublishCartSubmittedWhenCartCheckedOutInteractor : IPublishCartSubm
             shoppingCart.BillingAddress!,
             shoppingCart.ShippingAddress!,
             shoppingCart.Items.Select(item => (Dto.CartItem)item),
-            shoppingCart.PaymentMethods.Select(method => (Dto.PaymentMethod)method));
+            shoppingCart.PaymentMethods.Select(method => (Dto.PaymentMethod)method),
+            shoppingCart.Version);
 
         await _applicationService.PublishEventAsync(cartSubmitted, cancellationToken);
     }

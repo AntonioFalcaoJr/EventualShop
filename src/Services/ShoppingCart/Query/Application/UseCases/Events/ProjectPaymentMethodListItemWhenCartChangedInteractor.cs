@@ -25,11 +25,12 @@ public class ProjectPaymentMethodListItemWhenCartChangedInteractor : IProjectPay
             @event.CartId,
             @event.Amount,
             @event.CreditCard.GetType().Name, // TODO - It's temporary
-            false);
+            false,
+            @event.Version);
 
         return _projectionGateway.UpsertAsync(creditCard, cancellationToken);
     }
-    
+
     public Task InteractAsync(DomainEvent.DebitCardAdded @event, CancellationToken cancellationToken)
     {
         Projection.PaymentMethodListItem creditCard = new(
@@ -37,11 +38,12 @@ public class ProjectPaymentMethodListItemWhenCartChangedInteractor : IProjectPay
             @event.CartId,
             @event.Amount,
             @event.DebitCard.GetType().Name, // TODO - It's temporary
-            false);
+            false,
+            @event.Version);
 
         return _projectionGateway.UpsertAsync(creditCard, cancellationToken);
     }
-    
+
     public Task InteractAsync(DomainEvent.PayPalAdded @event, CancellationToken cancellationToken)
     {
         Projection.PaymentMethodListItem creditCard = new(
@@ -49,7 +51,8 @@ public class ProjectPaymentMethodListItemWhenCartChangedInteractor : IProjectPay
             @event.CartId,
             @event.Amount,
             @event.PayPal.GetType().Name, // TODO - It's temporary
-            false);
+            false,
+            @event.Version);
 
         return _projectionGateway.UpsertAsync(creditCard, cancellationToken);
     }

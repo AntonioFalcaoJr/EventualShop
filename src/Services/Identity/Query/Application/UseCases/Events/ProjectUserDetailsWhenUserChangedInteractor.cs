@@ -3,7 +3,7 @@ using Contracts.Services.Identity;
 
 namespace Application.UseCases.Events;
 
-public interface IProjectUserDetailsWhenUserChangedInteractor : 
+public interface IProjectUserDetailsWhenUserChangedInteractor :
     IInteractor<DomainEvent.UserDeleted>,
     IInteractor<DomainEvent.UserRegistered>,
     IInteractor<DomainEvent.UserPasswordChanged> { }
@@ -22,8 +22,8 @@ public class ProjectUserDetailsWhenUserChangedInteractor : IProjectUserDetailsWh
 
     public Task InteractAsync(DomainEvent.UserRegistered @event, CancellationToken cancellationToken)
     {
-        Projection.UserDetails userDetails = 
-            new(@event.UserId, @event.FirstName, @event.LastName, @event.Email, @event.Password, false);
+        Projection.UserDetails userDetails =
+            new(@event.UserId, @event.FirstName, @event.LastName, @event.Email, @event.Password, false, @event.Version);
 
         return _projectionGateway.UpsertAsync(userDetails, cancellationToken);
     }
@@ -31,6 +31,7 @@ public class ProjectUserDetailsWhenUserChangedInteractor : IProjectUserDetailsWh
     public Task InteractAsync(DomainEvent.UserPasswordChanged @event, CancellationToken cancellationToken)
         => _projectionGateway.UpdateFieldAsync(
             id: @event.UserId,
+            version: @event.Version,
             field: user => user.Password,
             value: @event.Password,
             cancellationToken: cancellationToken);

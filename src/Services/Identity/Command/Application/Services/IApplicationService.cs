@@ -5,10 +5,9 @@ namespace Application.Services;
 
 public interface IApplicationService
 {
-    Task<TAggregate> LoadAggregateAsync<TAggregate>(Guid id, CancellationToken cancellationToken)
-        where TAggregate : IAggregateRoot, new();
-
     Task AppendEventsAsync(IAggregateRoot aggregate, CancellationToken cancellationToken);
-
-    Task SchedulePublishAsync(DateTimeOffset scheduledTime, IEvent @event, CancellationToken cancellationToken);
+    Task<TAggregate> LoadAggregateAsync<TAggregate>(Guid id, CancellationToken cancellationToken) where TAggregate : IAggregateRoot, new();
+    IAsyncEnumerable<Guid> StreamAggregatesId(CancellationToken cancellationToken);
+    Task PublishEventAsync(IEvent @event, CancellationToken cancellationToken);
+    Task SchedulePublishAsync(IDelayedEvent @event, DateTimeOffset scheduledTime, CancellationToken cancellationToken);
 }

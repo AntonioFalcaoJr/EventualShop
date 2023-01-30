@@ -19,6 +19,7 @@ public class ProjectPaymentWhenChangedInteractor : IProjectPaymentWhenChangedInt
     public Task InteractAsync(DomainEvent.PaymentCanceled @event, CancellationToken cancellationToken)
         => _projectionGateway.UpdateFieldAsync(
             id: @event.PaymentId,
+            version: @event.Version,
             field: payment => payment.Status,
             value: @event.Status,
             cancellationToken: cancellationToken);
@@ -30,7 +31,8 @@ public class ProjectPaymentWhenChangedInteractor : IProjectPaymentWhenChangedInt
             @event.OrderId,
             @event.Amount,
             @event.Status,
-            false);
+            false,
+            @event.Version);
 
         return _projectionGateway.UpsertAsync(paymentDetails, cancellationToken);
     }

@@ -5,7 +5,7 @@ namespace Contracts.Services.Warehouse;
 
 public static class Projection
 {
-    public record InventoryGridItem(Guid Id, Guid OwnerId, bool IsDeleted) : IProjection
+    public record InventoryGridItem(Guid Id, Guid OwnerId, bool IsDeleted, long Version) : IProjection
     {
         public static implicit operator Protobuf.InventoryGridItem(InventoryGridItem inventoryGridItem)
             => new()
@@ -15,8 +15,7 @@ public static class Projection
             };
     }
 
-    public record InventoryItemListItem(Guid Id, Guid InventoryId, Dto.Product Product, int Quantity, string Sku,
-        bool IsDeleted) : IProjection
+    public record InventoryItemListItem(Guid Id, Guid InventoryId, Dto.Product Product, int Quantity, string Sku, bool IsDeleted, long Version) : IProjection
     {
         public static implicit operator Protobuf.InventoryItemListItem(InventoryItemListItem inventoryItemListItem)
             => new()

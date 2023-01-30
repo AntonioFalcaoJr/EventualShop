@@ -5,7 +5,7 @@ namespace Contracts.Services.ShoppingCart;
 
 public static class Projection
 {
-    public record ShoppingCartDetails(Guid Id, Guid CustomerId, Dto.Money Total, string Status, bool IsDeleted) : IProjection
+    public record ShoppingCartDetails(Guid Id, Guid CustomerId, Dto.Money Total, string Status, bool IsDeleted, long Version) : IProjection
     {
         public static implicit operator Protobuf.ShoppingCartDetails(ShoppingCartDetails cart)
             => new()
@@ -17,7 +17,7 @@ public static class Projection
             };
     }
 
-    public record ShoppingCartItemDetails(Guid Id, Guid CartId, Dto.Product Product, int Quantity, bool IsDeleted) : IProjection
+    public record ShoppingCartItemDetails(Guid Id, Guid CartId, Dto.Product Product, int Quantity, bool IsDeleted, long Version) : IProjection
     {
         public static implicit operator Protobuf.ShoppingCartItemDetails(ShoppingCartItemDetails item)
             => new()
@@ -29,7 +29,7 @@ public static class Projection
             };
     }
 
-    public record PaymentMethodDetails(Guid Id, Guid CartId, Dto.Money Amount, Dto.IPaymentOption Option, bool IsDeleted) : IProjection
+    public record PaymentMethodDetails(Guid Id, Guid CartId, Dto.Money Amount, Dto.IPaymentOption Option, bool IsDeleted, long Version) : IProjection
     {
         public static implicit operator Protobuf.PaymentMethodDetails(PaymentMethodDetails method)
             => new()
@@ -47,7 +47,7 @@ public static class Projection
             };
     }
 
-    public record ShoppingCartItemListItem(Guid Id, Guid CartId, string ProductName, int Quantity, bool IsDeleted) : IProjection
+    public record ShoppingCartItemListItem(Guid Id, Guid CartId, string ProductName, int Quantity, bool IsDeleted, long Version) : IProjection
     {
         public static implicit operator Protobuf.ShoppingCartItemListItem(ShoppingCartItemListItem item)
             => new()
@@ -59,7 +59,7 @@ public static class Projection
             };
     }
 
-    public record PaymentMethodListItem(Guid Id, Guid CartId, Dto.Money Amount, string Option, bool IsDeleted) : IProjection
+    public record PaymentMethodListItem(Guid Id, Guid CartId, Dto.Money Amount, string Option, bool IsDeleted, long Version) : IProjection
     {
         public static implicit operator Protobuf.PaymentMethodListItem(PaymentMethodListItem method)
             => new()
