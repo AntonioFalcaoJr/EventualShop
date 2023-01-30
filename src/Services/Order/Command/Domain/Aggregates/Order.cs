@@ -35,29 +35,30 @@ public class Order : AggregateRoot<OrderValidator>
         => Handle(command as dynamic);
 
     private void Handle(Command.PlaceOrder cmd)
-        => RaiseEvent(new DomainEvent.OrderPlaced(
-            Guid.NewGuid(),
-            cmd.CustomerId,
-            cmd.Total,
-            cmd.BillingAddress,
-            cmd.ShippingAddress,
-            cmd.Items.Select(cartItem => (Dto.OrderItem)cartItem),
-            cmd.PaymentMethods,
-            OrderStatus.PendingPayment));
+        => RaiseEvent<DomainEvent.OrderPlaced>(version
+            => new(
+                Guid.NewGuid(),
+                cmd.CustomerId,
+                cmd.Total,
+                cmd.BillingAddress,
+                cmd.ShippingAddress,
+                cmd.Items.Select(cartItem => (Dto.OrderItem)cartItem),
+                cmd.PaymentMethods,
+                OrderStatus.PendingPayment, version));
 
     private void Handle(Command.ConfirmOrder cmd)
-        => RaiseEvent(new DomainEvent.OrderConfirmed(cmd.OrderId, OrderStatus.Confirmed));
+        => RaiseEvent<DomainEvent.OrderConfirmed>(version => new(cmd.OrderId, OrderStatus.Confirmed, version));
 
-    protected override void Apply(IEvent @event)
-        => Apply(@event as dynamic);
+    protected override void Apply(IDomainEvent @event)
+        => When(@event as dynamic);
 
-    private void Apply(DomainEvent.OrderPlaced @event)
+    private void When(DomainEvent.OrderPlaced @event)
     {
-        (Id, CustomerId, Total, BillingAddress, ShippingAddress, var items, var paymentMethods, Status) = @event;
+        (Id, CustomerId, Total, BillingAddress, ShippingAddress, var items, var paymentMethods, Status, _) = @event;
         _items.AddRange(items.Select(item => (OrderItem)item));
         _paymentMethods.AddRange(paymentMethods.Select(method => (PaymentMethod)method));
     }
 
-    private void Apply(DomainEvent.OrderConfirmed @event)
+    private void When(DomainEvent.OrderConfirmed @event)
         => Status = @event.Status;
 }
