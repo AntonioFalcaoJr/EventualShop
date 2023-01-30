@@ -30,10 +30,16 @@ public class ApplicationService : IApplicationService
             operationAsync: async ct =>
             {
                 await _eventStoreGateway.AppendEventsAsync(aggregate, ct);
-                await _eventBusGateway.PublishAsync(aggregate.UncommittedEvents.Select(tuple => tuple.@event), ct);
+                await _eventBusGateway.PublishAsync(aggregate.UncommittedEvents, ct);
             },
             cancellationToken: cancellationToken);
 
-    public Task SchedulePublishAsync(DateTimeOffset scheduledTime, IEvent @event, CancellationToken cancellationToken)
-        => _eventBusGateway.SchedulePublishAsync(scheduledTime, @event, cancellationToken);
+    public IAsyncEnumerable<Guid> StreamAggregatesId(CancellationToken cancellationToken)
+        => _eventStoreGateway.StreamAggregatesId(cancellationToken);
+
+    public Task PublishEventAsync(IEvent @event, CancellationToken cancellationToken)
+        => _eventBusGateway.PublishAsync(@event, cancellationToken);
+
+    public Task SchedulePublishAsync(IDelayedEvent @event, DateTimeOffset scheduledTime, CancellationToken cancellationToken)
+        => _eventBusGateway.SchedulePublishAsync(@event, scheduledTime, cancellationToken);
 }
