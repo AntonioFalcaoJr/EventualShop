@@ -9,7 +9,7 @@ public abstract class AggregateTests
     private IAggregateRoot? _aggregateRoot;
     private ICommand? _command;
 
-    protected AggregateTests Given<TAggregate>(params IVersionedEvent[] events)
+    protected AggregateTests Given<TAggregate>(params IDomainEvent[] events)
         where TAggregate : IAggregateRoot, new()
     {
         _aggregateRoot = new TAggregate();
@@ -25,7 +25,7 @@ public abstract class AggregateTests
     }
 
     public AggregateTests Then<TEvent>(params Action<TEvent>[] assertions)
-        where TEvent : IVersionedEvent
+        where TEvent : IDomainEvent
     {
         _aggregateRoot?.Handle(_command!);
 
