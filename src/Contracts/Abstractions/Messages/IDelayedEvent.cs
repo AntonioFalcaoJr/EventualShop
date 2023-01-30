@@ -3,4 +3,4 @@
 namespace Contracts.Abstractions.Messages;
 
 [ExcludeFromTopology]
-public interface IEvent { }
+public interface IDelayedEvent : IEvent { }

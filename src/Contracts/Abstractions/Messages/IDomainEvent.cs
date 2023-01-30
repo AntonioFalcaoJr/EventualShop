@@ -3,4 +3,7 @@
 namespace Contracts.Abstractions.Messages;
 
 [ExcludeFromTopology]
-public interface IEvent { }
+public interface IDomainEvent : IEvent
+{
+    long Version { get; }
+}
