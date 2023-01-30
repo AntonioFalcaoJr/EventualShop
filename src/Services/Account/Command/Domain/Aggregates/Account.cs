@@ -30,29 +30,32 @@ public class Account : AggregateRoot<AccountValidator>
         => Handle(command as dynamic);
 
     private void Handle(Command.CreateAccount cmd)
-        => RaiseEvent(new DomainEvent.AccountCreated(Guid.NewGuid(), cmd.FirstName, cmd.LastName, cmd.Email, AccountStatus.Pending));
+        => RaiseEvent<DomainEvent.AccountCreated>(version
+            => new(Guid.NewGuid(), cmd.FirstName, cmd.LastName, cmd.Email, AccountStatus.Pending, version));
 
     private void Handle(Command.ActiveAccount cmd)
     {
         if (Status is not AccountStatus.InactiveStatus) return;
-        RaiseEvent(new DomainEvent.AccountActivated(cmd.AccountId, AccountStatus.Active));
+        RaiseEvent<DomainEvent.AccountActivated>(version => new(cmd.AccountId, AccountStatus.Active, version));
     }
 
     private void Handle(Command.DeleteAccount cmd)
     {
         if (IsDeleted) return;
-        RaiseEvent(new DomainEvent.AccountDeleted(cmd.AccountId, AccountStatus.Closed));
+        RaiseEvent<DomainEvent.AccountDeleted>(version => new(cmd.AccountId, AccountStatus.Closed, version));
     }
 
     private void Handle(Command.AddBillingAddress cmd)
     {
-        var billingAddress = _addresses.OfType<BillingAddress>().SingleOrDefault(address => address == cmd.Address);
+        var billingAddress = _addresses
+            .OfType<BillingAddress>()
+            .SingleOrDefault(address => address == cmd.Address);
 
         if (billingAddress is null)
-            RaiseEvent(new DomainEvent.BillingAddressAdded(cmd.AccountId, Guid.NewGuid(), cmd.Address));
+            RaiseEvent<DomainEvent.BillingAddressAdded>(version => new(cmd.AccountId, Guid.NewGuid(), cmd.Address, version));
 
         else if (billingAddress.IsDeleted)
-            RaiseEvent(new DomainEvent.BillingAddressRestored(cmd.AccountId, billingAddress.Id));
+            RaiseEvent<DomainEvent.BillingAddressRestored>(version => new(cmd.AccountId, billingAddress.Id, version));
     }
 
     private void Handle(Command.PreferBillingAddress cmd)
@@ -62,7 +65,7 @@ public class Account : AggregateRoot<AccountValidator>
 
         if (billingAddress.Id == PrimaryBillingAddress?.Id) return;
 
-        RaiseEvent(new DomainEvent.BillingAddressPreferred(cmd.AccountId, cmd.AddressId));
+        RaiseEvent<DomainEvent.BillingAddressPreferred>(version => new(cmd.AccountId, cmd.AddressId, version));
     }
 
     private void Handle(Command.DeleteBillingAddress cmd)
@@ -70,21 +73,23 @@ public class Account : AggregateRoot<AccountValidator>
         if (_addresses.OfType<BillingAddress>().SingleOrDefault(address
                 => address.Id == cmd.AddressId) is not { IsDeleted: false }) return;
 
-        RaiseEvent(new DomainEvent.BillingAddressDeleted(cmd.AccountId, cmd.AddressId));
+        RaiseEvent<DomainEvent.BillingAddressDeleted>(version => new(cmd.AccountId, cmd.AddressId, version));
 
         if (cmd.AddressId == PrimaryBillingAddress?.Id)
-            RaiseEvent(new DomainEvent.PrimaryBillingAddressRemoved(cmd.AccountId, cmd.AddressId));
+            RaiseEvent<DomainEvent.PrimaryBillingAddressRemoved>(version => new(cmd.AccountId, cmd.AddressId, version));
     }
 
     private void Handle(Command.AddShippingAddress cmd)
     {
-        var shippingAddress = _addresses.OfType<ShippingAddress>().SingleOrDefault(address => address == cmd.Address);
+        var shippingAddress = _addresses
+            .OfType<ShippingAddress>()
+            .SingleOrDefault(address => address == cmd.Address);
 
         if (shippingAddress is null)
-            RaiseEvent(new DomainEvent.ShippingAddressAdded(cmd.AccountId, Guid.NewGuid(), cmd.Address));
+            RaiseEvent<DomainEvent.ShippingAddressAdded>(version => new(cmd.AccountId, Guid.NewGuid(), cmd.Address, version));
 
         else if (shippingAddress.IsDeleted)
-            RaiseEvent(new DomainEvent.ShippingAddressRestored(cmd.AccountId, shippingAddress.Id));
+            RaiseEvent<DomainEvent.ShippingAddressRestored>(version => new(cmd.AccountId, shippingAddress.Id, version));
     }
 
     private void Handle(Command.PreferShippingAddress cmd)
@@ -94,7 +99,7 @@ public class Account : AggregateRoot<AccountValidator>
 
         if (shippingAddress.Id == PrimaryShippingAddress?.Id) return;
 
-        RaiseEvent(new DomainEvent.ShippingAddressPreferred(cmd.AccountId, cmd.AddressId));
+        RaiseEvent<DomainEvent.ShippingAddressPreferred>(version => new(cmd.AccountId, cmd.AddressId, version));
     }
 
     private void Handle(Command.DeleteShippingAddress cmd)
@@ -102,60 +107,60 @@ public class Account : AggregateRoot<AccountValidator>
         if (_addresses.OfType<ShippingAddress>().SingleOrDefault(address
                 => address.Id == cmd.AddressId) is not { IsDeleted: false }) return;
 
-        RaiseEvent(new DomainEvent.ShippingAddressDeleted(cmd.AccountId, cmd.AddressId));
+        RaiseEvent<DomainEvent.ShippingAddressDeleted>(version => new(cmd.AccountId, cmd.AddressId, version));
 
         if (cmd.AddressId == PrimaryShippingAddress?.Id)
-            RaiseEvent(new DomainEvent.PrimaryShippingAddressRemoved(cmd.AccountId, cmd.AddressId));
+            RaiseEvent<DomainEvent.PrimaryShippingAddressRemoved>(version => new(cmd.AccountId, cmd.AddressId, version));
     }
 
-    protected override void Apply(IEvent @event)
-        => Apply(@event as dynamic);
+    protected override void Apply(IDomainEvent @event)
+        => When(@event as dynamic);
 
-    private void Apply(DomainEvent.AccountCreated @event)
+    private void When(DomainEvent.AccountCreated @event)
     {
         Id = @event.AccountId;
         Profile = new(@event.FirstName, @event.LastName, @event.Email);
         Status = @event.Status;
     }
 
-    private void Apply(DomainEvent.AccountActivated @event)
+    private void When(DomainEvent.AccountActivated @event)
         => Status = @event.Status;
 
-    private void Apply(DomainEvent.BillingAddressAdded @event)
+    private void When(DomainEvent.BillingAddressAdded @event)
         => _addresses.Add(BillingAddress.Create(@event.AddressId, @event.Address));
 
-    private void Apply(DomainEvent.ShippingAddressAdded @event)
+    private void When(DomainEvent.ShippingAddressAdded @event)
         => _addresses.Add(ShippingAddress.Create(@event.AddressId, @event.Address));
 
-    private void Apply(DomainEvent.BillingAddressPreferred @event)
+    private void When(DomainEvent.BillingAddressPreferred @event)
         => PrimaryBillingAddress = _addresses
             .OfType<BillingAddress>()
             .First(address => address.Id == @event.AddressId);
 
-    private void Apply(DomainEvent.ShippingAddressPreferred @event)
+    private void When(DomainEvent.ShippingAddressPreferred @event)
         => PrimaryShippingAddress = _addresses
             .OfType<ShippingAddress>()
             .First(address => address.Id == @event.AddressId);
 
-    private void Apply(DomainEvent.BillingAddressDeleted @event)
+    private void When(DomainEvent.BillingAddressDeleted @event)
         => _addresses.First(address => address.Id == @event.AddressId).Delete();
 
-    private void Apply(DomainEvent.ShippingAddressDeleted @event)
+    private void When(DomainEvent.ShippingAddressDeleted @event)
         => _addresses.First(address => address.Id == @event.AddressId).Delete();
 
-    private void Apply(DomainEvent.PrimaryBillingAddressRemoved _)
+    private void When(DomainEvent.PrimaryBillingAddressRemoved _)
         => PrimaryBillingAddress = default;
 
-    private void Apply(DomainEvent.PrimaryShippingAddressRemoved _)
+    private void When(DomainEvent.PrimaryShippingAddressRemoved _)
         => PrimaryShippingAddress = default;
-    
-    private void Apply(DomainEvent.BillingAddressRestored @event)
+
+    private void When(DomainEvent.BillingAddressRestored @event)
         => _addresses.First(address => address.Id == @event.AddressId).Restore();
 
-    private void Apply(DomainEvent.ShippingAddressRestored @event)
+    private void When(DomainEvent.ShippingAddressRestored @event)
         => _addresses.First(address => address.Id == @event.AddressId).Restore();
 
-    private void Apply(DomainEvent.AccountDeleted @event)
+    private void When(DomainEvent.AccountDeleted @event)
     {
         Status = @event.Status;
         IsDeleted = true;
