@@ -29,8 +29,8 @@ public class ProjectCartDetailsWhenCartChangedInteractor : IProjectCartDetailsWh
             @event.CustomerId,
             @event.Total,
             @event.Status,
-            @event.Version,
-            false);
+            false,
+            @event.Version);
 
         return _projectionGateway.UpsertAsync(shoppingCartDetails, cancellationToken);
     }
@@ -85,8 +85,8 @@ public class ProjectCartDetailsWhenCartChangedInteractor : IProjectCartDetailsWh
             @event.Cart.CustomerId,
             @event.Cart.Total,
             @event.Cart.Status,
-            @event.Version,
-            false);
+            false,
+            @event.Version);
 
         return _projectionGateway.UpsertAsync(shoppingCartDetails, cancellationToken);
     }

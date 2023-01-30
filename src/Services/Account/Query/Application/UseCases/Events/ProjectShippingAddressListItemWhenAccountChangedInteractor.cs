@@ -22,7 +22,8 @@ public class ProjectShippingAddressListItemWhenAccountChangedInteractor : IProje
             new(@event.AddressId,
                 @event.AccountId,
                 @event.Address,
-                false);
+                false,
+                @event.Version);
 
         await _projectionGateway.UpsertAsync(addressListItem, cancellationToken);
     }

@@ -27,11 +27,17 @@ public class ProjectOrderDetailsWhenOrderChangedInteractor : IProjectOrderDetail
                 @event.Items,
                 @event.PaymentMethods,
                 @event.Status,
-                false);
+                false,
+                @event.Version);
 
         await _projectionGateway.UpsertAsync(orderDetails, cancellationToken);
     }
 
     public Task InteractAsync(DomainEvent.OrderConfirmed @event, CancellationToken cancellationToken)
-        => _projectionGateway.UpdateFieldAsync(@event.OrderId, order => order.Status, @event.Status, cancellationToken);
+        => _projectionGateway.UpdateFieldAsync(
+            id: @event.OrderId,
+            version: @event.Version,
+            field: order => order.Status,
+            value: @event.Status,
+            cancellationToken: cancellationToken);
 }

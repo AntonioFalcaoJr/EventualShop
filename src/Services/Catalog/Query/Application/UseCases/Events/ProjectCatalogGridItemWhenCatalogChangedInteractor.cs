@@ -23,6 +23,7 @@ public class ProjectCatalogGridItemWhenCatalogChangedInteractor : IProjectCatalo
     public async Task InteractAsync(DomainEvent.CatalogActivated @event, CancellationToken cancellationToken)
         => await _projectionGateway.UpdateFieldAsync(
             id: @event.CatalogId,
+            version: @event.Version,
             field: catalog => catalog.IsActive,
             value: true,
             cancellationToken: cancellationToken);
@@ -35,7 +36,8 @@ public class ProjectCatalogGridItemWhenCatalogChangedInteractor : IProjectCatalo
             @event.Description,
             "image url", // TODO: get image url from event
             default,
-            default);
+            default,
+            @event.Version);
 
         await _projectionGateway.UpsertAsync(gridItem, cancellationToken);
     }
@@ -43,6 +45,7 @@ public class ProjectCatalogGridItemWhenCatalogChangedInteractor : IProjectCatalo
     public async Task InteractAsync(DomainEvent.CatalogDeactivated @event, CancellationToken cancellationToken)
         => await _projectionGateway.UpdateFieldAsync(
             id: @event.CatalogId,
+            version: @event.Version,
             field: catalog => catalog.IsActive,
             value: false,
             cancellationToken: cancellationToken);
@@ -50,6 +53,7 @@ public class ProjectCatalogGridItemWhenCatalogChangedInteractor : IProjectCatalo
     public async Task InteractAsync(DomainEvent.CatalogDescriptionChanged @event, CancellationToken cancellationToken)
         => await _projectionGateway.UpdateFieldAsync(
             id: @event.CatalogId,
+            version: @event.Version,
             field: catalog => catalog.Description,
             value: @event.Description,
             cancellationToken: cancellationToken);
@@ -57,6 +61,7 @@ public class ProjectCatalogGridItemWhenCatalogChangedInteractor : IProjectCatalo
     public async Task InteractAsync(DomainEvent.CatalogTitleChanged @event, CancellationToken cancellationToken)
         => await _projectionGateway.UpdateFieldAsync(
             id: @event.CatalogId,
+            version: @event.Version,
             field: catalog => catalog.Title,
             value: @event.Title,
             cancellationToken: cancellationToken);

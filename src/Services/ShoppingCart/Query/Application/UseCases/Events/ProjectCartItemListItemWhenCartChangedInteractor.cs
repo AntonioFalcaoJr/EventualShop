@@ -26,12 +26,12 @@ public class ProjectCartItemListItemWhenCartChangedInteractor : IProjectCartItem
             @event.CartId,
             @event.Product.Name,
             @event.Quantity,
-            @event.Version,
-            false);
+            false,
+            @event.Version);
 
         return _projectionGateway.UpsertAsync(cartItemListItem, cancellationToken);
     }
-    
+
     public Task InteractAsync(DomainEvent.CartItemIncreased @event, CancellationToken cancellationToken)
         => _projectionGateway.UpdateFieldAsync(
             id: @event.ItemId,
@@ -39,7 +39,7 @@ public class ProjectCartItemListItemWhenCartChangedInteractor : IProjectCartItem
             field: item => item.Quantity,
             value: @event.NewQuantity,
             cancellationToken: cancellationToken);
-    
+
     public Task InteractAsync(DomainEvent.CartItemDecreased @event, CancellationToken cancellationToken)
         => _projectionGateway.UpdateFieldAsync(
             id: @event.ItemId,
@@ -50,7 +50,7 @@ public class ProjectCartItemListItemWhenCartChangedInteractor : IProjectCartItem
 
     public Task InteractAsync(DomainEvent.CartItemRemoved @event, CancellationToken cancellationToken)
         => _projectionGateway.DeleteAsync(@event.ItemId, cancellationToken);
-    
+
     public Task InteractAsync(DomainEvent.CartDiscarded @event, CancellationToken cancellationToken)
         => _projectionGateway.DeleteAsync(item => item.CartId == @event.CartId, cancellationToken);
 }

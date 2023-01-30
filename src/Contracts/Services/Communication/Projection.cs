@@ -5,13 +5,13 @@ namespace Contracts.Services.Communication;
 
 public static class Projection
 {
-    public record NotificationDetails(Guid Id, bool IsDeleted) : IProjection
+    public record NotificationDetails(Guid Id, bool IsDeleted, long Version) : IProjection
     {
         public static implicit operator Protobuf.NotificationDetails(NotificationDetails notification)
             => new() { Id = notification.Id.ToString() };
     }
 
-    public record NotificationMethodDetails(Guid Id, Guid NotificationId, Dto.INotificationOption Option, bool IsDeleted) : IProjection
+    public record NotificationMethodDetails(Guid Id, Guid NotificationId, Dto.INotificationOption Option, bool IsDeleted, long Version) : IProjection
     {
         public static implicit operator Protobuf.NotificationMethodDetails(NotificationMethodDetails method)
             => new()

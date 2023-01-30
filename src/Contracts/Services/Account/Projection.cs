@@ -5,7 +5,7 @@ namespace Contracts.Services.Account;
 
 public static class Projection
 {
-    public record AccountDetails(Guid Id, string FirstName, string LastName, string Email, string Status, bool IsDeleted) : IProjection
+    public record AccountDetails(Guid Id, string FirstName, string LastName, string Email, string Status, bool IsDeleted, long Version) : IProjection
     {
         public static implicit operator Protobuf.AccountDetails(AccountDetails account)
             => new()
@@ -17,13 +17,13 @@ public static class Projection
             };
     }
 
-    public record BillingAddressListItem(Guid Id, Guid AccountId, Dto.Address Address, bool IsDeleted)
-        : AddressListItem(Id, AccountId, Address, IsDeleted);
+    public record BillingAddressListItem(Guid Id, Guid AccountId, Dto.Address Address, bool IsDeleted, long Version)
+        : AddressListItem(Id, AccountId, Address, IsDeleted, Version);
 
-    public record ShippingAddressListItem(Guid Id, Guid AccountId, Dto.Address Address, bool IsDeleted)
-        : AddressListItem(Id, AccountId, Address, IsDeleted);
+    public record ShippingAddressListItem(Guid Id, Guid AccountId, Dto.Address Address, bool IsDeleted, long Version)
+        : AddressListItem(Id, AccountId, Address, IsDeleted, Version);
 
-    public abstract record AddressListItem(Guid Id, Guid AccountId, Dto.Address Address, bool IsDeleted) : IProjection
+    public abstract record AddressListItem(Guid Id, Guid AccountId, Dto.Address Address, bool IsDeleted, long Version) : IProjection
     {
         public static implicit operator Protobuf.AddressListItem(AddressListItem item)
         {

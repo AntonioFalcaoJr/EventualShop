@@ -16,7 +16,7 @@ public class ProjectNotificationDetailsWhenNotificationChangedInteractor : IProj
 
     public async Task InteractAsync(DomainEvent.NotificationRequested @event, CancellationToken cancellationToken)
     {
-        Projection.NotificationDetails notificationDetails = new(@event.NotificationId, false);
+        Projection.NotificationDetails notificationDetails = new(@event.NotificationId, false, @event.Version);
         await _projectionGateway.UpsertAsync(notificationDetails, cancellationToken);
     }
 }

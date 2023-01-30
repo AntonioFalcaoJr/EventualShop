@@ -10,7 +10,7 @@ using MongoDB.Driver.Linq;
 namespace Infrastructure.Projections;
 
 public class ProjectionGateway<TProjection> : IProjectionGateway<TProjection>
-    where TProjection : IVersionedProjection
+    where TProjection : IProjection
 {
     private readonly IMongoCollection<TProjection> _collection;
 
