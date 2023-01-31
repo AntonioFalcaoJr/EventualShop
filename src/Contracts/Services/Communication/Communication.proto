@@ -17,11 +17,11 @@ message ListNotificationsDetailsRequest {
 // Projections
 
 message NotificationDetails {
-  string id = 1;
+  string NotificationId = 1;
 }
 
 message NotificationMethodDetails{
-  string Id = 1;
+  string MethodId = 1;
   string NotificationId = 2;
   Abstractions.Protobuf.NotificationOption Option = 3;
 }

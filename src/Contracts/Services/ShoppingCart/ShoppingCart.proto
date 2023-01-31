@@ -47,7 +47,7 @@ message ListShoppingCartItemsListItemsRequest {
 
 // Cart 
 message ShoppingCartDetails {
-  string Id = 1;
+  string CartId = 1;
   string CustomerId = 2;
   string Status = 3;
   Abstractions.Protobuf.Money Total = 4;
@@ -55,14 +55,14 @@ message ShoppingCartDetails {
 
 // Items
 message ShoppingCartItemDetails{
-  string Id = 1;
+  string ItemId = 1;
   string CartId = 2;
   Abstractions.Protobuf.Product Product = 3;
   int32 Quantity = 4;
 }
 
 message ShoppingCartItemListItem{
-  string Id = 1;
+  string ItemId = 1;
   string CartId = 2;
   string ProductName = 3;
   int32 Quantity = 4;
@@ -70,14 +70,14 @@ message ShoppingCartItemListItem{
 
 // Payment
 message PaymentMethodDetails {
-  string Id = 1;
+  string MethodId = 1;
   string CartId = 2;
   Abstractions.Protobuf.Money Amount = 3;
   Abstractions.Protobuf.PaymentOption Option = 4;
 }
 
 message PaymentMethodListItem {
-  string Id = 1;
+  string MethodId = 1;
   string CartId = 2;
   Abstractions.Protobuf.Money Amount = 3;
   string Option = 4;
