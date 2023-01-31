@@ -10,7 +10,7 @@ public static class Projection
         public static implicit operator Protobuf.ShoppingCartDetails(ShoppingCartDetails cart)
             => new()
             {
-                Id = cart.Id.ToString(),
+                CartId = cart.Id.ToString(),
                 CustomerId = cart.CustomerId.ToString(),
                 Status = cart.Status,
                 Total = cart.Total
@@ -22,7 +22,7 @@ public static class Projection
         public static implicit operator Protobuf.ShoppingCartItemDetails(ShoppingCartItemDetails item)
             => new()
             {
-                Id = item.Id.ToString(),
+                ItemId = item.Id.ToString(),
                 CartId = item.CartId.ToString(),
                 Product = item.Product,
                 Quantity = item.Quantity
@@ -34,7 +34,7 @@ public static class Projection
         public static implicit operator Protobuf.PaymentMethodDetails(PaymentMethodDetails method)
             => new()
             {
-                Id = method.Id.ToString(),
+                MethodId = method.Id.ToString(),
                 CartId = method.CartId.ToString(),
                 Amount = method.Amount,
                 Option = method.Option switch
@@ -52,7 +52,7 @@ public static class Projection
         public static implicit operator Protobuf.ShoppingCartItemListItem(ShoppingCartItemListItem item)
             => new()
             {
-                Id = item.Id.ToString(),
+                ItemId = item.Id.ToString(),
                 CartId = item.CartId.ToString(),
                 ProductName = item.ProductName,
                 Quantity = item.Quantity
@@ -64,7 +64,7 @@ public static class Projection
         public static implicit operator Protobuf.PaymentMethodListItem(PaymentMethodListItem method)
             => new()
             {
-                Id = method.Id.ToString(),
+                MethodId = method.Id.ToString(),
                 CartId = method.CartId.ToString(),
                 Amount = method.Amount,
                 Option = method.Option

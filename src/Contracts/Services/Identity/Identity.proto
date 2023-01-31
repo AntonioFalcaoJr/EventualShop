@@ -8,13 +8,17 @@ service IdentityService {
   rpc Login(LoginRequest) returns (Abstractions.Protobuf.GetResponse);
 }
 
+// Requests
+
 message LoginRequest {
   string Email = 1;
   string Password = 2;
 }
 
+// Projections
+
 message UserDetails {
-  string Id = 1;
+  string UserId = 1;
   string FirstName = 2;
   string LastName = 3;
   string Email = 4;
