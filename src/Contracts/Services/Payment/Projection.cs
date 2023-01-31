@@ -17,12 +17,13 @@ public static class Projection
             };
     }
 
-    public record PaymentMethodDetails(Guid Id, Guid OrderId, Dto.Money Amount, Dto.IPaymentOption Option, string Status, bool IsDeleted, long Version) : IProjection
+    public record PaymentMethodDetails(Guid Id, Guid PaymentId, Guid OrderId, Dto.Money Amount, Dto.IPaymentOption Option, string Status, bool IsDeleted, long Version) : IProjection
     {
         public static implicit operator Protobuf.PaymentMethodDetails(PaymentMethodDetails method)
             => new()
             {
                 MethodId = method.Id.ToString(),
+                PaymentId = method.PaymentId.ToString(),
                 OrderId = method.OrderId.ToString(),
                 Amount = method.Amount,
                 Status = method.Status,
