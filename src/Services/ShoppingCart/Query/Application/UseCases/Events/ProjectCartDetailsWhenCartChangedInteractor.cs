@@ -29,14 +29,16 @@ public class ProjectCartDetailsWhenCartChangedInteractor : IProjectCartDetailsWh
             @event.CustomerId,
             @event.Total,
             @event.Status,
-            false);
+            false,
+            @event.Version);
 
         return _projectionGateway.UpsertAsync(shoppingCartDetails, cancellationToken);
     }
-    
+
     public Task InteractAsync(DomainEvent.CartItemAdded @event, CancellationToken cancellationToken)
         => _projectionGateway.UpdateFieldAsync(
             id: @event.CartId,
+            version: @event.Version,
             field: cart => cart.Total,
             value: @event.NewCartTotal,
             cancellationToken: cancellationToken);
@@ -44,13 +46,15 @@ public class ProjectCartDetailsWhenCartChangedInteractor : IProjectCartDetailsWh
     public Task InteractAsync(DomainEvent.CartItemRemoved @event, CancellationToken cancellationToken)
         => _projectionGateway.UpdateFieldAsync(
             id: @event.CartId,
+            version: @event.Version,
             field: cart => cart.Total,
             value: @event.NewCartTotal,
             cancellationToken: cancellationToken);
-    
+
     public Task InteractAsync(DomainEvent.CartItemIncreased @event, CancellationToken cancellationToken)
         => _projectionGateway.UpdateFieldAsync(
             id: @event.CartId,
+            version: @event.Version,
             field: cart => cart.Total,
             value: @event.NewCartTotal,
             cancellationToken: cancellationToken);
@@ -58,6 +62,7 @@ public class ProjectCartDetailsWhenCartChangedInteractor : IProjectCartDetailsWh
     public Task InteractAsync(DomainEvent.CartItemDecreased @event, CancellationToken cancellationToken)
         => _projectionGateway.UpdateFieldAsync(
             id: @event.CartId,
+            version: @event.Version,
             field: cart => cart.Total,
             value: @event.NewCartTotal,
             cancellationToken: cancellationToken);
@@ -65,10 +70,11 @@ public class ProjectCartDetailsWhenCartChangedInteractor : IProjectCartDetailsWh
     public Task InteractAsync(DomainEvent.CartCheckedOut @event, CancellationToken cancellationToken)
         => _projectionGateway.UpdateFieldAsync(
             id: @event.CartId,
+            version: @event.Version,
             field: cart => cart.Status,
             value: @event.Status,
             cancellationToken: cancellationToken);
-    
+
     public Task InteractAsync(DomainEvent.CartDiscarded @event, CancellationToken cancellationToken)
         => _projectionGateway.DeleteAsync(@event.CartId, cancellationToken);
 
@@ -79,7 +85,8 @@ public class ProjectCartDetailsWhenCartChangedInteractor : IProjectCartDetailsWh
             @event.Cart.CustomerId,
             @event.Cart.Total,
             @event.Cart.Status,
-            false);
+            false,
+            @event.Version);
 
         return _projectionGateway.UpsertAsync(shoppingCartDetails, cancellationToken);
     }

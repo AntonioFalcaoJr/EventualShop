@@ -21,23 +21,28 @@ public class ProjectPaymentMethodDetailsWhenChangedInteractor : IProjectPaymentM
     }
 
     public Task InteractAsync(DomainEvent.PaymentMethodAuthorized @event, CancellationToken cancellationToken)
-        => UpdateStatusAsync(@event.PaymentMethodId, @event.Status, cancellationToken);
+        => UpdateStatusAsync(@event.PaymentMethodId, @event.Version, @event.Status, cancellationToken);
 
     public Task InteractAsync(DomainEvent.PaymentMethodDenied @event, CancellationToken cancellationToken)
-        => UpdateStatusAsync(@event.PaymentMethodId, @event.Status, cancellationToken);
+        => UpdateStatusAsync(@event.PaymentMethodId, @event.Version, @event.Status, cancellationToken);
 
     public Task InteractAsync(DomainEvent.PaymentMethodCanceled @event, CancellationToken cancellationToken)
-        => UpdateStatusAsync(@event.PaymentMethodId, @event.Status, cancellationToken);
+        => UpdateStatusAsync(@event.PaymentMethodId, @event.Version, @event.Status, cancellationToken);
 
     public Task InteractAsync(DomainEvent.PaymentMethodCancellationDenied @event, CancellationToken cancellationToken)
-        => UpdateStatusAsync(@event.PaymentMethodId, @event.Status, cancellationToken);
+        => UpdateStatusAsync(@event.PaymentMethodId, @event.Version, @event.Status, cancellationToken);
 
     public Task InteractAsync(DomainEvent.PaymentMethodRefunded @event, CancellationToken cancellationToken)
-        => UpdateStatusAsync(@event.PaymentMethodId, @event.Status, cancellationToken);
+        => UpdateStatusAsync(@event.PaymentMethodId, @event.Version, @event.Status, cancellationToken);
 
     public Task InteractAsync(DomainEvent.PaymentMethodRefundDenied @event, CancellationToken cancellationToken)
-        => UpdateStatusAsync(@event.PaymentMethodId, @event.Status, cancellationToken);
+        => UpdateStatusAsync(@event.PaymentMethodId, @event.Version, @event.Status, cancellationToken);
 
-    private Task UpdateStatusAsync(Guid methodId, string status, CancellationToken cancellationToken)
-        => _projectionGateway.UpdateFieldAsync(methodId, method => method.Status, status, cancellationToken);
+    private Task UpdateStatusAsync(Guid methodId, long version, string status, CancellationToken cancellationToken)
+        => _projectionGateway.UpdateFieldAsync(
+            id: methodId, 
+            version: version, 
+            field: method => method.Status, 
+            value: status, 
+            cancellationToken: cancellationToken);
 }

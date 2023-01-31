@@ -26,7 +26,8 @@ public class ProjectAccountDetailsWhenAccountChangedInteractor : IProjectAccount
                 @event.LastName,
                 @event.Email,
                 @event.Status,
-                false);
+                false,
+                @event.Version);
 
         await _projectionGateway.UpsertAsync(accountDetails, cancellationToken);
     }
@@ -34,6 +35,7 @@ public class ProjectAccountDetailsWhenAccountChangedInteractor : IProjectAccount
     public Task InteractAsync(DomainEvent.AccountActivated @event, CancellationToken cancellationToken)
         => _projectionGateway.UpdateFieldAsync(
             id: @event.AccountId,
+            version:@event.Version,
             field: account => account.Status,
             value: @event.Status,
             cancellationToken: cancellationToken);
@@ -41,6 +43,7 @@ public class ProjectAccountDetailsWhenAccountChangedInteractor : IProjectAccount
     public Task InteractAsync(DomainEvent.AccountDeactivated @event, CancellationToken cancellationToken)
         => _projectionGateway.UpdateFieldAsync(
             id: @event.AccountId,
+            version: @event.Version,
             field: account => account.Status,
             value: @event.Status,
             cancellationToken: cancellationToken);

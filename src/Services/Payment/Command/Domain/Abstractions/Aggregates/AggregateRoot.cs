@@ -8,20 +8,20 @@ namespace Domain.Abstractions.Aggregates;
 public abstract class AggregateRoot<TValidator> : Entity<TValidator>, IAggregateRoot
     where TValidator : IValidator, new()
 {
-    private readonly List<(long version, IEvent @event)> _events = new();
+    private readonly List<IDomainEvent> _events = new();
 
     public long Version { get; private set; }
 
     [JsonIgnore]
-    public IEnumerable<(long version, IEvent @event)> UncommittedEvents
+    public IEnumerable<IDomainEvent> UncommittedEvents
         => _events;
 
-    public IAggregateRoot Load(IEnumerable<IEvent> events)
+    public IAggregateRoot Load(IEnumerable<IDomainEvent> events)
     {
         foreach (var @event in events)
         {
             Apply(@event);
-            Version += 1;
+            Version++;
         }
 
         return this;
@@ -29,13 +29,17 @@ public abstract class AggregateRoot<TValidator> : Entity<TValidator>, IAggregate
 
     public abstract void Handle(ICommand command);
 
-    protected void RaiseEvent(IEvent @event)
+    protected void RaiseEvent<TEvent>(Func<long, TEvent> func) where TEvent : IDomainEvent
+        => RaiseEvent((func as Func<long, IDomainEvent>)!);
+
+    protected void RaiseEvent(Func<long, IDomainEvent> onRaise)
     {
+        Version++;
+        var @event = onRaise(Version);
         Apply(@event);
         Validate();
-        Version += 1;
-        _events.Add((Version, @event));
+        _events.Add(@event);
     }
 
-    protected abstract void Apply(IEvent @event);
+    protected abstract void Apply(IDomainEvent @event);
 }

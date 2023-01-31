@@ -19,42 +19,42 @@ public class Notification : AggregateRoot<NotificationValidator>
         => Handle(command as dynamic);
 
     private void Handle(Command.RequestNotification cmd)
-        => RaiseEvent(new DomainEvent.NotificationRequested(Guid.NewGuid(), cmd.Methods));
+        => RaiseEvent<DomainEvent.NotificationRequested>(version => new(Guid.NewGuid(), cmd.Methods, version));
 
     private void Handle(Command.SendNotificationMethod cmd)
     {
         if (_methods.SingleOrDefault(method => method.Id == cmd.MethodId) is not { IsDeleted: false } notificationMethod) return;
         if (notificationMethod.Status != NotificationMethodStatus.Pending) return;
-        RaiseEvent(new DomainEvent.NotificationMethodSent(cmd.NotificationId, cmd.MethodId));
+        RaiseEvent<DomainEvent.NotificationMethodSent>(version => new(cmd.NotificationId, cmd.MethodId, version));
     }
 
     private void Handle(Command.FailNotificationMethod cmd)
-        => RaiseEvent(new DomainEvent.NotificationMethodFailed(cmd.NotificationId, cmd.MethodId));
+        => RaiseEvent<DomainEvent.NotificationMethodFailed>(version => new(cmd.NotificationId, cmd.MethodId, version));
 
     private void Handle(Command.CancelNotificationMethod cmd)
-        => RaiseEvent(new DomainEvent.NotificationMethodCancelled(cmd.NotificationId, cmd.MethodId));
+        => RaiseEvent<DomainEvent.NotificationMethodCancelled>(version => new(cmd.NotificationId, cmd.MethodId, version));
 
     private void Handle(Command.ResetNotificationMethod cmd)
-        => RaiseEvent(new DomainEvent.NotificationMethodReset(cmd.NotificationId, cmd.MethodId));
+        => RaiseEvent<DomainEvent.NotificationMethodReset>(version => new(cmd.NotificationId, cmd.MethodId, version));
 
-    protected override void Apply(IEvent @event)
-        => Apply(@event as dynamic);
+    protected override void Apply(IDomainEvent @event)
+        => When(@event as dynamic);
 
-    private void Apply(DomainEvent.NotificationRequested @event)
+    private void When(DomainEvent.NotificationRequested @event)
     {
         Id = @event.NotificationId;
         _methods.AddRange(@event.Methods.Select(method => (NotificationMethod)method));
     }
 
-    private void Apply(DomainEvent.NotificationMethodSent @event)
+    private void When(DomainEvent.NotificationMethodSent @event)
         => _methods.First(m => m.Id == @event.MethodId).Send();
 
-    private void Apply(DomainEvent.NotificationMethodFailed @event)
+    private void When(DomainEvent.NotificationMethodFailed @event)
         => _methods.First(m => m.Id == @event.MethodId).Fail();
 
-    private void Apply(DomainEvent.NotificationMethodCancelled @event)
+    private void When(DomainEvent.NotificationMethodCancelled @event)
         => _methods.First(m => m.Id == @event.MethodId).Cancel();
 
-    private void Apply(DomainEvent.NotificationMethodReset @event)
+    private void When(DomainEvent.NotificationMethodReset @event)
         => _methods.First(m => m.Id == @event.MethodId).Reset();
 }

@@ -19,7 +19,8 @@ public class ProjectInventoryGridItemWhenInventoryChangedInteractor : IProjectIn
         Projection.InventoryGridItem card = new(
             @event.InventoryId,
             @event.OwnerId,
-            false);
+            false,
+            @event.Version);
 
         await _projectionGateway.UpsertAsync(card, cancellationToken);
     }

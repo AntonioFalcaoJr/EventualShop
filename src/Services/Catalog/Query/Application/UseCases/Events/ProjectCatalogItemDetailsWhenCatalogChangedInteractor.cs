@@ -22,7 +22,8 @@ public class ProjectCatalogItemDetailsWhenCatalogChangedInteractor : IProjectCat
             @event.Product,
             @event.UnitPrice,
             "image url",
-            false);
+            false,
+            @event.Version);
 
         await _projectionGateway.UpsertAsync(card, cancellationToken);
     }

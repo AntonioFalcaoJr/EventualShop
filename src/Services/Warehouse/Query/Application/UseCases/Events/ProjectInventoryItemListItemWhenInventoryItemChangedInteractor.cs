@@ -17,29 +17,32 @@ public class ProjectInventoryItemListItemWhenInventoryItemChangedInteractor : IP
     {
         _projectionGateway = projectionGateway;
     }
-    
-    public async Task InteractAsync(DomainEvent.InventoryAdjustmentDecreased @event,  CancellationToken cancellationToken)
+
+    public async Task InteractAsync(DomainEvent.InventoryAdjustmentDecreased @event, CancellationToken cancellationToken)
         => await _projectionGateway.UpdateFieldAsync(
             id: @event.ItemId,
+            version: @event.Version,
             field: item => item.Quantity,
             value: @event.Quantity * -1, // TODO: This is a hack, should be fixed in the domain event
             cancellationToken: cancellationToken);
 
-    public async Task InteractAsync(DomainEvent.InventoryAdjustmentIncreased @event,  CancellationToken cancellationToken)
+    public async Task InteractAsync(DomainEvent.InventoryAdjustmentIncreased @event, CancellationToken cancellationToken)
         => await _projectionGateway.UpdateFieldAsync(
             id: @event.ItemId,
+            version: @event.Version,
             field: item => item.Quantity,
             value: @event.Quantity,
             cancellationToken: cancellationToken);
 
-    public async Task InteractAsync(DomainEvent.InventoryItemIncreased @event,  CancellationToken cancellationToken)
+    public async Task InteractAsync(DomainEvent.InventoryItemIncreased @event, CancellationToken cancellationToken)
         => await _projectionGateway.UpdateFieldAsync(
             id: @event.ItemId,
+            version: @event.Version,
             field: item => item.Quantity,
             value: @event.Quantity,
             cancellationToken: cancellationToken);
 
-    public async Task InteractAsync(DomainEvent.InventoryItemReceived @event,  CancellationToken cancellationToken)
+    public async Task InteractAsync(DomainEvent.InventoryItemReceived @event, CancellationToken cancellationToken)
     {
         Projection.InventoryItemListItem inventoryItemListItem = new(
             @event.ItemId,
@@ -47,8 +50,9 @@ public class ProjectInventoryItemListItemWhenInventoryItemChangedInteractor : IP
             @event.Product,
             @event.Quantity,
             @event.Sku,
-            false);
+            false,
+            @event.Version);
 
-         await _projectionGateway.UpsertAsync(inventoryItemListItem, cancellationToken);
+        await _projectionGateway.UpsertAsync(inventoryItemListItem, cancellationToken);
     }
 }
