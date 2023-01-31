@@ -10,7 +10,7 @@ public static class Projection
         public static implicit operator Protobuf.AccountDetails(AccountDetails account)
             => new()
             {
-                Id = account.Id.ToString(),
+                AccountId = account.Id.ToString(),
                 FirstName = account.FirstName,
                 LastName = account.LastName,
                 Email = account.Email
@@ -29,7 +29,7 @@ public static class Projection
         {
             return new()
             {
-                Id = item.Id.ToString(),
+                AddressId = item.Id.ToString(),
                 AccountId = item.AccountId.ToString(),
                 Address = item.Address
             };

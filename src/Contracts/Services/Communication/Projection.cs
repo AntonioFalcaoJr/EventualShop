@@ -8,7 +8,7 @@ public static class Projection
     public record NotificationDetails(Guid Id, bool IsDeleted, long Version) : IProjection
     {
         public static implicit operator Protobuf.NotificationDetails(NotificationDetails notification)
-            => new() { Id = notification.Id.ToString() };
+            => new() { NotificationId = notification.Id.ToString() };
     }
 
     public record NotificationMethodDetails(Guid Id, Guid NotificationId, Dto.INotificationOption Option, bool IsDeleted, long Version) : IProjection
@@ -16,7 +16,7 @@ public static class Projection
         public static implicit operator Protobuf.NotificationMethodDetails(NotificationMethodDetails method)
             => new()
             {
-                Id = method.Id.ToString(),
+                MethodId = method.Id.ToString(),
                 NotificationId = method.NotificationId.ToString(),
                 Option = method.Option switch
                 {

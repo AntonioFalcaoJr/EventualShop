@@ -7,10 +7,10 @@ public class CartStatus : SmartEnum<CartStatus>
     private CartStatus(string name, int value)
         : base(name, value) { }
 
+    public static readonly CartStatus Empty = new EmptyStatus();
     public static readonly CartStatus Active = new ActiveStatus();
     public static readonly CartStatus Abandoned = new AbandonedStatus();
     public static readonly CartStatus CheckedOut = new CheckedOutStatus();
-    public static readonly CartStatus Undefined = new UndefinedStatus();
 
     public static implicit operator CartStatus(string name)
         => FromName(name);
@@ -24,27 +24,27 @@ public class CartStatus : SmartEnum<CartStatus>
     public static implicit operator int(CartStatus status)
         => status.Value;
 
+    public class EmptyStatus : CartStatus
+    {
+        public EmptyStatus()
+            : base(nameof(Empty), 1) { }
+    }
+
     public class ActiveStatus : CartStatus
     {
         public ActiveStatus()
-            : base(nameof(Active), 1) { }
+            : base(nameof(Active), 2) { }
     }
 
     public class AbandonedStatus : CartStatus
     {
         public AbandonedStatus()
-            : base(nameof(Abandoned), 2) { }
+            : base(nameof(Abandoned), 3) { }
     }
 
     public class CheckedOutStatus : CartStatus
     {
         public CheckedOutStatus()
-            : base(nameof(CheckedOut), 3) { }
-    }
-
-    public class UndefinedStatus : CartStatus
-    {
-        public UndefinedStatus()
-            : base(nameof(Undefined), 4) { }
+            : base(nameof(CheckedOut), 4) { }
     }
 }

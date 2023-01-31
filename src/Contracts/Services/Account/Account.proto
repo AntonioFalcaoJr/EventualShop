@@ -28,14 +28,14 @@ message ListShippingAddressesListItemsRequest {
 // Projections
 
 message AccountDetails {
-  string Id = 1;
+  string AccountId = 1;
   string FirstName = 2;
   string LastName = 3;
   string Email = 4;
 }
 
 message AddressListItem {
-  string Id = 1;
+  string AddressId = 1;
   string AccountId = 2;
   Abstractions.Protobuf.Address Address = 3;
 }
