@@ -41,7 +41,7 @@ builder.Host.ConfigureServices((context, services) =>
                 .AllowAnyMethod()));
 
     services.AddGrpc();
-    services.AddEventBus();
+    services.AddEventBus(builder.Environment);
     services.AddEventInteractors();
     services.AddMessageValidators();
     services.AddQueryInteractors();
@@ -77,4 +77,10 @@ finally
 {
     Log.CloseAndFlush();
     await app.DisposeAsync();
+}
+
+// TODO - Review it! Integration tests need it, at this time.
+namespace GrpcService
+{
+    public partial class Program { }
 }

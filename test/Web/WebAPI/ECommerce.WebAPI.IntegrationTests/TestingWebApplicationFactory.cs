@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 
-namespace ECommerce.WebAPI.IntegrationTests.Factories;
+namespace ECommerce.WebAPI.IntegrationTests;
 
 public class TestingWebApplicationFactory<TEntryPoint> : WebApplicationFactory<TEntryPoint> 
     where TEntryPoint : class
