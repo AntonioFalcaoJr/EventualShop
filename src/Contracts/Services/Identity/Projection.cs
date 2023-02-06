@@ -10,7 +10,7 @@ public static class Projection
         public static implicit operator Protobuf.UserDetails(UserDetails userDetails)
             => new()
             {
-                Id = userDetails.Id.ToString(),
+                UserId = userDetails.Id.ToString(),
                 Email = userDetails.Email,
                 FirstName = userDetails.FirstName,
                 LastName = userDetails.LastName,

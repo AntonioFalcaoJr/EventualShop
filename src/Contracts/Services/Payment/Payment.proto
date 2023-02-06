@@ -29,24 +29,26 @@ message ListPaymentMethodListItemRequest {
 // Projections
 
 message PaymentDetails {
-  string Id = 1;
+  string PaymentId = 1;
   string OrderId = 2;
   Abstractions.Protobuf.Money Amount = 3;
   string Status = 4;
 }
 
 message PaymentMethodDetails {
-  string Id = 1;
-  string OrderId = 2;
-  Abstractions.Protobuf.Money Amount = 3;
-  Abstractions.Protobuf.PaymentOption Option = 4;
-  string Status = 5;
+  string MethodId = 1;
+  string PaymentId = 2;
+  string OrderId = 3;
+  Abstractions.Protobuf.Money Amount = 4;
+  Abstractions.Protobuf.PaymentOption Option = 5;
+  string Status = 6;
 }
 
 message PaymentMethodListItem {
-  string Id = 1;
-  string OrderId = 2;
-  Abstractions.Protobuf.Money Amount = 3;
-  string Option = 4;
-  string Status = 5;
+  string MethodId = 1;
+  string PaymentId = 2;
+  string OrderId = 3;
+  Abstractions.Protobuf.Money Amount = 4;
+  string Option = 5;
+  string Status = 6;
 }

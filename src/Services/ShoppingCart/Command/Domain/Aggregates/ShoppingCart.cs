@@ -22,7 +22,7 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
     private readonly List<PaymentMethod> _paymentMethods = new();
 
     public Guid CustomerId { get; private set; }
-    public CartStatus Status { get; private set; } = CartStatus.Undefined;
+    public CartStatus Status { get; private set; } = CartStatus.Empty;
     public Address? BillingAddress { get; private set; }
     public Address? ShippingAddress { get; private set; }
     public Money Total { get; private set; } = Money.Zero(Currency.Unknown);

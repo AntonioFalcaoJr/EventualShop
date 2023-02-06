@@ -17,14 +17,14 @@ public static class Projection
 
     public record InventoryItemListItem(Guid Id, Guid InventoryId, Dto.Product Product, int Quantity, string Sku, bool IsDeleted, long Version) : IProjection
     {
-        public static implicit operator Protobuf.InventoryItemListItem(InventoryItemListItem inventoryItemListItem)
+        public static implicit operator Protobuf.InventoryItemListItem(InventoryItemListItem item)
             => new()
             {
-                Id = inventoryItemListItem.Id.ToString(),
-                InventoryId = inventoryItemListItem.InventoryId.ToString(),
-                Product = inventoryItemListItem.Product,
-                Sku = inventoryItemListItem.Sku,
-                Quantity = inventoryItemListItem.Quantity
+                ItemId = item.Id.ToString(),
+                InventoryId = item.InventoryId.ToString(),
+                Product = item.Product,
+                Sku = item.Sku,
+                Quantity = item.Quantity
             };
     }
 }

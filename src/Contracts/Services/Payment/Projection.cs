@@ -10,19 +10,20 @@ public static class Projection
         public static implicit operator Protobuf.PaymentDetails(PaymentDetails payment)
             => new()
             {
-                Id = payment.Id.ToString(),
+                PaymentId = payment.Id.ToString(),
                 OrderId = payment.OrderId.ToString(),
                 Amount = payment.Amount,
                 Status = payment.Status
             };
     }
 
-    public record PaymentMethodDetails(Guid Id, Guid OrderId, Dto.Money Amount, Dto.IPaymentOption Option, string Status, bool IsDeleted, long Version) : IProjection
+    public record PaymentMethodDetails(Guid Id, Guid PaymentId, Guid OrderId, Dto.Money Amount, Dto.IPaymentOption Option, string Status, bool IsDeleted, long Version) : IProjection
     {
         public static implicit operator Protobuf.PaymentMethodDetails(PaymentMethodDetails method)
             => new()
             {
-                Id = method.Id.ToString(),
+                MethodId = method.Id.ToString(),
+                PaymentId = method.PaymentId.ToString(),
                 OrderId = method.OrderId.ToString(),
                 Amount = method.Amount,
                 Status = method.Status,
@@ -41,7 +42,7 @@ public static class Projection
         public static implicit operator Protobuf.PaymentMethodListItem(PaymentMethodListItem method)
             => new()
             {
-                Id = method.Id.ToString(),
+                MethodId = method.Id.ToString(),
                 OrderId = method.OrderId.ToString(),
                 Amount = method.Amount,
                 Status = method.Status,

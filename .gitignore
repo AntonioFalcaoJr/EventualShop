@@ -403,7 +403,7 @@ FodyWeavers.xsd
 /workspace.xml
 # Rider ignored files
 /modules.xml
-/.idea.EDA.CleanArch.DDD.CQRS.EventSourcing.iml
+/.idea.EventualShop.iml
 /projectSettingsUpdater.xml
 /contentModel.xml
 # Editor-based HTTP Client requests
