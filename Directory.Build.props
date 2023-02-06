@@ -63,7 +63,7 @@
         <Polly_Version>7.0.2</Polly_Version>
 
         <!--Open Telemetry-->
-        <OpenTelemetry_Exporter_Jaeger_Version>1.4.0-rc.2</OpenTelemetry_Exporter_Jaeger_Version>
+        <OpenTelemetry_Exporter_Jaeger_Version>1.4.0-rc.3</OpenTelemetry_Exporter_Jaeger_Version>
         <OpenTelemetry_Extensions_Hosting_Version>1.4.0-rc.3</OpenTelemetry_Extensions_Hosting_Version>
         <OpenTelemetry_Instrumentation_AspNetCore_Version>1.0.0-rc9.12</OpenTelemetry_Instrumentation_AspNetCore_Version>
 
