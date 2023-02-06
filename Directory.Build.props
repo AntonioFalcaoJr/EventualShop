@@ -34,11 +34,11 @@
         <Grpc_Net_ClientFactory_Version>2.51.0</Grpc_Net_ClientFactory_Version>
 
         <!--MongoDb-->
-        <MongoDb_Version>2.18.0</MongoDb_Version>
+        <MongoDb_Version>2.19.0</MongoDb_Version>
 
         <!--MassTransit-->
-        <MassTransit_Version>8.0.13-develop.899</MassTransit_Version>
-        <Quartz_Version>3.5.0</Quartz_Version>
+        <MassTransit_Version>8.0.13-develop.912</MassTransit_Version>
+        <Quartz_Version>3.6.0</Quartz_Version>
 
         <!--Newtonsoft-->
         <Newtonsoft_Version>13.0.2</Newtonsoft_Version>
@@ -47,7 +47,7 @@
 
         <!--Serilog-->
         <Serilog_Version>3.0.0-dev-01842</Serilog_Version>
-        <Serilog_AspNetCore_Version>6.1.1-dev-00293</Serilog_AspNetCore_Version>
+        <Serilog_AspNetCore_Version>6.1.1-dev-00295</Serilog_AspNetCore_Version>
         <Serilog_Extensions_Version>5.0.1</Serilog_Extensions_Version>
         <Serilog_Settings_Version>3.5.0-dev-00370</Serilog_Settings_Version>
 
@@ -64,7 +64,7 @@
 
         <!--Open Telemetry-->
         <OpenTelemetry_Exporter_Jaeger_Version>1.4.0-rc.2</OpenTelemetry_Exporter_Jaeger_Version>
-        <OpenTelemetry_Extensions_Hosting_Version>1.4.0-rc.2</OpenTelemetry_Extensions_Hosting_Version>
+        <OpenTelemetry_Extensions_Hosting_Version>1.4.0-rc.3</OpenTelemetry_Extensions_Hosting_Version>
         <OpenTelemetry_Instrumentation_AspNetCore_Version>1.0.0-rc9.11</OpenTelemetry_Instrumentation_AspNetCore_Version>
 
         <!--Test-->
