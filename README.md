@@ -49,6 +49,9 @@ broadcasted to the **Query** side and/or other Aggregates.
 The [**Event Sourcing**](https://www.eventstore.com/event-sourcing) is a proprietary implementation that, in addition to being **naturally auditable** and **data-driven**, represents the most efficient persistence mechanism ever. An **eventual state
 transition** Aggregate design is essential at this point. The **Event Store** comprises EF Core (ORM) + MSSQL (Database).
 
+> State transitions are an important part of our problem space and should be modeled within our domain.  
+> -- Greg Young
+
 [**Projections**](https://www.eventstore.com/event-sourcing#Projections) are **asynchronously denormalized** and stored on a NoSQL Database(MongoDB); Nested documents should be avoided here; Each projection has its index and **fits perfectly into a view or component**,
 mitigating unnecessary data traffic and making the reading side as efficient as possible.
 
@@ -56,9 +59,6 @@ The splitting between **Command** and **Query** stacks occurs logically through 
 and the data flows from Command to Query stack via **Domain** and/or **Summary** events.
 
 As a **domain-centric** approach, [**Clean Architecture**](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) provides the appropriate isolation between the **Core** (Application + Domain) and "times many" **Infrastructure** concerns.
-
-> State transitions are an important part of our problem space and should be modeled within our domain.  
-> -- Greg Young
 
 ### :star: Give a Star! 
 
