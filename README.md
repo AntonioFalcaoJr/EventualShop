@@ -575,12 +575,12 @@ Comparison overview:
 >
 > ["What is the CQRS pattern?" _MSDN_, Microsoft Docs, last edited on 2 Nov 2020](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs)
 
-![](.assets/img/cqrs.png)   
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/cqrs.png)   
 [Fig. 21: Bürckel, Marco. _Some thoughts on using CQRS without Event Sourcing_](https://medium.com/@mbue/some-thoughts-on-using-cqrs-without-event-sourcing-938b878166a2)
 
 <br>
 
-![](.assets/img/cqrs.jpg)   
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/cqrs.jpg))   
 [Fig. 22: Go, Jayson. _From Monolith to Event-Driven: Finding Seams in Your Future Architecture_](https://www.eventstore.com/blog/what-is-event-sourcing)
 
 ### Command's pipeline
@@ -717,7 +717,7 @@ be updated or modified according to the instructions in the command. If the comm
 Task-based UIs and CQRS can be used together to provide users with a flexible and efficient way to interact with a system and complete specific tasks. This can make them more efficient and
 user-friendly than more general-purpose UIs.
 
-![](.assets/img/task_based_ui.png)  
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/task_based_ui.png)  
 [Fig. 26: Murali, Bala. _What is Task Based UI_](https://medium.com/@baladotcom/what-is-task-based-ui-60a44ddfd968)
 
 </details>
