@@ -1,11 +1,11 @@
 # ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/new_logo.png)
 
 <p align="center">
-  <a href="#about">About</a> &nbsp;&bull;&nbsp;
-  <a href="#the-solution-architecture">The Solution Architecture</a> &nbsp;&bull;&nbsp;
-  <a href="#research">Research</a> &nbsp;&bull;&nbsp;
-  <a href="#running">Running</a> &nbsp;&bull;&nbsp;
-  <a href="#tech-stack">Tech Stack</a>
+  <a href="#-bulb--about">About</a> &nbsp;&bull;&nbsp;
+  <a href="#-classicalbuilding--the-solution-architecture">The Solution Architecture</a> &nbsp;&bull;&nbsp;
+  <a href="#-magright--research">Research</a> &nbsp;&bull;&nbsp;
+  <a href="#-computer--running">Running</a> &nbsp;&bull;&nbsp;
+  <a href="#-toolbox--tech-stack">Tech Stack</a>
 </p>
 
 <br>
