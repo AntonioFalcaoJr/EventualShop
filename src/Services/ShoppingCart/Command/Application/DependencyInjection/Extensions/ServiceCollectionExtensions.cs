@@ -24,12 +24,10 @@ public static class ServiceCollectionExtensions
             .AddScoped<IInteractor<Command.CheckOutCart>, CheckOutCartInteractor>()
             .AddScoped<IInteractor<Command.CreateCart>, CreateCartInteractor>()
             .AddScoped<IInteractor<Command.DiscardCart>, DiscardCartInteractor>()
-            .AddScoped<IInteractor<Command.RebuildCartProjection>, RebuildCartProjectionInteractor>()
             .AddScoped<IInteractor<Command.RemoveCartItem>, RemoveCartItemInteractor>()
             .AddScoped<IInteractor<Command.RemovePaymentMethod>, RemovePaymentMethodInteractor>();
 
     public static IServiceCollection AddEventInteractors(this IServiceCollection services)
         => services
-            .AddScoped<IPublishCartSubmittedWhenCartCheckedOutInteractor, PublishCartSubmittedWhenCartCheckedOutInteractor>()
-            .AddScoped<IPublishCartProjectionRebuiltWhenRequestedInteractor, PublishCartProjectionRebuiltWhenRequestedInteractor>();
+            .AddScoped<IPublishCartSubmittedWhenCartCheckedOutInteractor, PublishCartSubmittedWhenCartCheckedOutInteractor>();
 }
