@@ -9,14 +9,14 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistrationContext context)
     {
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenCartChangedConsumer, DomainEvent.CartCreated>(context);
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenCartChangedConsumer, DomainEvent.CartDiscarded>(context);
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenCartChangedConsumer, DomainEvent.CartCheckedOut>(context);
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenCartChangedConsumer, DomainEvent.CartItemAdded>(context);
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenCartChangedConsumer, DomainEvent.CartItemDecreased>(context);
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenCartChangedConsumer, DomainEvent.CartItemIncreased>(context);
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenCartChangedConsumer, DomainEvent.CartItemRemoved>(context);
-        cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenCartChangedConsumer, SummaryEvent.ProjectionRebuilt>(context);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenChangedConsumer, DomainEvent.CartCreated>(context);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenChangedConsumer, DomainEvent.CartDiscarded>(context);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenChangedConsumer, DomainEvent.CartCheckedOut>(context);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenChangedConsumer, DomainEvent.CartItemAdded>(context);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenChangedConsumer, DomainEvent.CartItemDecreased>(context);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenChangedConsumer, DomainEvent.CartItemIncreased>(context);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenChangedConsumer, DomainEvent.CartItemRemoved>(context);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCartDetailsWhenChangedConsumer, SummaryEvent.CartProjectionRebuilt>(context);
 
         cfg.ConfigureEventReceiveEndpoint<ProjectCartItemListItemWhenCartChangedConsumer, DomainEvent.CartItemAdded>(context);
         cfg.ConfigureEventReceiveEndpoint<ProjectCartItemListItemWhenCartChangedConsumer, DomainEvent.CartItemRemoved>(context);

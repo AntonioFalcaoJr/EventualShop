@@ -4,7 +4,7 @@ using MassTransit;
 
 namespace Infrastructure.EventBus.Consumers.Events;
 
-public class ProjectCartDetailsWhenCartChangedConsumer :
+public class ProjectCartDetailsWhenChangedConsumer :
     IConsumer<DomainEvent.CartCreated>,
     IConsumer<DomainEvent.CartItemAdded>,
     IConsumer<DomainEvent.CartItemRemoved>,
@@ -12,11 +12,11 @@ public class ProjectCartDetailsWhenCartChangedConsumer :
     IConsumer<DomainEvent.CartItemIncreased>,
     IConsumer<DomainEvent.CartItemDecreased>,
     IConsumer<DomainEvent.CartDiscarded>,
-    IConsumer<SummaryEvent.ProjectionRebuilt>
+    IConsumer<SummaryEvent.CartProjectionRebuilt>
 {
     private readonly IProjectCartDetailsWhenCartChangedInteractor _interactor;
 
-    public ProjectCartDetailsWhenCartChangedConsumer(IProjectCartDetailsWhenCartChangedInteractor interactor)
+    public ProjectCartDetailsWhenChangedConsumer(IProjectCartDetailsWhenCartChangedInteractor interactor)
     {
         _interactor = interactor;
     }
@@ -42,6 +42,6 @@ public class ProjectCartDetailsWhenCartChangedConsumer :
     public Task Consume(ConsumeContext<DomainEvent.CartDiscarded> context)
         => _interactor.InteractAsync(context.Message, context.CancellationToken);
 
-    public Task Consume(ConsumeContext<SummaryEvent.ProjectionRebuilt> context)
+    public Task Consume(ConsumeContext<SummaryEvent.CartProjectionRebuilt> context)
         => _interactor.InteractAsync(context.Message, context.CancellationToken);
 }

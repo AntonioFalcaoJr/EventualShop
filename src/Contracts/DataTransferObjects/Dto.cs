@@ -130,6 +130,6 @@ public static class Dto
 
     public record Profile(string FirstName, string LastName, string Email, DateOnly? Birthdate, string Gender);
 
-    public record ShoppingCart(Guid Id, Guid CustomerId, string Status, Address BillingAddress, Address ShippingAddress, Money Total, Money TotalPayment, Money AmountDue,
+    public record ShoppingCart(Guid Id, Guid CustomerId, string Status, Address? BillingAddress, Address? ShippingAddress, Money Total, Money TotalPayment, Money AmountDue,
         IEnumerable<CartItem> Items, IEnumerable<PaymentMethod> PaymentMethods);
 }

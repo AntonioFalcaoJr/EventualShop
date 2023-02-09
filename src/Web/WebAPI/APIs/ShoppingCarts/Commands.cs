@@ -76,8 +76,8 @@ public static class Commands
     }
 
     public record RebuildProjection(IBus Bus, string Name, CancellationToken CancellationToken)
-        : Validatable<RebuildProjectionValidator>, ICommand<Command.RebuildProjection>
+        : Validatable<RebuildProjectionValidator>, ICommand<Command.RebuildCartProjection>
     {
-        public Command.RebuildProjection Command => new(Name);
+        public Command.RebuildCartProjection Command => new(Name);
     }
 }

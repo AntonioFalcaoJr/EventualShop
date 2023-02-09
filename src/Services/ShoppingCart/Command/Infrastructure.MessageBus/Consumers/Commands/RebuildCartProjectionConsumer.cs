@@ -4,8 +4,8 @@ using Infrastructure.MessageBus.Abstractions;
 
 namespace Infrastructure.MessageBus.Consumers.Commands;
 
-public class RebuildProjectionConsumer : Consumer<Command.RebuildProjection>
+public class RebuildCartProjectionConsumer : Consumer<Command.RebuildCartProjection>
 {
-    public RebuildProjectionConsumer(IInteractor<Command.RebuildProjection> interactor)
+    public RebuildCartProjectionConsumer(IInteractor<Command.RebuildCartProjection> interactor)
         : base(interactor) { }
 }

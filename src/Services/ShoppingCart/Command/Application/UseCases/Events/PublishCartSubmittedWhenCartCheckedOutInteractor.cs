@@ -20,17 +20,7 @@ public class PublishCartSubmittedWhenCartCheckedOutInteractor : IPublishCartSubm
     public async Task InteractAsync(DomainEvent.CartCheckedOut @event, CancellationToken cancellationToken)
     {
         var shoppingCart = await _applicationService.LoadAggregateAsync<ShoppingCart>(@event.CartId, cancellationToken);
-
-        SummaryEvent.CartSubmitted cartSubmitted = new(
-            shoppingCart.Id,
-            shoppingCart.CustomerId,
-            shoppingCart.Total,
-            shoppingCart.BillingAddress!,
-            shoppingCart.ShippingAddress!,
-            shoppingCart.Items.Select(item => (Dto.CartItem)item),
-            shoppingCart.PaymentMethods.Select(method => (Dto.PaymentMethod)method),
-            shoppingCart.Version);
-
+        SummaryEvent.CartSubmitted cartSubmitted = new(shoppingCart, shoppingCart.Version);
         await _applicationService.PublishEventAsync(cartSubmitted, cancellationToken);
     }
 }
