@@ -28,7 +28,9 @@ public static class ServiceCollectionExtensions
                 {
                     var options = context.GetRequiredService<IOptionsMonitor<MessageBusOptions>>().CurrentValue;
 
-                    bus.Host(options.ConnectionString);
+                    bus.Host(
+                        hostAddress: options.ConnectionString,
+                        connectionName: $"{options.ConnectionName}.{AppDomain.CurrentDomain.FriendlyName}");
 
                     cfg.AddMessageScheduler(new($"queue:{options.SchedulerQueueName}"));
 
