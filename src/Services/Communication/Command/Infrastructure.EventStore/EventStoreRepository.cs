@@ -31,14 +31,14 @@ public class EventStoreRepository : IEventStoreRepository
             .AsNoTracking()
             .Where(@event => @event.AggregateId.Equals(aggregateId))
             .Where(@event => @event.Version > (version ?? 0))
-            .Select(@event => @event.DomainEvent)
+            .Select(@event => @event.Event)
             .ToListAsync(cancellationToken);
 
     public Task<Snapshot?> GetSnapshotAsync(Guid aggregateId, CancellationToken cancellationToken)
         => _dbContext.Set<Snapshot>()
             .AsNoTracking()
             .Where(snapshot => snapshot.AggregateId.Equals(aggregateId))
-            .OrderByDescending(snapshot => snapshot.AggregateVersion)
+            .OrderByDescending(snapshot => snapshot.Version)
             .FirstOrDefaultAsync(cancellationToken);
 
     public IAsyncEnumerable<Guid> GetAggregateIdsAsync(CancellationToken cancellationToken)

@@ -12,7 +12,9 @@ public class EventStoreGateway : IEventStoreGateway
     private readonly EventStoreOptions _options;
     private readonly IEventStoreRepository _repository;
 
-    public EventStoreGateway(IEventStoreRepository repository, IOptionsSnapshot<EventStoreOptions> options)
+    public EventStoreGateway(
+        IEventStoreRepository repository,
+        IOptions<EventStoreOptions> options)
     {
         _options = options.Value;
         _repository = repository;
@@ -23,7 +25,7 @@ public class EventStoreGateway : IEventStoreGateway
         foreach (var @event in aggregate.UncommittedEvents.Select(@event => new StoreEvent(aggregate, @event)))
         {
             await _repository.AppendEventAsync(@event, cancellationToken);
-            await AppendSnapshotAsync(aggregate, @event.Version, cancellationToken);
+            await AppendSnapshotAsync(new(aggregate, @event), cancellationToken);
         }
     }
 
@@ -31,7 +33,7 @@ public class EventStoreGateway : IEventStoreGateway
         where TAggregate : IAggregateRoot, new()
     {
         var snapshot = await _repository.GetSnapshotAsync(aggregateId, cancellationToken);
-        var events = await _repository.GetStreamAsync(aggregateId, snapshot?.AggregateVersion, cancellationToken);
+        var events = await _repository.GetStreamAsync(aggregateId, snapshot?.Version, cancellationToken);
 
         if (snapshot is null && events is not { Count: > 0 })
             throw new AggregateNotFoundException(aggregateId, typeof(TAggregate));
@@ -41,10 +43,9 @@ public class EventStoreGateway : IEventStoreGateway
         return (TAggregate)aggregate.Load(events);
     }
 
-    private async Task AppendSnapshotAsync(IAggregateRoot aggregate, long version, CancellationToken cancellationToken)
+    private async Task AppendSnapshotAsync(Snapshot snapshot, CancellationToken cancellationToken)
     {
-        if (version % _options.SnapshotInterval is not 0) return;
-        Snapshot snapshot = new(version, aggregate);
+        if (snapshot.Version % _options.SnapshotInterval is not 0) return;
         await _repository.AppendSnapshotAsync(snapshot, cancellationToken);
     }
 
