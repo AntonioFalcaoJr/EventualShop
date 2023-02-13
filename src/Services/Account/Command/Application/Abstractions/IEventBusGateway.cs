@@ -1,6 +1,6 @@
 using Contracts.Abstractions.Messages;
 
-namespace Application.Abstractions.Gateways;
+namespace Application.Abstractions;
 
 public interface IEventBusGateway
 {

@@ -1,5 +1,5 @@
 using System.Reflection;
-using Application.Abstractions.Gateways;
+using Application.Abstractions;
 using Contracts.Abstractions.Messages;
 using Contracts.JsonConverters;
 using FluentValidation;

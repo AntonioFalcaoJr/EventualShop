@@ -9,4 +9,5 @@ public interface IEventStoreRepository
     Task<List<IDomainEvent>> GetStreamAsync(Guid aggregateId, long? version, CancellationToken cancellationToken);
     Task<Snapshot?> GetSnapshotAsync(Guid aggregateId, CancellationToken cancellationToken);
     IAsyncEnumerable<Guid> GetAggregateIdsAsync(CancellationToken cancellationToken);
+    Task ExecuteTransactionAsync(Func<CancellationToken, Task> operationAsync, CancellationToken cancellationToken);
 }
