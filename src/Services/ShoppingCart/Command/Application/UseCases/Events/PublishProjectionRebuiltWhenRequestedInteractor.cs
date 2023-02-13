@@ -1,6 +1,5 @@
 ﻿using Application.Abstractions;
 using Application.Services;
-using Contracts.DataTransferObjects;
 using Contracts.Services.ShoppingCart;
 using Domain.Aggregates;
 
