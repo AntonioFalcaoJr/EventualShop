@@ -5,7 +5,7 @@ using Infrastructure.EventStore.DependencyInjection.Options;
 using Infrastructure.EventStore.Exceptions;
 using Microsoft.Extensions.Options;
 
-namespace Infrastructure.EventStore.Abstractions;
+namespace Infrastructure.EventStore;
 
 public class EventStoreGateway : IEventStoreGateway
 {
@@ -50,4 +50,7 @@ public class EventStoreGateway : IEventStoreGateway
 
     public IAsyncEnumerable<Guid> StreamAggregatesId(CancellationToken cancellationToken)
         => _repository.GetAggregateIdsAsync(cancellationToken);
+
+    public Task ExecuteTransactionAsync(Func<CancellationToken, Task> operationAsync, CancellationToken cancellationToken)
+        => _repository.ExecuteTransactionAsync(operationAsync, cancellationToken);
 }

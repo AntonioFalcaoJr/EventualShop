@@ -47,4 +47,14 @@ public class EventStoreRepository : IEventStoreRepository
             .Select(@event => @event.AggregateId)
             .Distinct()
             .AsAsyncEnumerable();
+
+    public Task ExecuteTransactionAsync(Func<CancellationToken, Task> operationAsync, CancellationToken cancellationToken)
+        => _dbContext.Database.CreateExecutionStrategy().ExecuteAsync(ct => OnExecuteTransactionAsync(operationAsync, ct), cancellationToken);
+
+    private async Task OnExecuteTransactionAsync(Func<CancellationToken, Task> operationAsync, CancellationToken cancellationToken)
+    {
+        await using var transaction = await _dbContext.Database.BeginTransactionAsync(cancellationToken);
+        await operationAsync(cancellationToken);
+        await transaction.CommitAsync(cancellationToken);
+    }
 }

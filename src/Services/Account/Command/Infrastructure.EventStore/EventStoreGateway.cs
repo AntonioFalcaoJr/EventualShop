@@ -1,4 +1,4 @@
-using Application.Abstractions;
+using Application.Abstractions.Gateways;
 using Domain.Abstractions.Aggregates;
 using Domain.Abstractions.EventStore;
 using Infrastructure.EventStore.DependencyInjection.Options;
