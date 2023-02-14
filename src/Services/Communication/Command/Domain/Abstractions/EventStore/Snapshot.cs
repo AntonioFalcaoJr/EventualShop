@@ -2,8 +2,8 @@
 
 namespace Domain.Abstractions.EventStore;
 
-public record Snapshot(long AggregateVersion, IAggregateRoot Aggregate)
+public record Snapshot(Guid AggregateId, string AggregateType, IAggregateRoot Aggregate, long Version, DateTimeOffset Timestamp)
 {
-    public string AggregateName { get; } = Aggregate.GetType().Name;
-    public Guid AggregateId { get; } = Aggregate.Id;
+    public static Snapshot Create(IAggregateRoot aggregate, StoreEvent @event)
+        => new(aggregate.Id, aggregate.GetType().Name, aggregate, @event.Version, @event.Timestamp);
 }

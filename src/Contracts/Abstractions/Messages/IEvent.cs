@@ -3,7 +3,7 @@
 namespace Contracts.Abstractions.Messages;
 
 [ExcludeFromTopology]
-public interface IEvent { }
+public interface IEvent : IMessage{ }
 
 [ExcludeFromTopology]
 public interface IDelayedEvent : IEvent { }

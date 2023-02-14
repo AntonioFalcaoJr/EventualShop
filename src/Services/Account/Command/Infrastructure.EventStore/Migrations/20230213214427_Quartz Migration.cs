@@ -308,7 +308,7 @@ IF OBJECT_ID(N'[dbo].[QRTZ_CALENDARS]', N'U') IS NULL
     END
 GO
 
-USE [WarehouseEventStore];", true);
+USE [AccountEventStore];", true);
 
         }
 
@@ -317,4 +317,3 @@ USE [WarehouseEventStore];", true);
             => migrationBuilder.DropTable(name: "Quartz");
     }
 }
-

@@ -15,11 +15,12 @@ namespace Infrastructure.EventStore.Migrations
                 name: "Events",
                 columns: table => new
                 {
-                    Version = table.Column<long>(type: "bigint", nullable: false),
                     AggregateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AggregateName = table.Column<string>(type: "varchar(30)", unicode: false, maxLength: 30, nullable: false),
-                    DomainEventName = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
-                    DomainEvent = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Version = table.Column<long>(type: "bigint", nullable: false),
+                    AggregateType = table.Column<string>(type: "varchar(30)", unicode: false, maxLength: 30, nullable: false),
+                    EventType = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
+                    Event = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Timestamp = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,14 +31,15 @@ namespace Infrastructure.EventStore.Migrations
                 name: "Snapshots",
                 columns: table => new
                 {
-                    AggregateVersion = table.Column<long>(type: "bigint", nullable: false),
                     AggregateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AggregateName = table.Column<string>(type: "varchar(30)", unicode: false, maxLength: 30, nullable: false),
-                    Aggregate = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Version = table.Column<long>(type: "bigint", nullable: false),
+                    AggregateType = table.Column<string>(type: "varchar(30)", unicode: false, maxLength: 30, nullable: false),
+                    Aggregate = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Timestamp = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Snapshots", x => new { x.AggregateVersion, x.AggregateId });
+                    table.PrimaryKey("PK_Snapshots", x => new { x.Version, x.AggregateId });
                 });
         }
 

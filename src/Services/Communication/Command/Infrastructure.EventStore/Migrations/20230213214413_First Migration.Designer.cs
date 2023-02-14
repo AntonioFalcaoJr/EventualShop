@@ -12,22 +12,22 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.EventStore.Migrations
 {
     [DbContext(typeof(EventStoreDbContext))]
-    [Migration("20220818222429_Quartz Migration")]
-    partial class QuartzMigration
+    [Migration("20230213214413_First Migration")]
+    partial class FirstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0-preview.7.22376.2")
+                .HasAnnotation("ProductVersion", "7.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("Domain.Abstractions.EventStore.Snapshot", b =>
                 {
-                    b.Property<long>("AggregateVersion")
+                    b.Property<long>("Version")
                         .HasColumnType("bigint");
 
                     b.Property<Guid>("AggregateId")
@@ -37,13 +37,16 @@ namespace Infrastructure.EventStore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("AggregateName")
+                    b.Property<string>("AggregateType")
                         .IsRequired()
                         .HasMaxLength(30)
                         .IsUnicode(false)
                         .HasColumnType("varchar(30)");
 
-                    b.HasKey("AggregateVersion", "AggregateId");
+                    b.Property<DateTimeOffset>("Timestamp")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Version", "AggregateId");
 
                     b.ToTable("Snapshots");
                 });
@@ -56,21 +59,24 @@ namespace Infrastructure.EventStore.Migrations
                     b.Property<Guid>("AggregateId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("AggregateName")
+                    b.Property<string>("AggregateType")
                         .IsRequired()
                         .HasMaxLength(30)
                         .IsUnicode(false)
                         .HasColumnType("varchar(30)");
 
-                    b.Property<string>("DomainEvent")
+                    b.Property<string>("Event")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DomainEventName")
+                    b.Property<string>("EventType")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
+
+                    b.Property<DateTimeOffset>("Timestamp")
+                        .HasColumnType("datetimeoffset");
 
                     b.HasKey("Version", "AggregateId");
 

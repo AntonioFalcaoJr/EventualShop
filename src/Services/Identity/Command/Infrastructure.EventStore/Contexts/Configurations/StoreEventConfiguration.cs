@@ -20,17 +20,21 @@ public class StoreEventConfiguration : IEntityTypeConfiguration<StoreEvent>
             .IsRequired();
 
         builder
-            .Property(storeEvent => storeEvent.AggregateName)
+            .Property(storeEvent => storeEvent.AggregateType)
             .HasMaxLength(30)
             .IsRequired();
 
         builder
-            .Property(storeEvent => storeEvent.DomainEventName)
+            .Property(storeEvent => storeEvent.EventType)
             .HasMaxLength(50)
             .IsRequired();
 
         builder
-            .Property(storeEvent => storeEvent.DomainEvent)
+            .Property(storeEvent => storeEvent.Timestamp)
+            .IsRequired();
+
+        builder
+            .Property(storeEvent => storeEvent.Event)
             .HasConversion<EventConverter>()
             .IsRequired();
     }
