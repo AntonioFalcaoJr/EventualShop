@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Contracts.Abstractions.Messages;
 using Domain.Abstractions.EventStore;
 using Infrastructure.EventStore.Contexts;
@@ -41,12 +42,13 @@ public class EventStoreRepository : IEventStoreRepository
             .OrderByDescending(snapshot => snapshot.Version)
             .FirstOrDefaultAsync(cancellationToken);
 
-    public IAsyncEnumerable<Guid> GetAggregateIdsAsync(CancellationToken cancellationToken)
+    public ConfiguredCancelableAsyncEnumerable<Guid> StreamAggregatesId(CancellationToken cancellationToken)
         => _dbContext.Set<StoreEvent>()
             .AsNoTracking()
             .Select(@event => @event.AggregateId)
             .Distinct()
-            .AsAsyncEnumerable();
+            .AsAsyncEnumerable()
+            .WithCancellation(cancellationToken);
 
     public Task ExecuteTransactionAsync(Func<CancellationToken, Task> operationAsync, CancellationToken cancellationToken)
         => _dbContext.Database.CreateExecutionStrategy().ExecuteAsync(ct => OnExecuteTransactionAsync(operationAsync, ct), cancellationToken);

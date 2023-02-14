@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Application.Abstractions.Gateways;
 using Domain.Abstractions.Aggregates;
 using Domain.Abstractions.EventStore;
@@ -22,10 +23,12 @@ public class EventStoreGateway : IEventStoreGateway
 
     public async Task AppendEventsAsync(IAggregateRoot aggregate, CancellationToken cancellationToken)
     {
-        foreach (var @event in aggregate.UncommittedEvents.Select(@event => new StoreEvent(aggregate, @event)))
+        foreach (var @event in aggregate.UncommittedEvents.Select(@event => StoreEvent.Create(aggregate, @event)))
         {
             await _repository.AppendEventAsync(@event, cancellationToken);
-            await AppendSnapshotAsync(new(aggregate, @event), cancellationToken);
+
+            if (@event.Version % _options.SnapshotInterval is 0)
+                await _repository.AppendSnapshotAsync(Snapshot.Create(aggregate, @event), cancellationToken);
         }
     }
 
@@ -43,14 +46,8 @@ public class EventStoreGateway : IEventStoreGateway
         return (TAggregate)aggregate.Load(events);
     }
 
-    private async Task AppendSnapshotAsync(Snapshot snapshot, CancellationToken cancellationToken)
-    {
-        if (snapshot.Version % _options.SnapshotInterval is not 0) return;
-        await _repository.AppendSnapshotAsync(snapshot, cancellationToken);
-    }
-
-    public IAsyncEnumerable<Guid> StreamAggregatesId(CancellationToken cancellationToken)
-        => _repository.GetAggregateIdsAsync(cancellationToken);
+    public ConfiguredCancelableAsyncEnumerable<Guid> StreamAggregatesId(CancellationToken cancellationToken)
+        => _repository.StreamAggregatesId(cancellationToken);
 
     public Task ExecuteTransactionAsync(Func<CancellationToken, Task> operationAsync, CancellationToken cancellationToken)
         => _repository.ExecuteTransactionAsync(operationAsync, cancellationToken);
