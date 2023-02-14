@@ -13,9 +13,7 @@ public class EventStoreGateway : IEventStoreGateway
     private readonly EventStoreOptions _options;
     private readonly IEventStoreRepository _repository;
 
-    public EventStoreGateway(
-        IEventStoreRepository repository,
-        IOptions<EventStoreOptions> options)
+    public EventStoreGateway(IEventStoreRepository repository, IOptions<EventStoreOptions> options)
     {
         _options = options.Value;
         _repository = repository;
