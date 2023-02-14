@@ -24,6 +24,9 @@ public class SnapshotConfiguration : IEntityTypeConfiguration<Snapshot>
             .HasMaxLength(30)
             .IsRequired();
 
+        builder.Property(snapshot => snapshot.Timestamp)
+            .IsRequired();
+
         builder
             .Property(snapshot => snapshot.Aggregate)
             .HasConversion<AggregateConverter>()

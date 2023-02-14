@@ -30,6 +30,10 @@ public class StoreEventConfiguration : IEntityTypeConfiguration<StoreEvent>
             .IsRequired();
 
         builder
+            .Property(storeEvent => storeEvent.Timestamp)
+            .IsRequired();
+
+        builder
             .Property(storeEvent => storeEvent.Event)
             .HasConversion<EventConverter>()
             .IsRequired();
