@@ -1,0 +1,16 @@
+name: Identity - Command
+run-name: Identity Command Workflow
+on:
+  push:
+    paths:
+      - src/Services/Identity/Command/**.cs
+      - src/Services/Identity/Command/**.csproj
+      - Directory.Build.props
+      - .github/workflows/identity-command.yaml
+jobs:
+  workflow:
+    uses: ./.github/workflows/_workflow.yaml
+    with:
+      path: src/Services/Identity/Command
+      project: WorkerService
+      test: test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests  

@@ -9,10 +9,10 @@ public class SnapshotConfiguration : IEntityTypeConfiguration<Snapshot>
 {
     public void Configure(EntityTypeBuilder<Snapshot> builder)
     {
-        builder.HasKey(snapshot => new { snapshot.AggregateVersion, snapshot.AggregateId });
+        builder.HasKey(snapshot => new { snapshot.Version, snapshot.AggregateId });
 
         builder
-            .Property(snapshot => snapshot.AggregateVersion)
+            .Property(snapshot => snapshot.Version)
             .IsRequired();
 
         builder
@@ -20,8 +20,11 @@ public class SnapshotConfiguration : IEntityTypeConfiguration<Snapshot>
             .IsRequired();
 
         builder
-            .Property(snapshot => snapshot.AggregateName)
+            .Property(snapshot => snapshot.AggregateType)
             .HasMaxLength(30)
+            .IsRequired();
+
+        builder.Property(snapshot => snapshot.Timestamp)
             .IsRequired();
 
         builder

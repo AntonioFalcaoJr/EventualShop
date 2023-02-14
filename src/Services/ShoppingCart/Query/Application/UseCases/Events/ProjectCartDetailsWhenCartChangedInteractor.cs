@@ -11,7 +11,7 @@ public interface IProjectCartDetailsWhenCartChangedInteractor :
     IInteractor<DomainEvent.CartItemIncreased>,
     IInteractor<DomainEvent.CartItemDecreased>,
     IInteractor<DomainEvent.CartDiscarded>,
-    IInteractor<SummaryEvent.ProjectionRebuilt> { }
+    IInteractor<SummaryEvent.CartProjectionRebuilt> { }
 
 public class ProjectCartDetailsWhenCartChangedInteractor : IProjectCartDetailsWhenCartChangedInteractor
 {
@@ -78,7 +78,7 @@ public class ProjectCartDetailsWhenCartChangedInteractor : IProjectCartDetailsWh
     public Task InteractAsync(DomainEvent.CartDiscarded @event, CancellationToken cancellationToken)
         => _projectionGateway.DeleteAsync(@event.CartId, cancellationToken);
 
-    public Task InteractAsync(SummaryEvent.ProjectionRebuilt @event, CancellationToken cancellationToken)
+    public Task InteractAsync(SummaryEvent.CartProjectionRebuilt @event, CancellationToken cancellationToken)
     {
         Projection.ShoppingCartDetails shoppingCartDetails = new(
             @event.Cart.Id,

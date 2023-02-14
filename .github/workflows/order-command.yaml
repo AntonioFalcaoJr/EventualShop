@@ -1,0 +1,16 @@
+name: Order - Command
+run-name: Order Command Workflow
+on:
+  push:
+    paths:
+      - src/Services/Order/Command/**.cs
+      - src/Services/Order/Command/**.csproj
+      - Directory.Build.props
+      - .github/workflows/order-command.yaml
+jobs:
+  workflow:
+    uses: ./.github/workflows/_workflow.yaml
+    with:
+      path: src/Services/Order/Command
+      project: WorkerService
+      test: test/Web/WebAPI/ECommerce.WebAPI.IntegrationTests  

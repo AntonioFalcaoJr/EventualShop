@@ -28,7 +28,9 @@ public static class ServiceCollectionExtensions
                 {
                     var options = context.GetRequiredService<IOptionsMonitor<MessageBusOptions>>().CurrentValue;
 
-                    bus.Host(options.ConnectionString);
+                    bus.Host(
+                        hostAddress: options.ConnectionString,
+                        connectionName: $"{options.ConnectionName}.{AppDomain.CurrentDomain.FriendlyName}");
 
                     cfg.AddMessageScheduler(new($"queue:{options.SchedulerQueueName}"));
 
@@ -72,9 +74,9 @@ public static class ServiceCollectionExtensions
                     bus.ConnectSendObserver(new LoggingSendObserver());
                     bus.ConfigureEventReceiveEndpoints(context);
                     bus.ConfigureEndpoints(context);
-                    
+
                     bus.ConfigurePublish(pipe => pipe.AddPipeSpecification(
-                        new DelegatePipeSpecification<PublishContext<IEvent>>(ctx 
+                        new DelegatePipeSpecification<PublishContext<IEvent>>(ctx
                             => ctx.CorrelationId = ctx.InitiatorId)));
                 });
             })
