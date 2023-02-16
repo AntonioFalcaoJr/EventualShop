@@ -37,7 +37,7 @@
         <MongoDb_Version>2.19.0</MongoDb_Version>
 
         <!--MassTransit-->
-        <MassTransit_Version>8.0.13-develop.972</MassTransit_Version>
+        <MassTransit_Version>8.0.13-develop.995</MassTransit_Version>
         <Quartz_Version>3.6.0</Quartz_Version>
 
         <!--Newtonsoft-->
