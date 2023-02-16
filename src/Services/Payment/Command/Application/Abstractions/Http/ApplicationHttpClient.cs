@@ -28,9 +28,9 @@ public abstract class ApplicationHttpClient
 
         return new()
         {
-            Success = true /* TODO - response.IsSuccessStatusCode */,
+            Success = response.IsSuccessStatusCode,
             ActionResult = response.IsSuccessStatusCode
-                ? await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken: cancellationToken)
+                ? await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken: cancellationToken) ?? new()
                 : new()
         };
     }
