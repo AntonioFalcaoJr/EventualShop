@@ -17,8 +17,8 @@ public class AccountDeletedInteractor : IInteractor<DomainEvent.AccountDeleted>
 
     public async Task InteractAsync(DomainEvent.AccountDeleted @event, CancellationToken cancellationToken)
     {
-        var aggregate = await _applicationService.LoadAggregateAsync<User>(@event.AccountId, cancellationToken);
-        aggregate.Handle(new Command.DeleteUser(aggregate.Id));
-        await _applicationService.AppendEventsAsync(aggregate, cancellationToken);
+        var user = await _applicationService.LoadAggregateAsync<User>(@event.AccountId, cancellationToken);
+        user.Handle(new Command.DeleteUser(user.Id));
+        await _applicationService.AppendEventsAsync(user, cancellationToken);
     }
 }
