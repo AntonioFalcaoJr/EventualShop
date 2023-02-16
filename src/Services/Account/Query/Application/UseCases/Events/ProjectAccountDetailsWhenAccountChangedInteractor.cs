@@ -35,7 +35,7 @@ public class ProjectAccountDetailsWhenAccountChangedInteractor : IProjectAccount
     public Task InteractAsync(DomainEvent.AccountActivated @event, CancellationToken cancellationToken)
         => _projectionGateway.UpdateFieldAsync(
             id: @event.AccountId,
-            version:@event.Version,
+            version: @event.Version,
             field: account => account.Status,
             value: @event.Status,
             cancellationToken: cancellationToken);
