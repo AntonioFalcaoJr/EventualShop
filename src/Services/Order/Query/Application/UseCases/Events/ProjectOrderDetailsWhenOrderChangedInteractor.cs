@@ -30,7 +30,7 @@ public class ProjectOrderDetailsWhenOrderChangedInteractor : IProjectOrderDetail
                 false,
                 @event.Version);
 
-        await _projectionGateway.UpsertAsync(orderDetails, cancellationToken);
+        await _projectionGateway.ReplaceInsertAsync(orderDetails, cancellationToken);
     }
 
     public Task InteractAsync(DomainEvent.OrderConfirmed @event, CancellationToken cancellationToken)

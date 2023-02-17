@@ -20,12 +20,18 @@ public class ProjectUserDetailsWhenUserChangedInteractor : IProjectUserDetailsWh
     public Task InteractAsync(DomainEvent.UserDeleted @event, CancellationToken cancellationToken)
         => _projectionGateway.DeleteAsync(@event.UserId, cancellationToken);
 
-    public Task InteractAsync(DomainEvent.UserRegistered @event, CancellationToken cancellationToken)
+    public async Task InteractAsync(DomainEvent.UserRegistered @event, CancellationToken cancellationToken)
     {
-        Projection.UserDetails userDetails =
-            new(@event.UserId, @event.FirstName, @event.LastName, @event.Email, @event.Password, false, @event.Version);
+        Projection.UserDetails userDetails = new(
+            @event.UserId,
+            @event.FirstName,
+            @event.LastName,
+            @event.Email,
+            @event.Password,
+            false,
+            @event.Version);
 
-        return _projectionGateway.UpsertAsync(userDetails, cancellationToken);
+        await _projectionGateway.ReplaceInsertAsync(userDetails, cancellationToken);
     }
 
     public Task InteractAsync(DomainEvent.UserPasswordChanged @event, CancellationToken cancellationToken)

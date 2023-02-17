@@ -2,10 +2,11 @@ using System.Linq.Expressions;
 using Application.Abstractions;
 using Contracts.Abstractions;
 using Contracts.Abstractions.Paging;
-using Infrastructure.Projections.Abstractions.Contexts;
-using Infrastructure.Projections.Abstractions.Pagination;
+using Infrastructure.Projections.Abstractions;
+using Infrastructure.Projections.Pagination;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+using Serilog;
 
 namespace Infrastructure.Projections;
 
@@ -31,12 +32,23 @@ public class ProjectionGateway<TProjection> : IProjectionGateway<TProjection>
     public Task<IPagedResult<TProjection>?> ListAsync(Paging paging, CancellationToken cancellationToken)
         => PagedResult<TProjection>.CreateAsync(paging, _collection.AsQueryable(), cancellationToken)!;
 
-    public Task UpsertAsync(TProjection replacement, CancellationToken cancellationToken)
-        => _collection.ReplaceOneAsync(
-            filter: projection => projection.Id == replacement.Id && projection.Version < replacement.Version,
-            replacement: replacement,
-            options: new ReplaceOptions { IsUpsert = true },
-            cancellationToken: cancellationToken);
+    public async ValueTask ReplaceInsertAsync(TProjection replacement, CancellationToken cancellationToken)
+    {
+        try
+        {
+            await _collection.ReplaceOneAsync(
+                filter: projection => projection.Id == replacement.Id && projection.Version < replacement.Version,
+                replacement: replacement,
+                options: new ReplaceOptions { IsUpsert = true },
+                cancellationToken: cancellationToken);
+        }
+        catch (MongoWriteException e) when (e.WriteError.Category is ServerErrorCategory.DuplicateKey)
+        {
+            Log.Warning(
+                "By passing Duplicate Key when inserting {ProjectionType} with Id {Id}",
+                typeof(TProjection).Name, replacement.Id);
+        }
+    }
 
     public Task DeleteAsync(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken)
         => _collection.DeleteManyAsync(filter, cancellationToken);

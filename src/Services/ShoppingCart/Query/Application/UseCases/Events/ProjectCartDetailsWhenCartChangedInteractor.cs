@@ -22,7 +22,7 @@ public class ProjectCartDetailsWhenCartChangedInteractor : IProjectCartDetailsWh
         _projectionGateway = projectionGateway;
     }
 
-    public Task InteractAsync(DomainEvent.CartCreated @event, CancellationToken cancellationToken)
+    public async Task InteractAsync(DomainEvent.CartCreated @event, CancellationToken cancellationToken)
     {
         Projection.ShoppingCartDetails shoppingCartDetails = new(
             @event.CartId,
@@ -32,7 +32,7 @@ public class ProjectCartDetailsWhenCartChangedInteractor : IProjectCartDetailsWh
             false,
             @event.Version);
 
-        return _projectionGateway.UpsertAsync(shoppingCartDetails, cancellationToken);
+        await _projectionGateway.ReplaceInsertAsync(shoppingCartDetails, cancellationToken);
     }
 
     public Task InteractAsync(DomainEvent.CartItemAdded @event, CancellationToken cancellationToken)
@@ -78,7 +78,7 @@ public class ProjectCartDetailsWhenCartChangedInteractor : IProjectCartDetailsWh
     public Task InteractAsync(DomainEvent.CartDiscarded @event, CancellationToken cancellationToken)
         => _projectionGateway.DeleteAsync(@event.CartId, cancellationToken);
 
-    public Task InteractAsync(SummaryEvent.CartProjectionRebuilt @event, CancellationToken cancellationToken)
+    public async Task InteractAsync(SummaryEvent.CartProjectionRebuilt @event, CancellationToken cancellationToken)
     {
         Projection.ShoppingCartDetails shoppingCartDetails = new(
             @event.Cart.Id,
@@ -88,6 +88,6 @@ public class ProjectCartDetailsWhenCartChangedInteractor : IProjectCartDetailsWh
             false,
             @event.Version);
 
-        return _projectionGateway.UpsertAsync(shoppingCartDetails, cancellationToken);
+        await _projectionGateway.ReplaceInsertAsync(shoppingCartDetails, cancellationToken);
     }
 }

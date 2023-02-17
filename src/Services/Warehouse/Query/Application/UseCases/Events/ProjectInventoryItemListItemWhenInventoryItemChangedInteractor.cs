@@ -53,6 +53,6 @@ public class ProjectInventoryItemListItemWhenInventoryItemChangedInteractor : IP
             false,
             @event.Version);
 
-        await _projectionGateway.UpsertAsync(inventoryItemListItem, cancellationToken);
+        await _projectionGateway.ReplaceInsertAsync(inventoryItemListItem, cancellationToken);
     }
 }
