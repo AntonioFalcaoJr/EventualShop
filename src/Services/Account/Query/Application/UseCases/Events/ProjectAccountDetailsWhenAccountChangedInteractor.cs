@@ -29,7 +29,7 @@ public class ProjectAccountDetailsWhenAccountChangedInteractor : IProjectAccount
                 false,
                 @event.Version);
 
-        await _projectionGateway.UpsertAsync(accountDetails, cancellationToken);
+        await _projectionGateway.ReplaceInsertAsync(accountDetails, cancellationToken);
     }
 
     public Task InteractAsync(DomainEvent.AccountActivated @event, CancellationToken cancellationToken)

@@ -24,7 +24,7 @@ public class ProjectPaymentWhenChangedInteractor : IProjectPaymentWhenChangedInt
             value: @event.Status,
             cancellationToken: cancellationToken);
 
-    public Task InteractAsync(DomainEvent.PaymentRequested @event, CancellationToken cancellationToken)
+    public async Task InteractAsync(DomainEvent.PaymentRequested @event, CancellationToken cancellationToken)
     {
         Projection.PaymentDetails paymentDetails = new(
             @event.PaymentId,
@@ -34,6 +34,6 @@ public class ProjectPaymentWhenChangedInteractor : IProjectPaymentWhenChangedInt
             false,
             @event.Version);
 
-        return _projectionGateway.UpsertAsync(paymentDetails, cancellationToken);
+        await _projectionGateway.ReplaceInsertAsync(paymentDetails, cancellationToken);
     }
 }

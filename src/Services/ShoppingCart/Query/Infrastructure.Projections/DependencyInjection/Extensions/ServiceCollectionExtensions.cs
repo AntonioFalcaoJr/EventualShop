@@ -13,6 +13,6 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped(typeof(IProjectionGateway<>), typeof(ProjectionGateway<>));
         services.AddScoped<IMongoDbContext, ProjectionDbContext>();
-        BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.CSharpLegacy));
+        BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
     }
 }

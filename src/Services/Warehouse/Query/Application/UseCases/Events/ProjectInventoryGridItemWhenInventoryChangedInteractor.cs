@@ -22,6 +22,6 @@ public class ProjectInventoryGridItemWhenInventoryChangedInteractor : IProjectIn
             false,
             @event.Version);
 
-        await _projectionGateway.UpsertAsync(card, cancellationToken);
+        await _projectionGateway.ReplaceInsertAsync(card, cancellationToken);
     }
 }
