@@ -2,7 +2,7 @@ using Contracts.Abstractions.Paging;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
-namespace Infrastructure.Projections.Abstractions.Pagination;
+namespace Infrastructure.Projections.Pagination;
 
 public class PagedResult<T> : IPagedResult<T>
 {

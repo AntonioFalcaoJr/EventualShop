@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 
-namespace Infrastructure.Projections.Abstractions.Contexts;
+namespace Infrastructure.Projections.Abstractions;
 
 public abstract class MongoDbContext : IMongoDbContext
 {

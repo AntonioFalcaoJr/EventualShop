@@ -1,11 +1,11 @@
 using Application.Abstractions;
-using Infrastructure.Projections.Abstractions.Contexts;
+using Infrastructure.Projections.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 
-namespace Infrastructure.Projections.DependencyInjection.Extensions;
+namespace Infrastructure.Projections.DependencyInjection;
 
 public static class ServiceCollectionExtensions
 {
