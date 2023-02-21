@@ -3,7 +3,7 @@
         <Product>Eventual Shop</Product>
         <Copyright>Copyright (c) 2021-2023 Antonio Falcão Jr.</Copyright>
         <Authors>Antônio Falcão Jr.</Authors>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <LangVersion>preview</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
