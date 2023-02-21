@@ -6,6 +6,6 @@ namespace Domain.Abstractions.Aggregates;
 public interface IAggregateRoot : IEntity
 {
     IEnumerable<IDomainEvent> UncommittedEvents { get; }
-    IAggregateRoot Load(IEnumerable<IDomainEvent> events);
+    void LoadFromHistory(IEnumerable<IDomainEvent> events);
     void Handle(ICommand command);
 }

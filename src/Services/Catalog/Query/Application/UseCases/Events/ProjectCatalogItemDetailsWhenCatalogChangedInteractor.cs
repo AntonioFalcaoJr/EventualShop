@@ -25,6 +25,6 @@ public class ProjectCatalogItemDetailsWhenCatalogChangedInteractor : IProjectCat
             false,
             @event.Version);
 
-        await _projectionGateway.UpsertAsync(card, cancellationToken);
+        await _projectionGateway.ReplaceInsertAsync(card, cancellationToken);
     }
 }

@@ -19,17 +19,17 @@ public class ProjectCartItemListItemWhenCartChangedInteractor : IProjectCartItem
         _projectionGateway = projectionGateway;
     }
 
-    public Task InteractAsync(DomainEvent.CartItemAdded @event, CancellationToken cancellationToken)
+    public async Task InteractAsync(DomainEvent.CartItemAdded @event, CancellationToken cancellationToken)
     {
         Projection.ShoppingCartItemListItem cartItemListItem = new(
-            @event.ItemId,
+            new("b7325dbf-5b88-45da-b88b-474841e7c66b"),
             @event.CartId,
             @event.Product.Name,
             @event.Quantity,
             false,
-            @event.Version);
+            10);
 
-        return _projectionGateway.UpsertAsync(cartItemListItem, cancellationToken);
+        await _projectionGateway.ReplaceInsertAsync(cartItemListItem, cancellationToken);
     }
 
     public Task InteractAsync(DomainEvent.CartItemIncreased @event, CancellationToken cancellationToken)

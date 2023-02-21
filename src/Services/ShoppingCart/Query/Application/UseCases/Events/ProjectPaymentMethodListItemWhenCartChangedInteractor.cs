@@ -18,7 +18,7 @@ public class ProjectPaymentMethodListItemWhenCartChangedInteractor : IProjectPay
         _projectionGateway = projectionGateway;
     }
 
-    public Task InteractAsync(DomainEvent.CreditCardAdded @event, CancellationToken cancellationToken)
+    public async Task InteractAsync(DomainEvent.CreditCardAdded @event, CancellationToken cancellationToken)
     {
         Projection.PaymentMethodListItem creditCard = new(
             @event.MethodId,
@@ -28,10 +28,10 @@ public class ProjectPaymentMethodListItemWhenCartChangedInteractor : IProjectPay
             false,
             @event.Version);
 
-        return _projectionGateway.UpsertAsync(creditCard, cancellationToken);
+        await _projectionGateway.ReplaceInsertAsync(creditCard, cancellationToken);
     }
 
-    public Task InteractAsync(DomainEvent.DebitCardAdded @event, CancellationToken cancellationToken)
+    public async Task InteractAsync(DomainEvent.DebitCardAdded @event, CancellationToken cancellationToken)
     {
         Projection.PaymentMethodListItem creditCard = new(
             @event.MethodId,
@@ -41,10 +41,10 @@ public class ProjectPaymentMethodListItemWhenCartChangedInteractor : IProjectPay
             false,
             @event.Version);
 
-        return _projectionGateway.UpsertAsync(creditCard, cancellationToken);
+        await _projectionGateway.ReplaceInsertAsync(creditCard, cancellationToken);
     }
 
-    public Task InteractAsync(DomainEvent.PayPalAdded @event, CancellationToken cancellationToken)
+    public async Task InteractAsync(DomainEvent.PayPalAdded @event, CancellationToken cancellationToken)
     {
         Projection.PaymentMethodListItem creditCard = new(
             @event.MethodId,
@@ -54,7 +54,7 @@ public class ProjectPaymentMethodListItemWhenCartChangedInteractor : IProjectPay
             false,
             @event.Version);
 
-        return _projectionGateway.UpsertAsync(creditCard, cancellationToken);
+        await _projectionGateway.ReplaceInsertAsync(creditCard, cancellationToken);
     }
 
     public Task InteractAsync(DomainEvent.CartDiscarded @event, CancellationToken cancellationToken)

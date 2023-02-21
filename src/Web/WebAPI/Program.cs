@@ -154,17 +154,9 @@ app.NewVersionedApi("Payments").MapPaymentApiV1().MapPaymentApiV2();
 app.NewVersionedApi("ShoppingCarts").MapShoppingCartApiV1().MapShoppingCartApiV2();
 app.NewVersionedApi("Warehouses").MapWarehouseApiV1().MapWarehouseApiV2();
 
-if (builder.Environment.IsProduction() is false)
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(options =>
-    {
-        foreach (var version in app.DescribeApiVersions().Select(version => version.GroupName))
-            options.SwaggerEndpoint($"/swagger/{version}/swagger.json", version);
-
-        options.EnableTryItOutByDefault();
-    });
-}
+if (builder.Environment.IsDevelopment() ||
+    builder.Environment.IsStaging())
+    app.ConfigureSwagger();
 
 try
 {
