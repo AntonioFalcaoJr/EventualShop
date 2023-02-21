@@ -14,7 +14,7 @@ public abstract class AggregateRoot<TValidator> : Entity<TValidator>, IAggregate
 
     [JsonIgnore]
     public IEnumerable<IDomainEvent> UncommittedEvents
-        => _events;
+        => _events.AsReadOnly();
 
     public IAggregateRoot Load(IEnumerable<IDomainEvent> events)
     {
