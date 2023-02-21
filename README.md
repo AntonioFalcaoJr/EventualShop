@@ -617,6 +617,11 @@ with some different strategies and ways to implement projections.
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/cqrs-eventsourcing-flow.png)  
 [Fig. 25: Katwatka, Piotr. _Event Sourcing with CQRS_](https://www.divante.com/blog/event-sourcing-open-loyalty-engineering)
 
+#### Capability Map
+
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/CQRS_ES_Capability_Map.jpeg)
+[Fig. 26: Nair, Vijay. _Distilling the CQRS/ES Capability_](https://developer.axoniq.io/w/distilling-the-cqrs/es-capability)
+
 ### Commands vs Events
 
 > Events represent a past, something that already happened and can't be undone. Commands, on the other hand, represent a wish, an action in the future which can be rejected. An event has typically
@@ -1050,16 +1055,35 @@ docker run --network=internal --name k6 --rm -i grafana/k6 run - <test.js
 
 ## :book: References
 
+### Books
+
 - [Evans, Eric (2003), Domain-Driven Design: Tackling Complexity in the Heart of Software.](https://www.amazon.com/dp-0321125215/dp/0321125215/ref=mt_other?_encoding=UTF8&me=&qid=1641385448)
 - [Hohpe, Gregor (2003), Enterprise Integration Patterns: Designing, Building, and Deploying Messaging Solutions](https://www.enterpriseintegrationpatterns.com/)
 - [Young, Greg (2012), Event Centric: Finding Simplicity in Complex Systems.](https://www.amazon.com/Event-Centric-Simplicity-Addison-Wesley-Signature/dp/0321768221)
 - [Vernon, Vaughn (2016), Domain-Driven Design Distilled.](https://www.amazon.com/dp-0134434420/dp/0134434420/ref=mt_other?_encoding=UTF8&me=&qid=1641385096)
 - [Richardson, Chris (2018), Microservices Patterns: With examples in Java.](https://www.amazon.com/-/pt/dp-B09782192F/dp/B09782192F/ref=mt_other?_encoding=UTF8&me=&qid=1641385683)
 
-### Complementary References
+### Articles
 
+- [Effective Aggregate Design Part I: Modeling a Single Aggregate](https://www.dddcommunity.org/wp-content/uploads/files/pdf_articles/Vernon_2011_1.pdf)
+- [Effective Aggregate Design Part II: Making Aggregates Work Together](https://www.dddcommunity.org/wp-content/uploads/files/pdf_articles/Vernon_2011_2.pdf)
+- [Effective Aggregate Design Part III: Gaining Insight Through Discovery](https://www.dddcommunity.org/wp-content/uploads/files/pdf_articles/Vernon_2011_3.pdf)
 - [CQRS Documents - Greg Young](https://cqrs.files.wordpress.com/2010/11/cqrs_documents.pdf)
 - [Versioning in an Event Sourced - Greg Young](https://leanpub.com/esversioning/read)
+- [Clarified CQRS - Udi Dahan](https://udidahan.com/wp-content/uploads/Clarified_CQRS.pdf)
+
+### Blogs
+
+- [Event-driven IO - Oskar Dudycz](https://event-driven.io/)
+- [Code Opinion - Derek Comartin](https://codeopinion.com/)
+- [Domain Centric - Kacper Gunia](https://domaincentric.net/)
+- [CQRS Event Sourcing - Daniel Whittaker](https://danielwhittaker.me/)
+- [Event Store - Alexey Zimarev](https://www.eventstore.com/blog)
+
+### Posts
+
+- [Modeling Uncertainty with Reactive DDD - Vaughn Vernon](https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/)
+- [Reactive DDD—When Concurrent Waxes Fluent - Vaughn Vernon](https://www.infoq.com/presentations/reactive-ddd/)
 - [Pattern: Event sourcing - Chris Richardson](https://microservices.io/patterns/data/event-sourcing.html)
 - [Clarified CQRS - Udi Dahan](https://udidahan.com/2009/12/09/clarified-cqrs/)
 - [Udi & Greg Reach CQRS Agreement](https://udidahan.com/2012/02/10/udi-greg-reach-cqrs-agreement/)
@@ -1080,6 +1104,12 @@ docker run --network=internal --name k6 --rm -i grafana/k6 run - <test.js
 - [Event Sourcing: Aggregates Vs Projections - Kacper Gunia](https://domaincentric.net/blog/event-sourcing-aggregates-vs-projections)
 - [Event Sourcing: Projections - Kacper Gunia](https://domaincentric.net/blog/event-sourcing-projections)
 - [Advantages of the event-driven architecture pattern - Grace Jansen & Johanna Saladas](https://developer.ibm.com/articles/advantages-of-an-event-driven-architecture/)
+- [CQRS - Martin Fowler](https://martinfowler.com/bliki/CQRS.html)
+
+### Projects
+
+- [Simple CQRS example - Greg Young](https://github.com/gregoryyoung/m-r)
+- [EventSourcing.NetCore - Oskar Dudycz](https://github.com/oskardudycz/EventSourcing.NetCore)
 
 ## :toolbox: Tech Stack
 
