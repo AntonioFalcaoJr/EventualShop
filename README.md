@@ -1079,6 +1079,7 @@ docker run --network=internal --name k6 --rm -i grafana/k6 run - <test.js
 - [Domain Centric - Kacper Gunia](https://domaincentric.net/)
 - [CQRS Event Sourcing - Daniel Whittaker](https://danielwhittaker.me/)
 - [Event Store - Alexey Zimarev](https://www.eventstore.com/blog)
+- [Mathias Verraes Student of Systems](https://verraes.net/)
 
 ### Posts
 
