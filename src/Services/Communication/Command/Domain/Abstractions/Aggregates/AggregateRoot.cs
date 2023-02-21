@@ -16,15 +16,13 @@ public abstract class AggregateRoot<TValidator> : Entity<TValidator>, IAggregate
     public IEnumerable<IDomainEvent> UncommittedEvents
         => _events.AsReadOnly();
 
-    public IAggregateRoot Load(IEnumerable<IDomainEvent> events)
+    public void LoadFromHistory(IEnumerable<IDomainEvent> events)
     {
         foreach (var @event in events)
         {
             Apply(@event);
-            Version++;
+            Version = @event.Version;
         }
-
-        return this;
     }
 
     public abstract void Handle(ICommand command);

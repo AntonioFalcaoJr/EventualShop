@@ -41,7 +41,9 @@ public class EventStoreGateway : IEventStoreGateway
 
         var aggregate = snapshot?.Aggregate ?? new TAggregate();
 
-        return (TAggregate)aggregate.Load(events);
+        aggregate.LoadFromHistory(events);
+
+        return (TAggregate)aggregate;
     }
 
     public ConfiguredCancelableAsyncEnumerable<Guid> StreamAggregatesId(CancellationToken cancellationToken)
