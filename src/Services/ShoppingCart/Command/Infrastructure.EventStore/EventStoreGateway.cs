@@ -36,7 +36,7 @@ public class EventStoreGateway : IEventStoreGateway
         var snapshot = await _repository.GetSnapshotAsync(aggregateId, cancellationToken);
         var events = await _repository.GetStreamAsync(aggregateId, snapshot?.Version, cancellationToken);
 
-        if (snapshot is null && events is not { Count: > 0 })
+        if (snapshot is null && events is { Count: 0 })
             throw new AggregateNotFoundException(aggregateId, typeof(TAggregate));
 
         var aggregate = snapshot?.Aggregate ?? new TAggregate();
