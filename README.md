@@ -1116,8 +1116,8 @@ docker run --network=internal --name k6 --rm -i grafana/k6 run - <test.js
 
 ### Worker Services
 
-- [.NET 7](https://dotnet.microsoft.com/en-us/) - A free, multi/cross-platform and open-source framework;
-- [EF Core 7](https://devblogs.microsoft.com/dotnet/announcing-ef7/) - An open source object–relational mapping framework for ADO.NET;
+- [.NET 8](https://dotnet.microsoft.com/en-us/) - A free, multi/cross-platform and open-source framework;
+- [EF Core 8](https://devblogs.microsoft.com/dotnet/announcing-ef7/) - An open source object–relational mapping framework for ADO.NET;
 - [MSSQL](https://hub.docker.com/_/microsoft-mssql-server) - A relational database management system (Event Store Database);
 - [MongoDB](https://www.mongodb.com/docs/drivers/csharp/) - A source-available cross-platform document-oriented database (Projections Database);
 - [MassTransit](https://masstransit-project.com/) - Message Bus;
@@ -1126,7 +1126,7 @@ docker run --network=internal --name k6 --rm -i grafana/k6 run - <test.js
 
 ### Web API
 
-- [ASP.NET Core 7](https://devblogs.microsoft.com/dotnet/asp-net-core-updates-in-net-7-preview-1/) - A free, cross-platform and open-source web-development framework;
+- [ASP.NET Core 8](https://devblogs.microsoft.com/dotnet/asp-net-core-updates-in-net-7-preview-1/) - A free, cross-platform and open-source web-development framework;
 - [MassTransit](https://masstransit-project.com/) - Message Bus;
 - [FluentValidation](https://fluentvalidation.net/) - A popular .NET library for building strongly-typed validation rules;
 - [Serilog](https://serilog.net/) - A diagnostic logging to files, console and elsewhere.
