@@ -1,5 +1,4 @@
 using Application.Abstractions;
-using Contracts.Abstractions.Paging;
 using Contracts.Abstractions.Protobuf;
 using Contracts.Services.Order;
 using Contracts.Services.Order.Protobuf;
@@ -11,11 +10,11 @@ namespace GrpcService;
 public class OrderGrpcService : OrderService.OrderServiceBase
 {
     private readonly IInteractor<Query.GetOrderDetails, Projection.OrderDetails> _getOrderDetailsInteractor;
-    private readonly IInteractor<Query.ListOrdersGridItems, IPagedResult<Projection.OrderGridItem>> _listOrdersGridItemsInteractor;
+    private readonly IPagedInteractor<Query.ListOrdersGridItems, Projection.OrderGridItem> _listOrdersGridItemsInteractor;
 
     public OrderGrpcService(
         IInteractor<Query.GetOrderDetails, Projection.OrderDetails> getOrderDetailsInteractor,
-        IInteractor<Query.ListOrdersGridItems, IPagedResult<Projection.OrderGridItem>> listOrdersGridItemsInteractor)
+        IPagedInteractor<Query.ListOrdersGridItems, Projection.OrderGridItem> listOrdersGridItemsInteractor)
     {
         _getOrderDetailsInteractor = getOrderDetailsInteractor;
         _listOrdersGridItemsInteractor = listOrdersGridItemsInteractor;
@@ -34,7 +33,7 @@ public class OrderGrpcService : OrderService.OrderServiceBase
     {
         var pagedResult = await _listOrdersGridItemsInteractor.InteractAsync(request, context.CancellationToken);
 
-        return pagedResult!.Items.Any()
+        return pagedResult.Items.Any()
             ? new()
             {
                 PagedResult = new()

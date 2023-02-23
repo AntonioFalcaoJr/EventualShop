@@ -85,9 +85,9 @@ public class ProjectCartDetailsWhenCartChangedInteractor : IProjectCartDetailsWh
             @event.Cart.CustomerId,
             @event.Cart.Total,
             @event.Cart.Status,
-            false,
+            @event.Cart.IsDeleted,
             @event.Version);
 
-        await _projectionGateway.ReplaceInsertAsync(shoppingCartDetails, cancellationToken);
+        await _projectionGateway.RebuildInsertAsync(shoppingCartDetails, cancellationToken);
     }
 }

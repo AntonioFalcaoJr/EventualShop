@@ -42,10 +42,9 @@ builder.Host.ConfigureServices((context, services) =>
 
     services.AddGrpc();
     services.AddEventBus();
-    services.AddEventInteractors();
     services.AddMessageValidators();
-    services.AddQueryInteractors();
     services.AddProjections();
+    services.AddInteractors();
 
     services.ConfigureEventBusOptions(
         context.Configuration.GetSection(nameof(EventBusOptions)));

@@ -4,7 +4,7 @@ using Contracts.Services.Catalog;
 
 namespace Application.UseCases.Queries;
 
-public class ListCatalogsGridItemsInteractor : IInteractor<Query.ListCatalogsGridItems, IPagedResult<Projection.CatalogGridItem>>
+public class ListCatalogsGridItemsInteractor : IPagedInteractor<Query.ListCatalogsGridItems, Projection.CatalogGridItem>
 {
     private readonly IProjectionGateway<Projection.CatalogGridItem> _projectionGateway;
 
@@ -13,6 +13,6 @@ public class ListCatalogsGridItemsInteractor : IInteractor<Query.ListCatalogsGri
         _projectionGateway = projectionGateway;
     }
 
-    public Task<IPagedResult<Projection.CatalogGridItem>?> InteractAsync(Query.ListCatalogsGridItems query, CancellationToken cancellationToken)
+    public ValueTask<IPagedResult<Projection.CatalogGridItem>> InteractAsync(Query.ListCatalogsGridItems query, CancellationToken cancellationToken)
         => _projectionGateway.ListAsync(query.Paging, cancellationToken);
 }

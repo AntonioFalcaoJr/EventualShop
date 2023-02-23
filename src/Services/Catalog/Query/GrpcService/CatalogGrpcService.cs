@@ -1,5 +1,4 @@
 using Application.Abstractions;
-using Contracts.Abstractions.Paging;
 using Contracts.Abstractions.Protobuf;
 using Contracts.Services.Catalog;
 using Contracts.Services.Catalog.Protobuf;
@@ -11,15 +10,15 @@ namespace GrpcService;
 public class CatalogGrpcService : CatalogService.CatalogServiceBase
 {
     private readonly IInteractor<Query.GetCatalogItemDetails, Projection.CatalogItemDetails> _getCatalogItemDetailsInteractor;
-    private readonly IInteractor<Query.ListCatalogsGridItems, IPagedResult<Projection.CatalogGridItem>> _listCatalogsGridItemsInteractor;
-    private readonly IInteractor<Query.ListCatalogItemsCards, IPagedResult<Projection.CatalogItemCard>> _listCatalogItemsCardsInteractor;
-    private readonly IInteractor<Query.ListCatalogItemsListItems, IPagedResult<Projection.CatalogItemListItem>> _listCatalogItemsListItemsInteractor;
+    private readonly IPagedInteractor<Query.ListCatalogsGridItems, Projection.CatalogGridItem> _listCatalogsGridItemsInteractor;
+    private readonly IPagedInteractor<Query.ListCatalogItemsCards, Projection.CatalogItemCard> _listCatalogItemsCardsInteractor;
+    private readonly IPagedInteractor<Query.ListCatalogItemsListItems, Projection.CatalogItemListItem> _listCatalogItemsListItemsInteractor;
 
     public CatalogGrpcService(
         IInteractor<Query.GetCatalogItemDetails, Projection.CatalogItemDetails> getCatalogItemDetailsInteractor,
-        IInteractor<Query.ListCatalogItemsCards, IPagedResult<Projection.CatalogItemCard>> listCatalogItemsCardsInteractor,
-        IInteractor<Query.ListCatalogsGridItems, IPagedResult<Projection.CatalogGridItem>> listCatalogsGridItemsInteractor,
-        IInteractor<Query.ListCatalogItemsListItems, IPagedResult<Projection.CatalogItemListItem>> listCatalogItemsListItemsInteractor)
+        IPagedInteractor<Query.ListCatalogItemsCards, Projection.CatalogItemCard> listCatalogItemsCardsInteractor,
+        IPagedInteractor<Query.ListCatalogsGridItems, Projection.CatalogGridItem> listCatalogsGridItemsInteractor,
+        IPagedInteractor<Query.ListCatalogItemsListItems, Projection.CatalogItemListItem> listCatalogItemsListItemsInteractor)
     {
         _getCatalogItemDetailsInteractor = getCatalogItemDetailsInteractor;
         _listCatalogItemsCardsInteractor = listCatalogItemsCardsInteractor;
@@ -39,8 +38,8 @@ public class CatalogGrpcService : CatalogService.CatalogServiceBase
     public override async Task<ListResponse> ListCatalogsGridItems(ListCatalogsGridItemsRequest request, ServerCallContext context)
     {
         var pagedResult = await _listCatalogsGridItemsInteractor.InteractAsync(request, context.CancellationToken);
-        
-        return pagedResult!.Items.Any()
+
+        return pagedResult.Items.Any()
             ? new()
             {
                 PagedResult = new()
@@ -55,8 +54,8 @@ public class CatalogGrpcService : CatalogService.CatalogServiceBase
     public override async Task<ListResponse> ListCatalogItemsListItems(ListCatalogItemsListItemsRequest request, ServerCallContext context)
     {
         var pagedResult = await _listCatalogItemsListItemsInteractor.InteractAsync(request, context.CancellationToken);
-        
-        return pagedResult!.Items.Any()
+
+        return pagedResult.Items.Any()
             ? new()
             {
                 PagedResult = new()
@@ -72,7 +71,7 @@ public class CatalogGrpcService : CatalogService.CatalogServiceBase
     {
         var pagedResult = await _listCatalogItemsCardsInteractor.InteractAsync(request, context.CancellationToken);
 
-        return pagedResult!.Items.Any()
+        return pagedResult.Items.Any()
             ? new()
             {
                 PagedResult = new()

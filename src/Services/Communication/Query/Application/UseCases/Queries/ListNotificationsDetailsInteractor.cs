@@ -4,7 +4,7 @@ using Contracts.Services.Communication;
 
 namespace Application.UseCases.Queries;
 
-public class ListNotificationsDetailsInteractor : IInteractor<Query.ListNotificationsDetails, IPagedResult<Projection.NotificationDetails>>
+public class ListNotificationsDetailsInteractor : IPagedInteractor<Query.ListNotificationsDetails, Projection.NotificationDetails>
 {
     private readonly IProjectionGateway<Projection.NotificationDetails> _projectionGateway;
 
@@ -13,6 +13,6 @@ public class ListNotificationsDetailsInteractor : IInteractor<Query.ListNotifica
         _projectionGateway = projectionGateway;
     }
 
-    public Task<IPagedResult<Projection.NotificationDetails>?> InteractAsync(Query.ListNotificationsDetails query, CancellationToken cancellationToken)
+    public ValueTask<IPagedResult<Projection.NotificationDetails>> InteractAsync(Query.ListNotificationsDetails query, CancellationToken cancellationToken)
         => _projectionGateway.ListAsync(query.Paging, cancellationToken);
 }
