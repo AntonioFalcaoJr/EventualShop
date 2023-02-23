@@ -1,5 +1,4 @@
 using Application.Abstractions;
-using Contracts.Abstractions.Paging;
 using Contracts.Abstractions.Protobuf;
 using Contracts.Services.Account;
 using Contracts.Services.Account.Protobuf;
