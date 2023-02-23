@@ -10,12 +10,12 @@ namespace GrpcService;
 
 public class WarehouseGrpcService : WarehouseService.WarehouseServiceBase
 {
-    private readonly IInteractor<Query.ListInventoryItemsListItems, IPagedResult<Projection.InventoryItemListItem>> _listInventoryGridItemsInteractor;
-    private readonly IInteractor<Query.ListInventoryGridItems, IPagedResult<Projection.InventoryGridItem>> _listInventoriesItemsCardsInteractor;
+    private readonly IPagedInteractor<Query.ListInventoryItemsListItems, Projection.InventoryItemListItem> _listInventoryGridItemsInteractor;
+    private readonly IPagedInteractor<Query.ListInventoryGridItems, Projection.InventoryGridItem> _listInventoriesItemsCardsInteractor;
 
     public WarehouseGrpcService(
-        IInteractor<Query.ListInventoryItemsListItems, IPagedResult<Projection.InventoryItemListItem>> listInventoryGridItemsInteractor,
-        IInteractor<Query.ListInventoryGridItems, IPagedResult<Projection.InventoryGridItem>> listInventoriesItemsCardsInteractor)
+        IPagedInteractor<Query.ListInventoryItemsListItems, Projection.InventoryItemListItem> listInventoryGridItemsInteractor,
+        IPagedInteractor<Query.ListInventoryGridItems, Projection.InventoryGridItem> listInventoriesItemsCardsInteractor)
     {
         _listInventoryGridItemsInteractor = listInventoryGridItemsInteractor;
         _listInventoriesItemsCardsInteractor = listInventoriesItemsCardsInteractor;
@@ -24,8 +24,8 @@ public class WarehouseGrpcService : WarehouseService.WarehouseServiceBase
     public override async Task<ListResponse> ListInventoryItems(ListInventoryItemsListItemsRequest request, ServerCallContext context)
     {
         var pagedResult = await _listInventoryGridItemsInteractor.InteractAsync(request, context.CancellationToken);
-        
-        return pagedResult!.Items.Any()
+
+        return pagedResult.Items.Any()
             ? new()
             {
                 PagedResult = new()
@@ -40,8 +40,8 @@ public class WarehouseGrpcService : WarehouseService.WarehouseServiceBase
     public override async Task<ListResponse> ListInventoryGridItems(ListInventoryGridItemsRequest request, ServerCallContext context)
     {
         var pagedResult = await _listInventoriesItemsCardsInteractor.InteractAsync(request, context.CancellationToken);
-        
-        return pagedResult!.Items.Any()
+
+        return pagedResult.Items.Any()
             ? new()
             {
                 PagedResult = new()

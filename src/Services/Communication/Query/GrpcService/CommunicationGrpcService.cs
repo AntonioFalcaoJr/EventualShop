@@ -10,9 +10,9 @@ namespace GrpcService;
 
 public class CommunicationGrpcService : CommunicationService.CommunicationServiceBase
 {
-    private readonly IInteractor<Query.ListNotificationsDetails, IPagedResult<Projection.NotificationDetails>> _listNotificationsDetails;
+    private readonly IPagedInteractor<Query.ListNotificationsDetails, Projection.NotificationDetails> _listNotificationsDetails;
 
-    public CommunicationGrpcService(IInteractor<Query.ListNotificationsDetails, IPagedResult<Projection.NotificationDetails>> listNotificationsDetails)
+    public CommunicationGrpcService(IPagedInteractor<Query.ListNotificationsDetails, Projection.NotificationDetails> listNotificationsDetails)
     {
         _listNotificationsDetails = listNotificationsDetails;
     }
@@ -21,7 +21,7 @@ public class CommunicationGrpcService : CommunicationService.CommunicationServic
     {
         var pagedResult = await _listNotificationsDetails.InteractAsync(request, context.CancellationToken);
 
-        return pagedResult!.Items.Any()
+        return pagedResult.Items.Any()
             ? new()
             {
                 PagedResult = new()

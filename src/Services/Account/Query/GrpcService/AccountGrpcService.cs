@@ -11,13 +11,13 @@ namespace GrpcService;
 public class AccountGrpcService : AccountService.AccountServiceBase
 {
     private readonly IInteractor<Query.GetAccountDetails, Projection.AccountDetails> _getAccountDetailsInteractor;
-    private readonly IInteractor<Query.ListAccountsDetails, IPagedResult<Projection.AccountDetails>> _listAccountsDetailsInteractor;
-    private readonly IInteractor<Query.ListShippingAddressesListItems, IPagedResult<Projection.ShippingAddressListItem>> _listShippingAddressesListItemsInteractor;
+    private readonly IPagedInteractor<Query.ListAccountsDetails, Projection.AccountDetails> _listAccountsDetailsInteractor;
+    private readonly IPagedInteractor<Query.ListShippingAddressesListItems, Projection.ShippingAddressListItem> _listShippingAddressesListItemsInteractor;
 
     public AccountGrpcService(
         IInteractor<Query.GetAccountDetails, Projection.AccountDetails> getAccountDetailsInteractor,
-        IInteractor<Query.ListAccountsDetails, IPagedResult<Projection.AccountDetails>> listAccountsDetailsInteractor,
-        IInteractor<Query.ListShippingAddressesListItems, IPagedResult<Projection.ShippingAddressListItem>> listShippingAddressesListItemsInteractor)
+        IPagedInteractor<Query.ListAccountsDetails, Projection.AccountDetails> listAccountsDetailsInteractor,
+        IPagedInteractor<Query.ListShippingAddressesListItems, Projection.ShippingAddressListItem> listShippingAddressesListItemsInteractor)
     {
         _getAccountDetailsInteractor = getAccountDetailsInteractor;
         _listAccountsDetailsInteractor = listAccountsDetailsInteractor;
@@ -37,7 +37,7 @@ public class AccountGrpcService : AccountService.AccountServiceBase
     {
         var pagedResult = await _listAccountsDetailsInteractor.InteractAsync(request, context.CancellationToken);
 
-        return pagedResult!.Items.Any()
+        return pagedResult.Items.Any()
             ? new()
             {
                 PagedResult = new()
@@ -53,7 +53,7 @@ public class AccountGrpcService : AccountService.AccountServiceBase
     {
         var pagedResult = await _listShippingAddressesListItemsInteractor.InteractAsync(request, context.CancellationToken);
 
-        return pagedResult!.Items.Any()
+        return pagedResult.Items.Any()
             ? new()
             {
                 PagedResult = new()

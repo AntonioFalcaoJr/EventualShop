@@ -14,16 +14,16 @@ public class ShoppingCartGrpcService : ShoppingCartService.ShoppingCartServiceBa
     private readonly IInteractor<Query.GetShoppingCartDetails, Projection.ShoppingCartDetails> _getShoppingCartDetailsInteractor;
     private readonly IInteractor<Query.GetCustomerShoppingCartDetails, Projection.ShoppingCartDetails> _getCustomerShoppingCartDetailsInteractor;
     private readonly IInteractor<Query.GetShoppingCartItemDetails, Projection.ShoppingCartItemDetails> _getShoppingCartItemDetailsInteractor;
-    private readonly IInteractor<Query.ListPaymentMethodsListItems, IPagedResult<Projection.PaymentMethodListItem>> _listPaymentMethodsListItemsInteractor;
-    private readonly IInteractor<Query.ListShoppingCartItemsListItems, IPagedResult<Projection.ShoppingCartItemListItem>> _listShoppingCartItemsListItemsInteractor;
+    private readonly IPagedInteractor<Query.ListPaymentMethodsListItems, Projection.PaymentMethodListItem> _listPaymentMethodsListItemsInteractor;
+    private readonly IPagedInteractor<Query.ListShoppingCartItemsListItems, Projection.ShoppingCartItemListItem> _listShoppingCartItemsListItemsInteractor;
 
     public ShoppingCartGrpcService(
         IInteractor<Query.GetPaymentMethodDetails, Projection.PaymentMethodDetails> getPaymentMethodDetailsInteractor,
         IInteractor<Query.GetShoppingCartDetails, Projection.ShoppingCartDetails> getShoppingCartDetailsInteractor,
         IInteractor<Query.GetCustomerShoppingCartDetails, Projection.ShoppingCartDetails> getCustomerShoppingCartDetailsInteractor,
         IInteractor<Query.GetShoppingCartItemDetails, Projection.ShoppingCartItemDetails> getShoppingCartItemDetailsInteractor,
-        IInteractor<Query.ListPaymentMethodsListItems, IPagedResult<Projection.PaymentMethodListItem>> listPaymentMethodsListItemsInteractor,
-        IInteractor<Query.ListShoppingCartItemsListItems, IPagedResult<Projection.ShoppingCartItemListItem>> listShoppingCartItemsListItemsInteractor)
+        IPagedInteractor<Query.ListPaymentMethodsListItems, Projection.PaymentMethodListItem> listPaymentMethodsListItemsInteractor,
+        IPagedInteractor<Query.ListShoppingCartItemsListItems, Projection.ShoppingCartItemListItem> listShoppingCartItemsListItemsInteractor)
     {
         _getPaymentMethodDetailsInteractor = getPaymentMethodDetailsInteractor;
         _getShoppingCartDetailsInteractor = getShoppingCartDetailsInteractor;
@@ -73,7 +73,7 @@ public class ShoppingCartGrpcService : ShoppingCartService.ShoppingCartServiceBa
     {
         var pagedResult = await _listPaymentMethodsListItemsInteractor.InteractAsync(request, context.CancellationToken);
 
-        return pagedResult!.Items.Any()
+        return pagedResult.Items.Any()
             ? new()
             {
                 PagedResult = new()
@@ -89,7 +89,7 @@ public class ShoppingCartGrpcService : ShoppingCartService.ShoppingCartServiceBa
     {
         var pagedResult = await _listShoppingCartItemsListItemsInteractor.InteractAsync(request, context.CancellationToken);
 
-        return pagedResult!.Items.Any()
+        return pagedResult.Items.Any()
             ? new()
             {
                 PagedResult = new()
