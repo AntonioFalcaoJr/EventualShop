@@ -4,7 +4,7 @@ using Contracts.Services.Order;
 
 namespace Application.UseCases.Queries;
 
-public class ListOrdersGridItemsInteractor : IInteractor<Query.ListOrdersGridItems, IPagedResult<Projection.OrderGridItem>>
+public class ListOrdersGridItemsInteractor : IPagedInteractor<Query.ListOrdersGridItems, Projection.OrderGridItem>
 {
     private readonly IProjectionGateway<Projection.OrderGridItem> _projectionGateway;
 
@@ -13,6 +13,6 @@ public class ListOrdersGridItemsInteractor : IInteractor<Query.ListOrdersGridIte
         _projectionGateway = projectionGateway;
     }
 
-    public Task<IPagedResult<Projection.OrderGridItem>?> InteractAsync(Query.ListOrdersGridItems query, CancellationToken cancellationToken)
+    public ValueTask<IPagedResult<Projection.OrderGridItem>> InteractAsync(Query.ListOrdersGridItems query, CancellationToken cancellationToken)
         => _projectionGateway.ListAsync(query.Paging, order => order.CustomerId == query.CustomerId, cancellationToken);
 }
