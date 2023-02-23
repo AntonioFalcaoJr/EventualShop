@@ -26,29 +26,11 @@ public class ProjectionGateway<TProjection> : IProjectionGateway<TProjection>
     public Task<TProjection?> FindAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
         => _collection.AsQueryable().Where(predicate).FirstOrDefaultAsync(cancellationToken)!;
 
-    public Task<IPagedResult<TProjection>?> ListAsync(Paging paging, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
-        => PagedResult<TProjection>.CreateAsync(paging, _collection.AsQueryable().Where(predicate), cancellationToken)!;
+    public ValueTask<IPagedResult<TProjection>> ListAsync(Paging paging, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
+        => PagedResult<TProjection>.CreateAsync(paging, _collection.AsQueryable().Where(predicate), cancellationToken);
 
-    public Task<IPagedResult<TProjection>?> ListAsync(Paging paging, CancellationToken cancellationToken)
-        => PagedResult<TProjection>.CreateAsync(paging, _collection.AsQueryable(), cancellationToken)!;
-
-    public async ValueTask ReplaceInsertAsync(TProjection replacement, CancellationToken cancellationToken)
-    {
-        try
-        {
-            await _collection.ReplaceOneAsync(
-                filter: projection => projection.Id == replacement.Id && projection.Version < replacement.Version,
-                replacement: replacement,
-                options: new ReplaceOptions { IsUpsert = true },
-                cancellationToken: cancellationToken);
-        }
-        catch (MongoWriteException e) when (e.WriteError.Category is ServerErrorCategory.DuplicateKey)
-        {
-            Log.Warning(
-                "By passing Duplicate Key when inserting {ProjectionType} with Id {Id}",
-                typeof(TProjection).Name, replacement.Id);
-        }
-    }
+    public ValueTask<IPagedResult<TProjection>> ListAsync(Paging paging, CancellationToken cancellationToken)
+        => PagedResult<TProjection>.CreateAsync(paging, _collection.AsQueryable(), cancellationToken);
 
     public Task DeleteAsync(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken)
         => _collection.DeleteManyAsync(filter, cancellationToken);
@@ -61,4 +43,24 @@ public class ProjectionGateway<TProjection> : IProjectionGateway<TProjection>
             filter: projection => projection.Id.Equals(id) && projection.Version < version,
             update: new ObjectUpdateDefinition<TProjection>(new()).Set(field, value),
             cancellationToken: cancellationToken);
+
+    public ValueTask ReplaceInsertAsync(TProjection replacement, CancellationToken cancellationToken)
+        => OnReplaceAsync(replacement, projection => projection.Id == replacement.Id && projection.Version < replacement.Version, cancellationToken);
+
+    public ValueTask RebuildInsertAsync(TProjection replacement, CancellationToken cancellationToken)
+        => OnReplaceAsync(replacement, projection => projection.Id == replacement.Id && projection.Version <= replacement.Version, cancellationToken);
+
+    private async ValueTask OnReplaceAsync(TProjection replacement, Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken)
+    {
+        try
+        {
+            await _collection.ReplaceOneAsync(filter, replacement, new ReplaceOptions { IsUpsert = true }, cancellationToken);
+        }
+        catch (MongoWriteException e) when (e.WriteError.Category is ServerErrorCategory.DuplicateKey)
+        {
+            Log.Warning(
+                "By passing Duplicate Key when inserting {ProjectionType} with Id {Id}",
+                typeof(TProjection).Name, replacement.Id);
+        }
+    }
 }
