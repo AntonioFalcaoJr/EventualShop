@@ -1,0 +1,14 @@
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/*.log
+
+output.elasticsearch:
+  hosts: ["localhost:9200"]
+  index: "WebAPI-%{+yyyy.MM.dd}"
+  
+setup.template.name: "WebAPI"
+setup.template.pattern: "WebAPI-*"
+
+logging.level: info
