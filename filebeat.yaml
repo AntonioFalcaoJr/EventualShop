@@ -1,0 +1,23 @@
+filebeat.inputs:
+  - type: docker
+    containers:
+      ids:
+        - "*"
+
+    processors:
+      - add_docker_metadata: ~
+      - index: "%{[agent.name]}-{[container.name]}-%{+yyyy.MM.dd}"
+
+    paths:
+       - '/var/log/containers/*.log'
+       - '*.log'
+
+    json.keys_under_root: true
+    json.add_error_key: true
+    json.message_key: log
+    exclude_files: ['\.gz$']
+
+output.elasticsearch:
+  hosts: ["http://elasticsearch:9200"]
+  username: EventualShop
+  password: observability
