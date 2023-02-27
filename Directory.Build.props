@@ -38,7 +38,7 @@
 
         <!--MassTransit-->
         <MassTransit_Version>8.0.14-develop.1030</MassTransit_Version>
-        <Quartz_Version>3.6.0</Quartz_Version>
+        <Quartz_Version>3.6.2</Quartz_Version>
 
         <!--Newtonsoft-->
         <Newtonsoft_Version>13.0.3-beta1</Newtonsoft_Version>
