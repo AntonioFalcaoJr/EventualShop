@@ -42,4 +42,30 @@ services:
       - "14250:14250"
       - "14268:14268"
       - "14269:14269"
-      - "9411:9411"    
+      - "9411:9411"
+
+## TODO: for testing local... remove when done task.
+  elasticsearch:
+      image: docker.elastic.co/elasticsearch/elasticsearch:8.6.2
+      environment:
+        - xpack.monitoring.enabled=true
+        - xpack.watcher.enabled=false
+        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        - discovery.type=single-node
+        - ELASTICSEARCH_USERNAME=EventualShop
+        - ELASTICSEARCH_PASSWORD=observability
+      ulimits:
+        memlock:
+          soft: -1
+          hard: -1
+      ports:
+        - "9200:9200"
+
+  kibana:
+      image: docker.elastic.co/kibana/kibana:8.6.2
+      ports:
+        - "5601:5601"
+      environment:
+        - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+        - ELASTICSEARCH_USERNAME=EventualShop
+        - ELASTICSEARCH_PASSWORD=observability
