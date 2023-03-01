@@ -19,7 +19,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: 1
+          cpus: '1'
           memory: 2G
       restart_policy:
         condition: any
@@ -45,7 +45,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: 1
+          cpus: '1'
           memory: 400M
       restart_policy:
         condition: any
@@ -69,7 +69,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: 1
+          cpus: '1'
           memory: 500M
       restart_policy:
         condition: any
@@ -94,7 +94,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: 1
+          cpus: '1'
           memory: 80M
       restart_policy:
         condition: any
