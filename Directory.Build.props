@@ -64,7 +64,7 @@
 
         <!--Open Telemetry-->
         <OpenTelemetry_Exporter_Jaeger_Version>1.4.0-rc.4</OpenTelemetry_Exporter_Jaeger_Version>
-        <OpenTelemetry_Extensions_Hosting_Version>1.4.0-rc.4</OpenTelemetry_Extensions_Hosting_Version>
+        <OpenTelemetry_Extensions_Hosting_Version>1.4.0</OpenTelemetry_Extensions_Hosting_Version>
         <OpenTelemetry_Instrumentation_AspNetCore_Version>1.0.0-rc9.13</OpenTelemetry_Instrumentation_AspNetCore_Version>
 
         <!--Test-->
