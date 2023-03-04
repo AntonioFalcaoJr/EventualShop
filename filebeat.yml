@@ -1,18 +1,20 @@
 filebeat.inputs:
-  - type: log
+  - type: filestream
+    id: my-filestream-id
     enabled: true
     paths:
+      - /var/log/messages
       - /var/log/*.log
 
 output.elasticsearch:
-  hosts: ["http://elasticsearch:9200"]
-  username: "elastic"
-  password: "changeme"
-  index: "EventualShop-%{+yyyy.MM.dd}"
- 
+  hosts: [ "http://elasticsearch:9200" ]
+  username: "EventualShop"
+  password: "EventualShop"
+  index: "EventualShop-%{+yyyy-MM-dd}"
+
 setup.kibana:
   host: "http://kibana:5601"
-  
+
 setup.template.name: "EventualShop"
 setup.template.pattern: "EventualShop-*"
 

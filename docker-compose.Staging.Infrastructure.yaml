@@ -11,7 +11,7 @@ services:
       SA_PASSWORD: "!MyStrongPassword"
       ACCEPT_EULA: "Y"
     healthcheck:
-      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$$SA_PASSWORD" -Q "SELECT 1" || exit 1
+      test: /opt/mssql-tools/bin/sqlcmd -S mssql -U sa -P "$$SA_PASSWORD" -Q "SELECT 1" || exit 1
       interval: 5s
       timeout: 5s
       retries: 5
@@ -101,17 +101,17 @@ services:
   
   elasticsearch:
     container_name: elasticsearch
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.16.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.6.2
     environment:
       - discovery.type=single-node
       - cluster.name=docker-cluster
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - xpack.security.enabled=false
-      - ELASTIC_PASSWORD=changeme
-      - ELASTIC_USERNAME=elastic
+      - ELASTIC_USERNAME=EventualShop
+      - ELASTIC_PASSWORD=EventualShop
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://elasticsearch:9200" ]
+      test: [ "CMD", "curl", "-f", "http://elasticsearch:9200/_cluster/health" ]
     ulimits:
       memlock:
         soft: -1
@@ -124,19 +124,21 @@ services:
       restart_policy:
         condition: any
     ports:
-      - "9200:9200"
-      - "9300:9300"
+      - "9200"
+      - "9300"
     networks:
       - internal
 
   kibana:
     container_name: kibana
-    image: docker.elastic.co/kibana/kibana:7.16.2
+    image: docker.elastic.co/kibana/kibana:8.6.2
     environment:
       ELASTICSEARCH_URL: http://elasticsearch:9200
       ELASTICSEARCH_HOSTS: http://elasticsearch:9200
-      ELASTICSEARCH_USERNAME: elastic
-      ELASTICSEARCH_PASSWORD: changeme
+      ELASTICSEARCH_USERNAME: EventualShop
+      ELASTICSEARCH_PASSWORD: EventualShop
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://kibana:5601/api/status" ]  
     ports:
       - "5601:5601"
     depends_on:

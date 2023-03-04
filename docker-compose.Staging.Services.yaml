@@ -412,7 +412,7 @@ services:
       ASPNETCORE_ENVIRONMENT: Staging
     depends_on:
       webapi:
-        condition: service_started
+        condition: service_healthy
     networks:
       - internal
     deploy:
