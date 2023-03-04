@@ -5,10 +5,15 @@ filebeat.inputs:
       - /var/log/*.log
 
 output.elasticsearch:
-  hosts: ["localhost:9200"]
-  index: "WebAPI-%{+yyyy.MM.dd}"
+  hosts: ["http://elasticsearch:9200"]
+  username: "elastic"
+  password: "changeme"
+  index: "EventualShop-%{+yyyy.MM.dd}"
+ 
+setup.kibana:
+  host: "http://kibana:5601"
   
-setup.template.name: "WebAPI"
-setup.template.pattern: "WebAPI-*"
+setup.template.name: "EventualShop"
+setup.template.pattern: "EventualShop-*"
 
 logging.level: info

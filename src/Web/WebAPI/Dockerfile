@@ -40,4 +40,7 @@ RUN sudo dpkg -i filebeat-8.6.2-amd64.deb
 COPY filebeat.yml /etc/filebeat/
 RUN chmod go-w /etc/filebeat/filebeat.yml
 
-CMD service filebeat start && dotnet WebAPI.dll
+CMD filebeat modules enable elasticsearch 
+CMD filebeat setup 
+CMD service filebeat start 
+CMD dotnet WebAPI.dll

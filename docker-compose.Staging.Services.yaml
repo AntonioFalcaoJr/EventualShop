@@ -384,8 +384,10 @@ services:
       context: .
       dockerfile: ./src/Web/WebAPI/Dockerfile
     environment:
-      ASPNETCORE_URLS: http://*:80
+      ASPNETCORE_HTTP_PORTS: 80
       ASPNETCORE_ENVIRONMENT: Staging
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://webapi/healthz" ]
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -406,7 +408,7 @@ services:
       context: .
       dockerfile: ./src/Web/WebAPP/Dockerfile
     environment:
-      ASPNETCORE_URLS: http://*:80
+      ASPNETCORE_HTTP_PORTS: 80
       ASPNETCORE_ENVIRONMENT: Staging
     depends_on:
       webapi:
