@@ -26,7 +26,7 @@
 
         <!--gRPC-->
         <Grpc_Version>2.41.0-pre1</Grpc_Version>
-        <Grpc_Tools_Version>2.52.0-pre1</Grpc_Tools_Version>
+        <Grpc_Tools_Version>2.52.0</Grpc_Tools_Version>
         <Google_Protobuf_Version>3.22.0</Google_Protobuf_Version>
         <Grpc_Net_Client_Version>2.51.0</Grpc_Net_Client_Version>
         <Grpc_AspNetCore_Version>2.51.0</Grpc_AspNetCore_Version>
@@ -37,8 +37,8 @@
         <MongoDb_Version>2.19.0</MongoDb_Version>
 
         <!--MassTransit-->
-        <MassTransit_Version>8.0.14-develop.1030</MassTransit_Version>
-        <Quartz_Version>3.6.0</Quartz_Version>
+        <MassTransit_Version>8.0.14-develop.1082</MassTransit_Version>
+        <Quartz_Version>3.6.2</Quartz_Version>
 
         <!--Newtonsoft-->
         <Newtonsoft_Version>13.0.3-beta1</Newtonsoft_Version>
@@ -46,7 +46,7 @@
         <Microsoft_Mvc_NewtonsoftJso_Version>8.0.0-preview.1.23112.2</Microsoft_Mvc_NewtonsoftJso_Version>
 
         <!--Serilog-->
-        <Serilog_Version>3.0.0-dev-01862</Serilog_Version>
+        <Serilog_Version>3.0.0-dev-01909</Serilog_Version>
         <Serilog_AspNetCore_Version>6.1.1-dev-00295</Serilog_AspNetCore_Version>
         <Serilog_Extensions_Version>5.0.1</Serilog_Extensions_Version>
         <Serilog_Settings_Version>3.5.0-dev-00370</Serilog_Settings_Version>
@@ -63,9 +63,9 @@
         <Polly_Version>8.0.0-preview.1.23112.2</Polly_Version>
 
         <!--Open Telemetry-->
-        <OpenTelemetry_Exporter_Jaeger_Version>1.4.0-rc.4</OpenTelemetry_Exporter_Jaeger_Version>
-        <OpenTelemetry_Extensions_Hosting_Version>1.4.0-rc.4</OpenTelemetry_Extensions_Hosting_Version>
-        <OpenTelemetry_Instrumentation_AspNetCore_Version>1.0.0-rc9.13</OpenTelemetry_Instrumentation_AspNetCore_Version>
+        <OpenTelemetry_Exporter_Jaeger_Version>1.4.0</OpenTelemetry_Exporter_Jaeger_Version>
+        <OpenTelemetry_Extensions_Hosting_Version>1.4.0</OpenTelemetry_Extensions_Hosting_Version>
+        <OpenTelemetry_Instrumentation_AspNetCore_Version>1.0.0-rc9.14</OpenTelemetry_Instrumentation_AspNetCore_Version>
 
         <!--Test-->
         <Microsoft_Mvc_Testing_Version>8.0.0-preview.1.23112.2</Microsoft_Mvc_Testing_Version>
