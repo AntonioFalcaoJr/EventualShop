@@ -12,7 +12,7 @@ public static class SwaggerExtensions
         services.AddSwaggerGen();
         services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
     }
-    
+
     public static void ConfigureSwagger(this WebApplication app)
     {
         app.UseSwagger();
@@ -21,12 +21,12 @@ public static class SwaggerExtensions
             foreach (var version in app.DescribeApiVersions().Select(version => version.GroupName))
                 options.SwaggerEndpoint($"/swagger/{version}/swagger.json", version);
 
+            options.DisplayRequestDuration();
             options.EnableTryItOutByDefault();
             options.DocExpansion(DocExpansion.None);
-            options.DisplayRequestDuration();
-
-            app.MapGet("/", () => Results.Redirect("/swagger/index.html"))
-                .WithTags(string.Empty);
         });
+
+        app.MapGet("/", () => Results.Redirect("/swagger/index.html"))
+            .WithTags(string.Empty);
     }
 }
