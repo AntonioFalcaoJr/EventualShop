@@ -1,27 +1,27 @@
-# ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/new_logo.png)
+# ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/new_logo.png)
 
 <p align="center">
-  <a href="#about">About</a> &nbsp;&bull;&nbsp;
-  <a href="#the-solution-architecture">The Solution Architecture</a> &nbsp;&bull;&nbsp;
-  <a href="#research">Research</a> &nbsp;&bull;&nbsp;
-  <a href="#running">Running</a> &nbsp;&bull;&nbsp;
-  <a href="#tech-stack">Tech Stack</a>
+  <a href="#bulb-about">About</a> &nbsp;&bull;&nbsp;
+  <a href="#classical_building-the-solution-architecture">The Solution Architecture</a> &nbsp;&bull;&nbsp;
+  <a href="#mag_right-research">Research</a> &nbsp;&bull;&nbsp;
+  <a href="#computer-running">Running</a> &nbsp;&bull;&nbsp;
+  <a href="#toolbox-tech-stack">Tech Stack</a>
 </p>
 
 <br>
 
 <div align="center">
 
-| Service       |                                                                                                                                      Command Stack                                                                                                                                       |                                                                                                                                    Query Stack                                                                                                                                     | 
-|---------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
-| Account       |          [![Account - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-command.yaml)          |          [![Account - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/account-query.yaml)          |
-| Communication | [![Communication - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-command.yaml) | [![Communication - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/communication-query.yaml) |
-| Identity      |        [![Identity - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-command.yaml)         |        [![Identity - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/identity-query.yaml)         |
-| Order         |             [![Order - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/order-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/order-command.yaml)             |             [![Order - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/order-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/order-query.yaml)             |
-| Catalog       |          [![Catalog - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/catalog-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/catalog-command.yaml)          |          [![Catalog - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/catalog-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/catalog-query.yaml)          |
-| Warehouse     |       [![Warehouse - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse-command.yaml)       |       [![Warehouse - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/warehouse-query.yaml)       |
-| Shopping Cart | [![Shopping Cart - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart-command.yaml) | [![Shopping Cart - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/shopping-cart-query.yaml) |
-| Payment       |          [![Payment - Command Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment-command.yaml)          |          [![Payment - Query Stack](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/actions/workflows/payment-query.yaml)          |
+| Service       |                                                                                                              Command Stack                                                                                                               |                                                                                                            Query Stack                                                                                                             | 
+|---------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| Account       |          [![Account - Command Stack](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/account-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/account-command.yaml)          |          [![Account - Query Stack](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/account-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/account-query.yaml)          |
+| Communication | [![Communication - Command Stack](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/communication-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/communication-command.yaml) | [![Communication - Query Stack](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/communication-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/communication-query.yaml) |
+| Identity      |        [![Identity - Command Stack](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/identity-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/identity-command.yaml)         |        [![Identity - Query Stack](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/identity-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/identity-query.yaml)         |
+| Order         |             [![Order - Command Stack](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/order-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/order-command.yaml)             |             [![Order - Query Stack](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/order-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/order-query.yaml)             |
+| Catalog       |          [![Catalog - Command Stack](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/catalog-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/catalog-command.yaml)          |          [![Catalog - Query Stack](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/catalog-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/catalog-query.yaml)          |
+| Warehouse     |       [![Warehouse - Command Stack](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/warehouse-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/warehouse-command.yaml)       |       [![Warehouse - Query Stack](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/warehouse-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/warehouse-query.yaml)       |
+| Shopping Cart | [![Shopping Cart - Command Stack](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/shopping-cart-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/shopping-cart-command.yaml) | [![Shopping Cart - Query Stack](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/shopping-cart-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/shopping-cart-query.yaml) |
+| Payment       |          [![Payment - Command Stack](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/payment-command.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/payment-command.yaml)          |          [![Payment - Query Stack](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/payment-query.yaml/badge.svg)](https://github.com/AntonioFalcaoJr/EventualShop/actions/workflows/payment-query.yaml)          |
 
  :construction: <sub>Work in Progress (WIP)</sub>
 
@@ -29,39 +29,44 @@
  
 ## :bulb: About
 
-The main objective of this **cloud-native** project is to represent the **state of the art** of a **distributed**, **reliable**, and **highly scalable** system by interpreting the most relevant
-principles of **Reactive Domain Driven Design**.
+The main objective of this **cloud-native** project is to represent the state-of-the-art of a **distributed**, **reliable**, and **highly scalable** system by interpreting the most relevant principles of [**Reactive
+Domain Driven Design**](https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/).
 
 > Domain-Driven Design can aid with managing uncertainty through the use of good modeling.  
 > -- Vaughn Vernon
 
-Scalability and resiliency require **low coupling** and **high cohesion**, strongly linked to the proper understanding of the business through **well-defined boundaries** in an Event-driven architecture (EDA).
+**Scalability** and **Resilience** require **low coupling** and **high cohesion**, principles strongly linked to the proper understanding of the business through **well-defined boundaries**, combined with a healthy and
+efficient integration strategy such as **Event-driven Architecture** (EDA).
 
-The **EventStorming** workshop provides a practical strategy for **decomposition by subdomain**, aggregating correlated business capabilities in respective boundaries via the **Pivotal Domain Events**
-(business facts) that offer an efficient and healthy integration between **Bounded Contexts**.
+The [**Event Storming**](https://www.eventstorming.com/) workshop provides a practical approach to **subdomain decomposition**, using **Pivotal Events** to correlate business capabilities across **Bounded Contexts** while promoting **reactive
+integration** between Aggregates.
 
-> Independence, as the main characteristic of a microservice, can only be found in a Bounded Context.
+The **reactive** integration between **Bounded Contexts** configures an **Event-driven Architecture** (EDA) where **Commands** are acknowledged and sent to the Bus by the Web API (BFF/Gateway) while **Events** are
+broadcasted to the **Query** side and/or other Aggregates.
 
-The **event-sourcing** is a proprietary implementation, which in addition to being **naturally auditable and data-driven**, represents the most efficient persistence mechanism ever. An **eventual state transition** Aggregate design is essential at this point. The Event Store comprises EF Core (ORM) + MSSQL (Database).
+**Independence**, as the main characteristic of a **Microservice**, can only be found in a **Bounded Context**.
 
-**Projections** are asynchronously denormalized and stored on a NoSQL Database(MongoDB); nested documents should be avoided here. Each projection has its index and **fits perfectly into a view or
-component**, mitigating unnecessary data traffic and making reading as efficient as possible.
+The [**Event Sourcing**](https://www.eventstore.com/event-sourcing) is a proprietary implementation that, in addition to being **naturally auditable** and **data-driven**, represents the most efficient persistence mechanism ever. An **eventual state
+transition** Aggregate design is essential at this point. The **Event Store** comprises EF Core (ORM) + MSSQL (Database).
 
-The splitting between **Command** and **Query** stacks occurs logically through the **CQRS** pattern and fiscally via a **Microservices** architecture. Each stack is an individual deployable unit and has its own
-database.
+> State transitions are an important part of our problem space and should be modeled within our domain.  
+> -- Greg Young
 
-As a Domain-centric approach, **Clean architecture** provides the appropriate isolation from Core Domain.
+[**Projections**](https://www.eventstore.com/event-sourcing#Projections) are **asynchronously denormalized** and stored on a NoSQL Database(MongoDB); Nested documents should be avoided here; Each projection has its index and **fits perfectly into a view or component**,
+mitigating unnecessary data traffic and making the reading side as efficient as possible.
 
-> State transitions are an important part of our problem space and should be modelled within our domain.   
-> -- <cite> Greg Young </cite>
+The splitting between **Command** and **Query** stacks occurs logically through the [**CQRS**](https://cqrs.files.wordpress.com/2010/11/cqrs_documents.pdf) pattern and fiscally via a **Microservices** architecture. Each stack is an individual deployable unit with its database,
+and the data flows from Command to Query stack via **Domain** and/or **Summary** events.
+
+As a **domain-centric** approach, [**Clean Architecture**](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) provides the appropriate isolation between the **Core** (Application + Domain) and "times many" **Infrastructure** concerns.
 
 ### :star: Give a Star! 
 
-If this project helped you in some way, please **give it a star**. Thanks!
+Support this research by **giving it a star**. Thanks!
 
 ## :classical_building: The Solution Architecture
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/solution_architecture.png)    
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/solution_architecture.png)    
 Fig. 1: Falcão Jr., Antônio. _An EDA solution architecture_.
 
 ## :mag_right: Research
@@ -99,8 +104,8 @@ non-blocking communication between the different components of the system, and u
 >
 > [Vernon, Vaughn. "Modeling Uncertainty with Reactive DDD", _www.infoq.com_, last edited on 29 Set 2018](https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/)
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/reactive-system.jpg)  
-[Fig. 3: Vernon, V. (2018), "Modeling Uncertainty with Reactive DDD", _Reactive Systems_, www.infoq.com](https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/reactive-system.jpg)  
+[Fig. 2: Vernon, V. (2018), "Modeling Uncertainty with Reactive DDD", _Reactive Systems_, www.infoq.com](https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/)
 
 ### Reactive Process
 
@@ -116,8 +121,8 @@ non-blocking communication between the different components of the system, and u
 >
 > [Vernon, Vaughn. "Modeling Uncertainty with Reactive DDD", _www.infoq.com_, last edited on 29 Set 2018](https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/)
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/reactive_process.jpg)     
-[Fig. 4: Vernon, V. (2018), "Modeling Uncertainty with Reactive DDD", _Process Manager_, www.infoq.com](https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/reactive_process.jpg)     
+[Fig. 3: Vernon, V. (2018), "Modeling Uncertainty with Reactive DDD", _Process Manager_, www.infoq.com](https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/)
 
 ### Messaging - Making good use of Context Mapping
 
@@ -130,8 +135,8 @@ non-blocking communication between the different components of the system, and u
 >
 > Vernon, V. (2016) Domain-Driven Design Distilled, 1st ed. New York: Addison-Wesley Professional, p65-67.
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/messaging_context_mapping.png)    
-Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed, p65.
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/messaging_context_mapping.png)    
+Fig. 4: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed, p65.
 
 ### Domain Driven Design (DDD)
 
@@ -152,8 +157,8 @@ Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed
 >
 > [Vernon, Vaughn. "Modeling Uncertainty with Reactive DDD", _www.infoq.com_, last edited on 29 Set 2018](https://martinfowler.com/bliki/BoundedContext.html)
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/BoundedContext.jpg)  
-[Fig. 26: Martin, Fowler. _BoundedContext_](https://martinfowler.com/bliki/BoundedContext.html)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/BoundedContext.jpg)  
+[Fig. 5: Martin, Fowler. _BoundedContext_](https://martinfowler.com/bliki/BoundedContext.html)
 
 > First, a Bounded Context is a semantic contextual boundary. This means that within the boundary each component of the software model has a specific meaning and does specific things. The components
 > inside a Bounded Context are context specific and semantically motivated. That’s simple enough.
@@ -175,8 +180,8 @@ Fig. 2: Vernon, V. (2016), Messaging from Domain-Driven Design Distilled, 1st ed
 > I think a model is a set of related concepts that can be applied to solve a problem.
 > -- <cite> Eric Evans </cite>
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/aggregate.png)  
-Fig. 25: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st ed, p78.
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/aggregate.png)  
+Fig. 6: Vernon, V. (2016), Aggregates from Domain-Driven Design Distilled, 1st ed, p78.
 
 > Each Aggregate forms a transactional consistency boundary. This means that within a single Aggregate, all composed parts must be consistent, according to business rules, when the controlling
 > transaction is committed to the database. This doesn't necessarily mean that you are not supposed to compose other elements within an Aggregate that don't need to be consistent after a transaction.
@@ -215,8 +220,8 @@ Adapted from "Event Centric: Finding Simplicity in Complex Systems" by Y. Greg, 
 >
 > [Fowler, Martin. "Eventsourcing", _martinfowler.com_, last edited on 12 Dec 2005](https://martinfowler.com/eaaDev/EventSourcing.html)
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/event-sourcing-overview.png)      
-[Fig. 11: MSDN. _Event Sourcing pattern_](https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing#solution)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/event-sourcing-overview.png)      
+[Fig. 7: MSDN. _Event Sourcing pattern_](https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing#solution)
 
 ### Updating entities
 
@@ -240,11 +245,11 @@ Adapted from "Event Centric: Finding Simplicity in Complex Systems" by Y. Greg, 
 >
 > -- <cite>@gregyoung</cite>
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/event-sourcing-state-transition.png)  
-[Fig. 12: Battermann, Leif. _12 Things You Should Know About Event Sourcing_](http://blog.leifbattermann.de/2017/04/21/12-things-you-should-know-about-event-sourcing)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/event-sourcing-state-transition.png)  
+[Fig. 8: Battermann, Leif. _12 Things You Should Know About Event Sourcing_](http://blog.leifbattermann.de/2017/04/21/12-things-you-should-know-about-event-sourcing)
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/eventsourcingrequestflow.png)     
-[Fig. 13: Eventuate. _Event Sourcing_](https://eventuate.io/whyeventsourcing.html)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/eventsourcingrequestflow.png)     
+[Fig. 9: Eventuate. _Event Sourcing_](https://eventuate.io/whyeventsourcing.html)
 
 The mantra of event sourcing and cover the four steps in slightly more details:
 
@@ -270,8 +275,8 @@ The mantra of event sourcing and cover the four steps in slightly more details:
 
 State transition during events applying:
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/applyTo_event-sourcing.png)   
-[Fig. 14: Reitzammer, Benjamin & Seitz, Johannes. _Event Sourcingin practice_](https://ookami86.github.io/event-sourcing-in-practice/#making-eventsourcing-work/18-concurrent-modifictations.md)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/applyTo_event-sourcing.png)   
+[Fig. 10: Reitzammer, Benjamin & Seitz, Johannes. _Event Sourcingin practice_](https://ookami86.github.io/event-sourcing-in-practice/#making-eventsourcing-work/18-concurrent-modifictations.md)
 
 ### Event Store
 
@@ -281,13 +286,13 @@ State transition during events applying:
 >
 > [Zimarev, Alexey. "What is Event Sourcing?", _Event Store blog_, last edited on 03 June 2020](https://www.eventstore.com/blog/what-is-event-sourcing)
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/event-store.png)  
-[Fig. 15: Shilkov, Mikhail. _Event Sourcing and IO Complexity_](https://mikhail.io/2016/11/event-sourcing-and-io-complexity)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/event-store.png)  
+[Fig. 11: Shilkov, Mikhail. _Event Sourcing and IO Complexity_](https://mikhail.io/2016/11/event-sourcing-and-io-complexity)
 
 The following picture shows the difference between approaches:
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/event-sourcing.png)
-[Fig. 16: Richardson, Chris. _Pattern: Event sourcing_](https://microservices.io/patterns/data/event-sourcing.html)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/event-sourcing.png)
+[Fig. 12: Richardson, Chris. _Pattern: Event sourcing_](https://microservices.io/patterns/data/event-sourcing.html)
 
 #### Exemplifying
 
@@ -304,7 +309,7 @@ CREATE TABLE [Events] (
 );
 ```
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/store-event.png)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/store-event.png)
 
 ```json
 {
@@ -330,7 +335,7 @@ CREATE TABLE [Snapshots] (
 );
 ```
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/store-snapshot.png)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/store-snapshot.png)
 
 ```json
 {
@@ -364,13 +369,13 @@ CREATE TABLE [Snapshots] (
 >
 > [Gunia, Kacper. "Event Sourcing: Snapshotting", _domaincentric.net_, last edited on 5 Jun 2020](https://domaincentric.net/blog/event-sourcing-snapshotting)
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/snapshot.png)       
-[Fig. 17: Comartin, Derek. _Snapshots in Event Sourcing for Rehydrating Aggregates_](https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/snapshot.png)       
+[Fig. 13: Comartin, Derek. _Snapshots in Event Sourcing for Rehydrating Aggregates_](https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates)
 
 Snapshot stream:
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/stream_snapshot.png)        
-[Fig. 18: Comartin, Derek. _Snapshots in Event Sourcing for Rehydrating Aggregates_](https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/stream_snapshot.png)        
+[Fig. 14: Comartin, Derek. _Snapshots in Event Sourcing for Rehydrating Aggregates_](https://codeopinion.com/snapshots-in-event-sourcing-for-rehydrating-aggregates)
 
 </details>
 
@@ -389,8 +394,8 @@ Snapshot stream:
 >
 > [Jansen, Grace & Saladas, Johanna. "Advantages of the event-driven architecture pattern." _developer.ibm.com_, IBM Developer, last edited on 12 May 2021](https://developer.ibm.com/articles/advantages-of-an-event-driven-architecture)
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/eda.png)  
-[Fig. 5: Uit de Bos, Oskar. _A simple illustration of events using the publish/subscribe messagingmodel_](https://medium.com/swlh/the-engineers-guide-to-event-driven-architectures-benefits-and-challenges-3e96ded8568b)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/eda.png)  
+[Fig. 15: Uit de Bos, Oskar. _A simple illustration of events using the publish/subscribe messagingmodel_](https://medium.com/swlh/the-engineers-guide-to-event-driven-architectures-benefits-and-challenges-3e96ded8568b)
 
 ### Topologies
 
@@ -411,8 +416,8 @@ Snapshot stream:
 >
 > [Richards, Mark. "Broker Topology." _Software Architecture Patterns by Mark Richards_, O'Reilly](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch02.html)
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/broker_topology_eda.png)      
-[Fig. 7: Richards, Mark. "Broker Topology." _Software Architecture Patterns by Mark Richards_, O'Reilly](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch02.html)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/broker_topology_eda.png)      
+[Fig. 16: Richards, Mark. "Broker Topology." _Software Architecture Patterns by Mark Richards_, O'Reilly](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch02.html)
 
 #### Choreography-based SAGA
 
@@ -421,8 +426,8 @@ Snapshot stream:
 >
 > [Richardson, Chris. "Implementing a choreography-based saga." _Managing data consistency in a microservice architecture using Sagas_, chrisrichardson.net](https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html#:%7E:text=In%20a%20choreography%2Dbased%20saga,and%20publishes%20a%20domain%20event.&text=The%20step%20of%20the%20saga,data%20and%20emits%20an%20event)
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/Saga.png)     
-[Fig. 8: Richardson, Chris. "Implementing a choreography-based saga." _Managing data consistency in a microservice architecture using Sagas_, chrisrichardson.net](https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html#:%7E:text=In%20a%20choreography%2Dbased%20saga,and%20publishes%20a%20domain%20event.&text=The%20step%20of%20the%20saga,data%20and%20emits%20an%20event)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/Saga.png)     
+[Fig. 17: Richardson, Chris. "Implementing a choreography-based saga." _Managing data consistency in a microservice architecture using Sagas_, chrisrichardson.net](https://chrisrichardson.net/post/sagas/2019/08/15/developing-sagas-part-3.html#:%7E:text=In%20a%20choreography%2Dbased%20saga,and%20publishes%20a%20domain%20event.&text=The%20step%20of%20the%20saga,data%20and%20emits%20an%20event)
 
 #### Orchestration vs Choreography
 
@@ -435,8 +440,8 @@ _SAGA - A long story about past events over a long period of time._
 
 #### Orchestration
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/orchestration.png)    
-Fig. 9: Falcão, Antônio. "Order orchestration-based saga".
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/orchestration.png)    
+Fig. 18: Falcão, Antônio. "Order orchestration-based saga".
 
 Benefits & drawbacks of Orchestration
 
@@ -449,8 +454,8 @@ Benefits & drawbacks of Orchestration
 
 #### Choreography
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/choreography.png)     
-Fig. 10: Falcão, Antônio. "Order choreography-based saga".
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/choreography.png)     
+Fig. 19: Falcão, Antônio. "Order choreography-based saga".
 
 Benefits & drawbacks of Choreography
 
@@ -525,8 +530,8 @@ Comparison overview:
 
 <br>
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/EventSourcing_EDA.jpeg)   
-[Fig. 19: Nowak, Aleksander. _Understanding Event-Driven Design Patterns for Microservices_](https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-microservices-659b3c9fb51f)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/EventSourcing_EDA.jpeg)   
+[Fig. 20: Nowak, Aleksander. _Understanding Event-Driven Design Patterns for Microservices_](https://levelup.gitconnected.com/understanding-event-driven-design-patterns-for-microservices-659b3c9fb51f)
 
 </details>
 
@@ -570,18 +575,18 @@ Comparison overview:
 >
 > ["What is the CQRS pattern?" _MSDN_, Microsoft Docs, last edited on 2 Nov 2020](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs)
 
-![](.assets/img/cqrs.png)   
-[Fig. 20: Bürckel, Marco. _Some thoughts on using CQRS without Event Sourcing_](https://medium.com/@mbue/some-thoughts-on-using-cqrs-without-event-sourcing-938b878166a2)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/cqrs.png)   
+[Fig. 21: Bürckel, Marco. _Some thoughts on using CQRS without Event Sourcing_](https://medium.com/@mbue/some-thoughts-on-using-cqrs-without-event-sourcing-938b878166a2)
 
 <br>
 
-![](.assets/img/cqrs.jpg)   
-[Fig. 21: Go, Jayson. _From Monolith to Event-Driven: Finding Seams in Your Future Architecture_](https://www.eventstore.com/blog/what-is-event-sourcing)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/cqrs.jpg))   
+[Fig. 22: Go, Jayson. _From Monolith to Event-Driven: Finding Seams in Your Future Architecture_](https://www.eventstore.com/blog/what-is-event-sourcing)
 
 ### Command's pipeline
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/add-ha-message-queue.png)     
-[Fig. 6: MSDN. _Use message queues (out-of-proc) in the command's pipeline_](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/microservice-application-layer-implementation-web-api#use-message-queues-out-of-proc-in-the-commands-pipeline)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/add-ha-message-queue.png)     
+[Fig. 23: MSDN. _Use message queues (out-of-proc) in the command's pipeline_](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/microservice-application-layer-implementation-web-api#use-message-queues-out-of-proc-in-the-commands-pipeline)
 
 ### Projections
 
@@ -589,7 +594,7 @@ To cover this topic was
 prepared [this presentation](https://www.canva.com/design/DAEY9ttmPgY/F_lh7TXQEdG-su-qojEjdw/view?utm_content=DAEY9ttmPgY&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
 with some different strategies and ways to implement projections.
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/projections.svg)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/projections.svg)
 
 ### CQRS + Event Sourcing
 
@@ -604,13 +609,18 @@ with some different strategies and ways to implement projections.
 >
 > ["Event Sourcing and CQRS pattern" _MSDN_, Microsoft Docs, last edited on 02 Nov 2020](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs#event-sourcing-and-cqrs-pattern)
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/cqrs-eventsourcing-diagram.png)
-[Fig. 22: Whittaker, Daniel. _CQRS + Event Sourcing – Step by Step_](https://danielwhittaker.me/2020/02/20/cqrs-step-step-guide-flow-typical-application)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/cqrs-eventsourcing-diagram.png)
+[Fig. 24: Whittaker, Daniel. _CQRS + Event Sourcing – Step by Step_](https://danielwhittaker.me/2020/02/20/cqrs-step-step-guide-flow-typical-application)
 
 <br>
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/cqrs-eventsourcing-flow.png)  
-[Fig. 23: Katwatka, Piotr. _Event Sourcing with CQRS_](https://www.divante.com/blog/event-sourcing-open-loyalty-engineering)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/cqrs-eventsourcing-flow.png)  
+[Fig. 25: Katwatka, Piotr. _Event Sourcing with CQRS_](https://www.divante.com/blog/event-sourcing-open-loyalty-engineering)
+
+#### Capability Map
+
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/CQRS_ES_Capability_Map.jpeg)
+[Fig. 26: Nair, Vijay. _Distilling the CQRS/ES Capability_](https://developer.axoniq.io/w/distilling-the-cqrs/es-capability)
 
 ### Commands vs Events
 
@@ -712,8 +722,8 @@ be updated or modified according to the instructions in the command. If the comm
 Task-based UIs and CQRS can be used together to provide users with a flexible and efficient way to interact with a system and complete specific tasks. This can make them more efficient and
 user-friendly than more general-purpose UIs.
 
-![](.assets/img/task_based_ui.png)  
-[Fig. 29: Murali, Bala. _What is Task Based UI_](https://medium.com/@baladotcom/what-is-task-based-ui-60a44ddfd968)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/task_based_ui.png)  
+[Fig. 26: Murali, Bala. _What is Task Based UI_](https://medium.com/@baladotcom/what-is-task-based-ui-60a44ddfd968)
 
 </details>
 
@@ -736,20 +746,20 @@ user-friendly than more general-purpose UIs.
 >
 > [Brandolini, Alberto. "EventStorming", _EventStorming.com_, last edited on 2020](https://www.eventstorming.com)
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/event-storming.jpg)  
-[Fig. 24: Baas-Schwegler, Kenny & Richardson, Chris. _Picture that explains "Almost" Everything_](https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/event-storming.jpg)  
+[Fig. 27: Baas-Schwegler, Kenny & Richardson, Chris. _Picture that explains "Almost" Everything_](https://github.com/ddd-crew/eventstorming-glossary-cheat-sheet)
 
 ### EventStorming (WIP)
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/event-storming-wip.jpg)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/event-storming-wip.jpg)
 
 #### Authentication flow
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/authentication.jpg)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/authentication.jpg)
 
 ### From EventStorming to Event Sourcing
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/from-eventstorming-to-eventsourcing.png)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/from-eventstorming-to-eventsourcing.png)
 
 </details>
 
@@ -766,12 +776,12 @@ user-friendly than more general-purpose UIs.
 >
 > ["Clean Architecture." _Whatis_, last edited on 10 Mar 2019](https://whatis.techtarget.com/definition/clean-architecture)
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/CleanArchitecture.jpg)  
-[Fig. 27: C. Martin, Robert. _The Clean Architecture_](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/CleanArchitecture.jpg)  
+[Fig. 28: C. Martin, Robert. _The Clean Architecture_](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
 #### Diagram
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EDA.CleanArch.DDD.CQRS.EventSourcing/release/.assets/img/CleanArchitectureDiagram.png)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/CleanArchitectureDiagram.png)
 
 </details>
 
@@ -1045,16 +1055,36 @@ docker run --network=internal --name k6 --rm -i grafana/k6 run - <test.js
 
 ## :book: References
 
+### Books
+
 - [Evans, Eric (2003), Domain-Driven Design: Tackling Complexity in the Heart of Software.](https://www.amazon.com/dp-0321125215/dp/0321125215/ref=mt_other?_encoding=UTF8&me=&qid=1641385448)
 - [Hohpe, Gregor (2003), Enterprise Integration Patterns: Designing, Building, and Deploying Messaging Solutions](https://www.enterpriseintegrationpatterns.com/)
 - [Young, Greg (2012), Event Centric: Finding Simplicity in Complex Systems.](https://www.amazon.com/Event-Centric-Simplicity-Addison-Wesley-Signature/dp/0321768221)
 - [Vernon, Vaughn (2016), Domain-Driven Design Distilled.](https://www.amazon.com/dp-0134434420/dp/0134434420/ref=mt_other?_encoding=UTF8&me=&qid=1641385096)
 - [Richardson, Chris (2018), Microservices Patterns: With examples in Java.](https://www.amazon.com/-/pt/dp-B09782192F/dp/B09782192F/ref=mt_other?_encoding=UTF8&me=&qid=1641385683)
 
-### Complementary References
+### Articles
 
+- [Effective Aggregate Design Part I: Modeling a Single Aggregate](https://www.dddcommunity.org/wp-content/uploads/files/pdf_articles/Vernon_2011_1.pdf)
+- [Effective Aggregate Design Part II: Making Aggregates Work Together](https://www.dddcommunity.org/wp-content/uploads/files/pdf_articles/Vernon_2011_2.pdf)
+- [Effective Aggregate Design Part III: Gaining Insight Through Discovery](https://www.dddcommunity.org/wp-content/uploads/files/pdf_articles/Vernon_2011_3.pdf)
 - [CQRS Documents - Greg Young](https://cqrs.files.wordpress.com/2010/11/cqrs_documents.pdf)
 - [Versioning in an Event Sourced - Greg Young](https://leanpub.com/esversioning/read)
+- [Clarified CQRS - Udi Dahan](https://udidahan.com/wp-content/uploads/Clarified_CQRS.pdf)
+
+### Blogs
+
+- [Event-driven IO - Oskar Dudycz](https://event-driven.io/)
+- [Code Opinion - Derek Comartin](https://codeopinion.com/)
+- [Domain Centric - Kacper Gunia](https://domaincentric.net/)
+- [CQRS Event Sourcing - Daniel Whittaker](https://danielwhittaker.me/)
+- [Event Store - Alexey Zimarev](https://www.eventstore.com/blog)
+- [Mathias Verraes Student of Systems](https://verraes.net/)
+
+### Posts
+
+- [Modeling Uncertainty with Reactive DDD - Vaughn Vernon](https://www.infoq.com/articles/modeling-uncertainty-reactive-ddd/)
+- [Reactive DDD—When Concurrent Waxes Fluent - Vaughn Vernon](https://www.infoq.com/presentations/reactive-ddd/)
 - [Pattern: Event sourcing - Chris Richardson](https://microservices.io/patterns/data/event-sourcing.html)
 - [Clarified CQRS - Udi Dahan](https://udidahan.com/2009/12/09/clarified-cqrs/)
 - [Udi & Greg Reach CQRS Agreement](https://udidahan.com/2012/02/10/udi-greg-reach-cqrs-agreement/)
@@ -1075,13 +1105,19 @@ docker run --network=internal --name k6 --rm -i grafana/k6 run - <test.js
 - [Event Sourcing: Aggregates Vs Projections - Kacper Gunia](https://domaincentric.net/blog/event-sourcing-aggregates-vs-projections)
 - [Event Sourcing: Projections - Kacper Gunia](https://domaincentric.net/blog/event-sourcing-projections)
 - [Advantages of the event-driven architecture pattern - Grace Jansen & Johanna Saladas](https://developer.ibm.com/articles/advantages-of-an-event-driven-architecture/)
+- [CQRS - Martin Fowler](https://martinfowler.com/bliki/CQRS.html)
+
+### Projects
+
+- [Simple CQRS example - Greg Young](https://github.com/gregoryyoung/m-r)
+- [EventSourcing.NetCore - Oskar Dudycz](https://github.com/oskardudycz/EventSourcing.NetCore)
 
 ## :toolbox: Tech Stack
 
 ### Worker Services
 
-- [.NET 7](https://dotnet.microsoft.com/en-us/) - A free, multi/cross-platform and open-source framework;
-- [EF Core 7](https://devblogs.microsoft.com/dotnet/announcing-ef7/) - An open source object–relational mapping framework for ADO.NET;
+- [.NET 8](https://dotnet.microsoft.com/en-us/) - A free, multi/cross-platform and open-source framework;
+- [EF Core 8](https://devblogs.microsoft.com/dotnet/announcing-ef7/) - An open source object–relational mapping framework for ADO.NET;
 - [MSSQL](https://hub.docker.com/_/microsoft-mssql-server) - A relational database management system (Event Store Database);
 - [MongoDB](https://www.mongodb.com/docs/drivers/csharp/) - A source-available cross-platform document-oriented database (Projections Database);
 - [MassTransit](https://masstransit-project.com/) - Message Bus;
@@ -1090,7 +1126,7 @@ docker run --network=internal --name k6 --rm -i grafana/k6 run - <test.js
 
 ### Web API
 
-- [ASP.NET Core 7](https://devblogs.microsoft.com/dotnet/asp-net-core-updates-in-net-7-preview-1/) - A free, cross-platform and open-source web-development framework;
+- [ASP.NET Core 8](https://devblogs.microsoft.com/dotnet/asp-net-core-updates-in-net-7-preview-1/) - A free, cross-platform and open-source web-development framework;
 - [MassTransit](https://masstransit-project.com/) - Message Bus;
 - [FluentValidation](https://fluentvalidation.net/) - A popular .NET library for building strongly-typed validation rules;
 - [Serilog](https://serilog.net/) - A diagnostic logging to files, console and elsewhere.
@@ -1107,11 +1143,11 @@ All contributions are welcome. Please take a look at [contributing](./CONTRIBUTI
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/AntonioFalcao/EDA.CleanArch.DDD.CQRS.EventSourcing/tags).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/AntonioFalcao/EventualShop/tags).
 
 ## Authors
 
-> See the list of [contributors](https://github.com/AntonioFalcao/EDA.CleanArch.DDD.CQRS.EventSourcing/graphs/contributors) who participated in this project.
+> See the list of [contributors](https://github.com/AntonioFalcao/EventualShop/graphs/contributors) who participated in this project.
 
 ## License
 

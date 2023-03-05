@@ -1,5 +1,4 @@
 ﻿using Application.Abstractions;
-using Infrastructure.EventStore.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
@@ -9,8 +8,10 @@ public class UnitOfWork : IUnitOfWork
 {
     private readonly DatabaseFacade _database;
 
-    public UnitOfWork(EventStoreDbContext dbContext)
-        => _database = dbContext.Database;
+    public UnitOfWork(DbContext dbContext)
+    {
+        _database = dbContext.Database;
+    }
 
     public Task ExecuteAsync(Func<CancellationToken, Task> operationAsync, CancellationToken cancellationToken)
         => _database.CreateExecutionStrategy().ExecuteAsync(ct => ExecuteTransactionAsync(operationAsync, ct), cancellationToken);

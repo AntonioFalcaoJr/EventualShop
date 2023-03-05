@@ -17,50 +17,51 @@ namespace Infrastructure.EventBus.DependencyInjection.Extensions;
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddEventBus(this IServiceCollection services)
-        => services
-            .AddMassTransit(cfg =>
+        => services.AddMassTransit(cfg =>
+        {
+            cfg.SetKebabCaseEndpointNameFormatter();
+            cfg.AddConsumers(Assembly.GetExecutingAssembly());
+
+            cfg.UsingRabbitMq((context, bus) =>
             {
-                cfg.SetKebabCaseEndpointNameFormatter();
-                cfg.AddConsumers(Assembly.GetExecutingAssembly());
+                var options = context.GetRequiredService<IOptionsMonitor<EventBusOptions>>().CurrentValue;
 
-                cfg.UsingRabbitMq((context, bus) =>
+                bus.Host(
+                    hostAddress: options.ConnectionString,
+                    connectionName: $"{options.ConnectionName}.{AppDomain.CurrentDomain.FriendlyName}");
+
+                bus.UseMessageRetry(retry
+                    => retry.Incremental(
+                        retryLimit: options.RetryLimit,
+                        initialInterval: options.InitialInterval,
+                        intervalIncrement: options.IntervalIncrement));
+
+                bus.UseNewtonsoftJsonSerializer();
+
+                bus.ConfigureNewtonsoftJsonSerializer(settings =>
                 {
-                    var options = context.GetRequiredService<IOptionsMonitor<EventBusOptions>>().CurrentValue;
-
-                    bus.Host(options.ConnectionString);
-
-                    bus.UseMessageRetry(retry
-                        => retry.Incremental(
-                            retryLimit: options.RetryLimit,
-                            initialInterval: options.InitialInterval,
-                            intervalIncrement: options.IntervalIncrement));
-
-                    bus.UseNewtonsoftJsonSerializer();
-
-                    bus.ConfigureNewtonsoftJsonSerializer(settings =>
-                    {
-                        settings.Converters.Add(new TypeNameHandlingConverter(TypeNameHandling.Objects));
-                        settings.Converters.Add(new DateOnlyJsonConverter());
-                        settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
-                        return settings;
-                    });
-
-                    bus.ConfigureNewtonsoftJsonDeserializer(settings =>
-                    {
-                        settings.Converters.Add(new TypeNameHandlingConverter(TypeNameHandling.Objects));
-                        settings.Converters.Add(new DateOnlyJsonConverter());
-                        settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
-                        return settings;
-                    });
-
-                    bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
-                    bus.UseConsumeFilter(typeof(ContractValidatorFilter<>), context);
-                    bus.ConnectReceiveObserver(new LoggingReceiveObserver());
-                    bus.ConnectConsumeObserver(new LoggingConsumeObserver());
-                    bus.ConfigureEventReceiveEndpoints(context);
-                    bus.ConfigureEndpoints(context);
+                    settings.Converters.Add(new TypeNameHandlingConverter(TypeNameHandling.Objects));
+                    settings.Converters.Add(new DateOnlyJsonConverter());
+                    settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
+                    return settings;
                 });
+
+                bus.ConfigureNewtonsoftJsonDeserializer(settings =>
+                {
+                    settings.Converters.Add(new TypeNameHandlingConverter(TypeNameHandling.Objects));
+                    settings.Converters.Add(new DateOnlyJsonConverter());
+                    settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
+                    return settings;
+                });
+
+                bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
+                bus.UseConsumeFilter(typeof(ContractValidatorFilter<>), context);
+                bus.ConnectReceiveObserver(new LoggingReceiveObserver());
+                bus.ConnectConsumeObserver(new LoggingConsumeObserver());
+                bus.ConfigureEventReceiveEndpoints(context);
+                bus.ConfigureEndpoints(context);
             });
+        });
 
     public static IServiceCollection AddMessageValidators(this IServiceCollection services)
         => services.AddValidatorsFromAssemblyContaining(typeof(IMessage));

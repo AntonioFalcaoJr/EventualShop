@@ -1,10 +1,8 @@
 using Application.Abstractions;
 using Application.Abstractions.Gateways;
 using Domain.Abstractions.EventStore;
-using Infrastructure.EventStore.Abstractions;
 using Infrastructure.EventStore.Contexts;
 using Infrastructure.EventStore.DependencyInjection.Options;
-using Infrastructure.EventStore.UnitsOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,7 +18,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IEventStoreRepository, EventStoreRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-        services.AddDbContextPool<EventStoreDbContext>((provider, builder) =>
+        services.AddDbContextPool<DbContext, EventStoreDbContext>((provider, builder) =>
         {
             var configuration = provider.GetRequiredService<IConfiguration>();
             var options = provider.GetRequiredService<IOptionsMonitor<SqlServerRetryOptions>>();

@@ -18,7 +18,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IEventStoreRepository, EventStoreRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-        services.AddDbContextPool<EventStoreDbContext>((provider, builder) =>
+        services.AddDbContextPool<DbContext, EventStoreDbContext>((provider, builder) =>
         {
             var configuration = provider.GetRequiredService<IConfiguration>();
             var options = provider.GetRequiredService<IOptionsMonitor<SqlServerRetryOptions>>();

@@ -1,4 +1,4 @@
-﻿ARG SDK_VERSION="7.0.102"
+﻿ARG SDK_VERSION="8.0-preview"
 ARG BASE_ADRESS="mcr.microsoft.com/dotnet"
 
 FROM $BASE_ADRESS/sdk:$SDK_VERSION AS build

@@ -1,4 +1,4 @@
-﻿using Application.Abstractions;
+using Application.Abstractions;
 using Application.Abstractions.Gateways;
 using Contracts.Abstractions.Messages;
 using Domain.Abstractions.Aggregates;
@@ -34,9 +34,12 @@ public class ApplicationService : IApplicationService
             },
             cancellationToken: cancellationToken);
 
-    public IAsyncEnumerable<Guid> StreamAggregatesId(CancellationToken cancellationToken)
-        => _eventStoreGateway.StreamAggregatesId(cancellationToken);
+    public IAsyncEnumerable<Guid> StreamAggregatesId()
+        => _eventStoreGateway.StreamAggregatesId();
 
     public Task PublishEventAsync(IEvent @event, CancellationToken cancellationToken)
         => _eventBusGateway.PublishAsync(@event, cancellationToken);
+
+    public Task SchedulePublishAsync(IDelayedEvent @event, DateTimeOffset scheduledTime, CancellationToken cancellationToken)
+        => _eventBusGateway.SchedulePublishAsync(@event, scheduledTime, cancellationToken);
 }

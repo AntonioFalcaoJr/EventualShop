@@ -1,4 +1,3 @@
-using Application.Abstractions;
 using Application.Abstractions.Gateways;
 using Domain.Abstractions.EventStore;
 using Infrastructure.EventStore.Contexts;
@@ -16,9 +15,8 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<IEventStoreGateway, EventStoreGateway>();
         services.AddScoped<IEventStoreRepository, EventStoreRepository>();
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-        services.AddDbContextPool<EventStoreDbContext>((provider, builder) =>
+        services.AddDbContextPool<DbContext, EventStoreDbContext>((provider, builder) =>
         {
             var configuration = provider.GetRequiredService<IConfiguration>();
             var options = provider.GetRequiredService<IOptionsMonitor<SqlServerRetryOptions>>();

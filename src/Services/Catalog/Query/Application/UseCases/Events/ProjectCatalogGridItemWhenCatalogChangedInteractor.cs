@@ -39,7 +39,7 @@ public class ProjectCatalogGridItemWhenCatalogChangedInteractor : IProjectCatalo
             default,
             @event.Version);
 
-        await _projectionGateway.UpsertAsync(gridItem, cancellationToken);
+        await _projectionGateway.ReplaceInsertAsync(gridItem, cancellationToken);
     }
 
     public async Task InteractAsync(DomainEvent.CatalogDeactivated @event, CancellationToken cancellationToken)

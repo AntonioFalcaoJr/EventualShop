@@ -4,5 +4,5 @@ namespace Contracts.Services.ShoppingCart;
 
 public static class NotificationEvent
 {
-    public record ProjectionRebuildRequested(Guid AggregateId, string Name) : Message, IEvent;
+    public record CartProjectionRebuildRequested(Guid CartId, string Name) : Message, IEvent;
 }

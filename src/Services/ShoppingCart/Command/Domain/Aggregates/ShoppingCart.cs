@@ -1,4 +1,5 @@
 ﻿using Contracts.Abstractions.Messages;
+using Contracts.DataTransferObjects;
 using Contracts.Services.ShoppingCart;
 using Domain.Abstractions.Aggregates;
 using Domain.Entities.CartItems;
@@ -203,4 +204,9 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
 
     private Money DecreasedTotal(Money unitPrice, int quantity)
         => Total - unitPrice * quantity;
+
+    public static implicit operator Dto.ShoppingCart(ShoppingCart cart)
+        => new(cart.Id, cart.CustomerId, cart.Status, cart.BillingAddress, cart.ShippingAddress,
+            cart.Total, cart.TotalPayment, cart.AmountDue, cart.Items.Select(item => (Dto.CartItem)item),
+            cart.PaymentMethods.Select(method => (Dto.PaymentMethod)method), cart.IsDeleted);
 }

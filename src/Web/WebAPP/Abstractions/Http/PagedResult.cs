@@ -2,4 +2,4 @@
 
 namespace WebAPP.Abstractions.Http;
 
-public record PagedResult<T>(IEnumerable<T> Items, Page Page) : IPagedResult<T>;
+public record PagedResult<T>(IReadOnlyList<T> Items, Page Page) : IPagedResult<T>;

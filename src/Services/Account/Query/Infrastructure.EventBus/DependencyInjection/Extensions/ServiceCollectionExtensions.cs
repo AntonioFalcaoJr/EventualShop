@@ -25,7 +25,9 @@ public static class ServiceCollectionExtensions
             {
                 var options = context.GetRequiredService<IOptionsMonitor<EventBusOptions>>().CurrentValue;
 
-                bus.Host(options.ConnectionString);
+                bus.Host(
+                    hostAddress: options.ConnectionString,
+                    connectionName: $"{options.ConnectionName}.{AppDomain.CurrentDomain.FriendlyName}");
 
                 bus.UseMessageRetry(retry
                     => retry.Incremental(

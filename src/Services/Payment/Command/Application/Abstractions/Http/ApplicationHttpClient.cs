@@ -6,20 +6,20 @@ public abstract class ApplicationHttpClient
 {
     private readonly HttpClient _client;
 
-    protected ApplicationHttpClient(HttpClient client) 
+    protected ApplicationHttpClient(HttpClient client)
         => _client = client;
 
     protected Task<HttpResponse<TResponse>> GetAsync<TResponse>(string endpoint, CancellationToken cancellationToken)
         where TResponse : new()
-        => RequestAsync<TResponse>((client, cancellationToken) => client.GetAsync(endpoint, cancellationToken), cancellationToken);
+        => RequestAsync<TResponse>((client, ct) => client.GetAsync(endpoint, ct), cancellationToken);
 
     protected Task<HttpResponse<TResponse>> PostAsync<TRequest, TResponse>(string endpoint, TRequest request, CancellationToken cancellationToken)
         where TResponse : new()
-        => RequestAsync<TResponse>((client, cancellationToken) => client.PostAsJsonAsync(endpoint, request, cancellationToken), cancellationToken);
+        => RequestAsync<TResponse>((client, ct) => client.PostAsJsonAsync(endpoint, request, ct), cancellationToken);
 
     protected Task<HttpResponse<TResponse>> PutAsync<TRequest, TResponse>(string endpoint, TRequest request, CancellationToken cancellationToken)
         where TResponse : new()
-        => RequestAsync<TResponse>((client, cancellationToken) => client.PutAsJsonAsync(endpoint, request, cancellationToken), cancellationToken);
+        => RequestAsync<TResponse>((client, ct) => client.PutAsJsonAsync(endpoint, request, ct), cancellationToken);
 
     private async Task<HttpResponse<TResponse>> RequestAsync<TResponse>(Func<HttpClient, CancellationToken, Task<HttpResponseMessage>> request, CancellationToken cancellationToken)
         where TResponse : new()
@@ -28,9 +28,9 @@ public abstract class ApplicationHttpClient
 
         return new()
         {
-            Success = true /* TODO - response.IsSuccessStatusCode */,
+            Success = response.IsSuccessStatusCode,
             ActionResult = response.IsSuccessStatusCode
-                ? await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken: cancellationToken)
+                ? await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken: cancellationToken) ?? new()
                 : new()
         };
     }

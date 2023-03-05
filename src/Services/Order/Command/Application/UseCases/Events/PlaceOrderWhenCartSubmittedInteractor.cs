@@ -22,13 +22,13 @@ public class PlaceOrderWhenCartSubmittedInteractor : IPlaceOrderWhenCartSubmitte
         Order order = new();
 
         var command = new Command.PlaceOrder(
-            @event.CartId,
-            @event.CustomerId,
-            @event.Total,
-            @event.BillingAddress,
-            @event.ShippingAddress,
-            @event.Items,
-            @event.PaymentMethods);
+            @event.Cart.Id,
+            @event.Cart.CustomerId,
+            @event.Cart.Total,
+            @event.Cart.BillingAddress!,
+            @event.Cart.ShippingAddress!,
+            @event.Cart.Items,
+            @event.Cart.PaymentMethods);
 
         order.Handle(command);
 

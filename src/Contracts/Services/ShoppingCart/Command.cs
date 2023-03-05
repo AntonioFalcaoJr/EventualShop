@@ -29,5 +29,5 @@ public static class Command
 
     public record RemovePaymentMethod(Guid CartId, Guid MethodId) : Message, ICommand;
 
-    public record RebuildProjection(string Name) : Message, ICommand;
+    public record RebuildCartProjection(string Projection) : Message, ICommand;
 }

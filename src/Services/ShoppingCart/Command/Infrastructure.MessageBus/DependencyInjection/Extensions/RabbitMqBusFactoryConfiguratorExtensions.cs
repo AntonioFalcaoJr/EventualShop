@@ -10,6 +10,7 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistrationContext context)
     {
         cfg.ConfigureEventReceiveEndpoint<PublishCartSubmittedWhenCartCheckedOutConsumer, DomainEvent.CartCheckedOut>(context);
+        cfg.ConfigureEventReceiveEndpoint<PublishCartProjectionRebuiltWhenRequestedConsumer, NotificationEvent.CartProjectionRebuildRequested>(context);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistrationContext context)
