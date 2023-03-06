@@ -40,7 +40,7 @@ public class ProjectCartDetailsWhenCartChangedInteractorTests : IClassFixture<Sh
         var response = await Policy
             .HandleResult<GetResponse>(response => response.OneOfCase is GetResponse.OneOfOneofCase.NotFound)
             .RetryAsync()
-            .ExecuteAsync(async () => await _client.GetShoppingCartDetailsAsync(new(@event.CartId.ToString())));
+            .ExecuteAsync(async () => await _client.GetShoppingCartDetailsAsync(new() { CartId = @event.CartId.ToString() }));
 
         response.NotFound.Should().BeNull();
         response.Projection.TryUnpack<ShoppingCartDetails>(out var projection).Should().BeTrue();
