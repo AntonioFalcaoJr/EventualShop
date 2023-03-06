@@ -1,5 +1,4 @@
 ﻿using Contracts.Services.ShoppingCart.Protobuf;
-using GrpcService;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
