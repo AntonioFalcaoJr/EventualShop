@@ -22,7 +22,7 @@ public class ProjectCartItemListItemWhenCartChangedInteractor : IProjectCartItem
     public async Task InteractAsync(DomainEvent.CartItemAdded @event, CancellationToken cancellationToken)
     {
         Projection.ShoppingCartItemListItem cartItemListItem = new(
-            new("b7325dbf-5b88-45da-b88b-474841e7c66b"),
+            @event.ItemId,
             @event.CartId,
             @event.Product.Name,
             @event.Quantity,

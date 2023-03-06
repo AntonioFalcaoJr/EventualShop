@@ -6,10 +6,8 @@ using Infrastructure.EventBus.DependencyInjection.Options;
 using Infrastructure.EventBus.PipeFilters;
 using Infrastructure.EventBus.PipeObservers;
 using MassTransit;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
@@ -17,29 +15,39 @@ namespace Infrastructure.EventBus.DependencyInjection.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddEventBus(this IServiceCollection services, IWebHostEnvironment environment)
+    public static IServiceCollection AddEventBus(this IServiceCollection services)
         => services.AddMassTransit(cfg =>
         {
             cfg.SetKebabCaseEndpointNameFormatter();
             cfg.AddConsumers(Assembly.GetExecutingAssembly());
 
-            if (environment.IsEnvironment("Testing"))
-                cfg.UsingInMemory((context, bus) =>
-                {
-                    var options = context.GetRequiredService<IOptionsMonitor<EventBusOptions>>().CurrentValue;
-                    bus.Host(options.ConnectionString);
-                    bus.ConfigureBus(options, context);
-                });
-            else
-                cfg.UsingRabbitMq((context, bus) =>
-                {
-                    var options = context.GetRequiredService<IOptionsMonitor<EventBusOptions>>().CurrentValue;
-                    bus.Host(options.ConnectionString);
-                    bus.ConfigureBus(options, context);
-                });
+            cfg.UsingRabbitMq((context, bus) =>
+            {
+                var options = context.GetRequiredService<IOptionsMonitor<EventBusOptions>>().CurrentValue;
+
+                bus.Host(
+                    hostAddress: options.ConnectionString,
+                    connectionName: $"{options.ConnectionName}.{AppDomain.CurrentDomain.FriendlyName}");
+
+                bus.ConfigureBus(options, context);
+            });
         });
 
-    private static void ConfigureBus<T>(this IBusFactoryConfigurator<T> bus, EventBusOptions options, IBusRegistrationContext context) 
+    public static IServiceCollection AddTestingEventBus(this IServiceCollection services)
+        => services.AddMassTransit(cfg =>
+        {
+            cfg.SetKebabCaseEndpointNameFormatter();
+            cfg.AddConsumers(Assembly.GetExecutingAssembly());
+
+            cfg.UsingInMemory((context, bus) =>
+            {
+                var options = context.GetRequiredService<IOptionsMonitor<EventBusOptions>>().CurrentValue;
+                bus.Host(options.ConnectionString);
+                bus.ConfigureBus(options, context);
+            });
+        });
+
+    private static void ConfigureBus<T>(this IBusFactoryConfigurator<T> bus, EventBusOptions options, IBusRegistrationContext context)
         where T : IReceiveEndpointConfigurator
     {
         bus.UseMessageRetry(retry

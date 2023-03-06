@@ -1,46 +1,53 @@
-using Application.Abstractions;
+using System.Globalization;
+using Contracts.Abstractions.Protobuf;
 using Contracts.Services.ShoppingCart;
+using Contracts.Services.ShoppingCart.Protobuf;
 using FluentAssertions;
-using Grpc.Net.Client;
-using GrpcService;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
+using Polly;
 using Xunit;
+using static Contracts.Services.ShoppingCart.Protobuf.ShoppingCartService;
 
 namespace ShoppingCartQueryStackIntegrationTests;
 
-public class ProjectCartDetailsWhenCartChangedInteractorTests : IClassFixture<TestingWebApplicationFactory<Program>>
+public class ProjectCartDetailsWhenCartChangedInteractorTests : IClassFixture<ShoppingCartServiceClientFixture>
 {
-    private static readonly TimeSpan Delay = TimeSpan.FromSeconds(1);
-    private readonly IPublishEndpoint _bus;
+    private readonly IPublishEndpoint _publishEndpoint;
+    private readonly ShoppingCartServiceClient _client;
 
-    public ProjectCartDetailsWhenCartChangedInteractorTests()
+    public ProjectCartDetailsWhenCartChangedInteractorTests(ShoppingCartServiceClientFixture factory)
     {
-        var factory = new TestingWebApplicationFactory<Program>();
-        _bus = factory.Services.GetRequiredService<IPublishEndpoint>();
-        var client = factory.CreateDefaultClient();
-        var grpcChannel = GrpcChannel.ForAddress(client.BaseAddress, new() { HttpClient = client });
-        var service = grpcChannel.
+        _client = factory.Services.GetRequiredService<ShoppingCartServiceClient>();
+        _publishEndpoint = factory.Services.GetRequiredService<IPublishEndpoint>();
     }
 
     [Fact]
     public async Task CartDetailsShouldBeProjectedWhenCartCreated()
     {
-        DomainEvent.CartCreated @event = new(Guid.NewGuid(), Guid.NewGuid(), new("0.00", "USD"), "Empty", 1);
+        // Given
+        DomainEvent.CartCreated @event = new(
+            CartId: Guid.NewGuid(),
+            CustomerId: Guid.NewGuid(),
+            Total: new(decimal.Zero.ToString(CultureInfo.InvariantCulture), "USD"),
+            Status: "Empty",
+            Version: 1);
 
-        // Act
-        await _bus.Publish(@event, CancellationToken.None);
-        await Task.Delay(Delay);
+        // When
+        await _publishEndpoint.Publish(@event, CancellationToken.None);
 
-        // Assert
-        var projection = await _projectionGateway.GetAsync(@event.CartId, CancellationToken.None);
+        // Then
+        var response = await Policy
+            .HandleResult<GetResponse>(response => response.OneOfCase is GetResponse.OneOfOneofCase.NotFound)
+            .RetryAsync()
+            .ExecuteAsync(async () => await _client.GetShoppingCartDetailsAsync(new(@event.CartId.ToString())));
 
-        projection.Should().NotBeNull();
-        projection!.Id.Should().Be(@event.CartId);
-        projection.CustomerId.Should().Be(@event.CustomerId);
-        projection.Total.Should().Be(@event.Total);
+        response.NotFound.Should().BeNull();
+        response.Projection.TryUnpack<ShoppingCartDetails>(out var projection).Should().BeTrue();
+
+        projection.CartId.Should().Be(@event.CartId.ToString());
+        projection.CustomerId.Should().Be(@event.CustomerId.ToString());
+        projection.Total.Should().BeEquivalentTo(@event.Total);
         projection.Status.Should().Be(@event.Status);
-        projection.IsDeleted.Should().BeFalse();
-        projection.Version.Should().Be(@event.Version);
     }
 }
