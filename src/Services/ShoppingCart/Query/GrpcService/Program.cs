@@ -81,8 +81,4 @@ finally
     await app.DisposeAsync();
 }
 
-// TODO - Review it! Integration tests need it, at this time.
-namespace GrpcService
-{
-    public partial class Program { }
-}
+public partial class Program { }
