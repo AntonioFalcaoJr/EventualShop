@@ -40,8 +40,11 @@ builder.Host.ConfigureServices((context, services) =>
                 .AllowAnyHeader()
                 .AllowAnyMethod()));
 
+    if (context.HostingEnvironment.IsEnvironment("Testing"))
+        services.AddTestingEventBus();
+    else services.AddEventBus();
+
     services.AddGrpc();
-    services.AddEventBus();
     services.AddMessageValidators();
     services.AddProjections();
     services.AddInteractors();
@@ -77,3 +80,5 @@ finally
     Log.CloseAndFlush();
     await app.DisposeAsync();
 }
+
+public partial class Program { }

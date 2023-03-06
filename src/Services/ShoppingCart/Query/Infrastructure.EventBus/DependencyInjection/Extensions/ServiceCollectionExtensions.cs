@@ -29,38 +29,58 @@ public static class ServiceCollectionExtensions
                     hostAddress: options.ConnectionString,
                     connectionName: $"{options.ConnectionName}.{AppDomain.CurrentDomain.FriendlyName}");
 
-                bus.UseMessageRetry(retry
-                    => retry.Incremental(
-                        retryLimit: options.RetryLimit,
-                        initialInterval: options.InitialInterval,
-                        intervalIncrement: options.IntervalIncrement));
-
-                bus.UseNewtonsoftJsonSerializer();
-
-                bus.ConfigureNewtonsoftJsonSerializer(settings =>
-                {
-                    settings.Converters.Add(new TypeNameHandlingConverter(TypeNameHandling.Objects));
-                    settings.Converters.Add(new DateOnlyJsonConverter());
-                    settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
-                    return settings;
-                });
-
-                bus.ConfigureNewtonsoftJsonDeserializer(settings =>
-                {
-                    settings.Converters.Add(new TypeNameHandlingConverter(TypeNameHandling.Objects));
-                    settings.Converters.Add(new DateOnlyJsonConverter());
-                    settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
-                    return settings;
-                });
-
-                bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
-                bus.UseConsumeFilter(typeof(ContractValidatorFilter<>), context);
-                bus.ConnectReceiveObserver(new LoggingReceiveObserver());
-                bus.ConnectConsumeObserver(new LoggingConsumeObserver());
-                bus.ConfigureEventReceiveEndpoints(context);
-                bus.ConfigureEndpoints(context);
+                bus.ConfigureBus(options, context);
             });
         });
+
+    public static IServiceCollection AddTestingEventBus(this IServiceCollection services)
+        => services.AddMassTransit(cfg =>
+        {
+            cfg.SetKebabCaseEndpointNameFormatter();
+            cfg.AddConsumers(Assembly.GetExecutingAssembly());
+
+            cfg.UsingInMemory((context, bus) =>
+            {
+                var options = context.GetRequiredService<IOptionsMonitor<EventBusOptions>>().CurrentValue;
+                bus.Host(options.ConnectionString);
+                bus.ConfigureBus(options, context);
+            });
+        });
+
+    private static void ConfigureBus<T>(this IBusFactoryConfigurator<T> bus, EventBusOptions options, IBusRegistrationContext context)
+        where T : IReceiveEndpointConfigurator
+    {
+        bus.UseMessageRetry(retry
+            => retry.Incremental(
+                retryLimit: options.RetryLimit,
+                initialInterval: options.InitialInterval,
+                intervalIncrement: options.IntervalIncrement));
+
+        bus.UseNewtonsoftJsonSerializer();
+
+        bus.ConfigureNewtonsoftJsonSerializer(settings =>
+        {
+            settings.Converters.Add(new TypeNameHandlingConverter(TypeNameHandling.Objects));
+            settings.Converters.Add(new DateOnlyJsonConverter());
+            settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
+            return settings;
+        });
+
+        bus.ConfigureNewtonsoftJsonDeserializer(settings =>
+        {
+            settings.Converters.Add(new TypeNameHandlingConverter(TypeNameHandling.Objects));
+            settings.Converters.Add(new DateOnlyJsonConverter());
+            settings.Converters.Add(new ExpirationDateOnlyJsonConverter());
+            return settings;
+        });
+
+        bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
+        bus.UseConsumeFilter(typeof(ContractValidatorFilter<>), context);
+        bus.ConnectReceiveObserver(new LoggingReceiveObserver());
+        bus.ConnectConsumeObserver(new LoggingConsumeObserver());
+        bus.ConfigureEventReceiveEndpoints(context);
+        bus.ConfigureEndpoints(context);
+    }
 
     public static IServiceCollection AddMessageValidators(this IServiceCollection services)
         => services.AddValidatorsFromAssemblyContaining(typeof(IMessage));

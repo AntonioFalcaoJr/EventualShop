@@ -1,5 +1,4 @@
-﻿using ECommerce.WebAPI.IntegrationTests.Factories;
-using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Microsoft.AspNetCore.Mvc.Testing;
 using WebAPI;
 using Xunit;
 
