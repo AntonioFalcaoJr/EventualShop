@@ -31,7 +31,7 @@ services:
       context: .
       dockerfile: ./src/Services/Account/Query/GrpcService/Dockerfile
     environment:
-      ASPNETCORE_URLS: http://*:80
+      ASPNETCORE_HTTP_PORTS: 80
       ASPNETCORE_ENVIRONMENT: Staging
     depends_on:
       rabbitmq:
@@ -78,7 +78,7 @@ services:
       context: .
       dockerfile: ./src/Services/Catalog/Query/GrpcService/Dockerfile
     environment:
-      ASPNETCORE_URLS: http://*:80
+      ASPNETCORE_HTTP_PORTS: 80
       ASPNETCORE_ENVIRONMENT: Staging
     depends_on:
       rabbitmq:
@@ -125,7 +125,7 @@ services:
       context: .
       dockerfile: ./src/Services/Communication/Query/GrpcService/Dockerfile
     environment:
-      ASPNETCORE_URLS: http://*:80
+      ASPNETCORE_HTTP_PORTS: 80
       ASPNETCORE_ENVIRONMENT: Staging
     depends_on:
       rabbitmq:
@@ -172,7 +172,7 @@ services:
       context: .
       dockerfile: ./src/Services/Identity/Query/GrpcService/Dockerfile
     environment:
-      ASPNETCORE_URLS: http://*:80
+      ASPNETCORE_HTTP_PORTS: 80
       ASPNETCORE_ENVIRONMENT: Staging
     depends_on:
       rabbitmq:
@@ -219,7 +219,7 @@ services:
       context: .
       dockerfile: ./src/Services/Order/Query/GrpcService/Dockerfile
     environment:
-      ASPNETCORE_URLS: http://*:80
+      ASPNETCORE_HTTP_PORTS: 80
       ASPNETCORE_ENVIRONMENT: Staging
     depends_on:
       rabbitmq:
@@ -266,7 +266,7 @@ services:
       context: .
       dockerfile: ./src/Services/Payment/Query/GrpcService/Dockerfile
     environment:
-      ASPNETCORE_URLS: http://*:80
+      ASPNETCORE_HTTP_PORTS: 80
       ASPNETCORE_ENVIRONMENT: Staging
     depends_on:
       rabbitmq:
@@ -313,7 +313,7 @@ services:
       context: .
       dockerfile: ./src/Services/ShoppingCart/Query/GrpcService/Dockerfile
     environment:
-      ASPNETCORE_URLS: http://*:80
+      ASPNETCORE_HTTP_PORTS: 80
       ASPNETCORE_ENVIRONMENT: Staging
     depends_on:
       rabbitmq:
@@ -360,7 +360,7 @@ services:
       context: .
       dockerfile: ./src/Services/Warehouse/Query/GrpcService/Dockerfile
     environment:
-      ASPNETCORE_URLS: http://*:80
+      ASPNETCORE_HTTP_PORTS: 80
       ASPNETCORE_ENVIRONMENT: Staging
     depends_on:
       rabbitmq:
