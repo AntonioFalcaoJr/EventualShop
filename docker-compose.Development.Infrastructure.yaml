@@ -20,7 +20,7 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: "guest"
       RABBITMQ_DEFAULT_PASS: "guest"
-      RABBITMQ_DEFAULT_VHOST: "ecommerce"
+      RABBITMQ_DEFAULT_VHOST: "eventual-shop"
 
   mongodb:
     container_name: mongodb
