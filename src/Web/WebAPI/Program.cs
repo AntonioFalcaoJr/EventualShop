@@ -93,6 +93,8 @@ builder.Host.ConfigureServices((context, services) =>
             options.SubstituteApiVersionInUrl = true;
         });
 
+    services.AddHealthChecks();
+
     services.AddMessageBus();
     services.AddIdentityGrpcClient();
     services.AddAccountGrpcClient();
@@ -145,6 +147,8 @@ app.UseCorrelationId();
 app.UseCors();
 app.UseSerilogRequestLogging();
 
+app.MapHealthChecks("/healthz");
+
 app.NewVersionedApi("Accounts").MapAccountApiV1().MapAccountApiV2();
 app.NewVersionedApi("Catalogs").MapCatalogApiV1().MapCatalogApiV2();
 app.NewVersionedApi("Communications").MapCommunicationApiV1().MapCommunicationApiV2();
@@ -154,8 +158,7 @@ app.NewVersionedApi("Payments").MapPaymentApiV1().MapPaymentApiV2();
 app.NewVersionedApi("ShoppingCarts").MapShoppingCartApiV1().MapShoppingCartApiV2();
 app.NewVersionedApi("Warehouses").MapWarehouseApiV1().MapWarehouseApiV2();
 
-if (builder.Environment.IsDevelopment() ||
-    builder.Environment.IsStaging())
+if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
     app.ConfigureSwagger();
 
 try
@@ -174,8 +177,4 @@ finally
     await app.DisposeAsync();
 }
 
-// TODO - Review it! Integration tests need it, at this time.
-namespace WebAPI
-{
-    public partial class Program { }
-}
+public partial class Program { }

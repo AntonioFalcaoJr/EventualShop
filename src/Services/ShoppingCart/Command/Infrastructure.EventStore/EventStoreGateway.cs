@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using Application.Abstractions.Gateways;
 using Domain.Abstractions.Aggregates;
 using Domain.Abstractions.EventStore;
@@ -46,9 +45,6 @@ public class EventStoreGateway : IEventStoreGateway
         return (TAggregate)aggregate;
     }
 
-    public ConfiguredCancelableAsyncEnumerable<Guid> StreamAggregatesId(CancellationToken cancellationToken)
-        => _repository.StreamAggregatesId(cancellationToken);
-
-    public Task ExecuteTransactionAsync(Func<CancellationToken, Task> operationAsync, CancellationToken cancellationToken)
-        => _repository.ExecuteTransactionAsync(operationAsync, cancellationToken);
+    public IAsyncEnumerable<Guid> StreamAggregatesId()
+        => _repository.StreamAggregatesId();
 }

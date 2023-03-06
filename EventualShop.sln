@@ -227,6 +227,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.HTTP", "src\Services\Payment\Command\Infrastructure.HTTP\Infrastructure.HTTP.csproj", "{7E28C40D-112A-4272-A39B-B19D94D94A27}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCartQueryStackIntegrationTests", "test\ShoppingCartQueryStackIntegrationTests\ShoppingCartQueryStackIntegrationTests.csproj", "{3544375E-1B91-48D3-8151-352FBD60C306}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -556,6 +558,10 @@ Global
 		{7E28C40D-112A-4272-A39B-B19D94D94A27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E28C40D-112A-4272-A39B-B19D94D94A27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E28C40D-112A-4272-A39B-B19D94D94A27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3544375E-1B91-48D3-8151-352FBD60C306}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3544375E-1B91-48D3-8151-352FBD60C306}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3544375E-1B91-48D3-8151-352FBD60C306}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3544375E-1B91-48D3-8151-352FBD60C306}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4E404E16-E8CB-4A01-B42E-C1E624D12A49} = {A8107F9C-AC86-4467-8685-A17633E86715}
@@ -668,5 +674,6 @@ Global
 		{52DCACEE-EA08-4C41-A0EA-D0EF1C26B62A} = {E6C3F87B-F8BC-420B-93D2-79142AEAD909}
 		{93088C46-E7E7-43A9-8F81-D9B5B69A3155} = {E6C3F87B-F8BC-420B-93D2-79142AEAD909}
 		{7E28C40D-112A-4272-A39B-B19D94D94A27} = {DEB5F59C-62CA-490B-96AF-23026EDB565A}
+		{3544375E-1B91-48D3-8151-352FBD60C306} = {1D708AEE-2C8C-47FF-B937-B28716510488}
 	EndGlobalSection
 EndGlobal
