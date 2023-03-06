@@ -16,8 +16,8 @@ public class RegisterUserInteractor : IInteractor<Command.RegisterUser>
 
     public async Task InteractAsync(Command.RegisterUser command, CancellationToken cancellationToken)
     {
-        var aggregate = await _applicationService.LoadAggregateAsync<User>(command.UserId, cancellationToken);
-        aggregate.Handle(command);
-        await _applicationService.AppendEventsAsync(aggregate, cancellationToken);
+        var user = await _applicationService.LoadAggregateAsync<User>(command.UserId, cancellationToken);
+        user.Handle(command);
+        await _applicationService.AppendEventsAsync(user, cancellationToken);
     }
 }

@@ -4,7 +4,7 @@ using Contracts.Services.Account;
 
 namespace Application.UseCases.Queries;
 
-public class ListShippingAddressesInteractor : IInteractor<Query.ListShippingAddressesListItems, IPagedResult<Projection.ShippingAddressListItem>>
+public class ListShippingAddressesInteractor : IPagedInteractor<Query.ListShippingAddressesListItems, Projection.ShippingAddressListItem>
 {
     private readonly IProjectionGateway<Projection.ShippingAddressListItem> _projectionGateway;
 
@@ -13,6 +13,6 @@ public class ListShippingAddressesInteractor : IInteractor<Query.ListShippingAdd
         _projectionGateway = projectionGateway;
     }
 
-    public Task<IPagedResult<Projection.ShippingAddressListItem>?> InteractAsync(Query.ListShippingAddressesListItems query, CancellationToken cancellationToken)
+    public ValueTask<IPagedResult<Projection.ShippingAddressListItem>> InteractAsync(Query.ListShippingAddressesListItems query, CancellationToken cancellationToken)
         => _projectionGateway.ListAsync(query.Paging, cancellationToken);
 }

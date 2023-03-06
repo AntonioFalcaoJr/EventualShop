@@ -25,7 +25,7 @@ public class ProjectShippingAddressListItemWhenAccountChangedInteractor : IProje
                 false,
                 @event.Version);
 
-        await _projectionGateway.UpsertAsync(addressListItem, cancellationToken);
+        await _projectionGateway.ReplaceInsertAsync(addressListItem, cancellationToken);
     }
 
     public Task InteractAsync(DomainEvent.AccountDeleted @event, CancellationToken cancellationToken)

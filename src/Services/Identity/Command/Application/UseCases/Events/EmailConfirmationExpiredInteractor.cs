@@ -16,8 +16,8 @@ public class EmailConfirmationExpiredInteractor : IInteractor<DelayedEvent.Email
 
     public async Task InteractAsync(DelayedEvent.EmailConfirmationExpired @event, CancellationToken cancellationToken)
     {
-        var aggregate = await _applicationService.LoadAggregateAsync<User>(@event.UserId, cancellationToken);
-        aggregate.Handle(new Command.ExpiryEmail(aggregate.Id, @event.Email));
-        await _applicationService.AppendEventsAsync(aggregate, cancellationToken);
+        var user = await _applicationService.LoadAggregateAsync<User>(@event.UserId, cancellationToken);
+        user.Handle(new Command.ExpiryEmail(user.Id, @event.Email));
+        await _applicationService.AppendEventsAsync(user, cancellationToken);
     }
 }

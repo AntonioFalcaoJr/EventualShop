@@ -1,5 +1,4 @@
 using Application.Abstractions;
-using Contracts.Abstractions.Paging;
 using Contracts.Abstractions.Protobuf;
 using Contracts.Services.Payment;
 using Contracts.Services.Payment.Protobuf;
@@ -12,12 +11,12 @@ public class PaymentGrpcService : PaymentService.PaymentServiceBase
 {
     private readonly IInteractor<Query.GetPaymentDetails, Projection.PaymentDetails> _getPaymentDetailsInteractor;
     private readonly IInteractor<Query.GetPaymentMethodDetails, Projection.PaymentMethodDetails> _getPaymentMethodDetailsInteractor;
-    private readonly IInteractor<Query.ListPaymentMethodListItem, IPagedResult<Projection.PaymentMethodListItem>> _listPaymentMethodListItemInteractor;
+    private readonly IPagedInteractor<Query.ListPaymentMethodListItem, Projection.PaymentMethodListItem> _listPaymentMethodListItemInteractor;
 
     public PaymentGrpcService(
         IInteractor<Query.GetPaymentDetails, Projection.PaymentDetails> getPaymentDetailsInteractor,
         IInteractor<Query.GetPaymentMethodDetails, Projection.PaymentMethodDetails> getPaymentMethodDetailsInteractor,
-        IInteractor<Query.ListPaymentMethodListItem, IPagedResult<Projection.PaymentMethodListItem>> listPaymentMethodListItemInteractor)
+        IPagedInteractor<Query.ListPaymentMethodListItem, Projection.PaymentMethodListItem> listPaymentMethodListItemInteractor)
     {
         _getPaymentDetailsInteractor = getPaymentDetailsInteractor;
         _getPaymentMethodDetailsInteractor = getPaymentMethodDetailsInteractor;
@@ -46,7 +45,7 @@ public class PaymentGrpcService : PaymentService.PaymentServiceBase
     {
         var pagedResult = await _listPaymentMethodListItemInteractor.InteractAsync(request, context.CancellationToken);
 
-        return pagedResult!.Items.Any()
+        return pagedResult.Items.Any()
             ? new()
             {
                 PagedResult = new()

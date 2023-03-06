@@ -13,7 +13,7 @@ public abstract class AggregateTests
         where TAggregate : IAggregateRoot, new()
     {
         _aggregateRoot = new TAggregate();
-        _aggregateRoot.Load(events);
+        _aggregateRoot.LoadFromHistory(events);
         return this;
     }
 
@@ -29,7 +29,9 @@ public abstract class AggregateTests
     {
         _aggregateRoot?.Handle(_command!);
 
-        var events = _aggregateRoot?.UncommittedEvents.OfType<TEvent>().ToList();
+        var events = _aggregateRoot?.UncommittedEvents
+            .OfType<TEvent>()
+            .ToList();
 
         events.Should().NotBeNull();
         events.Should().NotBeEmpty();

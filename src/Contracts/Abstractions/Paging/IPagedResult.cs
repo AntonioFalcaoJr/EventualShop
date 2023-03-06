@@ -3,8 +3,8 @@ using MassTransit;
 namespace Contracts.Abstractions.Paging;
 
 [ExcludeFromTopology]
-public interface IPagedResult<out T>
+public interface IPagedResult<out TProjection>
 {
-    IEnumerable<T> Items { get; }
+    IReadOnlyList<TProjection> Items { get; }
     Page Page { get; }
 }

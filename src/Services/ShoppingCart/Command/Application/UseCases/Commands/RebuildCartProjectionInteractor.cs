@@ -15,7 +15,7 @@ public class RebuildCartProjectionInteractor : IInteractor<Command.RebuildCartPr
 
     public async Task InteractAsync(Command.RebuildCartProjection command, CancellationToken cancellationToken)
     {
-        await foreach (var cartId in _applicationService.StreamAggregatesId(cancellationToken))
+        await foreach (var cartId in _applicationService.StreamAggregatesId().WithCancellation(cancellationToken))
             await _applicationService.PublishEventAsync(new NotificationEvent.CartProjectionRebuildRequested(cartId, command.Projection), cancellationToken);
     }
 }

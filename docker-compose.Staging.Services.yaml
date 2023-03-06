@@ -31,7 +31,8 @@ services:
       context: .
       dockerfile: ./src/Services/Account/Query/GrpcService/Dockerfile
     environment:
-      DOTNET_ENVIRONMENT: Staging
+      ASPNETCORE_URLS: http://*:80
+      ASPNETCORE_ENVIRONMENT: Staging
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -77,7 +78,8 @@ services:
       context: .
       dockerfile: ./src/Services/Catalog/Query/GrpcService/Dockerfile
     environment:
-      DOTNET_ENVIRONMENT: Staging
+      ASPNETCORE_URLS: http://*:80
+      ASPNETCORE_ENVIRONMENT: Staging
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -123,7 +125,8 @@ services:
       context: .
       dockerfile: ./src/Services/Communication/Query/GrpcService/Dockerfile
     environment:
-      DOTNET_ENVIRONMENT: Staging
+      ASPNETCORE_URLS: http://*:80
+      ASPNETCORE_ENVIRONMENT: Staging
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -169,7 +172,8 @@ services:
       context: .
       dockerfile: ./src/Services/Identity/Query/GrpcService/Dockerfile
     environment:
-      DOTNET_ENVIRONMENT: Staging
+      ASPNETCORE_URLS: http://*:80
+      ASPNETCORE_ENVIRONMENT: Staging
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -215,7 +219,8 @@ services:
       context: .
       dockerfile: ./src/Services/Order/Query/GrpcService/Dockerfile
     environment:
-      DOTNET_ENVIRONMENT: Staging
+      ASPNETCORE_URLS: http://*:80
+      ASPNETCORE_ENVIRONMENT: Staging
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -261,7 +266,8 @@ services:
       context: .
       dockerfile: ./src/Services/Payment/Query/GrpcService/Dockerfile
     environment:
-      DOTNET_ENVIRONMENT: Staging
+      ASPNETCORE_URLS: http://*:80
+      ASPNETCORE_ENVIRONMENT: Staging
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -307,7 +313,8 @@ services:
       context: .
       dockerfile: ./src/Services/ShoppingCart/Query/GrpcService/Dockerfile
     environment:
-      DOTNET_ENVIRONMENT: Staging
+      ASPNETCORE_URLS: http://*:80
+      ASPNETCORE_ENVIRONMENT: Staging
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -353,7 +360,8 @@ services:
       context: .
       dockerfile: ./src/Services/Warehouse/Query/GrpcService/Dockerfile
     environment:
-      DOTNET_ENVIRONMENT: Staging
+      ASPNETCORE_URLS: http://*:80
+      ASPNETCORE_ENVIRONMENT: Staging
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -376,10 +384,10 @@ services:
       context: .
       dockerfile: ./src/Web/WebAPI/Dockerfile
     environment:
-      ASPNETCORE_URLS: http://*:80
+      ASPNETCORE_HTTP_PORTS: 80
       ASPNETCORE_ENVIRONMENT: Staging
-    ports:
-      - "80"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://webapi/healthz" ]
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -400,12 +408,11 @@ services:
       context: .
       dockerfile: ./src/Web/WebAPP/Dockerfile
     environment:
+      ASPNETCORE_HTTP_PORTS: 80
       ASPNETCORE_ENVIRONMENT: Staging
-    ports:
-      - "80"
     depends_on:
       webapi:
-        condition: service_started
+        condition: service_healthy
     networks:
       - internal
     deploy:

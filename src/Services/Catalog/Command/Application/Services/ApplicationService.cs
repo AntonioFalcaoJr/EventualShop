@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+﻿using Application.Abstractions;
 using Application.Abstractions.Gateways;
 using Contracts.Abstractions.Messages;
 using Domain.Abstractions.Aggregates;
@@ -9,13 +9,16 @@ public class ApplicationService : IApplicationService
 {
     private readonly IEventStoreGateway _eventStoreGateway;
     private readonly IEventBusGateway _eventBusGateway;
+    private readonly IUnitOfWork _unitOfWork;
 
     public ApplicationService(
         IEventStoreGateway eventStoreGateway,
-        IEventBusGateway eventBusGateway)
+        IEventBusGateway eventBusGateway,
+        IUnitOfWork unitOfWork)
     {
         _eventStoreGateway = eventStoreGateway;
         _eventBusGateway = eventBusGateway;
+        _unitOfWork = unitOfWork;
     }
 
     public Task<TAggregate> LoadAggregateAsync<TAggregate>(Guid id, CancellationToken cancellationToken)
@@ -23,7 +26,7 @@ public class ApplicationService : IApplicationService
         => _eventStoreGateway.LoadAggregateAsync<TAggregate>(id, cancellationToken);
 
     public Task AppendEventsAsync(IAggregateRoot aggregate, CancellationToken cancellationToken)
-        => _eventStoreGateway.ExecuteTransactionAsync(
+        => _unitOfWork.ExecuteAsync(
             operationAsync: async ct =>
             {
                 await _eventStoreGateway.AppendEventsAsync(aggregate, ct);
@@ -31,8 +34,8 @@ public class ApplicationService : IApplicationService
             },
             cancellationToken: cancellationToken);
 
-    public ConfiguredCancelableAsyncEnumerable<Guid> StreamAggregatesId(CancellationToken cancellationToken)
-        => _eventStoreGateway.StreamAggregatesId(cancellationToken);
+    public IAsyncEnumerable<Guid> StreamAggregatesId()
+        => _eventStoreGateway.StreamAggregatesId();
 
     public Task PublishEventAsync(IEvent @event, CancellationToken cancellationToken)
         => _eventBusGateway.PublishAsync(@event, cancellationToken);

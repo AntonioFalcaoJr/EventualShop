@@ -1,4 +1,4 @@
-using Infrastructure.Projections.Abstractions.Contexts;
+using Infrastructure.Projections.Abstractions;
 using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Projections;

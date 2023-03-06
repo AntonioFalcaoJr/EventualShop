@@ -4,7 +4,7 @@ using Contracts.Services.ShoppingCart;
 
 namespace Application.UseCases.Queries;
 
-public class ListPaymentMethodsListItemsInteractor : IInteractor<Query.ListPaymentMethodsListItems, IPagedResult<Projection.PaymentMethodListItem>>
+public class ListPaymentMethodsListItemsInteractor : IPagedInteractor<Query.ListPaymentMethodsListItems, Projection.PaymentMethodListItem>
 {
     private readonly IProjectionGateway<Projection.PaymentMethodListItem> _projectionGateway;
 
@@ -13,6 +13,6 @@ public class ListPaymentMethodsListItemsInteractor : IInteractor<Query.ListPayme
         _projectionGateway = projectionGateway;
     }
 
-    public Task<IPagedResult<Projection.PaymentMethodListItem>?> InteractAsync(Query.ListPaymentMethodsListItems query, CancellationToken cancellationToken)
+    public ValueTask<IPagedResult<Projection.PaymentMethodListItem>> InteractAsync(Query.ListPaymentMethodsListItems query, CancellationToken cancellationToken)
         => _projectionGateway.ListAsync(query.Paging, method => method.CartId == query.CartId, cancellationToken);
 }

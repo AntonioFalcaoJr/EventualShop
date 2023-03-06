@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using Application.Abstractions.Gateways;
 using Domain.Abstractions.Aggregates;
 using Domain.Abstractions.EventStore;
@@ -36,17 +35,16 @@ public class EventStoreGateway : IEventStoreGateway
         var snapshot = await _repository.GetSnapshotAsync(aggregateId, cancellationToken);
         var events = await _repository.GetStreamAsync(aggregateId, snapshot?.Version, cancellationToken);
 
-        if (snapshot is null && events is not { Count: > 0 })
+        if (snapshot is null && events is { Count: 0 })
             throw new AggregateNotFoundException(aggregateId, typeof(TAggregate));
 
         var aggregate = snapshot?.Aggregate ?? new TAggregate();
 
-        return (TAggregate)aggregate.Load(events);
+        aggregate.LoadFromHistory(events);
+
+        return (TAggregate)aggregate;
     }
 
-    public ConfiguredCancelableAsyncEnumerable<Guid> StreamAggregatesId(CancellationToken cancellationToken)
-        => _repository.StreamAggregatesId(cancellationToken);
-
-    public Task ExecuteTransactionAsync(Func<CancellationToken, Task> operationAsync, CancellationToken cancellationToken)
-        => _repository.ExecuteTransactionAsync(operationAsync, cancellationToken);
+    public IAsyncEnumerable<Guid> StreamAggregatesId()
+        => _repository.StreamAggregatesId();
 }

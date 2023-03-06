@@ -1,5 +1,5 @@
-﻿ARG ASPNET_VERSION="7.0.2"
-ARG SDK_VERSION="7.0.102"
+﻿ARG ASPNET_VERSION="8.0-preview"
+ARG SDK_VERSION="8.0-preview"
 ARG BASE_ADRESS="mcr.microsoft.com/dotnet"
 
 FROM $BASE_ADRESS/aspnet:$ASPNET_VERSION AS base
@@ -32,4 +32,15 @@ RUN dotnet publish -c Release --no-restore -v m -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "WebAPI.dll"]
+
+RUN apt-get update && apt-get install -y curl sudo
+RUN curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.6.2-amd64.deb
+RUN sudo dpkg -i filebeat-8.6.2-amd64.deb
+
+COPY filebeat.yml /etc/filebeat/
+RUN chmod go-w /etc/filebeat/filebeat.yml
+
+CMD filebeat modules enable elasticsearch
+CMD filebeat setup 
+CMD service filebeat start
+CMD dotnet WebAPI.dll
