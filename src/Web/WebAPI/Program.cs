@@ -177,8 +177,4 @@ finally
     await app.DisposeAsync();
 }
 
-// TODO - Review it! Integration tests need it, at this time.
-namespace WebAPI
-{
-    public partial class Program { }
-}
+public partial class Program { }
