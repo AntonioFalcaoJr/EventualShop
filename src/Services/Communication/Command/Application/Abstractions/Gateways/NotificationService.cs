@@ -45,10 +45,10 @@ public class NotificationService : INotificationService
         {
             var status = await InvokeGateway(method.Option, (gateway, option) => gateway.CancelAsync(option, cancellationToken));
 
-            notification.Handle(status switch
-            {
-                // TODO
-            });
+            // notification.Handle(status switch
+            // {
+            //     // TODO
+            // });
         }
     }
 
