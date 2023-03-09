@@ -9,6 +9,7 @@ public sealed class PaymentStatus : SmartEnum<PaymentStatus>
     private PaymentStatus(string name, int value)
         : base(name, value) { }
 
+    public static readonly PaymentStatus Empty = new(nameof(Empty), 0);
     public static readonly PaymentStatus Ready = new(nameof(Ready), 1);
     public static readonly PaymentStatus Completed = new(nameof(Completed), 2);
     public static readonly PaymentStatus NotCompleted = new(nameof(NotCompleted), 3);

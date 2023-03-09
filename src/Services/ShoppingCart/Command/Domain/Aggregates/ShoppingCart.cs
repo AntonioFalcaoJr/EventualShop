@@ -26,7 +26,7 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
     public CartStatus Status { get; private set; } = CartStatus.Empty;
     public Address? BillingAddress { get; private set; }
     public Address? ShippingAddress { get; private set; }
-    public Money Total { get; private set; } = Money.Zero(Currency.Unknown);
+    public Money Total { get; private set; } = Money.Zero(Currency.Undefined);
     private bool SameBillingShippingAddress { get; set; } = true;
 
     public Money TotalPayment

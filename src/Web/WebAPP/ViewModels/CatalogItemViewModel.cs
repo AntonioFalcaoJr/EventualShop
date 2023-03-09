@@ -7,7 +7,7 @@ public class CatalogItemViewModel
     public Guid Id { get; set; }
     public Guid InventoryId { get; set; }
     public ProductViewModel? ProductViewModel { get; set; }
-    public Dto.Money UnitPrice { get; set; }
+    public Dto.Money UnitPrice { get; set; } = new("0.000", "Unknown");
     public string? Sku { get; set; }
     public int Quantity { get; private set; }
 
