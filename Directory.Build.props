@@ -46,7 +46,7 @@
         <Microsoft_Mvc_NewtonsoftJso_Version>8.0.0-preview.1.23112.2</Microsoft_Mvc_NewtonsoftJso_Version>
 
         <!--Serilog-->
-        <Serilog_Version>3.0.0-dev-01910</Serilog_Version>
+        <Serilog_Version>3.0.0-dev-01921</Serilog_Version>
         <Serilog_AspNetCore_Version>6.1.1-dev-00295</Serilog_AspNetCore_Version>
         <Serilog_Extensions_Version>5.0.1</Serilog_Extensions_Version>
         <Serilog_Settings_Version>3.5.0-dev-00383</Serilog_Settings_Version>
