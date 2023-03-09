@@ -7,6 +7,7 @@ public class OrderStatus : SmartEnum<OrderStatus>
     public OrderStatus(string name, int value) 
         : base(name, value) { }
     
+    public static readonly OrderStatus Empty = new(nameof(Empty), 0);
     public static readonly OrderStatus Confirmed = new(nameof(Confirmed), 1);
     public static readonly OrderStatus PendingPayment = new(nameof(PendingPayment), 2);
     public static readonly OrderStatus Failed = new(nameof(Failed), 3);

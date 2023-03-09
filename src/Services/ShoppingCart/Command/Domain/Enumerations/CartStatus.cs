@@ -27,24 +27,24 @@ public class CartStatus : SmartEnum<CartStatus>
     public class EmptyStatus : CartStatus
     {
         public EmptyStatus()
-            : base(nameof(Empty), 1) { }
+            : base(nameof(Empty), 0) { }
     }
 
     public class ActiveStatus : CartStatus
     {
         public ActiveStatus()
-            : base(nameof(Active), 2) { }
+            : base(nameof(Active), 1) { }
     }
 
     public class AbandonedStatus : CartStatus
     {
         public AbandonedStatus()
-            : base(nameof(Abandoned), 3) { }
+            : base(nameof(Abandoned), 2) { }
     }
 
     public class CheckedOutStatus : CartStatus
     {
         public CheckedOutStatus()
-            : base(nameof(CheckedOut), 4) { }
+            : base(nameof(CheckedOut), 3) { }
     }
 }

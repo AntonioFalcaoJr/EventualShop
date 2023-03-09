@@ -16,9 +16,9 @@ public class Payment : AggregateRoot<PaymentValidator>
     private readonly List<PaymentMethod> _methods = new();
 
     public Guid OrderId { get; private set; }
-    public Money Amount { get; private set; }
-    public PaymentStatus? Status { get; private set; }
-    public Address? BillingAddress { get; private set; }
+    public Money Amount { get; private set; } = Money.Zero(Currency.Undefined);
+    public PaymentStatus Status { get; private set; } = PaymentStatus.Empty;
+    public Address BillingAddress { get; private set; } = default!;
 
     public Money AmountDue => Amount with
     {

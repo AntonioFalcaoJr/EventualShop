@@ -13,7 +13,7 @@ public record Currency(string IsoCode, string Symbol, int DecimalPlaces, string 
     public static readonly Currency CNY = new("CNY", "CNY", 2, "Chinese yuan", "China", "zh-CN");
     public static readonly Currency INR = new("INR", "INR", 2, "Indian rupee", "India", "hi-IN");
     public static readonly Currency MXN = new("MXN", "Mex$", 2, "Mexican peso", "Mexico", "es-MX");
-    public static readonly Currency Unknown = new("Unknown", "Unknown", 0, "Unknown", "Unknown", "Unknown");
+    public static readonly Currency Undefined = new("Undefined", "Undefined", 0, "Undefined", "Undefined", "Undefined");
 
     public static implicit operator string(Currency currency)
         => currency.Symbol;
@@ -32,7 +32,7 @@ public record Currency(string IsoCode, string Symbol, int DecimalPlaces, string 
             { } when CNY == currency => CNY,
             { } when INR == currency => INR,
             { } when MXN == currency => MXN,
-            _ => Unknown
+            _ => Undefined
         };
 
     public static bool operator ==(Currency currency, string value)
