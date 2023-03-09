@@ -20,10 +20,10 @@ public class Order : AggregateRoot<OrderValidator>
     private readonly List<PaymentMethod> _paymentMethods = new();
 
     public Guid CustomerId { get; private set; }
-    public OrderStatus Status { get; private set; }
-    public Address BillingAddress { get; private set; }
-    public Address ShippingAddress { get; private set; }
-    public Money Total { get; private set; }
+    public OrderStatus Status { get; private set; } = OrderStatus.Empty;
+    public Address BillingAddress { get; private set; } = default!;
+    public Address ShippingAddress { get; private set; } = default!;
+    public Money Total { get; private set; } = Money.Zero(Currency.Undefined);
 
     public IEnumerable<OrderItem> Items
         => _items.AsReadOnly();
