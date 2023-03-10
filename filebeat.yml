@@ -1,21 +1,27 @@
 filebeat.inputs:
-  - type: filestream
-    id: my-filestream-id
-    enabled: true
+  - type: container
     paths:
-      - /var/log/messages
-      - /var/log/*.log
+      - '/var/lib/docker/containers/*/*.log'
+
+filebeat.config.modules:
+  path: ${path.config}/modules.d/*.yml
+
+setup.ilm.overwrite: true
+
+action.auto_create_index: true
 
 output.elasticsearch:
   hosts: [ "http://elasticsearch:9200" ]
+  index: "eventual-shop-%{+yyyy.MM.dd}"
   username: "EventualShop"
   password: "EventualShop"
-  index: "EventualShop-%{+yyyy-MM-dd}"
+
+setup.template.enabled: true
+setup.template.name: "eventual-shop"
+setup.template.pattern: "eventual-shop-*"
 
 setup.kibana:
   host: "http://kibana:5601"
 
-setup.template.name: "EventualShop"
-setup.template.pattern: "EventualShop-*"
+logging.level: debug
 
-logging.level: info
