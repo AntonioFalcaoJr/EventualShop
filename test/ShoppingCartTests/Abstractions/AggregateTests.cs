@@ -1,4 +1,5 @@
 ﻿using Contracts.Abstractions.Messages;
+using Domain.Abstractions;
 using Domain.Abstractions.Aggregates;
 using FluentAssertions;
 
@@ -6,11 +7,11 @@ namespace ShoppingCartTests.Abstractions;
 
 public abstract class AggregateTests
 {
-    private IAggregateRoot? _aggregateRoot;
+    private IAggregateRoot<IIdentifier>? _aggregateRoot;
     private ICommand? _command;
 
     protected AggregateTests Given<TAggregate>(params IDomainEvent[] events)
-        where TAggregate : IAggregateRoot, new()
+        where TAggregate : IAggregateRoot<IIdentifier>, new()
     {
         _aggregateRoot = new TAggregate();
         _aggregateRoot.LoadFromHistory(events);
@@ -36,10 +37,10 @@ public abstract class AggregateTests
         events.Should().NotBeNull();
         events.Should().NotBeEmpty();
         events.Should().ContainSingle();
-        
+
         var @event = events!.First();
 
-        if (assertions.Any()) 
+        if (assertions is { Length: > 0 })
             assertions.Should().AllSatisfy(assert => assert(@event));
 
         return this;
@@ -51,7 +52,7 @@ public abstract class AggregateTests
         var handle = () => _aggregateRoot?.Handle(_command!);
         var exceptionAssertions = handle.Should().Throw<TException>();
 
-        if (assertions.Any())
+        if (assertions is { Length: > 0 })
             assertions.Should().AllSatisfy(assert
                 => assert?.Invoke(exceptionAssertions.Subject.First()));
     }

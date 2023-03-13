@@ -1,7 +1,8 @@
 namespace Domain.Abstractions.Entities;
 
-public interface IEntity
+public interface IEntity<out TId> 
+    where TId : IIdentifier
 {
-    Guid Id { get; }
+    TId Id { get; }
     bool IsDeleted { get; }
 }

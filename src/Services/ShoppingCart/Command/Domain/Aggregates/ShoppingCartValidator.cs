@@ -1,5 +1,5 @@
-﻿using Domain.Entities.CartItems;
-using Domain.Entities.PaymentMethods;
+﻿using Domain.Enumerations;
+using Domain.ValueObjects;
 using Domain.ValueObjects.Addresses;
 using FluentValidation;
 
@@ -11,30 +11,20 @@ public class ShoppingCartValidator : AbstractValidator<ShoppingCart>
     {
         RuleFor(cart => cart.Id)
             .NotEmpty();
-        
-        RuleForEach(cart => cart.Items)
-            .NotNull()
-            .SetValidator(new CartItemValidator());
 
-        When(cart => cart.Items.Any(item => item.IsDeleted is false), () =>
-        {
-            RuleFor(cart => cart.Total.Amount)
-                .GreaterThan(0);
-        });
+        RuleFor(cart => cart.CustomerId)
+            .Equal(CustomerId.Undefined);
 
-        RuleForEach(cart => cart.PaymentMethods)
-            .SetValidator(new PaymentMethodValidator());
+        RuleFor(cart => cart.BillingAddress)
+            .Equal(Address.Undefined);
 
-        When(cart => cart.BillingAddress is not null, () =>
-        {
-            RuleFor(cart => cart.BillingAddress)
-                .SetValidator(new AddressValidator()!);
-        });
+        RuleFor(cart => cart.ShippingAddress)
+            .Equal(cart => cart.BillingAddress);
 
-        When(cart => cart.ShippingAddress is not null, () =>
-        {
-            RuleFor(cart => cart.ShippingAddress)
-                .SetValidator(new AddressValidator()!);
-        });
+        RuleFor(cart => cart.Total)
+            .Equal(Money.Zero(Currency.Undefined));
+
+        RuleFor(cart => cart.Status)
+            .Equal(CartStatus.Empty);
     }
 }

@@ -5,22 +5,28 @@ using Domain.ValueObjects.Products;
 
 namespace Domain.Entities.CartItems;
 
-public class CartItem : Entity<CartItemValidator>
+public class CartItem : Entity<CartItemId, CartItemValidator>
 {
-    public CartItem(Guid id, Product product, ushort quantity, Money unitPrice)
+    public CartItem(CartItemId id, Product product, int quantity, Money unitPrice)
     {
         Id = id;
         Product = product;
         Quantity = quantity;
         UnitPrice = unitPrice;
+        Validate();
     }
 
     public Product Product { get; }
-    public ushort Quantity { get; private set; }
+    public int Quantity { get; private set; }
     public Money UnitPrice { get; }
 
-    public void SetQuantity(ushort quantity)
-        => Quantity = quantity;
+    public void SetQuantity(int quantity)
+    {
+        if (quantity <= 0)
+            throw new ArgumentOutOfRangeException(nameof(quantity), quantity, "Quantity must be greater than zero.");
+
+        Quantity = quantity;
+    }
 
     public void Delete()
         => IsDeleted = true;

@@ -1,10 +1,12 @@
+using Domain.Abstractions;
 using Domain.Abstractions.Aggregates;
 
 namespace Application.Abstractions.Gateways;
 
-public interface IEventStoreGateway
+public interface IEventStoreGateway<TAggregate, TId>
+    where TAggregate : IAggregateRoot<IIdentifier>, new()
 {
-    Task AppendEventsAsync(IAggregateRoot aggregate, CancellationToken cancellationToken);
-    Task<TAggregate> LoadAggregateAsync<TAggregate>(Guid aggregateId, CancellationToken cancellationToken) where TAggregate : IAggregateRoot, new();
-    IAsyncEnumerable<Guid> StreamAggregatesId();
+    Task AppendEventsAsync(TAggregate aggregate, CancellationToken cancellationToken);
+    Task<TAggregate> LoadAggregateAsync(TId aggregateId, CancellationToken cancellationToken);
+    IAsyncEnumerable<TId> StreamAggregatesId();
 }
