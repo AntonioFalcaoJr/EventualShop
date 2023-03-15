@@ -19,7 +19,7 @@
 
         <!--Blazor-->
         <BlazorStrap_Version>5.1.100</BlazorStrap_Version>
-        <Microsoft_AspNetCore_WebAssembly_Version>8.0.0-preview.1.23112.2</Microsoft_AspNetCore_WebAssembly_Version>
+        <Microsoft_AspNetCore_WebAssembly_Version>8.0.0-preview.2.23153.2</Microsoft_AspNetCore_WebAssembly_Version>
 
         <!--EF Core-->
         <EntityFrameworkCore_Version>8.0.0-preview.1.23111.4</EntityFrameworkCore_Version>
