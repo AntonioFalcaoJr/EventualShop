@@ -68,7 +68,7 @@
         <OpenTelemetry_Instrumentation_AspNetCore_Version>1.0.0-rc9.14</OpenTelemetry_Instrumentation_AspNetCore_Version>
 
         <!--Test-->
-        <Microsoft_Mvc_Testing_Version>8.0.0-preview.1.23112.2</Microsoft_Mvc_Testing_Version>
+        <Microsoft_Mvc_Testing_Version>8.0.0-preview.2.23153.2</Microsoft_Mvc_Testing_Version>
         <Microsoft_Test_SDK_Version>17.5.0</Microsoft_Test_SDK_Version>
 
         <!--Correlation-->
