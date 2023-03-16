@@ -66,8 +66,11 @@ Support this research by **giving it a star**. Thanks!
 
 ## :classical_building: The Solution Architecture
 
-![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/solution_architecture.png)    
-Fig. 1: Falcão Jr., Antônio. _An EDA solution architecture_.
+### V2
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/solution_architecture_v2.png)    
+
+### V1
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/solution_architecture_v1.png)
 
 ## :mag_right: Research
 
