@@ -7,6 +7,6 @@ public class CartItemValidator : AbstractValidator<CartItem>
     public CartItemValidator()
     {
         RuleFor(item => item.Quantity)
-            .GreaterThan(ushort.MinValue);
+            .GreaterThan(0);
     }
 }

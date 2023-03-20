@@ -3,7 +3,8 @@ using Domain.Abstractions.Entities;
 
 namespace Domain.Abstractions.Aggregates;
 
-public interface IAggregateRoot : IEntity
+public interface IAggregateRoot<out TId> : IEntity<TId>
+    where TId : IIdentifier
 {
     IEnumerable<IDomainEvent> UncommittedEvents { get; }
     void LoadFromHistory(IEnumerable<IDomainEvent> events);

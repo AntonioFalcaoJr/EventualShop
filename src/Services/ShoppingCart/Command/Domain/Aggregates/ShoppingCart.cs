@@ -1,6 +1,7 @@
 ﻿using Contracts.Abstractions.Messages;
 using Contracts.DataTransferObjects;
 using Contracts.Services.ShoppingCart;
+using Contracts.Services.ShoppingCart.Validators;
 using Domain.Abstractions.Aggregates;
 using Domain.Entities.CartItems;
 using Domain.Entities.PaymentMethods;
@@ -10,11 +11,12 @@ using Domain.ValueObjects.Addresses;
 using Domain.ValueObjects.PaymentOptions.CreditCards;
 using Domain.ValueObjects.PaymentOptions.DebitCards;
 using Domain.ValueObjects.PaymentOptions.PayPals;
+using FluentValidation;
 using Newtonsoft.Json;
 
 namespace Domain.Aggregates;
 
-public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
+public class ShoppingCart : AggregateRoot<ShoppingCartId, ShoppingCartValidator>
 {
     [JsonProperty]
     private readonly List<CartItem> _items = new();
@@ -22,10 +24,10 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
     [JsonProperty]
     private readonly List<PaymentMethod> _paymentMethods = new();
 
-    public Guid CustomerId { get; private set; }
+    public CustomerId CustomerId { get; private set; } = CustomerId.Undefined;
     public CartStatus Status { get; private set; } = CartStatus.Empty;
-    public Address? BillingAddress { get; private set; }
-    public Address? ShippingAddress { get; private set; }
+    public Address BillingAddress { get; private set; } = Address.Undefined;
+    public Address ShippingAddress { get; private set; } = Address.Undefined;
     public Money Total { get; private set; } = Money.Zero(Currency.Undefined);
     private bool SameBillingShippingAddress { get; set; } = true;
 
@@ -46,15 +48,21 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
 
     private void Handle(Command.CreateCart cmd)
         => RaiseEvent<DomainEvent.CartCreated>(version
-            => new(Guid.NewGuid(), cmd.CustomerId, Money.Zero(cmd.Currency), CartStatus.Active, version));
+            => new(ShoppingCartId.New(), cmd.CustomerId, Money.Zero(cmd.Currency), CartStatus.Active, version));
 
     private void Handle(Command.AddCartItem cmd)
-        => RaiseEvent(version => _items.SingleOrDefault(cartItem => cartItem.Product == cmd.Product) is { IsDeleted: false } item
-            ? new DomainEvent.CartItemIncreased(Id, item.Id, (ushort)(item.Quantity + cmd.Quantity), item.UnitPrice, IncreasedTotal(item.UnitPrice, cmd.Quantity), version)
-            : new DomainEvent.CartItemAdded(cmd.CartId, Guid.NewGuid(), cmd.InventoryId, cmd.Product, cmd.Quantity, cmd.UnitPrice, IncreasedTotal(cmd.UnitPrice, cmd.Quantity), version));
+    {
+        new AddCartItemValidator().ValidateAndThrow(cmd);
+
+        RaiseEvent(version => _items.SingleOrDefault(cartItem => cartItem.Product == cmd.Product) is { IsDeleted: false } item
+            ? new DomainEvent.CartItemIncreased(Id, item.Id, item.Quantity + cmd.Quantity, item.UnitPrice, IncreasedTotal(item.UnitPrice, cmd.Quantity), version)
+            : new DomainEvent.CartItemAdded(cmd.CartId, CartItemId.New(), cmd.InventoryId, cmd.Product, cmd.Quantity, cmd.UnitPrice, IncreasedTotal(cmd.UnitPrice, cmd.Quantity), version));
+    }
 
     private void Handle(Command.ChangeCartItemQuantity cmd)
     {
+        new ChangeCartItemQuantityValidator().ValidateAndThrow(cmd);
+
         if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is not { IsDeleted: false } item) return;
 
         if (cmd.NewQuantity > item.Quantity)
@@ -68,6 +76,8 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
 
     private void Handle(Command.RemoveCartItem cmd)
     {
+        new RemoveCartItemValidator().ValidateAndThrow(cmd);
+
         if (_items.SingleOrDefault(cartItem => cartItem.Id == cmd.ItemId) is not { IsDeleted: false } item) return;
 
         RaiseEvent<DomainEvent.CartItemRemoved>(version
@@ -76,6 +86,8 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
 
     private void Handle(Command.AddCreditCard cmd)
     {
+        new AddCreditCardValidator().ValidateAndThrow(cmd);
+
         if (cmd.Amount > AmountDue) return;
 
         RaiseEvent<DomainEvent.CreditCardAdded>(version
@@ -84,6 +96,8 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
 
     private void Handle(Command.AddDebitCard cmd)
     {
+        new AddDebitCardValidator().ValidateAndThrow(cmd);
+
         if (cmd.Amount > AmountDue) return;
 
         RaiseEvent<DomainEvent.DebitCardAdded>(version
@@ -92,6 +106,8 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
 
     private void Handle(Command.AddPayPal cmd)
     {
+        new AddPayPalValidator().ValidateAndThrow(cmd);
+
         if (cmd.Amount > AmountDue) return;
 
         RaiseEvent<DomainEvent.PayPalAdded>(version
@@ -100,6 +116,8 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
 
     private void Handle(Command.AddShippingAddress cmd)
     {
+        new AddShippingAddressValidator().ValidateAndThrow(cmd);
+
         if (ShippingAddress == cmd.Address) return;
 
         RaiseEvent<DomainEvent.ShippingAddressAdded>(version
@@ -108,6 +126,8 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
 
     private void Handle(Command.AddBillingAddress cmd)
     {
+        new AddBillingAddressValidator().ValidateAndThrow(cmd);
+
         if (BillingAddress == cmd.Address) return;
 
         RaiseEvent<DomainEvent.BillingAddressAdded>(version
@@ -116,6 +136,8 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
 
     private void Handle(Command.CheckOutCart cmd)
     {
+        new CheckoutCartValidator().ValidateAndThrow(cmd);
+
         if (Status is not CartStatus.ActiveStatus) return;
         if (_items is { Count: 0 } || AmountDue > 0) return;
 
@@ -135,7 +157,10 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
         => When(@event as dynamic);
 
     private void When(DomainEvent.CartCreated @event)
-        => (Id, CustomerId, Total, Status, _) = @event;
+    {
+        (Id, CustomerId, Total, Status, Version) = @event;
+        Validate();
+    }
 
     private void When(DomainEvent.CartCheckedOut @event)
         => Status = @event.Status;
@@ -166,6 +191,8 @@ public class ShoppingCart : AggregateRoot<ShoppingCartValidator>
 
     private void When(DomainEvent.CartItemRemoved @event)
     {
+        new CartItemRemovedValidator().ValidateAndThrow(@event);
+
         _items.First(item => item.Id == @event.ItemId).Delete();
         Total = @event.NewCartTotal;
     }

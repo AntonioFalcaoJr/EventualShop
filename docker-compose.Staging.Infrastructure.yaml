@@ -12,10 +12,6 @@ services:
       ACCEPT_EULA: "Y"
     healthcheck:
       test: /opt/mssql-tools/bin/sqlcmd -S mssql -U sa -P "$$SA_PASSWORD" -Q "SELECT 1" || exit 1
-      interval: 5s
-      timeout: 5s
-      retries: 5
-      start_period: 10s
     deploy:
       resources:
         limits:
@@ -38,10 +34,6 @@ services:
       RABBITMQ_DEFAULT_VHOST: "eventual-shop"
     healthcheck:
       test: rabbitmq-diagnostics -q ping
-      interval: 5s
-      timeout: 5s
-      retries: 5
-      start_period: 10s
     deploy:
       resources:
         limits:
@@ -62,10 +54,6 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: "secret"
     healthcheck:
       test: echo 'db.runCommand("ping").ok' | mongo mongodb:27017/test --quiet
-      interval: 5s
-      timeout: 5s
-      retries: 5
-      start_period: 10s
     deploy:
       resources:
         limits:
@@ -124,7 +112,7 @@ services:
       restart_policy:
         condition: any
     ports:
-      - "9200"
+      - "9200:9200"
       - "9300"
     networks:
       - internal
@@ -138,12 +126,12 @@ services:
       ELASTICSEARCH_USERNAME: EventualShop
       ELASTICSEARCH_PASSWORD: EventualShop
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://kibana:5601/api/status" ]  
+      test: [ "CMD", "curl", "-f", "http://kibana:5601/api/status" ]
     ports:
       - "5601:5601"
-    depends_on:
-      elasticsearch:
-        condition: service_healthy
+#    depends_on:
+#      elasticsearch:
+#        condition: service_healthy
     deploy:
       resources:
         limits:

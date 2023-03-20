@@ -5,12 +5,13 @@ using Newtonsoft.Json;
 
 namespace Domain.Abstractions.Aggregates;
 
-public abstract class AggregateRoot<TValidator> : Entity<TValidator>, IAggregateRoot
+public abstract class AggregateRoot<TId, TValidator> : Entity<TId, TValidator>, IAggregateRoot<TId>
+    where TId : IIdentifier, new() 
     where TValidator : IValidator, new()
 {
     private readonly List<IDomainEvent> _events = new();
 
-    public long Version { get; private set; }
+    public long Version { get; protected set; }
 
     [JsonIgnore]
     public IEnumerable<IDomainEvent> UncommittedEvents
@@ -35,7 +36,6 @@ public abstract class AggregateRoot<TValidator> : Entity<TValidator>, IAggregate
         Version++;
         var @event = onRaise(Version);
         Apply(@event);
-        Validate();
         _events.Add(@event);
     }
 

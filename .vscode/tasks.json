@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/Services/Account/WorkerService/WorkerService.csproj",
+                "${workspaceFolder}/src/Services/Account/Command/WorkerService/WorkerService.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/src/Services/Account/WorkerService/WorkerService.csproj",
+                "${workspaceFolder}/src/Services/Account/Command/WorkerService/WorkerService.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/src/Services/Account/WorkerService/WorkerService.csproj"
+                "${workspaceFolder}/src/Services/Account/Command/WorkerService/WorkerService.csproj"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -43,7 +43,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/Services/Catalog/WorkerService/WorkerService.csproj",
+                "${workspaceFolder}/src/Services/Catalog/Command/WorkerService/WorkerService.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -55,7 +55,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/src/Services/Catalog/WorkerService/WorkerService.csproj",
+                "${workspaceFolder}/src/Services/Catalog/Command/WorkerService/WorkerService.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -69,7 +69,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/src/Services/Catalog/WorkerService/WorkerService.csproj"
+                "${workspaceFolder}/src/Services/Catalog/Command/WorkerService/WorkerService.csproj"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -79,7 +79,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/Services/Identity/WorkerService/WorkerService.csproj",
+                "${workspaceFolder}/src/Services/Identity/Command/WorkerService/WorkerService.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -91,7 +91,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/src/Services/Identity/WorkerService/WorkerService.csproj",
+                "${workspaceFolder}/src/Services/Identity/Command/WorkerService/WorkerService.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -105,7 +105,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/src/Services/Identity/WorkerService/WorkerService.csproj"
+                "${workspaceFolder}/src/Services/Identity/Command/WorkerService/WorkerService.csproj"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -115,7 +115,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/Services/Order/WorkerService/WorkerService.csproj",
+                "${workspaceFolder}/src/Services/Order/Command/WorkerService/WorkerService.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -127,7 +127,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/src/Services/Order/WorkerService/WorkerService.csproj",
+                "${workspaceFolder}/src/Services/Order/Command/WorkerService/WorkerService.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -141,7 +141,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/src/Services/Order/WorkerService/WorkerService.csproj"
+                "${workspaceFolder}/src/Services/Order/Command/WorkerService/WorkerService.csproj"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -151,7 +151,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/Services/Payment/WorkerService/WorkerService.csproj",
+                "${workspaceFolder}/src/Services/Payment/Command/WorkerService/WorkerService.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -163,7 +163,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/src/Services/Payment/WorkerService/WorkerService.csproj",
+                "${workspaceFolder}/src/Services/Payment/Command/WorkerService/WorkerService.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -177,7 +177,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/src/Services/Payment/WorkerService/WorkerService.csproj"
+                "${workspaceFolder}/src/Services/Payment/Command/WorkerService/WorkerService.csproj"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -187,7 +187,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/Services/ShoppingCart/WorkerService/WorkerService.csproj",
+                "${workspaceFolder}/src/Services/ShoppingCart/Command/WorkerService/WorkerService.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -199,7 +199,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/src/Services/ShoppingCart/WorkerService/WorkerService.csproj",
+                "${workspaceFolder}/src/Services/ShoppingCart/Command/WorkerService/WorkerService.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -213,7 +213,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/src/Services/ShoppingCart/WorkerService/WorkerService.csproj"
+                "${workspaceFolder}/src/Services/ShoppingCart/Command/WorkerService/WorkerService.csproj"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -223,7 +223,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/Services/Warehouse/WorkerService/WorkerService.csproj",
+                "${workspaceFolder}/src/Services/Warehouse/Command/WorkerService/WorkerService.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -235,7 +235,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/src/Services/Warehouse/WorkerService/WorkerService.csproj",
+                "${workspaceFolder}/src/Services/Warehouse/Command/WorkerService/WorkerService.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -249,7 +249,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/src/Services/Warehouse/WorkerService/WorkerService.csproj"
+                "${workspaceFolder}/src/Services/Warehouse/Command/WorkerService/WorkerService.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

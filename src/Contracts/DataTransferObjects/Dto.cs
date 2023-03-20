@@ -120,9 +120,9 @@ public static class Dto
 
     public record CatalogItem(Guid Id, Guid CatalogId, Guid InventoryId, Product Product, string Cost, decimal Markup, int Quantity);
 
-    public record CartItem(Guid Id, Product Product, ushort Quantity, Money UnitPrice);
+    public record CartItem(string Id, Product Product, int Quantity, Money UnitPrice);
 
-    public record OrderItem(Guid Id, Product Product, ushort Quantity, Money UnitPrice)
+    public record OrderItem(Guid Id, Product Product, int Quantity, Money UnitPrice)
     {
         public static implicit operator OrderItem(CartItem item)
             => new(Guid.NewGuid(), item.Product, item.Quantity, item.UnitPrice);
@@ -130,6 +130,7 @@ public static class Dto
 
     public record Profile(string FirstName, string LastName, string Email, DateOnly? Birthdate, string Gender);
 
-    public record ShoppingCart(Guid Id, Guid CustomerId, string Status, Address? BillingAddress, Address? ShippingAddress, Money Total, Money TotalPayment, Money AmountDue,
+    public record ShoppingCart(string Id, string CustomerId, string Status, Address? BillingAddress,
+        Address? ShippingAddress, Money Total, Money TotalPayment, Money AmountDue,
         IEnumerable<CartItem> Items, IEnumerable<PaymentMethod> PaymentMethods, bool IsDeleted);
 }
