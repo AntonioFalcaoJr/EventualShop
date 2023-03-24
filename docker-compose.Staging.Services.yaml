@@ -389,6 +389,8 @@ services:
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://webapi/healthz" ]
     depends_on:
+      kibana:
+        condition: service_healthy
       rabbitmq:
         condition: service_healthy
     networks:
