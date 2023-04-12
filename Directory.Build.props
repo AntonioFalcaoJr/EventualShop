@@ -1,4 +1,4 @@
-﻿<Project>
+<Project>
     <PropertyGroup Label="Common properties">
         <Product>Eventual Shop</Product>
         <Copyright>Copyright (c) 2021-2023 Antonio Falcão Jr.</Copyright>
@@ -60,7 +60,7 @@
         <Swashbuckle_FluentValidation_Version>6.0.0-beta.3</Swashbuckle_FluentValidation_Version>
 
         <!--Polly-->
-        <Polly_Version>8.0.0-preview.1.23112.2</Polly_Version>
+        <Polly_Version>8.0.0-preview.3.23177.8</Polly_Version>
 
         <!--Open Telemetry-->
         <OpenTelemetry_Exporter_Jaeger_Version>1.4.0</OpenTelemetry_Exporter_Jaeger_Version>
