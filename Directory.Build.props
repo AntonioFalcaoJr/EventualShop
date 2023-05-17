@@ -1,4 +1,4 @@
-﻿<Project>
+<Project>
     <PropertyGroup Label="Common properties">
         <Product>Eventual Shop</Product>
         <Copyright>Copyright (c) 2021-2023 Antonio Falcão Jr.</Copyright>
@@ -43,7 +43,7 @@
         <!--Newtonsoft-->
         <Newtonsoft_Version>13.0.3</Newtonsoft_Version>
         <ContractResolvers_Version>2.0.0</ContractResolvers_Version>
-        <Microsoft_Mvc_NewtonsoftJso_Version>8.0.0-preview.1.23112.2</Microsoft_Mvc_NewtonsoftJso_Version>
+        <Microsoft_Mvc_NewtonsoftJso_Version>8.0.0-preview.4.23260.4</Microsoft_Mvc_NewtonsoftJso_Version>
 
         <!--Serilog-->
         <Serilog_Version>3.0.0-dev-01921</Serilog_Version>
