@@ -4,12 +4,7 @@ using Xunit;
 
 namespace ECommerce.WebAPI.IntegrationTests;
 
-public class ShoppingCartIntegrationTests : IClassFixture<TestingWebApplicationFactory<Program>>
+public class ShoppingCartIntegrationTests(WebApplicationFactory<Program> factory) : IClassFixture<TestingWebApplicationFactory<Program>>
 {
-    private readonly HttpClient _client;
-
-    public ShoppingCartIntegrationTests(WebApplicationFactory<Program> factory)
-    {
-        _client = factory.CreateClient();
-    }
+    private readonly HttpClient _client = factory.CreateClient();
 }
