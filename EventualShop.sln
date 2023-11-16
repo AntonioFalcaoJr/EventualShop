@@ -11,17 +11,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Account", "Account", "{84C6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{C9CDAF5D-FE5E-4E6E-8F65-7B84AFD35A6A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ShoppingCart", "ShoppingCart", "{E20DD84A-FBAA-40AB-A7FD-A0C1C675C86F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shopping", "Shopping", "{E20DD84A-FBAA-40AB-A7FD-A0C1C675C86F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{B721D24A-11BD-4F6C-AB8D-E48EA8CADEE8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cataloging", "Cataloging", "{B721D24A-11BD-4F6C-AB8D-E48EA8CADEE8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{120AE240-EF32-48EF-B8A9-2B7B2257E0BC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payment", "Payment", "{ADF2789E-DE10-4F06-9972-B368A1F91740}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Order", "Order", "{2AAE1478-D3F3-4D1A-83C1-233627A03B26}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Warehouse", "Warehouse", "{E5A5B5A4-2BC9-4D77-AD64-4B5A5871E192}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Warehousing", "Warehousing", "{E5A5B5A4-2BC9-4D77-AD64-4B5A5871E192}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B54AAF8D-979C-47B6-B5B5-35B223930872}"
 EndProject
@@ -57,29 +55,29 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Projections"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services\Identity\Query\Application\Application.csproj", "{4EF1866F-BB93-465C-B721-6CF35970E6DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.MessageBus", "src\Services\Identity\Command\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj", "{DBFCE440-70FC-4486-B8D3-30EBD99AB3BD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventBus", "src\Services\Identity\Command\Infrastructure.EventBus\Infrastructure.EventBus.csproj", "{DBFCE440-70FC-4486-B8D3-30EBD99AB3BD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Communication", "Communication", "{1AB6524D-1F2A-4BE1-BC48-DA1B107A7A50}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notification", "Notification", "{1AB6524D-1F2A-4BE1-BC48-DA1B107A7A50}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Command", "Command", "{E62C6B98-B9BF-42EA-A0D1-2CE6255095C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services\Communication\Command\Application\Application.csproj", "{6A3E02DE-93E1-4FB2-8053-2B2AB09F63B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services\Notification\Command\Application\Application.csproj", "{6A3E02DE-93E1-4FB2-8053-2B2AB09F63B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Services\Communication\Command\Domain\Domain.csproj", "{92B96D84-E2E3-4FED-8BAD-607B819E6017}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Services\Notification\Command\Domain\Domain.csproj", "{92B96D84-E2E3-4FED-8BAD-607B819E6017}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventStore", "src\Services\Communication\Command\Infrastructure.EventStore\Infrastructure.EventStore.csproj", "{FFC24FB6-1ED5-49D0-8D11-63C5CCAFA801}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventStore", "src\Services\Notification\Command\Infrastructure.EventStore\Infrastructure.EventStore.csproj", "{FFC24FB6-1ED5-49D0-8D11-63C5CCAFA801}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.MessageBus", "src\Services\Communication\Command\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj", "{F878F7F9-1571-49DE-8F10-A0494259D470}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventBus", "src\Services\Notification\Command\Infrastructure.EventBus\Infrastructure.EventBus.csproj", "{F878F7F9-1571-49DE-8F10-A0494259D470}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerService", "src\Services\Communication\Command\WorkerService\WorkerService.csproj", "{D3586EB5-1909-43DC-9D59-CA2E52DBE95C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerService", "src\Services\Notification\Command\WorkerService\WorkerService.csproj", "{D3586EB5-1909-43DC-9D59-CA2E52DBE95C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.SMTP", "src\Services\Communication\Command\Infrastructure.SMTP\Infrastructure.SMTP.csproj", "{22021471-4C50-41A9-AF00-EE55414F122B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.SMTP", "src\Services\Notification\Command\Infrastructure.SMTP\Infrastructure.SMTP.csproj", "{22021471-4C50-41A9-AF00-EE55414F122B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{454DAFF5-FDF4-4B28-8F43-BDD881093BA3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ShoppingCart", "ShoppingCart", "{1D708AEE-2C8C-47FF-B937-B28716510488}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shopping", "Shopping", "{1D708AEE-2C8C-47FF-B937-B28716510488}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCartTests", "test\ShoppingCartTests\ShoppingCartTests.csproj", "{9B50D648-CC08-4FDB-805B-7B048EE55AFF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCartUnitTests", "test\ShoppingCartUnitTests\ShoppingCartUnitTests.csproj", "{9B50D648-CC08-4FDB-805B-7B048EE55AFF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Command", "Command", "{4BF940D9-CC56-4B57-ADE3-C1A5C28BB0DD}"
 EndProject
@@ -101,107 +99,85 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerService", "src\Servic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventStore", "src\Services\Account\Command\Infrastructure.EventStore\Infrastructure.EventStore.csproj", "{B5085BB2-0639-493C-9778-A2BC531B7B57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.MessageBus", "src\Services\Account\Command\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj", "{A870AAA9-D01D-46A7-B5F4-997D248AD867}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventBus", "src\Services\Account\Command\Infrastructure.EventBus\Infrastructure.EventBus.csproj", "{A870AAA9-D01D-46A7-B5F4-997D248AD867}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventBus", "src\Services\Identity\Query\Infrastructure.EventBus\Infrastructure.EventBus.csproj", "{BB30A256-761A-403B-8FDC-C8E23F0A7880}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Query", "Query", "{1C2B38EF-18BB-43BB-B2B1-6FC2DC6939C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services\Communication\Query\Application\Application.csproj", "{C8431CC5-1B45-4CC6-9A98-C88CC4DEA759}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services\Notification\Query\Application\Application.csproj", "{C8431CC5-1B45-4CC6-9A98-C88CC4DEA759}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcService", "src\Services\Communication\Query\GrpcService\GrpcService.csproj", "{98D9D872-4701-4C60-B591-4EF7CC9363A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcService", "src\Services\Notification\Query\GrpcService\GrpcService.csproj", "{98D9D872-4701-4C60-B591-4EF7CC9363A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventBus", "src\Services\Communication\Query\Infrastructure.EventBus\Infrastructure.EventBus.csproj", "{3539E140-2E1D-4E5F-8308-1886A9473227}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventBus", "src\Services\Notification\Query\Infrastructure.EventBus\Infrastructure.EventBus.csproj", "{3539E140-2E1D-4E5F-8308-1886A9473227}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Projections", "src\Services\Communication\Query\Infrastructure.Projections\Infrastructure.Projections.csproj", "{31FA13DD-C300-490D-A85B-A27D2339E10E}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Command", "Command", "{DDC92815-57AA-41D3-B6BF-1A06965E1328}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Query", "Query", "{7AD73A74-B367-4042-BD20-8989A0DFCDB9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services\Order\Command\Application\Application.csproj", "{14449AB1-EF9A-4590-B451-75808A960C81}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Services\Order\Command\Domain\Domain.csproj", "{B3CB6078-46BC-4B05-855C-85F3BA7FE6C5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventStore", "src\Services\Order\Command\Infrastructure.EventStore\Infrastructure.EventStore.csproj", "{67834CC3-BE2F-43AF-8CB3-9EF7451B814D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.MessageBus", "src\Services\Order\Command\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj", "{4751DA1C-CDB9-4B91-BCF7-570B1E5EE369}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerService", "src\Services\Order\Command\WorkerService\WorkerService.csproj", "{69C7418C-C879-489A-83D8-D974E1B4A642}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services\Order\Query\Application\Application.csproj", "{2B941E14-9A38-4095-806E-3A547E96FC7F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcService", "src\Services\Order\Query\GrpcService\GrpcService.csproj", "{210A27B7-C695-43DF-AFC4-D60818DC9128}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventBus", "src\Services\Order\Query\Infrastructure.EventBus\Infrastructure.EventBus.csproj", "{7D192FEE-32C3-4F14-9DD8-5E39443D2512}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Projections", "src\Services\Order\Query\Infrastructure.Projections\Infrastructure.Projections.csproj", "{FCEBBDE7-A580-4C5F-AC34-4247376AF694}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Projections", "src\Services\Notification\Query\Infrastructure.Projections\Infrastructure.Projections.csproj", "{31FA13DD-C300-490D-A85B-A27D2339E10E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Command", "Command", "{68B88404-88E8-4CF4-B1D6-69AA2AAD67A2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Query", "Query", "{7F1B59D0-60F6-41B7-8F13-2B8BBAA6A7A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Services\Catalog\Command\Domain\Domain.csproj", "{8ED1E205-C539-4A79-A17C-C118E88AFEF1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Services\Cataloging\Command\Domain\Domain.csproj", "{8ED1E205-C539-4A79-A17C-C118E88AFEF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services\Catalog\Command\Application\Application.csproj", "{92EDE7E1-91AB-43ED-8E87-78C38B1BBECC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services\Cataloging\Command\Application\Application.csproj", "{92EDE7E1-91AB-43ED-8E87-78C38B1BBECC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.MessageBus", "src\Services\Catalog\Command\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj", "{71DCB590-74BB-4FF7-A377-02609C4D9424}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventBus", "src\Services\Cataloging\Command\Infrastructure.EventBus\Infrastructure.EventBus.csproj", "{71DCB590-74BB-4FF7-A377-02609C4D9424}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerService", "src\Services\Catalog\Command\WorkerService\WorkerService.csproj", "{46942763-0251-4429-AB2D-F44AA4B2C996}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerService", "src\Services\Cataloging\Command\WorkerService\WorkerService.csproj", "{46942763-0251-4429-AB2D-F44AA4B2C996}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventStore", "src\Services\Catalog\Command\Infrastructure.EventStore\Infrastructure.EventStore.csproj", "{23DA26C9-2F89-48ED-BAD8-E3CA362D1738}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventStore", "src\Services\Cataloging\Command\Infrastructure.EventStore\Infrastructure.EventStore.csproj", "{23DA26C9-2F89-48ED-BAD8-E3CA362D1738}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcService", "src\Services\Catalog\Query\GrpcService\GrpcService.csproj", "{E7B0328D-BE0C-4F54-9442-4123EDB34490}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcService", "src\Services\Cataloging\Query\GrpcService\GrpcService.csproj", "{E7B0328D-BE0C-4F54-9442-4123EDB34490}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services\Catalog\Query\Application\Application.csproj", "{52FE9297-629C-4944-ACEB-391BC9CF1CD7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services\Cataloging\Query\Application\Application.csproj", "{52FE9297-629C-4944-ACEB-391BC9CF1CD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventBus", "src\Services\Catalog\Query\Infrastructure.EventBus\Infrastructure.EventBus.csproj", "{868EAF3A-F004-448C-8E50-99FBF1E384DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventBus", "src\Services\Cataloging\Query\Infrastructure.EventBus\Infrastructure.EventBus.csproj", "{868EAF3A-F004-448C-8E50-99FBF1E384DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Projections", "src\Services\Catalog\Query\Infrastructure.Projections\Infrastructure.Projections.csproj", "{DD55E4AB-5DD1-44D8-A631-6DE0A6661704}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Projections", "src\Services\Cataloging\Query\Infrastructure.Projections\Infrastructure.Projections.csproj", "{DD55E4AB-5DD1-44D8-A631-6DE0A6661704}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Command", "Command", "{EA5617C8-E984-45B8-B9F9-2EED01B886CD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Query", "Query", "{4993BFBA-D8BF-4876-8867-73CC1E066E91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services\Warehouse\Command\Application\Application.csproj", "{4AF47225-3F43-42EE-A7D6-DB4175FC49CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services\Warehousing\Command\Application\Application.csproj", "{4AF47225-3F43-42EE-A7D6-DB4175FC49CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Services\Warehouse\Command\Domain\Domain.csproj", "{E08DDADD-3EBF-49EA-BFF2-0D058F37F556}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Services\Warehousing\Command\Domain\Domain.csproj", "{E08DDADD-3EBF-49EA-BFF2-0D058F37F556}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventStore", "src\Services\Warehouse\Command\Infrastructure.EventStore\Infrastructure.EventStore.csproj", "{2BCCCF8F-C7AD-471A-84D4-6F75B53896EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventStore", "src\Services\Warehousing\Command\Infrastructure.EventStore\Infrastructure.EventStore.csproj", "{2BCCCF8F-C7AD-471A-84D4-6F75B53896EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerService", "src\Services\Warehouse\Command\WorkerService\WorkerService.csproj", "{C2BB298D-6778-480A-942D-28C611C74494}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerService", "src\Services\Warehousing\Command\WorkerService\WorkerService.csproj", "{C2BB298D-6778-480A-942D-28C611C74494}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.MessageBus", "src\Services\Warehouse\Command\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj", "{68DB7019-A2D9-4429-8809-CD02A6E13631}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventBus", "src\Services\Warehousing\Command\Infrastructure.EventBus\Infrastructure.EventBus.csproj", "{68DB7019-A2D9-4429-8809-CD02A6E13631}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services\Warehouse\Query\Application\Application.csproj", "{2FD5B4D8-81DA-4A90-B4CB-DB6529FD010B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services\Warehousing\Query\Application\Application.csproj", "{2FD5B4D8-81DA-4A90-B4CB-DB6529FD010B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcService", "src\Services\Warehouse\Query\GrpcService\GrpcService.csproj", "{542FC5DC-844C-404D-B5E8-4991028E3EAE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcService", "src\Services\Warehousing\Query\GrpcService\GrpcService.csproj", "{542FC5DC-844C-404D-B5E8-4991028E3EAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventBus", "src\Services\Warehouse\Query\Infrastructure.EventBus\Infrastructure.EventBus.csproj", "{15CBAAC1-55CE-4FB5-8BE3-B7D307504E44}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventBus", "src\Services\Warehousing\Query\Infrastructure.EventBus\Infrastructure.EventBus.csproj", "{15CBAAC1-55CE-4FB5-8BE3-B7D307504E44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Projections", "src\Services\Warehouse\Query\Infrastructure.Projections\Infrastructure.Projections.csproj", "{76AD466B-B334-418E-AC47-96A5011898E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Projections", "src\Services\Warehousing\Query\Infrastructure.Projections\Infrastructure.Projections.csproj", "{76AD466B-B334-418E-AC47-96A5011898E9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Command", "Command", "{31A67267-4457-4019-B39F-793F012BFBDA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Query", "Query", "{21D466B7-070C-485D-B293-CFD75BE3D5F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services\ShoppingCart\Command\Application\Application.csproj", "{0C533076-FE43-497B-9E34-437F7A983E31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services\Shopping\Command\Application\Application.csproj", "{0C533076-FE43-497B-9E34-437F7A983E31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Services\ShoppingCart\Command\Domain\Domain.csproj", "{C1AE2738-0730-45CC-9152-36F4C3C79F5E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Services\Shopping\Command\Domain\Domain.csproj", "{C1AE2738-0730-45CC-9152-36F4C3C79F5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventStore", "src\Services\ShoppingCart\Command\Infrastructure.EventStore\Infrastructure.EventStore.csproj", "{1DD5B72D-16DF-4A1A-BE24-6FE864E83F42}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventStore", "src\Services\Shopping\Command\Infrastructure.EventStore\Infrastructure.EventStore.csproj", "{1DD5B72D-16DF-4A1A-BE24-6FE864E83F42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.MessageBus", "src\Services\ShoppingCart\Command\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj", "{455F5FC3-FA2F-41A8-8FB8-92FF20D8AE35}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventBus", "src\Services\Shopping\Command\Infrastructure.EventBus\Infrastructure.EventBus.csproj", "{455F5FC3-FA2F-41A8-8FB8-92FF20D8AE35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerService", "src\Services\ShoppingCart\Command\WorkerService\WorkerService.csproj", "{31339833-564C-460E-BABD-C548652DD957}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerService", "src\Services\Shopping\Command\WorkerService\WorkerService.csproj", "{31339833-564C-460E-BABD-C548652DD957}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services\ShoppingCart\Query\Application\Application.csproj", "{D611312D-8088-4317-95CD-164371310297}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services\Shopping\Query\Application\Application.csproj", "{D611312D-8088-4317-95CD-164371310297}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcService", "src\Services\ShoppingCart\Query\GrpcService\GrpcService.csproj", "{9B081096-01D2-4B7E-983C-A035A41248A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcService", "src\Services\Shopping\Query\GrpcService\GrpcService.csproj", "{9B081096-01D2-4B7E-983C-A035A41248A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventBus", "src\Services\ShoppingCart\Query\Infrastructure.EventBus\Infrastructure.EventBus.csproj", "{612D3A64-0164-4DBF-B871-810C0B846FA6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventBus", "src\Services\Shopping\Query\Infrastructure.EventBus\Infrastructure.EventBus.csproj", "{612D3A64-0164-4DBF-B871-810C0B846FA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Projections", "src\Services\ShoppingCart\Query\Infrastructure.Projections\Infrastructure.Projections.csproj", "{6DD3E097-1F45-43C1-ACD7-BE5DE1B8CC2A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Projections", "src\Services\Shopping\Query\Infrastructure.Projections\Infrastructure.Projections.csproj", "{6DD3E097-1F45-43C1-ACD7-BE5DE1B8CC2A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Command", "Command", "{DEB5F59C-62CA-490B-96AF-23026EDB565A}"
 EndProject
@@ -209,7 +185,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Query", "Query", "{E6C3F87B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerService", "src\Services\Payment\Command\WorkerService\WorkerService.csproj", "{966C44F3-5E51-463B-BCF0-415402AFEE31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.MessageBus", "src\Services\Payment\Command\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj", "{43559C11-9BBA-47DD-BB35-65D4E4DB05BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventBus", "src\Services\Payment\Command\Infrastructure.EventBus\Infrastructure.EventBus.csproj", "{43559C11-9BBA-47DD-BB35-65D4E4DB05BA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventStore", "src\Services\Payment\Command\Infrastructure.EventStore\Infrastructure.EventStore.csproj", "{A686816A-9C98-4998-A669-1F01C219A231}"
 EndProject
@@ -228,6 +204,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.HTTP", "src\Services\Payment\Command\Infrastructure.HTTP\Infrastructure.HTTP.csproj", "{7E28C40D-112A-4272-A39B-B19D94D94A27}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCartQueryStackIntegrationTests", "test\ShoppingCartQueryStackIntegrationTests\ShoppingCartQueryStackIntegrationTests.csproj", "{3544375E-1B91-48D3-8151-352FBD60C306}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcService", "src\Services\Shopping\Command\GrpcService\GrpcService.csproj", "{7D3E669D-1E40-4C89-ACEF-FF243B60F385}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcService", "src\Services\Cataloging\Command\GrpcService\GrpcService.csproj", "{D334BACE-BA40-4831-A214-EDEAB3CD0E54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -374,42 +354,6 @@ Global
 		{31FA13DD-C300-490D-A85B-A27D2339E10E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31FA13DD-C300-490D-A85B-A27D2339E10E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31FA13DD-C300-490D-A85B-A27D2339E10E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{14449AB1-EF9A-4590-B451-75808A960C81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{14449AB1-EF9A-4590-B451-75808A960C81}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{14449AB1-EF9A-4590-B451-75808A960C81}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{14449AB1-EF9A-4590-B451-75808A960C81}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B3CB6078-46BC-4B05-855C-85F3BA7FE6C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B3CB6078-46BC-4B05-855C-85F3BA7FE6C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B3CB6078-46BC-4B05-855C-85F3BA7FE6C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B3CB6078-46BC-4B05-855C-85F3BA7FE6C5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{67834CC3-BE2F-43AF-8CB3-9EF7451B814D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{67834CC3-BE2F-43AF-8CB3-9EF7451B814D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{67834CC3-BE2F-43AF-8CB3-9EF7451B814D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{67834CC3-BE2F-43AF-8CB3-9EF7451B814D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4751DA1C-CDB9-4B91-BCF7-570B1E5EE369}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4751DA1C-CDB9-4B91-BCF7-570B1E5EE369}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4751DA1C-CDB9-4B91-BCF7-570B1E5EE369}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4751DA1C-CDB9-4B91-BCF7-570B1E5EE369}.Release|Any CPU.Build.0 = Release|Any CPU
-		{69C7418C-C879-489A-83D8-D974E1B4A642}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{69C7418C-C879-489A-83D8-D974E1B4A642}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{69C7418C-C879-489A-83D8-D974E1B4A642}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{69C7418C-C879-489A-83D8-D974E1B4A642}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2B941E14-9A38-4095-806E-3A547E96FC7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2B941E14-9A38-4095-806E-3A547E96FC7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2B941E14-9A38-4095-806E-3A547E96FC7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2B941E14-9A38-4095-806E-3A547E96FC7F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{210A27B7-C695-43DF-AFC4-D60818DC9128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{210A27B7-C695-43DF-AFC4-D60818DC9128}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{210A27B7-C695-43DF-AFC4-D60818DC9128}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{210A27B7-C695-43DF-AFC4-D60818DC9128}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7D192FEE-32C3-4F14-9DD8-5E39443D2512}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D192FEE-32C3-4F14-9DD8-5E39443D2512}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7D192FEE-32C3-4F14-9DD8-5E39443D2512}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7D192FEE-32C3-4F14-9DD8-5E39443D2512}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FCEBBDE7-A580-4C5F-AC34-4247376AF694}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FCEBBDE7-A580-4C5F-AC34-4247376AF694}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FCEBBDE7-A580-4C5F-AC34-4247376AF694}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FCEBBDE7-A580-4C5F-AC34-4247376AF694}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8ED1E205-C539-4A79-A17C-C118E88AFEF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8ED1E205-C539-4A79-A17C-C118E88AFEF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8ED1E205-C539-4A79-A17C-C118E88AFEF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -562,6 +506,14 @@ Global
 		{3544375E-1B91-48D3-8151-352FBD60C306}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3544375E-1B91-48D3-8151-352FBD60C306}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3544375E-1B91-48D3-8151-352FBD60C306}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D3E669D-1E40-4C89-ACEF-FF243B60F385}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D3E669D-1E40-4C89-ACEF-FF243B60F385}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D3E669D-1E40-4C89-ACEF-FF243B60F385}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D3E669D-1E40-4C89-ACEF-FF243B60F385}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D334BACE-BA40-4831-A214-EDEAB3CD0E54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D334BACE-BA40-4831-A214-EDEAB3CD0E54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D334BACE-BA40-4831-A214-EDEAB3CD0E54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D334BACE-BA40-4831-A214-EDEAB3CD0E54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4E404E16-E8CB-4A01-B42E-C1E624D12A49} = {A8107F9C-AC86-4467-8685-A17633E86715}
@@ -571,7 +523,6 @@ Global
 		{B721D24A-11BD-4F6C-AB8D-E48EA8CADEE8} = {4E404E16-E8CB-4A01-B42E-C1E624D12A49}
 		{120AE240-EF32-48EF-B8A9-2B7B2257E0BC} = {4E404E16-E8CB-4A01-B42E-C1E624D12A49}
 		{ADF2789E-DE10-4F06-9972-B368A1F91740} = {4E404E16-E8CB-4A01-B42E-C1E624D12A49}
-		{2AAE1478-D3F3-4D1A-83C1-233627A03B26} = {4E404E16-E8CB-4A01-B42E-C1E624D12A49}
 		{E5A5B5A4-2BC9-4D77-AD64-4B5A5871E192} = {4E404E16-E8CB-4A01-B42E-C1E624D12A49}
 		{3D7CD27A-37AC-4AFC-AB97-7F50A9901871} = {B54AAF8D-979C-47B6-B5B5-35B223930872}
 		{F43994BC-FD64-4DF7-B939-C047667823DE} = {3D7CD27A-37AC-4AFC-AB97-7F50A9901871}
@@ -618,17 +569,6 @@ Global
 		{98D9D872-4701-4C60-B591-4EF7CC9363A8} = {1C2B38EF-18BB-43BB-B2B1-6FC2DC6939C7}
 		{3539E140-2E1D-4E5F-8308-1886A9473227} = {1C2B38EF-18BB-43BB-B2B1-6FC2DC6939C7}
 		{31FA13DD-C300-490D-A85B-A27D2339E10E} = {1C2B38EF-18BB-43BB-B2B1-6FC2DC6939C7}
-		{DDC92815-57AA-41D3-B6BF-1A06965E1328} = {2AAE1478-D3F3-4D1A-83C1-233627A03B26}
-		{7AD73A74-B367-4042-BD20-8989A0DFCDB9} = {2AAE1478-D3F3-4D1A-83C1-233627A03B26}
-		{14449AB1-EF9A-4590-B451-75808A960C81} = {DDC92815-57AA-41D3-B6BF-1A06965E1328}
-		{B3CB6078-46BC-4B05-855C-85F3BA7FE6C5} = {DDC92815-57AA-41D3-B6BF-1A06965E1328}
-		{67834CC3-BE2F-43AF-8CB3-9EF7451B814D} = {DDC92815-57AA-41D3-B6BF-1A06965E1328}
-		{4751DA1C-CDB9-4B91-BCF7-570B1E5EE369} = {DDC92815-57AA-41D3-B6BF-1A06965E1328}
-		{69C7418C-C879-489A-83D8-D974E1B4A642} = {DDC92815-57AA-41D3-B6BF-1A06965E1328}
-		{2B941E14-9A38-4095-806E-3A547E96FC7F} = {7AD73A74-B367-4042-BD20-8989A0DFCDB9}
-		{210A27B7-C695-43DF-AFC4-D60818DC9128} = {7AD73A74-B367-4042-BD20-8989A0DFCDB9}
-		{7D192FEE-32C3-4F14-9DD8-5E39443D2512} = {7AD73A74-B367-4042-BD20-8989A0DFCDB9}
-		{FCEBBDE7-A580-4C5F-AC34-4247376AF694} = {7AD73A74-B367-4042-BD20-8989A0DFCDB9}
 		{68B88404-88E8-4CF4-B1D6-69AA2AAD67A2} = {B721D24A-11BD-4F6C-AB8D-E48EA8CADEE8}
 		{7F1B59D0-60F6-41B7-8F13-2B8BBAA6A7A7} = {B721D24A-11BD-4F6C-AB8D-E48EA8CADEE8}
 		{8ED1E205-C539-4A79-A17C-C118E88AFEF1} = {68B88404-88E8-4CF4-B1D6-69AA2AAD67A2}
@@ -675,5 +615,7 @@ Global
 		{93088C46-E7E7-43A9-8F81-D9B5B69A3155} = {E6C3F87B-F8BC-420B-93D2-79142AEAD909}
 		{7E28C40D-112A-4272-A39B-B19D94D94A27} = {DEB5F59C-62CA-490B-96AF-23026EDB565A}
 		{3544375E-1B91-48D3-8151-352FBD60C306} = {1D708AEE-2C8C-47FF-B937-B28716510488}
+		{7D3E669D-1E40-4C89-ACEF-FF243B60F385} = {31A67267-4457-4019-B39F-793F012BFBDA}
+		{D334BACE-BA40-4831-A214-EDEAB3CD0E54} = {68B88404-88E8-4CF4-B1D6-69AA2AAD67A2}
 	EndGlobalSection
 EndGlobal
