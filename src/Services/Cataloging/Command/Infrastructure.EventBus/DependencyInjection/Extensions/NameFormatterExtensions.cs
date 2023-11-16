@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using MassTransit;
 
-namespace Infrastructure.MessageBus.DependencyInjection.Extensions;
+namespace Infrastructure.EventBus.DependencyInjection.Extensions;
 
 internal static class NameFormatterExtensions
 {

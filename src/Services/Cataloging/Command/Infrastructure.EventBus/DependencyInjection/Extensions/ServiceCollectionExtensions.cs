@@ -1,42 +1,42 @@
 using System.Reflection;
-using Application.Abstractions.Gateways;
-using Contracts.Abstractions.Messages;
+using Application.Abstractions;
 using Contracts.JsonConverters;
-using FluentValidation;
-using Infrastructure.MessageBus.DependencyInjection.Options;
-using Infrastructure.MessageBus.PipeFilters;
-using Infrastructure.MessageBus.PipeObservers;
+using Infrastructure.EventBus.DependencyInjection.Options;
+using Infrastructure.EventBus.PipeFilters;
+using Infrastructure.EventBus.PipeObservers;
 using MassTransit;
-using MassTransit.Configuration;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using Quartz;
 
-namespace Infrastructure.MessageBus.DependencyInjection.Extensions;
+namespace Infrastructure.EventBus.DependencyInjection.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddMessageBus(this IServiceCollection services)
-        => services.AddMassTransit(cfg =>
+    private const string SchedulerQueueName = "scheduler";
+
+    public static IServiceCollection AddMessageBusInfrastructure(this IServiceCollection services)
+        => services
+            .ConfigureOptions()
+            .AddEventBusGateway()
+           // .AddQuartz()
+            .AddMassTransit(cfg =>
             {
                 cfg.SetKebabCaseEndpointNameFormatter();
                 cfg.AddConsumers(Assembly.GetExecutingAssembly());
+               // cfg.AddMessageScheduler(new($"queue:{SchedulerQueueName}"));
 
                 cfg.UsingRabbitMq((context, bus) =>
                 {
-                    var options = context.GetRequiredService<IOptionsMonitor<MessageBusOptions>>().CurrentValue;
+                    var options = context.GetRequiredService<IOptionsMonitor<EventBusOptions>>().CurrentValue;
 
                     bus.Host(
                         hostAddress: options.ConnectionString,
                         connectionName: $"{options.ConnectionName}.{AppDomain.CurrentDomain.FriendlyName}");
 
-                    cfg.AddMessageScheduler(new($"queue:{options.SchedulerQueueName}"));
-
-                    bus.UseInMemoryScheduler(
-                        schedulerFactory: context.GetRequiredService<ISchedulerFactory>(),
-                        queueName: options.SchedulerQueueName);
+                    // bus.UseInMemoryScheduler(
+                    //     schedulerFactory: context.GetRequiredService<ISchedulerFactory>(),
+                    //     queueName: SchedulerQueueName);
 
                     bus.UseMessageRetry(retry
                         => retry.Incremental(
@@ -64,48 +64,33 @@ public static class ServiceCollectionExtensions
 
                     bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
 
-                    // TODO - Solve this!
-                    // bus.UseConsumeFilter(typeof(BusinessValidatorFilter<>), context);
-
-                    bus.UseConsumeFilter(typeof(ContractValidatorFilter<>), context);
                     bus.ConnectReceiveObserver(new LoggingReceiveObserver());
                     bus.ConnectConsumeObserver(new LoggingConsumeObserver());
                     bus.ConnectPublishObserver(new LoggingPublishObserver());
                     bus.ConnectSendObserver(new LoggingSendObserver());
+                    
+                    bus.UsePublishFilter(typeof(TraceIdentifierFilter<>),context);
+
                     bus.ConfigureEventReceiveEndpoints(context);
                     bus.ConfigureEndpoints(context);
-
-                    bus.ConfigurePublish(pipe => pipe.AddPipeSpecification(
-                        new DelegatePipeSpecification<PublishContext<IEvent>>(ctx
-                            => ctx.CorrelationId = ctx.InitiatorId)));
                 });
-            })
-            .AddQuartz();
+            });
 
-    public static IServiceCollection AddEventBusGateway(this IServiceCollection services)
+    private static IServiceCollection AddEventBusGateway(this IServiceCollection services)
         => services.AddScoped<IEventBusGateway, EventBusGateway>();
 
-    public static IServiceCollection AddMessageValidators(this IServiceCollection services)
-        => services.AddValidatorsFromAssemblyContaining(typeof(IMessage));
-
-    public static OptionsBuilder<MessageBusOptions> ConfigureMessageBusOptions(this IServiceCollection services, IConfigurationSection section)
+    private static IServiceCollection ConfigureOptions(this IServiceCollection services)
         => services
-            .AddOptions<MessageBusOptions>()
-            .Bind(section)
-            .ValidateDataAnnotations()
-            .ValidateOnStart();
+            .ConfigureOptions<EventBusOptions>()
+           // .ConfigureOptions<QuartzOptions>()
+            .ConfigureOptions<MassTransitHostOptions>();
 
-    public static OptionsBuilder<QuartzOptions> ConfigureQuartzOptions(this IServiceCollection services, IConfigurationSection section)
+    private static IServiceCollection ConfigureOptions<TOptions>(this IServiceCollection services)
+        where TOptions : class
         => services
-            .AddOptions<QuartzOptions>()
-            .Bind(section)
+            .AddOptions<TOptions>()
+            .BindConfiguration(typeof(TOptions).Name)
             .ValidateDataAnnotations()
-            .ValidateOnStart();
-
-    public static OptionsBuilder<MassTransitHostOptions> ConfigureMassTransitHostOptions(this IServiceCollection services, IConfigurationSection section)
-        => services
-            .AddOptions<MassTransitHostOptions>()
-            .Bind(section)
-            .ValidateDataAnnotations()
-            .ValidateOnStart();
+            .ValidateOnStart()
+            .Services;
 }

@@ -3,7 +3,7 @@ using FluentValidation;
 using MassTransit;
 using Serilog;
 
-namespace Infrastructure.MessageBus.PipeFilters;
+namespace Infrastructure.EventBus.PipeFilters;
 
 public class BusinessValidatorFilter<T> : IFilter<ExceptionConsumeContext<T>>
     where T : class
@@ -15,7 +15,7 @@ public class BusinessValidatorFilter<T> : IFilter<ExceptionConsumeContext<T>>
             Log.Error("Business validation errors: {Errors}", exception.Errors);
 
             await context.Send(
-                destinationAddress: new($"queue:order.{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}.business-error"),
+                destinationAddress: new($"queue:shopping-cart.{KebabCaseEndpointNameFormatter.Instance.SanitizeName(typeof(T).Name)}.business-error"),
                 message: new BusinessValidationResult<T>(context.Message, exception.Errors.Select(failure => failure.ErrorMessage)));
         }
     }
