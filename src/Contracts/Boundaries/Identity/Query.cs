@@ -1,0 +1,13 @@
+﻿using Contracts.Abstractions.Messages;
+using Contracts.Services.Identity.Protobuf;
+
+namespace Contracts.Boundaries.Identity;
+
+public static class Query
+{
+    public record Login(string Email, string Password) : IQuery
+    {
+        public static implicit operator Login(LoginRequest request)
+            => new(request.Email, request.Password);
+    }
+}

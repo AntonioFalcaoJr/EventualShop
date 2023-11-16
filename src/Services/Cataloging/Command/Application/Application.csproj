@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup>
+        <PackageReference Include="FluentResults" />
+        <PackageReference Include="LanguageExt.Core" />
+        <PackageReference Include="MassTransit" />
+        <PackageReference Include="MediatR" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Domain\Domain.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="UseCases\Catalogs\" />
+    </ItemGroup>
+</Project>

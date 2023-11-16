@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package Contracts.Services.Identity.Protobuf;
+
+import "Abstractions/Abstractions.proto";
+
+service IdentityService {
+  rpc Login(LoginRequest) returns (Abstractions.Protobuf.GetResponse);
+}
+
+// Requests
+
+message LoginRequest {
+  string Email = 1;
+  string Password = 2;
+}
+
+// Projections
+
+message UserDetails {
+  string UserId = 1;
+  string FirstName = 2;
+  string LastName = 3;
+  string Email = 4;
+  string Token = 5;
+}

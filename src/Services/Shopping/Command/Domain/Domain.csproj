@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup>
+        <PackageReference Include="Ardalis.SmartEnum" />
+        <PackageReference Include="FluentValidation" />
+        <PackageReference Include="Newtonsoft.Json" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\..\Contracts\Contracts.csproj" />
+    </ItemGroup>
+</Project>

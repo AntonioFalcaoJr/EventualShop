@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Hosting" />
+        <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" />
+        <PackageReference Include="MassTransit.Newtonsoft" />
+        <PackageReference Include="MassTransit.RabbitMQ" />
+        <PackageReference Include="MassTransit.Quartz" />
+        <PackageReference Include="Quartz.Extensions.Hosting" />
+        <PackageReference Include="Quartz.Serialization.Json" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+        <PackageReference Include="Serilog" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Application\Application.csproj" />
+    </ItemGroup>
+</Project>

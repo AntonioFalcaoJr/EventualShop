@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package Contracts.Services.Account.Protobuf;
+
+import "Abstractions/Abstractions.proto";
+
+service AccountService {
+  rpc GetAccountDetails(GetAccountDetailsRequest) returns (Abstractions.Protobuf.GetResponse);
+  rpc ListAccountsDetails(ListAccountsDetailsRequest) returns (Abstractions.Protobuf.ListResponse);
+  rpc ListShippingAddressesListItems(ListShippingAddressesListItemsRequest) returns (Abstractions.Protobuf.ListResponse);
+}
+
+// Requests
+
+message GetAccountDetailsRequest {
+  string AccountId = 1;
+}
+
+message ListAccountsDetailsRequest {
+  Abstractions.Protobuf.Paging Paging = 1;
+}
+
+message ListShippingAddressesListItemsRequest {
+  string AccountId = 1;
+  Abstractions.Protobuf.Paging Paging = 2;
+}
+
+// Projections
+
+message AccountDetails {
+  string AccountId = 1;
+  string FirstName = 2;
+  string LastName = 3;
+  string Email = 4;
+}
+
+message AddressListItem {
+  string AddressId = 1;
+  string AccountId = 2;
+  Abstractions.Protobuf.Address Address = 3;
+}
