@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions;
-using Contracts.Services.Payment;
+using Contracts.Boundaries.Payment;
 
 namespace Application.UseCases.Events;
 
@@ -9,17 +9,11 @@ public interface IProjectPaymentMethodDetailsWhenChangedInteractor :
     IInteractor<DomainEvent.PaymentMethodCanceled>,
     IInteractor<DomainEvent.PaymentMethodCancellationDenied>,
     IInteractor<DomainEvent.PaymentMethodRefunded>,
-    IInteractor<DomainEvent.PaymentMethodRefundDenied> { }
+    IInteractor<DomainEvent.PaymentMethodRefundDenied>;
 
-public class ProjectPaymentMethodDetailsWhenChangedInteractor : IProjectPaymentMethodDetailsWhenChangedInteractor
+public class ProjectPaymentMethodDetailsWhenChangedInteractor(IProjectionGateway<Projection.PaymentMethodDetails> projectionGateway)
+    : IProjectPaymentMethodDetailsWhenChangedInteractor
 {
-    private readonly IProjectionGateway<Projection.PaymentMethodDetails> _projectionGateway;
-
-    public ProjectPaymentMethodDetailsWhenChangedInteractor(IProjectionGateway<Projection.PaymentMethodDetails> projectionGateway)
-    {
-        _projectionGateway = projectionGateway;
-    }
-
     public Task InteractAsync(DomainEvent.PaymentMethodAuthorized @event, CancellationToken cancellationToken)
         => UpdateStatusAsync(@event.PaymentMethodId, @event.Version, @event.Status, cancellationToken);
 
@@ -38,8 +32,8 @@ public class ProjectPaymentMethodDetailsWhenChangedInteractor : IProjectPaymentM
     public Task InteractAsync(DomainEvent.PaymentMethodRefundDenied @event, CancellationToken cancellationToken)
         => UpdateStatusAsync(@event.PaymentMethodId, @event.Version, @event.Status, cancellationToken);
 
-    private Task UpdateStatusAsync(Guid methodId, long version, string status, CancellationToken cancellationToken)
-        => _projectionGateway.UpdateFieldAsync(
+    private Task UpdateStatusAsync(Guid methodId, ulong version, string status, CancellationToken cancellationToken)
+        => projectionGateway.UpdateFieldAsync(
             id: methodId, 
             version: version, 
             field: method => method.Status, 

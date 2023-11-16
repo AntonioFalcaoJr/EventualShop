@@ -10,15 +10,10 @@ using Serilog;
 
 namespace Infrastructure.Projections;
 
-public class ProjectionGateway<TProjection> : IProjectionGateway<TProjection>
+public class ProjectionGateway<TProjection>(IMongoDbContext context) : IProjectionGateway<TProjection>
     where TProjection : IProjection
 {
-    private readonly IMongoCollection<TProjection> _collection;
-
-    public ProjectionGateway(IMongoDbContext context)
-    {
-        _collection = context.GetCollection<TProjection>();
-    }
+    private readonly IMongoCollection<TProjection> _collection = context.GetCollection<TProjection>();
 
     public Task<TProjection?> GetAsync<TId>(TId id, CancellationToken cancellationToken) where TId : struct
         => FindAsync(projection => projection.Id.Equals(id), cancellationToken);
@@ -38,7 +33,7 @@ public class ProjectionGateway<TProjection> : IProjectionGateway<TProjection>
     public Task DeleteAsync<TId>(TId id, CancellationToken cancellationToken) where TId : struct
         => _collection.DeleteOneAsync(projection => projection.Id.Equals(id), cancellationToken);
 
-    public Task UpdateFieldAsync<TField, TId>(TId id, long version, Expression<Func<TProjection, TField>> field, TField value, CancellationToken cancellationToken) where TId : struct
+    public Task UpdateFieldAsync<TField, TId>(TId id, ulong version, Expression<Func<TProjection, TField>> field, TField value, CancellationToken cancellationToken) where TId : struct
         => _collection.UpdateOneAsync(
             filter: projection => projection.Id.Equals(id) && projection.Version < version,
             update: new ObjectUpdateDefinition<TProjection>(new()).Set(field, value),

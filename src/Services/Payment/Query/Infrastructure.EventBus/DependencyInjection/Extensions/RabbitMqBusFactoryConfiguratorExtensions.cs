@@ -1,5 +1,5 @@
 ﻿using Contracts.Abstractions.Messages;
-using Contracts.Services.Payment;
+using Contracts.Boundaries.Payment;
 using Infrastructure.EventBus.Consumers.Events;
 using MassTransit;
 
@@ -25,7 +25,7 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
         where TConsumer : class, IConsumer
         where TEvent : class, IEvent
         => bus.ReceiveEndpoint(
-            queueName: $"payment.query-stack.{typeof(TConsumer).ToKebabCaseString()}.{typeof(TEvent).ToKebabCaseString()}",
+            queueName: $"payment.query.{typeof(TConsumer).ToKebabCaseString()}.{typeof(TEvent).ToKebabCaseString()}",
             configureEndpoint: endpoint =>
             {
                 endpoint.ConfigureConsumeTopology = false;

@@ -4,17 +4,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.EventBus.DependencyInjection.Providers;
 
-public class LazyInteractorProvider : ILazyInteractorProvider
+public class LazyInteractorProvider(IServiceProvider serviceProvider) : ILazyInteractorProvider
 {
-    private readonly IServiceProvider _serviceProvider;
-
-    public LazyInteractorProvider(IServiceProvider serviceProvider)
-    {
-        _serviceProvider = serviceProvider;
-    }
-
     public async Task InteractAsync<T>(T message, CancellationToken cancellationToken) where T : IEvent 
-        => await _serviceProvider
+        => await serviceProvider
             .GetRequiredService<IInteractor<T>>()
             .InteractAsync(message, cancellationToken);
 }
