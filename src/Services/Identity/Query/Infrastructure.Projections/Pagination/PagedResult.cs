@@ -5,36 +5,26 @@ using MongoDB.Driver.Linq;
 
 namespace Infrastructure.Projections.Pagination;
 
-public class PagedResult<TProjection> : IPagedResult<TProjection>
+public record PagedResult<TProjection>(IReadOnlyCollection<TProjection> Projections, Paging Paging) : IPagedResult<TProjection>
     where TProjection : IProjection
 {
-    private readonly IReadOnlyList<TProjection> _items;
-    private readonly Paging _paging;
+    public IReadOnlyCollection<TProjection> Items
+        => Page.HasNext ? Projections.Take(Paging.Limit).ToList() : Projections;
 
-    public PagedResult(IReadOnlyList<TProjection> items, Paging paging)
+    public Page Page => new()
     {
-        _items = items;
-        _paging = paging;
-    }
-
-    public IReadOnlyList<TProjection> Items
-        => _items.Take(_paging.Limit).ToList().AsReadOnly();
-
-    public Page Page
-        => new()
-        {
-            Current = _paging.Offset + 1,
-            Size = Items.Count,
-            HasNext = _items.Count > _paging.Limit,
-            HasPrevious = _paging.Offset > 0
-        };
+        Current = Paging.Offset + 1,
+        Size = Paging.Limit,
+        HasNext = Paging.Limit < Projections.Count,
+        HasPrevious = Paging.Offset > 0
+    };
 
     public static async ValueTask<IPagedResult<TProjection>> CreateAsync(Paging paging, IQueryable<TProjection> source, CancellationToken cancellationToken)
     {
-        var items = await ApplyPagination(paging, source).ToListAsync(cancellationToken);
-        return new PagedResult<TProjection>(items, paging);
+        var projections = await ApplyPagination(paging, source).ToListAsync(cancellationToken);
+        return new PagedResult<TProjection>(projections, paging);
     }
 
     private static IMongoQueryable<TProjection> ApplyPagination(Paging paging, IQueryable<TProjection> source)
-        => (IMongoQueryable<TProjection>)source.Skip(paging.Limit * paging.Offset).Take(paging.Limit);
+        => (IMongoQueryable<TProjection>)source.Skip(paging.Limit * paging.Offset).Take(paging.Limit + 1);
 }

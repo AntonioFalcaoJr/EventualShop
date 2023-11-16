@@ -1,6 +1,3 @@
 namespace Infrastructure.Authentication;
 
-public class PasswordHasher
-{
-    
-}
+public class PasswordHasher;

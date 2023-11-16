@@ -1,24 +1,18 @@
 using Application.Abstractions;
-using Contracts.Services.Identity;
+using Contracts.Boundaries.Identity;
 
 namespace Application.UseCases.Events;
 
 public interface IProjectUserDetailsWhenUserChangedInteractor :
     IInteractor<DomainEvent.UserDeleted>,
     IInteractor<DomainEvent.UserRegistered>,
-    IInteractor<DomainEvent.UserPasswordChanged> { }
+    IInteractor<DomainEvent.UserPasswordChanged>;
 
-public class ProjectUserDetailsWhenUserChangedInteractor : IProjectUserDetailsWhenUserChangedInteractor
+public class ProjectUserDetailsWhenUserChangedInteractor(IProjectionGateway<Projection.UserDetails> projectionGateway)
+    : IProjectUserDetailsWhenUserChangedInteractor
 {
-    private readonly IProjectionGateway<Projection.UserDetails> _projectionGateway;
-
-    public ProjectUserDetailsWhenUserChangedInteractor(IProjectionGateway<Projection.UserDetails> projectionGateway)
-    {
-        _projectionGateway = projectionGateway;
-    }
-
     public Task InteractAsync(DomainEvent.UserDeleted @event, CancellationToken cancellationToken)
-        => _projectionGateway.DeleteAsync(@event.UserId, cancellationToken);
+        => projectionGateway.DeleteAsync(@event.UserId, cancellationToken);
 
     public async Task InteractAsync(DomainEvent.UserRegistered @event, CancellationToken cancellationToken)
     {
@@ -31,11 +25,11 @@ public class ProjectUserDetailsWhenUserChangedInteractor : IProjectUserDetailsWh
             false,
             @event.Version);
 
-        await _projectionGateway.ReplaceInsertAsync(userDetails, cancellationToken);
+        await projectionGateway.ReplaceInsertAsync(userDetails, cancellationToken);
     }
 
     public Task InteractAsync(DomainEvent.UserPasswordChanged @event, CancellationToken cancellationToken)
-        => _projectionGateway.UpdateFieldAsync(
+        => projectionGateway.UpdateFieldAsync(
             id: @event.UserId,
             version: @event.Version,
             field: user => user.Password,

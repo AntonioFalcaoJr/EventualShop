@@ -8,14 +8,9 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.Authentication;
 
-public class JwtTokenGenerator : IJwtTokenGenerator
+public class JwtTokenGenerator(IOptionsSnapshot<JwtOptions> snapshot) : IJwtTokenGenerator
 {
-    private readonly JwtOptions _options;
-
-    public JwtTokenGenerator(IOptionsSnapshot<JwtOptions> snapshot)
-    {
-        _options = snapshot.Value;
-    }
+    private readonly JwtOptions _options = snapshot.Value;
 
     public string Generate(Guid userId, string firstName, string lastName, string email)
     {
