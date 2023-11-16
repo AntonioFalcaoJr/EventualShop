@@ -1,6 +1,6 @@
 ﻿using Domain.Abstractions.Aggregates;
 using Contracts.Abstractions.Messages;
-using Contracts.Services.Identity;
+using Contracts.Boundaries.Identity;
 using Domain.Enumerations;
 using Domain.ValueObjects.Emails;
 using Newtonsoft.Json;

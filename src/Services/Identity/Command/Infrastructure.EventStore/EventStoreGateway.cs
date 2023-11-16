@@ -7,33 +7,27 @@ using Microsoft.Extensions.Options;
 
 namespace Infrastructure.EventStore;
 
-public class EventStoreGateway : IEventStoreGateway
+public class EventStoreGateway(IEventStoreRepository repository, IOptions<EventStoreOptions> options)
+    : IEventStoreGateway
 {
-    private readonly EventStoreOptions _options;
-    private readonly IEventStoreRepository _repository;
-
-    public EventStoreGateway(IEventStoreRepository repository, IOptions<EventStoreOptions> options)
-    {
-        _options = options.Value;
-        _repository = repository;
-    }
+    private readonly EventStoreOptions _options = options.Value;
 
     public async Task AppendEventsAsync(IAggregateRoot aggregate, CancellationToken cancellationToken)
     {
         foreach (var @event in aggregate.UncommittedEvents.Select(@event => StoreEvent.Create(aggregate, @event)))
         {
-            await _repository.AppendEventAsync(@event, cancellationToken);
+            await repository.AppendEventAsync(@event, cancellationToken);
 
             if (@event.Version % _options.SnapshotInterval is 0)
-                await _repository.AppendSnapshotAsync(Snapshot.Create(aggregate, @event), cancellationToken);
+                await repository.AppendSnapshotAsync(Snapshot.Create(aggregate, @event), cancellationToken);
         }
     }
 
     public async Task<TAggregate> LoadAggregateAsync<TAggregate>(Guid aggregateId, CancellationToken cancellationToken)
         where TAggregate : IAggregateRoot, new()
     {
-        var snapshot = await _repository.GetSnapshotAsync(aggregateId, cancellationToken);
-        var events = await _repository.GetStreamAsync(aggregateId, snapshot?.Version, cancellationToken);
+        var snapshot = await repository.GetSnapshotAsync(aggregateId, cancellationToken);
+        var events = await repository.GetStreamAsync(aggregateId, snapshot?.Version, cancellationToken);
 
         if (snapshot is null && events is { Count: 0 })
             throw new AggregateNotFoundException(aggregateId, typeof(TAggregate));
@@ -46,5 +40,5 @@ public class EventStoreGateway : IEventStoreGateway
     }
 
     public IAsyncEnumerable<Guid> StreamAggregatesId()
-        => _repository.StreamAggregatesId();
+        => repository.StreamAggregatesId();
 }

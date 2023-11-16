@@ -1,23 +1,16 @@
 ﻿using Application.Abstractions;
 using Application.Services;
-using Contracts.Services.Identity;
+using Contracts.Boundaries.Identity;
 using Domain.Aggregates;
 
 namespace Application.UseCases.Commands;
 
-public class ConfirmEmailInteractor : IInteractor<Command.ConfirmEmail>
+public class ConfirmEmailInteractor(IApplicationService service) : IInteractor<Command.ConfirmEmail>
 {
-    private readonly IApplicationService _applicationService;
-
-    public ConfirmEmailInteractor(IApplicationService applicationService)
-    {
-        _applicationService = applicationService;
-    }
-
     public async Task InteractAsync(Command.ConfirmEmail command, CancellationToken cancellationToken)
     {
-        var user = await _applicationService.LoadAggregateAsync<User>(command.UserId, cancellationToken);
+        var user = await service.LoadAggregateAsync<User>(command.UserId, cancellationToken);
         user.Handle(command);
-        await _applicationService.AppendEventsAsync(user, cancellationToken);
+        await service.AppendEventsAsync(user, cancellationToken);
     }
 }

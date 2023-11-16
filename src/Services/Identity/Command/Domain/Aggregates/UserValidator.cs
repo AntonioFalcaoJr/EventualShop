@@ -9,7 +9,7 @@ public class UserValidator : AbstractValidator<User>
     {
         RuleFor(user => user.Id)
             .NotEmpty();
-        
+
         RuleFor(user => user.FirstName)
             .Length(4, 30);
 

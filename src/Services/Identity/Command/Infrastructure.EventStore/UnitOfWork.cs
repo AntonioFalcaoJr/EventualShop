@@ -4,14 +4,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Infrastructure.EventStore;
 
-public class UnitOfWork : IUnitOfWork
+public class UnitOfWork(DbContext dbContext) : IUnitOfWork
 {
-    private readonly DatabaseFacade _database;
-
-    public UnitOfWork(DbContext dbContext)
-    {
-        _database = dbContext.Database;
-    }
+    private readonly DatabaseFacade _database = dbContext.Database;
 
     public Task ExecuteAsync(Func<CancellationToken, Task> operationAsync, CancellationToken cancellationToken)
         => _database.CreateExecutionStrategy().ExecuteAsync(ct => ExecuteTransactionAsync(operationAsync, ct), cancellationToken);
