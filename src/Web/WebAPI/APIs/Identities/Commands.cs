@@ -1,4 +1,4 @@
-﻿using Contracts.Services.Identity;
+﻿using Contracts.Boundaries.Identity;
 using MassTransit;
 using WebAPI.Abstractions;
 using WebAPI.APIs.Identities.Validators;

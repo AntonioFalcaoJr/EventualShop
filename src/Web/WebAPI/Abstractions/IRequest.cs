@@ -1,4 +1,3 @@
-using Contracts.Abstractions.Messages;
 using Grpc.Core;
 using MassTransit;
 
@@ -10,11 +9,22 @@ public interface IRequest
     bool IsValid(out IDictionary<string, string[]> errors);
 }
 
+public interface INewRequest
+{
+    CancellationToken CancellationToken { get; }
+}
+
 public interface ICommand<out TCommand> : IRequest
-    where TCommand : ICommand
+    where TCommand : class
 {
     TCommand Command { get; }
     IBus Bus { get; }
+}
+
+public interface INewCommand<out TClient> : INewRequest
+    where TClient : ClientBase
+{
+    TClient Client { get; }
 }
 
 public interface IQuery<out TClient> : IRequest

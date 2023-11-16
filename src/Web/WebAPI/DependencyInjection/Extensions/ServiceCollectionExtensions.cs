@@ -1,20 +1,23 @@
 ﻿using Contracts.Abstractions.Messages;
 using Contracts.JsonConverters;
 using Contracts.Services.Account.Protobuf;
-using Contracts.Services.Catalog.Protobuf;
+using Contracts.Services.Cataloging.Command.Protobuf;
 using Contracts.Services.Communication.Protobuf;
 using Contracts.Services.Identity.Protobuf;
 using Contracts.Services.Payment.Protobuf;
-using Contracts.Services.ShoppingCart.Protobuf;
 using Contracts.Services.Warehouse.Protobuf;
+using Contracts.Shopping.Commands;
+using Contracts.Shopping.Queries;
 using CorrelationId.Abstractions;
 using CorrelationId.HttpClient;
 using Grpc.Core;
+using Grpc.Core.Interceptors;
 using Grpc.Net.Client.Configuration;
 using MassTransit;
 using MassTransit.Configuration;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using WebAPI.DependencyInjection.Options;
 using WebAPI.PipeObservers;
 
@@ -22,14 +25,19 @@ namespace WebAPI.DependencyInjection.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddMessageBus(this IServiceCollection services)
+    public static void AddSwagger(this IServiceCollection services)
+        => services
+            .AddSwaggerGen()
+            .AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+
+    public static void AddMessageBus(this IServiceCollection services)
         => services.AddMassTransit(cfg =>
         {
             cfg.SetKebabCaseEndpointNameFormatter();
 
             cfg.UsingRabbitMq((context, bus) =>
             {
-                var options = context.GetRequiredService<IOptionsMonitor<MessageBusOptions>>().CurrentValue;
+                var options = context.GetRequiredService<IOptions<EventBusOptions>>().Value;
 
                 bus.Host(options.ConnectionString);
 
@@ -71,36 +79,50 @@ public static class ServiceCollectionExtensions
             });
         });
 
-    public static void AddIdentityGrpcClient(this IServiceCollection services)
-        => services.AddGrpcClient<IdentityService.IdentityServiceClient, IdentityGrpcClientOptions>();
+    public static void AddGrpcClients(this IServiceCollection services)
+    {
+        services.AddScoped<GrpcExceptionInterceptor>();
 
-    public static void AddAccountGrpcClient(this IServiceCollection services)
-        => services.AddGrpcClient<AccountService.AccountServiceClient, AccountGrpcClientOptions>();
+        services.AddGrpcClient<IdentityService.IdentityServiceClient, IdentityGrpcClientOptions>();
+        services.AddGrpcClient<AccountService.AccountServiceClient, AccountGrpcClientOptions>();
+        services.AddGrpcClient<CommunicationService.CommunicationServiceClient, CommunicationGrpcClientOptions>();
+        services.AddGrpcClient<WarehouseService.WarehouseServiceClient, WarehouseGrpcClientOptions>();
+        services.AddGrpcClient<PaymentService.PaymentServiceClient, PaymentGrpcClientOptions>();
 
-    public static void AddCommunicationGrpcClient(this IServiceCollection services)
-        => services.AddGrpcClient<CommunicationService.CommunicationServiceClient, CommunicationGrpcClientOptions>();
+        // TODO: Improve and/or separate options for command and query clients
+        services.AddGrpcClient<CatalogingCommandService.CatalogingCommandServiceClient, CatalogingCommandGrpcClientOptions>();
+        services.AddGrpcClient<ShoppingQueryService.ShoppingQueryServiceClient, ShoppingCartGrpcClientOptions>();
+        services.AddGrpcClient<ShoppingCommandService.ShoppingCommandServiceClient, ShoppingCartCommandGrpcClientOptions>();
+    }
 
-    public static void AddCatalogGrpcClient(this IServiceCollection services)
-        => services.AddGrpcClient<CatalogService.CatalogServiceClient, CatalogGrpcClientOptions>();
+    public static void ConfigureOptions(this IServiceCollection services)
+    {
+        services.ConfigureOptions<EventBusOptions>();
+        services.ConfigureOptions<MassTransitHostOptions>();
+        services.ConfigureOptions<RabbitMqTransportOptions>();
+        services.ConfigureOptions<IdentityGrpcClientOptions>();
+        services.ConfigureOptions<AccountGrpcClientOptions>();
+        services.ConfigureOptions<CommunicationGrpcClientOptions>();
+        services.ConfigureOptions<WarehouseGrpcClientOptions>();
 
-    public static void AddWarehouseGrpcClient(this IServiceCollection services)
-        => services.AddGrpcClient<WarehouseService.WarehouseServiceClient, WarehouseGrpcClientOptions>();
+        // TODO: Improve and/or separate options for command and query clients
+        services.ConfigureOptions<CatalogingCommandGrpcClientOptions>();
+        services.ConfigureOptions<CatalogingQueryGrpcClientOptions>();
+        services.ConfigureOptions<ShoppingCartCommandGrpcClientOptions>();
+        services.ConfigureOptions<ShoppingCartGrpcClientOptions>();
 
-    public static void AddShoppingCartGrpcClient(this IServiceCollection services)
-        => services.AddGrpcClient<ShoppingCartService.ShoppingCartServiceClient, ShoppingCartGrpcClientOptions>();
-
-    public static void AddPaymentGrpcClient(this IServiceCollection services)
-        => services.AddGrpcClient<PaymentService.PaymentServiceClient, PaymentGrpcClientOptions>();
+        services.ConfigureOptions<PaymentGrpcClientOptions>();
+    }
 
     private static void AddGrpcClient<TClient, TOptions>(this IServiceCollection services)
         where TClient : ClientBase
-        where TOptions : class
+        where TOptions : GrpcClientOptions
         => services.AddGrpcClient<TClient>((provider, client) =>
             {
-                var options = provider.GetRequiredService<IOptionsMonitor<TOptions>>().CurrentValue as dynamic;
+                var options = provider.GetRequiredService<IOptions<TOptions>>().Value;
                 client.Address = new(options.BaseAddress);
             })
-            .AddCorrelationIdForwarding()
+            .AddInterceptor<GrpcExceptionInterceptor>()
             .ConfigureChannel(options =>
                 {
                     options.Credentials = ChannelCredentials.Insecure;
@@ -110,81 +132,38 @@ public static class ServiceCollectionExtensions
             .ConfigurePrimaryHttpMessageHandler(() =>
                 new SocketsHttpHandler
                 {
-                    PooledConnectionIdleTimeout = Timeout.InfiniteTimeSpan,
+                    EnableMultipleHttp2Connections = true,
                     KeepAlivePingDelay = TimeSpan.FromSeconds(60),
                     KeepAlivePingTimeout = TimeSpan.FromSeconds(30),
-                    EnableMultipleHttp2Connections = true
+                    PooledConnectionIdleTimeout = Timeout.InfiniteTimeSpan
                 })
-            .EnableCallContextPropagation(options
-                => options.SuppressContextNotFoundErrors = true);
+            .EnableCallContextPropagation(options => options.SuppressContextNotFoundErrors = true)
+            .AddCorrelationIdForwarding();
 
-    public static OptionsBuilder<MessageBusOptions> ConfigureMessageBusOptions(this IServiceCollection services, IConfigurationSection section)
+    private static IServiceCollection ConfigureOptions<TOptions>(this IServiceCollection services)
+        where TOptions : class
         => services
-            .AddOptions<MessageBusOptions>()
-            .Bind(section)
+            .AddOptions<TOptions>()
+            .BindConfiguration(typeof(TOptions).Name)
             .ValidateDataAnnotations()
-            .ValidateOnStart();
+            .ValidateOnStart()
+            .Services;
+}
 
-    public static OptionsBuilder<MassTransitHostOptions> ConfigureMassTransitHostOptions(this IServiceCollection services, IConfigurationSection section)
-        => services
-            .AddOptions<MassTransitHostOptions>()
-            .Bind(section)
-            .ValidateDataAnnotations()
-            .ValidateOnStart();
-
-    public static OptionsBuilder<RabbitMqTransportOptions> ConfigureRabbitMqTransportOptions(this IServiceCollection services, IConfigurationSection section)
-        => services
-            .AddOptions<RabbitMqTransportOptions>()
-            .Bind(section)
-            .ValidateDataAnnotations()
-            .ValidateOnStart();
-
-    public static OptionsBuilder<IdentityGrpcClientOptions> ConfigureIdentityGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
-        => services
-            .AddOptions<IdentityGrpcClientOptions>()
-            .Bind(section)
-            .ValidateDataAnnotations()
-            .ValidateOnStart();
-
-    public static OptionsBuilder<AccountGrpcClientOptions> ConfigureAccountGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
-        => services
-            .AddOptions<AccountGrpcClientOptions>()
-            .Bind(section)
-            .ValidateDataAnnotations()
-            .ValidateOnStart();
-
-    public static OptionsBuilder<CommunicationGrpcClientOptions> ConfigureCommunicationGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
-        => services
-            .AddOptions<CommunicationGrpcClientOptions>()
-            .Bind(section)
-            .ValidateDataAnnotations()
-            .ValidateOnStart();
-
-    public static OptionsBuilder<CatalogGrpcClientOptions> ConfigureCatalogGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
-        => services
-            .AddOptions<CatalogGrpcClientOptions>()
-            .Bind(section)
-            .ValidateDataAnnotations()
-            .ValidateOnStart();
-
-    public static OptionsBuilder<WarehouseGrpcClientOptions> ConfigureWarehouseGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
-        => services
-            .AddOptions<WarehouseGrpcClientOptions>()
-            .Bind(section)
-            .ValidateDataAnnotations()
-            .ValidateOnStart();
-
-    public static OptionsBuilder<ShoppingCartGrpcClientOptions> ConfigureShoppingCartGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
-        => services
-            .AddOptions<ShoppingCartGrpcClientOptions>()
-            .Bind(section)
-            .ValidateDataAnnotations()
-            .ValidateOnStart();
-
-    public static OptionsBuilder<PaymentGrpcClientOptions> ConfigurePaymentGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
-        => services
-            .AddOptions<PaymentGrpcClientOptions>()
-            .Bind(section)
-            .ValidateDataAnnotations()
-            .ValidateOnStart();
+public class GrpcExceptionInterceptor : Interceptor
+{
+    public override async Task<TResponse> UnaryServerHandler<TRequest, TResponse>(
+        TRequest request,
+        ServerCallContext context,
+        UnaryServerMethod<TRequest, TResponse> continuation)
+    {
+        try
+        {
+            return await continuation(request, context);
+        }
+        catch (RpcException ex)
+        {
+            throw;
+        }
+    }
 }

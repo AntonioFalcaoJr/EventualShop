@@ -1,5 +1,5 @@
-﻿using Contracts.DataTransferObjects;
-using Contracts.Services.Account;
+﻿using Contracts.Boundaries.Account;
+using Contracts.DataTransferObjects;
 using MassTransit;
 using WebAPI.Abstractions;
 using WebAPI.APIs.Accounts.Validators;

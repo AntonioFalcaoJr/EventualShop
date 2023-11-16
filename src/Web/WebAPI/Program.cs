@@ -7,10 +7,8 @@ using CorrelationId;
 using CorrelationId.DependencyInjection;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using MassTransit;
+using Grpc.Core;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Http.Json;
-using Microsoft.AspNetCore.HttpLogging;
 using Serilog;
 using WebAPI.APIs.Accounts;
 using WebAPI.APIs.Catalogs;
@@ -18,10 +16,10 @@ using WebAPI.APIs.Communications;
 using WebAPI.APIs.Identities;
 using WebAPI.APIs.Orders;
 using WebAPI.APIs.Payments;
-using WebAPI.APIs.ShoppingCarts;
+using WebAPI.APIs.Shopping;
 using WebAPI.APIs.Warehouses;
 using WebAPI.DependencyInjection.Extensions;
-using WebAPI.DependencyInjection.Options;
+using JsonOptions = Microsoft.AspNetCore.Http.Json.JsonOptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,118 +34,89 @@ builder.Configuration
     .AddUserSecrets(Assembly.GetExecutingAssembly())
     .AddEnvironmentVariables();
 
-Log.Logger = new LoggerConfiguration().ReadFrom
-    .Configuration(builder.Configuration)
-    .CreateLogger();
+builder.Logging.ClearProviders().AddSerilog();
 
-builder.Logging
-    .ClearProviders()
-    .AddSerilog();
+builder.Host.UseSerilog((context, cfg)
+    => cfg.ReadFrom.Configuration(context.Configuration));
 
-builder.Host.UseSerilog();
-
-builder.Host.ConfigureServices((context, services) =>
+builder.Services.AddProblemDetails(options => options.CustomizeProblemDetails = context =>
 {
-    services.AddProblemDetails();
+    if (context.Exception is not RpcException exception) return;
 
-    services.AddCors(options
-        => options.AddDefaultPolicy(policyBuilder
-            => policyBuilder
-                .AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod()));
-
-    services.AddDefaultCorrelationId(options =>
+    context.ProblemDetails.Status = exception.StatusCode switch
     {
-        options.RequestHeader =
-            options.ResponseHeader =
-                options.LoggingScopeKey = "CorrelationId";
-        options.UpdateTraceIdentifier = true;
-        options.AddToLoggingScope = true;
-    });
+        StatusCode.NotFound => StatusCodes.Status404NotFound,
+        StatusCode.AlreadyExists => StatusCodes.Status409Conflict,
+        StatusCode.PermissionDenied => StatusCodes.Status403Forbidden,
+        StatusCode.Unauthenticated => StatusCodes.Status401Unauthorized,
+        StatusCode.InvalidArgument => StatusCodes.Status400BadRequest,
+        StatusCode.DeadlineExceeded => StatusCodes.Status408RequestTimeout,
+        StatusCode.Cancelled => StatusCodes.Status400BadRequest,
+        _ => StatusCodes.Status500InternalServerError
+    };
 
-    services
-        .AddFluentValidationAutoValidation()
-        .AddFluentValidationClientsideAdapters()
-        .AddValidatorsFromAssemblyContaining<Program>();
-
-    // TODO - Review it!
-    builder.Services.Configure<JsonOptions>(options =>
-    {
-        options.SerializerOptions.Converters.Add(new DateOnlyTextJsonConverter());
-        options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
-        options.SerializerOptions.Converters.Add(new SmartEnumNameConverter<Gender, int>());
-    });
-
-    services
-        .AddSwaggerGenNewtonsoftSupport()
-        .AddFluentValidationRulesToSwagger()
-        .AddEndpointsApiExplorer()
-        .AddSwagger();
-
-    services
-        .AddApiVersioning(options => options.ReportApiVersions = true)
-        .AddApiExplorer(options =>
-        {
-            options.GroupNameFormat = "'v'VVV";
-            options.SubstituteApiVersionInUrl = true;
-        });
-
-    services.AddHealthChecks();
-
-    services.AddMessageBus();
-    services.AddIdentityGrpcClient();
-    services.AddAccountGrpcClient();
-    services.AddCommunicationGrpcClient();
-    services.AddCatalogGrpcClient();
-    services.AddWarehouseGrpcClient();
-    services.AddShoppingCartGrpcClient();
-    services.AddPaymentGrpcClient();
-
-    services.ConfigureMessageBusOptions(
-        context.Configuration.GetSection(nameof(MessageBusOptions)));
-
-    services.ConfigureIdentityGrpcClientOptions(
-        context.Configuration.GetSection(nameof(IdentityGrpcClientOptions)));
-
-    services.ConfigureAccountGrpcClientOptions(
-        context.Configuration.GetSection(nameof(AccountGrpcClientOptions)));
-
-    services.ConfigureCommunicationGrpcClientOptions(
-        context.Configuration.GetSection(nameof(CommunicationGrpcClientOptions)));
-
-    services.ConfigureCatalogGrpcClientOptions(
-        context.Configuration.GetSection(nameof(CatalogGrpcClientOptions)));
-
-    services.ConfigureWarehouseGrpcClientOptions(
-        context.Configuration.GetSection(nameof(WarehouseGrpcClientOptions)));
-
-    services.ConfigureShoppingCartGrpcClientOptions(
-        context.Configuration.GetSection(nameof(ShoppingCartGrpcClientOptions)));
-
-    services.ConfigurePaymentGrpcClientOptions(
-        context.Configuration.GetSection(nameof(PaymentGrpcClientOptions)));
-
-    services.ConfigureMassTransitHostOptions(
-        context.Configuration.GetSection(nameof(MassTransitHostOptions)));
-
-    services.ConfigureRabbitMqTransportOptions(
-        context.Configuration.GetSection(nameof(RabbitMqTransportOptions)));
-
-    services.AddHttpLogging(options
-        => options.LoggingFields = HttpLoggingFields.All);
+    context.ProblemDetails.Title = exception.Status.ToString();
+    context.ProblemDetails.Detail = exception.Status.Detail;
+    context.HttpContext.Response.StatusCode = context.ProblemDetails.Status.Value;
 });
+
+builder.Services.AddCors(options
+    => options.AddDefaultPolicy(policyBuilder
+        => policyBuilder
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod()));
+
+builder.Services.AddDefaultCorrelationId(options =>
+{
+    options.RequestHeader =
+        options.ResponseHeader =
+            options.LoggingScopeKey = "CorrelationId";
+
+    options.UpdateTraceIdentifier =
+        options.AddToLoggingScope = true;
+});
+
+builder.Services
+    .AddFluentValidationAutoValidation()
+    .AddFluentValidationClientsideAdapters()
+    .AddValidatorsFromAssemblyContaining<WebAPI.Program>();
+
+// TODO - Review it!
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.SerializerOptions.Converters.Add(new DateOnlyTextJsonConverter());
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    options.SerializerOptions.Converters.Add(new SmartEnumNameConverter<Gender, int>());
+});
+
+builder.Services
+    .AddSwaggerGenNewtonsoftSupport()
+    .AddFluentValidationRulesToSwagger()
+    .AddEndpointsApiExplorer()
+    .AddSwagger();
+
+builder.Services
+    .AddApiVersioning(options => options.ReportApiVersions = true)
+    .AddApiExplorer(options =>
+    {
+        options.GroupNameFormat = "'v'VVV";
+        options.SubstituteApiVersionInUrl = true;
+    });
+
+builder.Services.AddMessageBus();
+builder.Services.AddGrpcClients();
+builder.Services.AddHealthChecks();
+builder.Services.ConfigureOptions();
 
 var app = builder.Build();
 
 if (builder.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 
-app.UseCorrelationId();
 app.UseCors();
+app.UseCorrelationId();
 app.UseSerilogRequestLogging();
-
-app.MapHealthChecks("/healthz");
 
 app.NewVersionedApi("Accounts").MapAccountApiV1().MapAccountApiV2();
 app.NewVersionedApi("Catalogs").MapCatalogApiV1().MapCatalogApiV2();
@@ -155,8 +124,10 @@ app.NewVersionedApi("Communications").MapCommunicationApiV1().MapCommunicationAp
 app.NewVersionedApi("Identities").MapIdentityApiV1().MapIdentityApiV2();
 app.NewVersionedApi("Orders").MapOrderApiV1().MapOrderApiV2();
 app.NewVersionedApi("Payments").MapPaymentApiV1().MapPaymentApiV2();
-app.NewVersionedApi("ShoppingCarts").MapShoppingCartApiV1().MapShoppingCartApiV2();
+app.NewVersionedApi("ShoppingCarts").MapShoppingApiV1().MapShoppingApiV2();
 app.NewVersionedApi("Warehouses").MapWarehouseApiV1().MapWarehouseApiV2();
+
+app.MapHealthChecks("/healthz").ShortCircuit();
 
 if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
     app.ConfigureSwagger();
@@ -177,4 +148,7 @@ finally
     await app.DisposeAsync();
 }
 
-public partial class Program { }
+namespace WebAPI
+{
+    public partial class Program;
+}

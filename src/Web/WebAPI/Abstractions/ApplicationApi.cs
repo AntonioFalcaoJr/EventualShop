@@ -1,11 +1,13 @@
 using Contracts.Abstractions.Messages;
 using Contracts.Abstractions.Protobuf;
+using FluentValidation;
 using Grpc.Core;
 using MassTransit;
 using Microsoft.AspNetCore.Http.HttpResults;
 using static Microsoft.AspNetCore.Http.TypedResults;
 using NoContent = Microsoft.AspNetCore.Http.HttpResults.NoContent;
 using NotFound = Microsoft.AspNetCore.Http.HttpResults.NotFound;
+using Accepted = Microsoft.AspNetCore.Http.HttpResults.Accepted;
 using IMessage = Google.Protobuf.IMessage;
 
 namespace WebAPI.Abstractions;
@@ -20,8 +22,31 @@ public static class ApplicationApi
         async Task<Accepted> SendAsync()
         {
             var endpoint = await request.Bus.GetSendEndpoint(Address<TCommand>());
-            await endpoint.Send(request.Command, request.CancellationToken);
+            await endpoint.Send<TCommand>(request, request.CancellationToken);
             return Accepted("");
+        }
+    }
+
+    public static async Task<Results<Ok<string>, Accepted, NotFound, NoContent, ValidationProblem, Problem>> NewSendCommandAsync<TClient, TValidator>
+        (IVeryNewCommand<TClient, TValidator> command, Func<TClient, CancellationToken, AsyncUnaryCall<CommandResponse>> sendAsync)
+        where TClient : ClientBase
+        where TValidator : IValidator, new()
+    {
+        return command.IsValid(out var errors) ? await SendAsync() : ValidationProblem(errors);
+
+        async Task<Results<Ok<string>, Accepted, NotFound, NoContent, ValidationProblem, Problem>> SendAsync()
+        {
+            var response = await sendAsync(command.Client, command.CancellationToken);
+
+
+            return response.OneOfCase switch
+            {
+                CommandResponse.OneOfOneofCase.Ok => Ok(response.Ok),
+                CommandResponse.OneOfOneofCase.Accepted => Accepted(string.Empty),
+                CommandResponse.OneOfOneofCase.NotFound => NotFound(),
+                CommandResponse.OneOfOneofCase.NoContent or CommandResponse.OneOfOneofCase.None => NoContent(),
+                _ => new Problem()
+            };
         }
     }
 

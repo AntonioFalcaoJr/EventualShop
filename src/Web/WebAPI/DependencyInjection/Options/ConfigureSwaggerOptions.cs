@@ -5,18 +5,11 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace WebAPI.DependencyInjection.Options;
 
-public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
+public class ConfigureSwaggerOptions(IApiVersionDescriptionProvider provider) : IConfigureOptions<SwaggerGenOptions>
 {
-    private readonly IApiVersionDescriptionProvider _provider;
-
-    public ConfigureSwaggerOptions(IApiVersionDescriptionProvider provider)
-    {
-        _provider = provider;
-    }
-
     public void Configure(SwaggerGenOptions options)
     {
-        foreach (var description in _provider.ApiVersionDescriptions)
+        foreach (var description in provider.ApiVersionDescriptions)
             options.SwaggerDoc(description.GroupName, new()
             {
                 Title = AppDomain.CurrentDomain.FriendlyName,

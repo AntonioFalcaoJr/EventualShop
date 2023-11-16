@@ -1,22 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
     <ItemGroup>
-        <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="7.0.0" />
-        <PackageReference Include="Asp.Versioning.Http" Version="7.0.0" />
-        <PackageReference Include="CorrelationId" Version="$(CorrelationId_Version)" />
-        <PackageReference Include="FluentValidation" Version="$(FluentValidation_Version)" />
-        <PackageReference Include="FluentValidation.AspNetCore" Version="$(FluentValidation_AspNetCore_Version)" />
-        <PackageReference Include="Grpc.Net.Client" Version="$(Grpc_Net_Client_Version)" />
-        <PackageReference Include="Grpc.Net.ClientFactory" Version="$(Grpc_Net_ClientFactory_Version)" />
-        <PackageReference Include="Grpc.AspNetCore.Server.ClientFactory" Version="$(Grpc_AspNetCore_Server_ClientFactory_Version)" />
-        <PackageReference Include="MassTransit.Newtonsoft" Version="$(MassTransit_Version)" />
-        <PackageReference Include="MassTransit.RabbitMQ" Version="$(MassTransit_Version)" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="$(Microsoft_Mvc_NewtonsoftJso_Version)" />
-        <PackageReference Include="Serilog.AspNetCore" Version="$(Serilog_AspNetCore_Version)" />
-        <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="9.0.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="$(Swashbuckle_Version)" />
-        <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="$(Swashbuckle_Version)" />
-        <PackageReference Include="MicroElements.Swashbuckle.FluentValidation" Version="$(Swashbuckle_FluentValidation_Version)" />
-        <PackageReference Include="Newtonsoft.Json" Version="$(Newtonsoft_Version)" />
+        <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" />
+        <PackageReference Include="Asp.Versioning.Http" />
+        <PackageReference Include="CorrelationId" />
+        <PackageReference Include="FluentValidation" />
+        <PackageReference Include="FluentValidation.AspNetCore" />
+        <PackageReference Include="Grpc.Net.Client" />
+        <PackageReference Include="Grpc.Net.ClientFactory" />
+        <PackageReference Include="Grpc.AspNetCore.Server.ClientFactory" />
+        <PackageReference Include="MassTransit.Newtonsoft" />
+        <PackageReference Include="MassTransit.RabbitMQ" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
+        <PackageReference Include="Serilog.AspNetCore" />
+        <PackageReference Include="Serilog.Sinks.Elasticsearch" />
+        <PackageReference Include="Swashbuckle.AspNetCore" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" />
+        <PackageReference Include="MicroElements.Swashbuckle.FluentValidation" />
+        <PackageReference Include="Newtonsoft.Json" />
     </ItemGroup>
     <ItemGroup>
         <InternalsVisibleTo Include="$(AssemblyName).IntegrationTests" />

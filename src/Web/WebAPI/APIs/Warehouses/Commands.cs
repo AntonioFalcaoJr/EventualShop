@@ -1,5 +1,5 @@
+using Contracts.Boundaries.Warehouse;
 using Contracts.DataTransferObjects;
-using Contracts.Services.Warehouse;
 using MassTransit;
 using WebAPI.Abstractions;
 using WebAPI.APIs.Warehouses.Validators;
