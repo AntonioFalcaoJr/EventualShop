@@ -1,3 +1,3 @@
 ﻿namespace Contracts.Abstractions.Messages;
 
-public interface IQuery { }
+public interface IQuery;

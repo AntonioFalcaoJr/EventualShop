@@ -1,9 +1,6 @@
 ﻿using Contracts.JsonConverters;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
-using CommunicationProtobuf = Contracts.Services.Communication.Protobuf;
-using ShoppingCartProtobuf = Contracts.Services.ShoppingCart.Protobuf;
-using CatalogProtobuf = Contracts.Services.Catalog.Protobuf;
 
 namespace Contracts.DataTransferObjects;
 
@@ -19,7 +16,7 @@ public static class Dto
             };
     }
 
-    public record Address(string Street, string City, string State, string ZipCode, string Country, int? Number, string? Complement)
+    public record Address(string City, string Complement, string Country, string Number, string State, string Street, string ZipCode)
     {
         public static implicit operator Abstractions.Protobuf.Address(Address address)
             => new()
@@ -34,32 +31,32 @@ public static class Dto
             };
     }
 
-    public interface IPaymentOption { }
+    public interface IPaymentOption;
 
     public record CreditCard(
         [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
         [property: BsonSerializer(typeof(ExpirationDateOnlyBsonSerializer))]
-        DateOnly ExpirationDate, string Number, string HolderName, ushort SecurityCode) : IPaymentOption
+        string ExpirationDate, string Number, string HolderName, string Cvv) : IPaymentOption
     {
         public static implicit operator Abstractions.Protobuf.CreditCard(CreditCard creditCard)
             => new()
             {
-                ExpirationDate = creditCard.ExpirationDate.ToShortDateString(),
+                ExpirationDate = creditCard.ExpirationDate,
                 Number = creditCard.Number,
                 HolderName = creditCard.HolderName,
-                SecurityCode = creditCard.SecurityCode
+                SecurityCode = creditCard.Cvv
             };
     }
 
     public record DebitCard(
         [property: JsonConverter(typeof(ExpirationDateOnlyJsonConverter))]
         [property: BsonSerializer(typeof(ExpirationDateOnlyBsonSerializer))]
-        DateOnly ExpirationDate, string Number, string HolderName, ushort SecurityCode) : IPaymentOption
+        string ExpirationDate, string Number, string HolderName, string SecurityCode) : IPaymentOption
     {
         public static implicit operator Abstractions.Protobuf.DebitCard(DebitCard debitCard)
             => new()
             {
-                ExpirationDate = debitCard.ExpirationDate.ToShortDateString(),
+                ExpirationDate = debitCard.ExpirationDate,
                 Number = debitCard.Number,
                 HolderName = debitCard.HolderName,
                 SecurityCode = debitCard.SecurityCode
@@ -74,7 +71,7 @@ public static class Dto
 
     public record PaymentMethod(Guid Id, Money Amount, IPaymentOption Option);
 
-    public interface INotificationOption { }
+    public interface INotificationOption;
 
     public record NotificationMethod(Guid Id, INotificationOption Option);
 
@@ -102,12 +99,12 @@ public static class Dto
             => new() { DeviceId = pushMobile.DeviceId.ToString() };
     }
 
-    public record Product(string Description, string Name, string Brand, string Category, string Unit, string Sku)
+    public record Product(string Name, string Brand, string Category, string Unit, string Sku)
     {
         public static implicit operator Abstractions.Protobuf.Product(Product product)
             => new()
             {
-                Description = product.Description,
+                Description = "product.Description", // TODO: Description is from CatalogItem and not from Product
                 Name = product.Name,
                 Brand = product.Brand,
                 Category = product.Category,

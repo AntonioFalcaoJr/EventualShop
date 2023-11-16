@@ -1,27 +1,28 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
-        <PackageReference Include="Ardalis.SmartEnum.SystemTextJson" Version="$(SmartEnum_Version)" />
-        <PackageReference Include="Ardalis.SmartEnum" Version="$(SmartEnum_Version)" />
-        <PackageReference Include="FluentValidation" Version="$(FluentValidation_Version)" />
-        <PackageReference Include="MassTransit" Version="$(MassTransit_Version)" />
-        <PackageReference Include="MongoDB.Bson" Version="$(MongoDb_Version)" />
-        <PackageReference Include="Newtonsoft.Json" Version="$(Newtonsoft_Version)" />
-        <PackageReference Include="Google.Protobuf" Version="$(Google_Protobuf_Version)" />
-        <PackageReference Include="Grpc.Net.Client" Version="$(Grpc_Net_Client_Version)" />
-        <PackageReference Include="Grpc.Tools" Version="$(Grpc_Tools_Version)">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
+        <PackageReference Include="Ardalis.SmartEnum.SystemTextJson"/>
+        <PackageReference Include="Ardalis.SmartEnum"/>
+        <PackageReference Include="FluentValidation"/>
+        <PackageReference Include="MassTransit"/>
+        <PackageReference Include="MongoDB.Bson"/>
+        <PackageReference Include="Newtonsoft.Json"/>
+        <PackageReference Include="Google.Protobuf"/>
+        <PackageReference Include="Grpc.Net.Client"/>
+        <PackageReference Include="Grpc.Tools"/>
     </ItemGroup>
     <ItemGroup>
-        <Protobuf Include="Abstractions\Abstractions.proto" GrpcServices="Both" />
-        <Protobuf Include="Services\Account\Account.proto" GrpcServices="Both" />
-        <Protobuf Include="Services\Catalog\Catalog.proto" GrpcServices="Both" />
-        <Protobuf Include="Services\Communication\Communication.proto" GrpcServices="Both" />
-        <Protobuf Include="Services\Identity\Identity.proto" GrpcServices="Both" />
-        <Protobuf Include="Services\Order\Order.proto" GrpcServices="Both" />
-        <Protobuf Include="Services\Payment\Payment.proto" GrpcService="Both" />
-        <Protobuf Include="Services\Warehouse\Warehouse.proto" GrpcServices="Both" />
-        <Protobuf Include="Services\ShoppingCart\ShoppingCart.proto" GrpcServices="Both" />
+        <Protobuf Include="Abstractions\Abstractions.proto" GrpcServices="Both"/>
+        <Protobuf Include="Boundaries\Account\Account.proto" GrpcServices="Both"/>
+        <Protobuf Include="Boundaries\Cataloging\Catalog\CatalogingCommand.proto" GrpcServices="Both"/>
+        <Protobuf Include="Boundaries\Cataloging\Catalog\CatalogingQuery.proto" GrpcServices="Both"/>
+        <Protobuf Include="Boundaries\Notification\Notification.proto" GrpcServices="Both" />
+        <Protobuf Include="Boundaries\Identity\Identity.proto" GrpcServices="Both"/>
+        <Protobuf Include="Boundaries\Order\Order.proto" GrpcServices="Both"/>
+        <Protobuf Include="Boundaries\Payment\Payment.proto" GrpcService="Both"/>
+        <Protobuf Include="Boundaries\Shopping\Commands.proto" GrpcServices="Both"/>
+        <Protobuf Include="Boundaries\Shopping\Queries.proto" GrpcServices="Both"/>
+<!--        <Protobuf Include="Boundaries\Shopping\ShoppingCart\ShoppingCartQueries.proto" GrpcService="Both"/>-->
+<!--        <Protobuf Include="Boundaries\Shopping\ShoppingCart\ShoppingCartCommands.proto" GrpcService="Both"/>-->
+        <Protobuf Include="Boundaries\Warehouse\Warehouse.proto" GrpcServices="Both"/>
     </ItemGroup>
 </Project>

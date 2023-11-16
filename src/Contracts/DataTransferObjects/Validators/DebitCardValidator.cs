@@ -18,6 +18,7 @@ public class DebitCardValidator : AbstractValidator<Dto.DebitCard>
             .NotEmpty();
 
         RuleFor(card => card.SecurityCode)
-            .GreaterThan(ushort.MinValue);
+            .NotNull()
+            .NotEmpty();
     }
 }

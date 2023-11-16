@@ -17,7 +17,8 @@ public class CreditCardValidator : AbstractValidator<Dto.CreditCard>
             .NotNull()
             .NotEmpty();
 
-        RuleFor(card => card.SecurityCode)
-            .GreaterThan(ushort.MinValue);
+        RuleFor(card => card.Cvv)
+            .NotNull()
+            .NotEmpty();
     }
 }

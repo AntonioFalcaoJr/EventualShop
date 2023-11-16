@@ -26,17 +26,11 @@ public class AddressValidator : AbstractValidator<Dto.Address>
             .NotNull()
             .NotEmpty();
 
-        When(address => address.Number is not null, () =>
-        {
-            RuleFor(address => address.Number)
-                .GreaterThan(0);
-        });
+        RuleFor(address => address.Number)
+            .GreaterThan(0.ToString());
 
-        When(address => address.Complement is not null, () =>
-        {
-            RuleFor(address => address.Complement)
-                .NotEmpty()
-                .MaximumLength(80);
-        });
+        RuleFor(address => address.Complement)
+            .NotEmpty()
+            .MaximumLength(80);
     }
 }

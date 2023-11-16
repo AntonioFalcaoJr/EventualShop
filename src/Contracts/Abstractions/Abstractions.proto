@@ -5,6 +5,15 @@ package Contracts.Abstractions.Protobuf;
 import "google/protobuf/wrappers.proto";
 import "google/protobuf/any.proto";
 
+message CommandResponse{
+  oneof OneOf{
+    string Ok = 1;
+    Accepted Accepted = 2;
+    NotFound NotFound = 3;
+    NoContent NoContent = 4;
+  }
+}
+
 message GetResponse{
   oneof OneOf{
     google.protobuf.Any Projection = 1;
@@ -31,9 +40,11 @@ message Page{
   bool HasPrevious = 4;
 }
 
-message NoContent {}
+message Accepted {}
 
 message NotFound {}
+
+message NoContent {}
 
 message Paging {
   google.protobuf.Int32Value Limit = 1;
@@ -60,8 +71,8 @@ message Address {
   string State = 3;
   string ZipCode = 4;
   string Country = 5;
-  google.protobuf.Int32Value Number = 6;
-  google.protobuf.StringValue Complement = 7;
+  string Number = 6;
+  string Complement = 7;
 }
 
 // Payment
@@ -78,14 +89,14 @@ message CreditCard{
   string ExpirationDate = 1;
   string Number = 2;
   string HolderName = 3;
-  sint32 SecurityCode = 4;
+  string SecurityCode = 4;
 }
 
 message DebitCard{
   string ExpirationDate = 1;
   string Number = 2;
   string HolderName = 3;
-  sint32 SecurityCode = 4;
+  string SecurityCode = 4;
 }
 
 message PayPal{

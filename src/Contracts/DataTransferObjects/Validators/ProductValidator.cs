@@ -14,9 +14,10 @@ public class ProductValidator : AbstractValidator<Dto.Product>
             .NotNull()
             .NotEmpty();
         
-        RuleFor(product => product.Description)
-            .NotNull()
-            .NotEmpty();
+        // TODO
+        // RuleFor(product => product.Description)
+        //     .NotNull()
+        //     .NotEmpty();
         
         RuleFor(product => product.Name)
             .NotNull()

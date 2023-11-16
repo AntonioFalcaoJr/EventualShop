@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package Contracts.Services.Cataloging.Command.Protobuf;
+
+import "Abstractions/Abstractions.proto";
+
+service CatalogingCommandService {
+  rpc CreateCatalog(CreateCatalogCommand) returns (Abstractions.Protobuf.CommandResponse);
+  rpc ChangeCatalogTitle(ChangeCatalogTitleCommand) returns (Abstractions.Protobuf.CommandResponse);
+  rpc ChangeCatalogDescription(ChangeCatalogDescriptionCommand) returns (Abstractions.Protobuf.CommandResponse);
+  rpc ActivateCatalog(ActivateCatalogCommand) returns (Abstractions.Protobuf.CommandResponse);
+  rpc DeactivateCatalog(DeactivateCatalogCommand) returns (Abstractions.Protobuf.CommandResponse);
+  rpc DeleteCatalog(DeleteCatalogCommand) returns (Abstractions.Protobuf.CommandResponse);
+}
+
+// Requests
+
+message CreateCatalogCommand {
+  string AppId = 1;
+  string Title = 2;
+  string Description = 3;
+  string ImageUrl = 4;
+}
+
+message ChangeCatalogTitleCommand {
+  string CatalogId = 1;
+  string Title = 2;
+}
+
+message ChangeCatalogDescriptionCommand {
+  string CatalogId = 1;
+  string Description = 2;
+}
+
+message ActivateCatalogCommand {
+  string CatalogId = 1;
+}
+
+message DeactivateCatalogCommand {
+  string CatalogId = 1;
+}
+
+message DeleteCatalogCommand {
+  string CatalogId = 1;
+}

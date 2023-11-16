@@ -3,19 +3,18 @@
 namespace Contracts.Abstractions.Messages;
 
 [ExcludeFromTopology]
-public interface IEvent : IMessage{ }
+public interface IEvent : IMessage;
 
 [ExcludeFromTopology]
-public interface IDelayedEvent : IEvent { }
+public interface IDelayedEvent : IEvent;
 
 [ExcludeFromTopology]
 public interface IVersionedEvent : IEvent
 {
-    long Version { get; }
+    string Version { get; }
 }
 
-[ExcludeFromTopology]
-public interface IDomainEvent : IVersionedEvent { }
+public interface IDomainEvent : IVersionedEvent;
 
 [ExcludeFromTopology]
-public interface ISummaryEvent : IVersionedEvent { }
+public interface ISummaryEvent : IVersionedEvent;

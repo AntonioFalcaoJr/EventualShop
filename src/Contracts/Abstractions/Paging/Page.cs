@@ -2,9 +2,9 @@ namespace Contracts.Abstractions.Paging;
 
 public record Page
 {
-    public int Current { get; init; }
-    public int Size { get; init; }
-    public bool HasPrevious { get; init; }
+    public int Current { get; init; } = 1;
+    public int Size { get; init; } = 10;
+    public bool HasPrevious { get; init; }  
     public bool HasNext { get; init; }
 
     public static implicit operator Abstractions.Protobuf.Page(Page page)

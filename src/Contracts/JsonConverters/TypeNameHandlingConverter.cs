@@ -2,20 +2,13 @@
 
 namespace Contracts.JsonConverters;
 
-public class TypeNameHandlingConverter : JsonConverter
+public class TypeNameHandlingConverter(TypeNameHandling typeNameHandling) : JsonConverter
 {
-    private readonly TypeNameHandling _typeNameHandling;
-
-    public TypeNameHandlingConverter(TypeNameHandling typeNameHandling)
-    {
-        _typeNameHandling = typeNameHandling;
-    }
-
     public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
-        => new JsonSerializer { TypeNameHandling = _typeNameHandling }.Serialize(writer, value);
+        => new JsonSerializer { TypeNameHandling = typeNameHandling }.Serialize(writer, value);
 
     public override object? ReadJson(JsonReader reader, Type type, object? existingValue, JsonSerializer serializer)
-        => new JsonSerializer { TypeNameHandling = _typeNameHandling }.Deserialize(reader, type);
+        => new JsonSerializer { TypeNameHandling = typeNameHandling }.Deserialize(reader, type);
 
     public override bool CanConvert(Type type)
         => IsMassTransitOrSystemType(type) is false;

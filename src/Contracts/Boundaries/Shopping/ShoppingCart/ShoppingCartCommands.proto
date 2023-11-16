@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package Contracts.Shopping.Commands;
+
+import "Abstractions/Abstractions.proto";
+
+service CartCommandService {
+  rpc StartShopping(StartShoppingCommand) returns (StartShoppingResponse);
+  rpc AddItem(AddItemCommand) returns (AddItemResponse);
+}
+
+message StartShoppingCommand {
+  string CustomerId = 1;
+}
+
+message StartShoppingResponse {
+  string CartId = 1;
+}
+
+message AddItemCommand {
+  string CartId = 1;
+  string ProductId = 2;
+  string Quantity = 3;
+}
+
+message AddItemResponse {
+  string ItemId = 1;
+  int32 Quantity = 2;
+}
