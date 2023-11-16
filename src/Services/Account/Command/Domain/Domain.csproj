@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
-        <PackageReference Include="Ardalis.SmartEnum" Version="$(SmartEnum_Version)" />
-        <PackageReference Include="FluentValidation" Version="$(FluentValidation_Version)" />
-        <PackageReference Include="Newtonsoft.Json" Version="$(Newtonsoft_Version)" />
+        <PackageReference Include="Ardalis.SmartEnum"/>
+        <PackageReference Include="FluentValidation"/>
+        <PackageReference Include="Newtonsoft.Json"/>
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\..\..\..\Contracts\Contracts.csproj" />
+        <ProjectReference Include="..\..\..\..\Contracts\Contracts.csproj"/>
     </ItemGroup>
 </Project>

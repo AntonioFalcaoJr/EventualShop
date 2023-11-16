@@ -1,6 +1,6 @@
 ﻿using Domain.Abstractions.Aggregates;
 using Contracts.Abstractions.Messages;
-using Contracts.Services.Account;
+using Contracts.Boundaries.Account;
 using Domain.Entities.Addresses;
 using Domain.Entities.Profiles;
 using Domain.Enumerations;

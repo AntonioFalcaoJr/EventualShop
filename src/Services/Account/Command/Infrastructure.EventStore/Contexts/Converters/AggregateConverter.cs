@@ -6,13 +6,9 @@ using Newtonsoft.Json;
 
 namespace Infrastructure.EventStore.Contexts.Converters;
 
-public class AggregateConverter : ValueConverter<IAggregateRoot?, string>
+public class AggregateConverter() : ValueConverter<IAggregateRoot?, string>(@event => JsonConvert.SerializeObject(@event, typeof(IAggregateRoot), SerializerSettings()),
+    jsonString => JsonConvert.DeserializeObject<IAggregateRoot>(jsonString, DeserializerSettings()))
 {
-    public AggregateConverter()
-        : base(
-            @event => JsonConvert.SerializeObject(@event, typeof(IAggregateRoot), SerializerSettings()),
-            jsonString => JsonConvert.DeserializeObject<IAggregateRoot>(jsonString, DeserializerSettings())) { }
-
     private static JsonSerializerSettings SerializerSettings()
     {
         JsonSerializerSettings jsonSerializerSettings = new()

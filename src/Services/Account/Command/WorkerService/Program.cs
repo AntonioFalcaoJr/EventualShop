@@ -1,9 +1,9 @@
 using Application.DependencyInjection.Extensions;
+using Infrastructure.EventBus.DependencyInjection.Extensions;
+using Infrastructure.EventBus.DependencyInjection.Options;
 using Infrastructure.EventStore.Contexts;
 using Infrastructure.EventStore.DependencyInjection.Extensions;
 using Infrastructure.EventStore.DependencyInjection.Options;
-using Infrastructure.MessageBus.DependencyInjection.Extensions;
-using Infrastructure.MessageBus.DependencyInjection.Options;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Quartz;
@@ -25,15 +25,11 @@ builder.ConfigureAppConfiguration(configuration =>
         .AddEnvironmentVariables();
 });
 
-builder.ConfigureLogging((context, logging) =>
-{
-    Log.Logger = new LoggerConfiguration().ReadFrom
-        .Configuration(context.Configuration)
-        .CreateLogger();
+builder.ConfigureLogging(logging 
+    => logging.ClearProviders().AddSerilog());
 
-    logging.ClearProviders();
-    logging.AddSerilog();
-});
+builder.UseSerilog((context, cfg) 
+    => cfg.ReadFrom.Configuration(context.Configuration));
 
 builder.ConfigureServices((context, services) =>
 {
@@ -51,12 +47,12 @@ builder.ConfigureServices((context, services) =>
     services.ConfigureSqlServerRetryOptions(
         context.Configuration.GetSection(nameof(SqlServerRetryOptions)));
 
-    services.ConfigureMessageBusOptions(
-        context.Configuration.GetSection(nameof(MessageBusOptions)));
-    
+    services.ConfigureEventBusOptions(
+        context.Configuration.GetSection(nameof(EventBusOptions)));
+
     services.ConfigureMassTransitHostOptions(
         context.Configuration.GetSection(nameof(MassTransitHostOptions)));
-    
+
     services.ConfigureQuartzOptions(
         context.Configuration.GetSection(nameof(QuartzOptions)));
 });

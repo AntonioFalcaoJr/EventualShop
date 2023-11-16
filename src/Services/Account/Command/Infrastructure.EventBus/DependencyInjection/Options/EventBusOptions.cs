@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Infrastructure.MessageBus.DependencyInjection.Options;
+namespace Infrastructure.EventBus.DependencyInjection.Options;
 
-public record MessageBusOptions
+public record EventBusOptions
 {
     [Required] public required string ConnectionName { get; init; }
     [Required] public required Uri ConnectionString { get; init; }

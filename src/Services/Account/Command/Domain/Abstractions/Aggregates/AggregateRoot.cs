@@ -10,7 +10,7 @@ public abstract class AggregateRoot<TValidator> : Entity<TValidator>, IAggregate
 {
     private readonly List<IDomainEvent> _events = new();
 
-    public long Version { get; private set; }
+    public uint Version { get; private set; }
 
     [JsonIgnore]
     public IEnumerable<IDomainEvent> UncommittedEvents
@@ -27,10 +27,10 @@ public abstract class AggregateRoot<TValidator> : Entity<TValidator>, IAggregate
 
     public abstract void Handle(ICommand command);
 
-    protected void RaiseEvent<TEvent>(Func<long, TEvent> func) where TEvent : IDomainEvent
-        => RaiseEvent((func as Func<long, IDomainEvent>)!);
+    protected void RaiseEvent<TEvent>(Func<uint, TEvent> func) where TEvent : IDomainEvent
+        => RaiseEvent((func as Func<uint, IDomainEvent>)!);
 
-    protected void RaiseEvent(Func<long, IDomainEvent> onRaise)
+    protected void RaiseEvent(Func<uint, IDomainEvent>onRaise)
     {
         Version++;
         var @event = onRaise(Version);

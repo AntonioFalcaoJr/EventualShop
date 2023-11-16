@@ -1,23 +1,16 @@
 using Application.Abstractions;
 using Application.Services;
+using Contracts.Boundaries.Identity;
 using Domain.Aggregates;
-using Contracts.Services.Account;
-using Identity = Contracts.Services.Identity;
+using Command = Contracts.Boundaries.Account.Command;
 
 namespace Application.UseCases.Events;
 
-public interface ICreateAccountWhenUserRegisteredInteractor : IInteractor<Identity.DomainEvent.UserRegistered> { }
+public interface ICreateAccountWhenUserRegisteredInteractor : IInteractor<DomainEvent.UserRegistered> { }
 
-public class CreateAccountWhenUserRegisteredInteractor : ICreateAccountWhenUserRegisteredInteractor
+public class CreateAccountWhenUserRegisteredInteractor(IApplicationService service) : ICreateAccountWhenUserRegisteredInteractor
 {
-    private readonly IApplicationService _applicationService;
-
-    public CreateAccountWhenUserRegisteredInteractor(IApplicationService applicationService)
-    {
-        _applicationService = applicationService;
-    }
-
-    public async Task InteractAsync(Identity.DomainEvent.UserRegistered @event, CancellationToken cancellationToken)
+    public async Task InteractAsync(DomainEvent.UserRegistered @event, CancellationToken cancellationToken)
     {
         Account account = new();
 
@@ -28,6 +21,6 @@ public class CreateAccountWhenUserRegisteredInteractor : ICreateAccountWhenUserR
 
         account.Handle(command);
 
-        await _applicationService.AppendEventsAsync(account, cancellationToken);
+        await service.AppendEventsAsync(account, cancellationToken);
     }
 }

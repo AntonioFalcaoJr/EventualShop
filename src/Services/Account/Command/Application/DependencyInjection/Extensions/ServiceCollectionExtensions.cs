@@ -2,7 +2,7 @@ using Application.Abstractions;
 using Application.Services;
 using Application.UseCases.Commands;
 using Application.UseCases.Events;
-using Contracts.Services.Account;
+using Contracts.Boundaries.Account;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.DependencyInjection.Extensions;
@@ -12,7 +12,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         => services
             .AddScoped<IApplicationService, ApplicationService>();
-    
+
     public static IServiceCollection AddCommandInteractors(this IServiceCollection services)
         => services
             .AddScoped<IInteractor<Command.AddBillingAddress>, AddBillingAddressInteractor>()

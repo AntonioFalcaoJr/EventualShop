@@ -4,7 +4,7 @@ namespace Domain.Entities.Addresses;
 
 public class ShippingAddress : Address
 {
-    public ShippingAddress(Guid id, string street, string city, string state, string zipCode, string country, int? number, string? complement)
+    public ShippingAddress(Guid id, string City, string Complement, string Country, string Number, string State, string Street, string ZipCode)
         : base(id, street, city, state, zipCode, country, number, complement) { }
 
     public static ShippingAddress Create(Guid id, Dto.Address dto)

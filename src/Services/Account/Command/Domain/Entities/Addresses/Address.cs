@@ -4,7 +4,7 @@ namespace Domain.Entities.Addresses;
 
 public abstract class Address : Entity<AddressValidator>
 {
-    protected Address(Guid id, string street, string city, string state, string zipCode, string country, int? number, string? complement)
+    protected Address(Guid id, string City, string Complement, string Country, string Number, string State, string Street, string ZipCode)
     {
         Id = id;
         Street = street;
@@ -21,8 +21,8 @@ public abstract class Address : Entity<AddressValidator>
     public string State { get; }
     public string ZipCode { get; }
     public string Country { get; }
-    public int? Number { get; }
-    public string? Complement { get; }
+    public string Number { get; }
+    public string Complement { get; }
 
     public void Delete()
         => IsDeleted = true;

@@ -10,7 +10,7 @@ public class AccountValidator : AbstractValidator<Account>
     {
         RuleFor(account => account.Id)
             .NotEmpty();
-        
+
         RuleFor(account => account.Profile)
             .SetValidator(new ProfileValidator());
 

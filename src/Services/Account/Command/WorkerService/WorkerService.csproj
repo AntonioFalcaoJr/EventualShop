@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
     <ItemGroup>
-        <PackageReference Include="Serilog.Extensions.Hosting" Version="$(Serilog_Extensions_Version)" />
-        <PackageReference Include="Serilog.AspNetCore" Version="$(Serilog_AspNetCore_Version)" />
+        <PackageReference Include="Serilog.Extensions.Hosting"/>
+        <PackageReference Include="Serilog.AspNetCore"/>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Infrastructure.EventStore\Infrastructure.EventStore.csproj" />
-        <ProjectReference Include="..\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj" />
+        <ProjectReference Include="..\Infrastructure.EventStore\Infrastructure.EventStore.csproj"/>
+        <ProjectReference Include="..\Infrastructure.EventBus\Infrastructure.EventBus.csproj"/>
     </ItemGroup>
 </Project>

@@ -24,27 +24,11 @@ public class AccountStatus : SmartEnum<AccountStatus>
     public static implicit operator int(AccountStatus status)
         => status.Value;
 
-    public class PendingStatus : AccountStatus
-    {
-        public PendingStatus()
-            : base(nameof(Pending), 1) { }
-    }
+    public class PendingStatus() : AccountStatus(nameof(Pending), 1);
 
-    public class ActiveStatus : AccountStatus
-    {
-        public ActiveStatus()
-            : base(nameof(Active), 2) { }
-    }
+    public class ActiveStatus() : AccountStatus(nameof(Active), 2);
 
-    public class InactiveStatus : AccountStatus
-    {
-        public InactiveStatus()
-            : base(nameof(Inactive), 3) { }
-    }
+    public class InactiveStatus() : AccountStatus(nameof(Inactive), 3);
 
-    public class ClosedStatus : AccountStatus
-    {
-        public ClosedStatus()
-            : base(nameof(Closed), 4) { }
-    }
+    public class ClosedStatus() : AccountStatus(nameof(Closed), 4);
 }

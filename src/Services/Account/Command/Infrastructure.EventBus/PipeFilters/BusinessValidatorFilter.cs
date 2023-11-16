@@ -3,7 +3,7 @@ using FluentValidation;
 using MassTransit;
 using Serilog;
 
-namespace Infrastructure.MessageBus.PipeFilters;
+namespace Infrastructure.EventBus.PipeFilters;
 
 public class BusinessValidatorFilter<T> : IFilter<ExceptionConsumeContext<T>>
     where T : class
