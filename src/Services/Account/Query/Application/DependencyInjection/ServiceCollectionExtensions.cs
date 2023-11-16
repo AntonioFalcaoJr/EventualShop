@@ -1,7 +1,7 @@
 using Application.Abstractions;
 using Application.UseCases.Events;
 using Application.UseCases.Queries;
-using Contracts.Services.Account;
+using Contracts.Boundaries.Account;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.DependencyInjection;

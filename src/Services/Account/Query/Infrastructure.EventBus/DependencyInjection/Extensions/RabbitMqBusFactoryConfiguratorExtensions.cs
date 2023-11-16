@@ -1,5 +1,5 @@
 ﻿using Contracts.Abstractions.Messages;
-using Contracts.Services.Account;
+using Contracts.Boundaries.Account;
 using Infrastructure.EventBus.Consumers.Events;
 using MassTransit;
 
@@ -16,7 +16,7 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 
         cfg.ConfigureEventReceiveEndpoint<ProjectBillingAddressListItemWhenAccountChangedConsumer, DomainEvent.BillingAddressAdded>(context);
         cfg.ConfigureEventReceiveEndpoint<ProjectBillingAddressListItemWhenAccountChangedConsumer, DomainEvent.AccountDeleted>(context);
-        
+
         cfg.ConfigureEventReceiveEndpoint<ProjectShippingAddressListItemWhenAccountChangedConsumer, DomainEvent.ShippingAddressAdded>(context);
         cfg.ConfigureEventReceiveEndpoint<ProjectShippingAddressListItemWhenAccountChangedConsumer, DomainEvent.AccountDeleted>(context);
     }
@@ -25,7 +25,7 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
         where TConsumer : class, IConsumer
         where TEvent : class, IEvent
         => bus.ReceiveEndpoint(
-            queueName: $"account.query-stack.{typeof(TConsumer).ToKebabCaseString()}.{typeof(TEvent).ToKebabCaseString()}",
+            queueName: $"account.query.{typeof(TConsumer).ToKebabCaseString()}.{typeof(TEvent).ToKebabCaseString()}",
             configureEndpoint: endpoint =>
             {
                 endpoint.ConfigureConsumeTopology = false;

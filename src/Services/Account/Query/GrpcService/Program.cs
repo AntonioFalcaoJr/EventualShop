@@ -21,15 +21,10 @@ builder.Configuration
     .AddUserSecrets(Assembly.GetExecutingAssembly())
     .AddEnvironmentVariables();
 
-Log.Logger = new LoggerConfiguration().ReadFrom
-    .Configuration(builder.Configuration)
-    .CreateLogger();
+builder.Logging.ClearProviders().AddSerilog();
 
-builder.Logging
-    .ClearProviders()
-    .AddSerilog();
-
-builder.Host.UseSerilog();
+builder.Host.UseSerilog((context, cfg)
+    => cfg.ReadFrom.Configuration(context.Configuration));
 
 builder.Host.ConfigureServices((context, services) =>
 {

@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions;
-using Contracts.Services.Account;
+using Contracts.Boundaries.Account;
 
 namespace Application.UseCases.Events;
 
@@ -7,17 +7,11 @@ public interface IProjectAccountDetailsWhenAccountChangedInteractor :
     IInteractor<DomainEvent.AccountCreated>,
     IInteractor<DomainEvent.AccountDeleted>,
     IInteractor<DomainEvent.AccountActivated>,
-    IInteractor<DomainEvent.AccountDeactivated> { }
+    IInteractor<DomainEvent.AccountDeactivated>;
 
-public class ProjectAccountDetailsWhenAccountChangedInteractor : IProjectAccountDetailsWhenAccountChangedInteractor
+public class ProjectAccountDetailsWhenAccountChangedInteractor(IProjectionGateway<Projection.AccountDetails> projectionGateway)
+    : IProjectAccountDetailsWhenAccountChangedInteractor
 {
-    private readonly IProjectionGateway<Projection.AccountDetails> _projectionGateway;
-
-    public ProjectAccountDetailsWhenAccountChangedInteractor(IProjectionGateway<Projection.AccountDetails> projectionGateway)
-    {
-        _projectionGateway = projectionGateway;
-    }
-
     public async Task InteractAsync(DomainEvent.AccountCreated @event, CancellationToken cancellationToken)
     {
         Projection.AccountDetails accountDetails =
@@ -29,11 +23,11 @@ public class ProjectAccountDetailsWhenAccountChangedInteractor : IProjectAccount
                 false,
                 @event.Version);
 
-        await _projectionGateway.ReplaceInsertAsync(accountDetails, cancellationToken);
+        await projectionGateway.ReplaceInsertAsync(accountDetails, cancellationToken);
     }
 
     public Task InteractAsync(DomainEvent.AccountActivated @event, CancellationToken cancellationToken)
-        => _projectionGateway.UpdateFieldAsync(
+        => projectionGateway.UpdateFieldAsync(
             id: @event.AccountId,
             version: @event.Version,
             field: account => account.Status,
@@ -41,7 +35,7 @@ public class ProjectAccountDetailsWhenAccountChangedInteractor : IProjectAccount
             cancellationToken: cancellationToken);
 
     public Task InteractAsync(DomainEvent.AccountDeactivated @event, CancellationToken cancellationToken)
-        => _projectionGateway.UpdateFieldAsync(
+        => projectionGateway.UpdateFieldAsync(
             id: @event.AccountId,
             version: @event.Version,
             field: account => account.Status,
@@ -49,5 +43,5 @@ public class ProjectAccountDetailsWhenAccountChangedInteractor : IProjectAccount
             cancellationToken: cancellationToken);
 
     public Task InteractAsync(DomainEvent.AccountDeleted @event, CancellationToken cancellationToken)
-        => _projectionGateway.DeleteAsync(@event.AccountId, cancellationToken);
+        => projectionGateway.DeleteAsync(@event.AccountId, cancellationToken);
 }

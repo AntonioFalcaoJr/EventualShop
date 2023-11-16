@@ -1,31 +1,20 @@
 using Application.Abstractions;
 using Contracts.Abstractions.Protobuf;
-using Contracts.Services.Account;
+using Contracts.Boundaries.Account;
 using Contracts.Services.Account.Protobuf;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 
 namespace GrpcService;
 
-public class AccountGrpcService : AccountService.AccountServiceBase
-{
-    private readonly IInteractor<Query.GetAccountDetails, Projection.AccountDetails> _getAccountDetailsInteractor;
-    private readonly IPagedInteractor<Query.ListAccountsDetails, Projection.AccountDetails> _listAccountsDetailsInteractor;
-    private readonly IPagedInteractor<Query.ListShippingAddressesListItems, Projection.ShippingAddressListItem> _listShippingAddressesListItemsInteractor;
-
-    public AccountGrpcService(
-        IInteractor<Query.GetAccountDetails, Projection.AccountDetails> getAccountDetailsInteractor,
+public class AccountGrpcService(IInteractor<Query.GetAccountDetails, Projection.AccountDetails> getAccountDetailsInteractor,
         IPagedInteractor<Query.ListAccountsDetails, Projection.AccountDetails> listAccountsDetailsInteractor,
         IPagedInteractor<Query.ListShippingAddressesListItems, Projection.ShippingAddressListItem> listShippingAddressesListItemsInteractor)
-    {
-        _getAccountDetailsInteractor = getAccountDetailsInteractor;
-        _listAccountsDetailsInteractor = listAccountsDetailsInteractor;
-        _listShippingAddressesListItemsInteractor = listShippingAddressesListItemsInteractor;
-    }
-
+    : AccountService.AccountServiceBase
+{
     public override async Task<GetResponse> GetAccountDetails(GetAccountDetailsRequest request, ServerCallContext context)
     {
-        var accountDetails = await _getAccountDetailsInteractor.InteractAsync(request, context.CancellationToken);
+        var accountDetails = await getAccountDetailsInteractor.InteractAsync(request, context.CancellationToken);
 
         return accountDetails is null
             ? new() { NotFound = new() }
@@ -34,7 +23,7 @@ public class AccountGrpcService : AccountService.AccountServiceBase
 
     public override async Task<ListResponse> ListAccountsDetails(ListAccountsDetailsRequest request, ServerCallContext context)
     {
-        var pagedResult = await _listAccountsDetailsInteractor.InteractAsync(request, context.CancellationToken);
+        var pagedResult = await listAccountsDetailsInteractor.InteractAsync(request, context.CancellationToken);
 
         return pagedResult.Items.Any()
             ? new()
@@ -50,7 +39,7 @@ public class AccountGrpcService : AccountService.AccountServiceBase
 
     public override async Task<ListResponse> ListShippingAddressesListItems(ListShippingAddressesListItemsRequest request, ServerCallContext context)
     {
-        var pagedResult = await _listShippingAddressesListItemsInteractor.InteractAsync(request, context.CancellationToken);
+        var pagedResult = await listShippingAddressesListItemsInteractor.InteractAsync(request, context.CancellationToken);
 
         return pagedResult.Items.Any()
             ? new()
