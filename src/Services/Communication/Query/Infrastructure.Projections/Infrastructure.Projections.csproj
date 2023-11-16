@@ -1,9 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-    <ItemGroup>
-        <PackageReference Include="MongoDB.Driver" />
-        <PackageReference Include="Serilog" />
-    </ItemGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\Application\Application.csproj" />
-    </ItemGroup>
-</Project>
