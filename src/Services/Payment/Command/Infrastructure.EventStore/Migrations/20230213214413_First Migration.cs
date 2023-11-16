@@ -16,7 +16,7 @@ namespace Infrastructure.EventStore.Migrations
                 columns: table => new
                 {
                     AggregateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Version = table.Column<long>(type: "bigint", nullable: false),
+                    Version = table.Column<ulong>(type: "bigint", nullable: false),
                     AggregateType = table.Column<string>(type: "varchar(30)", unicode: false, maxLength: 30, nullable: false),
                     EventType = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
                     Event = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -32,7 +32,7 @@ namespace Infrastructure.EventStore.Migrations
                 columns: table => new
                 {
                     AggregateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Version = table.Column<long>(type: "bigint", nullable: false),
+                    Version = table.Column<ulong>(type: "bigint", nullable: false),
                     AggregateType = table.Column<string>(type: "varchar(30)", unicode: false, maxLength: 30, nullable: false),
                     Aggregate = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Timestamp = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)

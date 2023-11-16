@@ -2,4 +2,4 @@
 
 namespace Application.Services.DebitCards;
 
-public interface IDebitCardPaymentService : IPaymentService { }
+public interface IDebitCardPaymentService : IPaymentService;

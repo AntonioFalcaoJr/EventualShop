@@ -6,12 +6,10 @@ using Microsoft.Extensions.Options;
 
 namespace Infrastructure.HTTP.PayPals;
 
-public class PayPalHttpClient : ApplicationHttpClient, IPayPalHttpClient
+public class PayPalHttpClient(IOptionsSnapshot<PayPalHttpClientOptions> options, HttpClient client)
+    : ApplicationHttpClient(client), IPayPalHttpClient
 {
-    private readonly PayPalHttpClientOptions _options;
-
-    public PayPalHttpClient(IOptionsSnapshot<PayPalHttpClientOptions> options, HttpClient client) : base(client) 
-        => _options = options.Value;
+    private readonly PayPalHttpClientOptions _options = options.Value;
 
     public Task<HttpResponse<PaypalPaymentResult>> AuthorizeAsync(Requests.PaypalAuthorizePayment request, CancellationToken cancellationToken)
         => PostAsync<Requests.PaypalAuthorizePayment, PaypalPaymentResult>(_options.AuthorizeEndpoint, request, cancellationToken);

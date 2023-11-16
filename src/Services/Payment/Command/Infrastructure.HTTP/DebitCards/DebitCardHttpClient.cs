@@ -6,12 +6,10 @@ using Microsoft.Extensions.Options;
 
 namespace Infrastructure.HTTP.DebitCards;
 
-public class DebitCardHttpClient : ApplicationHttpClient, IDebitCardHttpClient
+public class DebitCardHttpClient(IOptionsSnapshot<DebitCardHttpClientOptions> options, HttpClient client)
+    : ApplicationHttpClient(client), IDebitCardHttpClient
 {
-    private readonly DebitCardHttpClientOptions _options;
-
-    public DebitCardHttpClient(IOptionsSnapshot<DebitCardHttpClientOptions> options, HttpClient client) : base(client) 
-        => _options = options.Value;
+    private readonly DebitCardHttpClientOptions _options = options.Value;
 
     public Task<HttpResponse<DebitCardPaymentResult>> AuthorizeAsync(Requests.DebitCardAuthorizePayment request, CancellationToken cancellationToken)
         => PostAsync<Requests.DebitCardAuthorizePayment, DebitCardPaymentResult>(_options.AuthorizeEndpoint, request, cancellationToken);

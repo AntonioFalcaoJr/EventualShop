@@ -6,9 +6,9 @@ public class CreditCardValidator : AbstractValidator<CreditCard>
 {
     public CreditCardValidator()
     {
-        RuleFor(card => card.Expiration)
-            .NotEqual(DateOnly.MinValue)
-            .NotEqual(DateOnly.MaxValue);
+        // RuleFor(card => card.Expiration)
+        //     .NotEqual(DateOnly.MinValue)
+        //     .NotEqual(DateOnly.MaxValue);
 
         RuleFor(card => card.HolderName)
             .NotNull()

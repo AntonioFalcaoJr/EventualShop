@@ -6,13 +6,8 @@ using Domain.ValueObjects.PaymentOptions.CreditCards;
 
 namespace Infrastructure.HTTP.CreditCards;
 
-public class CreditCardPaymentService : PaymentService, ICreditCardPaymentService
+public class CreditCardPaymentService(ICreditCardHttpClient client) : PaymentService, ICreditCardPaymentService
 {
-    private readonly ICreditCardHttpClient _client;
-
-    public CreditCardPaymentService(ICreditCardHttpClient client) 
-        => _client = client;
-
     public override Task<IPaymentResult>? HandleAsync(Func<IPaymentService, PaymentMethod, CancellationToken, Task<IPaymentResult>> behaviorProcessor, PaymentMethod method, CancellationToken cancellationToken)
         => method.Option is CreditCard
             ? behaviorProcessor(this, method, cancellationToken)
@@ -22,7 +17,7 @@ public class CreditCardPaymentService : PaymentService, ICreditCardPaymentServic
     {
         // TODO - Use method to hydrate  
         Requests.CreditCardAuthorizePayment request = new();
-        var response = await _client.AuthorizeAsync(request, cancellationToken);
+        var response = await client.AuthorizeAsync(request, cancellationToken);
         return response.ActionResult;
     }
 
@@ -30,7 +25,7 @@ public class CreditCardPaymentService : PaymentService, ICreditCardPaymentServic
     {
         // TODO - Use method to hydrate  
         Requests.CreditCardCancelPayment request = new();
-        var response = await _client.CancelAsync(Guid.NewGuid(), request, cancellationToken);
+        var response = await client.CancelAsync(Guid.NewGuid(), request, cancellationToken);
         return response.ActionResult;
     }
 
@@ -38,7 +33,7 @@ public class CreditCardPaymentService : PaymentService, ICreditCardPaymentServic
     {
         // TODO - Use method to hydrate
         Requests.CreditCardRefundPayment request = new();
-        var response = await _client.RefundAsync(Guid.NewGuid(), request, cancellationToken);
+        var response = await client.RefundAsync(Guid.NewGuid(), request, cancellationToken);
         return response.ActionResult;
     }
 }

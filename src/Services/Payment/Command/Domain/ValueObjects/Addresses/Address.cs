@@ -2,7 +2,7 @@
 
 namespace Domain.ValueObjects.Addresses;
 
-public record Address(string Street, string City, string State, string ZipCode, string Country, int? Number, string? Complement)
+public record Address(string City, string Complement, string Country, string Number, string State, string Street, string ZipCode)
 {
     public static implicit operator Address(Dto.Address address)
         => new(address.Street, address.City, address.State, address.ZipCode, address.Country, address.Number, address.Complement);

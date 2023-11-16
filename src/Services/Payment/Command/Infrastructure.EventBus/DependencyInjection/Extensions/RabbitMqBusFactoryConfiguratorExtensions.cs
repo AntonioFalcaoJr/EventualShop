@@ -1,24 +1,23 @@
 ﻿using Contracts.Abstractions.Messages;
-using Infrastructure.MessageBus.Consumers.Events;
+using Contracts.Boundaries.Order;
+using Infrastructure.EventBus.Consumers.Events;
 using MassTransit;
-using Order = Contracts.Services.Order;
-using Contracts.Services.Payment;
 
-namespace Infrastructure.MessageBus.DependencyInjection.Extensions;
+namespace Infrastructure.EventBus.DependencyInjection.Extensions;
 
 internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistrationContext context)
     {
-        cfg.ConfigureEventReceiveEndpoint<RequestPaymentWhenOrderPlacedConsumer, Order.DomainEvent.OrderPlaced>(context);
-        cfg.ConfigureEventReceiveEndpoint<ProceedWithPaymentWhenRequestedConsumer, DomainEvent.PaymentRequested>(context);
+        cfg.ConfigureEventReceiveEndpoint<RequestPaymentWhenOrderPlacedConsumer, DomainEvent.OrderPlaced>(context);
+        cfg.ConfigureEventReceiveEndpoint<ProceedWithPaymentWhenRequestedConsumer, Contracts.Boundaries.Payment.DomainEvent.PaymentRequested>(context);
     }
 
     private static void ConfigureEventReceiveEndpoint<TConsumer, TEvent>(this IRabbitMqBusFactoryConfigurator bus, IRegistrationContext context)
         where TConsumer : class, IConsumer
         where TEvent : class, IEvent
         => bus.ReceiveEndpoint(
-            queueName: $"payment.command-stack.{typeof(TConsumer).ToKebabCaseString()}.{typeof(TEvent).ToKebabCaseString()}",
+            queueName: $"payment.command.{typeof(TConsumer).ToKebabCaseString()}.{typeof(TEvent).ToKebabCaseString()}",
             configureEndpoint: endpoint =>
             {
                 endpoint.ConfigureConsumeTopology = false;

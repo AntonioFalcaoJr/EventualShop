@@ -1,7 +1,7 @@
 ﻿using MassTransit;
 using Serilog;
 
-namespace Infrastructure.MessageBus.PipeObservers;
+namespace Infrastructure.EventBus.PipeObservers;
 
 public class LoggingConsumeObserver : IConsumeObserver
 {

@@ -3,11 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.EventStore.Contexts;
 
-public class EventStoreDbContext : DbContext
+public class EventStoreDbContext(DbContextOptions options) : DbContext(options)
 {
-    public EventStoreDbContext(DbContextOptions options)
-        : base(options) { }
-
     public DbSet<StoreEvent>? Events { get; set; }
     public DbSet<Snapshot>? Snapshots { get; set; }
 

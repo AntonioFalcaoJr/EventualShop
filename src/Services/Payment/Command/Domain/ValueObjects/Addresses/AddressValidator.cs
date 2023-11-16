@@ -29,7 +29,7 @@ public class AddressValidator : AbstractValidator<Address>
         When(address => address.Number is not null, () =>
         {
             RuleFor(address => address.Number)
-                .GreaterThan(0);
+                .GreaterThan(0.ToString());
         });
 
         When(address => address.Complement is not null, () =>

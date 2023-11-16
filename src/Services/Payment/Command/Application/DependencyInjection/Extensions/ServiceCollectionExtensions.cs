@@ -2,7 +2,7 @@ using Application.Abstractions;
 using Application.Services;
 using Application.UseCases.Commands;
 using Application.UseCases.Events;
-using Contracts.Services.Payment;
+using Contracts.Boundaries.Payment;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.DependencyInjection.Extensions;

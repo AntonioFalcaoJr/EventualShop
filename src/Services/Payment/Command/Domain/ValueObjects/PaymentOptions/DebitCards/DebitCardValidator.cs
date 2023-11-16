@@ -6,9 +6,9 @@ public class DebitCardValidator : AbstractValidator<DebitCard>
 {
     public DebitCardValidator()
     {
-        RuleFor(card => card.Expiration)
-            .NotEqual(DateOnly.MinValue)
-            .NotEqual(DateOnly.MaxValue);
+        // RuleFor(card => card.Expiration)
+        //     .NotEqual(DateOnly.MinValue)
+        //     .NotEqual(DateOnly.MaxValue);
 
         RuleFor(card => card.HolderName)
             .NotNull()

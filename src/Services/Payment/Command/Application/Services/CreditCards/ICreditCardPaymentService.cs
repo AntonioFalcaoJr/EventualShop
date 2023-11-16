@@ -2,4 +2,4 @@
 
 namespace Application.Services.CreditCards;
 
-public interface ICreditCardPaymentService : IPaymentService { }
+public interface ICreditCardPaymentService : IPaymentService;

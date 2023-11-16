@@ -3,9 +3,9 @@ using Application.Abstractions.Gateways;
 using Contracts.Abstractions.Messages;
 using Contracts.JsonConverters;
 using FluentValidation;
-using Infrastructure.MessageBus.DependencyInjection.Options;
-using Infrastructure.MessageBus.PipeFilters;
-using Infrastructure.MessageBus.PipeObservers;
+using Infrastructure.EventBus.DependencyInjection.Options;
+using Infrastructure.EventBus.PipeFilters;
+using Infrastructure.EventBus.PipeObservers;
 using MassTransit;
 using MassTransit.Configuration;
 using Microsoft.Extensions.Configuration;
@@ -14,7 +14,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Quartz;
 
-namespace Infrastructure.MessageBus.DependencyInjection.Extensions;
+namespace Infrastructure.EventBus.DependencyInjection.Extensions;
 
 public static class ServiceCollectionExtensions
 {
@@ -26,7 +26,7 @@ public static class ServiceCollectionExtensions
 
                 cfg.UsingRabbitMq((context, bus) =>
                 {
-                    var options = context.GetRequiredService<IOptionsMonitor<MessageBusOptions>>().CurrentValue;
+                    var options = context.GetRequiredService<IOptionsMonitor<EventBusOptions>>().CurrentValue;
 
                     bus.Host(
                         hostAddress: options.ConnectionString,
@@ -88,9 +88,9 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddMessageValidators(this IServiceCollection services)
         => services.AddValidatorsFromAssemblyContaining(typeof(IMessage));
 
-    public static OptionsBuilder<MessageBusOptions> ConfigureMessageBusOptions(this IServiceCollection services, IConfigurationSection section)
+    public static OptionsBuilder<EventBusOptions> ConfigureEventBusOptions(this IServiceCollection services, IConfigurationSection section)
         => services
-            .AddOptions<MessageBusOptions>()
+            .AddOptions<EventBusOptions>()
             .Bind(section)
             .ValidateDataAnnotations()
             .ValidateOnStart();

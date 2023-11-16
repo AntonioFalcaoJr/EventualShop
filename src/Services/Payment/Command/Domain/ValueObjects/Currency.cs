@@ -1,45 +1,45 @@
-﻿namespace Domain.ValueObjects;
+﻿using System.Globalization;
 
-public record Currency(string IsoCode, string Symbol, int DecimalPlaces, string Name, string Country, string CultureInfo)
+namespace Domain.ValueObjects;
+
+public record Currency(string IsoCode, string Name, string Country, NumberFormatInfo FormatInfo)
 {
-    public static readonly Currency BRL = new("BRL", "R$", 2, "Brazilian real", "Brazil", "pt-BR");
-    public static readonly Currency CAD = new("CAD", "Can$", 2, "Canadian dollar", "Canada", "en-CA");
-    public static readonly Currency USD = new("USD", "US$", 2, "United States dollar", "United States", "en-US");
-    public static readonly Currency EUR = new("EUR", "€", 2, "Euro", "European Union", "en-EU");
-    public static readonly Currency GBP = new("GBP", "£", 2, "British pound", "United Kingdom", "en-GB");
-    public static readonly Currency JPY = new("JPY", "JP¥", 0, "Japanese yen", "Japan", "ja-JP");
-    public static readonly Currency CHF = new("CHF", "CHF", 2, "Swiss franc", "Switzerland", "de-CH");
-    public static readonly Currency AUD = new("AUD", "A$", 2, "Australian dollar", "Australia", "en-AU");
-    public static readonly Currency CNY = new("CNY", "CNY", 2, "Chinese yuan", "China", "zh-CN");
-    public static readonly Currency INR = new("INR", "INR", 2, "Indian rupee", "India", "hi-IN");
-    public static readonly Currency MXN = new("MXN", "Mex$", 2, "Mexican peso", "Mexico", "es-MX");
-    public static readonly Currency Undefined = new("Undefined", "Undefined", 0, "Undefined", "Undefined", "Undefined");
+    public static readonly Currency BRL = new("BRL", "Brazilian real", "Brazil", new CultureInfo("pt-BR").NumberFormat);
+    public static readonly Currency CAD = new("CAD", "Canadian dollar", "Canada", new CultureInfo("en-CA").NumberFormat);
+    public static readonly Currency USD = new("USD", "United States dollar", "United States", new CultureInfo("en-US").NumberFormat);
+    public static readonly Currency EUR = new("EUR", "Euro", "European Union", new CultureInfo("fr-FR").NumberFormat);
+    public static readonly Currency GBP = new("GBP", "British pound", "United Kingdom", new CultureInfo("en-GB").NumberFormat);
+    public static readonly Currency JPY = new("JPY", "Japanese yen", "Japan", new CultureInfo("ja-JP").NumberFormat);
+    public static readonly Currency CHF = new("CHF", "Swiss franc", "Switzerland", new CultureInfo("de-CH").NumberFormat);
+    public static readonly Currency AUD = new("AUD", "Australian dollar", "Australia", new CultureInfo("en-AU").NumberFormat);
+    public static readonly Currency CNY = new("CNY", "Chinese yuan", "China", new CultureInfo("zh-CN").NumberFormat);
+    public static readonly Currency INR = new("INR", "Indian rupee", "India", new CultureInfo("hi-IN").NumberFormat);
+    public static readonly Currency MXN = new("MXN", "Mexican peso", "Mexico", new CultureInfo("es-MX").NumberFormat);
+    public static readonly Currency Undefined = new("Undefined", "Undefined", "Undefined", NumberFormatInfo.InvariantInfo);
 
-    public static implicit operator string(Currency currency)
-        => currency.Symbol;
+    public Currency(string IsoCode) : this(IsoCode, All[IsoCode].Name, All[IsoCode].Country, All[IsoCode].FormatInfo) { }
 
-    public static implicit operator Currency(string currency)
-        => currency switch
-        {
-            { } when BRL == currency => BRL,
-            { } when CAD == currency => CAD,
-            { } when USD == currency => USD,
-            { } when EUR == currency => EUR,
-            { } when GBP == currency => GBP,
-            { } when JPY == currency => JPY,
-            { } when CHF == currency => CHF,
-            { } when AUD == currency => AUD,
-            { } when CNY == currency => CNY,
-            { } when INR == currency => INR,
-            { } when MXN == currency => MXN,
-            _ => Undefined
-        };
+    public static Dictionary<string, Currency> All { get; } = new()
+    {
+        { BRL.IsoCode, BRL }, { CAD.IsoCode, CAD }, { USD.IsoCode, USD },
+        { EUR.IsoCode, EUR }, { GBP.IsoCode, GBP }, { JPY.IsoCode, JPY },
+        { CHF.IsoCode, CHF }, { AUD.IsoCode, AUD }, { CNY.IsoCode, CNY },
+        { INR.IsoCode, INR }, { MXN.IsoCode, MXN }
+    };
+
+    public static explicit operator Currency(string isoCode)
+        => All.TryGetValue(isoCode, out var currency) ? currency
+            : throw new ArgumentException($"Currency {isoCode} is not supported.");
+
+    public static implicit operator string(Currency currency) => currency.IsoCode;
 
     public static bool operator ==(Currency currency, string value)
         => string.Equals(currency.IsoCode, value.Trim(), StringComparison.OrdinalIgnoreCase) ||
-           string.Equals(currency.Symbol, value.Trim(), StringComparison.OrdinalIgnoreCase);
+           string.Equals(currency.FormatInfo.CurrencySymbol, value.Trim(), StringComparison.OrdinalIgnoreCase);
 
     public static bool operator !=(Currency currency, string value)
         => string.Equals(currency.IsoCode, value.Trim(), StringComparison.OrdinalIgnoreCase) &&
-           string.Equals(currency.Symbol, value.Trim(), StringComparison.OrdinalIgnoreCase) is false;
+           string.Equals(currency.FormatInfo.CurrencySymbol, value.Trim(), StringComparison.OrdinalIgnoreCase) is false;
+
+    public override string ToString() => IsoCode;
 }

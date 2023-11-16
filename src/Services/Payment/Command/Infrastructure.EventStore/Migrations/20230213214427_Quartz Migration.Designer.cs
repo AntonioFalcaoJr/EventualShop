@@ -27,7 +27,7 @@ namespace Infrastructure.EventStore.Migrations
 
             modelBuilder.Entity("Domain.Abstractions.EventStore.Snapshot", b =>
                 {
-                    b.Property<long>("Version")
+                    b.Property<ulong>("Version")
                         .HasColumnType("bigint");
 
                     b.Property<Guid>("AggregateId")
@@ -53,7 +53,7 @@ namespace Infrastructure.EventStore.Migrations
 
             modelBuilder.Entity("Domain.Abstractions.EventStore.StoreEvent", b =>
                 {
-                    b.Property<long>("Version")
+                    b.Property<ulong>("Version")
                         .HasColumnType("bigint");
 
                     b.Property<Guid>("AggregateId")

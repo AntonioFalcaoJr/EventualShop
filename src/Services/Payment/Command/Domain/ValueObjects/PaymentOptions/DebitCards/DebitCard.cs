@@ -2,7 +2,7 @@
 
 namespace Domain.ValueObjects.PaymentOptions.DebitCards;
 
-public record DebitCard(DateOnly Expiration, string HolderName, string Number, ushort SecurityNumber) : IPaymentOption
+public record DebitCard(string Expiration, string HolderName, string Number, ushort SecurityNumber) : IPaymentOption
 {
     public static implicit operator DebitCard(Dto.DebitCard creditCard)
         => new(creditCard.ExpirationDate, creditCard.Number, creditCard.HolderName, creditCard.SecurityCode);

@@ -29,45 +29,17 @@ public class PaymentMethodStatus : SmartEnum<PaymentMethodStatus>
     public static implicit operator int(PaymentMethodStatus status)
         => status.Value;
 
-    public class PendingStatus : PaymentMethodStatus
-    {
-        public PendingStatus()
-            : base(nameof(Pending), 1) { }
-    }
+    public class PendingStatus() : PaymentMethodStatus(nameof(Pending), 1);
 
-    public class AuthorizedStatus : PaymentMethodStatus
-    {
-        public AuthorizedStatus() 
-            : base(nameof(Authorized), 2) { }
-    }
+    public class AuthorizedStatus() : PaymentMethodStatus(nameof(Authorized), 2);
 
-    public class CanceledStatus : PaymentMethodStatus
-    {
-        public CanceledStatus() 
-            : base(nameof(Cancelled), 3) { }
-    }
+    public class CanceledStatus() : PaymentMethodStatus(nameof(Cancelled), 3);
 
-    public class CancellationDeniedStatus : PaymentMethodStatus
-    {
-        public CancellationDeniedStatus() 
-            : base(nameof(CancellationDenied), 4) { }
-    }
+    public class CancellationDeniedStatus() : PaymentMethodStatus(nameof(CancellationDenied), 4);
 
-    public class DeniedStatus : PaymentMethodStatus
-    {
-        public DeniedStatus() 
-            : base(nameof(Denied), 5) { }
-    }
+    public class DeniedStatus() : PaymentMethodStatus(nameof(Denied), 5);
 
-    public class RefundDeniedStatus : PaymentMethodStatus
-    {
-        public RefundDeniedStatus() 
-            : base(nameof(RefundDenied), 6) { }
-    }
+    public class RefundDeniedStatus() : PaymentMethodStatus(nameof(RefundDenied), 6);
 
-    public class RefundedStatus : PaymentMethodStatus
-    {
-        public RefundedStatus() 
-            : base(nameof(Refunded), 7) { }
-    }
+    public class RefundedStatus() : PaymentMethodStatus(nameof(Refunded), 7);
 }

@@ -2,4 +2,4 @@
 
 namespace Application.Services.PayPal;
 
-public interface IPayPalPaymentService : IPaymentService { }
+public interface IPayPalPaymentService : IPaymentService;

@@ -6,12 +6,10 @@ using Microsoft.Extensions.Options;
 
 namespace Infrastructure.HTTP.CreditCards;
 
-public class CreditCardHttpClient : ApplicationHttpClient, ICreditCardHttpClient
+public class CreditCardHttpClient(IOptionsSnapshot<CreditCardHttpClientOptions> options, HttpClient client)
+    : ApplicationHttpClient(client), ICreditCardHttpClient
 {
-    private readonly CreditCardHttpClientOptions _options;
-
-    public CreditCardHttpClient(IOptionsSnapshot<CreditCardHttpClientOptions> options, HttpClient client) : base(client) 
-        => _options = options.Value;
+    private readonly CreditCardHttpClientOptions _options = options.Value;
 
     public Task<HttpResponse<CreditCardPaymentResult>> AuthorizeAsync(Requests.CreditCardAuthorizePayment request, CancellationToken cancellationToken)
         => PostAsync<Requests.CreditCardAuthorizePayment, CreditCardPaymentResult>(_options.AuthorizeEndpoint, request, cancellationToken);

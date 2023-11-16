@@ -1,3 +1,3 @@
 ﻿namespace Domain.ValueObjects.PaymentOptions;
 
-public interface IPaymentOption { }
+public interface IPaymentOption;

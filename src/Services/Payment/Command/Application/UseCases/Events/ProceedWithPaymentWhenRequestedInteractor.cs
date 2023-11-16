@@ -1,30 +1,21 @@
 ﻿using Application.Abstractions;
 using Application.Services;
-using Contracts.Services.Payment;
+using Contracts.Boundaries.Payment;
 using Domain.Aggregates;
 
 namespace Application.UseCases.Events;
 
 public interface IProceedWithPaymentWhenRequestedInteractor : IInteractor<DomainEvent.PaymentRequested> { }
 
-public class ProceedWithPaymentWhenRequestedInteractor : IProceedWithPaymentWhenRequestedInteractor
-{
-    private readonly IApplicationService _applicationService;
-    private readonly IPaymentGateway _paymentGateway;
-
-    public ProceedWithPaymentWhenRequestedInteractor(
-        IApplicationService applicationService,
+public class ProceedWithPaymentWhenRequestedInteractor(IApplicationService service,
         IPaymentGateway paymentGateway)
-    {
-        _applicationService = applicationService;
-        _paymentGateway = paymentGateway;
-    }
-
+    : IProceedWithPaymentWhenRequestedInteractor
+{
     public async Task InteractAsync(DomainEvent.PaymentRequested @event, CancellationToken cancellationToken)
     {
-        var payment = await _applicationService.LoadAggregateAsync<Payment>(@event.PaymentId, cancellationToken);
-        await _paymentGateway.AuthorizeAsync(payment, cancellationToken);
+        var payment = await service.LoadAggregateAsync<Payment>(@event.PaymentId, cancellationToken);
+        await paymentGateway.AuthorizeAsync(payment, cancellationToken);
         payment.Handle(new Command.ProceedWithPayment(payment.Id, payment.OrderId));
-        await _applicationService.AppendEventsAsync(payment, cancellationToken);
+        await service.AppendEventsAsync(payment, cancellationToken);
     }
 }

@@ -3,8 +3,8 @@ using Domain.Entities.PaymentMethods;
 using Domain.Enumerations;
 using Domain.ValueObjects.Addresses;
 using Contracts.Abstractions.Messages;
+using Contracts.Boundaries.Payment;
 using Contracts.DataTransferObjects;
-using Contracts.Services.Payment;
 using Domain.ValueObjects;
 using Newtonsoft.Json;
 

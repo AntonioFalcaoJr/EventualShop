@@ -2,13 +2,8 @@
 
 namespace Application.Abstractions.Http;
 
-public abstract class ApplicationHttpClient
+public abstract class ApplicationHttpClient(HttpClient client)
 {
-    private readonly HttpClient _client;
-
-    protected ApplicationHttpClient(HttpClient client)
-        => _client = client;
-
     protected Task<HttpResponse<TResponse>> GetAsync<TResponse>(string endpoint, CancellationToken cancellationToken)
         where TResponse : new()
         => RequestAsync<TResponse>((client, ct) => client.GetAsync(endpoint, ct), cancellationToken);
@@ -24,7 +19,7 @@ public abstract class ApplicationHttpClient
     private async Task<HttpResponse<TResponse>> RequestAsync<TResponse>(Func<HttpClient, CancellationToken, Task<HttpResponseMessage>> request, CancellationToken cancellationToken)
         where TResponse : new()
     {
-        var response = await request(_client, cancellationToken);
+        var response = await request(client, cancellationToken);
 
         return new()
         {

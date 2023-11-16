@@ -6,15 +6,8 @@ using Domain.ValueObjects.PaymentOptions.PayPals;
 
 namespace Infrastructure.HTTP.PayPals;
 
-public class PayPalPaymentService : PaymentService, IPayPalPaymentService
+public class PayPalPaymentService(IPayPalHttpClient client) : PaymentService, IPayPalPaymentService
 {
-    private readonly IPayPalHttpClient _client;
-
-    public PayPalPaymentService(IPayPalHttpClient client)
-    {
-        _client = client;
-    }
-
     public override Task<IPaymentResult>? HandleAsync(Func<IPaymentService, PaymentMethod, CancellationToken, Task<IPaymentResult>> behaviorProcessor, PaymentMethod method, CancellationToken cancellationToken)
         => method.Option is PayPal
             ? behaviorProcessor(this, method, cancellationToken)
@@ -24,7 +17,7 @@ public class PayPalPaymentService : PaymentService, IPayPalPaymentService
     {
         // TODO - Use method to hydrate
         Requests.PaypalAuthorizePayment request = new();
-        var response = await _client.AuthorizeAsync(request, cancellationToken);
+        var response = await client.AuthorizeAsync(request, cancellationToken);
         return response.ActionResult;
     }
 
@@ -32,7 +25,7 @@ public class PayPalPaymentService : PaymentService, IPayPalPaymentService
     {
         // TODO - Use method to hydrate
         Requests.PaypalCancelPayment request = new();
-        var response = await _client.CancelAsync(Guid.NewGuid(), request, cancellationToken);
+        var response = await client.CancelAsync(Guid.NewGuid(), request, cancellationToken);
         return response.ActionResult;
     }
 
@@ -40,7 +33,7 @@ public class PayPalPaymentService : PaymentService, IPayPalPaymentService
     {
         // TODO - Use method to hydrate
         Requests.PaypalRefundPayment request = new();
-        var response = await _client.RefundAsync(Guid.NewGuid(), request, cancellationToken);
+        var response = await client.RefundAsync(Guid.NewGuid(), request, cancellationToken);
         return response.ActionResult;
     }
 }

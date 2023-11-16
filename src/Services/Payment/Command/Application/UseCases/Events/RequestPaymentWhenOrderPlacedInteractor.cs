@@ -1,23 +1,16 @@
 using Application.Abstractions;
 using Application.Services;
+using Contracts.Boundaries.Order;
 using Domain.Aggregates;
-using Order = Contracts.Services.Order;
-using Contracts.Services.Payment;
+using Command = Contracts.Boundaries.Payment.Command;
 
 namespace Application.UseCases.Events;
 
-public interface IRequestPaymentWhenOrderPlacedInteractor : IInteractor<Order.DomainEvent.OrderPlaced> { }
+public interface IRequestPaymentWhenOrderPlacedInteractor : IInteractor<DomainEvent.OrderPlaced> { }
 
-public class RequestPaymentWhenOrderPlacedInteractor : IRequestPaymentWhenOrderPlacedInteractor
+public class RequestPaymentWhenOrderPlacedInteractor(IApplicationService service) : IRequestPaymentWhenOrderPlacedInteractor
 {
-    private readonly IApplicationService _applicationService;
-
-    public RequestPaymentWhenOrderPlacedInteractor(IApplicationService applicationService)
-    {
-        _applicationService = applicationService;
-    }
-
-    public async Task InteractAsync(Order.DomainEvent.OrderPlaced @event, CancellationToken cancellationToken)
+    public async Task InteractAsync(DomainEvent.OrderPlaced @event, CancellationToken cancellationToken)
     {
         Payment payment = new();
 
@@ -27,6 +20,6 @@ public class RequestPaymentWhenOrderPlacedInteractor : IRequestPaymentWhenOrderP
             @event.BillingAddress,
             @event.PaymentMethods));
 
-        await _applicationService.AppendEventsAsync(payment, cancellationToken);
+        await service.AppendEventsAsync(payment, cancellationToken);
     }
 }
