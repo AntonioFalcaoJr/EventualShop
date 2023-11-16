@@ -1,71 +1,80 @@
-﻿@using WebAPP.ViewModels
-@using WebAPP.HttpClients
+﻿@using BlazorStrap
+@using Fluxor
+@using WebAPP.Store.Cataloging
+@using WebAPP.Store.Cataloging.Commands
+@using WebAPP.Store.Cataloging.Events
 
-@inject ICatalogHttpClient HttpClient
+@inject IState<CatalogingState> State
+@inject IDispatcher Dispatcher
 
 <BSCard CardType="CardType.Card" Padding="Padding.None">
     <BSCard CardType="CardType.Header">
-        @if (_isEditingTitle)
+        @if (State.Value.IsEditingTitle)
         {
-            <BSInput InputType="InputType.Text" @bind-Value="@ViewModel.Title"/>
-            <BSButton Class="bi bi-pencil-square" Color="BSColor.Warning" OnClick=@(async () => {ToggleTitle(); await ChangeTitleAsync(); })></BSButton>
+            <BSInput InputType="InputType.Text" @bind-Value="@Catalog.Title"/>
+            <BSButton Class="bi bi-pencil-square" Color="BSColor.Warning" OnClick=@ChangeTitle></BSButton>
         }
         else
         {
-            @ViewModel.Title
-            <BSButton Class="bi bi-pencil-square" Color="BSColor.Warning" OnClick=@(ToggleTitle)></BSButton>
+            @Catalog.Title
+            <BSButton Class="bi bi-pencil-square" Color="BSColor.Warning" OnClick=@ChangeTitleStarted></BSButton>
         }
     </BSCard>
     <BSCard CardType="CardType.Image" src="placeholder:286x180"/>
     <BSCard CardType="CardType.Body">
-        <BSCard CardType="CardType.Title">@ViewModel.Title</BSCard>
+        <BSCard CardType="CardType.Title">@Catalog.Title</BSCard>
         <BSCard CardType="CardType.Subtitle">
-            @if (_isEditingDescription)
+            @if (State.Value.IsEditingDescription)
             {
-                <BSInput InputType="InputType.Text" @bind-Value="@ViewModel.Description"/>
-                <BSButton Class="bi bi-pencil-square" Color="BSColor.Warning" OnClick=@(async () => {ToggleDescription(); await ChangeDescriptionAsync(); })></BSButton>
+                <BSInput InputType="InputType.Text" @bind-Value="@Catalog.Description"/>
+                <BSButton Class="bi bi-pencil-square" Color="BSColor.Warning" OnClick=@ChangeDescription></BSButton>
             }
             else
             {
-                @ViewModel.Description
-                <BSButton Class="bi bi-pencil-square" Color="BSColor.Warning" OnClick=@(ToggleDescription)></BSButton>
+                @Catalog.Description
+                <BSButton Class="bi bi-pencil-square" Color="BSColor.Warning" OnClick=@ChangeDescriptionStarted></BSButton>
             }
         </BSCard>
-        <BSButton Class="bi bi-trash3" Color="BSColor.Danger" OnClick="@(DeleteAsync)"></BSButton>
+        <BSButton Class="bi bi-trash3" Color="BSColor.Danger" OnClick="@Delete"></BSButton>
     </BSCard>
-    <BSCard CardType="CardType.Footer">Last updated 3 mins ago</BSCard>
+    <BSCard CardType="CardType.Footer">Last updated 3 min ago</BSCard>
 </BSCard>
 
 @code {
 
     [Parameter]
-    public CatalogCardViewModel ViewModel { get; set; }
-
-    [Parameter]
-    public EventCallback<Guid> OnDeleted { get; set; }
+    public Catalog Catalog { get; set; } = new();
 
     private readonly CancellationTokenSource _cancellationTokenSource = new();
 
-    private bool _isEditingDescription;
-    private bool _isEditingTitle;
+    private void ChangeDescriptionStarted()
+        => Dispatcher.Dispatch(new ChangeDescriptionStarted());
 
-    private void ToggleDescription()
-        => _isEditingDescription = !_isEditingDescription;
+    private void ChangeTitleStarted()
+        => Dispatcher.Dispatch(new ChangeTitleStarted());
 
-    private void ToggleTitle()
-        => _isEditingTitle = !_isEditingTitle;
+    private void ChangeTitle()
+        => Dispatcher.Dispatch(new ChangeTitle
+        {
+            CatalogId = Catalog.Id,
+            NewTitle = Catalog.Title,
+            CancellationToken = _cancellationTokenSource.Token
+        });
 
-    private async Task ChangeTitleAsync()
-        => await HttpClient.ChangeTitleAsync(ViewModel.Id, ViewModel.Title, _cancellationTokenSource.Token);
+    private void ChangeDescription()
+        => Dispatcher.Dispatch(new ChangeDescription
+        {
+            CatalogId = Catalog.Id,
+            NewDescription = Catalog.Description,
+            CancellationToken = _cancellationTokenSource.Token
+        });
 
-    private async Task ChangeDescriptionAsync()
-        => await HttpClient.ChangeDescriptionAsync(ViewModel.Id, ViewModel.Description, _cancellationTokenSource.Token);
-
-    private async Task DeleteAsync()
-    {
-        var response = await HttpClient.DeleteAsync(ViewModel.Id, _cancellationTokenSource.Token);
-        if (response.Success) await OnDeleted.InvokeAsync(ViewModel.Id);
-    }
+    private void Delete()
+        => Dispatcher.Dispatch(new DeleteCatalog
+        {
+            CatalogId = Catalog.Id,
+            CancellationToken = _cancellationTokenSource.Token
+        });
 
     private void Dispose()
         => _cancellationTokenSource.Cancel();

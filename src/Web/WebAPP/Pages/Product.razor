@@ -1,11 +1,12 @@
-﻿@inject IBlazorStrap BlazorStrap
+﻿@using BlazorStrap
+@inject IBlazorStrap BlazorStrap
 
 <BSModal DataId="model9" OnShow="@(() => NewEmployee(new()))">
     <BSForm Model="_model" OnValidSubmit="@Update">
         <BSModalHeader>New ProductViewModel</BSModalHeader>
         <BSModalContent>
             <div class="mb-3">
-                <BSLabel>Name</BSLabel>
+                <BSLabel>ProductName</BSLabel>
                 <BSInput InputType="InputType.Text" @bind-Value="_model.Name"/>
             </div>
             <div class="mb-3">
@@ -22,7 +23,7 @@
             </div>
             @* <div class="mb-3"> *@
             @*     <BSLabel>Picture</BSLabel> *@
-            @*     <BSInput InputType="InputType.Email" placeholder="http://wwww.picture.com" @bind-Value="_model.PictureUrl"/> *@
+            @*     <BSInput InputType="InputType.Email" placeholder="http://wwww.picture.com" @bind-Value="_model.PictureUri"/> *@
             @* </div> *@
         </BSModalContent>
         <BSModalFooter>
@@ -38,9 +39,9 @@
 
     // BSModal refModal;
 
-    private ViewModels.ProductViewModel _model = new();
+    private Product _model = new();
 
-    private async Task NewEmployee(ViewModels.ProductViewModel e)
+    private async Task NewEmployee(Product e)
     {
         _model = e;
         await Task.CompletedTask;
@@ -51,5 +52,14 @@
         BlazorStrap.ForwardClick("model9");
         await Task.CompletedTask;
     }
+
+    public object Name { get; set; }
+
+
+    public object Description { get; set; }
+
+    public object Brand { get; set; }
+
+    public object Category { get; set; }
 
 }

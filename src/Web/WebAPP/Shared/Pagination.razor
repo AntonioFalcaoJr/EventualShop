@@ -1,0 +1,29 @@
+﻿@using BlazorStrap
+@using WebAPP.Abstractions
+@using WebAPP.Store
+
+<BSPagination Align="Align.Center">
+    <BSPaginationItem IsDisabled="@(Page.HasPrevious is false)" @onclick="OnMoveToPrevious">Previous</BSPaginationItem>
+    @for (var paging = 1; paging <= Page.Current; paging++)
+    {
+        var current = paging;
+        <BSPaginationItem @onclick=@(() => OnMoveToPage(current))>@current</BSPaginationItem>
+    }
+    <BSPaginationItem IsDisabled="@(Page.HasNext is false)" @onclick="OnMoveToNext">Next</BSPaginationItem>
+</BSPagination>
+
+@code {
+
+    [Parameter]
+    public Page Page { get; set; } = new();
+
+    [Parameter]
+    public Action OnMoveToPrevious { get; set; } = () => { };
+
+    [Parameter]
+    public Action OnMoveToNext { get; set; } = () => { };
+
+    [Parameter]
+    public Action<int> OnMoveToPage { get; set; } = _ => { };
+
+}

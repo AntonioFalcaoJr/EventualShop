@@ -1,0 +1,82 @@
+﻿@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
+@using BlazorStrap
+@using Fluxor
+@using WebAPP.Abstractions
+@using WebAPP.Store.Catalogs
+@using WebAPP.Store.Catalogs.Queries
+
+@inject IState<CatalogState> State
+@inject IDispatcher Dispatcher
+
+<BSContainer>
+    <BSRow MarginTop="Margins.Large" Align="Align.Center" Justify="Justify.Center">
+        @if (State.Value.IsFetching)
+        {
+            <BSSpinner MarginTop="Margins.Large" SpinnerType="SpinnerType.Border" Color="BSColor.Dark" Size="Size.ExtraExtraLarge"/>
+        }
+        else if (State.Value.HasError)
+        {
+            <BSAlert Color="BSColor.Danger" MarginBottom="Margins.None">
+                <Header>We're sorry!</Header>
+                <Content>
+                    <p>Something went wrong. Please try again later.</p>
+                    <hr>
+                    <p class="mb-0">Error: @State.Value.Error</p>
+                </Content>
+            </BSAlert>
+            <BSButton MarginTop="Margins.None" Color="BSColor.Danger" OnClick=@(() => ListCatalogItems(State.Value.Id))> Try again</BSButton>
+        }
+        else if (State.Value.Items.Any())
+        {
+            @foreach (var item in State.Value.Items)
+            {
+                <BSCol MarginTopAndBottom="Margins.ExtraSmall" Padding="Padding.None">
+                    <CatalogItemCard Item="item"/>
+                </BSCol>
+            }
+
+            <Pagination
+                Page="State.Value.Page"
+                OnMoveToPage="MoveToPage"
+                OnMoveToNext="MoveToNext"
+                OnMoveToPrevious="MoveToPrevious"/>
+        }
+        else
+        {
+            <BSAlert Color="BSColor.Dark" HasIcon="true">
+                No items found
+            </BSAlert>
+        }
+    </BSRow>
+</BSContainer>
+
+@code {
+
+    private readonly CancellationTokenSource _cancellationTokenSource = new();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        ListCatalogItems(State.Value.Id);
+    }
+
+    private void MoveToPage(int page) => ListCatalogItems(State.Value.Id, offset: page - 1);
+    private void MoveToNext() => ListCatalogItems(State.Value.Id, offset: State.Value.Page.Current);
+    private void MoveToPrevious() => ListCatalogItems(State.Value.Id, offset: State.Value.Page.Current - 2);
+
+    private void ListCatalogItems(string catalogId, int? limit = 8, int? offset = 0)
+        => Dispatcher.Dispatch(new ListCatalogItems
+        {
+            Paging = new(limit, offset),
+            CatalogId = catalogId,
+            CancellationToken = _cancellationTokenSource.Token
+        });
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing) _cancellationTokenSource.Cancel();
+        base.Dispose(disposing);
+    }
+
+}

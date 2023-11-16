@@ -1,23 +1,30 @@
 ﻿@page "/catalogs"
 
+@using BlazorStrap
+@using Fluxor
+@using WebAPP.Store.Cataloging
+
+@inject IDispatcher Dispatcher
+
 <NavBar/>
 <SearchBar/>
-<BSToaster/>
+<CatalogCanvas/>
 
-<CatalogCanvas @ref="_canvas" OnCreated="catalog => _grid.Add(catalog)"/>
 <BSContainer>
     <BSRow Align="Align.Center" Justify="Justify.Around">
         <BSCol Margin="Margins.Large">
             <h5 class="m-0">Catalogs</h5>
         </BSCol>
         <BSCol Column="1">
-            <BSButton Class="bi bi-plus-lg" Color="BSColor.Light" style="font-size: 2.000rem;" OnClick="_canvas.ShowAsync"/>
+            <BSButton
+                Class="bi bi-plus-lg"
+                Color="BSColor.Light" style="font-size: 2.000rem;"
+                OnClick="@StartCatalogCreation"/>
         </BSCol>
     </BSRow>
-    <CatalogGrid @ref="_grid"/>
+    <CatalogGrid/>
 </BSContainer>
 
 @code {
-    private CatalogCanvas _canvas;
-    private CatalogGrid _grid;
+    private void StartCatalogCreation() => Dispatcher.Dispatch(new EventsV1.CatalogCreationStarted());
 }

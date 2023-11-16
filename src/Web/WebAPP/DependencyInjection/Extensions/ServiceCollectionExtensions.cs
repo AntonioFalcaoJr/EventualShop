@@ -1,28 +1,41 @@
 ﻿using CorrelationId.HttpClient;
 using Microsoft.Extensions.Options;
 using Polly;
+using Refit;
+using WebAPP.DependencyInjection.HttpPolicies;
 using WebAPP.DependencyInjection.Options;
-using WebAPP.HttpClients;
-using WebAPP.HttpPolicies;
+using WebAPP.Store.Cataloging.Commands;
+using WebAPP.Store.Cataloging.Queries;
+using WebAPP.Store.Catalogs.Queries;
 
 namespace WebAPP.DependencyInjection.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static void AddECommerceHttpClient(this IServiceCollection services)
+    public static void AddApis(this IServiceCollection services)
+    {
+        services.AddApiClient<ICreateCatalogApi>();
+        services.AddApiClient<IChangeTitleApi>();
+        services.AddApiClient<IChangeDescriptionApi>();
+        services.AddApiClient<IDeleteCatalogApi>();
+        services.AddApiClient<IListCatalogsApi>();
+        services.AddApiClient<IListCatalogItemsApi>();
+    }
+
+    private static void AddApiClient<TApi>(this IServiceCollection services) where TApi : class
     {
         services
-            .AddHttpClient<ICatalogHttpClient, CatalogHttpClient>()
+            .AddRefitClient<TApi>()
             .AddCorrelationIdForwarding()
             .ConfigureHttpClient((provider, client) =>
             {
-                var options = provider.GetRequiredService<IOptionsSnapshot<ECommerceHttpClientOptions>>().Value;
+                var options = provider.GetRequiredService<IOptions<ECommerceHttpClientOptions>>().Value;
                 client.BaseAddress = new(options.BaseAddress);
                 client.Timeout = options.OverallTimeout;
             })
             .AddPolicyHandler((provider, _) =>
             {
-                var options = provider.GetRequiredService<IOptionsSnapshot<ECommerceHttpClientOptions>>().Value;
+                var options = provider.GetRequiredService<IOptions<ECommerceHttpClientOptions>>().Value;
 
                 return Policy.WrapAsync(
                     HttpPolicy.GetRetryPolicyAsync(options.RetryCount, options.SleepDurationPower, options.EachRetryTimeout),
@@ -30,10 +43,18 @@ public static class ServiceCollectionExtensions
             });
     }
 
-    public static OptionsBuilder<ECommerceHttpClientOptions> ConfigureECommerceHttpClientOptions(this IServiceCollection services, IConfigurationSection section)
+    private static IServiceCollection AddLazyTransient<T>(this IServiceCollection services) where T : class
+        => services.AddTransient<Lazy<T>>(provider => new(provider.GetRequiredService<T>));
+
+    public static IServiceCollection ConfigureOptions(this IServiceCollection services)
+        => services.ConfigureOptions<ECommerceHttpClientOptions>();
+
+    private static IServiceCollection ConfigureOptions<TOptions>(this IServiceCollection services)
+        where TOptions : class
         => services
-            .AddOptions<ECommerceHttpClientOptions>()
-            .Bind(section)
+            .AddOptions<TOptions>()
+            .BindConfiguration(typeof(TOptions).Name)
             .ValidateDataAnnotations()
-            .ValidateOnStart();
+            .ValidateOnStart()
+            .Services;
 }

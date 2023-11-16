@@ -1,64 +1,86 @@
-﻿@using Microsoft.AspNetCore.Components
-@using WebAPP.HttpClients
-@using WebAPP.ViewModels
-@using Contracts.Services.Catalog
-@using BlazorStrap.Shared.Components.OffCanvas
-@inject ICatalogHttpClient HttpClient
-@inject CatalogGridViewModel ViewModel
+﻿@inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
-<BSOffCanvas @ref="_offCanvas" Placement="Placement.Right">
+@using BlazorStrap.Shared.Components.OffCanvas
+@using Fluxor
+@using BlazorStrap
+@using WebAPP.Store.Cataloging
+@using WebAPP.Store.Cataloging.Commands
+@using WebAPP.Store.Cataloging.Events
+
+@inject IState<CatalogingState> State
+@inject IDispatcher Dispatcher
+
+<BSOffCanvas @ref="Canvas" Placement="Placement.Right" OnHidden="CancelCatalogCreation()" ShowBackdrop="true">
     <Header>Create Catalog</Header>
-    <Content >
+    <Content>
         <div class="d-grid gap-2">
             <BSLabel>Title</BSLabel>
-            <BSInput InputType="InputType.Text" placeholder="Title" @bind-Value="ViewModel.Title" IsDisabled="_creating"/>
+            <BSInput
+                InputType="InputType.Text"
+                placeholder="@nameof(State.Value.NewCatalog.Title)"
+                @bind-Value="State.Value.NewCatalog.Title"
+                IsDisabled="State.Value.IsCreating"/>
             <BSLabel>Description</BSLabel>
-            <BSInput InputType="InputType.TextArea" placeholder="Description" @bind-Value="ViewModel.Description" IsDisabled="_creating"/>
-            <BSButton MarginTop="Margins.Large" Color="BSColor.Dark" OnClick="CreateAsync" IsDisabled="_creating">
-                @if (_creating)
+            <BSInput
+                InputType="InputType.TextArea"
+                placeholder="@nameof(State.Value.NewCatalog.Description)"
+                @bind-Value="State.Value.NewCatalog.Description"
+                IsDisabled="State.Value.IsCreating"/>
+            <BSButton
+                MarginTop="Margins.Large"
+                Color="BSColor.Dark"
+                OnClick="@CreateCatalog"
+                IsDisabled="State.Value.IsCreating">
+                @if (State.Value.IsCreating)
                 {
-                    <BSSpinner Size="Size.Small" Color="BSColor.Light"/>
+                    <BSSpinner SpinnerType="SpinnerType.Grow" Color="BSColor.Light"/>
                 }
                 else
                 {
                     <p style="margin: auto">Create</p>
                 }
             </BSButton>
+            @if (State.Value.HasError)
+            {
+                <BSAlert Color="BSColor.Danger" IsDismissible="true">
+                    <BSAlertHeading>Error</BSAlertHeading>
+                    <p>@State.Value.Error</p>
+                </BSAlert>
+            }
         </div>
     </Content>
 </BSOffCanvas>
 
 @code {
-    
-    [Parameter]
-    public EventCallback<Requests.CreateCatalog> OnCreated { get; set; }
-    
+
+    private BSOffCanvasBase Canvas { get; set; } = new BSOffCanvas();
     private readonly CancellationTokenSource _cancellationTokenSource = new();
 
-
-    private BSOffCanvas _offCanvas;
-    private bool _creating;
-
-    private async Task CreateAsync()
+    protected override void OnInitialized()
     {
-        _creating = true;
-        var request = new Requests.CreateCatalog(Guid.NewGuid(), ViewModel.Title, ViewModel.Description);
-        var response = await HttpClient.CreateAsync(request, _cancellationTokenSource.Token);
-
-        if (response.Success)
-        {
-            await _offCanvas.HideAsync();
-            await OnCreated.InvokeAsync(request);
-        }
-        _creating = false;
+        base.OnInitialized();
+        SubscribeToAction<EventsV1.CatalogCreationStarted>(_ => Canvas.ShowAsync());
+        SubscribeToAction<CatalogCreated>(_ => Canvas.HideAsync());
     }
 
-    public Task ShowAsync()
-        => _offCanvas.ShowAsync();
+    private void CreateCatalog()
+    {
+        CreateCatalog createCatalog = new()
+        {
+            NewCatalog = State.Value.NewCatalog,
+            CancellationToken = _cancellationTokenSource.Token
+        };
+        
+        Dispatcher.Dispatch(createCatalog);
+    }
 
-    public Task HideAsync()
-        => _offCanvas.HideAsync();
-    
-    private void Dispose()
-        => _cancellationTokenSource.Cancel();
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing) _cancellationTokenSource.Dispose();
+        base.Dispose(disposing);
+    }
+
+    private Action<BSOffCanvasBase> CancelCatalogCreation() 
+        => _ => Dispatcher.Dispatch(new CatalogCreationAborted());
+
 }

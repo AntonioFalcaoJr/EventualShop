@@ -1,0 +1,28 @@
+﻿@using BlazorStrap
+@using WebAPP.Store.Catalogs
+
+<BSCard Class="w-25 border-0" Alignment="Alignment.Center" CardType="CardType.Card">
+    <BSCard Class="rounded-1" CardType="CardType.Image" src="placeholder:286x180"/>
+    <BSCard CardType="CardType.Body">
+        <BSCard CardType="CardType.Title">@Item.Name</BSCard>
+        <BSCard CardType="CardType.Subtitle">@Item.Description</BSCard>
+        <BSButton Color="BSColor.Primary" OnClick="@(() => AddToCartAsync(Item.ProductId))">Add to cart</BSButton>
+    </BSCard>
+</BSCard>
+
+@code {
+
+    [Parameter]
+    public CatalogItem Item { get; set; } = new();
+
+    private readonly CancellationTokenSource _cancellationTokenSource = new();
+
+    private Task AddToCartAsync(object productId)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void Dispose()
+        => _cancellationTokenSource.Cancel();
+
+}

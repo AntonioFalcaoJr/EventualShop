@@ -1,73 +1,66 @@
-﻿@using WebAPP.ViewModels
-@using WebAPP.HttpClients
-@using Contracts.Services.Catalog
-@using Contracts.Abstractions.Paging
+﻿@inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
-@inject ICatalogHttpClient HttpClient
-@inject CatalogGridViewModel ViewModel
+@using BlazorStrap
+@using Fluxor
+@using WebAPP.Store.Cataloging
+@using BlazorStrap.V5
+@using WebAPP.Abstractions
+@using WebAPP.Store.Cataloging.Queries
 
-<div class="row row-cols-md-4">
-    @foreach (var card in ViewModel.Cards)
-    {
-        <BSCol MarginTopAndBottom="Margins.ExtraSmall" Padding="Padding.None">
-            <CatalogCard ViewModel="card" OnDeleted="Delete"></CatalogCard>
-        </BSCol>
-    }
-</div>
-<BSPagination Align="Align.Center">
-    <BSPaginationItem IsDisabled="@(ViewModel.Page.HasPrevious is false)" @onclick="MoveToPreview">Previous</BSPaginationItem>
-    @for (var paging = 1; paging <= ViewModel.Page.Current; paging++)
-    {
-        var current = paging;
-        <BSPaginationItem @onclick="() => MoveToPage(current)">@current</BSPaginationItem>
-    }
-    <BSPaginationItem IsDisabled="@(ViewModel.Page.HasNext is false)" @onclick="MoveToNext">Next</BSPaginationItem>
-</BSPagination>
+@inject IState<CatalogingState> State
+@inject IDispatcher Dispatcher
 
+@if (State.Value.IsFetching)
+{
+    <BSSpinner SpinnerType="SpinnerType.Grow" Color="BSColor.Dark" Size="Size.ExtraLarge"/>
+}
+else if (State.Value.Catalogs.Any())
+{
+    <div class="row row-cols-md-4">
+        @foreach (var catalog in State.Value.Catalogs)
+        {
+            <BSCol MarginTopAndBottom="Margins.ExtraSmall" Padding="Padding.None">
+                <CatalogCard Catalog="catalog"/>
+            </BSCol>
+        }
+    </div>
+
+    <Pagination
+        Page="State.Value.Page"
+        OnMoveToPage="MoveToPage"
+        OnMoveToNext="MoveToNext"
+        OnMoveToPrevious="MoveToPrevious"/>
+}
+else
+{
+    <p class="text-center">Add your first catalog</p>
+}
 
 @code {
 
     private readonly CancellationTokenSource _cancellationTokenSource = new();
 
-    protected override async Task OnInitializedAsync()
-        => await FetchDataAsync();
-
-    private async Task FetchDataAsync(int limit = 8, int offset = 0)
+    protected override void OnInitialized()
     {
-        var response = await HttpClient.GetAsync(limit, offset, _cancellationTokenSource.Token);
+        base.OnInitialized();
+        ListCatalogs();
+    }
 
-        if (response.Success)
+    private void MoveToPage(int page) => ListCatalogs(offset: page - 1);
+    private void MoveToNext() => ListCatalogs(offset: State.Value.Page.Current);
+    private void MoveToPrevious() => ListCatalogs(offset: State.Value.Page.Current - 2);
+
+    private void ListCatalogs(int limit = 8, int offset = 0)
+        => Dispatcher.Dispatch(new ListCatalogs
         {
-            ViewModel.Cards = response.ActionResult.Items.Select(catalog => (CatalogCardViewModel) catalog).ToList();
-            ViewModel.Page = response.ActionResult.Page;
-        }
-    }
+            Paging = new(limit, offset),
+            CancellationToken = _cancellationTokenSource.Token
+        });
 
-    public void Add(CatalogCardViewModel card)
+    protected override void Dispose(bool disposing)
     {
-        ViewModel.Cards.Add(card);
-        StateHasChanged();
+        if (disposing) _cancellationTokenSource.Dispose();
+        base.Dispose(disposing);
     }
-
-    private void Delete(Guid id)
-        => ViewModel.Cards.RemoveAll(card => card.Id == id);
-
-    private Task MoveToPage(int current)
-        => FetchDataAsync(offset: current - 1);
-
-    private async Task MoveToNext()
-    {
-        if (ViewModel.Page.HasNext)
-            await FetchDataAsync(offset: ViewModel.Page.Current);
-    }
-
-    private async Task MoveToPreview()
-    {
-        if (ViewModel.Page.HasPrevious)
-            await FetchDataAsync(offset: ViewModel.Page.Current - 2);
-    }
-
-    private void Dispose()
-        => _cancellationTokenSource.Cancel();
 
 }

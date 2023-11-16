@@ -1,13 +1,12 @@
 using System.Reflection;
 using BlazorStrap;
 using CorrelationId.DependencyInjection;
+using Fluxor;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Serilog;
 using WebAPP;
 using WebAPP.DependencyInjection.Extensions;
-using WebAPP.DependencyInjection.Options;
-using WebAPP.ViewModels;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
@@ -24,12 +23,12 @@ builder.Configuration
     .AddUserSecrets(Assembly.GetExecutingAssembly())
     .AddEnvironmentVariables();
 
-Log.Logger = new LoggerConfiguration().ReadFrom
-    .Configuration(builder.Configuration)
-    .CreateLogger();
-
-builder.Logging.ClearProviders();
-builder.Logging.AddSerilog();
+// Log.Logger = new LoggerConfiguration().ReadFrom
+//     .Configuration(builder.Configuration)
+//     .CreateLogger();
+//
+// builder.Logging.ClearProviders();
+// builder.Logging.AddSerilog();
 
 builder.Services.AddDefaultCorrelationId(options =>
 {
@@ -40,15 +39,16 @@ builder.Services.AddDefaultCorrelationId(options =>
     options.AddToLoggingScope = true;
 });
 
-builder.Services.AddECommerceHttpClient();
+builder.Services.AddApis();
 builder.Services.AddBlazorStrap();
 
-builder.Services.AddScoped<CatalogCardViewModel>();
-builder.Services.AddScoped<CatalogItemViewModel>();
-builder.Services.AddScoped<CatalogGridViewModel>();
+builder.Services.AddFluxor(options =>
+{
+    options.ScanAssemblies(typeof(Program).Assembly);
+    options.UseReduxDevTools(rdt => rdt.Name = AppDomain.CurrentDomain.FriendlyName);
+});
 
-builder.Services.ConfigureECommerceHttpClientOptions(
-    builder.Configuration.GetSection(nameof(ECommerceHttpClientOptions)));
+builder.Services.ConfigureOptions();
 
 var host = builder.Build();
 

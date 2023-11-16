@@ -1,4 +1,5 @@
-﻿<BSContainer Container="Container.Fluid" Class="d-flex" PaddingLeftAndRight="Padding.ExtraSmall">
+﻿@using BlazorStrap
+<BSContainer Container="Container.Fluid" Class="d-flex" PaddingLeftAndRight="Padding.ExtraSmall">
     <BSDropdown>
         <Toggler>
             <BSToggle IsButton="true" Color="BSColor.Dark" IsOutlined="true">Dropdown</BSToggle>
@@ -10,7 +11,7 @@
             <BSDropdownItem Url="javascript:void(0);">Something else here</BSDropdownItem>
         </Content>
     </BSDropdown>
-    <BSInput InputType="InputType.Search" placeholder="Search" @bind-Value="_search" @bind:after="PerformSearch"/>
+    <BSInput InputType="InputType.Search" placeholder="Search" @bind-Value="_search" />
     <BSButton Class="bi bi-search" Color="BSColor.Dark"/>
 </BSContainer>
 

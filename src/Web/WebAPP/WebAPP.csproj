@@ -1,18 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
     <ItemGroup>
-        <PackageReference Include="BlazorStrap.V5" Version="$(BlazorStrap_Version)" />
-        <PackageReference Include="CorrelationId" Version="$(CorrelationId_Version)" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(Microsoft_AspNetCore_WebAssembly_Version)" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="$(Microsoft_AspNetCore_WebAssembly_Version)" PrivateAssets="all" />
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="$(Microsoft_Extensions_Version)" />
-        <PackageReference Include="Microsoft.Extensions.Http" Version="$(Microsoft_Extensions_Version)" />
-        <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="$(Polly_Version)" />
-        <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="$(Microsoft_Extensions_Version)" />
-        <PackageReference Include="Serilog" Version="$(Serilog_Version)" />
-        <PackageReference Include="Serilog.Settings.Configuration" Version="$(Serilog_Settings_Version)" />
-        <PackageReference Include="Serilog.Extensions.Hosting" Version="$(Serilog_Extensions_Version)" />
+        <PackageReference Include="BlazorStrap"/>
+        <PackageReference Include="BlazorStrap.V5"/>
+        <PackageReference Include="Fluxor"/>
+        <PackageReference Include="Fluxor.Blazor.Web"/>
+        <PackageReference Include="Fluxor.Blazor.Web.ReduxDevTools"/>
+        <PackageReference Include="CorrelationId"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting"/>
+        <PackageReference Include="Microsoft.Extensions.Http"/>
+        <PackageReference Include="Microsoft.Extensions.Http.Polly"/>
+        <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations"/>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
+        <PackageReference Include="Refit" />
+        <PackageReference Include="Refit.HttpClientFactory" />
+        <PackageReference Include="Serilog"/>
+        <PackageReference Include="Serilog.Settings.Configuration"/>
+        <PackageReference Include="Serilog.Extensions.Hosting"/>
+        <PackageReference Include="FluentResults" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\Contracts\Contracts.csproj" />
+        <ProjectReference Include="..\..\Contracts\Contracts.csproj"/>
     </ItemGroup>
 </Project>

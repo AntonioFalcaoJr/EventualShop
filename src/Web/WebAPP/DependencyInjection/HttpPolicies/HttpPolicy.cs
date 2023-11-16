@@ -4,7 +4,7 @@ using Polly.Extensions.Http;
 using Polly.Timeout;
 using Serilog;
 
-namespace WebAPP.HttpPolicies;
+namespace WebAPP.DependencyInjection.HttpPolicies;
 
 public static class HttpPolicy
 {
@@ -22,7 +22,11 @@ public static class HttpPolicy
                 Policy.TimeoutAsync<HttpResponseMessage>(
                     seconds: eachRetryTimeout,
                     timeoutStrategy: TimeoutStrategy.Optimistic,
-                    onTimeoutAsync: async (_, timeout, _) => { await Task.Yield(); Log.Warning("Timeout applied after {AwaitedTime}s", timeout); }));
+                    onTimeoutAsync: async (_, timeout, _) =>
+                    {
+                        await Task.Yield(); 
+                        Log.Warning("Timeout applied after {AwaitedTime}s", timeout);
+                    }));
 
     public static IAsyncPolicy<HttpResponseMessage> GetCircuitBreakerPolicyAsync(int circuitBreaking, TimeSpan durationOfBreak)
         => HttpPolicyExtensions
@@ -31,7 +35,7 @@ public static class HttpPolicy
             .CircuitBreakerAsync(
                 handledEventsAllowedBeforeBreaking: circuitBreaking,
                 durationOfBreak: durationOfBreak,
-                onBreak: (_, state, breakingTime, _) => { Log.Warning("Circuit breaking! State: {State}. Break time: {BreakingTime}s", state, breakingTime.TotalSeconds); },
-                onReset: _ => { Log.Warning("Circuit resetting!"); },
-                onHalfOpen: () => { Log.Warning("Circuit transitioning to {State}", CircuitState.HalfOpen); });
+                onBreak: (_, state, breakingTime, _) => Log.Warning("Circuit breaking! State: {State}. Break time: {BreakingTime}s", state, breakingTime.TotalSeconds),
+                onReset: _ => Log.Warning("Circuit resetting!"),
+                onHalfOpen: () => Log.Warning("Circuit transitioning to {State}", CircuitState.HalfOpen));
 }
