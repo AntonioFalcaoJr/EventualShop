@@ -1,6 +1,7 @@
 ﻿using Fluxor;
 using Refit;
 using WebAPP.Abstractions;
+using WebAPP.Store.Cataloging.Events;
 
 namespace WebAPP.Store.Cataloging.Queries;
 
@@ -22,8 +23,8 @@ public class ListCatalogsEffect(IListCatalogsApi api) : Effect<ListCatalogs>
     {
         var response = await api.ListAsync(query.Paging, query.CancellationToken);
 
-        dispatcher.Dispatch(response.IsSuccessStatusCode
-            ? new EventsV1.CatalogsListed(response.Content!)
-            : new EventsV1.CatalogsListingFailed(response.ReasonPhrase ?? response.Error.Message));
+        dispatcher.Dispatch(response is { IsSuccessStatusCode: true, Content: not null }
+            ? new CatalogsListed { Catalogs = response.Content }
+            : new CatalogsListingFailed { Error = response.ReasonPhrase ?? response.Error?.Message ?? "Unknown error" });
     }
 }

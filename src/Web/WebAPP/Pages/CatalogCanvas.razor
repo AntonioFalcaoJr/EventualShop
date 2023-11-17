@@ -59,7 +59,7 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        SubscribeToAction<EventsV1.CatalogCreationStarted>(_ => Canvas.ShowAsync());
+        SubscribeToAction<CatalogCreationStarted>(_ => Canvas.ShowAsync());
         SubscribeToAction<CatalogCreated>(_ => Canvas.HideAsync());
     }
 
@@ -70,17 +70,17 @@
             NewCatalog = State.Value.NewCatalog,
             CancellationToken = _cancellationTokenSource.Token
         };
-        
+
         Dispatcher.Dispatch(createCatalog);
     }
+
+    private Action<BSOffCanvasBase> CancelCatalogCreation()
+        => _ => Dispatcher.Dispatch(new CatalogCreationAborted());
 
     protected override void Dispose(bool disposing)
     {
         if (disposing) _cancellationTokenSource.Dispose();
         base.Dispose(disposing);
     }
-
-    private Action<BSOffCanvasBase> CancelCatalogCreation() 
-        => _ => Dispatcher.Dispatch(new CatalogCreationAborted());
 
 }

@@ -2,7 +2,7 @@
 
 @using BlazorStrap
 @using Fluxor
-@using WebAPP.Store.Cataloging
+@using WebAPP.Store.Cataloging.Events
 
 @inject IDispatcher Dispatcher
 
@@ -26,5 +26,5 @@
 </BSContainer>
 
 @code {
-    private void StartCatalogCreation() => Dispatcher.Dispatch(new EventsV1.CatalogCreationStarted());
+    private void StartCatalogCreation() => Dispatcher.Dispatch(new CatalogCreationStarted());
 }

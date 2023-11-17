@@ -4,10 +4,12 @@ using WebAPP.Store.Cataloging.Events;
 
 namespace WebAPP.Store.Cataloging.Commands;
 
+public record Identifier(string Id);
+
 public interface ICreateCatalogApi
 {
     [Post("/v1/catalogs")]
-    Task<IApiResponse<string>> CreateAsync([Body] Catalog catalog, CancellationToken cancellationToken);
+    Task<IApiResponse<Identifier>> CreateAsync([Body] Catalog catalog, CancellationToken cancellationToken);
 }
 
 public record CreateCatalog
@@ -27,7 +29,7 @@ public class CreateCatalogEffect(ICreateCatalogApi api) : Effect<CreateCatalog>
         var response = await api.CreateAsync(cmd.NewCatalog, cmd.CancellationToken);
 
         dispatcher.Dispatch(response is { IsSuccessStatusCode: true, Content: not null }
-            ? new CatalogCreated { NewCatalog = cmd.NewCatalog with { Id = response.Content } }
+            ? new CatalogCreated { NewCatalog = cmd.NewCatalog with { Id = response.Content.Id } }
             : new CatalogCreationFailed { Error = response.ReasonPhrase ?? response.Error?.Message ?? "Unknown error" });
     }
 }

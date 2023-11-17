@@ -1,5 +1,6 @@
 ﻿using Fluxor;
 using Refit;
+using WebAPP.Store.Cataloging.Events;
 
 namespace WebAPP.Store.Cataloging.Commands;
 
@@ -27,7 +28,7 @@ public class ChangeTitleEffect(IChangeTitleApi api) : Effect<ChangeTitle>
         var response = await api.ChangeTitleAsync(cmd.CatalogId, cmd.NewTitle, cmd.CancellationToken);
 
         dispatcher.Dispatch(response.IsSuccessStatusCode
-            ? new EventsV1.CatalogTitleChanged(cmd.CatalogId, cmd.NewTitle)
-            : new EventsV1.CatalogTitleChangeFailed(cmd.CatalogId, response.ReasonPhrase ?? response.Error.Message));
+            ? new CatalogTitleChanged { CatalogId = cmd.CatalogId, NewTitle = cmd.NewTitle }
+            : new CatalogTitleChangeFailed { CatalogId = cmd.CatalogId, Error = response.ReasonPhrase ?? response.Error.Message });
     }
 }

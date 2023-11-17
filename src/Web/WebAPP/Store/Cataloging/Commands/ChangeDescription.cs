@@ -1,5 +1,6 @@
 ﻿using Fluxor;
 using Refit;
+using WebAPP.Store.Cataloging.Events;
 
 namespace WebAPP.Store.Cataloging.Commands;
 
@@ -27,7 +28,7 @@ public class ChangeDescriptionEffect(IChangeDescriptionApi api) : Effect<ChangeD
         var response = await api.ChangeDescriptionAsync(cmd.CatalogId, cmd.NewDescription, cmd.CancellationToken);
 
         dispatcher.Dispatch(response.IsSuccessStatusCode
-            ? new EventsV1.CatalogDescriptionChanged(cmd.CatalogId, cmd.NewDescription)
-            : new EventsV1.CatalogDescriptionChangeFailed(cmd.CatalogId, response.ReasonPhrase ?? response.Error.Message));
+            ? new CatalogDescriptionChanged { CatalogId = cmd.CatalogId, NewDescription = cmd.NewDescription }
+            : new CatalogDescriptionChangeFailed { CatalogId = cmd.CatalogId, Error = response.ReasonPhrase ?? response.Error.Message });
     }
 }
