@@ -1,4 +1,4 @@
-﻿<Project>
+<Project>
     <PropertyGroup Label="Common properties">
         <Product>Eventual Shop</Product>
         <Copyright>Copyright (c) 2021-2023 Antonio Falcão Jr.</Copyright>
@@ -22,7 +22,7 @@
         <Microsoft_AspNetCore_WebAssembly_Version>8.0.0-preview.1.23112.2</Microsoft_AspNetCore_WebAssembly_Version>
 
         <!--EF Core-->
-        <EntityFrameworkCore_Version>8.0.0-preview.1.23111.4</EntityFrameworkCore_Version>
+        <EntityFrameworkCore_Version>8.0.0</EntityFrameworkCore_Version>
 
         <!--gRPC-->
         <Grpc_Version>2.52.0-pre1</Grpc_Version>
