@@ -3,6 +3,8 @@ using Contracts.Abstractions.Protobuf;
 using Contracts.Services.Cataloging.Command.Protobuf;
 using Domain.Aggregates;
 using Domain.Aggregates.Catalogs;
+using Google.Protobuf;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using MediatR;
 
@@ -17,7 +19,7 @@ public class CatalogingGrpcCommandService(ISender sender) : CatalogingCommandSer
 
         CreateCatalog create = new(appId, cmd.Title, cmd.Description /*, cmd.ImageUrl*/);
         var catalogId = await sender.Send(create, context.CancellationToken);
-        return Response.Ok(catalogId);
+        return Response.Ok<Identifier>(new() { Id = catalogId });
     }
 
     public override async Task<CommandResponse> DeleteCatalog(DeleteCatalogCommand cmd, ServerCallContext context)
@@ -61,5 +63,5 @@ public static class Response
     public static CommandResponse Accepted() => new() { Accepted = new() };
     public static CommandResponse NoContent() => new() { NoContent = new() };
     public static CommandResponse NotFound() => new() { NotFound = new() };
-    public static CommandResponse Ok(string id) => new() { Ok = new(id) };
+    public static CommandResponse Ok<T>(T message) where T : IMessage => new() { Ok = Any.Pack(message) };
 }

@@ -25,6 +25,7 @@ public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot<TId>
 
     protected void RaiseEvent(IDomainEvent @event)
     {
+        Version = Version.Next;
         ApplyEvent(@event);
         EnqueueEvent(@event);
     }

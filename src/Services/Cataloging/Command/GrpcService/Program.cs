@@ -27,13 +27,7 @@ builder
             options.Interceptors.Add<ErrorHandlingInterceptor>();
         });
 
-        services
-            // .AddProblemDetails(options => options.CustomizeProblemDetails = context =>
-            // {
-            //     if (context.Exception is IDomainException)
-            //         context.ProblemDetails.Status = StatusCodes.Status400BadRequest;
-            // })
-            .AddCorrelationId();
+        services.AddCorrelationId();
 
         services
             .AddApplication()
@@ -42,31 +36,6 @@ builder
     });
 
 var app = builder.Build();
-
-// app.UseExceptionHandler(applicationBuilder => applicationBuilder.Run(httpContext =>
-// {
-//     var exception = httpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
-//     Log.Error("[Exception Handler] {Error}", exception?.Message);
-//
-//     return httpContext.Response.WriteAsJsonAsync(
-//         exception is IDomainException
-//             ? ProblemDetail(StatusCodes.Status400BadRequest)
-//             : ProblemDetail(StatusCodes.Status500InternalServerError));
-//
-//     ProblemDetails ProblemDetail(int status)
-//     {
-//         httpContext.Response.ContentType = "application/problem+json";
-//         httpContext.Response.StatusCode = status;
-//
-//         return new()
-//         {
-//             Status = status,
-//             Title = exception?.Message ?? "An error occurred",
-//             Detail = exception?.InnerException?.Message ?? "An error occurred",
-//             Instance = httpContext.Request.Path
-//         };
-//     }
-// }));
 
 app.UseCorrelationId();
 app.UseSerilogRequestLogging();

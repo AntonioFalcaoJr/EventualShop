@@ -1,43 +1,34 @@
 ﻿using Contracts.Abstractions.Messages;
 using Domain.Abstractions.Entities;
-using FluentValidation;
-using Newtonsoft.Json;
+using Domain.Abstractions.Identities;
+using Version = Domain.ValueObjects.Version;
 
 namespace Domain.Abstractions.Aggregates;
 
-public abstract class AggregateRoot<TValidator> : Entity<TValidator>, IAggregateRoot
-    where TValidator : IValidator, new()
+public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot<TId>
+    where TId : IIdentifier, new()
 {
-    private readonly List<IDomainEvent> _events = new();
-
-    public uint Version { get; private set; }
-
-    [JsonIgnore]
-    public IEnumerable<IDomainEvent> UncommittedEvents
-        => _events.AsReadOnly();
+    private readonly Queue<IDomainEvent> _events = new();
+    public Version Version { get; private set; } = Version.Zero;
 
     public void LoadFromHistory(IEnumerable<IDomainEvent> events)
     {
         foreach (var @event in events)
         {
-            Apply(@event);
-            Version = @event.Version;
+            ApplyEvent(@event);
+            Version = (Version)@event.Version;
         }
     }
 
-    public abstract void Handle(ICommand command);
+    public bool TryDequeueEvent(out IDomainEvent? @event) => _events.TryDequeue(out @event);
+    private void EnqueueEvent(IDomainEvent @event) => _events.Enqueue(@event);
 
-    protected void RaiseEvent<TEvent>(Func<uint, TEvent> func) where TEvent : IDomainEvent
-        => RaiseEvent((func as Func<uint, IDomainEvent>)!);
-
-    protected void RaiseEvent(Func<uint, IDomainEvent>onRaise)
+    protected void RaiseEvent(IDomainEvent @event)
     {
-        Version++;
-        var @event = onRaise(Version);
-        Apply(@event);
-        Validate();
-        _events.Add(@event);
+        Version = Version.Next;
+        ApplyEvent(@event);
+        EnqueueEvent(@event);
     }
 
-    protected abstract void Apply(IDomainEvent @event);
+    protected abstract void ApplyEvent(IDomainEvent @event);
 }
