@@ -1,4 +1,4 @@
-﻿<Project>
+<Project>
     <PropertyGroup Label="Common properties">
         <Product>Eventual Shop</Product>
         <Copyright>Copyright (c) 2021-2023 Antonio Falcão Jr.</Copyright>
@@ -15,7 +15,7 @@
     <PropertyGroup Label="Packages dependency versions">
 
         <!--Microsoft-->
-        <Microsoft_Extensions_Version>8.0.0-preview.1.23110.8</Microsoft_Extensions_Version>
+        <Microsoft_Extensions_Version>8.0.0</Microsoft_Extensions_Version>
 
         <!--Blazor-->
         <BlazorStrap_Version>5.1.100</BlazorStrap_Version>
