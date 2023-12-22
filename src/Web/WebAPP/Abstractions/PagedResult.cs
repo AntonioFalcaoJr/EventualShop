@@ -13,30 +13,35 @@ public interface IPagedResult<out TProjection>
 
 public record Page
 {
-    public int Current { get; init; } = 1;
-    public int Size { get; init; } = 10;
-    public bool HasPrevious { get; init; }  
+    public ushort Number { get; init; } = 1;
+    public ushort Size { get; init; } = 10;
+    public bool HasPrevious { get; init; }
     public bool HasNext { get; init; }
+    public ushort Previous => (ushort)(Number - 1);
+    public ushort Next => (ushort)(Number + 1);
 }
 
 public record Paging
 {
-    private const int UpperLimit = 100;
-    private const int DefaultLimit = 10;
-    private const int DefaultOffset = 0;
+    private const ushort UpperSize = 100;
+    private const ushort DefaultSize = 10;
+    private const ushort DefaultNumber = 1;
+    private const ushort Zero = 0;
 
-    public Paging(int? limit, int? offset)
+    public Paging(ushort size = DefaultSize, ushort number = DefaultNumber)
     {
-        Limit = limit switch
+        Size = size switch
         {
-            null or < 1 => DefaultLimit,
-            > UpperLimit => UpperLimit,
-            _ => limit.Value
+            Zero => DefaultSize,
+            > UpperSize => UpperSize,
+            _ => size
         };
 
-        Offset = offset ?? DefaultOffset;
+        Number = number is Zero
+            ? DefaultNumber
+            : number;
     }
 
-    public int Offset { get; }
-    public int Limit { get; }
+    public ushort Size { get; }
+    public ushort Number { get; }
 }
