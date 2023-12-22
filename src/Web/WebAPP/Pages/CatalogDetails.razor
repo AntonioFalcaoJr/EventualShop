@@ -1,0 +1,33 @@
+@page "/catalogs/{CatalogId}"
+
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
+@using BlazorStrap
+@using Fluxor
+@using WebAPP.Store.Cataloging
+@using WebAPP.Store.Cataloging.Events
+
+@inject IState<CatalogingState> State
+@inject IDispatcher Dispatcher
+
+<NavBar/>
+<SearchBar/>
+<AddCatalogItemModal/>
+
+<BSContainer>
+    <h1>@State.Value.NewCatalog.Title</h1>
+    <p>@State.Value.NewCatalog.Description</p>
+
+    <h2>Items in Catalog</h2>
+
+    <BSButton Color="BSColor.Primary" OnClick="@CancelCatalogItemCreation">Go Back</BSButton>
+    <BSButton Color="BSColor.Primary" OnClick="@StartCatalogItemCreation">Add New Item</BSButton>
+</BSContainer>
+
+@code {
+
+    [Parameter] public string CatalogId { get; set; } = "Undefined";
+    private void CancelCatalogItemCreation() => Dispatcher.Dispatch(new CatalogItemCreationCanceled());
+    private void StartCatalogItemCreation() => Dispatcher.Dispatch(new CatalogItemCreationStarted { CatalogId = CatalogId });
+
+}

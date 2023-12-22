@@ -1,0 +1,102 @@
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
+@using BlazorStrap
+@using Fluxor
+@using WebAPP.Abstractions
+@using WebAPP.Store.Cataloging
+@using WebAPP.Store.Cataloging.Commands
+@using WebAPP.Store.Cataloging.Events
+@using WebAPP.Store.Cataloging.Queries
+
+@inject IState<CatalogingState> State
+@inject IDispatcher Dispatcher
+
+<BSModal @ref="Modal" DataId="modal" IsStaticBackdrop="true" IsCentered="true">
+    <BSForm Model="State.Value.NewItem" OnValidSubmit="@AddCatalogItem">
+        <DataAnnotationsValidator/>
+        <BSModalHeader>New Catalog Item</BSModalHeader>
+        <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <BSButton Color="BSColor.Secondary" IsOutlined="true" OnClick="SearchAsync">Search</BSButton>
+            <BSPopover Placement="Placement.Top" Target="popoverTop" MouseOver="true">
+                <Header>Top</Header>
+                <Content>Up top</Content>
+            </BSPopover>
+        </form>
+        <BSModalContent>
+            <BSValidationSummary/>
+            <div class="mb-3">
+                <BSLabel>Name</BSLabel>
+                <BSInput InputType="InputType.Text" placeholder="Name" @bind-Value="State.Value.NewItem.Name"/>
+                <BSFeedback For="@(() => State.Value.NewItem.Name)"/>
+            </div>
+            <div class="mb-3">
+                <BSLabel>Description</BSLabel>
+                <BSInput InputType="InputType.TextArea" placeholder="Description" @bind-Value="State.Value.NewItem.Description"/>
+                <BSFeedback For="@(() => State.Value.NewItem.Description)"/>
+            </div>
+        </BSModalContent>
+        <BSModalFooter>
+            @if (State.Value.HasError)
+            {
+                <BSAlert Color="BSColor.Danger" Dismissable="true">
+                    <BSAlertHeading>Error</BSAlertHeading>
+                    <p>@State.Value.Error</p>
+                </BSAlert>
+            }
+            else
+            {
+                <BSButton
+                    Color="BSColor.Dark"
+                    OnClick="@AddCatalogItem"
+                    IsDisabled="State.Value.IsAddingItem">
+                    @if (State.Value.IsAddingItem)
+                    {
+                        <BSSpinner SpinnerType="SpinnerType.Grow" Color="BSColor.Light"/>
+                    }
+                    else
+                    {
+                        <p style="margin: auto">Add Item</p>
+                    }
+                </BSButton>
+            }
+        </BSModalFooter>
+    </BSForm>
+</BSModal>
+
+@code {
+
+    private BSModal Modal { get; set; } = new();
+    private readonly CancellationTokenSource _cancellationTokenSource = new();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        SubscribeToAction<CatalogItemCreationStarted>(_ => Modal.ShowAsync());
+    }
+
+    private void AddCatalogItem()
+    {
+        var addCatalogItem = new AddCatalogItem
+        {
+            CatalogId = State.Value.CatalogId,
+            NewItem = State.Value.NewItem,
+            CancellationToken = _cancellationTokenSource.Token
+        };
+
+        Dispatcher.Dispatch(addCatalogItem);
+    }
+
+    private void SearchAsync()
+    {
+        SearchProducts searchProducts = new()
+        {
+            Fragment = "test",
+            Paging = new(size: 3),
+            CancellationToken = _cancellationTokenSource.Token
+        };
+
+        Dispatcher.Dispatch(searchProducts);
+    }
+
+}

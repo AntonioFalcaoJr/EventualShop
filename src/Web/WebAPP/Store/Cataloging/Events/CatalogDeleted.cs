@@ -10,7 +10,7 @@ public record CatalogDeleted
     [ReducerMethod]
     public static CatalogingState Reduce(CatalogingState state, CatalogDeleted @event)
     {
-        var catalogs = state.Catalogs.RemoveAll(c => c.Id == @event.CatalogId);
+        var catalogs = state.Catalogs.RemoveAll(c => c.CatalogId == @event.CatalogId);
 
         Page page = new() { HasNext = catalogs.Count > state.Page.Size };
         // if (page.HasNext) catalogs = catalogs.RemoveAt(catalogs.Count - 1);
