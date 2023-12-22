@@ -7,7 +7,7 @@
 @inject IState<CatalogingState> State
 @inject IDispatcher Dispatcher
 
-<BSCard CardType="CardType.Card" Padding="Padding.None">
+<BSCard CardType="CardType.Card" Padding="Padding.None" Class="placeholder-glow">
     <BSCard CardType="CardType.Header">
         @if (State.Value.IsEditingTitle)
         {
@@ -56,7 +56,7 @@
     private void ChangeTitle()
         => Dispatcher.Dispatch(new ChangeTitle
         {
-            CatalogId = Catalog.Id,
+            CatalogId = Catalog.CatalogId,
             NewTitle = Catalog.Title,
             CancellationToken = _cancellationTokenSource.Token
         });
@@ -64,7 +64,7 @@
     private void ChangeDescription()
         => Dispatcher.Dispatch(new ChangeDescription
         {
-            CatalogId = Catalog.Id,
+            CatalogId = Catalog.CatalogId,
             NewDescription = Catalog.Description,
             CancellationToken = _cancellationTokenSource.Token
         });
@@ -72,7 +72,7 @@
     private void Delete()
         => Dispatcher.Dispatch(new DeleteCatalog
         {
-            CatalogId = Catalog.Id,
+            CatalogId = Catalog.CatalogId,
             CancellationToken = _cancellationTokenSource.Token
         });
 

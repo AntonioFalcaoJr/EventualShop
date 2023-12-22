@@ -16,7 +16,7 @@ public class AddCartItemInteractor(IApplicationService service) : IRequestHandle
         var cart = await service.LoadAggregateAsync<ShoppingCart, CartId>(cmd.CartId, cancellationToken);
         var product = await service.LoadAggregateAsync<Product, ProductId>(cmd.ProductId, cancellationToken);
 
-        ArgumentOutOfRangeException.ThrowIfGreaterThan<int>(cmd.Quantity, product.Stock, "Product out of stock.");
+        ArgumentOutOfRangeException.ThrowIfGreaterThan<int>(cmd.Quantity, product.Stock, "Product stock is not enough.");
 
         CartItem newItem = new(
             CartItemId.New,
