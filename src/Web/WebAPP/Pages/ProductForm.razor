@@ -1,12 +1,13 @@
 ﻿@using BlazorStrap
+@using WebAPP.Store.Cataloging
 @inject IBlazorStrap BlazorStrap
 
-<BSModal DataId="model9" OnShow="@(() => NewEmployee(new()))">
+<BSModal DataId="model" OnShow="@(() => NewEmployee(new()))">
     <BSForm Model="_model" OnValidSubmit="@Update">
-        <BSModalHeader>New ProductViewModel</BSModalHeader>
+        <BSModalHeader>New ProductFormViewModel</BSModalHeader>
         <BSModalContent>
             <div class="mb-3">
-                <BSLabel>ProductName</BSLabel>
+                <BSLabel>ProductFormName</BSLabel>
                 <BSInput InputType="InputType.Text" @bind-Value="_model.Name"/>
             </div>
             <div class="mb-3">
@@ -21,19 +22,15 @@
                 <BSLabel>Unit Price</BSLabel>
                 <BSInput InputType="InputType.Text" @bind-Value="_model.Category"/>
             </div>
-            @* <div class="mb-3"> *@
-            @*     <BSLabel>Picture</BSLabel> *@
-            @*     <BSInput InputType="InputType.Email" placeholder="http://wwww.picture.com" @bind-Value="_model.PictureUri"/> *@
-            @* </div> *@
         </BSModalContent>
         <BSModalFooter>
-            <BSButton Target="model9">Cancel</BSButton>
+            <BSButton Target="model">Cancel</BSButton>
             <BSButton IsSubmit="true" Color="BSColor.Primary">Save</BSButton>
         </BSModalFooter>
     </BSForm>
 </BSModal>
 
-<BSButton Color="BSColor.Primary" Target="model9">New Employee</BSButton>
+<BSButton Color="BSColor.Primary" Target="model">New Employee</BSButton>
 
 @code {
 
@@ -49,17 +46,7 @@
 
     private async Task Update()
     {
-        BlazorStrap.ForwardClick("model9");
+        BlazorStrap.ForwardClick("model");
         await Task.CompletedTask;
     }
-
-    public object Name { get; set; }
-
-
-    public object Description { get; set; }
-
-    public object Brand { get; set; }
-
-    public object Category { get; set; }
-
 }
