@@ -53,7 +53,7 @@
 
 @code {
 
-    private BSOffCanvasBase Canvas { get; set; } = new BSOffCanvas();
+    private BSOffCanvas Canvas { get; set; } = new();
     private readonly CancellationTokenSource _cancellationTokenSource = new();
 
     protected override void OnInitialized()

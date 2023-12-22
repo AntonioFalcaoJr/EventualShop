@@ -2,6 +2,6 @@
 
 public record CatalogTitleChangeFailed
 {
-    public string CatalogId;
-    public string Error;
+    public required string CatalogId;
+    public required string Error;
 }

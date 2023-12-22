@@ -20,6 +20,11 @@ public static class ServiceCollectionExtensions
         services.AddApiClient<IDeleteCatalogApi>();
         services.AddApiClient<IListCatalogsApi>();
         services.AddApiClient<IListCatalogItemsApi>();
+        services.AddApiClient<IAddCatalogItemApi>();
+        services.AddApiClient<ISearchProductsApi>();
+
+        // TODO: It is necessary given the incompetence of the Refit team. Remove when the issue is fixed. 
+        services.AddScoped<HttpRequestExceptionHandler>();
     }
 
     private static void AddApiClient<TApi>(this IServiceCollection services) where TApi : class
@@ -38,9 +43,12 @@ public static class ServiceCollectionExtensions
                 var options = provider.GetRequiredService<IOptions<ECommerceHttpClientOptions>>().Value;
 
                 return Policy.WrapAsync(
-                    HttpPolicy.GetRetryPolicyAsync(options.RetryCount, options.SleepDurationPower, options.EachRetryTimeout),
+                    HttpPolicy.GetRetryPolicyAsync(options.RetryCount, options.SleepDurationPower,
+                        options.EachRetryTimeout),
                     HttpPolicy.GetCircuitBreakerPolicyAsync(options.CircuitBreaking, options.DurationOfBreak));
-            });
+            })
+            // TODO: It is necessary given the incompetence of the Refit team. Remove when the issue is fixed. 
+            .AddHttpMessageHandler<HttpRequestExceptionHandler>();
     }
 
     private static IServiceCollection AddLazyTransient<T>(this IServiceCollection services) where T : class

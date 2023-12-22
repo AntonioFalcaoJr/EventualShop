@@ -1,7 +1,7 @@
 ﻿<Project>
   <PropertyGroup Label="Common properties">
     <Product>Eventual Shop</Product>
-    <Copyright>Copyright (c) 2021-2023 Antonio Falcão Jr.</Copyright>
+    <Copyright>Copyright (c) 2021-2024 Antonio Falcão Jr.</Copyright>
     <Authors>Antônio Falcão Jr.</Authors>
     <TargetFramework>net9.0</TargetFramework>
     <LangVersion>preview</LangVersion>
@@ -77,6 +77,7 @@
     <PackageVersion Include="Microsoft.Extensions.Http" Version="9.0.0-ci" />
     <PackageVersion Include="Microsoft.Extensions.Http.Polly" Version="9.0.0-alpha.1.23560.2" />
     <PackageVersion Include="Microsoft.Extensions.Options.DataAnnotations" Version="9.0.0-ci" />
+    <PackageVersion Include="Microsoft.Fast.Components.FluentUI" Version="3.3.0" />
     <!--Microsoft.NET.Test-->
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.9.0-preview-23531-01" />
     <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.1-alpha.1.23158.1" />

@@ -3,6 +3,7 @@ using Contracts.Abstractions.Protobuf;
 using Contracts.Services.Cataloging.Command.Protobuf;
 using Domain.Aggregates;
 using Domain.Aggregates.Catalogs;
+using Domain.ValueObjects;
 using Google.Protobuf;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
@@ -17,7 +18,7 @@ public class CatalogingGrpcCommandService(ISender sender) : CatalogingCommandSer
         // TODO: Get AppId from context
         var appId = AppId.Undefined;
 
-        CreateCatalog create = new(appId, cmd.Title, cmd.Description /*, cmd.ImageUrl*/);
+        CreateCatalog create = new(appId, (Title)cmd.Title, (Description)cmd.Description /*, cmd.ImageUrl*/);
         var catalogId = await sender.Send(create, context.CancellationToken);
         return Response.Ok<Identifier>(new() { Id = catalogId });
     }
@@ -45,14 +46,14 @@ public class CatalogingGrpcCommandService(ISender sender) : CatalogingCommandSer
 
     public override async Task<CommandResponse> ChangeCatalogTitle(ChangeCatalogTitleCommand cmd, ServerCallContext context)
     {
-        ChangeCatalogTitle changeTitle = new((CatalogId)cmd.CatalogId, cmd.Title);
+        ChangeCatalogTitle changeTitle = new((CatalogId)cmd.CatalogId, (Title)cmd.Title);
         await sender.Send(changeTitle, context.CancellationToken);
         return Response.Accepted();
     }
 
-    public override async Task<CommandResponse> ChangeCatalogDescription(ChangeCatalogDescriptionCommand request, ServerCallContext context)
+    public override async Task<CommandResponse> ChangeCatalogDescription(ChangeCatalogDescriptionCommand cmd, ServerCallContext context)
     {
-        ChangeCatalogDescription changeDescription = new((CatalogId)request.CatalogId, request.Description);
+        ChangeCatalogDescription changeDescription = new((CatalogId)cmd.CatalogId, (Description)cmd.Description);
         await sender.Send(changeDescription, context.CancellationToken);
         return Response.Accepted();
     }

@@ -8,11 +8,11 @@ public class ListCatalogItemsListItemsRequestValidator
         // RuleFor(request => request.CatalogId)
         //     .NotEmpty();
         //
-        // RuleFor(request => request.Limit)
+        // RuleFor(request => request.Size)
         //     .GreaterThan(0)
         //     .LessThanOrEqualTo(100);
         //
-        // RuleFor(request => request.Offset)
+        // RuleFor(request => request.Number)
         //     .GreaterThanOrEqualTo(0);
     }
 }

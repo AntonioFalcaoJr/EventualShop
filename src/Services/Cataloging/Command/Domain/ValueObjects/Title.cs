@@ -14,7 +14,7 @@ public record Title
     }
 
     public static Title Undefined => new("Undefined");
-    public static implicit operator Title(string title) => new(title);
+    public static explicit operator Title(string title) => new(title);
     public static implicit operator string(Title title) => title._value;
     public override string ToString() => _value;
 }

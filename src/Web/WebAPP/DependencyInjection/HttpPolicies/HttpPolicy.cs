@@ -16,7 +16,7 @@ public static class HttpPolicy
                 retryCount: retryCount,
                 sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(sleepDurationPower, retryAttempt)),
                 onRetry: (response, waitingTime, retryAttempt, _)
-                    => Log.Warning(@"Retrying in {WaitingTime}s. Attempt: {RetryAttempt}/{RetryCount}. Status Code: {StatusCode}. Message: {Message}",
+                    => Log.Warning("Retrying in {WaitingTime}s. Attempt: {RetryAttempt}/{RetryCount}. Status Code: {StatusCode}. Message: {Message}",
                         waitingTime.TotalSeconds, retryAttempt, retryCount, response?.Result?.StatusCode ?? default, response?.Exception?.Message ?? "No message"))
             .WrapAsync(
                 Policy.TimeoutAsync<HttpResponseMessage>(

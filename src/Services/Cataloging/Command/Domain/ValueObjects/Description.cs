@@ -13,8 +13,8 @@ public record Description
         _value = description;
     }
 
-    public static Description Undefined => "Undefined";
+    public static Description Undefined => new("Undefined");
     public static implicit operator string(Description description) => description._value;
-    public static implicit operator Description(string description) => new(description);
+    public static explicit operator Description(string description) => new(description);
     public override string ToString() => _value;
 }

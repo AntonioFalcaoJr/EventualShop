@@ -36,7 +36,7 @@ public class ShoppingCart : AggregateRoot<CartId>
 
     public void AddItem(CartItem newItem)
     {
-        CartNotOpen.ThrowIf(Status != CartStatus.Open);
+        CartNotOpen.ThrowIf(Status is not CartStatusOpen);
 
         _items.TryGetValue(newItem.ProductId, out var item);
 
@@ -100,7 +100,7 @@ public class ShoppingCart : AggregateRoot<CartId>
 
     public void Discard()
     {
-        if (Status == CartStatus.Abandoned) return;
+        if (Status is CartStatusAbandoned) return;
         RaiseEvent(new DomainEvent.CartDiscarded(Id, CartStatus.Abandoned, Version.Next));
     }
 

@@ -14,6 +14,7 @@ public interface IVersionedEvent : IEvent
     string Version { get; }
 }
 
+[ExcludeFromTopology]
 public interface IDomainEvent : IVersionedEvent;
 
 [ExcludeFromTopology]

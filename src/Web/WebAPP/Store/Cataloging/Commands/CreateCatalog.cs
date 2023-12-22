@@ -29,7 +29,7 @@ public class CreateCatalogEffect(ICreateCatalogApi api) : Effect<CreateCatalog>
         var response = await api.CreateAsync(cmd.NewCatalog, cmd.CancellationToken);
 
         dispatcher.Dispatch(response is { IsSuccessStatusCode: true, Content: not null }
-            ? new CatalogCreated { NewCatalog = cmd.NewCatalog with { Id = response.Content.Id } }
+            ? new CatalogCreated { NewCatalog = cmd.NewCatalog with { CatalogId = response.Content.Id } }
             : new CatalogCreationFailed { Error = response.ReasonPhrase ?? response.Error?.Message ?? "Unknown error" });
     }
 }

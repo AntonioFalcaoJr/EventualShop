@@ -4,10 +4,10 @@ namespace Domain.Enumerations;
 
 public class CatalogStatus(string name, int value) : SmartEnum<CatalogStatus>(name, value)
 {
-    public static readonly CatalogStatusEmpty Empty = new();
-    public static readonly CatalogStatusActive Active = new();
-    public static readonly CatalogStatusInactive Inactive = new();
-    public static readonly CatalogStatusDiscarded Discarded = new();
+    public static readonly CatalogStatus Empty = new CatalogStatusEmpty();
+    public static readonly CatalogStatus Active = new CatalogStatusActive();
+    public static readonly CatalogStatus Inactive = new CatalogStatusInactive();
+    public static readonly CatalogStatus Discarded = new CatalogStatusDiscarded();
 
     public static explicit operator CatalogStatus(int value) => FromValue(value);
     public static explicit operator CatalogStatus(string name) => FromName(name);

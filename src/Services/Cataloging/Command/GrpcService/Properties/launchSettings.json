@@ -1,6 +1,6 @@
 ﻿{
   "profiles": {
-    "ShoppingCart.Command.GrpcService": {
+    "Cataloging.Command.GrpcService": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,
