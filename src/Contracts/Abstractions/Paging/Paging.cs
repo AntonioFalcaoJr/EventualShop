@@ -2,28 +2,31 @@ namespace Contracts.Abstractions.Paging;
 
 public record Paging
 {
-    private const int UpperLimit = 100;
-    private const int DefaultLimit = 10;
-    private const int DefaultOffset = 0;
+    private const ushort UpperSize = 100;
+    private const ushort DefaultSize = 10;
+    private const ushort DefaultNumber = 1;
+    private const ushort Zero = 0;
 
-    public Paging(int? limit, int? offset)
+    public Paging(ushort size = DefaultSize, ushort number = DefaultNumber)
     {
-        Limit = limit switch
+        Size = size switch
         {
-            null or < 1 => DefaultLimit,
-            > UpperLimit => UpperLimit,
-            _ => limit.Value
+            Zero => DefaultSize,
+            > UpperSize => UpperSize,
+            _ => size
         };
 
-        Offset = offset ?? DefaultOffset;
+        Number = number is Zero
+            ? DefaultNumber
+            : number;
     }
 
-    public int Offset { get; }
-    public int Limit { get; }
+    public ushort Size { get; }
+    public ushort Number { get; }
 
     public static implicit operator Paging(Protobuf.Paging paging)
-        => new(paging.Limit, paging.Offset);
+        => new((ushort) paging.Limit, (ushort)paging.Offset);
 
     public static implicit operator Protobuf.Paging(Paging paging)
-        => new() { Limit = paging.Limit, Offset = paging.Offset };
+        => new() { Limit = paging.Size, Offset = paging.Number };
 }

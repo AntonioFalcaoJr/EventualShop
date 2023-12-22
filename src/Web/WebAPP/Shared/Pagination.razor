@@ -4,7 +4,7 @@
 
 <BSPagination Align="Align.Center">
     <BSPaginationItem IsDisabled="@(Page.HasPrevious is false)" @onclick="OnMoveToPrevious">Previous</BSPaginationItem>
-    @for (var paging = 1; paging <= Page.Current; paging++)
+    @for (ushort paging = 1; paging <= Page.Number; paging++)
     {
         var current = paging;
         <BSPaginationItem @onclick=@(() => OnMoveToPage(current))>@current</BSPaginationItem>
@@ -24,6 +24,6 @@
     public Action OnMoveToNext { get; set; } = () => { };
 
     [Parameter]
-    public Action<int> OnMoveToPage { get; set; } = _ => { };
+    public Action<ushort> OnMoveToPage { get; set; } = _ => { };
 
 }

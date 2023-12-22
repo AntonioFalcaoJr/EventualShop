@@ -25,7 +25,7 @@
                     <p class="mb-0">Error: @State.Value.Error</p>
                 </Content>
             </BSAlert>
-            <BSButton MarginTop="Margins.None" Color="BSColor.Danger" OnClick=@(() => ListCatalogItems(State.Value.Id))> Try again</BSButton>
+            <BSButton MarginTop="Margins.None" Color="BSColor.Danger" OnClick=@(() => ListCatalogItems(State.Value.CatalogId))> Try again</BSButton>
         }
         else if (State.Value.Items.Any())
         {
@@ -58,17 +58,17 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        ListCatalogItems(State.Value.Id);
+        ListCatalogItems(State.Value.CatalogId);
     }
 
-    private void MoveToPage(int page) => ListCatalogItems(State.Value.Id, offset: page - 1);
-    private void MoveToNext() => ListCatalogItems(State.Value.Id, offset: State.Value.Page.Current);
-    private void MoveToPrevious() => ListCatalogItems(State.Value.Id, offset: State.Value.Page.Current - 2);
+    private void MoveToPage(ushort number) => ListCatalogItems(State.Value.CatalogId, number: number);
+    private void MoveToNext() => ListCatalogItems(State.Value.CatalogId, number: State.Value.Page.Next);
+    private void MoveToPrevious() => ListCatalogItems(State.Value.CatalogId, number: State.Value.Page.Previous);
 
-    private void ListCatalogItems(string catalogId, int? limit = 8, int? offset = 0)
+    private void ListCatalogItems(string catalogId, ushort size = 8, ushort number = 1)
         => Dispatcher.Dispatch(new ListCatalogItems
         {
-            Paging = new(limit, offset),
+            Paging = new(size, number),
             CatalogId = catalogId,
             CancellationToken = _cancellationTokenSource.Token
         });

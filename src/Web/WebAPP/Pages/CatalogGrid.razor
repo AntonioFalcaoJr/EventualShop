@@ -46,14 +46,14 @@ else
         ListCatalogs();
     }
 
-    private void MoveToPage(int page) => ListCatalogs(offset: page - 1);
-    private void MoveToNext() => ListCatalogs(offset: State.Value.Page.Current);
-    private void MoveToPrevious() => ListCatalogs(offset: State.Value.Page.Current - 2);
+    private void MoveToPage(ushort number) => ListCatalogs(number: number);
+    private void MoveToNext() => ListCatalogs(number: State.Value.Page.Next);
+    private void MoveToPrevious() => ListCatalogs(number: State.Value.Page.Previous);
 
-    private void ListCatalogs(int limit = 8, int offset = 0)
+    private void ListCatalogs(ushort size = 8, ushort number = 1)
         => Dispatcher.Dispatch(new ListCatalogs
         {
-            Paging = new(limit, offset),
+            Paging = new(size, number),
             CancellationToken = _cancellationTokenSource.Token
         });
 

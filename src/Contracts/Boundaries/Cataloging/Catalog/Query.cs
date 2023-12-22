@@ -1,6 +1,6 @@
 ﻿using Contracts.Abstractions.Messages;
+using Contracts.Abstractions.Paging;
 using Contracts.Services.Cataloging.Query.Protobuf;
-using Paging = Contracts.Abstractions.Paging.Paging;
 
 namespace Contracts.Boundaries.Cataloging.Catalog;
 
