@@ -3,6 +3,7 @@
 @using BlazorStrap.Shared.Components.OffCanvas
 @using Fluxor
 @using BlazorStrap
+@using WebAPP.DependencyInjection.HttpPolicies
 @using WebAPP.Store.Cataloging
 @using WebAPP.Store.Cataloging.Commands
 @using WebAPP.Store.Cataloging.Events
@@ -31,13 +32,20 @@
                 Color="BSColor.Dark"
                 OnClick="@CreateCatalog"
                 IsDisabled="State.Value.IsCreating">
-                @if (State.Value.IsCreating)
+                @switch (State.Value.IsCreating)
                 {
-                    <BSSpinner SpinnerType="SpinnerType.Grow" Color="BSColor.Light"/>
-                }
-                else
-                {
-                    <p style="margin: auto">Create</p>
+                        // TODO, I think we should remove this retry-counter concept 
+                    case true when State.Value.IsRetrying is false:
+                        <BSSpinner SpinnerType="SpinnerType.Grow" Color="BSColor.Light"/>
+                        <p style="margin: auto">Retry number: @State.Value.RetryCount</p>
+                        break;
+                    case true when State.Value.IsRetrying:
+                        <BSSpinner SpinnerType="SpinnerType.Grow" Color="BSColor.Light"/>
+                        <p style="margin: auto">Retry number: @State.Value.RetryCount</p>
+                        break;
+                    default:
+                        <p style="margin: auto">Create</p>
+                        break;
                 }
             </BSButton>
             @if (State.Value.HasError)
@@ -64,15 +72,7 @@
     }
 
     private void CreateCatalog()
-    {
-        CreateCatalog createCatalog = new()
-        {
-            NewCatalog = State.Value.NewCatalog,
-            CancellationToken = _cancellationTokenSource.Token
-        };
-
-        Dispatcher.Dispatch(createCatalog);
-    }
+        => Dispatcher.Dispatch(new CreateCatalog(State.Value.NewCatalog, _cancellationTokenSource.Token));
 
     private Action<BSOffCanvasBase> CancelCatalogCreation()
         => _ => Dispatcher.Dispatch(new CatalogCreationAborted());

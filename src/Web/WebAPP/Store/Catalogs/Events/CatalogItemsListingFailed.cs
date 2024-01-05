@@ -2,11 +2,15 @@
 
 namespace WebAPP.Store.Catalogs.Events;
 
-public record CatalogItemsListingFailed
-{
-    public required string Error;
+public record CatalogItemsListingFailed(string Error);
 
-    [ReducerMethod]
-    public static CatalogState Reduce(CatalogState state, CatalogItemsListingFailed @event)
-        => state with { IsFetching = false, HasError = true, Error = @event.Error };
+public class CatalogItemsListingFailedReducer : Reducer<CatalogState, CatalogItemsListingFailed>
+{
+    public override CatalogState Reduce(CatalogState state, CatalogItemsListingFailed @event)
+        => state with
+        {
+            IsFetching = false, 
+            HasError = true, 
+            Error = @event.Error
+        };
 }

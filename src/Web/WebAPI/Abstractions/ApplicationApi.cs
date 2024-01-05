@@ -27,7 +27,7 @@ public static class ApplicationApi
         }
     }
 
-    public static async Task<Results<Ok<Identifier>, Accepted, NotFound, NoContent, ValidationProblem, Problem>> NewSendCommandAsync<TClient, TValidator>
+    public static async Task<Results<Ok<Identifier>, Accepted, NotFound, NoContent, ValidationProblem, Problem>> SendAsync<TClient, TValidator>
         (IVeryNewCommand<TClient, TValidator> command, Func<TClient, CancellationToken, AsyncUnaryCall<CommandResponse>> sendAsync)
         where TClient : ClientBase
         where TValidator : IValidator, new()
@@ -38,10 +38,9 @@ public static class ApplicationApi
         {
             var response = await sendAsync(command.Client, command.CancellationToken);
 
-
             return response.OneOfCase switch
             {
-                CommandResponse.OneOfOneofCase.Ok when response.Ok.TryUnpack<Identifier>(out var identifier)=> Ok(identifier),
+                CommandResponse.OneOfOneofCase.Success when response.Success.TryUnpack<Identifier>(out var identifier)=> Ok(identifier),
                 CommandResponse.OneOfOneofCase.Accepted => Accepted(string.Empty),
                 CommandResponse.OneOfOneofCase.NotFound => NotFound(),
                 CommandResponse.OneOfOneofCase.NoContent or CommandResponse.OneOfOneofCase.None => NoContent(),

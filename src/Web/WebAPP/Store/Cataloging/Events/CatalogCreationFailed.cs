@@ -2,11 +2,10 @@
 
 namespace WebAPP.Store.Cataloging.Events;
 
-public record CatalogCreationFailed
-{
-    public required string Error;
+public record CatalogCreationFailed(string Error);
 
-    [ReducerMethod]
-    public static CatalogingState Reduce(CatalogingState state, CatalogCreationFailed @event)
-        => state with { IsCreating = false, Error = @event.Error, NewCatalog = new() };
+public class CatalogCreationFailedReducer : Reducer<CatalogingState, CatalogCreationFailed>
+{
+    public override CatalogingState Reduce(CatalogingState state, CatalogCreationFailed action)
+        => state with { IsCreating = false, Error = action.Error, NewCatalog = new() };
 }

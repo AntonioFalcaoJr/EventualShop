@@ -2,9 +2,10 @@
 
 namespace WebAPP.Store.Cataloging.Events;
 
-public record ChangeTitleStarted
+public record ChangeTitleStarted;
+
+public class ChangeTitleStartedReducer : Reducer<CatalogingState, ChangeTitleStarted>
 {
-    [ReducerMethod]
-    public static CatalogingState Reduce(CatalogingState state, ChangeTitleStarted _)
+    public override CatalogingState Reduce(CatalogingState state, ChangeTitleStarted _)
         => state with { IsEditingTitle = true };
 }

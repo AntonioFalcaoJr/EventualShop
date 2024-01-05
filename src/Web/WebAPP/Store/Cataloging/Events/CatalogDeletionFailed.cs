@@ -2,11 +2,10 @@
 
 namespace WebAPP.Store.Cataloging.Events;
 
-public record CatalogDeletionFailed
-{
-    public required string Error;
+public record CatalogDeletionFailed(string Error);
 
-    [ReducerMethod]
-    public static CatalogingState Reduce(CatalogingState state, CatalogDeletionFailed @event)
+public class CatalogDeletionFailedReducer : Reducer<CatalogingState, CatalogDeletionFailed>
+{
+    public override CatalogingState Reduce(CatalogingState state, CatalogDeletionFailed @event)
         => state with { IsDeleting = false, Error = @event.Error };
 }

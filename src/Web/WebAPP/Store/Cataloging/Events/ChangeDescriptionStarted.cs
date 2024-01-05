@@ -2,9 +2,10 @@
 
 namespace WebAPP.Store.Cataloging.Events;
 
-public record ChangeDescriptionStarted
+public record ChangeDescriptionStarted;
+
+public class ChangeDescriptionStartedReducer : Reducer<CatalogingState, ChangeDescriptionStarted>
 {
-    [ReducerMethod]
-    public static CatalogingState Reduce(CatalogingState state, ChangeDescriptionStarted _)
+    public override CatalogingState Reduce(CatalogingState state, ChangeDescriptionStarted _)
         => state with { IsEditingDescription = true };
 }

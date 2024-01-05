@@ -2,12 +2,11 @@
 
 namespace WebAPP.Store.Cataloging.Events;
 
-public record CatalogItemCreationStarted
-{
-    public required string CatalogId;
+public record CatalogItemCreationStarted(string CatalogId);
 
-    [ReducerMethod]
-    public static CatalogingState Reduce(CatalogingState state, CatalogItemCreationStarted @event)
+public class CatalogItemCreationStartedReducer : Reducer<CatalogingState, CatalogItemCreationStarted>
+{
+    public override CatalogingState Reduce(CatalogingState state, CatalogItemCreationStarted @event)
         => state with
         {
             CatalogId = @event.CatalogId,

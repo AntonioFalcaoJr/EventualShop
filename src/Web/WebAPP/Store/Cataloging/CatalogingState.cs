@@ -27,6 +27,10 @@ public record CatalogingState
     public bool IsSearching { get; set; }
     public string Fragment { get; set; } = string.Empty;
     public IImmutableList<Product> Products { get; set; } = ImmutableList<Product>.Empty;
+
+    public int RetryCount { get; set; }
+
+    public bool IsRetrying { get; set; }
     ////
 }
 

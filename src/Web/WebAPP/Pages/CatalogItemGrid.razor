@@ -66,12 +66,7 @@
     private void MoveToPrevious() => ListCatalogItems(State.Value.CatalogId, number: State.Value.Page.Previous);
 
     private void ListCatalogItems(string catalogId, ushort size = 8, ushort number = 1)
-        => Dispatcher.Dispatch(new ListCatalogItems
-        {
-            Paging = new(size, number),
-            CatalogId = catalogId,
-            CancellationToken = _cancellationTokenSource.Token
-        });
+        => Dispatcher.Dispatch(new ListCatalogItems(catalogId, new(size, number), _cancellationTokenSource.Token));
 
     protected override void Dispose(bool disposing)
     {

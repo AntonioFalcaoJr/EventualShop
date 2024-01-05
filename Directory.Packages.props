@@ -42,13 +42,13 @@
     <PackageVersion Include="Fluxor.Blazor.Web" Version="5.9.1" />
     <PackageVersion Include="Fluxor.Blazor.Web.ReduxDevTools" Version="5.9.1" />
     <!--Grpc-->
-    <PackageVersion Include="Google.Protobuf" Version="3.25.0" />
-    <PackageVersion Include="Grpc.AspNetCore" Version="2.59.0" />
+    <PackageVersion Include="Google.Protobuf" Version="3.25.1" />
+    <PackageVersion Include="Grpc.AspNetCore" Version="2.60.0" />
     <PackageVersion Include="Grpc.AspNetCore.Server" Version="2.56.0-pre1" />
-    <PackageVersion Include="Grpc.AspNetCore.Server.ClientFactory" Version="2.59.0" />
-    <PackageVersion Include="Grpc.Net.Client" Version="2.59.0" />
-    <PackageVersion Include="Grpc.Net.ClientFactory" Version="2.59.0" />
-    <PackageVersion Include="Grpc.Tools" Version="2.59.0" />
+    <PackageVersion Include="Grpc.AspNetCore.Server.ClientFactory" Version="2.60.0" />
+    <PackageVersion Include="Grpc.Net.Client" Version="2.60.0" />
+    <PackageVersion Include="Grpc.Net.ClientFactory" Version="2.60.0" />
+    <PackageVersion Include="Grpc.Tools" Version="2.60.0"/>
     <!--JsonNet-->
     <PackageVersion Include="JsonNet.ContractResolvers" Version="2.0.0" />
     <PackageVersion Include="LanguageExt.Core" Version="4.4.7" />

@@ -76,27 +76,9 @@
     }
 
     private void AddCatalogItem()
-    {
-        var addCatalogItem = new AddCatalogItem
-        {
-            CatalogId = State.Value.CatalogId,
-            NewItem = State.Value.NewItem,
-            CancellationToken = _cancellationTokenSource.Token
-        };
-
-        Dispatcher.Dispatch(addCatalogItem);
-    }
+        => Dispatcher.Dispatch(new AddCatalogItem(State.Value.CatalogId, State.Value.NewItem, _cancellationTokenSource.Token));
 
     private void SearchAsync()
-    {
-        SearchProducts searchProducts = new()
-        {
-            Fragment = "test",
-            Paging = new(size: 3),
-            CancellationToken = _cancellationTokenSource.Token
-        };
-
-        Dispatcher.Dispatch(searchProducts);
-    }
+        => Dispatcher.Dispatch(new SearchProducts("test", new Paging(), _cancellationTokenSource.Token));
 
 }

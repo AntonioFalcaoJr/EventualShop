@@ -4,12 +4,11 @@ using System.Collections.Immutable;
 
 namespace WebAPP.Store.Catalogs.Events;
 
-public record CatalogItemsListed
+public record CatalogItemsListed(IPagedResult<CatalogItem> PagedResult);
+
+public class CatalogItemsListedReducer : Reducer<CatalogState, CatalogItemsListed>
 {
-    public required IPagedResult<CatalogItem> PagedResult;
-    
-    [ReducerMethod]
-    public static CatalogState Reduce(CatalogState state, CatalogItemsListed @event)
+    public override CatalogState Reduce(CatalogState state, CatalogItemsListed @event)
         => state with
         {
             IsFetching = false,

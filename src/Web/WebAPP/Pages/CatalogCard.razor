@@ -42,8 +42,7 @@
 
 @code {
 
-    [Parameter]
-    public Catalog Catalog { get; set; } = new();
+    [Parameter] public Catalog Catalog { get; set; } = new();
 
     private readonly CancellationTokenSource _cancellationTokenSource = new();
 
@@ -54,27 +53,13 @@
         => Dispatcher.Dispatch(new ChangeTitleStarted());
 
     private void ChangeTitle()
-        => Dispatcher.Dispatch(new ChangeTitle
-        {
-            CatalogId = Catalog.CatalogId,
-            NewTitle = Catalog.Title,
-            CancellationToken = _cancellationTokenSource.Token
-        });
+        => Dispatcher.Dispatch(new ChangeTitle(Catalog.CatalogId, Catalog.Title, _cancellationTokenSource.Token));
 
     private void ChangeDescription()
-        => Dispatcher.Dispatch(new ChangeDescription
-        {
-            CatalogId = Catalog.CatalogId,
-            NewDescription = Catalog.Description,
-            CancellationToken = _cancellationTokenSource.Token
-        });
+        => Dispatcher.Dispatch(new ChangeDescription(Catalog.CatalogId, Catalog.Description, _cancellationTokenSource.Token));
 
     private void Delete()
-        => Dispatcher.Dispatch(new DeleteCatalog
-        {
-            CatalogId = Catalog.CatalogId,
-            CancellationToken = _cancellationTokenSource.Token
-        });
+        => Dispatcher.Dispatch(new DeleteCatalog(Catalog.CatalogId, _cancellationTokenSource.Token));
 
     private void Dispose()
         => _cancellationTokenSource.Cancel();

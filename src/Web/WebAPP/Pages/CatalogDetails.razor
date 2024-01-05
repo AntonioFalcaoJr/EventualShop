@@ -27,7 +27,10 @@
 @code {
 
     [Parameter] public string CatalogId { get; set; } = "Undefined";
-    private void CancelCatalogItemCreation() => Dispatcher.Dispatch(new CatalogItemCreationCanceled());
-    private void StartCatalogItemCreation() => Dispatcher.Dispatch(new CatalogItemCreationStarted { CatalogId = CatalogId });
 
+    private void CancelCatalogItemCreation()
+        => Dispatcher.Dispatch(new CatalogItemCreationCanceled());
+
+    private void StartCatalogItemCreation()
+        => Dispatcher.Dispatch(new CatalogItemCreationStarted(CatalogId));
 }

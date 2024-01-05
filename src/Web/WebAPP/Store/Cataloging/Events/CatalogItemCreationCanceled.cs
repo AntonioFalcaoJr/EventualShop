@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Components;
 
 namespace WebAPP.Store.Cataloging.Events;
 
-public record CatalogItemCreationCanceled
+public record CatalogItemCreationCanceled;
+
+public class CatalogItemCreationCanceledReducer : Reducer<CatalogingState, CatalogItemCreationCanceled>
 {
-    [ReducerMethod]
-    public static CatalogingState Reduce(CatalogingState state, CatalogItemCreationCanceled _)
+    public override CatalogingState Reduce(CatalogingState state, CatalogItemCreationCanceled _)
         => state with { IsAddingItem = false };
 }
 

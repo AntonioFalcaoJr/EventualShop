@@ -51,16 +51,11 @@ else
     private void MoveToPrevious() => ListCatalogs(number: State.Value.Page.Previous);
 
     private void ListCatalogs(ushort size = 8, ushort number = 1)
-        => Dispatcher.Dispatch(new ListCatalogs
-        {
-            Paging = new(size, number),
-            CancellationToken = _cancellationTokenSource.Token
-        });
+        => Dispatcher.Dispatch(new ListCatalogs(new(size, number), _cancellationTokenSource.Token));
 
     protected override void Dispose(bool disposing)
     {
         if (disposing) _cancellationTokenSource.Dispose();
         base.Dispose(disposing);
     }
-
 }

@@ -1,6 +1,3 @@
 namespace WebAPP.Store.Cataloging.Events;
 
-public record ProductsSearchFailed
-{
-    public string Error { get; set; } = string.Empty;
-}
+public record ProductsSearchFailed(string Error);

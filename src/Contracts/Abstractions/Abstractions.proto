@@ -6,12 +6,12 @@ import "google/protobuf/wrappers.proto";
 import "google/protobuf/any.proto";
 
 message Identifier {
-  string Id = 1;
+  string Value = 1;
 }
 
 message CommandResponse{
   oneof OneOf{
-    google.protobuf.Any Ok = 1;
+    google.protobuf.Any Success = 1;
     Accepted Accepted = 2;
     NotFound NotFound = 3;
     NoContent NoContent = 4;

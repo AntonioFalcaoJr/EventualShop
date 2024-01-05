@@ -12,15 +12,15 @@ public static class CatalogApi
         var group = builder.MapGroup(BaseUrl).HasApiVersion(1);
 
         // group.MapPost("/start-shopping/", ([AsParameters] Commands.StartShopping2 startShopping)
-        //     => ApplicationApi.NewSendCommandAsync<ShoppingCommandServiceClient, StartShoppingValidator, CommandResponse>
+        //     => ApplicationApi.SendAsync<ShoppingCommandServiceClient, StartShoppingValidator, CommandResponse>
         //         (startShopping, (client, ct) => client.StartShoppingAsync(startShopping, cancellationToken: ct)));
 
         group.MapPost("/", ([AsParameters] Commands.CreateCatalog createCatalog)
-            => ApplicationApi.NewSendCommandAsync(createCatalog, (client, token)
+            => ApplicationApi.SendAsync(createCatalog, (client, token)
                 => client.CreateCatalogAsync(createCatalog, cancellationToken: token)));
 
         group.MapDelete("/{catalogId}", ([AsParameters] Commands.DeleteCatalog deleteCatalog)
-            => ApplicationApi.NewSendCommandAsync(deleteCatalog, (client, token)
+            => ApplicationApi.SendAsync(deleteCatalog, (client, token) 
                 => client.DeleteCatalogAsync(deleteCatalog, cancellationToken: token)));
 
 

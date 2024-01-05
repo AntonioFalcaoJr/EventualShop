@@ -4,11 +4,15 @@ using WebAPP.Abstractions;
 
 namespace WebAPP.Store.Cataloging.Events;
 
-public record ProductsSearchHit
+public record ProductsSearchHit(IPagedResult<Product> Products);
+
+public class ProductsSearchHitReducer : Reducer<CatalogingState, ProductsSearchHit>
 {
-    public required IPagedResult<Product> Products;
-    
-    [ReducerMethod]
-    public static CatalogingState ProductsSearchHitReducer(CatalogingState state, ProductsSearchHit @event)
-        => state with { Products = @event.Products.Items.ToImmutableList(), IsSearching = false, Error = string.Empty };
+    public override CatalogingState Reduce(CatalogingState state, ProductsSearchHit action)
+        => state with
+        {
+            Products = action.Products.Items.ToImmutableList(),
+            IsSearching = false,
+            Error = string.Empty
+        };
 }

@@ -3,12 +3,11 @@ using WebAPP.Abstractions;
 
 namespace WebAPP.Store.Cataloging.Events;
 
-public record CatalogDeleted
-{
-    public required string CatalogId;
+public record CatalogDeleted(string CatalogId);
 
-    [ReducerMethod]
-    public static CatalogingState Reduce(CatalogingState state, CatalogDeleted @event)
+public class CatalogDeletedReducer : Reducer<CatalogingState, CatalogDeleted>
+{
+    public override CatalogingState Reduce(CatalogingState state, CatalogDeleted @event)
     {
         var catalogs = state.Catalogs.RemoveAll(c => c.CatalogId == @event.CatalogId);
 

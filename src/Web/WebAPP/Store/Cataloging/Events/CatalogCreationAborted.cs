@@ -2,9 +2,10 @@
 
 namespace WebAPP.Store.Cataloging.Events;
 
-public record CatalogCreationAborted
+public record CatalogCreationAborted;
+
+public class CatalogCreationAbortedReducer : Reducer<CatalogingState, CatalogCreationAborted>
 {
-    [ReducerMethod]
-    public static CatalogingState CatalogCreationAbortedReducer(CatalogingState state, CatalogCreationAborted _)
+    public override CatalogingState Reduce(CatalogingState state, CatalogCreationAborted action)
         => state with { IsCreating = false, NewCatalog = new(), Error = string.Empty };
 }

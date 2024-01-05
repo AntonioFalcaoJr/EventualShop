@@ -1,7 +1,3 @@
 ﻿namespace WebAPP.Store.Cataloging.Events;
 
-public record CatalogTitleChangeFailed
-{
-    public required string CatalogId;
-    public required string Error;
-}
+public record CatalogTitleChangeFailed(string CatalogId, string Error);

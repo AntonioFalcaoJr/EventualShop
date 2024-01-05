@@ -4,12 +4,11 @@ using WebAPP.Abstractions;
 
 namespace WebAPP.Store.Cataloging.Events;
 
-public record CatalogCreated
-{
-    public required Catalog NewCatalog;
+public record CatalogCreated(Catalog NewCatalog);
 
-    [ReducerMethod]
-    public static CatalogingState Reduce(CatalogingState state, CatalogCreated @event)
+public class CatalogCreatedReducer : Reducer<CatalogingState, CatalogCreated>
+{
+    public override CatalogingState Reduce(CatalogingState state, CatalogCreated @event)
     {
         var catalogs = state.Catalogs.Insert(0, @event.NewCatalog);
 
@@ -18,9 +17,9 @@ public record CatalogCreated
 
         return state with
         {
-            IsCreating = false, 
-            NewCatalog = new(), 
-            Catalogs = catalogs, 
+            IsCreating = false,
+            NewCatalog = new(),
+            Catalogs = catalogs,
             Page = page
         };
     }
@@ -28,9 +27,9 @@ public record CatalogCreated
 
 public class CatalogCreatedEffect(NavigationManager manager) : Effect<CatalogCreated>
 {
-    public override Task HandleAsync(CatalogCreated cmd, IDispatcher dispatcher)
+    public override Task HandleAsync(CatalogCreated @event, IDispatcher dispatcher)
     {
-        manager.NavigateTo($"/catalogs/{cmd.NewCatalog.CatalogId}");
+        manager.NavigateTo($"/catalogs/{@event.NewCatalog.CatalogId}");
         return Task.CompletedTask;
     }
 }

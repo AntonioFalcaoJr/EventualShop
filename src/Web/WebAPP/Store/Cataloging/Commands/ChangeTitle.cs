@@ -4,21 +4,18 @@ using WebAPP.Store.Cataloging.Events;
 
 namespace WebAPP.Store.Cataloging.Commands;
 
+public record ChangeTitle(string CatalogId, string NewTitle, CancellationToken CancellationToken);
+
+public class ChangeTitleReducer : Reducer<CatalogingState, ChangeTitle>
+{
+    public override CatalogingState Reduce(CatalogingState state, ChangeTitle action)
+        => state with { IsEditingTitle = true };
+}
+
 public interface IChangeTitleApi
 {
     [Put("/v1/catalogs/{catalogId}/title")]
     Task<IApiResponse> ChangeTitleAsync(string catalogId, [Body] string title, CancellationToken cancellationToken);
-}
-
-public record ChangeTitle
-{
-    public required string CatalogId;
-    public required string NewTitle;
-    public required CancellationToken CancellationToken;
-
-    [ReducerMethod]
-    public static CatalogingState Reduce(CatalogingState state, ChangeTitle _)
-        => state with { IsEditingTitle = false };
 }
 
 public class ChangeTitleEffect(IChangeTitleApi api) : Effect<ChangeTitle>
@@ -28,7 +25,7 @@ public class ChangeTitleEffect(IChangeTitleApi api) : Effect<ChangeTitle>
         var response = await api.ChangeTitleAsync(cmd.CatalogId, cmd.NewTitle, cmd.CancellationToken);
 
         dispatcher.Dispatch(response.IsSuccessStatusCode
-            ? new CatalogTitleChanged { CatalogId = cmd.CatalogId, NewTitle = cmd.NewTitle }
-            : new CatalogTitleChangeFailed { CatalogId = cmd.CatalogId, Error = response.ReasonPhrase ?? response.Error.Message });
+            ? new CatalogTitleChanged(cmd.CatalogId, cmd.NewTitle)
+            : new CatalogTitleChangeFailed(cmd.CatalogId, response.Error?.Message ?? response.ReasonPhrase ?? "Unknown error"));
     }
 }

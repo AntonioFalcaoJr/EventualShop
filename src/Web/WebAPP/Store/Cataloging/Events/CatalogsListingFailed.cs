@@ -1,6 +1,3 @@
 ﻿namespace WebAPP.Store.Cataloging.Events;
 
-public record CatalogsListingFailed
-{
-    public required string Error;
-}
+public record CatalogsListingFailed(string Error);

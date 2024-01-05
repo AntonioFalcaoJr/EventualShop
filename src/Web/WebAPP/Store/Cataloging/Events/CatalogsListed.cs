@@ -2,7 +2,4 @@
 
 namespace WebAPP.Store.Cataloging.Events;
 
-public record CatalogsListed
-{
-    public required IPagedResult<Catalog> Catalogs;
-}
+public record CatalogsListed(IPagedResult<Catalog> Catalogs);

@@ -17,7 +17,7 @@ public static class ShoppingApi
         var group = builder.MapGroup(BaseUrl).HasApiVersion(1);
 
         group.MapPost("/start-shopping/", ([AsParameters] Commands.StartShopping2 startShopping)
-            => ApplicationApi.NewSendCommandAsync(startShopping, (client, ct) 
+            => ApplicationApi.SendAsync(startShopping, (client, ct) 
                 => client.StartShoppingAsync(startShopping, cancellationToken: ct)));
 
         group.MapPost("/{cartId}/items", (ShoppingCommandServiceClient client, AddItemCommand addItem, CancellationToken ct)

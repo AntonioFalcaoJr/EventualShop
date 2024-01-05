@@ -4,22 +4,20 @@ using WebAPP.Store.Cataloging.Events;
 
 namespace WebAPP.Store.Cataloging.Commands;
 
-public record Identifier(string Id);
+public record Identifier(string Value);
+
+public record CreateCatalog(Catalog NewCatalog, CancellationToken CancellationToken);
+
+public class CreateCatalogReducer : Reducer<CatalogingState, CreateCatalog>
+{
+    public override CatalogingState Reduce(CatalogingState state, CreateCatalog action)
+        => state with { IsCreating = true };
+}
 
 public interface ICreateCatalogApi
 {
     [Post("/v1/catalogs")]
     Task<IApiResponse<Identifier>> CreateAsync([Body] Catalog catalog, CancellationToken cancellationToken);
-}
-
-public record CreateCatalog
-{
-    public required Catalog NewCatalog;
-    public required CancellationToken CancellationToken;
-
-    [ReducerMethod]
-    public static CatalogingState Reduce(CatalogingState state, CreateCatalog _)
-        => state with { IsCreating = true };
 }
 
 public class CreateCatalogEffect(ICreateCatalogApi api) : Effect<CreateCatalog>
@@ -29,7 +27,7 @@ public class CreateCatalogEffect(ICreateCatalogApi api) : Effect<CreateCatalog>
         var response = await api.CreateAsync(cmd.NewCatalog, cmd.CancellationToken);
 
         dispatcher.Dispatch(response is { IsSuccessStatusCode: true, Content: not null }
-            ? new CatalogCreated { NewCatalog = cmd.NewCatalog with { CatalogId = response.Content.Id } }
-            : new CatalogCreationFailed { Error = response.ReasonPhrase ?? response.Error?.Message ?? "Unknown error" });
+            ? new CatalogCreated(cmd.NewCatalog with { CatalogId = response.Content.Value })
+            : new CatalogCreationFailed(response.Error?.Message ?? response.ReasonPhrase ?? "Unknown error"));
     }
 }
