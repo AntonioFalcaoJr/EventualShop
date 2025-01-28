@@ -31,31 +31,30 @@ public class ApplicationService(IEventStoreGateway eventStore, IEventBusGateway 
         where TAggregate : IAggregateRoot<TId>
         where TId : IIdentifier, new()
         => unitOfWork.ExecuteAsync(operationAsync: async ct =>
+        {
+            while (aggregate.TryDequeueEvent(out var @event))
             {
-                while (aggregate.TryDequeueEvent(out var @event))
+                var storeEvent = StoreEvent<TAggregate, TId>.Create(aggregate, @event);
+                await eventStore.AppendAsync(storeEvent, ct);
+
+                if (storeEvent.Version % Version.Number(10))
                 {
-                    var storeEvent = StoreEvent<TAggregate, TId>.Create(aggregate, @event);
-                    await eventStore.AppendAsync(storeEvent, ct);
-
-                    if (storeEvent.Version % Version.Number(5))
-                    {
-                        var snapshot = Snapshot<TAggregate, TId>.Create(aggregate, storeEvent);
-                        await eventStore.AppendAsync(snapshot, ct);
-                    }
-
-                    await eventBus.PublishAsync(@event, ct);
+                    var snapshot = Snapshot<TAggregate, TId>.Create(aggregate, storeEvent);
+                    await eventStore.AppendAsync(snapshot, ct);
                 }
-            },
-            cancellationToken: token);
+
+                await eventBus.PublishAsync(@event, ct);
+            }
+        }, cancellationToken: token);
 
     public IAsyncEnumerable<TId> StreamAggregatesId<TAggregate, TId>()
         where TAggregate : IAggregateRoot<TId>
-        where TId : IIdentifier, new() 
+        where TId : IIdentifier, new()
         => eventStore.StreamAggregatesId<TAggregate, TId>();
 
-    public Task PublishEventAsync(IEvent @event, CancellationToken cancellationToken) 
-        => eventBus.PublishAsync(@event, cancellationToken);
+    public Task PublishEventAsync(IEvent @event, CancellationToken token)
+        => eventBus.PublishAsync(@event, token);
 
-    public Task SchedulePublishAsync(IDelayedEvent @event, DateTimeOffset scheduledTime, CancellationToken cancellationToken) 
-        => eventBus.SchedulePublishAsync(@event, scheduledTime, cancellationToken);
+    public Task SchedulePublishAsync(IDelayedEvent @event, DateTimeOffset scheduledTime, CancellationToken token)
+        => eventBus.SchedulePublishAsync(@event, scheduledTime, token);
 }

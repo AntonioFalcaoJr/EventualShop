@@ -35,7 +35,7 @@ public class Account : AggregateRoot<AccountValidator>
 
     private void Handle(Command.ActiveAccount cmd)
     {
-        if (Status is not AccountStatus.InactiveStatus) return;
+        if (Status is not AccountInactive) return;
         RaiseEvent<DomainEvent.AccountActivated>(version => new(cmd.AccountId, AccountStatus.Active, version));
     }
 

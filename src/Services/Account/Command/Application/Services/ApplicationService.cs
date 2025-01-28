@@ -1,34 +1,60 @@
 using Application.Abstractions;
-using Application.Abstractions.Gateways;
 using Contracts.Abstractions.Messages;
 using Domain.Abstractions.Aggregates;
+using Domain.Abstractions.EventStore;
+using Domain.Abstractions.Identities;
+using static Domain.Exceptions;
+using Version = Domain.ValueObjects.Version;
 
 namespace Application.Services;
 
-public class ApplicationService(IEventStoreGateway eventStoreGateway,
-        IEventBusGateway eventBusGateway,
-        IUnitOfWork unitOfWork)
-    : IApplicationService
+public class ApplicationService(IEventStoreGateway eventStore, IEventBusGateway eventBus, IUnitOfWork unitOfWork) : IApplicationService
 {
-    public Task<TAggregate> LoadAggregateAsync<TAggregate>(Guid id, CancellationToken cancellationToken)
-        where TAggregate : IAggregateRoot, new()
-        => eventStoreGateway.LoadAggregateAsync<TAggregate>(id, cancellationToken);
+    public async Task<TAggregate> LoadAggregateAsync<TAggregate, TId>(TId id, CancellationToken token)
+        where TAggregate : class, IAggregateRoot<TId>, new()
+        where TId : IIdentifier, new()
+    {
+        var snapshot = await eventStore.GetSnapshotAsync<TAggregate, TId>(id, token);
+        var events = await eventStore.GetStreamAsync<TAggregate, TId>(id, snapshot?.Version ?? Version.Zero, token);
 
-    public Task AppendEventsAsync(IAggregateRoot aggregate, CancellationToken cancellationToken)
-        => unitOfWork.ExecuteAsync(
-            operationAsync: async ct =>
+        AggregateNotFound.ThrowIf(snapshot is null && events.Count is 0);
+
+        var aggregate = snapshot?.Aggregate ?? new();
+        aggregate.LoadFromStream(events);
+
+        AggregateIsDeleted.ThrowIf(aggregate.IsDeleted);
+
+        return aggregate;
+    }
+
+    public Task AppendEventsAsync<TAggregate, TId>(TAggregate aggregate, CancellationToken token)
+        where TAggregate : IAggregateRoot<TId>
+        where TId : IIdentifier, new()
+        => unitOfWork.ExecuteAsync(operationAsync: async ct =>
+        {
+            while (aggregate.TryDequeueEvent(out var @event))
             {
-                await eventStoreGateway.AppendEventsAsync(aggregate, ct);
-                await eventBusGateway.PublishAsync(aggregate.UncommittedEvents, ct);
-            },
-            cancellationToken: cancellationToken);
+                var storeEvent = StoreEvent<TAggregate, TId>.Create(aggregate, @event);
+                await eventStore.AppendAsync(storeEvent, ct);
 
-    public IAsyncEnumerable<Guid> StreamAggregatesId()
-        => eventStoreGateway.StreamAggregatesId();
+                if (storeEvent.Version % Version.Number(10))
+                {
+                    var snapshot = Snapshot<TAggregate, TId>.Create(aggregate, storeEvent);
+                    await eventStore.AppendAsync(snapshot, ct);
+                }
 
-    public Task PublishEventAsync(IEvent @event, CancellationToken cancellationToken)
-        => eventBusGateway.PublishAsync(@event, cancellationToken);
+                await eventBus.PublishAsync(@event, ct);
+            }
+        }, cancellationToken: token);
 
-    public Task SchedulePublishAsync(IDelayedEvent @event, DateTimeOffset scheduledTime, CancellationToken cancellationToken)
-        => eventBusGateway.SchedulePublishAsync(@event, scheduledTime, cancellationToken);
+    public IAsyncEnumerable<TId> StreamAggregatesId<TAggregate, TId>()
+        where TAggregate : IAggregateRoot<TId>
+        where TId : IIdentifier, new()
+        => eventStore.StreamAggregatesId<TAggregate, TId>();
+
+    public Task PublishEventAsync(IEvent @event, CancellationToken token)
+        => eventBus.PublishAsync(@event, token);
+
+    public Task SchedulePublishAsync(IDelayedEvent @event, DateTimeOffset scheduledTime, CancellationToken token)
+        => eventBus.SchedulePublishAsync(@event, scheduledTime, token);
 }
