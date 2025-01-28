@@ -14,10 +14,6 @@ public interface IApplicationService
         where TAggregate : class, IAggregateRoot<TId>, new()
         where TId : IIdentifier, new();
 
-    Task<TAggregate> LoadAggregateAsync<TAggregate, TId>(Func<TAggregate, bool> predicate, CancellationToken cancellationToken)
-        where TAggregate : class, IAggregateRoot<TId>, new()
-        where TId : IIdentifier, new();
-
     IAsyncEnumerable<TId> StreamAggregatesId<TAggregate, TId>()
         where TAggregate : IAggregateRoot<TId>
         where TId : IIdentifier, new();
