@@ -1,12 +1,12 @@
 using Application.Abstractions;
 using Application.Services;
-using Domain.Aggregates;
-using Command = Contracts.Boundaries.Warehouse.Command;
+using Domain.Aggregates.Inventories;
+using Command = Contracts.Boundaries.Warehouse.Inventory.Command;
 using DomainEvent = Contracts.Boundaries.Shopping.Shopping.DomainEvent;
 
 namespace Application.UseCases.Events;
 
-public interface IReserveInventoryItemWhenCartItemAddedInteractor : IInteractor<DomainEvent.CartItemAdded> { }
+public interface IReserveInventoryItemWhenCartItemAddedInteractor : IInteractor<DomainEvent.CartItemAdded>;
 
 public class ReserveInventoryItemWhenCartItemAddedInteractor(IApplicationService service) : IReserveInventoryItemWhenCartItemAddedInteractor
 {
