@@ -1,7 +1,7 @@
 ﻿using Contracts.Boundaries.Notification;
 using Domain.Aggregates;
 using Domain.Enumerations;
-using Domain.ValueObject;
+using Domain.ValueObjects;
 
 namespace Application.Abstractions.Gateways;
 
@@ -19,8 +19,8 @@ public class NotificationService(ILazy<INotificationGateway<Email>> emailGateway
 
             notification.Handle(status switch
             {
-                NotificationMethodStatus.SentStatus => new Command.SendNotificationMethod(notification.Id, method.Id),
-                NotificationMethodStatus.CancelledStatus => new Command.CancelNotificationMethod(notification.Id, method.Id),
+                NotificationMethodSent => new Command.SendNotificationMethod(notification.Id, method.Id),
+                NotificationMethodCancelled => new Command.CancelNotificationMethod(notification.Id, method.Id),
                 _ => new Command.FailNotificationMethod(notification.Id, method.Id)
             });
         }
