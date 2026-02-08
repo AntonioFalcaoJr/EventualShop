@@ -22,7 +22,7 @@ public record PictureUri
     public static explicit operator PictureUri(Uri pictureUrl) => new(pictureUrl);
     public static explicit operator PictureUri(string pictureUrl) => new(pictureUrl);
     public static implicit operator string(PictureUri pictureUri) => pictureUri._value.ToString();
-    public static PictureUri Undefined => new(string.Empty);
+    public static PictureUri Undefined => new(new Uri("http://Undefined"));
 
     public override string ToString() => _value.ToString();
 }
