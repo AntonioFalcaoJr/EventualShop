@@ -6,5 +6,6 @@
     <ItemGroup>
         <ProjectReference Include="..\Infrastructure.EventBus\Infrastructure.EventBus.csproj" />
         <ProjectReference Include="..\Infrastructure.Projections\Infrastructure.Projections.csproj" />
+        <ProjectReference Include="..\Infrastructure.Search\Infrastructure.Search.csproj" />
     </ItemGroup>
 </Project>
