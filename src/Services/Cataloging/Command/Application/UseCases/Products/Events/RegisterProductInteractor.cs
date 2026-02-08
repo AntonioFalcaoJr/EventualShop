@@ -11,13 +11,15 @@ public class RegisterProductInteractor(IApplicationService service) : IRequestHa
 {
     public Task Handle(DomainEvent.InventoryItemReceived @event, CancellationToken cancellationToken)
     {
-        var product = Product.Register(
+        Product product = new();
+
+        product.Register(
             (InventoryItemId)@event.InventoryItemId,
             (ProductName)@event.Name,
             new((Amount)@event.Cost, (Currency)@event.Currency),
             (Quantity)@event.Quantity
         );
 
-        return service.AppendEventsAsync<Product, ProductId>(product, cancellationToken);
+        return service.AppendEventsAsync<Product, ProductId>(product, product.InventoryItemId, cancellationToken);
     }
 }
