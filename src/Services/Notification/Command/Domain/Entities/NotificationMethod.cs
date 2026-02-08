@@ -1,7 +1,7 @@
 ﻿using Contracts.DataTransferObjects;
 using Domain.Abstractions.Entities;
 using Domain.Enumerations;
-using Domain.ValueObject;
+using Domain.ValueObjects;
 
 namespace Domain.Entities;
 
