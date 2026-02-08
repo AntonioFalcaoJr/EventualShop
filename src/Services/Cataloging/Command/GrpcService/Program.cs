@@ -45,8 +45,11 @@ app.MapHealthChecks("/healthz").ShortCircuit();
 
 try
 {
-    if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
-        await app.MigrateEventStoreAsync();
+    if (app.Environment.IsProduction() is false)
+    {
+        await app.MigrateEventStoreAsync(app.Lifetime.ApplicationStopping);
+        await app.SeedDataAsync(app.Lifetime.ApplicationStopping);
+    }
 
     await app.RunAsync();
     Log.Information("Stopped cleanly");
