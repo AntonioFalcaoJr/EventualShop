@@ -2,6 +2,7 @@
 
 public record Money(Amount Amount, Currency Currency)
 {
+    public static Money Zero() => new(Amount.Zero, Currency.Undefined);
     public static Money Zero(Currency currency) => new(Amount.Zero, currency);
     public static Money Zero(KeyValuePair<string, Currency> pair) => Zero(pair.Value);
 
@@ -29,8 +30,16 @@ public record Money(Amount Amount, Currency Currency)
     public static bool operator <(Money money, Money other)
         => ApplyOperator(money, other, (first, second) => first.Amount < second.Amount);
 
-    public static implicit operator string(Money money) => money.Amount;
-    public override string ToString() => Amount.ToString("C", Currency.FormatInfo);
+    public static implicit operator string(Money money) => money.ToString();
+    
+    public static explicit operator Money(string money)
+    {
+        var parts = money.Split(' ');
+        return new((Amount)parts[1], (Currency)parts[0]);
+    }
+
+    public override string ToString() 
+        => $"{Amount.ToString("C", Currency.All[Currency].FormatInfo)}";
 
     private static Money ApplyOperator(Money money, Money other, Func<Money, Money, Amount> operation)
     {
