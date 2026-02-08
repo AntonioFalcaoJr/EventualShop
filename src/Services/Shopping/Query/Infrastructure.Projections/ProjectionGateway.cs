@@ -16,16 +16,22 @@ public class ProjectionGateway<TProjection>(IMongoDbContext context) : IProjecti
     private readonly IMongoCollection<TProjection> _collection = context.GetCollection<TProjection>();
 
     public Task<TProjection?> GetAsync<TId>(TId id, CancellationToken cancellationToken) where TId : struct
-        => FindAsync(projection => projection.Id.Equals(id), cancellationToken);
+        => _collection.AsQueryable().SingleAsync(projection => projection.Id.Equals(id), cancellationToken);
 
     public Task<TProjection?> FindAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
-        => _collection.AsQueryable().Where(predicate).FirstOrDefaultAsync(cancellationToken)!;
+        => _collection.AsQueryable().Where(predicate).FirstOrDefaultAsync(cancellationToken);
 
-    public ValueTask<IPagedResult<TProjection>> ListAsync(Paging paging, Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
-        => PagedResult<TProjection>.CreateAsync(paging, _collection.AsQueryable().Where(predicate), cancellationToken);
+    public ValueTask<IPagedResult<TProjection>> ListAsync(Paging paging, Expression<Func<TProjection, bool>> predicate, CancellationToken token)
+    {
+        var query = _collection.AsQueryable().Where(predicate);
+        return PagedResult<TProjection>.CreateAsync(query, paging, token);
+    }
 
     public ValueTask<IPagedResult<TProjection>> ListAsync(Paging paging, CancellationToken cancellationToken)
-        => PagedResult<TProjection>.CreateAsync(paging, _collection.AsQueryable(), cancellationToken);
+    {
+        var query = _collection.AsQueryable();
+        return PagedResult<TProjection>.CreateAsync(query, paging, cancellationToken);
+    }
 
     public Task DeleteAsync(Expression<Func<TProjection, bool>> filter, CancellationToken cancellationToken)
         => _collection.DeleteManyAsync(filter, cancellationToken);
@@ -33,7 +39,7 @@ public class ProjectionGateway<TProjection>(IMongoDbContext context) : IProjecti
     public Task DeleteAsync<TId>(TId id, CancellationToken cancellationToken) where TId : struct
         => _collection.DeleteOneAsync(projection => projection.Id.Equals(id), cancellationToken);
 
-    public Task UpdateFieldAsync<TField, TId>(TId id, ulong version, Expression<Func<TProjection, TField>> field, TField value, CancellationToken cancellationToken) where TId : struct
+    public Task UpdateFieldAsync<TField, TId>(TId id, ulong Version, Expression<Func<TProjection, TField>> field, TField value, CancellationToken cancellationToken) where TId : struct
         => _collection.UpdateOneAsync(
             filter: projection => projection.Id.Equals(id) && projection.Version < version,
             update: new ObjectUpdateDefinition<TProjection>(new()).Set(field, value),
