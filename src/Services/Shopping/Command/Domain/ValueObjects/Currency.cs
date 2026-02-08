@@ -17,7 +17,7 @@ public record Currency(string IsoCode, string Name, string Country, NumberFormat
     public static readonly Currency MXN = new("MXN", "Mexican peso", "Mexico", new CultureInfo("es-MX").NumberFormat);
     public static readonly Currency Undefined = new("Undefined", "Undefined", "Undefined", NumberFormatInfo.InvariantInfo);
 
-    public Currency(string IsoCode) : this(IsoCode, All[IsoCode].Name, All[IsoCode].Country, All[IsoCode].FormatInfo) { }
+    private Currency(string IsoCode) : this(IsoCode, All[IsoCode].Name, All[IsoCode].Country, All[IsoCode].FormatInfo) { }
 
     public static Dictionary<string, Currency> All { get; } = new()
     {
