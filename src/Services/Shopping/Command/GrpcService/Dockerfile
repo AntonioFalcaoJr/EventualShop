@@ -1,6 +1,7 @@
 ﻿ARG ASPNET_VERSION="8.0-preview"
 ARG SDK_VERSION="8.0-preview"
 ARG BASE_ADRESS="mcr.microsoft.com/dotnet"
+ARG BUILD_CONFIGURATION="Release"
 
 FROM $BASE_ADRESS/aspnet:$ASPNET_VERSION AS base
 WORKDIR /app
@@ -31,10 +32,10 @@ COPY ./src/Contracts/. ./Contracts/
 
 WORKDIR /src/Services/ShoppingCart/Command/WorkerService
 
-RUN dotnet build -c Release --no-restore -v m -o /app/build 
+RUN dotnet build -c $BUILD_CONFIGURATION --no-restore -v m -o /app/build 
 
 FROM build AS publish
-RUN dotnet publish -c Release --no-restore -v m -o /app/publish
+RUN dotnet publish -c $BUILD_CONFIGURATION --no-restore -v m -o /app/publish
 
 FROM base AS final
 WORKDIR /app
