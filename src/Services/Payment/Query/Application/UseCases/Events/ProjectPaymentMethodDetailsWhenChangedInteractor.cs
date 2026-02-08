@@ -32,7 +32,7 @@ public class ProjectPaymentMethodDetailsWhenChangedInteractor(IProjectionGateway
     public Task InteractAsync(DomainEvent.PaymentMethodRefundDenied @event, CancellationToken cancellationToken)
         => UpdateStatusAsync(@event.PaymentMethodId, @event.Version, @event.Status, cancellationToken);
 
-    private Task UpdateStatusAsync(Guid methodId, ulong version, string status, CancellationToken cancellationToken)
+    private Task UpdateStatusAsync(Guid methodId, ulong Version, string status, CancellationToken cancellationToken)
         => projectionGateway.UpdateFieldAsync(
             id: methodId, 
             version: version, 
