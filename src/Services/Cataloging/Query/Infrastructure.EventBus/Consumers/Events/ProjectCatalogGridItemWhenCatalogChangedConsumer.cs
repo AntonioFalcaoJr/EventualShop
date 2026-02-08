@@ -7,7 +7,7 @@ namespace Infrastructure.EventBus.Consumers.Events;
 public class ProjectCatalogGridItemWhenCatalogChangedConsumer(IProjectCatalogGridItemWhenCatalogChangedInteractor interactor)
     :
         IConsumer<DomainEvent.CatalogActivated>,
-        IConsumer<DomainEvent.CatalogCreated>,
+        IConsumer<DomainEvent.CatalogRegistered>,
         IConsumer<DomainEvent.CatalogInactivated>,
         IConsumer<DomainEvent.CatalogDeleted>,
         IConsumer<DomainEvent.CatalogDescriptionChanged>,
@@ -16,7 +16,7 @@ public class ProjectCatalogGridItemWhenCatalogChangedConsumer(IProjectCatalogGri
     public Task Consume(ConsumeContext<DomainEvent.CatalogActivated> context)
         => interactor.InteractAsync(context.Message, context.CancellationToken);
 
-    public Task Consume(ConsumeContext<DomainEvent.CatalogCreated> context)
+    public Task Consume(ConsumeContext<DomainEvent.CatalogRegistered> context)
         => interactor.InteractAsync(context.Message, context.CancellationToken);
 
     public Task Consume(ConsumeContext<DomainEvent.CatalogInactivated> context)
