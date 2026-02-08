@@ -1,9 +1,9 @@
 ﻿using Application.Abstractions;
-using Contracts.Boundaries.Warehouse;
+using Contracts.Boundaries.Warehouse.Inventory;
 
 namespace Application.UseCases.Events;
 
-public interface IProjectInventoryGridItemWhenInventoryChangedInteractor : IInteractor<DomainEvent.InventoryCreated> { }
+public interface IProjectInventoryGridItemWhenInventoryChangedInteractor : IInteractor<DomainEvent.InventoryCreated>;
 
 public class ProjectInventoryGridItemWhenInventoryChangedInteractor(IProjectionGateway<Projection.InventoryGridItem> projectionGateway)
     : IProjectInventoryGridItemWhenInventoryChangedInteractor
