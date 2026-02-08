@@ -13,7 +13,6 @@ public static class DomainEvent
     
     public record InventoryCreated(Guid InventoryId, Guid OwnerId, ulong Version) : Message, IDomainEvent;
 
-
     public record InventoryAdjustmentIncreased(Guid InventoryId, Guid ItemId, string Reason, int Quantity, ulong Version) : Message, IDomainEvent;
 
     public record InventoryAdjustmentDecreased(Guid InventoryId, Guid ItemId, string Reason, int Quantity, ulong Version) : Message, IDomainEvent;
