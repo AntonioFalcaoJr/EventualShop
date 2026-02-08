@@ -10,9 +10,10 @@ public record CartItemId : GuidIdentifier
 
     public CartItemId() { }
     public CartItemId(string value) : base(value) { }
+    public CartItemId(Guid value) : base(value) { }
 
     public static CartItemId New => new();
-    public static readonly CartItemId Undefined = new() { Value = Guid.Empty };
+    public static readonly CartItemId Undefined = new(Guid.Empty);
 
     public static implicit operator CartItemId(string value) => new(value);
     public override string ToString() => base.ToString();
