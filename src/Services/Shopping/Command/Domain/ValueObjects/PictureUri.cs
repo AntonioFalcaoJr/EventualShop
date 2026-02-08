@@ -4,10 +4,7 @@ public record PictureUri
 {
     private readonly Uri _value;
 
-    public PictureUri(Uri pictureUri)
-    {
-        _value = pictureUri;
-    }
+    private PictureUri(Uri pictureUri) => _value = pictureUri;
 
     private PictureUri(string pictureUri)
     {
@@ -22,7 +19,7 @@ public record PictureUri
     public static explicit operator PictureUri(Uri pictureUrl) => new(pictureUrl);
     public static explicit operator PictureUri(string pictureUrl) => new(pictureUrl);
     public static implicit operator string(PictureUri pictureUri) => pictureUri._value.ToString();
-    public static PictureUri Undefined => new(string.Empty);
+    public static PictureUri Undefined => new("http://undefined");
 
     public override string ToString() => _value.ToString();
 }
