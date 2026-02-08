@@ -1,5 +1,5 @@
 ﻿using Contracts.Abstractions.Messages;
-using Contracts.Boundaries.Warehouse;
+using Contracts.Boundaries.Warehouse.Inventory;
 using Infrastructure.EventBus.Consumers.Events;
 using MassTransit;
 
