@@ -9,11 +9,11 @@ namespace WebAPP.Store.Cataloging;
 public record CatalogingState
 {
     public IImmutableList<Catalog> Catalogs { get; init; } = ImmutableList<Catalog>.Empty;
-    public IImmutableList<Product> Products { get; set; } = ImmutableList<Product>.Empty;
+    public IImmutableList<Product> Products { get; init; } = ImmutableList<Product>.Empty;
     public Catalog NewCatalog { get; init; } = new();
     public CatalogItem NewItem { get; init; } = new();
     public Product SelectedProduct { get; init; } = new();
-    public string CatalogId { get; set; } = "Undefined";
+    public string CatalogId { get; init; } = "Undefined";
     public bool HasError => Error != string.Empty;
     public bool IsCreating { get; init; }
     public bool IsFetching { get; init; }
