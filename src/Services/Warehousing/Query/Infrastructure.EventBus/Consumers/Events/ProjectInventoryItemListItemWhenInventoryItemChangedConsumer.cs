@@ -1,5 +1,5 @@
 using Application.UseCases.Events;
-using Contracts.Boundaries.Warehouse;
+using Contracts.Boundaries.Warehouse.Inventory;
 using MassTransit;
 
 namespace Infrastructure.EventBus.Consumers.Events;
