@@ -25,7 +25,7 @@ builder
 
         services
             .AddApplication()
-            .AddMessageBusInfrastructure()
+            .AddEventBusInfrastructure()
             .AddEventStoreInfrastructure();
     });
 
