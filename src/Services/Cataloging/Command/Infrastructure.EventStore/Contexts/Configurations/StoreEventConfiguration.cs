@@ -5,6 +5,7 @@ using Domain.Aggregates.CatalogItems;
 using Domain.Aggregates.Catalogs;
 using Domain.Aggregates.Products;
 using Infrastructure.EventStore.Contexts.Converters;
+using LanguageExt;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Version = Domain.ValueObjects.Version;
@@ -31,6 +32,11 @@ public abstract class StoreEventConfiguration<TAggregate, TId> : IEntityTypeConf
             .Property(@event => @event.AggregateId)
             .HasConversion<Guid>(id => id, guid => GuidIdentifier.New<TId>(guid))
             .IsRequired();
+        
+        builder
+            .Property(@event => @event.ReferenceId)
+            .IsRequired(false)
+            .IsUnicode(false);
 
         builder
             .Property(@event => @event.Event)
