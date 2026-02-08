@@ -1,4 +1,4 @@
-﻿using Domain.ValueObject;
+﻿using Domain.ValueObjects;
 
 namespace Application.Abstractions.Gateways;
 
