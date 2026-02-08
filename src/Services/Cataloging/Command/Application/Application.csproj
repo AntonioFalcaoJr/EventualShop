@@ -8,4 +8,9 @@
     <ItemGroup>
         <ProjectReference Include="..\Domain\Domain.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Reference Include="Bogus">
+        <HintPath>..\..\..\..\..\..\..\Users\anton\.nuget\packages\bogus\35.6.1\lib\net6.0\Bogus.dll</HintPath>
+      </Reference>
+    </ItemGroup>
 </Project>
