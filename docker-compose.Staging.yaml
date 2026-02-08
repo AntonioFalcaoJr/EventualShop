@@ -1,6 +1,4 @@
-﻿version: "3.9"
-
-services:
+﻿services:
   
   account-command:
     image: account-command:latest
