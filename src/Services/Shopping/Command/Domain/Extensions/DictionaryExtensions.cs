@@ -14,7 +14,7 @@ public static class DictionaryExtensions
     public static IDictionary<string, string> AsString(this IDictionary<Currency, Price> prices)
         => prices.ToDictionary(price => (string)price.Key, price => (string)price.Value);
 
-    public static IDictionary<Currency, Price> ToPriceDictionary(this IDictionary<string, string> prices)
+    public static Dictionary<Currency, Price> ToPriceDictionary(this IDictionary<string, string> prices)
         => prices.ToDictionary(price => (Currency)price.Key, price => new Price((Amount)price.Value, (Currency)price.Key));
 
     public static IDictionary<string, string> Project(
