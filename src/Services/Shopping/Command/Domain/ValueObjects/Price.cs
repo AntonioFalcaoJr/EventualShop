@@ -5,7 +5,7 @@ public record Price : Money
     public Price(Amount amount, Currency currency) : base(amount, currency)
     {
         ArgumentOutOfRangeException.ThrowIfLessThanOrEqual<decimal>(
-            amount, Amount.Zero, "Amount must be positive");
+            amount, Amount.Zero, "Amount must be greater than zero.");
     }
 
     public static implicit operator string(Price price) => price.Amount;
