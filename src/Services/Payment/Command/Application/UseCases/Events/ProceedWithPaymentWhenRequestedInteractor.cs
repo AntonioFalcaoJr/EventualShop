@@ -5,7 +5,7 @@ using Domain.Aggregates;
 
 namespace Application.UseCases.Events;
 
-public interface IProceedWithPaymentWhenRequestedInteractor : IInteractor<DomainEvent.PaymentRequested> { }
+public interface IProceedWithPaymentWhenRequestedInteractor : IInteractor<DomainEvent.PaymentRequested>;
 
 public class ProceedWithPaymentWhenRequestedInteractor(IApplicationService service,
         IPaymentGateway paymentGateway)
