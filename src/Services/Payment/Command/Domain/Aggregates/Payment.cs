@@ -17,13 +17,13 @@ public class Payment : AggregateRoot<PaymentValidator>
 
     public Guid OrderId { get; private set; }
     public Money Amount { get; private set; } = Money.Zero(Currency.Undefined);
-    public PaymentStatus Status { get; private set; } = PaymentStatus.Empty;
+    public PaymentStatus Status { get; private set; } = PaymentStatus.Undefined;
     public Address BillingAddress { get; private set; } = default!;
 
     public Money AmountDue => Amount with
     {
         Amount = _methods
-            .Where(method => method.Status is not PaymentMethodStatus.AuthorizedStatus)
+            .Where(method => method.Status is not PaymentMethodAuthorized)
             .Sum(method => method.Amount.Amount)
     };
 
