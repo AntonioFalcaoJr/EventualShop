@@ -6,7 +6,7 @@ using Version = Domain.ValueObjects.Version;
 
 namespace Domain.Abstractions.Aggregates;
 
-public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot<TId> 
+public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot<TId>
     where TId : IIdentifier, new()
 {
     private readonly Queue<IDomainEvent> _events = new();
@@ -14,7 +14,6 @@ public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot<TId>
 
     public void LoadFromStream(List<IDomainEvent> events) => events.ForEach(ApplyEvent);
     public bool TryDequeueEvent(out IDomainEvent @event) => _events.TryDequeue(out @event!);
-    private void EnqueueEvent(IDomainEvent @event) => _events.Enqueue(@event);
 
     protected void RaiseEvent(IDomainEvent @event)
     {
@@ -24,4 +23,5 @@ public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot<TId>
     }
 
     protected abstract void ApplyEvent(IDomainEvent @event);
+    private void EnqueueEvent(IDomainEvent @event) => _events.Enqueue(@event);
 }
