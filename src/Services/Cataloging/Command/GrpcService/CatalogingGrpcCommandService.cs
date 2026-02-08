@@ -16,8 +16,8 @@ public class CatalogingGrpcCommandService(ISender sender) : CatalogingCommandSer
         // TODO: Get AppId from context
         var appId = AppId.Undefined;
 
-        CreateCatalog create = new(appId, (Title)cmd.Title, (Description)cmd.Description /*, cmd.ImageUrl*/);
-        var catalogId = await sender.Send(create, context.CancellationToken);
+        RegisterCatalog register = new(appId, (Title)cmd.Title, (Description)cmd.Description /*, cmd.ImageUrl*/);
+        var catalogId = await sender.Send(register, context.CancellationToken);
         return Response.Created(catalogId);
     }
 
