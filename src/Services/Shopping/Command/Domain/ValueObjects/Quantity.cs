@@ -6,6 +6,9 @@ public record Quantity
 
     public Quantity(ushort quantity)
     {
+        if (quantity is 0)
+            throw new ArgumentOutOfRangeException(nameof(quantity), "Quantity must be greater than zero");
+        
         _value = quantity;
     }
 
@@ -14,7 +17,7 @@ public record Quantity
         quantity = quantity.Trim();
 
         if (ushort.TryParse(quantity, out var parsedQuantity) is false)
-            throw new ArgumentException("Quantity must be a valid number");
+            throw new ArgumentException("Quantity must be a valid number", nameof(quantity));
 
         ArgumentOutOfRangeException.ThrowIfZero(parsedQuantity);
 
