@@ -16,7 +16,7 @@ public static class ServiceCollectionExtensions
 {
     private const string SchedulerQueueName = "event-scheduler";
 
-    public static IServiceCollection AddMessageBusInfrastructure(this IServiceCollection services)
+    public static IServiceCollection AddEventBusInfrastructure(this IServiceCollection services)
         => services
             .ConfigureOptions()
             .AddEventBusGateway()
