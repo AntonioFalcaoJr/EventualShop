@@ -1,7 +1,5 @@
 using Contracts.Abstractions;
 using Contracts.Abstractions.Paging;
-using MongoDB.Driver;
-using MongoDB.Driver.Linq;
 
 namespace Infrastructure.Projections.Pagination;
 
