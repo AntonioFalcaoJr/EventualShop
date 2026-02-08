@@ -4,7 +4,7 @@ public record Title
 {
     private readonly string _value;
 
-    public Title(string productName)
+    private Title(string productName)
     {
         productName = productName.Trim();
         ArgumentException.ThrowIfNullOrEmpty(productName);
