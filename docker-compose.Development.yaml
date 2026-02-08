@@ -1,9 +1,8 @@
-version: "3.9"
-
 services:
   
   mssql:
     container_name: mssql
+    profiles: [ mssql, infra ]
     image: mcr.microsoft.com/mssql/server
     ports:
       - "1433:1433"
@@ -15,6 +14,7 @@ services:
   
   rabbitmq:
     container_name: rabbitmq
+    profiles: [ rabbitmq, infra ]
     image: rabbitmq:3-management-alpine
     ports:
       - "5672:5672"
@@ -28,6 +28,7 @@ services:
 
   mongodb:
     container_name: mongodb
+    profiles: [ mongo, infra ]
     image: mongo:5.0.14
     ports:
       - "27017:27017"
@@ -35,4 +36,43 @@ services:
       MONGO_INITDB_ROOT_USERNAME: "mongoadmin"
       MONGO_INITDB_ROOT_PASSWORD: "secret"
     healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongo mongodb:27017/test --quiet  
+      test: echo 'db.runCommand("ping").ok' | mongo mongodb:27017/test --quiet
+  
+  elasticsearch:
+    container_name: elasticsearch
+    profiles: [ elastic, infra ]
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.6.2
+    environment:
+      - discovery.type=single-node
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
+      - ELASTIC_USERNAME=search
+      - ELASTIC_PASSWORD=search
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://elasticsearch:9200/_cluster/health" ]
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+      - "9300"
+
+  kibana:
+    container_name: kibana
+    profiles: [ elastic, infra ]
+    image: docker.elastic.co/kibana/kibana:8.6.2
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+      ELASTICSEARCH_USERNAME: search
+      ELASTICSEARCH_PASSWORD: search
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://kibana:5601/api/status" ]
+    ports:
+      - "5601:5601"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy     
