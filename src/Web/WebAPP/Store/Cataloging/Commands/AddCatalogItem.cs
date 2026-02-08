@@ -27,6 +27,6 @@ public class AddCatalogItemEffect(IAddCatalogItemApi api) : Effect<AddCatalogIte
 
         dispatcher.Dispatch(response.IsSuccessStatusCode
             ? new CatalogItemAdded(cmd.NewItem)
-            : new CatalogItemAddingFailed((response.Error?.Message ?? response.ReasonPhrase)!));
+            : new CatalogItemAddingFailed(response.Error?.Message ?? "Unknown error"));
     }
 }
