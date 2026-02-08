@@ -1,6 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
+        <PackageReference Include="Bogus" />
         <PackageReference Include="FluentResults" />
+        <PackageReference Include="JsonNet.ContractResolvers" />
         <PackageReference Include="LanguageExt.Core" />
         <PackageReference Include="MassTransit" />
         <PackageReference Include="MediatR" />
