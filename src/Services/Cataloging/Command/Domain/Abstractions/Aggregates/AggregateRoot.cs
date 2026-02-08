@@ -16,6 +16,9 @@ public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot<TId>
     public bool TryDequeueEvent(out IDomainEvent @event) => _events.TryDequeue(out @event!);
     private void EnqueueEvent(IDomainEvent @event) => _events.Enqueue(@event);
 
+    protected void RaiseEvent<TEvent>(TEvent @event) where TEvent : IDomainEvent 
+        => RaiseEvent(@event as IDomainEvent);
+
     protected void RaiseEvent(IDomainEvent @event)
     {
         AggregateIsDeleted.ThrowIf(IsDeleted);
