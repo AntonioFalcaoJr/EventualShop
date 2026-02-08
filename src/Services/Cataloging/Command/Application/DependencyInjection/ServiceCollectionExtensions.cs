@@ -8,6 +8,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
         => services
+            .AddScoped<ISeeder, Seeder>()
             .AddScoped<IApplicationService, ApplicationService>()
             .AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 }
