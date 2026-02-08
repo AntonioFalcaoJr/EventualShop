@@ -5,7 +5,7 @@ namespace Contracts.Boundaries.Cataloging.Catalog;
 
 public static class DomainEvent
 {
-    public record CatalogCreated(string CatalogId, string AppId, string Title, string Description, ulong Version) : Message, IDomainEvent;
+    public record CatalogRegistered(string CatalogId, string AppId, string Title, string Description, string Status, ulong Version) : Message, IDomainEvent;
 
     public record CatalogDeleted(string CatalogId, string Status, ulong Version) : Message, IDomainEvent;
 
