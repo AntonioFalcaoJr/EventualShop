@@ -17,12 +17,12 @@ public class Product : AggregateRoot<ProductId>
     public Quantity Inventory { get; private set; } = Quantity.Zero;
     public Money Cost { get; private set; } = Money.Zero(Currency.Undefined);
 
-    public static Product Register(InventoryItemId inventoryItemId, ProductName name, Cost cost, Quantity quantity)
+    public void Register(InventoryItemId inventoryItemId, ProductName name, Cost cost, Quantity quantity)
     {
-        Product product = new();
-        DomainEvent.ProductRegistered @event = new(ProductId.New, inventoryItemId, name, cost.Currency, cost.Amount, quantity, Version.Initial);
-        product.RaiseEvent(@event);
-        return product;
+        ProductAlreadyRegistered.ThrowIf(inventoryItemId == InventoryItemId.Undefined);
+        
+        RaiseEvent<DomainEvent.ProductRegistered>(new(ProductId.New, inventoryItemId, 
+            name, cost.Currency, cost.Amount, quantity, Version.Initial));
     }
 
     public void TakeInventory(Quantity quantity)
@@ -67,20 +67,29 @@ public class Product : AggregateRoot<ProductId>
     private void When(DomainEvent.ProductRegistered @event)
     {
         Id = (ProductId)@event.ProductId;
+        InventoryItemId = (InventoryItemId)@event.InventoryItemId;
         Name = (ProductName)@event.ProductName;
         Cost = new((Amount)@event.CostAmount, (Currency)@event.CostCurrency);
         Inventory = (Quantity)@event.InitialInventory;
+        Version = (Version)@event.Version;
     }
 
     private void When(DomainEvent.ProductInventoryTaken @event)
-        => Inventory = (Quantity)@event.NewInventory;
-    
+    {
+        Inventory = (Quantity)@event.NewInventory;
+        Version = (Version)@event.Version;
+    }
+
     private void When(DomainEvent.ProductInventoryReturned @event)
-        => Inventory = (Quantity)@event.NewInventory;
-    
+    {
+        Inventory = (Quantity)@event.NewInventory;
+        Version = (Version)@event.Version;
+    }
+
     private void When(DomainEvent.ProductInventoryUpdated @event)
     {
         Inventory = (Quantity)@event.NewInventory;
         InventoryItemVersion = (Version)@event.NewInventoryItemVersion;
+        Version = (Version)@event.Version;
     }
 }
