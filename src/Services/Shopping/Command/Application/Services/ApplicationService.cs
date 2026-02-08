@@ -1,4 +1,5 @@
 using Application.Abstractions;
+using Application.Abstractions.Gateways;
 using Contracts.Abstractions.Messages;
 using Domain.Abstractions.Aggregates;
 using Domain.Abstractions.EventStore;
@@ -20,6 +21,23 @@ public class ApplicationService(IEventStoreGateway eventStore, IEventBusGateway 
         AggregateNotFound.ThrowIf(snapshot is null && events.Count is 0);
 
         var aggregate = snapshot?.Aggregate ?? new();
+        aggregate.LoadFromStream(events);
+
+        AggregateIsDeleted.ThrowIf(aggregate.IsDeleted);
+
+        return aggregate;
+    }
+    
+    public async Task<TAggregate> LoadOrInitializeAggregateAsync<TAggregate, TId>(TId id, CancellationToken token)
+        where TAggregate : class, IAggregateRoot<TId>, new()
+        where TId : IIdentifier, new()
+    {
+        var snapshot = await eventStore.GetSnapshotAsync<TAggregate, TId>(id, token);
+        var events = await eventStore.GetStreamAsync<TAggregate, TId>(id, snapshot?.Version ?? Version.Zero, token);
+
+        if (snapshot is null && events.Count is 0) return new TAggregate();
+
+        var aggregate = snapshot?.Aggregate ?? new TAggregate();
         aggregate.LoadFromStream(events);
 
         AggregateIsDeleted.ThrowIf(aggregate.IsDeleted);
