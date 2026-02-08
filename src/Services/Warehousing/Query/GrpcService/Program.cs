@@ -40,6 +40,7 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddMessageValidators();
     services.AddProjections();
     services.AddInteractors();
+    services.AddSearchEngine();
 
     services.ConfigureEventBusOptions(
         context.Configuration.GetSection(nameof(EventBusOptions)));
