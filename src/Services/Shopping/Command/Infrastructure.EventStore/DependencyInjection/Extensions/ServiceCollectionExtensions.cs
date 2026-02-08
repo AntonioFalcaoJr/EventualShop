@@ -25,7 +25,7 @@ public static class ServiceCollectionExtensions
                     .EnableDetailedErrors()
                     .EnableSensitiveDataLogging()
                     .UseSqlServer(
-                        connectionString: configuration.GetConnectionString("EventStore"),
+                        connectionString: configuration.GetConnectionString("MsSQL"),
                         sqlServerOptionsAction: optionsBuilder
                             => optionsBuilder.ExecutionStrategy(
                                     dependencies => new SqlServerRetryingExecutionStrategy(
