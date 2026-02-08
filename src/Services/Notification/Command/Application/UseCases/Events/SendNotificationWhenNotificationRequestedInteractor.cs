@@ -6,7 +6,7 @@ using Domain.Aggregates;
 
 namespace Application.UseCases.Events;
 
-public interface ISendNotificationWhenNotificationRequestedInteractor : IInteractor<DomainEvent.NotificationRequested> { }
+public interface ISendNotificationWhenNotificationRequestedInteractor : IInteractor<DomainEvent.NotificationRequested>;
 
 public class SendNotificationWhenNotificationRequestedInteractor(IApplicationService service, INotificationService notificationService)
     : ISendNotificationWhenNotificationRequestedInteractor
