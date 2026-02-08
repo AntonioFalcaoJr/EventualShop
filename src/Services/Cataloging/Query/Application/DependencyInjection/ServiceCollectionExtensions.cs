@@ -8,7 +8,7 @@ namespace Application.DependencyInjection;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddInteractors(this IServiceCollection services)
+    public static IServiceCollection AddApplication(this IServiceCollection services)
         => services
             .AddEventInteractors()
             .AddQueryInteractors();
