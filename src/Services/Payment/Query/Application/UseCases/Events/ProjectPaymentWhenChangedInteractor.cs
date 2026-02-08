@@ -5,7 +5,7 @@ namespace Application.UseCases.Events;
 
 public interface IProjectPaymentWhenChangedInteractor :
     IInteractor<DomainEvent.PaymentCanceled>,
-    IInteractor<DomainEvent.PaymentRequested> { }
+    IInteractor<DomainEvent.PaymentRequested>;
 
 public class ProjectPaymentWhenChangedInteractor(IProjectionGateway<Projection.PaymentDetails> projectionGateway)
     : IProjectPaymentWhenChangedInteractor
