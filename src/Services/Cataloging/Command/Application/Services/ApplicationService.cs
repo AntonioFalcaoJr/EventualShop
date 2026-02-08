@@ -8,7 +8,8 @@ using Version = Domain.ValueObjects.Version;
 
 namespace Application.Services;
 
-public class ApplicationService(IEventStoreGateway eventStore, IEventBusGateway eventBus, IUnitOfWork unitOfWork) : IApplicationService
+public class ApplicationService(IEventStoreGateway eventStore, IEventBusGateway eventBus, IUnitOfWork unitOfWork)
+    : IApplicationService
 {
     public async Task<TAggregate> LoadAggregateAsync<TAggregate, TId>(TId id, CancellationToken token)
         where TAggregate : class, IAggregateRoot<TId>, new()
@@ -27,19 +28,41 @@ public class ApplicationService(IEventStoreGateway eventStore, IEventBusGateway 
         return aggregate;
     }
 
+    public async Task<TAggregate> LoadAggregateByReferenceIdAsync<TAggregate, TId>(string referenceId, CancellationToken token) 
+        where TAggregate : class, IAggregateRoot<TId>, new() 
+        where TId : IIdentifier, new()
+    {
+        var snapshot = await eventStore.GetSnapshotAsync<TAggregate, TId>(id, token);
+        var events = await eventStore.GetStreamAsync<TAggregate, TId>(id, snapshot?.Version ?? Version.Zero, token);
+
+        AggregateNotFound.ThrowIf(snapshot is null && events.Count is 0);
+
+        var aggregate = snapshot?.Aggregate ?? new();
+        aggregate.LoadFromStream(events);
+
+        AggregateIsDeleted.ThrowIf(aggregate.IsDeleted);
+
+        return aggregate;
+    }
+
     public Task AppendEventsAsync<TAggregate, TId>(TAggregate aggregate, CancellationToken token)
+        where TAggregate : IAggregateRoot<TId>
+        where TId : IIdentifier, new() 
+        => AppendEventsAsync<TAggregate, TId>(aggregate, null, token);
+
+    public Task AppendEventsAsync<TAggregate, TId>(TAggregate aggregate, string? referenceId, CancellationToken token)
         where TAggregate : IAggregateRoot<TId>
         where TId : IIdentifier, new()
         => unitOfWork.ExecuteAsync(operationAsync: async ct =>
         {
             while (aggregate.TryDequeueEvent(out var @event))
             {
-                var storeEvent = StoreEvent<TAggregate, TId>.Create(aggregate, @event);
+                var storeEvent = StoreEvent<TAggregate, TId>.Create(aggregate, @event, referenceId);
                 await eventStore.AppendAsync(storeEvent, ct);
 
                 if (storeEvent.Version % Version.Number(10))
                 {
-                    var snapshot = Snapshot<TAggregate, TId>.Create(aggregate, storeEvent);
+                    var snapshot = Snapshot<TAggregate, TId>.Create(aggregate, storeEvent, referenceId);
                     await eventStore.AppendAsync(snapshot, ct);
                 }
 
