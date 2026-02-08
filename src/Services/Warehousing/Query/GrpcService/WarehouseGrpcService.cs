@@ -1,14 +1,15 @@
 using Application.Abstractions;
 using Contracts.Abstractions.Protobuf;
-using Contracts.Boundaries.Warehouse;
+using Contracts.Boundaries.Warehouse.Inventory;
 using Contracts.Services.Warehouse.Protobuf;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 
 namespace GrpcService;
 
-public class WarehouseGrpcService(IPagedInteractor<Query.ListInventoryItemsListItems, Projection.InventoryItemListItem> listInventoryGridItemsInteractor,
-        IPagedInteractor<Query.ListInventoryGridItems, Projection.InventoryGridItem> listInventoriesItemsCardsInteractor)
+public class WarehouseGrpcService(
+    IPagedInteractor<Query.ListInventoryItemsListItems, Projection.InventoryItemListItem> listInventoryGridItemsInteractor,
+    IPagedInteractor<Query.ListInventoryGridItems, Projection.InventoryGridItem> listInventoriesItemsCardsInteractor)
     : WarehouseService.WarehouseServiceBase
 {
     public override async Task<ListResponse> ListInventoryItems(ListInventoryItemsListItemsRequest request, ServerCallContext context)
