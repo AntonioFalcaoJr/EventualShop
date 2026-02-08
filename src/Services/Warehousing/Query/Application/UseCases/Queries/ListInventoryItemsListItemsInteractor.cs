@@ -1,6 +1,6 @@
 using Application.Abstractions;
 using Contracts.Abstractions.Paging;
-using Contracts.Boundaries.Warehouse;
+using Contracts.Boundaries.Warehouse.Inventory;
 
 namespace Application.UseCases.Queries;
 
