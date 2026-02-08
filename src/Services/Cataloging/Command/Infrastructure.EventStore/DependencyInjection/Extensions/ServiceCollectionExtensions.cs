@@ -18,17 +18,17 @@ public static class ServiceCollectionExtensions
             .AddScoped<IEventStoreGateway, EventStoreGateway>()
             .AddDbContextPool<DbContext, EventStoreDbContext>((provider, builder) =>
             {
-                var configuration = provider.GetRequiredService<IConfiguration>();
+                var connectionString = provider.GetRequiredService<IConfiguration>().GetConnectionString("MsSQL");
                 var options = provider.GetRequiredService<IOptions<SqlServerRetryOptions>>().Value;
 
                 builder
                     .EnableDetailedErrors()
                     .EnableSensitiveDataLogging()
                     .UseSqlServer(
-                        connectionString: configuration.GetConnectionString("EventStore"),
+                        connectionString: connectionString,
                         sqlServerOptionsAction: optionsBuilder
-                            => optionsBuilder.ExecutionStrategy(
-                                    dependencies => new SqlServerRetryingExecutionStrategy(
+                            => optionsBuilder.ExecutionStrategy(dependencies
+                                    => new SqlServerRetryingExecutionStrategy(
                                         dependencies: dependencies,
                                         maxRetryCount: options.MaxRetryCount,
                                         maxRetryDelay: options.MaxRetryDelay,
