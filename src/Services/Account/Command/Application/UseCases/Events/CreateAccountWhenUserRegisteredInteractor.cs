@@ -6,7 +6,7 @@ using Command = Contracts.Boundaries.Account.Command;
 
 namespace Application.UseCases.Events;
 
-public interface ICreateAccountWhenUserRegisteredInteractor : IInteractor<DomainEvent.UserRegistered> { }
+public interface ICreateAccountWhenUserRegisteredInteractor : IInteractor<DomainEvent.UserRegistered>;
 
 public class CreateAccountWhenUserRegisteredInteractor(IApplicationService service) : ICreateAccountWhenUserRegisteredInteractor
 {
