@@ -6,7 +6,6 @@ using Domain.Entities.CartItems;
 using Domain.Enumerations;
 using Domain.Extensions;
 using Domain.ValueObjects;
-using Newtonsoft.Json;
 using static Domain.Exceptions;
 using Version = Domain.ValueObjects.Version;
 
@@ -14,29 +13,28 @@ namespace Domain.Aggregates.ShoppingCarts;
 
 public class ShoppingCart : AggregateRoot<CartId>
 {
-    [JsonProperty]
     private readonly Dictionary<ProductId, CartItem> _items = new();
 
-    [JsonProperty]
     private IDictionary<Currency, Money> _totals =
         Currency.All.ToDictionary(Currency (currency) => currency, Money.Zero);
 
     public CustomerId CustomerId { get; private set; } = CustomerId.Undefined;
-    public CartStatus Status { get; private set; } = CartStatus.Empty;
-    public IDictionary<Currency, Money> Totals => _totals.AsReadOnly();
-    public IEnumerable<CartItem> Items => _items.Values;
+    public CartStatus Status { get; private set; } = CartStatus.CartFree;
 
-    public static ShoppingCart StartShopping(CustomerId customerId)
+    public IDictionary<Currency, Money> Totals => _totals.AsReadOnly();
+    public IDictionary<ProductId, CartItem> Items => _items.AsReadOnly();
+
+    public void StartShopping(CustomerId customerId)
     {
-        ShoppingCart cart = new();
-        DomainEvent.ShoppingStarted @event = new(cart.Id, customerId, CartStatus.Open, Version.Initial);
-        cart.RaiseEvent(@event);
-        return cart;
+        CartNotOpen.ThrowIf(Status is not CartEmpty);
+        RaiseEvent(new DomainEvent.ShoppingStarted(Id, customerId, CartStatus.Open, Version.Initial));
     }
 
     public void AddItem(CartItem newItem)
     {
-        CartNotOpen.ThrowIf(Status is not CartStatusOpen);
+        CartNotOpen.ThrowIf(Status is not CartOpen);
+        // TODO: Define the business rule to the cart full exception
+        //CartIsFull.ThrowIf(_items.Count >= 50);
 
         _items.TryGetValue(newItem.ProductId, out var item);
 
@@ -53,30 +51,32 @@ public class ShoppingCart : AggregateRoot<CartId>
 
     public void ChangeItemQuantity(ProductId productId, Quantity newQuantity)
     {
-        CartNotOpen.ThrowIf(Status is not CartStatusOpen);
+        CartNotOpen.ThrowIf(Status is not CartOpen);
 
         _items.TryGetValue(productId, out var item);
 
         CartItemNotFound.ThrowIf(item is not { IsDeleted: false });
 
+        if (newQuantity == item!.Quantity) return;
+
         RaiseEvent(newQuantity switch
         {
             _ when newQuantity == Quantity.Zero => ItemRemoved(),
-            _ when newQuantity < item!.Quantity => ItemDecreased(),
+            _ when newQuantity < item.Quantity => ItemDecreased(),
             _ when newQuantity > item.Quantity => ItemIncreased(),
             _ => InvalidQuantity.Throw()
         });
 
-        DomainEvent.CartItemIncreased ItemIncreased() =>
-            new(Id, item.Id, item.ProductId, newQuantity, item.Prices.AsString(),
+        DomainEvent.CartItemRemoved ItemRemoved() =>
+            new(Id, item.Id, item.ProductId, item.Prices.AsString(),
                 Totals.Project(item.Prices, newQuantity), Version.Next);
 
         DomainEvent.CartItemDecreased ItemDecreased() =>
             new(Id, item.Id, item.ProductId, newQuantity, item.Prices.AsString(),
                 Totals.Project(item.Prices, newQuantity), Version.Next);
 
-        DomainEvent.CartItemRemoved ItemRemoved() =>
-            new(Id, item!.Id, item.ProductId, item.Prices.AsString(),
+        DomainEvent.CartItemIncreased ItemIncreased() =>
+            new(Id, item.Id, item.ProductId, newQuantity, item.Prices.AsString(),
                 Totals.Project(item.Prices, newQuantity), Version.Next);
     }
 
@@ -85,14 +85,14 @@ public class ShoppingCart : AggregateRoot<CartId>
         _items.TryGetValue(productId, out var item);
 
         CartItemNotFound.ThrowIf(item is not { IsDeleted: false });
-        
-        RaiseEvent(new DomainEvent.CartItemRemoved(Id, item!.Id, item.ProductId, 
+
+        RaiseEvent(new DomainEvent.CartItemRemoved(Id, item!.Id, item.ProductId,
             item.Prices.AsString(), Totals.Project(item.Prices, Quantity.Zero), Version.Next));
     }
 
     public void CheckOut()
     {
-        CartNotOpen.ThrowIf(Status is not CartStatusOpen);
+        CartNotOpen.ThrowIf(Status is not CartOpen);
         CartIsEmpty.ThrowIf(_items is { Count: 0 });
 
         RaiseEvent(new DomainEvent.CartCheckedOut(Id, CartStatus.CheckedOut, Version.Next));
@@ -100,7 +100,7 @@ public class ShoppingCart : AggregateRoot<CartId>
 
     public void Discard()
     {
-        if (Status is CartStatusAbandoned) return;
+        if (Status is CartAbandoned) return;
         RaiseEvent(new DomainEvent.CartDiscarded(Id, CartStatus.Abandoned, Version.Next));
     }
 
@@ -111,14 +111,19 @@ public class ShoppingCart : AggregateRoot<CartId>
         Id = (CartId)@event.CartId;
         CustomerId = (CustomerId)@event.CustomerId;
         Status = (CartStatus)@event.Status;
+        Version = (Version)@event.Version;
     }
 
     private void When(DomainEvent.CartCheckedOut @event)
-        => Status = (CartStatus)@event.Status;
+    {
+        Status = (CartStatus)@event.Status;
+        Version = (Version)@event.Version;
+    }
 
     private void When(DomainEvent.CartDiscarded @event)
     {
         Status = (CartStatus)@event.Status;
+        Version = (Version)@event.Version;
         IsDeleted = true;
     }
 
@@ -130,6 +135,7 @@ public class ShoppingCart : AggregateRoot<CartId>
         var pictureUri = (PictureUri)@event.PictureUri;
         var sku = (Sku)@event.Sku;
         var quantity = (Quantity)@event.Quantity;
+        Version = (Version)@event.Version;
 
         var prices = @event.Prices.ToPriceDictionary();
 
@@ -142,6 +148,7 @@ public class ShoppingCart : AggregateRoot<CartId>
     {
         var productId = (ProductId)@event.ProductId;
         var newQuantity = (Quantity)@event.NewQuantity;
+        Version = (Version)@event.Version;
 
         _items[productId].SetQuantity(newQuantity);
         _totals = @event.Totals.ToMoneyDictionary();
@@ -151,6 +158,7 @@ public class ShoppingCart : AggregateRoot<CartId>
     {
         var productId = (ProductId)@event.ProductId;
         var newQuantity = (Quantity)@event.NewQuantity;
+        Version = (Version)@event.Version;
 
         _items[productId].SetQuantity(newQuantity);
         _totals = @event.Totals.ToMoneyDictionary();
@@ -159,6 +167,7 @@ public class ShoppingCart : AggregateRoot<CartId>
     private void When(DomainEvent.CartItemRemoved @event)
     {
         var productId = (ProductId)@event.ProductId;
+        Version = (Version)@event.Version;
 
         _items[productId].Delete();
         _totals = @event.Totals.ToMoneyDictionary();
