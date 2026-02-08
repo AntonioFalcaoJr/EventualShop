@@ -1,0 +1,21 @@
+﻿namespace Domain.ValueObjects;
+
+public record Description
+{
+    private readonly string _value;
+
+    public static Description Undefined => new(string.Empty);
+    
+    private Description(string description)
+    {
+        description = description.Trim();
+        ArgumentException.ThrowIfNullOrEmpty(description);
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(description.Length, 500);
+
+        _value = description;
+    }
+
+    public static implicit operator string(Description description) => description._value;
+    public static explicit operator Description(string description) => new(description);
+    public override string ToString() => _value;
+}
