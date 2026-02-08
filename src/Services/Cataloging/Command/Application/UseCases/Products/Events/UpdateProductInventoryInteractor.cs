@@ -1,7 +1,6 @@
 using Application.Services;
 using Contracts.Boundaries.Warehouse.Inventory;
 using Domain.Aggregates;
-using Domain.Aggregates.Products;
 using Domain.ValueObjects;
 using MediatR;
 using Version = Domain.ValueObjects.Version;
