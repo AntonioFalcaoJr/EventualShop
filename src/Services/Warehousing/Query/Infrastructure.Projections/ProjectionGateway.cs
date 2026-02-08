@@ -33,9 +33,9 @@ public class ProjectionGateway<TProjection>(IMongoDbContext context) : IProjecti
     public Task DeleteAsync<TId>(TId id, CancellationToken cancellationToken) where TId : struct
         => _collection.DeleteOneAsync(projection => projection.Id.Equals(id), cancellationToken);
 
-    public Task UpdateFieldAsync<TField, TId>(TId id, ulong version, Expression<Func<TProjection, TField>> field, TField value, CancellationToken cancellationToken) where TId : struct
-        => _collection.UpdateOneAsync(
-            filter: projection => projection.Id.Equals(id) && projection.Version < version,
+    public Task UpdateFieldAsync<TField, TId>(TId id, string version, Expression<Func<TProjection, TField>> field, TField value, CancellationToken cancellationToken) where TId : struct
+        => _collection.UpdateOneAsync( // TODO: IProjection should be moved to the Application Level instead of Contracts and Version VO should be the property.
+            filter: projection => projection.Id.Equals(id) && Version.Number(projection.Version) < Version.Number(version),
             update: new ObjectUpdateDefinition<TProjection>(new()).Set(field, value),
             cancellationToken: cancellationToken);
 
