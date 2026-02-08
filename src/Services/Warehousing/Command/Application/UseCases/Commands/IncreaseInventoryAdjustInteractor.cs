@@ -1,7 +1,7 @@
 ﻿using Application.Abstractions;
 using Application.Services;
-using Contracts.Boundaries.Warehouse;
-using Domain.Aggregates;
+using Contracts.Boundaries.Warehouse.Inventory;
+using Domain.Aggregates.Inventories;
 
 namespace Application.UseCases.Commands;
 
