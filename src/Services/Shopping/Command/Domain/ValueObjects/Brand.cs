@@ -9,13 +9,13 @@ public record Brand
     {
         name = name.Trim();
         prefix = prefix.Trim();
-        
+
         ArgumentException.ThrowIfNullOrEmpty(name);
         ArgumentException.ThrowIfNullOrEmpty(prefix);
-        
+
         ArgumentOutOfRangeException.ThrowIfGreaterThan(name.Length, 30);
         ArgumentOutOfRangeException.ThrowIfGreaterThan(prefix.Length, 5);
-      
+
         _name = name;
         _prefix = prefix;
     }
