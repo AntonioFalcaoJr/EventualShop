@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions;
-using Contracts.Boundaries.Warehouse;
+using Contracts.Boundaries.Warehouse.Inventory;
 using Infrastructure.EventBus.Abstractions;
 
 namespace Infrastructure.EventBus.Consumers.Commands;
