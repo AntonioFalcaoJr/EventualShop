@@ -8,24 +8,20 @@ using MediatR;
 
 namespace Application.UseCases.CatalogItems.Commands;
 
-public record CreateCatalogItem(AppId AppId, CatalogId CatalogId, ProductId ProductId, Quantity Quantity) : IRequest;
+public record AssociateCatalogItem(AppId AppId, CatalogId CatalogId, InventoryItemId InventoryItemId, Quantity Quantity) : IRequest;
 
-public class CreateCatalogItemInteractor(IApplicationService service) : IRequestHandler<CreateCatalogItem>
+public class CreateCatalogItemInteractor(IApplicationService service) : IRequestHandler<AssociateCatalogItem>
 {
-    public async Task Handle(CreateCatalogItem cmd, CancellationToken token)
+    public async Task Handle(AssociateCatalogItem cmd, CancellationToken token)
     {
-        var product = await service.LoadAggregateAsync<Product, ProductId>(cmd.ProductId, token);
+        var product = await service.LoadAggregateByReferenceIdAsync<Product, ProductId>(cmd.InventoryItemId, token);
 
         product.TakeInventory(cmd.Quantity);
 
-        var newItem = CatalogItem.Create(
-            cmd.AppId,
-            cmd.CatalogId,
-            cmd.ProductId,
-            cmd.Quantity);
+        CatalogItem item = new();
+        item.Associate(cmd.AppId, cmd.CatalogId, cmd.ProductId, cmd.Quantity);
 
-        // TODO: The design should be improved to do not handle multiple aggregates in a single transaction
-        await service.AppendEventsAsync<CatalogItem, CatalogItemId>(newItem, token);
         await service.AppendEventsAsync<Product, ProductId>(product, token);
+        await service.AppendEventsAsync<CatalogItem, CatalogItemId>(item, token);
     }
 }
