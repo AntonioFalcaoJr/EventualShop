@@ -1,5 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
+        <PackageReference Include="FluentResults" />
+        <PackageReference Include="LanguageExt.Core" />
+        <PackageReference Include="MediatR" />
+    </ItemGroup>
+    <ItemGroup>
         <ProjectReference Include="..\..\..\..\Contracts\Contracts.csproj" />
     </ItemGroup>
 </Project>
