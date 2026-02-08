@@ -4,12 +4,12 @@ using MassTransit;
 
 namespace Infrastructure.EventBus.Consumers.Events;
 
-public class ProjectAccountDetailsWhenAccountChangedInteractor(IProjectAccountDetailsWhenAccountChangedInteractor interactor)
-    :
-        IConsumer<DomainEvent.AccountCreated>,
-        IConsumer<DomainEvent.AccountDeleted>,
-        IConsumer<DomainEvent.AccountActivated>,
-        IConsumer<DomainEvent.AccountDeactivated>
+public class ProjectAccountDetailsWhenAccountChangedInteractor(
+    IProjectAccountDetailsWhenAccountChangedInteractor interactor) :
+    IConsumer<DomainEvent.AccountCreated>,
+    IConsumer<DomainEvent.AccountDeleted>,
+    IConsumer<DomainEvent.AccountActivated>,
+    IConsumer<DomainEvent.AccountDeactivated>
 {
     public Task Consume(ConsumeContext<DomainEvent.AccountCreated> context)
         => interactor.InteractAsync(context.Message, context.CancellationToken);
