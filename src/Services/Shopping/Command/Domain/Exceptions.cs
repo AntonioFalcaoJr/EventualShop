@@ -21,8 +21,9 @@ public static class Exceptions
     public class InvalidCardholderName() : DomainException<InvalidCardholderName>("Invalid cardholder name.");
     public class InvalidIdentifier() : DomainException<InvalidIdentifier>("Invalid identifier.");
     public class AggregateNotFound() : DomainException<AggregateNotFound>("Aggregate not found.");
-    public class ProductInventoryNotEnough() : DomainException<ProductInventoryNotEnough>("Product inventory is not enough");
+    public class InsufficientStockException() : DomainException<InsufficientStockException>("Product inventory is not enough");
     public class AggregateIsDeleted() : DomainException<AggregateIsDeleted>("Aggregate is deleted.");
     public class VersionMustBePositive() : DomainException<VersionMustBePositive>("Version must be a positive number.");
     public class VersionFormatException() : DomainException<VersionFormatException>("Version must be a positive number.");
+    public class ReservationNotFound() : DomainException<ReservationNotFound>("Reservation not found.");
 }
