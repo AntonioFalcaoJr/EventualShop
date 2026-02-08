@@ -15,14 +15,9 @@ public class Checkout : AggregateRoot<CheckoutId>
     public Address ShippingAddress { get; private set; } = Address.Undefined;
     public Address BillingAddress { get; private set; } = Address.Undefined;
 
-    public static Checkout StartCheckout(CartId cartId)
-    {
-        Checkout checkout = new();
-        DomainEvent.CheckoutStarted @event = new(checkout.Id, cartId, Version.Initial);
-        checkout.RaiseEvent(@event);
-        return checkout;
-    }
-
+    public void StartCheckout(CartId cartId)
+        => RaiseEvent(new DomainEvent.CheckoutStarted(Id, cartId, Version.Initial));
+    
     public void AddCreditCard(CreditCard card)
     {
         if (PaymentMethod.Equals(card)) return;
