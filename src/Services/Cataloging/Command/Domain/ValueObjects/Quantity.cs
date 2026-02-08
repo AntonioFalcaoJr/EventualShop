@@ -32,7 +32,7 @@ public record Quantity
     public static Quantity Zero { get; } = new(ushort.MinValue);
     public static Quantity Max { get; } = new(ushort.MaxValue);
 
-    public static Quantity Number(ushort quantity) => new(quantity);
+    public static Quantity Number(int quantity) => new(quantity);
     public static explicit operator Quantity(ushort quantity) => new(quantity);
     public static implicit operator ushort(Quantity quantity) => quantity._value;
     public static explicit operator Quantity(string quantity) => new(quantity);
