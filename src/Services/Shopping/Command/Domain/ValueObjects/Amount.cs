@@ -8,13 +8,16 @@ public record Amount
 
     private Amount(string amount)
     {
-        _value = decimal.Parse(amount, NumberStyles.Number, CultureInfo.InvariantCulture);
+        decimal.TryParse(amount, NumberStyles.Currency,NumberFormatInfo.CurrentInfo, out var currency);
+        decimal.TryParse(amount, NumberStyles.AllowCurrencySymbol, NumberFormatInfo.InvariantInfo, out var currencySymbol);
+        decimal.TryParse(amount, NumberStyles.Any, NumberFormatInfo.InvariantInfo, out var any);
+
+        _value = 1;
+
+        // _value = decimal.Parse(amount, NumberStyles.Currency, NumberFormatInfo.InvariantInfo);
     }
 
-    public Amount(decimal amount)
-    {
-        _value = amount;
-    }
+    public Amount(decimal amount) => _value = amount;
 
     public static Amount Zero => new(decimal.Zero);
 
