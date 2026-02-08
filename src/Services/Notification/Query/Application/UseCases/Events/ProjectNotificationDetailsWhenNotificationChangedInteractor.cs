@@ -3,7 +3,7 @@ using Contracts.Boundaries.Notification;
 
 namespace Application.UseCases.Events;
 
-public interface IProjectNotificationDetailsWhenNotificationChangedInteractor : IInteractor<DomainEvent.NotificationRequested> { }
+public interface IProjectNotificationDetailsWhenNotificationChangedInteractor : IInteractor<DomainEvent.NotificationRequested>;
 
 public class ProjectNotificationDetailsWhenNotificationChangedInteractor(IProjectionGateway<Projection.NotificationDetails> projectionGateway)
     : IProjectNotificationDetailsWhenNotificationChangedInteractor
