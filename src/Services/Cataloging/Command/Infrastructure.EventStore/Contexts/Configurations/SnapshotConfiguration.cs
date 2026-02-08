@@ -28,6 +28,11 @@ public abstract class SnapshotConfiguration<TAggregate, TId> : IEntityTypeConfig
         builder.HasKey(snapshot => new { snapshot.Version, snapshot.AggregateId });
 
         builder
+            .Property(@event => @event.ReferenceId)
+            .IsRequired(false)
+            .IsUnicode(false);
+        
+        builder
             .Property(snapshot => snapshot.Aggregate)
             .HasConversion<AggregateConverter<TAggregate, TId>>()
             .IsRequired();
