@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions;
-using Contracts.Boundaries.Warehouse;
+using Contracts.Boundaries.Warehouse.Inventory;
 
 namespace Application.UseCases.Events;
 
@@ -7,13 +7,15 @@ public interface IProjectInventoryItemListItemWhenInventoryItemChangedInteractor
     IInteractor<DomainEvent.InventoryAdjustmentDecreased>,
     IInteractor<DomainEvent.InventoryAdjustmentIncreased>,
     IInteractor<DomainEvent.InventoryItemIncreased>,
-    IInteractor<DomainEvent.InventoryItemReceived> { }
+    IInteractor<DomainEvent.InventoryItemReceived>;
 
-public class ProjectInventoryItemListItemWhenInventoryItemChangedInteractor(IProjectionGateway<Projection.InventoryItemListItem> projectionGateway)
+public class ProjectInventoryItemListItemWhenInventoryItemChangedInteractor(
+    IProjectionGateway<Projection.InventoryItemListItem> projectionGateway,
+    ISearchGateway gateway)
     : IProjectInventoryItemListItemWhenInventoryItemChangedInteractor
 {
     public async Task InteractAsync(DomainEvent.InventoryAdjustmentDecreased @event, CancellationToken cancellationToken)
-        => await projectionGateway.UpdateFieldAsync(
+        => await gateway.UpdateFieldAsync(
             id: @event.ItemId,
             version: @event.Version,
             field: item => item.Quantity,
@@ -21,7 +23,7 @@ public class ProjectInventoryItemListItemWhenInventoryItemChangedInteractor(IPro
             cancellationToken: cancellationToken);
 
     public async Task InteractAsync(DomainEvent.InventoryAdjustmentIncreased @event, CancellationToken cancellationToken)
-        => await projectionGateway.UpdateFieldAsync(
+        => await gateway.UpdateFieldAsync(
             id: @event.ItemId,
             version: @event.Version,
             field: item => item.Quantity,
@@ -29,7 +31,7 @@ public class ProjectInventoryItemListItemWhenInventoryItemChangedInteractor(IPro
             cancellationToken: cancellationToken);
 
     public async Task InteractAsync(DomainEvent.InventoryItemIncreased @event, CancellationToken cancellationToken)
-        => await projectionGateway.UpdateFieldAsync(
+        => await gateway.UpdateFieldAsync(
             id: @event.ItemId,
             version: @event.Version,
             field: item => item.Quantity,
@@ -38,8 +40,8 @@ public class ProjectInventoryItemListItemWhenInventoryItemChangedInteractor(IPro
 
     public async Task InteractAsync(DomainEvent.InventoryItemReceived @event, CancellationToken cancellationToken)
     {
-        Projection.InventoryItemListItem inventoryItemListItem = new(
-            @event.ItemId,
+        Projection.InventoryItemListItem itemListItem = new(
+            @event.InventoryItemId,
             @event.InventoryId,
             @event.Product,
             @event.Quantity,
@@ -47,6 +49,7 @@ public class ProjectInventoryItemListItemWhenInventoryItemChangedInteractor(IPro
             false,
             @event.Version);
 
-        await projectionGateway.ReplaceInsertAsync(inventoryItemListItem, cancellationToken);
+        // TODO: Need to handle the uncertainty
+        await gateway.IndexAsync(itemListItem, cancellationToken);
     }
 }
