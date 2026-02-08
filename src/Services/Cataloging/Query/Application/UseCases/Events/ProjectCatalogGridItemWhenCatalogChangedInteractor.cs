@@ -5,7 +5,7 @@ namespace Application.UseCases.Events;
 
 public interface IProjectCatalogGridItemWhenCatalogChangedInteractor :
     IInteractor<DomainEvent.CatalogActivated>,
-    IInteractor<DomainEvent.CatalogCreated>,
+    IInteractor<DomainEvent.CatalogRegistered>,
     IInteractor<DomainEvent.CatalogInactivated>,
     IInteractor<DomainEvent.CatalogDescriptionChanged>,
     IInteractor<DomainEvent.CatalogTitleChanged>,
@@ -22,7 +22,7 @@ public class ProjectCatalogGridItemWhenCatalogChangedInteractor(IProjectionGatew
             value: true,
             cancellationToken: cancellationToken);
 
-    public async Task InteractAsync(DomainEvent.CatalogCreated @event, CancellationToken cancellationToken)
+    public async Task InteractAsync(DomainEvent.CatalogRegistered @event, CancellationToken cancellationToken)
     {
         Projection.CatalogGridItem gridItem = new(
             @event.CatalogId,
