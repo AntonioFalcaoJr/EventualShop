@@ -4,7 +4,7 @@ namespace Domain.Enumerations;
 
 public class CartStatus(string name, int value) : SmartEnum<CartStatus>(name, value)
 {
-    public static readonly Undefined Undefined = new();
+    public static readonly CartFree CartFree = new();
     public static readonly CartEmpty Empty = new();
     public static readonly CartOpen Open = new();
     public static readonly CartAbandoned Abandoned = new();
@@ -16,7 +16,7 @@ public class CartStatus(string name, int value) : SmartEnum<CartStatus>(name, va
     public static implicit operator string(CartStatus status) => status.Name;
     public override string ToString() => Name;
 }
-public class Undefined() : CartStatus(nameof(Undefined), 0);
+public class CartFree() : CartStatus(nameof(CartFree), 0);
 public class CartEmpty() : CartStatus(nameof(Empty), 0);
 public class CartOpen() : CartStatus(nameof(Open), 1);
 public class CartAbandoned() : CartStatus(nameof(Abandoned), 2);
