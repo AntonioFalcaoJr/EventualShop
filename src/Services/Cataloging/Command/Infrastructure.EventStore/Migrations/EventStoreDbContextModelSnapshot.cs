@@ -17,16 +17,16 @@ namespace Infrastructure.EventStore.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("EventStore")
-                .HasAnnotation("ProductVersion", "9.0.0-alpha.1.23559.7")
+                .HasDefaultSchema("MsSQL")
+                .HasAnnotation("ProductVersion", "9.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("Domain.Abstractions.EventStore.Snapshot<Domain.Aggregates.CatalogItems.CatalogItem, Domain.Aggregates.CatalogItems.CatalogItemId>", b =>
                 {
-                    b.Property<uint>("Version")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("AggregateId")
                         .HasColumnType("uniqueidentifier");
@@ -45,8 +45,8 @@ namespace Infrastructure.EventStore.Migrations
 
             modelBuilder.Entity("Domain.Abstractions.EventStore.Snapshot<Domain.Aggregates.Catalogs.Catalog, Domain.Aggregates.Catalogs.CatalogId>", b =>
                 {
-                    b.Property<uint>("Version")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("AggregateId")
                         .HasColumnType("uniqueidentifier");
@@ -65,8 +65,8 @@ namespace Infrastructure.EventStore.Migrations
 
             modelBuilder.Entity("Domain.Abstractions.EventStore.Snapshot<Domain.Aggregates.Products.Product, Domain.Aggregates.Products.ProductId>", b =>
                 {
-                    b.Property<uint>("Version")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("AggregateId")
                         .HasColumnType("uniqueidentifier");
@@ -85,8 +85,8 @@ namespace Infrastructure.EventStore.Migrations
 
             modelBuilder.Entity("Domain.Abstractions.EventStore.StoreEvent<Domain.Aggregates.CatalogItems.CatalogItem, Domain.Aggregates.CatalogItems.CatalogItemId>", b =>
                 {
-                    b.Property<uint>("Version")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("AggregateId")
                         .HasColumnType("uniqueidentifier");
@@ -111,8 +111,8 @@ namespace Infrastructure.EventStore.Migrations
 
             modelBuilder.Entity("Domain.Abstractions.EventStore.StoreEvent<Domain.Aggregates.Catalogs.Catalog, Domain.Aggregates.Catalogs.CatalogId>", b =>
                 {
-                    b.Property<uint>("Version")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("AggregateId")
                         .HasColumnType("uniqueidentifier");
@@ -137,8 +137,8 @@ namespace Infrastructure.EventStore.Migrations
 
             modelBuilder.Entity("Domain.Abstractions.EventStore.StoreEvent<Domain.Aggregates.Products.Product, Domain.Aggregates.Products.ProductId>", b =>
                 {
-                    b.Property<uint>("Version")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("AggregateId")
                         .HasColumnType("uniqueidentifier");
