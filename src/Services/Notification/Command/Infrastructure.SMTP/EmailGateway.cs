@@ -1,7 +1,7 @@
 ﻿using System.Net.Mail;
 using Application.Abstractions.Gateways;
 using Domain.Enumerations;
-using Domain.ValueObject;
+using Domain.ValueObjects;
 using Infrastructure.SMTP.DependencyInjection.Options;
 using Microsoft.Extensions.Options;
 using Serilog;
