@@ -1,9 +1,6 @@
 using System.Reflection;
-using Contracts.Abstractions.Messages;
 using Contracts.JsonConverters;
-using FluentValidation;
 using Infrastructure.EventBus.DependencyInjection.Options;
-using Infrastructure.EventBus.PipeFilters;
 using Infrastructure.EventBus.PipeObservers;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
@@ -15,7 +12,7 @@ namespace Infrastructure.EventBus.DependencyInjection.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddEventBus(this IServiceCollection services)
+    public static IServiceCollection AddEventBusInfrastructure(this IServiceCollection services)
         => services.AddMassTransit(cfg =>
         {
             cfg.SetKebabCaseEndpointNameFormatter();
@@ -23,10 +20,11 @@ public static class ServiceCollectionExtensions
 
             cfg.UsingRabbitMq((context, bus) =>
             {
-                var options = context.GetRequiredService<IOptionsMonitor<EventBusOptions>>().CurrentValue;
+                var connectionString = context.GetRequiredService<IConfiguration>().GetConnectionString("RabbitMQ");
+                var options = context.GetRequiredService<IOptions<EventBusOptions>>().Value;
 
                 bus.Host(
-                    hostAddress: options.ConnectionString,
+                    hostAddress: new(connectionString!),
                     connectionName: $"{options.ConnectionName}.{AppDomain.CurrentDomain.FriendlyName}");
 
                 bus.UseMessageRetry(retry
@@ -54,16 +52,12 @@ public static class ServiceCollectionExtensions
                 });
 
                 bus.MessageTopology.SetEntityNameFormatter(new KebabCaseEntityNameFormatter());
-                bus.UseConsumeFilter(typeof(ContractValidatorFilter<>), context);
                 bus.ConnectReceiveObserver(new LoggingReceiveObserver());
                 bus.ConnectConsumeObserver(new LoggingConsumeObserver());
                 bus.ConfigureEventReceiveEndpoints(context);
                 bus.ConfigureEndpoints(context);
             });
         });
-
-    public static IServiceCollection AddMessageValidators(this IServiceCollection services)
-        => services.AddValidatorsFromAssemblyContaining(typeof(IMessage));
 
     public static OptionsBuilder<EventBusOptions> ConfigureEventBusOptions(this IServiceCollection services, IConfigurationSection section)
         => services
