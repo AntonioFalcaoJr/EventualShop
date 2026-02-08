@@ -67,7 +67,7 @@ Support this research by **giving it a star**. Thanks!
 ## :classical_building: The Solution Architecture
 
 ### V3
-![](.assets/img/solution_architecture_v3.png)
+![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/solution_architecture_v3.png)
 
 ### V2
 ![](https://raw.githubusercontent.com/AntonioFalcaoJr/EventualShop/release/.assets/img/solution_architecture_v2.png)    
