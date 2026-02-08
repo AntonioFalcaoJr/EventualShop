@@ -1,5 +1,6 @@
 ﻿using Contracts.Abstractions.Messages;
 using Contracts.JsonConverters;
+using Domain.ValueObjects;
 using JsonNet.ContractResolvers;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Newtonsoft.Json;
@@ -20,6 +21,7 @@ public class EventConverter()
 
         jsonSerializerSettings.Converters.Add(new DateOnlyJsonConverter());
         jsonSerializerSettings.Converters.Add(new ExpirationDateOnlyJsonConverter());
+        jsonSerializerSettings.Converters.Add(new CurrencyJsonConverter());
 
         return jsonSerializerSettings;
     }
@@ -34,7 +36,17 @@ public class EventConverter()
 
         jsonDeserializerSettings.Converters.Add(new DateOnlyJsonConverter());
         jsonDeserializerSettings.Converters.Add(new ExpirationDateOnlyJsonConverter());
+        jsonDeserializerSettings.Converters.Add(new CurrencyJsonConverter());
 
         return jsonDeserializerSettings;
     }
+}
+
+public class CurrencyJsonConverter : JsonConverter<Currency>
+{
+    public override void WriteJson(JsonWriter writer, Currency? value, JsonSerializer serializer)
+        => writer.WriteValue(value?.IsoCode ?? string.Empty);
+
+    public override Currency ReadJson(JsonReader reader, Type objectType, Currency? existingValue, bool hasExistingValue, JsonSerializer serializer)
+        => (Currency)(reader.Value as string ?? string.Empty);
 }
