@@ -20,7 +20,7 @@ namespace Infrastructure.EventStore.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("EventStore")
+                .HasDefaultSchema("MsSQL")
                 .HasAnnotation("ProductVersion", "8.0.0-rc.1.23402.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
