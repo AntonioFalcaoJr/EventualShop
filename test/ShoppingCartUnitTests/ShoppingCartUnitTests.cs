@@ -55,7 +55,7 @@ public class ShoppingCartUnitTests : AggregateTests<ShoppingCart, CartId>
     [Fact]
     public void StartShopping_ShouldRaise_ShoppingStarted()
         => Given()
-            .When(ShoppingCart.StartShopping(_customerId))
+            .When(cart => cart.StartShopping(_customerId))
             .Then<DomainEvent.ShoppingStarted>(
                 @event => @event.CartId.Should().NotBe(CartId.Undefined),
                 @event => @event.CustomerId.Should().NotBe(CustomerId.Undefined),
@@ -220,17 +220,12 @@ public class ShoppingCartUnitTests : AggregateTests<ShoppingCart, CartId>
     }
 
     [Fact]
-    public void ChangeCartItemQuantityForSame_ShouldDoNothing()
-
+    public void ChangeCartItemQuantity_ForSame_ShouldDoNothing()
     {
-        var itemAddedTotals = Aggregate.Totals.Project(_prices, _quantity);
-        var itemAddedPrices = _prices.AsString();
-
         IDomainEvent[] stream =
         [
             new DomainEvent.ShoppingStarted(_cartId, _customerId, CartStatus.Open, Version.Initial),
-            new DomainEvent.CartItemAdded(_cartId, _itemId, _productId, _productName, _pictureUri, _sku, _quantity,
-                itemAddedPrices, itemAddedTotals, Version.Number(2))
+            new DomainEvent.CartItemAdded(_cartId, _itemId, _productId, _productName, _pictureUri, _sku, _quantity, itemAddedPrices, itemAddedTotals, Version.Number(2))
         ];
 
         Given(stream)
