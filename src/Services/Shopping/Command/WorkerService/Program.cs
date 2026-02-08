@@ -12,7 +12,7 @@ using var host = Host
     .ConfigureServices(services
         => services
             .AddApplication()
-            .AddMessageBusInfrastructure()
+            .AddEventBusInfrastructure()
             .AddEventStoreInfrastructure())
     .Build();
 
@@ -34,5 +34,4 @@ catch (Exception ex)
 finally
 {
     Log.CloseAndFlush();
-    host.Dispose();
 }
