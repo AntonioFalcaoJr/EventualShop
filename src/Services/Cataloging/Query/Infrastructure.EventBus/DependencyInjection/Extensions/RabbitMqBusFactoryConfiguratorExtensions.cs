@@ -9,7 +9,7 @@ internal static class RabbitMqBusFactoryConfiguratorExtensions
 {
     public static void ConfigureEventReceiveEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IRegistrationContext context)
     {
-        cfg.ConfigureEventReceiveEndpoint<ProjectCatalogGridItemWhenCatalogChangedConsumer, DomainEvent.CatalogCreated>(context);
+        cfg.ConfigureEventReceiveEndpoint<ProjectCatalogGridItemWhenCatalogChangedConsumer, DomainEvent.CatalogRegistered>(context);
         cfg.ConfigureEventReceiveEndpoint<ProjectCatalogGridItemWhenCatalogChangedConsumer, DomainEvent.CatalogDeleted>(context);
         cfg.ConfigureEventReceiveEndpoint<ProjectCatalogGridItemWhenCatalogChangedConsumer, DomainEvent.CatalogInactivated>(context);
         cfg.ConfigureEventReceiveEndpoint<ProjectCatalogGridItemWhenCatalogChangedConsumer, DomainEvent.CatalogActivated>(context);
