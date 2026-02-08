@@ -33,7 +33,7 @@ public class ProjectionGateway<TProjection>(IMongoDbContext context) : IProjecti
     public Task DeleteAsync<TId>(TId id, CancellationToken cancellationToken) where TId : struct
         => _collection.DeleteOneAsync(projection => projection.Id.Equals(id), cancellationToken);
 
-    public Task UpdateFieldAsync<TField, TId>(TId id, ulong version, Expression<Func<TProjection, TField>> field, TField value, CancellationToken cancellationToken) where TId : struct
+    public Task UpdateFieldAsync<TField, TId>(TId id, ulong Version, Expression<Func<TProjection, TField>> field, TField value, CancellationToken cancellationToken) where TId : struct
         => _collection.UpdateOneAsync(
             filter: projection => projection.Id.Equals(id) && projection.Version < version,
             update: new ObjectUpdateDefinition<TProjection>(new()).Set(field, value),
