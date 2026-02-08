@@ -6,7 +6,7 @@ using Command = Contracts.Boundaries.Payment.Command;
 
 namespace Application.UseCases.Events;
 
-public interface IRequestPaymentWhenOrderPlacedInteractor : IInteractor<DomainEvent.OrderPlaced> { }
+public interface IRequestPaymentWhenOrderPlacedInteractor : IInteractor<DomainEvent.OrderPlaced>;
 
 public class RequestPaymentWhenOrderPlacedInteractor(IApplicationService service) : IRequestPaymentWhenOrderPlacedInteractor
 {
