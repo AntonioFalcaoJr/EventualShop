@@ -1,4 +1,3 @@
-using System.Linq.Expressions;
 using Contracts.Abstractions.Messages;
 using Domain.Abstractions.Aggregates;
 using Domain.Abstractions.EventStore;
@@ -21,17 +20,7 @@ public interface IEventStoreGateway
         where TAggregate : IAggregateRoot<TId>
         where TId : IIdentifier, new();
 
-    Task<List<IDomainEvent>> GetStreamAsync<TAggregate, TId>
-        (Expression<Func<StoreEvent<TAggregate, TId>, bool>> predicate, Version version, CancellationToken cancellationToken)
-        where TAggregate : IAggregateRoot<TId>
-        where TId : IIdentifier, new();
-
     Task<Snapshot<TAggregate, TId>?> GetSnapshotAsync<TAggregate, TId>(TId id, CancellationToken cancellationToken)
-        where TAggregate : IAggregateRoot<TId>
-        where TId : IIdentifier, new();
-
-    Task<Snapshot<TAggregate, TId>?> GetSnapshotAsync<TAggregate, TId>
-        (Expression<Func<Snapshot<TAggregate, TId>, bool>> predicate, CancellationToken cancellationToken)
         where TAggregate : IAggregateRoot<TId>
         where TId : IIdentifier, new();
 
