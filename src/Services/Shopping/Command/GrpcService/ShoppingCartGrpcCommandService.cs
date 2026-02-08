@@ -13,17 +13,31 @@ public class ShoppingCartGrpcCommandService(ISender sender) : ShoppingCommandSer
 {
     public override async Task<CommandResponse> StartShopping(StartShoppingCommand cmd, ServerCallContext context)
     {
-        var command = new StartShopping((CustomerId)cmd.CustomerId);
-        
-        await sender.Send(command, context.CancellationToken);
+        StartShopping startShopping = new((CustomerId)cmd.CustomerId);
+        var cartId = await sender.Send(startShopping, context.CancellationToken);
 
-        //TODO: Finish this
-        return default;
+        return Response.Created(cartId);
     }
 
-    public override async Task<AddItemResponse> AddItem(AddItemCommand cmd, ServerCallContext context)
+    public override async Task<CommandResponse> AddItem(AddCartItemCommand cmd, ServerCallContext context)
     {
-        var command = new AddCartItem((CartId)cmd.CartId, (ProductId)cmd.ProductId, (Quantity)cmd.Quantity);
-        return new() { ItemId = await sender.Send(command, context.CancellationToken) };
+        AddCartItem addCartItem = new(
+            (CartId)cmd.CartId,
+            (CustomerId) cmd.CustomerId,
+            (ProductId)cmd.ProductId,
+            (Quantity)cmd.Quantity);
+
+        var itemId = await sender.Send(addCartItem, context.CancellationToken);
+
+        return Response.Created(itemId);
     }
+}
+
+public static class Response
+{
+    public static CommandResponse Accepted() => new() { Accepted = new() };
+    public static CommandResponse Created(string id) => new() { Created = new() { Id = new() { Id = id } } };
+    public static CommandResponse NoContent() => new() { NoContent = new() };
+    public static CommandResponse NotFound() => new() { NotFound = new() };
+    public static CommandResponse Ok() => new() { Ok = new() };
 }
